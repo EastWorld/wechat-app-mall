@@ -1,10 +1,39 @@
 <!--index.wxml-->
-<view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<!--1px = 750/320 = 2.34rpx;-->
+<view class="container" bindscroll="scroll">
+   <view class="swiper-container">
+        <swiper class="swiper_box" 
+                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+            <block wx:for="{{images}}">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" width="355" height="150"/>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="dots">  
+            <block wx:for="{{images}}" wx:key="unique">  
+                <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
+            </block>  
+        </view>  
+   </view>
+   
+    <view class="type-container">
+        <scroll-view class="type-navbar {{scrollTop > 40 ? 'pos-fiexd':''}}" scroll-x="true" style="width: 100%">
+            <view class="type-box" wx:for-items="{{tabs}}" wx:key="{{index}}">
+                <view id="{{index}}" class="type-navbar-item {{activeIndex == index ? 'type-item-on' : ''}}" bindtap="tabClick">
+                    {{item}}
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <view class="goods-container">
+        <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}">
+           <view class="img-box">
+              <image src="{{item.img}}" class="image"/>
+           </view>
+           <view class="goods-title">{{item.title}}</view>
+           <view class="goods-price">¥ {{item.price}}</view>
+        </view>
+    </view>
+    <view class="no-more-goods">没有更多啦</view>
 </view>

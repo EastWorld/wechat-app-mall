@@ -107,6 +107,7 @@ Page({
       success: function(res) {
         that.setData({
           goods:[],
+          loadingMoreHidden:true
         });
         var goods = [];
         if (res.data.code != 0 || res.data.data.length == 0) {

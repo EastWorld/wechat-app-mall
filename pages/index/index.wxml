@@ -19,9 +19,9 @@
    
     <view class="type-container">
         <scroll-view class="type-navbar {{scrollTop > 40 ? 'pos-fiexd':''}}" scroll-x="true" style="width: 100%">
-            <view class="type-box" wx:for-items="{{tabs}}" wx:key="{{index}}">
-                <view id="{{index}}" class="type-navbar-item {{activeIndex == index ? 'type-item-on' : ''}}" bindtap="tabClick">
-                    {{item}}
+            <view class="type-box" wx:for-items="{{categories}}">
+                <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+                    {{item.name}}
                 </view>
             </view>
         </scroll-view>
@@ -29,11 +29,11 @@
     <view class="goods-container">
         <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}">
            <view class="img-box">
-              <image src="{{item.img}}" class="image"/>
+              <image src="{{item.pic}}" class="image"/>
            </view>
-           <view class="goods-title">{{item.title}}</view>
-           <view class="goods-price">¥ {{item.price}}</view>
+           <view class="goods-title">{{item.name}}</view>
+           <view class="goods-price">¥ {{item.minPrice}}</view>
         </view>
     </view>
-    <view class="no-more-goods">没有更多啦</view>
+    <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
 </view>

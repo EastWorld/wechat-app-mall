@@ -8,30 +8,22 @@ Page({
     interval: 3000,
     duration: 1000,
     loadingHidden: false , // loading
-    motto: 'coming soon! ',
     userInfo: {},
-    images:[
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    images:[],
     swiperCurrent: 0,  
     selectCurrent:0,
-    tabs: [ "全部", "选项一", "选项二", "选项三", "选项四", "选项五"],
-    activeIndex: "0",
-    goods:[
-      {"img":"http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg","title":"修护水洗发露丝质柔滑型质柔滑型","price":"288.00"},
-      {"img":"../../images/goods01.png","title":"修护水洗发露丝质柔滑型质柔滑型","price":"288.00"},
-      {"img":"../../images/goods01.png","title":"修护水洗发露丝质柔滑型质柔滑型","price":"288.00"},
-      {"img":"../../images/goods01.png","title":"修护水洗发露丝质柔滑型质柔滑型","price":"288.00"},
-    ],
-    scrollTop:"0"
+    categories: [],
+    activeCategoryId: 0,
+    goods:[],
+    scrollTop:"0",
+    loadingMoreHidden:true
   },
 
   tabClick: function (e) {
     this.setData({
-      activeIndex: e.currentTarget.id
+      activeCategoryId: e.currentTarget.id
     });
+    this.getGoodsList(this.data.activeCategoryId);
   },
   //事件处理函数
   swiperchange: function(e) {
@@ -62,12 +54,75 @@ Page({
   onLoad: function () {
     console.log('onLoad')
     var that = this
+    wx.setNavigationBarTitle({
+      title: wx.getStorageSync('mallName')
+    })
+    /*
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function(userInfo){
       //更新数据
       that.setData({
         userInfo:userInfo
       })
+    })
+    */
+    wx.request({
+      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/banner/list',
+      data: {
+        key: 'mallName'
+      },
+      success: function(res) {
+        var images = [];
+        for(var i=0;i<res.data.data.length;i++){
+          images.push(res.data.data[i].picUrl);
+        }
+        that.setData({
+          images:images
+        });
+      }
+    })
+    wx.request({
+      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/category/all',
+      success: function(res) {
+        var categories = [];
+        for(var i=0;i<res.data.data.length;i++){
+          categories.push(res.data.data[i]);
+        }
+        that.setData({
+          categories:categories,
+          activeCategoryId:res.data.data[0].id
+        });
+        that.getGoodsList(that.data.activeCategoryId);
+      }
+    })
+
+  },
+  getGoodsList: function (categoryId) {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/list',
+      data: {
+        categoryId: categoryId
+      },
+      success: function(res) {
+        that.setData({
+          goods:[],
+        });
+        var goods = [];
+        if (res.data.code != 0 || res.data.data.length == 0) {
+          console.log("sssssss")
+          that.setData({
+            loadingMoreHidden:false,
+          });
+          return;
+        }
+        for(var i=0;i<res.data.data.length;i++){
+          goods.push(res.data.data[i]);
+        }
+        that.setData({
+          goods:goods,
+        });
+      }
     })
   }
 })

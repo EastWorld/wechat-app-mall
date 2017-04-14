@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
-var app = getApp()
+var app = getApp();
+var WxParse = require('../../wxParse/wxParse.js');
 
 Page({
   data: {
@@ -9,24 +10,13 @@ Page({
     interval: 3000,
     duration: 1000,
     loadingHidden: false , // loading
-    motto: 'coming soon! ',
     userInfo: {},
-    images:[
-      '../../images/goods-details/banner01.png',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    goodsDetail:{},
+    images:[],
     swiperCurrent: 0,  
     selectCurrent:0,
-    goodsTitle:"爱马仕（HERMES）大地男士香水 50ml超出两行样式",
-    goodsPrice:" 288.00 - 300.00",
-    selectSize:"选择：规格",
-    goodsText:'Hermes爱马仕大地男士香水 50ml\n前 调 ／ 葡萄柚、橙\n中 调 ／ 玫瑰、广藿香、天竺葵\n后 调 ／ 香根、甜椒、安息香、西洋杉',
-    desImgs:[
-        '../../images/goods-details/des-img01.png',
-        '../../images/goods-details/des-img02.png',
-        '../../images/goods-details/des-img03.png'
-    ],
+    hasMoreSelect:false,
+    selectSize:"选择：",
     shopNum:0,
     guigeSelectIndex:null,
     hideShopPopup:true,
@@ -34,8 +24,7 @@ Page({
     goodsGuiGe:['大地50ml','大地淡200ml','大地淡500ml','大地淡套装500ml'],
     buyNumber:1,
     buyNumMin:1,
-    buyNumMax:10,
-    resall:[]
+    buyNumMax:10
   },
 
   //事件处理函数
@@ -62,22 +51,22 @@ Page({
         id: e.id
       },
       success: function(res) {
-        console.log(res+"xxxx");
-        var  images = [];
-        for(var i=0;i<res.data.data.pics.length;i++){
-          images.push(res.data.data.pics[i].pic);
+        console.log(res.data.data);
+        var selectSizeTemp = "";
+        if (res.data.data.properties) {
+          for(var i=0;i<res.data.data.properties.length;i++){
+            selectSizeTemp = selectSizeTemp + " " + res.data.data.properties[i].name;
+          }
+          console.log(selectSizeTemp)
+          that.setData({
+            hasMoreSelect:true,
+            selectSize:that.data.selectSize + selectSizeTemp
+          });
         }
         that.setData({
-          images:images,
-          goodsText : res.data.data.basicInfo.characteristic,
-          goodsTitle: res.data.data.basicInfo.name,
-          goodsPrice: res.data.data.basicInfo.originalPrice
+          goodsDetail:res.data.data,
         });
-        
-
-         that.setData({
-          resall:res
-        });
+        WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
       }
     })
 

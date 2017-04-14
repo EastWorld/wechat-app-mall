@@ -1,4 +1,4 @@
-/**index.wxss**/
+@import "/wxParse/wxParse.wxss";
 
 .container {
   background-color: #F2f2f2;

@@ -1,35 +1,31 @@
-<!--index.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
 <view class="container"> 
    <view class="swiper-container">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-            <block wx:for="{{images}}">
+            <block wx:for="{{goodsDetail.pics}}">
                 <swiper-item>
-                    <image src="{{item}}" class="slide-image" width="355" height="150"/>
+                    <image src="{{item.pic}}" class="slide-image" width="355" height="150"/>
                 </swiper-item>
             </block>
         </swiper>
         <view class="dots">  
-            <block wx:for="{{images}}" wx:key="unique">  
+            <block wx:for="{{goodsDetail.pics}}" wx:key="unique">  
                 <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
             </block>  
         </view>  
    </view>
    <view class="goods-info">
-        <view class="goods-title">{{goodsTitle}}</view>
-        <view class="goods-price">¥ {{goodsPrice}}</view>
+        <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
+        <view class="goods-price">¥ {{goodsDetail.basicInfo.minPrice}}</view>
    </view>
-   <view class="row-arrow" bindtap="bindGuiGeTap">
+   <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
       {{selectSize}}
    </view>
     <view class="goods-des-info">
         <view class="label-title">商品介绍</view>
         <view class="goods-text">
-            {{goodsText}}
-         </view>
-
-         <view class="des-imgs" wx:for="{{desImgs}}">
-                <image src="{{item}}"   mode="widthFix"/>
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
          </view>
     </view>
     <view class="footer-box">

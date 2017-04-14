@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <!--1px = 750/320 = 2.34rpx;-->
-<view class="container" bindscroll="scroll">
+<view class="container">
    <view class="swiper-container">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
@@ -18,7 +18,7 @@
    </view>
    
     <view class="type-container">
-        <scroll-view class="type-navbar {{scrollTop > 40 ? 'pos-fiexd':''}}" scroll-x="true" style="width: 100%">
+        <scroll-view class="type-navbar" scroll-x="true" style="width: 100%">
             <view class="type-box" wx:for-items="{{categories}}">
                 <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
                     {{item.name}}
@@ -27,7 +27,7 @@
         </scroll-view>
     </view>
     <view class="goods-container">
-        <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}">
+        <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
            <view class="img-box">
               <image src="{{item.pic}}" class="image"/>
            </view>

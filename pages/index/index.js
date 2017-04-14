@@ -32,6 +32,11 @@ Page({
         swiperCurrent: e.detail.current  
     })  
   },
+  toDetailsTap:function(e){
+    wx.navigateTo({
+            url:"/pages/goods-details/index?id="+e.currentTarget.dataset.id
+    })
+  },
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'

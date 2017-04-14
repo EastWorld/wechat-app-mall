@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<!--1px = 750/320 = 2.34rpx;-->
+<view class="container">
+    购物车页面
+</view>

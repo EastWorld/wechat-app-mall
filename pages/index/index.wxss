@@ -119,6 +119,7 @@ swiper-item image {
   width: 100%;
   height: 88rpx;
   background-color: #fff;
+  overflow: hidden;
 }
 .pos-fiexd{
   position: fixed;

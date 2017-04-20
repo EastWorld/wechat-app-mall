@@ -104,6 +104,5 @@ Page({
       this.setData({  
           guigeSelectIndex: e.currentTarget.dataset.index
       })  
-    
   }
 })

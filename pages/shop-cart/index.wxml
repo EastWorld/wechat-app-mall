@@ -1,5 +1,7 @@
 <!--index.wxml-->
-<!--1px = 750/320 = 2.34rpx;-->
+<import src="../template-cart/template-cart.wxml"/>
+
 <view class="container">
-    购物车页面
+     <!--<template is="no-goods" data="{{...item}}"></template>-->
+     <template is="cart-goods-list" data="{{...goodsList}}"></template>
 </view>

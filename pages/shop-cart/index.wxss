@@ -1,127 +1,14 @@
 /**index.wxss**/
-
+@import "../template-cart/template-cart.wxss";
+page{
+  min-height: 100%;
+}
 .container {
   background-color: #F2f2f2;
-  min-height: 100%
-}
-.swiper-container{
-  width: 100%;
-  position: relative;  
-}
-.swiper_box {
-  width: 100%;
-  height:468rpx;
-}
-
-swiper-item image {
-  width: 100%;
-  display: inline-block;
-  overflow: hidden;
-  height:468rpx;
-}
-.swiper-container .dots{  
-  position: absolute;  
-  left: 0;  
-  right: 0;  
-  bottom: 20rpx;  
-  display: flex;  
-  justify-content: center;  
-}  
-.swiper-container .dots .dot{  
-  margin: 0 8rpx;  
-  width: 14rpx;  
-  height: 14rpx;  
-  background: #fff;  
-  border-radius: 50%;  
-  transition: all .6s;  
-  opacity: .5;
-}  
-.swiper-container .dots .dot.active{  
-  width: 14rpx;  
-  opacity: 1;
-}
-
-.type-navbar{
-  white-space: nowrap;
-  display: flex;
-  height: 88rpx;
-  background-color: #fff;
-}
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  color: transparent;
-}
-.type-box{
-  width:160rpx;
-  box-sizing: content-box;
-  font-size: 24rpx;
-  line-height: 84rpx;
-  text-align: center;
-  display: inline-block;
-  overflow: hidden;
-}
-.type-navbar-item{
-  border-bottom: 4rpx solid #fff;
-}
-.type-item-on{
-  border-bottom: 4rpx solid #e64340;
-}
-
-.goods-container{
-  display: flex;
-  justify-content: space-between;  
-  flex-wrap:wrap;
-  box-sizing: content-box;
-  padding: 24rpx;
-}
-.goods-box{
-  width: 339rpx;
-  height: 472rpx;
-  background-color: #fff;
-  overflow: hidden;
-  margin-bottom: 24rpx;
-}
-.goods-box .img-box{
-  width: 339rpx;
-  height: 339rpx;
-  overflow: hidden;
-}
-.goods-box .img-box image{
-   width: 339rpx;
-   height: 339rpx;
-}
-.goods-box .goods-title{
-  width: 280rpx;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  font-size: 24rpx;
-  padding: 24rpx 0 0rpx 0;
-  color:#000;
-  margin-left: 24rpx;
-}
-.goods-box .goods-price{
-  width: 280rpx;
-  overflow: hidden;
-  font-size: 24rpx;
-  padding: 24rpx 0;
-  color:#e64340;
-  margin-left: 24rpx;
-}
-.no-more-goods{
-  text-align: center;
-  font-size: 24rpx;
-  padding-bottom:48rpx; 
-  color: #999;
-}
-.type-container{
-  width: 100%;
-  height: 88rpx;
-  background-color: #fff;
+  min-height: 100%;
 }
 .pos-fiexd{
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
 }

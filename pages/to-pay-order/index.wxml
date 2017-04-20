@@ -1,0 +1,10 @@
+<view class="container">
+     <view class="address-box">
+        <view class="add-address">
+
+        </view>
+        <view class="show-address">
+            
+        </view>
+     </view>
+</view>

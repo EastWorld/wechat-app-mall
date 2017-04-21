@@ -29,11 +29,11 @@
          </view>
     </view>
     <view class="footer-box">
-        <view class="shop-cart-btn">
+        <view class="shop-cart-btn" bindtap="goShopCar">
             <view class="shop-num">({{shopNum}})</view>
             购物车
         </view>
-        <view class="join-shop-cart">加入购物车</view>
+        <view class="join-shop-cart" bindtap="addShopCar">加入购物车</view>
         <view class="now-buy">立即购买</view>
     </view>
     <view class="show-popup" hidden="{{hideShopPopup}}" >

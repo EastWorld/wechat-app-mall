@@ -2,57 +2,12 @@
 var app = getApp()
 Page({
   data: {
-    item:{
-     
-    },
     goodsList:{
       saveHidden:true,
       totalPrice:0,
       allSelect:true,
       noSelect:false,
-      list:[
-        {
-            id:"aa",
-            pic:"/images/goods01.png",
-            name:"xxxxxxx名称1111",
-            label:"尺寸2",
-            price:"400.00",
-            left: "",
-            active:true,
-            inputNumber:2
-        },
-        {
-            id:"bb",
-            pic:"/images/goods01.png",
-            name:"xxxxxxx名称2222",
-            label:"尺寸2",
-            price:"400.00",
-            left: "",
-            active:true,
-            inputNumber:2
-        },
-        {
-            id:"cc",
-            pic:"/images/goods01.png",
-            name:"xxxxxxx名称3333",
-            label:"尺寸2",
-            price:"400.00",
-            left: "",
-            active:true,
-            inputNumber:2
-        },
-        {
-            id:"dd",
-            pic:"/images/goods01.png",
-            name:"xxxxxxx名称4444",
-            label:"尺寸2",
-            price:"400.00",
-            left: "",
-            active:true,
-            inputNumber:2
-        }
-      
-      ]
+      list:[]
     },
     delBtnWidth:120,    //删除按钮宽度单位（rpx）
   },
@@ -79,8 +34,17 @@ Page({
   },
   onLoad: function () {
       this.initEleWidth();
-      var list = this.data.goodsList.list;
-      this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
+      this.onshow();
+  },
+  onshow: function(){
+    var shopList = [];
+      // 获取购物车数据
+      var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
+      if (shopCarInfoMem && shopCarInfoMem.shopList) {
+        shopList = shopCarInfoMem.shopList
+      }
+      this.data.goodsList.list = shopList;
+      this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),shopList);
   },
   toIndexPage:function(){
       wx.switchTab({
@@ -155,7 +119,7 @@ Page({
       for(var i = 0 ; i < list.length ; i++){
           var curItem = list[i];
           if(curItem.active){
-            total+= parseFloat(curItem.price)*curItem.inputNumber;
+            total+= parseFloat(curItem.price)*curItem.number;
           }
       }
       return total;
@@ -191,14 +155,25 @@ Page({
    },
    setGoodsList:function(saveHidden,total,allSelect,noSelect,list){
       this.setData({
-          goodsList:{
-            saveHidden:saveHidden,
-            totalPrice:total,
-            allSelect:allSelect,
-            noSelect:noSelect,
-            list:list
-          }
-        });
+        goodsList:{
+          saveHidden:saveHidden,
+          totalPrice:total,
+          allSelect:allSelect,
+          noSelect:noSelect,
+          list:list
+        }
+      });
+      var shopCarInfo = {};
+      var tempNumber = 0;
+      shopCarInfo.shopList = list;
+      for(var i = 0;i<list.length;i++){
+        tempNumber = tempNumber + list[i].number
+      }
+      shopCarInfo.shopNum = tempNumber;
+      wx.setStorage({
+        key:"shopCarInfo",
+        data:shopCarInfo
+      })
    },
    bindAllSelect:function(){
       var currentAllSelect = this.data.goodsList.allSelect;
@@ -221,8 +196,8 @@ Page({
     var index = e.currentTarget.dataset.index;
     var list = this.data.goodsList.list;
     if(index!=="" && index != null){
-      if(list[parseInt(index)].inputNumber<10){
-        list[parseInt(index)].inputNumber++; 
+      if(list[parseInt(index)].number<10){
+        list[parseInt(index)].number++; 
         this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
       }
     }
@@ -231,8 +206,8 @@ Page({
     var index = e.currentTarget.dataset.index;
     var list = this.data.goodsList.list;
     if(index!=="" && index != null){
-      if(list[parseInt(index)].inputNumber>1){
-        list[parseInt(index)].inputNumber-- ;
+      if(list[parseInt(index)].number>1){
+        list[parseInt(index)].number-- ;
         this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
       }
     }

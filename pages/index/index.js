@@ -89,20 +89,24 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/category/all',
       success: function(res) {
-        var categories = [];
+        var categories = [{id:0, name:"全部"}];
         for(var i=0;i<res.data.data.length;i++){
           categories.push(res.data.data[i]);
         }
         that.setData({
           categories:categories,
-          activeCategoryId:res.data.data[0].id
+          activeCategoryId:0
         });
-        that.getGoodsList(that.data.activeCategoryId);
+        that.getGoodsList(0);
       }
     })
 
   },
   getGoodsList: function (categoryId) {
+    if (categoryId == 0) {
+      categoryId = "";
+    }
+    console.log(categoryId)
     var that = this;
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/list',
@@ -116,7 +120,6 @@ Page({
         });
         var goods = [];
         if (res.data.code != 0 || res.data.data.length == 0) {
-          console.log("sssssss")
           that.setData({
             loadingMoreHidden:false,
           });

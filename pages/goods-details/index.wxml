@@ -17,7 +17,7 @@
    </view>
    <view class="goods-info">
         <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
-        <view class="goods-price">¥ {{goodsDetail.basicInfo.minPrice}}</view>
+        <view class="goods-price">¥ {{selectSizePrice}}</view>
    </view>
    <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
       {{selectSize}}
@@ -41,21 +41,23 @@
         <view class="popup-contents">
              <view class="pop-goods-info">
                 <view class="pop-img-box">
-                    <image src="{{goodsThumbnail}}" class="goods-thumbnail"/>
+                    <image src="{{goodsDetail.basicInfo.pic}}" class="goods-thumbnail"/>
                 </view>
                 <view class="pop-goods-des">
-                    <view class="pop-goods-title">{{goodsTitle}}</view>
-                    <view class="pop-goods-price">¥ {{goodsPrice}}</view>
+                    <view class="pop-goods-title">{{goodsDetail.basicInfo.name}}</view>
+                    <view class="pop-goods-price">¥ {{selectSizePrice}}</view>
                 </view>
                 <view class="pop-goods-close" bindtap="closePopupTap"></view>
              </view>
              <view class="size-label-box">
-                   <view class="label">规格</view> 
-                   <view class="label-item-box">
-                        <view class="label-item {{index == guigeSelectIndex ? 'active' : '' }}" wx:for="{{goodsGuiGe}}" bindtap="labelItemTap" data-index="{{index}}">
-                            {{item}}
-                        </view> 
-                   </view> 
+                <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx">
+                <view class="label">{{property.name}}</view> 
+                <view class="label-item-box">
+                    <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}" data-propertychildindex="{{index}}" data-propertychildid="{{item.id}}" data-propertychildname="{{item.name}}">
+                        {{item.name}}
+                    </view> 
+                </view>
+                </block>
              </view> 
              <view class="buy-num-box">
                 <view class="num-label">购买数量</view>
@@ -67,7 +69,7 @@
                     <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
                 </view>
              </view>  
-             <view class="popup-join-btn">
+             <view class="popup-join-btn" bindtap="addShopCar">
                 加入购物车
              </view>
         </view>

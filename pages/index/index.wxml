@@ -6,7 +6,7 @@
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
             <block wx:for="{{images}}">
                 <swiper-item>
-                    <image src="{{item}}" class="slide-image" width="400" height="300"/>
+                    <image src="{{item}}" class="slide-image" width="750rpx" height="562.5rpx"/>
                 </swiper-item>
             </block>
         </swiper>

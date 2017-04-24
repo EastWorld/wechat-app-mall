@@ -5,19 +5,19 @@
   min-height: 100%
 }
 .swiper-container{
-  width: 100%;
+  width: 750rpx;
   position: relative;  
 }
 .swiper_box {
   width: 100%;
-  height:400rpx;
+  height:562.5rpx;
 }
 
 swiper-item image {
   width: 100%;
   display: inline-block;
   overflow: hidden;
-  height:400rpx;
+  height:562.5rpx;
 }
 .swiper-container .dots{  
   position: absolute;  

@@ -118,7 +118,7 @@ swiper-item image {
   font-size:20rpx;
   color:#acacb7;
   box-sizing: border-box;
-  background:url("/images/goods-details/cart-off@2x.png") no-repeat center 21rpx;
+  background:url("https://cdn.it120.cc/images/weappshop/cart.png") no-repeat center 21rpx;
   background-size: 44rpx auto;
 }
 .footer-box .shop-cart-btn .shop-num{

@@ -43,6 +43,8 @@ Page({
       if (shopCarInfoMem && shopCarInfoMem.shopList) {
         shopList = shopCarInfoMem.shopList
       }
+      console.log("shop car:")
+      console.log(shopList);
       this.data.goodsList.list = shopList;
       this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),shopList);
   },

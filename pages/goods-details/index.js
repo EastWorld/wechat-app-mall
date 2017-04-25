@@ -238,7 +238,7 @@ Page({
     //shopCarInfo = {shopNum:12,shopList:[]}
   },
   goShopCar:function () {
-    wx.switchTab({
+    wx.reLaunch({
       url: "/pages/shop-cart/index"
     });
   }

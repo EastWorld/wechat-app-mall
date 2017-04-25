@@ -10,7 +10,9 @@ page{
     text-align: center;
     font-size:28rpx;
     color:#999;
-    background: url(/images/cart/icon-cart.png) no-repeat center 205rpx;
+    /*background: url(/images/cart/icon-cart.png) no-repeat center 205rpx;*/
+    background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493100207336&di=11dc7d6c3328089f00dfb1a7e328367f&imgtype=0&src=http%3A%2F%2Fimg1.3lian.com%2F2015%2Fa1%2F33%2Fd%2F20.jpg) no-repeat center 205rpx;
+    
     background-size: 100rpx auto;
     margin-bottom: 50rpx;
 }

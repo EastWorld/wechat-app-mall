@@ -1,5 +1,6 @@
 <view class="container">
-     <view class="address-box">
+     <form bindsubmit="createOrder">
+     <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
         <view class="add-address" hidden="true">
             <view class="title">新增收货地址</view>
         </view>
@@ -9,7 +10,7 @@
         </view>
      </view>
      <view class="goods-list">
-        <view class="list-title">微商城</view>
+        <view class="list-title">{{mallName}}</view>
         <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
             <view class="img-box">
                 <image src="{{item.pic}}" class="img" />
@@ -21,29 +22,29 @@
                 </view>
                 <view class="arow">
                     <view class="goods-label">{{item.label}}</view>
-                    <view class="goods-num">x {{item.goodNum}}</view>
+                    <view class="goods-num">x {{item.number}}</view>
                 </view>
             </view>
         </view>
      </view>
      <view class="peisong-way">
-        <view class="row-box">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">配送方式</view>
             <view class="right-text">顺丰快递</view>
         </view>
         <view class="row-box">
-            <view class="row-label">留言</view>
+            <view class="row-label">备注</view>
             <view class="right-text">
-                <input type="text" class="liuyan" placeholder="如需留言请输入" />
+                <input name="remark" type="text" class="liuyan" placeholder="如需备注请输入" />
             </view>
         </view>
      </view>
      <view class="goods-info">
-        <view class="row-box">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">商品金额</view>
             <view class="right-text">¥ {{allGoodsPrice}}</view>
         </view>
-        <view class="row-box">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">运费</view>
             <view class="right-text">+ ¥ {{yunPrice}}</view>
         </view>
@@ -56,6 +57,7 @@
         <view class="left-price">
             <view class="total">合计：¥ {{allGoodsPrice+yunPrice}}</view>
         </view>
-        <view class="to-pay-btn" >提交订单</view>
+        <button class="to-pay-btn" formType="submit">提交订单</button>
     </view>
+    </form>
 </view>

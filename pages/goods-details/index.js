@@ -53,7 +53,6 @@ Page({
         id: e.id
       },
       success: function(res) {
-        console.log(res.data.data);
         var selectSizeTemp = "";
         if (res.data.data.properties) {
           for(var i=0;i<res.data.data.properties.length;i++){
@@ -241,5 +240,21 @@ Page({
     wx.reLaunch({
       url: "/pages/shop-cart/index"
     });
+  },
+  tobuy:function(){
+    if (this.data.goodsDetail.properties && !this.data.canSubmit) {
+      this.bindGuiGeTap();
+      return;
+    }
+    if(this.data.buyNumber < 1){
+      wx.showModal({
+        title: '提示',
+        content: '暂时缺货哦~',
+        showCancel:false
+      })
+      return;
+    }
+    this.addShopCar();
+    this.goShopCar();
   }
 })

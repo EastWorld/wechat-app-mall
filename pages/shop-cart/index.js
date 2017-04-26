@@ -37,14 +37,12 @@ Page({
       this.onshow();
   },
   onshow: function(){
-    var shopList = [];
+      var shopList = [];
       // 获取购物车数据
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
       if (shopCarInfoMem && shopCarInfoMem.shopList) {
         shopList = shopCarInfoMem.shopList
       }
-      console.log("shop car:")
-      console.log(shopList);
       this.data.goodsList.list = shopList;
       this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),shopList);
   },
@@ -243,6 +241,118 @@ Page({
             }
       }
      this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
+    },
+    toPayOrder:function(){
+      wx.showLoading();
+      var that = this;
+      if (this.data.goodsList.noSelect) {
+        return;
+      }
+      // 重新计算价格，判断库存
+      var shopList = [];
+      var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
+      if (shopCarInfoMem && shopCarInfoMem.shopList) {
+        shopList = shopCarInfoMem.shopList
+      }
+      if (shopList.length == 0) {
+        return;
+      }
+      var isFail = false;
+      var doneNumber = 0;
+      var needDoneNUmber = shopList.length;
+      for (var i =0; i < shopList.length; i++) {
+        if (isFail) {
+          wx.hideLoading();
+          return;
+        }
+        var carShopBean = shopList[i];
+        // 获取价格和库存
+        if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
+          wx.request({
+            url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/detail',
+            data: {
+              id: carShopBean.goodsId
+            },
+            success: function(res) {
+              doneNumber++;
+              if (res.data.data.properties) {
+                wx.showModal({
+                  title: '提示',
+                  content: res.data.data.basicInfo.name + ' 商品已失效，请重新购买',
+                  showCancel:false
+                })
+                isFail = true;
+                wx.hideLoading();
+                return;
+              }
+              if (res.data.data.basicInfo.stores < carShopBean.number) {
+                wx.showModal({
+                  title: '提示',
+                  content: res.data.data.basicInfo.name + ' 库存不足，请重新购买',
+                  showCancel:false
+                })
+                isFail = true;
+                wx.hideLoading();
+                return;
+              }
+              if (res.data.data.basicInfo.minPrice != carShopBean.price) {
+                wx.showModal({
+                  title: '提示',
+                  content: res.data.data.basicInfo.name + ' 价格有调整，请重新购买',
+                  showCancel:false
+                })
+                isFail = true;
+                wx.hideLoading();
+                return;
+              }
+              if (needDoneNUmber == doneNumber) {
+                that.navigateToPayOrder();
+              }
+            }
+          })
+        } else {
+          wx.request({
+            url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/price',
+            data: {
+              goodsId: carShopBean.goodsId,
+              propertyChildIds:carShopBean.propertyChildIds
+            },
+            success: function(res) {
+              doneNumber++;
+              if (res.data.data.stores < carShopBean.number) {
+                wx.showModal({
+                  title: '提示',
+                  content: carShopBean.name + ' 库存不足，请重新购买',
+                  showCancel:false
+                })
+                isFail = true;
+                wx.hideLoading();
+                return;
+              }
+              if (res.data.data.price != carShopBean.price) {
+                wx.showModal({
+                  title: '提示',
+                  content: carShopBean.name + ' 价格有调整，请重新购买',
+                  showCancel:false
+                })
+                isFail = true;
+                wx.hideLoading();
+                return;
+              }
+              if (needDoneNUmber == doneNumber) {
+                that.navigateToPayOrder();
+              }
+            }
+          })
+        }
+        
+      }
+    },
+    navigateToPayOrder:function () {
+      wx.hideLoading();
+      wx.navigateTo({
+        url:"/pages/to-pay-order/index"
+      })
     }
 
 

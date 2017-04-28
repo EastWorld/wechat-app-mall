@@ -4,6 +4,8 @@
     "pages/goods-details/index",
     "pages/shop-cart/index",
     "pages/to-pay-order/index",
+    "pages/select-address/index",
+    "pages/address-add/index",
     "pages/logs/logs"
   ],
   "window":{

@@ -14,7 +14,7 @@ Page({
   },
   bindDelete: function() {
     wx.showModal({
-      title: '确定要删除这个地址码',
+      title: '确定要删除这个地址吗？',
       content: '',
       success: function(res) {
         if (res.confirm) {

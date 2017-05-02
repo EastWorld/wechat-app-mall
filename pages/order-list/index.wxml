@@ -1,0 +1,41 @@
+<view class="container">
+    <view class="status-box">
+        <view bindtap="statusTap" class="status-label {{index == currentTpye ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+            {{item}}
+            <view class="red-dot" wx:if="{{index!=0}}"></view>
+        </view>
+    </view>
+    <view class="no-order" hidden="true">
+        <image src="/images/no-order.png" class="no-order-img"></image>
+        <view class="text">暂无订单</view>
+    </view>
+    <view class="order-list">
+        <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+            <view class="order-date">
+                <view class="date-box">下单时间：{{item.orderDate}}</view>
+                <view class="status {{item.orderStatus=='已关闭' ? '':'red'}}">{{item.orderStatus}}</view>
+            </view>
+            <view class="goods-info">
+                <view class="img-box">
+                    <image src="{{item.goodsImg}}" class="goods-img"></image>
+                </view>
+                <view class="goods-des">
+                   {{item.des}}
+                </view>
+            </view>
+            <view >
+                <scroll-view class="goods-img-container" scroll-x="true">
+                    <view class="img-box" wx:for-items="{{item.pics}}" wx:key="{{index}}">
+                        <image src="{{item}}" class="goods-img"></image>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="price-box">
+                <view class="total-price">合计：¥ {{item.price}}</view>
+                <view class="btn cancel-btn" hidden="{{item.orderStatus=='已关闭'? true : false}}" bindtap="cancelOrderTap">取消订单</view>
+                <view class="btn topay-btn" hidden="{{item.orderStatus=='已关闭'? true : false}}" bindtap="toPayTap">马上付款</view>        
+            </view>  
+        </view>
+
+    </view>
+</view>

@@ -6,6 +6,7 @@
     "pages/to-pay-order/index",
     "pages/select-address/index",
     "pages/address-add/index",
+    "pages/order-list/index",
     "pages/logs/logs"
   ],
   "window":{
@@ -31,7 +32,7 @@
       "selectedIconPath": "images/nav/cart-on.png",
       "text": "购物车"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/order-list/index",
       "iconPath": "images/nav/order-off.png",
       "selectedIconPath": "images/nav/order-on.png",
       "text": "订单"

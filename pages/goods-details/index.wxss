@@ -262,6 +262,9 @@ swiper-item image {
 .buy-num-box .num-box .num-input{
   font-size: 28rpx;
 }
+.buy-num-box .num-box .num-input input{
+  height: 100%;
+}
 .popup-join-btn{
   width: 100%;
   height: 89rpx;

@@ -1,0 +1,90 @@
+page{
+  min-height: 100%;
+  background-color: #F2f2f2;
+}
+.top-sec{
+    background-color: #fff;
+    width: 100%;
+    margin-top: 20rpx;
+    box-sizing: border-box;
+    padding: 24rpx 30rpx;
+}
+.top-sec .a-row{
+    display: flex;
+    font-size: 28rpx;
+    line-height: 54rpx;
+}
+.top-sec .a-row .label{
+    color: #999;
+    margin-right: 28rpx;
+}
+.sec-wrap{
+    width: 100%;
+    background-color: #fff;
+    margin-top: 20rpx;
+}
+.details-info{
+    position: relative;
+    width: 100%;
+    margin-top: 40rpx;
+    overflow: hidden;
+}
+.details-info .a-row{
+    margin-left: 40rpx;
+    display: flex;
+    margin-right: 30rpx;
+    margin-bottom: 50rpx;
+    position: relative;
+    z-index: 4;
+}
+.details-info .a-row .info{
+    font-size: 28rpx;
+}
+.date-box {
+    font-size:26rpx;
+    color:#999;
+    margin-bottom: 20rpx;
+}
+.info .text{
+    color: #000;
+    line-height: 42rpx;
+}
+.dot{
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.default-dot{
+    background:#ddd;
+    width:14rpx;
+    height:14rpx;
+    border-radius:100%;
+}
+.active-dot{
+    border:2rpx solid #e64340;
+    width:26rpx;
+    height:26rpx;
+    border-radius:50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+.active-dot .yuan-red{
+    background:#e64340;
+    width:14rpx;
+    height:14rpx;
+    border-radius:50%;
+}
+.line-box{
+    position: absolute;
+    top:-120rpx;
+    left: 54rpx;
+    background:#dddddd;
+    width:2rpx;
+    height:100%;
+}

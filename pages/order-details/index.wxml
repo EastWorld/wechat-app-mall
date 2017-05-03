@@ -1,0 +1,103 @@
+<view class="container">
+    <view class="sec-wrap">
+        <view class="order-status">
+            <view class="icon-box">
+                <image wx:if="{{status==0}}" class="icon" src="/images/order-details/icon-ddfk.png"></image>
+                <image wx:elif="{{status==1}}" class="icon" src="/images/order-details/icon-ddfh.png"></image>
+                <image wx:elif="{{status==2}}" class="icon" src="/images/order-details/icon-ddsh.png"></image>
+                <image wx:elif="{{status==3}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
+                <image wx:elif="{{status==4}}" class="icon" src="/images/order-details/icon-ddgb.png"></image>
+            </view>
+            <view class="right-text">
+                <view class="status red">等待付款</view>
+                <view class="des">请于11时59分59秒内付款，超时订单将自动关闭</view>
+            </view>
+        </view>
+        <view wx:if="{{haveWuliu}}" class="wuliu-box">
+            <view class="icon-box">
+                <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
+            </view>
+            <view class="right-text" bindtap="wuliuDetailsTap">
+                <view class="order-number">快递单号：234234234</view>
+                <view class="wuliu-text">快件离开 无锡中转部 已发往 杭州中部，操作员陈林娟杭州中部，操作员 陈林娟</view>
+                <view class="wuliu-date">2017/01/09 15:32:33</view>
+            </view>
+            <view class="arrow-right">
+                <image class="arrow" src="/images/arrow-right.png"></image>
+            </view>
+        </view>
+        <view wx:else class="wuliu-box">
+            <view class="icon-box">
+                <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
+            </view>
+            <view class="right-text">
+                <view class="order-number">顺丰快递</view>
+                <view class="wuliu-text">物流单号：343848234234</view>
+            </view>
+        </view>
+        <view class="address-sec">
+            <view class="icon-box">
+                <image class="icon" src="/images/order-details/icon-address.png"></image>
+            </view>
+            <view class="right-box">
+                <view class="name-tel">刘先生  13688888908</view>
+                <view class="text">
+                    上塘路97号新华小区10幢2单元702室上塘路97号新华小区10幢2单元702室最多两行超出省略号
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="goods-list">
+            <view class="list-title">微商城</view>
+            <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
+                <view class="img-box">
+                    <image src="{{item.pic}}" class="img" />
+                </view>
+                <view class="text-box">
+                    <view class="arow arow01">
+                        <view class="goods-name">{{item.name}}</view>
+                        <view class="goods-price">¥ {{item.price}}</view>
+                    </view>
+                    <view class="arow">
+                        <view class="goods-label">{{item.label}}</view>
+                        <view class="goods-num">x {{item.number}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="btn-row">
+                <view class="confirm-btn" bindtap="confirmBtnTap">确认收货</view>
+            </view>
+        </view>
+        <view class="peisong-way">
+            <view class="row-box">
+                <view class="row-label">配送方式</view>
+                <view class="right-text">顺丰快递</view>
+            </view>
+            <view class="row-box">
+                <view class="row-label">留言</view>
+                <view class="right-text">
+                    <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
+                </view>
+            </view>
+        </view>
+        <view class="goods-info">
+            <view class="row-box">
+                <view class="row-label">商品金额</view>
+                <view class="right-text">¥ {{allGoodsPrice}}</view>
+            </view>
+            <view class="row-box">
+                <view class="row-label">运费</view>
+                <view class="right-text">+ ¥ {{yunPrice}}</view>
+            </view>
+            <view class="row-box">
+                <view class="row-label">应付总额</view>
+                <view class="right-text">¥ {{allGoodsPrice+yunPrice}}</view>
+            </view>
+        </view>
+        <view class="jiesuan-box">
+            <view class="left-price">
+                <view class="total">合计：¥ {{allGoodsPrice+yunPrice}}</view>
+            </view>
+            <button class="to-pay-btn" formType="submit">提交订单</button>
+        </view>
+</view>

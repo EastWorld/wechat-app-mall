@@ -18,7 +18,7 @@ page{
     border-bottom: 1rpx solid #eee;
     display: flex;
     font-size: 28rpx;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
 }
 .row-wrap .label{
     width: 160rpx;
@@ -72,4 +72,12 @@ button[type="default"]{
     width: 480rpx;
     height: 84rpx;
     overflow: scroll;
+}
+picker {
+    min-width: 20rpx;
+    height: 100%;
+    margin-right: 20rpx;
+}
+.hui{
+    color: #777;
 }

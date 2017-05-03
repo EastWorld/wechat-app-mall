@@ -12,14 +12,23 @@
                 <input class="input" maxlength="11" type="number" placeholder="11位手机号码"/>
             </view>
         </view>
-        <view class="row-wrap">
+        <view class="row-wrap" bindtap="selectCity">
             <view class="label">选择地区</view>
-            <view class="label-right">
-                <input class="input"  type="text" placeholder="省份城市" disabled/>
-            </view>
-            <view class="right-box">
-                <image class="arrow-right" src="/images/arrow-right.png"></image>
-            </view>
+            <picker bindchange="bindPickerProvinceChange" range="{{provinces}}">
+              <view class="picker">
+                {{selProvince}}
+              </view>
+            </picker>
+            <picker bindchange="bindPickerCityChange" range="{{citys}}">
+              <view class="picker">
+                {{selCity}}
+              </view>
+            </picker>
+            <picker bindchange="bindPickerChange" range="{{districts}}">
+              <view class="picker">
+                {{selDistrict}}
+              </view>
+            </picker>
         </view>
         <view class="row-wrap addr-details">
             <view class="label">详细地址</view>

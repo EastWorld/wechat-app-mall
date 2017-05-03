@@ -190,7 +190,7 @@ Page({
     shopCarMap.left="";
     shopCarMap.active=true;
     shopCarMap.number=1;
-    shopCarMap.logisticsType=0;
+    shopCarMap.logisticsType=this.data.goodsDetail.basicInfo.logisticsId;
 
     var shopCarInfo = this.data.shopCarInfo;
     if (!shopCarInfo.shopNum){

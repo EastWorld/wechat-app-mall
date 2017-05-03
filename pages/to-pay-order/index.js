@@ -27,6 +27,7 @@ Page({
     var goodsJsonStr = "[";
     for (var i =0; i < shopList.length; i++) {
       var carShopBean = shopList[i];
+      console.log(carShopBean);
       if (carShopBean.logisticsType > 0) {
         isNeedLogistics = 1;
       }
@@ -46,7 +47,8 @@ Page({
       allGoodsPrice:allGoodsPrice,
       goodsJsonStr:goodsJsonStr
     });
-
+    console.log("--------------");
+    console.log(isNeedLogistics);
 
 
   },
@@ -123,6 +125,16 @@ Page({
           }
         })
       }
+    })
+  },
+  addAddress: function () {
+    wx.navigateTo({
+      url:"/pages/address-add/index"
+    })
+  },
+  selectAddress: function () {
+    wx.navigateTo({
+      url:"/pages/select-address/index"
     })
   }
 })

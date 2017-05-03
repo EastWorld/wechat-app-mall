@@ -1,10 +1,10 @@
 <view class="container">
      <form bindsubmit="createOrder">
      <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
-        <view class="add-address" hidden="true">
-            <view class="title">新增收货地址</view>
+        <view class="add-address" hidden="{{curAddressData}}">
+            <view class="title" bindtap="addAddress">新增收货地址</view>
         </view>
-        <view class="show-address">
+        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
             <view class="name-tel">刘先生  13688888908</view>
             <view class="addr-text">上塘路97号新华小区10幢2单元702室上塘路97号新华小区10幢2单元702室最多两行超出省略号</view>
         </view>
@@ -30,7 +30,8 @@
      <view class="peisong-way">
         <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">配送方式</view>
-            <view class="right-text">顺丰快递</view>
+            <view class="right-text" wx:if="{{yunPrice > 0}}">顺丰快递</view>
+            <view class="right-text" wx:if="{{yunPrice == 0}}">快递包邮</view>
         </view>
         <view class="row-box">
             <view class="row-label">备注</view>
@@ -40,11 +41,11 @@
         </view>
      </view>
      <view class="goods-info">
-        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
             <view class="row-label">商品金额</view>
             <view class="right-text">¥ {{allGoodsPrice}}</view>
         </view>
-        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
             <view class="row-label">运费</view>
             <view class="right-text">+ ¥ {{yunPrice}}</view>
         </view>

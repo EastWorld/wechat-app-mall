@@ -1,15 +1,16 @@
 <view class="container">
+    <form bindsubmit="bindSave">
     <view class="form-box">
         <view class="row-wrap">
             <view class="label">联系人</view>
             <view class="label-right">
-                <input class="input" type="text" placeholder="姓名"/>
+                <input name="linkMan" class="input" type="text" placeholder="姓名"/>
             </view>
         </view>
         <view class="row-wrap">
             <view class="label">手机号码</view>
             <view class="label-right">
-                <input class="input" maxlength="11" type="number" placeholder="11位手机号码"/>
+                <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码"/>
             </view>
         </view>
         <view class="row-wrap" bindtap="selectCity">
@@ -34,17 +35,16 @@
             <view class="label">详细地址</view>
             <view class="label-right">
                 <!--<input class="input" type="text" placeholder="街道门牌信息"/>-->
-                <textarea  auto-height placeholder="街道门牌信息" />
+                <textarea name="address" auto-height placeholder="街道门牌信息" />
             </view>
         </view>
         <view class="row-wrap">
             <view class="label">邮政编号</view>
             <view class="label-right">
-                <input class="input" type="text" placeholder="选填"/>
+                <input name="code" class="input" type="text"/>
             </view>
         </view>
     </view>
-    <button type="warn" class="save-btn" bindtap="bindSave">保存</button>
-    <button type="default" class="save-btn" bindtap="bindDelete">删除该地址</button>
-    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
+    <button type="warn" class="save-btn" formType="submit">保存</button>
+    </form>
 </view>

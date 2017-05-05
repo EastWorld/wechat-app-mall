@@ -5,8 +5,8 @@
             <view class="title" bindtap="addAddress">新增收货地址</view>
         </view>
         <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
-            <view class="name-tel">刘先生  13688888908</view>
-            <view class="addr-text">上塘路97号新华小区10幢2单元702室上塘路97号新华小区10幢2单元702室最多两行超出省略号</view>
+            <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
+            <view class="addr-text">{{curAddressData.address}}</view>
         </view>
      </view>
      <view class="goods-list">

@@ -14,22 +14,97 @@ Page({
     selDistrictIndex:0
   },
 
-  bindSave: function() {
-    console.log("保存");
-  },
-  bindCancel: function() {
-    console.log("取消");
-  },
-  bindDelete: function() {
-    wx.showModal({
-      title: '确定要删除这个地址吗？',
-      content: '',
+  bindSave: function(e) {
+    var that = this;
+    var linkMan = e.detail.value.linkMan;
+    var address = e.detail.value.address;
+    var mobile = e.detail.value.mobile;
+    var code = e.detail.value.code;
+
+    if (linkMan == ""){
+      wx.showModal({
+        title: '提示',
+        content: '请填写联系人姓名',
+        showCancel:false
+      })
+      return
+    }
+    if (mobile == ""){
+      wx.showModal({
+        title: '提示',
+        content: '请填写手机号码',
+        showCancel:false
+      })
+      return
+    }
+    if (this.data.selProvince == "请选择"){
+      wx.showModal({
+        title: '提示',
+        content: '请选择地区',
+        showCancel:false
+      })
+      return
+    }
+    if (this.data.selCity == "请选择"){
+      wx.showModal({
+        title: '提示',
+        content: '请选择地区',
+        showCancel:false
+      })
+      return
+    }
+    if (this.data.selDistrict == "请选择"){
+      wx.showModal({
+        title: '提示',
+        content: '请选择地区',
+        showCancel:false
+      })
+      return
+    }
+    if (address == ""){
+      wx.showModal({
+        title: '提示',
+        content: '请填写详细地址',
+        showCancel:false
+      })
+      return
+    }
+    if (code == ""){
+      wx.showModal({
+        title: '提示',
+        content: '请填写邮编',
+        showCancel:false
+      })
+      return
+    }
+
+    console.log(commonCityData.cityData[this.data.selProvinceIndex].id);
+    wx.request({
+      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/add',
+      data: {
+        token: app.globalData.token,
+        provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
+        cityId:commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id,
+        districtId:commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id,
+        linkMan:linkMan,
+        address:address,
+        mobile:mobile,
+        code:code,
+        isDefault:'true'
+      },
       success: function(res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+        if (res.data.code != 0) {
+          // 登录错误 
+          wx.hideLoading();
+          wx.showModal({
+            title: '失败',
+            content: res.data.msg,
+            showCancel:false
+          })
+          return;
         }
+        // 跳转到结算页面
+        wx.navigateBack({})
       }
     })
   },

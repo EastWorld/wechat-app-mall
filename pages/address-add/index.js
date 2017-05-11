@@ -13,7 +13,9 @@ Page({
     selCityIndex:0,
     selDistrictIndex:0
   },
-
+  bindCancel:function () {
+    wx.navigateBack({})
+  },
   bindSave: function(e) {
     var that = this;
     var linkMan = e.detail.value.linkMan;
@@ -77,12 +79,18 @@ Page({
       })
       return
     }
-
-    console.log(commonCityData.cityData[this.data.selProvinceIndex].id);
+    var apiAddoRuPDATE = "add";
+    var apiAddid = that.data.id;
+    if (apiAddid) {
+      apiAddoRuPDATE = "update";
+    } else {
+      apiAddid = 0;
+    }
     wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/add',
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/' + apiAddoRuPDATE,
       data: {
         token: app.globalData.token,
+        id: apiAddid,
         provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
         cityId:commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id,
         districtId:commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id,
@@ -164,10 +172,67 @@ Page({
       selDistrictIndex:event.detail.value
     })
   },
-  onLoad: function () {
+  onLoad: function (e) {
+    var that = this;
     this.initCityData(1);
+    var id = e.id;
+    if (id) {
+      // 初始化原数据
+      wx.showLoading();
+      wx.request({
+        url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/detail',
+        data: {
+          token: app.globalData.token,
+          id: id
+        },
+        success: function (res) {
+          wx.hideLoading();
+          if (res.data.code == 0) {
+            that.setData({
+              id:id,
+              addressData: res.data.data,
+              //selProvince: res.data.data.provinceStr,
+              //selCity: res.data.data.cityStr,
+              //selDistrict: res.data.data.areaStr
+            });
+            return;
+          } else {
+            wx.showModal({
+              title: '提示',
+              content: '无法获取快递地址数据',
+              showCancel: false
+            })
+          }
+        }
+      })
+      // 
+    }
   },
   selectCity: function () {
     
+  },
+  deleteAddress: function (e) {
+    var that = this;
+    var id = e.currentTarget.dataset.id;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除该收货地址吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/delete',
+            data: {
+              token: app.globalData.token,
+              id: id
+            },
+            success: (res) => {
+              wx.navigateBack({})
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   }
 })

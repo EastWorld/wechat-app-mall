@@ -49,25 +49,37 @@ Page({
       goodsJsonStr:goodsJsonStr
     });
 
-    
-
   },
   createOrder:function (e) {
     wx.showLoading();
     var that = this;
     var loginToken = app.globalData.token // 用户登录 token
     var remark = e.detail.value.remark; // 备注信息
+
+    var postData = {
+      token: loginToken,
+      goodsJsonStr: that.data.goodsJsonStr,
+      remark: remark
+    };
+    postData.aaaa = 1234;
+    if (that.data.isNeedLogistics > 0) {
+      postData.provinceId = that.data.curAddressData.provinceId;
+      postData.cityId = that.data.curAddressData.cityId;
+      postData.districtId = that.data.curAddressData.districtId;
+      postData.address = that.data.curAddressData.address;
+      postData.linkMan = that.data.curAddressData.linkMan;
+      postData.mobile = that.data.curAddressData.mobile;
+      postData.code = that.data.curAddressData.code;
+    }
+
+
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/order/create',
       method:'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: {
-        token:loginToken,
-        goodsJsonStr:that.data.goodsJsonStr,
-        remark:remark
-      }, // 设置请求的 参数
+      data: postData, // 设置请求的 参数
       success: (res) =>{
         wx.hideLoading();
         console.log(res.data);

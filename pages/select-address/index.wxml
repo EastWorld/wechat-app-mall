@@ -9,7 +9,7 @@
                     {{item.address}}
                  </view>     
              </view>   
-             <view class="right-edit" bindtap="deleteAddress" data-id="{{item.id}}"></view> 
+             <view class="right-edit" bindtap="editAddess" data-id="{{item.id}}"></view> 
         </view>
     </view>
     <view class="bottom-box">

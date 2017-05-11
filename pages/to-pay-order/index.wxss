@@ -3,8 +3,8 @@
 }
 .address-box{
     width: 100%;
-    background: url(/images/arrow-right.png) no-repeat 705rpx center ,
-                url(/images/addr-line.png) no-repeat center bottom;
+    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center ,
+                url(https://cdn.it120.cc/images/weappshop/addr-line.png) no-repeat center bottom;
     background-size: 16rpx auto,750rpx auto;
     background-color: #fff;
     margin: 20rpx 0; 
@@ -16,7 +16,7 @@
     font-size: 28rpx;
     color: #000;
     margin-left: 30rpx;
-    background: url(/images/ico-add-addr.png) no-repeat left center;
+    background: url(https://cdn.it120.cc/images/weappshop/ico-add-addr.png) no-repeat left center;
     background-size: 60rpx auto;
     padding: 40rpx 0 40rpx 90rpx; 
 }
@@ -24,7 +24,7 @@
     width: 664rpx;
     box-sizing: border-box;
     padding-left: 100rpx;
-    background: url(/images/ico-addr.png) no-repeat 30rpx 35rpx;
+    background: url(https://cdn.it120.cc/images/weappshop/ico-addr.png) no-repeat 30rpx 35rpx;
     background-size: 30rpx auto;
 }
 .show-address .name-tel{

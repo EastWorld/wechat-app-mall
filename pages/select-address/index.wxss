@@ -21,7 +21,7 @@
     padding-left: 58rpx;
 }
 .a-address .left-text.active{
-    background: url(/images/addr-active.png) no-repeat left center;
+    background: url(https://cdn.it120.cc/images/weappshop/addr-active.png) no-repeat left center;
     background-size: 28rpx auto;
 }
 .a-address .left-text .name-tel{
@@ -37,7 +37,7 @@
     height: 100%;
     padding: 50rpx 0 50rpx 58rpx;
     box-sizing: border-box;
-    background: url(/images/addr-edit.png) no-repeat 43rpx center;
+    background: url(https://cdn.it120.cc/images/weappshop/addr-edit.png) no-repeat 43rpx center;
     background-size: 35rpx auto;
 }
 .bottom-box{
@@ -50,12 +50,12 @@
     height:100rpx;
     line-height: 100rpx;
     background-color: #fff;
-    background: url(/images/arrow-right.png) no-repeat 705rpx center;
+    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center;
     background-size: 15rpx auto;
 }
 .bottom-box .add-btn{
     margin-left: 30rpx;
     padding-left: 70rpx;
-    background: url(/images/add-addr.png) no-repeat left center;
+    background: url(https://cdn.it120.cc/images/weappshop/add-addr.png) no-repeat left center;
     background-size: 40rpx auto;
 }

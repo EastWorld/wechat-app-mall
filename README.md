@@ -22,26 +22,26 @@
 
 1.png
 
-<img src="screenshot/1.png" width="320px" style="display:block;">
+<img src="screenshot/1.png" width="480px" style="display:block;">
 
 2.png
 
 
-<img src="screenshot/2.png" width="320px" style="display:block;">
+<img src="screenshot/2.png" width="480px" style="display:block;">
 
 3.png
 
 
-<img src="screenshot/3.png" width="320px" style="display:block;">
+<img src="screenshot/3.png" width="480px" style="display:block;">
 
 4.png
 
-<img src="screenshot/4.png" width="320px" style="display:block;">
+<img src="screenshot/4.png" width="480px" style="display:block;">
 
 5.png
 
-<img src="screenshot/5.png" width="320px" style="display:block;">
+<img src="screenshot/5.png" width="480px" style="display:block;">
 
 6.png
 
-<img src="screenshot/6.png" width="320px" style="display:block;">
+<img src="screenshot/6.png" width="480px" style="display:block;">

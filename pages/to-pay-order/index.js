@@ -91,8 +91,12 @@ Page({
           })
           return;
         }
-        
-        
+        // 清空购物车数据
+        wx.removeStorageSync('shopCarInfo');
+        // 下单成功，跳转到订单管理界面
+        wx.reLaunch({
+          url: "/pages/order-list/index"
+        });
       }
     })
   },

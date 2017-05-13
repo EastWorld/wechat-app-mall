@@ -83,6 +83,16 @@ Page({
       success: (res) =>{
         wx.hideLoading();
         console.log(res.data);
+        if (res.data.code != 0) {
+          wx.showModal({
+            title: '错误',
+            content: res.data.msg,
+            showCancel: false
+          })
+          return;
+        }
+        
+        
       }
     })
   },

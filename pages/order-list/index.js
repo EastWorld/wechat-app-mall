@@ -1,8 +1,10 @@
+var wxpay = require('../../utils/pay.js')
 var app = getApp()
 Page({
   data:{
     statusType:["全部","待付款","待发货","待收货","已完成"],
     currentTpye:0,
+    tabClass: ["", "", "", "", ""],
     orderList:[
       {
         goodsImg:"/images/goods02.png",
@@ -24,25 +26,48 @@ Page({
   },
   statusTap:function(e){
      var curType =  e.currentTarget.dataset.index;
+     this.data.currentTpye = curType
      this.setData({
       currentTpye:curType
-    });
+     });
+     this.onShow();
   },
-  cancelOrderTap:function(){
+  orderDetail : function (e) {
+    var orderId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "/pages/order-details/index?id=" + orderId
+    })
+  },
+  cancelOrderTap:function(e){
+    var that = this;
+    var orderId = e.currentTarget.dataset.id;
      wx.showModal({
       title: '确定要取消该订单吗？',
       content: '',
       success: function(res) {
         if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+          wx.showLoading();
+          wx.request({
+            url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/close',
+            data: {
+              token: app.globalData.token,
+              orderId: orderId
+            },
+            success: (res) => {
+              wx.hideLoading();
+              if (res.data.code == 0) {
+                that.onShow();
+              }
+            }
+          })
         }
       }
     })
   },
-  toPayTap:function(){
-    console.log("去支付");
+  toPayTap:function(e){
+    var orderId = e.currentTarget.dataset.id;
+    var money = e.currentTarget.dataset.money;
+    wxpay.wxpay(app, money, orderId, "/pages/order-list/index");
   },
   onLoad:function(options){
     // 生命周期函数--监听页面加载
@@ -53,7 +78,63 @@ Page({
  
   },
   onShow:function(){
-    // 生命周期函数--监听页面显示
+    // 获取订单列表
+    wx.showLoading();
+    var that = this;
+    var postData = {
+      token: app.globalData.token
+    };
+    if (that.data.currentTpye == 1) {
+      postData.status = 0
+    }
+    if (that.data.currentTpye == 2) {
+      postData.status = 1
+    }
+    if (that.data.currentTpye == 3) {
+      postData.status = 2
+    }
+    if (that.data.currentTpye == 4) {
+      postData.status = 4
+    }
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/list',
+      data: postData,
+      success: (res) => {
+        wx.hideLoading();
+        if (res.data.code == 0) {
+          var tabClass = that.data.tabClass;
+          if (that.data.currentTpye == 0) {
+            for (var i = 0; i < res.data.data.orderList.length; i++) {
+              var order = res.data.data.orderList[i]
+              if (order.status == 0) {
+                tabClass[1] = "red-dot"
+              }
+              if (order.status == 1) {
+                tabClass[2] = "red-dot"
+              }
+              if (order.status == 2) {
+                tabClass[3] = "red-dot"
+              }
+              if (order.status == 4) {
+                tabClass[4] = "red-dot"
+              }
+            }
+          }
+          that.setData({
+            tabClass: tabClass,
+            orderList: res.data.data.orderList,
+            logisticsMap : res.data.data.logisticsMap,
+            goodsMap : res.data.data.goodsMap
+          });
+        } else {
+          this.setData({
+            orderList: null,
+            logisticsMap: {},
+            goodsMap: {}
+          });
+        }
+      }
+    })
     
   },
   onHide:function(){
@@ -71,13 +152,5 @@ Page({
   onReachBottom: function() {
     // 页面上拉触底事件的处理函数
   
-  },
-  onShareAppMessage: function() {
-    // 用户点击右上角分享
-    return {
-      title: 'title', // 分享标题
-      desc: 'desc', // 分享描述
-      path: 'path' // 分享路径
-    }
   }
 })

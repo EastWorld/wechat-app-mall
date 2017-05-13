@@ -1,8 +1,7 @@
 var app = getApp();
 Page({
     data:{
-        status:0,
-        haveWuliu:true,
+      orderId:0,
         goodsList:[
             {
                 pic:'/images/goods02.png',
@@ -22,16 +21,45 @@ Page({
         yunPrice:"10.00"
     },
     onLoad:function(e){
-        var yunPrice = parseFloat(this.data.yunPrice);
-        var allprice = 0;
-        var goodsList = this.data.goodsList;
-        for(var i =0 ;i < goodsList.length;i++){
-            allprice += parseFloat(goodsList[0].price)*goodsList[0].number;
+      var orderId = e.id;
+      this.data.orderId = orderId;
+      this.setData({
+        orderId: orderId
+      });
+    },
+    onShow : function () {
+      var that = this;
+      wx.request({
+        url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/detail',
+        data: {
+          token: app.globalData.token,
+          id: that.data.orderId
+        },
+        success: (res) => {
+          wx.hideLoading();
+          if (res.data.code != 0) {
+            wx.showModal({
+              title: '错误',
+              content: res.data.msg,
+              showCancel: false
+            })
+            return;
+          }
+          that.setData({
+            orderDetail: res.data.data
+          });
         }
-        this.setData({
-            allGoodsPrice:allprice,
-            yunPrice:yunPrice
-       });
+      })
+      var yunPrice = parseFloat(this.data.yunPrice);
+      var allprice = 0;
+      var goodsList = this.data.goodsList;
+      for (var i = 0; i < goodsList.length; i++) {
+        allprice += parseFloat(goodsList[0].price) * goodsList[0].number;
+      }
+      this.setData({
+        allGoodsPrice: allprice,
+        yunPrice: yunPrice
+      });
     },
     wuliuDetailsTap:function(){
         wx.navigateTo({
@@ -39,16 +67,39 @@ Page({
         })
     },
     confirmBtnTap:function(e){
-        wx.showModal({
-            title: '确认您已收到商品？',
-            content: '',
-            success: function(res) {
-                if (res.confirm) {
-                console.log('用户点击确定')
-                } else if (res.cancel) {
-                console.log('用户点击取消')
+      var that = this;
+      var orderId = e.currentTarget.dataset.id;
+      wx.showModal({
+          title: '确认您已收到商品？',
+          content: '',
+          success: function(res) {
+            if (res.confirm) {
+              wx.showLoading();
+              wx.request({
+                url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/delivery',
+                data: {
+                  token: app.globalData.token,
+                  orderId: orderId
+                },
+                success: (res) => {
+                  wx.request({
+                    url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/reputation',
+                    data: {
+                      token: app.globalData.token,
+                      orderId: orderId,
+                      reputation:2
+                    },
+                    success: (res) => {
+                      wx.hideLoading();
+                      if (res.data.code == 0) {
+                        that.onShow();
+                      }
+                    }
+                  })
                 }
+              })
             }
-        })
+          }
+      })
     }
 })

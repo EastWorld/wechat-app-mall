@@ -18,6 +18,11 @@
 
 期待您的加入~
 
+## 扫码体验
+
+<img src="screenshot/qrcode.jpg" width="200px">
+<img src="screenshot/qrcode2.jpg" width="200px">
+
 ## 软件截图
 
 1.png

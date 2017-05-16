@@ -189,7 +189,7 @@ Page({
     shopCarMap.price=this.data.selectSizePrice;
     shopCarMap.left="";
     shopCarMap.active=true;
-    shopCarMap.number=1;
+    shopCarMap.number = this.data.buyNumber;
     shopCarMap.logisticsType=this.data.goodsDetail.basicInfo.logisticsId;
 
     var shopCarInfo = this.data.shopCarInfo;
@@ -209,7 +209,7 @@ Page({
       }
     }
 
-    shopCarInfo.shopNum = shopCarInfo.shopNum + 1;
+    shopCarInfo.shopNum = shopCarInfo.shopNum + this.data.buyNumber;
     if (hasSameGoodsIndex > -1) {
       shopCarInfo.shopList.splice(hasSameGoodsIndex,1, shopCarMap);
     } else {

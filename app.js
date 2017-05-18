@@ -19,6 +19,18 @@ App({
     var that = this;
     var token = that.globalData.token;
     if (token) {
+      wx.request({
+        url: 'https://api.it120.cc/' + that.globalData.subDomain + '/user/check-token',
+        data: {
+          token: token
+        },
+        success: function (res) {
+          if (res.data.code != 0) {
+            that.globalData.token = null;
+            that.login();
+          }
+        }
+      })
       return;
     }
     wx.login({

@@ -64,6 +64,7 @@ Page({
             selectSizePrice:res.data.data.basicInfo.minPrice,
           });
         }
+        that.data.goodsDetail = res.data.data;
         that.setData({
           goodsDetail:res.data.data,
           selectSizePrice:res.data.data.basicInfo.minPrice,
@@ -256,5 +257,17 @@ Page({
     }
     this.addShopCar();
     this.goShopCar();
+  },
+  onShareAppMessage: function () {
+    return {
+      title: this.data.goodsDetail.basicInfo.name,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id,
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   }
 })

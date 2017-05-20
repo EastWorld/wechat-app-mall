@@ -73,7 +73,7 @@ App({
             var encryptedData = res.encryptedData;
             // 下面开始调用注册接口
             wx.request({
-              url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/wxapp/register/complex',
+              url: 'https://api.it120.cc/' + that.globalData.subDomain +'/user/wxapp/register/complex',
               data: {code:code,encryptedData:encryptedData,iv:iv}, // 设置请求的 参数
               success: (res) =>{
                 wx.hideLoading();

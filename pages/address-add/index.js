@@ -55,13 +55,12 @@ Page({
       })
       return
     }
+    var cityId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id;
+    var districtId;
     if (this.data.selDistrict == "请选择"){
-      wx.showModal({
-        title: '提示',
-        content: '请选择地区',
-        showCancel:false
-      })
-      return
+      districtId = cityId;
+    } else {
+      districtId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id;
     }
     if (address == ""){
       wx.showModal({
@@ -92,8 +91,8 @@ Page({
         token: app.globalData.token,
         id: apiAddid,
         provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
-        cityId:commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id,
-        districtId:commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id,
+        cityId: cityId,
+        districtId: districtId,
         linkMan:linkMan,
         address:address,
         mobile:mobile,

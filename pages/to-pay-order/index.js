@@ -63,6 +63,15 @@ Page({
     };
     postData.aaaa = 1234;
     if (that.data.isNeedLogistics > 0) {
+      if (!that.data.curAddressData) {
+        wx.hideLoading();
+        wx.showModal({
+          title: '错误',
+          content: '请选择您的收货地址',
+          showCancel: false
+        })
+        return;
+      }
       postData.provinceId = that.data.curAddressData.provinceId;
       postData.cityId = that.data.curAddressData.cityId;
       postData.districtId = that.data.curAddressData.districtId;

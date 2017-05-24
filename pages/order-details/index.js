@@ -61,10 +61,11 @@ Page({
         yunPrice: yunPrice
       });
     },
-    wuliuDetailsTap:function(){
-        wx.navigateTo({
-                url:"/pages/wuliu/index"
-        })
+    wuliuDetailsTap:function(e){
+      var orderId = e.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: "/pages/wuliu/index?id=" + orderId
+      })
     },
     confirmBtnTap:function(e){
       var that = this;

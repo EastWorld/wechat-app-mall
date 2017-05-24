@@ -4,14 +4,14 @@
    <view class="swiper-container">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-            <block wx:for="{{images}}">
+            <block wx:for="{{banners}}">
                 <swiper-item>
-                    <image src="{{item}}" class="slide-image" width="750rpx" height="562.5rpx"/>
+                    <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" class="slide-image" width="750rpx" height="562.5rpx"/>
                 </swiper-item>
             </block>
         </swiper>
         <view class="dots">  
-            <block wx:for="{{images}}" wx:key="unique">  
+            <block wx:for="{{banners}}" wx:key="unique">  
                 <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
             </block>  
         </view>  

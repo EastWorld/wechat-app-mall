@@ -2,23 +2,34 @@
 //获取应用实例
 var app = getApp()
 Page({
-  data: {
-    wuliu:[
-      {
-        date:'2016-12-25  15:00:22',
-        info:'配送员开始配送，请您准备收货，配送员，罗启春手机号，13819935555'
-      },
-      {
-        date:'2016-12-25  15:00:22',
-        info:'货物已分配，等待配送'
-      },
-      {
-        date:'2016-12-25  15:00:22',
-        info:'货物已到达 上海千阳站'
-      }
-    ]
+  data: {},
+  onLoad: function (e) {
+    var orderId = e.id;
+    this.data.orderId = orderId;
   },
-  onLoad: function () {
-    console.log('onLoad')
+  onShow: function () {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/detail',
+      data: {
+        token: app.globalData.token,
+        id: that.data.orderId
+      },
+      success: (res) => {
+        wx.hideLoading();
+        if (res.data.code != 0) {
+          wx.showModal({
+            title: '错误',
+            content: res.data.msg,
+            showCancel: false
+          })
+          return;
+        }
+        that.setData({
+          orderDetail: res.data.data,
+          logisticsTraces: res.data.data.logisticsTraces.reverse()
+        });
+      }
+    })
   }
 })

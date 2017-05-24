@@ -18,11 +18,11 @@
               <view class="icon-box">
                   <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
               </view>
-              <view class="right-text" bindtap="wuliuDetailsTap">
+              <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderDetail.orderInfo.id}}">
                   <view class="order-number">快递单号：{{orderDetail.logistics.trackingNumber}}</view>
-                  <block wx:if="{{orderDetail.logistics.traces}}">
-                  <view class="wuliu-text">快件离开 无锡中转部 已发往 杭州中部，操作员陈林娟杭州中部，操作员 陈林娟</view>
-                  <view class="wuliu-date">2017/01/09 15:32:33</view>
+                  <block wx:if="{{orderDetail.logisticsTraces}}">
+                  <view class="wuliu-text">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}</view>
+                  <view class="wuliu-date">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptTime}}</view>
                   </block>
               </view>
               <view class="arrow-right">

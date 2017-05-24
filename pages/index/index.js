@@ -9,7 +9,6 @@ Page({
     duration: 1000,
     loadingHidden: false , // loading
     userInfo: {},
-    images:[],
     swiperCurrent: 0,  
     selectCurrent:0,
     categories: [],
@@ -37,10 +36,12 @@ Page({
       url:"/pages/goods-details/index?id="+e.currentTarget.dataset.id
     })
   },
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+  tapBanner: function(e) {
+    if (e.currentTarget.dataset.id != 0) {
+      wx.navigateTo({
+        url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
+      })
+    }
   },
   bindTypeTap: function(e) {
      this.setData({  
@@ -77,12 +78,8 @@ Page({
         key: 'mallName'
       },
       success: function(res) {
-        var images = [];
-        for(var i=0;i<res.data.data.length;i++){
-          images.push(res.data.data[i].picUrl);
-        }
         that.setData({
-          images:images
+          banners: res.data.data
         });
       }
     })

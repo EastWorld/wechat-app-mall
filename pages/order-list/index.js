@@ -4,25 +4,7 @@ Page({
   data:{
     statusType:["全部","待付款","待发货","待收货","已完成"],
     currentTpye:0,
-    tabClass: ["", "", "", "", ""],
-    orderList:[
-      {
-        goodsImg:"/images/goods02.png",
-        des:"爱马仕（HERMES）大地男士香水大地男士香水大地如果有两行就这样显示超出部分用省…超出部分用省…",
-        pics:['/images/goods02.png','/images/goods02.png','/images/goods02.png','/images/goods02.png','/images/goods02.png','/images/goods02.png','/images/goods02.png','/images/goods02.png'],
-        price:"300.00",
-        orderDate:"2017.03.04 10:33:33",
-        orderStatus:"已关闭"
-      },
-      {
-        goodsImg:"/images/goods02.png",
-        des:"爱马仕（HERMES）大地男士香水大地男士香水大地如果有两行就这样显示超出部分用省…超出部分用省…",
-        pics:['/images/goods02.png','/images/goods02.png','/images/goods02.png','/images/goods02.png'],
-        price:"400.00",
-        orderDate:"2017.03.05 10:33:33",
-        orderStatus:"待付款"
-      },
-    ]
+    tabClass: ["", "", "", "", ""]
   },
   statusTap:function(e){
      var curType =  e.currentTarget.dataset.index;

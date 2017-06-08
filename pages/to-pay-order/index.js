@@ -74,7 +74,9 @@ Page({
       }
       postData.provinceId = that.data.curAddressData.provinceId;
       postData.cityId = that.data.curAddressData.cityId;
-      postData.districtId = that.data.curAddressData.districtId;
+      if (that.data.curAddressData.districtId) {
+        postData.districtId = that.data.curAddressData.districtId;
+      }
       postData.address = that.data.curAddressData.address;
       postData.linkMan = that.data.curAddressData.linkMan;
       postData.mobile = that.data.curAddressData.mobile;

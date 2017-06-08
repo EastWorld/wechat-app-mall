@@ -59,6 +59,35 @@ Page({
     // 生命周期函数--监听页面初次渲染完成
  
   },
+  getOrderStatistics : function () {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/statistics',
+      data: { token: app.globalData.token },
+      success: (res) => {
+        wx.hideLoading();
+        if (res.data.code == 0) {
+          var tabClass = that.data.tabClass;
+          if (res.data.data.count_id_no_pay > 0) {
+            tabClass[1] = "red-dot"
+          }
+          if (res.data.data.count_id_no_transfer > 0) {
+            tabClass[2] = "red-dot"
+          }
+          if (res.data.data.count_id_no_confirm > 0) {
+            tabClass[3] = "red-dot"
+          }
+          if (res.data.data.count_id_success > 0) {
+            tabClass[4] = "red-dot"
+          }
+
+          that.setData({
+            tabClass: tabClass,
+          });
+        }
+      }
+    })
+  },
   onShow:function(){
     // 获取订单列表
     wx.showLoading();
@@ -78,32 +107,14 @@ Page({
     if (that.data.currentTpye == 4) {
       postData.status = 4
     }
+    this.getOrderStatistics();
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/list',
       data: postData,
       success: (res) => {
         wx.hideLoading();
         if (res.data.code == 0) {
-          var tabClass = that.data.tabClass;
-          if (that.data.currentTpye == 0) {
-            for (var i = 0; i < res.data.data.orderList.length; i++) {
-              var order = res.data.data.orderList[i]
-              if (order.status == 0) {
-                tabClass[1] = "red-dot"
-              }
-              if (order.status == 1) {
-                tabClass[2] = "red-dot"
-              }
-              if (order.status == 2) {
-                tabClass[3] = "red-dot"
-              }
-              if (order.status == 4) {
-                tabClass[4] = "red-dot"
-              }
-            }
-          }
           that.setData({
-            tabClass: tabClass,
             orderList: res.data.data.orderList,
             logisticsMap : res.data.data.logisticsMap,
             goodsMap : res.data.data.goodsMap

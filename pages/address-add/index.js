@@ -166,10 +166,12 @@ Page({
   },
   bindPickerChange:function (event) {
     var selIterm = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[event.detail.value];
-    this.setData({
-      selDistrict:selIterm.name,
-      selDistrictIndex:event.detail.value
-    })
+    if (selIterm && selIterm.name && event.detail.value) {
+      this.setData({
+        selDistrict: selIterm.name,
+        selDistrictIndex: event.detail.value
+      })
+    }
   },
   onLoad: function (e) {
     var that = this;

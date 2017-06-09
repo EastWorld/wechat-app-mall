@@ -31,7 +31,7 @@
               </view>
             </picker>
         </view>
-        <view class="row-wrap addr-details">
+        <view class="addr-details">
             <view class="label">详细地址</view>
             <view class="label-right">
                 <!--<input class="input" type="text" placeholder="街道门牌信息"/>-->

@@ -26,6 +26,8 @@ page{
 }
 .row-wrap .label-right{
     flex: 1;
+    height: 88rpx;
+    line-height: 88rpx;
 }
 .row-wrap .label-right input{
     height: 100%;
@@ -59,18 +61,20 @@ button[type="default"]{
 }
 .addr-details{
     height: auto;
-    line-height: 1;
-    padding-bottom: 24rpx;
+    padding: 30rpx 0;
+    margin-left:30rpx;
+    border-bottom: 1rpx solid #eee;
+    display: flex;
+    font-size: 28rpx;
 }
 .addr-details .label{
-    margin-top: 24rpx;
+    margin:auto 0 auto 0;
+    width: 160rpx;
+    color: #000
 }
 .addr-details textarea{
-    /*line-height: 132rpx;*/
-    margin-top: 24rpx;
     box-sizing: border-box;
     width: 480rpx;
-    height: 84rpx;
     overflow: scroll;
 }
 picker {

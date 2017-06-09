@@ -18,6 +18,8 @@
 
 期待您的加入~
 
+开发问题欢迎加QQ群一起交流 ： 479413914
+
 ## 扫码体验
 
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">

@@ -27,6 +27,12 @@
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode2.jpg" width="200px">
 </p>
 
+## 客户案例
+
+<p>
+<img src="https://cdn.it120.cc/apifactory/2017/06/12/448c4cc5d256aa02ddc4106399a19256.png" width="200px">
+</p>
+
 ## 软件截图
 
 1.png

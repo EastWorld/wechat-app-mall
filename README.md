@@ -22,8 +22,10 @@
 
 ## 扫码体验
 
+<p>
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode2.jpg" width="200px">
+</p>
 
 ## 软件截图
 

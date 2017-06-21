@@ -31,6 +31,7 @@
 
 <p>
 <img src="https://cdn.it120.cc/apifactory/2017/06/12/448c4cc5d256aa02ddc4106399a19256.png" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/06/21/4ae4c66856f377a8830f32a670dc0614.png" width="200px">
 </p>
 
 ## 软件截图

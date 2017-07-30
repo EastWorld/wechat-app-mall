@@ -234,8 +234,8 @@ Page({
    },
    deleteSelected:function(){
       var list = this.data.goodsList.list;
-      for(var i = 0 ; i < list.length ; i++){
-            var curItem = list[i];
+      for(let i = 0 ; i < list.length ; i++){
+            let curItem = list[i];
             if(curItem.active){
               list.splice(i,1);
             }
@@ -260,12 +260,12 @@ Page({
       var isFail = false;
       var doneNumber = 0;
       var needDoneNUmber = shopList.length;
-      for (var i =0; i < shopList.length; i++) {
+      for (let i =0; i < shopList.length; i++) {
         if (isFail) {
           wx.hideLoading();
           return;
         }
-        var carShopBean = shopList[i];
+        let carShopBean = shopList[i];
         // 获取价格和库存
         if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
           wx.request({

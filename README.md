@@ -64,19 +64,19 @@
 
 ## 常见问题
 
-> [如何修改小程序商城的标题“EastWorld”？](https://www.it120.cc/info/faq/778)
+> 1、[如何修改小程序商城的标题“EastWorld”？](https://www.it120.cc/info/faq/778)
 >
-> [“无法登录”的错误？](https://www.it120.cc/info/faq/391)
+> 2、[“无法登录”的错误？](https://www.it120.cc/info/faq/391)
 >
-> [小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
+> 3、[小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
 >
-> [如何发布自己的商品？](https://www.it120.cc/info/faq/436)
+> 4、[如何发布自己的商品？](https://www.it120.cc/info/faq/436)
 >
-> [如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)
+> 5、[如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)
 >
-> [获取我的accesstoken，以便我在其他系统使用](https://www.it120.cc/info/faq/763)
+> 6、[获取我的accesstoken，以便我在其他系统使用](https://www.it120.cc/info/faq/763)
 >
-> 微信支付时候，提示 50000 错误，不能获取到预支付id
+> 7、微信支付时候，提示 50000 错误，不能获取到预支付id
 > > 这个错误是无法获取到微信支付的预支付信息
 >
 > > 1、可能是你没有在后台配置您的微信支付商户号和秘钥，或者配置错误
@@ -84,6 +84,19 @@
 > > 2、可能是你配置的微信支付不是当前小程序申请的（微信支付目前无法跨小程序调用）
 >
 > > 3、确保微信开发工具上面登录的 APPID 和你在后台配置的 APPID 是同一个
+>
+> 8、能否帮我免费添加功能？
+> > 可以！
+>
+> > <img src="https://cdn.it120.cc/apifactory/2017/07/29/18ae9b8aaedcd747fc5f1c3fa8bc0fe4.png" width="300px">
+>
+> > 点击页面顶部的 Star ，关注后，项目有最新动态 github 会提醒您，不错过重要更新；
+>
+> > 点击页面顶部的 Fork， 将您需要增加的功能完成 小程序 端界面的调整，然后在 github  上请求将您的代码合并到 EastWorld；
+>
+> > 您的代码合并请求审核通过后，我们将会为您完善配套的后台功能；
+>
+> > 开源项目离不开您的支持和代码共享，我们一起把 EastWorld 项目长期维护下去；
 >
 
 ## 客户案例

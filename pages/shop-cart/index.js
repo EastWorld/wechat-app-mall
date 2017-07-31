@@ -234,12 +234,18 @@ Page({
    },
    deleteSelected:function(){
       var list = this.data.goodsList.list;
+     /*
       for(let i = 0 ; i < list.length ; i++){
             let curItem = list[i];
             if(curItem.active){
               list.splice(i,1);
             }
       }
+      */
+     // above codes that remove elements in a for statement may change the length of list dynamically
+     list = list.filter(function(curGoods) {
+        return !curGoods.active;
+     });
      this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
     },
     toPayOrder:function(){

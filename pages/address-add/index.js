@@ -57,8 +57,8 @@ Page({
     }
     var cityId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id;
     var districtId;
-    if (this.data.selDistrict == "请选择"){
-      districtId = cityId;
+    if (this.data.selDistrict == "请选择" || !this.data.selDistrict){
+      districtId = '';
     } else {
       districtId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id;
     }
@@ -192,9 +192,9 @@ Page({
             that.setData({
               id:id,
               addressData: res.data.data,
-              //selProvince: res.data.data.provinceStr,
-              //selCity: res.data.data.cityStr,
-              //selDistrict: res.data.data.areaStr
+              selProvince: res.data.data.provinceStr,
+              selCity: res.data.data.cityStr,
+              selDistrict: res.data.data.areaStr
             });
             return;
           } else {

@@ -151,7 +151,9 @@ Page({
       selProvince:selIterm.name,
       selProvinceIndex:event.detail.value,
       selCity:'请选择',
-      selDistrict:'请选择'
+      selCityIndex:0,
+      selDistrict:'请选择',
+      selDistrictIndex: 0
     })
     this.initCityData(2, selIterm)
   },
@@ -160,7 +162,8 @@ Page({
     this.setData({
       selCity:selIterm.name,
       selCityIndex:event.detail.value,
-      selDistrict:'请选择'
+      selDistrict: '请选择',
+      selDistrictIndex: 0
     })
     this.initCityData(3, selIterm)
   },
@@ -195,7 +198,8 @@ Page({
               selProvince: res.data.data.provinceStr,
               selCity: res.data.data.cityStr,
               selDistrict: res.data.data.areaStr
-            });
+              });
+            that.setDBSaveAddressId(res.data.data);
             return;
           } else {
             wx.showModal({
@@ -206,9 +210,26 @@ Page({
           }
         }
       })
-      // 
     }
   },
+  setDBSaveAddressId: function(data) {
+    var retSelIdx = 0;
+    for (var i = 0; i < commonCityData.cityData.length; i++) {
+      if (data.provinceId == commonCityData.cityData[i].id) {
+        this.data.selProvinceIndex = i;
+        for (var j = 0; j < commonCityData.cityData[i].cityList.length; j++) {
+          if (data.cityId == commonCityData.cityData[i].cityList[j].id) {
+            this.data.selCityId = j;
+            for (var k = 0; k < commonCityData.cityData[i].cityList[j].districtList.length; k++) {
+              if (data.districtId == commonCityData.cityData[i].cityList[j].districtList[k].id) {
+                this.data.selDistrictId = k;
+              }
+            }
+          }
+        }
+      }
+    }
+   },
   selectCity: function () {
     
   },

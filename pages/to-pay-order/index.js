@@ -21,8 +21,13 @@ Page({
     });
     this.initShippingAddress();
   },
+  
   onLoad: function (e) {
-    
+    var that = this;
+    //显示收货地址标识
+    that.setData({
+      isNeedLogistics: 1,
+    });  
   },
 
   getDistrictId : function (obj, aaa){

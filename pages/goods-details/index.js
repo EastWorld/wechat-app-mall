@@ -247,6 +247,11 @@ Page({
   tobuy:function(){
     if (this.data.goodsDetail.properties && !this.data.canSubmit) {
       this.bindGuiGeTap();
+      wx.showModal({
+        title: '提示',
+        content: '请先选择规格尺寸哦~',
+        showCancel:false
+      })
       return;
     }
     if(this.data.buyNumber < 1){

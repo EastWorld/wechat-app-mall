@@ -219,10 +219,10 @@ Page({
         this.data.selProvinceIndex = i;
         for (var j = 0; j < commonCityData.cityData[i].cityList.length; j++) {
           if (data.cityId == commonCityData.cityData[i].cityList[j].id) {
-            this.data.selCityId = j;
+            this.data.selCityIndex = j;
             for (var k = 0; k < commonCityData.cityData[i].cityList[j].districtList.length; k++) {
               if (data.districtId == commonCityData.cityData[i].cityList[j].districtList[k].id) {
-                this.data.selDistrictId = k;
+                this.data.selDistrictIndex = k;
               }
             }
           }

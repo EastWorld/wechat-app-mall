@@ -122,6 +122,7 @@ Page({
             total+= parseFloat(curItem.price)*curItem.number;
           }
       }
+      total = parseFloat(total.toFixed(2));//js浮点计算bug，取两位小数精度
       return total;
    },
    allSelect:function(){

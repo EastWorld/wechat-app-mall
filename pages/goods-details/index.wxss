@@ -145,6 +145,15 @@ swiper-item image {
   color:#fff;
   font-size: 34rpx;
 }
+.footer-box .contact{
+  text-align: center;
+  width: 80rpx;
+  height: 100%;
+  line-height: 100rpx;
+  background-color: #1aad19;
+  color:#fff;
+  font-size: 34rpx;
+}
 .show-popup{
   position: fixed;
   top: 0;

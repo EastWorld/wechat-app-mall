@@ -87,6 +87,6 @@ App({
   },
   globalData:{
     userInfo:null,
-    subDomain:"mall"
+    subDomain: "mall"
   }
 })

@@ -53,6 +53,10 @@ Page({
           that.setData({
             addressList:res.data.data
           });
+        } else if (res.data.code == 700){
+          that.setData({
+            addressList: null
+          });
         }
       }
     })

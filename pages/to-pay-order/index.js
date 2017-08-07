@@ -8,18 +8,30 @@ Page({
     isNeedLogistics:0, // 是否需要物流信息
     allGoodsPrice:0,
     yunPrice:0,
-    goodsJsonStr:""
+    allGoodsAndYunPrice:0,
+    goodsJsonStr:"",
+    orderType:"" //订单类型，购物车下单或立即支付下单，默认是购物车，
   },
   onShow : function () {
-    var shopList = [];
-    var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
-    if (shopCarInfoMem && shopCarInfoMem.shopList) {
-      shopList = shopCarInfoMem.shopList
+    var that = this;
+    var shopList = [];   
+    //立即购买下单
+    if ("buyNow"==that.data.orderType){
+      var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
+      if (buyNowInfoMem && buyNowInfoMem.shopList) {
+        shopList = buyNowInfoMem.shopList
+      }
+    }else{
+      //购物车下单
+      var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
+      if (shopCarInfoMem && shopCarInfoMem.shopList) {
+        shopList = shopCarInfoMem.shopList
+      }
     }
-    this.setData({
+    that.setData({
       goodsList: shopList,
     });
-    this.initShippingAddress();
+    that.initShippingAddress();
   },
   
   onLoad: function (e) {
@@ -27,6 +39,7 @@ Page({
     //显示收货地址标识
     that.setData({
       isNeedLogistics: 1,
+      orderType: e.orderType
     });  
   },
 
@@ -56,7 +69,7 @@ Page({
         wx.hideLoading();
         wx.showModal({
           title: '错误',
-          content: '请选择您的收货地址',
+          content: '请先设置您的收货地址！',
           showCancel: false
         })
         return;
@@ -91,8 +104,12 @@ Page({
           })
           return;
         }
-        // 清空购物车数据
-        wx.removeStorageSync('shopCarInfo');
+        
+        if ("buyNow" != that.data.orderType) {
+          // 清空购物车数据
+          wx.removeStorageSync('shopCarInfo');
+        }
+
         // 下单成功，跳转到订单管理界面
         wx.reLaunch({
           url: "/pages/order-list/index"
@@ -114,6 +131,10 @@ Page({
             curAddressData:res.data.data
           });
           that.processYunfei();
+        }else{
+          that.setData({
+            curAddressData: null
+          });          
         }
       }
     })
@@ -124,6 +145,7 @@ Page({
     var goodsJsonStr = "[";
     var isNeedLogistics = 0;
     var allGoodsPrice = 0;
+
     for (let i = 0; i < goodsList.length; i++) {
       let carShopBean = goodsList[i];
       if (carShopBean.logistics) {
@@ -176,8 +198,10 @@ Page({
                 numberLeft = numberLeft - addNumber;
                 amountLogistics = amountLogistics + addAmount;
               }
+              let yunPrice = that.data.yunPrice + amountLogistics;
               that.setData({
-                yunPrice: that.data.yunPrice + amountLogistics
+                yunPrice: parseFloat(yunPrice.toFixed(2)),
+                allGoodsAndYunPrice: parseFloat((allGoodsPrice + yunPrice).toFixed(2)),
               });
             }
             if (carShopBean.logistics.feeType == 1) {
@@ -189,9 +213,11 @@ Page({
                 leftWeight = leftWeight - addNumber;
                 amountLogistics = amountLogistics + addAmount;
               }
-              that.setData({
-                yunPrice: that.data.yunPrice + amountLogistics
-              });
+              let yunPrice = that.data.yunPrice + amountLogistics;
+               that.setData({
+                 yunPrice: parseFloat(yunPrice.toFixed(2)),
+                 allGoodsAndYunPrice: parseFloat((allGoodsPrice + yunPrice).toFixed(2)),
+               });
             }
           }
         })
@@ -202,7 +228,7 @@ Page({
     goodsJsonStr += "]";
     that.setData({
       isNeedLogistics: isNeedLogistics,
-      allGoodsPrice: allGoodsPrice,
+      allGoodsPrice: parseFloat(allGoodsPrice.toFixed(2)),
       goodsJsonStr: goodsJsonStr
     });
   },

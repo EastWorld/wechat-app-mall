@@ -33,9 +33,12 @@
             <view class="shop-num">({{shopNum}})</view>
             购物车
         </view>
-        <view class="join-shop-cart" bindtap="addShopCar">加入购物车</view>
+        <view class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
         <view class="now-buy" bindtap="tobuy">立即购买</view>
-    </view>
+         <view class="contact" > 
+          <contact-button type="default-light"  session-from="weapp"></contact-button>           
+         </view> 
+   </view>
     <view class="show-popup" hidden="{{hideShopPopup}}" >
         <view class="popup-mask" bindtap="closePopupTap"></view>
         <view class="popup-contents">
@@ -69,9 +72,12 @@
                     <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
                 </view>
              </view>  
-             <view class="popup-join-btn" bindtap="addShopCar">
+             <view class="popup-join-btn" wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar">
                 加入购物车
              </view>
+             <view class="popup-join-btn" wx:if="{{shopType =='tobuy'}}" bindtap="buyNow">
+                立即购买
+             </view>                      
         </view>
     </view>
 </view>

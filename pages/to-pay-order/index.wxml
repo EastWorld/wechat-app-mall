@@ -51,12 +51,12 @@
         </view>
         <view class="row-box">
             <view class="row-label">应付总额</view>
-            <view class="right-text">¥ {{allGoodsPrice+yunPrice}}</view>
+            <view class="right-text">¥ {{allGoodsAndYunPrice}}</view>
         </view>
      </view>
      <view class="jiesuan-box">
         <view class="left-price">
-            <view class="total">合计：¥ {{allGoodsPrice+yunPrice}}</view>
+            <view class="total">合计：¥ {{allGoodsAndYunPrice}}</view>
         </view>
         <button class="to-pay-btn" formType="submit">提交订单</button>
     </view>

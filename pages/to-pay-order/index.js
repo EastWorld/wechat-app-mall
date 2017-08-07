@@ -160,68 +160,75 @@ Page({
       goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0}';
       goodsJsonStr += goodsJsonStrTmp;
       
-      if (carShopBean.logistics && !carShopBean.logistics.isFree) {
-        // 计算应付运费金额
-        let districtId = that.getDistrictId(that.data.curAddressData, that.data.curAddressData.districtId);
-        wx.request({
-          url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/price/freight',
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          data: {
-            templateId: carShopBean.logisticsType,
-            type: 0,
-            provinceId: this.data.curAddressData.provinceId,
-            cityId: this.data.curAddressData.cityId,
-            districtId: districtId
-          }, // 设置请求的 参数
-          success: (res) => {
-            wx.hideLoading();
-            if (res.data.code != 0) {
-              wx.showModal({
-                title: '错误',
-                content: res.data.msg,
-                showCancel: false
-              })
-              return;
-            }
-            let firstNumber = res.data.data.firstNumber;
-            let addAmount = res.data.data.addAmount;
-            let firstAmount = res.data.data.firstAmount;
-            let addNumber = res.data.data.addNumber;
-            if (carShopBean.logistics.feeType == 0) {
-              // 按件数 
-              let amountLogistics = firstAmount;
-              let numberLeft = carShopBean.number - firstNumber;
-              while (numberLeft > 0) {
-                numberLeft = numberLeft - addNumber;
-                amountLogistics = amountLogistics + addAmount;
+      if (carShopBean.logistics) {
+        if (carShopBean.logistics.isFree){
+          //包邮情况
+          that.setData({
+            allGoodsAndYunPrice: parseFloat(allGoodsPrice.toFixed(2))
+          });
+        }else{
+         // 计算应付运费金额
+          let districtId = that.getDistrictId(that.data.curAddressData, that.data.curAddressData.districtId);
+          wx.request({
+            url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/price/freight',
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              templateId: carShopBean.logisticsType,
+              type: 0,
+              provinceId: this.data.curAddressData.provinceId,
+              cityId: this.data.curAddressData.cityId,
+              districtId: districtId
+            }, // 设置请求的 参数
+            success: (res) => {
+              wx.hideLoading();
+              if (res.data.code != 0) {
+                wx.showModal({
+                  title: '错误',
+                  content: res.data.msg,
+                  showCancel: false
+                })
+                return;
               }
-              let yunPrice = that.data.yunPrice + amountLogistics;
-              that.setData({
-                yunPrice: parseFloat(yunPrice.toFixed(2)),
-                allGoodsAndYunPrice: parseFloat((allGoodsPrice + yunPrice).toFixed(2)),
-              });
-            }
-            if (carShopBean.logistics.feeType == 1) {
-              // 按重量
-              let totleWeight = carShopBean.weight * carShopBean.number;
-              let amountLogistics = firstAmount;
-              let leftWeight = totleWeight- firstNumber;
-              while (leftWeight > 0) {
-                leftWeight = leftWeight - addNumber;
-                amountLogistics = amountLogistics + addAmount;
+              let firstNumber = res.data.data.firstNumber;
+              let addAmount = res.data.data.addAmount;
+              let firstAmount = res.data.data.firstAmount;
+              let addNumber = res.data.data.addNumber;
+              if (carShopBean.logistics.feeType == 0) {
+                // 按件数 
+                let amountLogistics = firstAmount;
+                let numberLeft = carShopBean.number - firstNumber;
+                while (numberLeft > 0) {
+                  numberLeft = numberLeft - addNumber;
+                  amountLogistics = amountLogistics + addAmount;
+                }
+                let yunPrice = that.data.yunPrice + amountLogistics;
+                that.setData({
+                  yunPrice: parseFloat(yunPrice.toFixed(2)),
+                  allGoodsAndYunPrice: parseFloat((allGoodsPrice + yunPrice).toFixed(2)),
+                });
               }
-              let yunPrice = that.data.yunPrice + amountLogistics;
-               that.setData({
-                 yunPrice: parseFloat(yunPrice.toFixed(2)),
-                 allGoodsAndYunPrice: parseFloat((allGoodsPrice + yunPrice).toFixed(2)),
-               });
+              if (carShopBean.logistics.feeType == 1) {
+                // 按重量
+                let totleWeight = carShopBean.weight * carShopBean.number;
+                let amountLogistics = firstAmount;
+                let leftWeight = totleWeight- firstNumber;
+                while (leftWeight > 0) {
+                  leftWeight = leftWeight - addNumber;
+                  amountLogistics = amountLogistics + addAmount;
+                }
+                let yunPrice = that.data.yunPrice + amountLogistics;
+                that.setData({
+                  yunPrice: parseFloat(yunPrice.toFixed(2)),
+                  allGoodsAndYunPrice: parseFloat((allGoodsPrice + yunPrice).toFixed(2)),
+                });
+              }
             }
-          }
-        })
+          })
         // 计算运费结束
+        }
       }
       
     }

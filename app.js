@@ -87,8 +87,6 @@ App({
   },
   globalData:{
     userInfo:null,
-    //subDomain: "mall"
-    //subDomain:"QingDaoWaiMaoYuanDanProd" //生产环境
-    subDomain:"d610aa25f7b9faaaea4c46189f2ff6e2" //测试环境
+    subDomain: "mall"
   }
 })

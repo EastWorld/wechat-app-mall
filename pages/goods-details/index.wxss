@@ -111,7 +111,7 @@ swiper-item image {
 .footer-box .contact{
   text-align: center;
   padding-top: 13rpx;
-  width: 140rpx;
+  width: 100rpx;
   height: 100%;
   line-height: 100rpx;
   font-size: 34rpx;
@@ -137,7 +137,7 @@ swiper-item image {
 }
 .footer-box .join-shop-cart{
   text-align: center;
-  width: 230rpx;
+  width: 250rpx;
   height: 100%;
   line-height: 100rpx;
   background-color: #ff6850;
@@ -147,7 +147,7 @@ swiper-item image {
 .footer-box .now-buy{
   text-align: center;
   height: 100%;
-  width: 230rpx;
+  width: 250rpx;
   line-height: 100rpx;
   background-color: #e64340;
   color:#fff;

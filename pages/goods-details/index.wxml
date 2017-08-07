@@ -29,15 +29,15 @@
          </view>
     </view>
     <view class="footer-box">
+        <view class="contact" > 
+          <contact-button type="default-dark"  session-from="weapp" size="27"></contact-button>           
+         </view> 
         <view class="shop-cart-btn" bindtap="goShopCar">
             <view class="shop-num">({{shopNum}})</view>
             购物车
         </view>
         <view class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
         <view class="now-buy" bindtap="tobuy">立即购买</view>
-         <view class="contact" > 
-          <contact-button type="default-light"  session-from="weapp"></contact-button>           
-         </view> 
    </view>
     <view class="show-popup" hidden="{{hideShopPopup}}" >
         <view class="popup-mask" bindtap="closePopupTap"></view>

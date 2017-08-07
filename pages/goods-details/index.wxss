@@ -108,6 +108,14 @@ swiper-item image {
   display: flex;
   box-shadow:0 0 8rpx 0 ;
 }
+.footer-box .contact{
+  text-align: center;
+  padding-top: 13rpx;
+  width: 140rpx;
+  height: 100%;
+  line-height: 100rpx;
+  font-size: 34rpx;
+}
 .footer-box .shop-cart-btn{
   position: relative;
   width: 150rpx;
@@ -129,7 +137,7 @@ swiper-item image {
 }
 .footer-box .join-shop-cart{
   text-align: center;
-  width: 300rpx;
+  width: 230rpx;
   height: 100%;
   line-height: 100rpx;
   background-color: #ff6850;
@@ -139,18 +147,9 @@ swiper-item image {
 .footer-box .now-buy{
   text-align: center;
   height: 100%;
-  width: 300rpx;
+  width: 230rpx;
   line-height: 100rpx;
   background-color: #e64340;
-  color:#fff;
-  font-size: 34rpx;
-}
-.footer-box .contact{
-  text-align: center;
-  width: 80rpx;
-  height: 100%;
-  line-height: 100rpx;
-  background-color: #1aad19;
   color:#fff;
   font-size: 34rpx;
 }

@@ -265,6 +265,11 @@ Page({
         })
       }
       this.bindGuiGeTap();
+      wx.showModal({
+        title: '提示',
+        content: '请先选择规格尺寸哦~',
+        showCancel:false
+      })
       return;
     }    
     if(this.data.buyNumber < 1){

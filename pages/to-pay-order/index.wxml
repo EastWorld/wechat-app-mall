@@ -40,6 +40,19 @@
             </view>
         </view>
      </view>
+     <view class="peisong-way" hidden="{{hasNoCoupons}}">
+        <view class="row-box" style="border-bottom:none;">
+            <view class="row-label">选择使用优惠券</view>
+        </view>
+        <view class="row-box" style="border-bottom:none;">
+          <picker-view indicator-style="height: 50rpx;" style="width: 100%; height: 150rpx;" value="0" bindchange="bindChangeCoupon">
+            <picker-view-column>
+              <view style="line-height: 50px">不使用优惠券</view>
+              <view wx:for="{{coupons}}" style="line-height: 50px">{{item.money}}元 {{item.name}}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+     </view>
      <view class="goods-info">
         <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
             <view class="row-label">商品金额</view>
@@ -49,14 +62,14 @@
             <view class="row-label">运费</view>
             <view class="right-text">+ ¥ {{yunPrice}}</view>
         </view>
-        <view class="row-box">
-            <view class="row-label">应付总额</view>
-            <view class="right-text">¥ {{allGoodsAndYunPrice}}</view>
+        <view class="row-box" wx:if="{{!hasNoCoupons}}">
+            <view class="row-label">优惠券</view>
+            <view class="right-text">- ¥ {{youhuijine}}</view>
         </view>
      </view>
      <view class="jiesuan-box">
         <view class="left-price">
-            <view class="total">合计：¥ {{allGoodsAndYunPrice}}</view>
+            <view class="total">合计：¥ {{allGoodsAndYunPrice - youhuijine}}</view>
         </view>
         <button class="to-pay-btn" formType="submit">提交订单</button>
     </view>

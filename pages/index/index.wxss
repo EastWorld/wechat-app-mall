@@ -45,6 +45,7 @@ swiper-item image {
   white-space: nowrap;
   display: flex;
   height: 88rpx;
+  width: 100%;
   background-color: #fff;
 }
 ::-webkit-scrollbar {
@@ -125,4 +126,31 @@ swiper-item image {
   position: fixed;
   top: 0;
   left: 0;
+}
+.coupons{
+  margin-top:10rpx;
+  width: 100%;
+  height: 140rpx;
+  overflow: hidden;
+}
+.coupons-scroll{
+  display: flex;
+  white-space: nowrap;
+  height: 140rpx;
+  width: 100%;
+  background-color: #fff;
+}
+.coupons-item{
+  width:240rpx;
+  height: 120rpx;
+  margin: 10rpx;
+  padding-top: 20rpx;
+  padding-left: 15rpx;
+  background-color: #f1a83b;
+  box-sizing: content-box;
+  font-size: 20rpx;
+  line-height: 35rpx;
+  overflow: hidden;
+  color: #fff;
+  display: inline-block;
 }

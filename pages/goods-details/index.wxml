@@ -29,8 +29,9 @@
          </view>
     </view>
     <view class="footer-box">        
-        <view class="contact" bindtap="goShopCar">
-            客服
+        <view class="contact">
+          <contact-button style="opacity:0;position:absolute;" type="default-dark"  session-from="weapp" size="27"></contact-button>
+          客服
         </view>
         <view class="shop-cart-btn" bindtap="goShopCar">
             <view class="shop-num">({{shopNum}})</view>

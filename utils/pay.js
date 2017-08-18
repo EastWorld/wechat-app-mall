@@ -31,7 +31,7 @@ function wxpay(app, money, orderId, redirectUrl) {
           }
         })
       } else {
-        wx.showToast({title: '服务器忙' + res.data.code})
+        wx.showToast({ title: '服务器忙' + res.data.code + res.data.msg})
       }
     }
   })

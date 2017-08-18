@@ -109,12 +109,17 @@ swiper-item image {
   box-shadow:0 0 8rpx 0 ;
 }
 .footer-box .contact{
-  text-align: center;
-  padding-top: 13rpx;
-  width: 100rpx;
+  position: relative;
+  width: 120rpx;
   height: 100%;
   line-height: 100rpx;
-  font-size: 34rpx;
+  text-align: center;
+  padding-top: 26rpx;
+  font-size:20rpx;
+  color:#008000;
+  box-sizing: border-box;
+  background:url("https://cdn.it120.cc/images/weappshop/kefu.png") no-repeat center 21rpx;
+  background-size: 55rpx auto;
 }
 .footer-box .shop-cart-btn{
   position: relative;

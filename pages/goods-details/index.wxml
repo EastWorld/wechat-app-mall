@@ -28,10 +28,10 @@
             <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
          </view>
     </view>
-    <view class="footer-box">
-        <view class="contact" > 
-          <contact-button type="default-dark"  session-from="weapp" size="27"></contact-button>           
-         </view> 
+    <view class="footer-box">        
+        <view class="contact" bindtap="goShopCar">
+            客服
+        </view>
         <view class="shop-cart-btn" bindtap="goShopCar">
             <view class="shop-num">({{shopNum}})</view>
             购物车

@@ -259,7 +259,10 @@ Page({
       var shopList = [];
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
       if (shopCarInfoMem && shopCarInfoMem.shopList) {
-        shopList = shopCarInfoMem.shopList
+        // shopList = shopCarInfoMem.shopList
+        shopList = shopCarInfoMem.shopList.filter(entity => {
+          return entity.active;
+        });
       }
       if (shopList.length == 0) {
         return;

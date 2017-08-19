@@ -30,7 +30,10 @@ Page({
       //购物车下单
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
       if (shopCarInfoMem && shopCarInfoMem.shopList) {
-        shopList = shopCarInfoMem.shopList
+        // shopList = shopCarInfoMem.shopList
+        shopList = shopCarInfoMem.shopList.filter(entity => {
+          return entity.active;
+        });
       }
     }
     that.setData({

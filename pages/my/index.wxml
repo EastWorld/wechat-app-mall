@@ -1,0 +1,24 @@
+<view class="container">
+	<view  bindtap="bindViewTap" class="userinfo">
+		<image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+	</view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item">
+    <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
+  </view>
+  <view class="my-item">
+    <navigator url="/pages/select-address/index" hover-class="navigator-hover">我的收货地址</navigator>
+  </view>
+  <view class="my-item" style="border:none;">
+    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="about" bindtap="aboutUs">
+    关于我们
+  </view>
+  
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="version">Powered by EastWorld v {{version}}</view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+</view>

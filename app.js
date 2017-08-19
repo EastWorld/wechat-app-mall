@@ -84,9 +84,10 @@ App({
         })
       }
     })
-  },
+  },  
   globalData:{
     userInfo:null,
-    subDomain: "mall"
+    subDomain: "mall",
+    version: "1.4.0"
   }
 })

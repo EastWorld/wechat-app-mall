@@ -130,19 +130,19 @@ swiper-item image {
 .coupons{
   margin-top:10rpx;
   width: 100%;
-  height: 140rpx;
+  height: 180rpx;
   overflow: hidden;
 }
 .coupons-scroll{
   display: flex;
   white-space: nowrap;
-  height: 140rpx;
+  height: 180rpx;
   width: 100%;
   background-color: #fff;
 }
 .coupons-item{
-  width:240rpx;
-  height: 120rpx;
+  width:300rpx;
+  height: 180rpx;
   margin: 10rpx;
   padding-top: 20rpx;
   padding-left: 15rpx;

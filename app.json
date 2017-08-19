@@ -8,7 +8,9 @@
     "pages/address-add/index",
     "pages/order-list/index",
     "pages/order-details/index",
-    "pages/wuliu/index"
+    "pages/wuliu/index",
+    "pages/mycoupons/index",
+    "pages/my/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -32,11 +34,12 @@
       "iconPath": "images/nav/cart-off.png",
       "selectedIconPath": "images/nav/cart-on.png",
       "text": "购物车"
-    }, {
-      "pagePath": "pages/order-list/index",
-      "iconPath": "images/nav/order-off.png",
-      "selectedIconPath": "images/nav/order-on.png",
-      "text": "订单"
+    },
+    {
+      "pagePath": "pages/my/index",
+      "iconPath": "images/nav/my-off.png",
+      "selectedIconPath": "images/nav/my-on.png",
+      "text": "我的"
     }]
   }
 }

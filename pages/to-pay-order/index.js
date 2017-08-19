@@ -122,7 +122,7 @@ Page({
         }
 
         // 下单成功，跳转到订单管理界面
-        wx.reLaunch({
+        wx.redirectTo({
           url: "/pages/order-list/index"
         });
       }

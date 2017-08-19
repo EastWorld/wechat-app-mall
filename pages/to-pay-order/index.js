@@ -28,9 +28,9 @@ Page({
       }
     }else{
       //购物车下单
-      var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
-      if (shopCarInfoMem && shopCarInfoMem.shopList) {
-        shopList = shopCarInfoMem.shopList
+      var shopPayInfoMem = wx.getStorageSync('shopPayInfo');
+      if (shopPayInfoMem && shopPayInfoMem.shopList) {
+        shopList = shopPayInfoMem.shopList
       }
     }
     that.setData({
@@ -116,6 +116,7 @@ Page({
         if ("buyNow" != that.data.orderType) {
           // 清空购物车数据
           wx.removeStorageSync('shopCarInfo');
+          wx.removeStorageSync('shopPayInfo');
         }
 
         // 下单成功，跳转到订单管理界面

@@ -256,10 +256,18 @@ Page({
         return;
       }
       // 重新计算价格，判断库存
-      var shopList = [];
-      var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
-      if (shopCarInfoMem && shopCarInfoMem.shopList) {
-        shopList = shopCarInfoMem.shopList
+
+      if (this.data.goodsList.allSelect) {
+        var shopList = this.data.goodsList.list;
+      } else {
+          var allShopList = this.data.goodsList.list;
+          var selectShopList = [];
+          for (let i =0; i < allShopList.length; i++) {
+              if (allShopList[i].active) {
+                  selectShopList.push(allShopList[i])
+              }
+          }
+          var shopList = selectShopList;
       }
       if (shopList.length == 0) {
         return;
@@ -312,7 +320,15 @@ Page({
                 wx.hideLoading();
                 return;
               }
-              if (needDoneNUmber == doneNumber) {
+              if (needDoneNUmber == doneNumber) {var shopNum = 0;
+                for(var i = 0 ; i < shopList.length ; i++) {
+                    shopNum = shopNum + shopList[i].number
+                }
+                var shopPayInfo = {
+                    shopList: shopList,
+                    shopNum: shopNum
+                };
+                wx.setStorageSync('shopPayInfo', shopPayInfo);
                 that.navigateToPayOrder();
               }
             }
@@ -347,6 +363,15 @@ Page({
                 return;
               }
               if (needDoneNUmber == doneNumber) {
+                var shopNum = 0;
+                for(var i = 0 ; i < shopList.length ; i++) {
+                    shopNum = shopNum + shopList[i].number
+                }
+                var shopPayInfo = {
+                    shopList: shopList,
+                    shopNum: shopNum
+                };
+                wx.setStorageSync('shopPayInfo', shopPayInfo);
                 that.navigateToPayOrder();
               }
             }

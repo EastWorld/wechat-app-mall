@@ -5,11 +5,9 @@
 
 更多项目请关注 [https://github.com/EastWorld](https://github.com/EastWorld)。
 
-> 产品设计 & UI [@blackjeffer](https://github.com/orgs/EastWorld/people/blackjeffer)
->
-> 小程序开发 [@jiulonggithub](https://github.com/orgs/EastWorld/people/jiulonggithub)
->
-> 接口及后台支持 [@gooking](https://github.com/gooking)
+- 产品设计 & UI [@blackjeffer](https://github.com/orgs/EastWorld/people/blackjeffer)
+- 小程序开发 [@jiulonggithub](https://github.com/orgs/EastWorld/people/jiulonggithub)
+- 接口及后台支持 [@gooking](https://github.com/gooking)
 
 期待您的加入~
 
@@ -17,9 +15,16 @@
 
 ## 扫码体验
 
-<p>
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">
-</p>
+
+## 用户案例
+
+<img src="https://cdn.it120.cc/apifactory/2017/06/12/448c4cc5d256aa02ddc4106399a19256.png" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/06/21/4ae4c66856f377a8830f32a670dc0614.png" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/07/29/24bb29461e92a8d8450265e28439d61e.jpg" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/08/17/f3f7ddf9a47367fde19abb6db4c21619.png" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/08/17/413c6123f9c83e664587f1c0971ab52d.jpg" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/08/18/83bfd6a625fe50477bbeac65e9f1d0a7.jpg" width="200px">
 
 ## 使用说明
 
@@ -34,6 +39,8 @@
 >
 > > > 小程序登录接口：实现用户自动登录；
 >
+> > > App Banner管理接口: 设置商城首页轮播图片
+>
 > > > 在线支付接口：完成小程序在线支付；
 >
 > > > 商品类别接口；
@@ -43,6 +50,8 @@
 > > > 商城订单管理接口；
 >
 > > > 用户收货地址接口；
+>
+> > > 优惠券接口
 >
 > 修改源码中  app.js 文件
 > > > globalData:{
@@ -58,96 +67,38 @@
 
 ## 常见问题
 
-> 1、[如何修改小程序商城的标题“EastWorld”？](https://www.it120.cc/info/faq/778)
+- [如何修改小程序商城的标题“EastWorld”？](https://www.it120.cc/info/faq/778)
+- [“无法登录”的错误？](https://www.it120.cc/info/faq/391)
+- [小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
+- [如何发布自己的商品？](https://www.it120.cc/info/faq/436)
+- [如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)
+- [获取我的accesstoken，以便我在其他系统使用](https://www.it120.cc/info/faq/763)
+- 微信支付时候，提示 50000 错误，不能获取到预支付id
+>  这个错误是无法获取到微信支付的预支付信息
+> - 可能是你没有在后台配置您的微信支付商户号和秘钥，或者配置错误
 >
-> 2、[“无法登录”的错误？](https://www.it120.cc/info/faq/391)
+> - 可能是你配置的微信支付不是当前小程序申请的（微信支付目前无法跨小程序调用）
 >
-> 3、[小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
+> - 确保微信开发工具上面登录的 APPID 和你在后台配置的 APPID 是同一个
+- 能否帮我免费添加功能？
+> 可以！
 >
-> 4、[如何发布自己的商品？](https://www.it120.cc/info/faq/436)
+> <img src="https://cdn.it120.cc/apifactory/2017/07/29/18ae9b8aaedcd747fc5f1c3fa8bc0fe4.png" width="300px">
 >
-> 5、[如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)
+> - 点击页面顶部的 Star ，关注后，项目有最新动态 github 会提醒您，不错过重要更新；
+> - 点击页面顶部的 Fork， 将您需要增加的功能完成 小程序 端界面的调整，然后在 github  上请求将您的代码合并到 EastWorld；
+> - 您的代码合并请求审核通过后，我们将会为您完善配套的后台功能；
+> - 开源项目离不开您的支持和代码共享，我们一起把 EastWorld 项目长期维护下去；
+- [如何使用在线客服功能？](https://www.it120.cc/info/faq/867)
+- 下单的时候没有地方填写收货地址？
+> 1、添加一个“物流模板”，只有需要快递的商品才会提示用户填写收货地址
 >
-> 6、[获取我的accesstoken，以便我在其他系统使用](https://www.it120.cc/info/faq/763)
+> 2、发布商品的时候，选择刚才添加的“物流模板”
 >
-> 7、微信支付时候，提示 50000 错误，不能获取到预支付id
-> > 这个错误是无法获取到微信支付的预支付信息
+> 3、重新下单，将会需要用户输入收货地址
+- 后台设置appid和secret的时候提示不正确？
+> 1、请确认您填写的appid和secret是否正确
 >
-> > 1、可能是你没有在后台配置您的微信支付商户号和秘钥，或者配置错误
+> 2、输入的时候确保没有空格（复制的时候可能会多复制了空格）
 >
-> > 2、可能是你配置的微信支付不是当前小程序申请的（微信支付目前无法跨小程序调用）
->
-> > 3、确保微信开发工具上面登录的 APPID 和你在后台配置的 APPID 是同一个
->
-> 8、能否帮我免费添加功能？
-> > 可以！
->
-> > <img src="https://cdn.it120.cc/apifactory/2017/07/29/18ae9b8aaedcd747fc5f1c3fa8bc0fe4.png" width="300px">
->
-> > 点击页面顶部的 Star ，关注后，项目有最新动态 github 会提醒您，不错过重要更新；
->
-> > 点击页面顶部的 Fork， 将您需要增加的功能完成 小程序 端界面的调整，然后在 github  上请求将您的代码合并到 EastWorld；
->
-> > 您的代码合并请求审核通过后，我们将会为您完善配套的后台功能；
->
-> > 开源项目离不开您的支持和代码共享，我们一起把 EastWorld 项目长期维护下去；
->
-> 9、[如何使用在线客服功能？](https://www.it120.cc/info/faq/867)
->
-> 10、下单的时候没有地方填写收货地址？
-> > 1、添加一个“物流模板”，只有需要快递的商品才会提示用户填写收货地址
->
-> > 2、发布商品的时候，选择刚才添加的“物流模板”
->
-> > 3、重新下单，将会需要用户输入收货地址
->
-> 11、后台设置appid和secret的时候提示不正确？
-> > 1、请确认您填写的appid和secret是否正确
->
-> > 2、输入的时候确保没有空格（复制的时候可能会多复制了空格）
->
-> > 3、在微信后台设置服务器IP地址白名单（106.14.43.122）
-
-## 客户案例
-
-<p>
-<img src="https://cdn.it120.cc/apifactory/2017/06/12/448c4cc5d256aa02ddc4106399a19256.png" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/06/21/4ae4c66856f377a8830f32a670dc0614.png" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/07/29/24bb29461e92a8d8450265e28439d61e.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/08/17/f3f7ddf9a47367fde19abb6db4c21619.png" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/08/17/413c6123f9c83e664587f1c0971ab52d.jpg" width="200px">
-</p>
-
-## 软件截图
-
-1.png
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/1.png" width="360px">
-
-
-
-2.png
-
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/2.png" width="360px" style="display:block;">
-
-3.png
-
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/3.png" width="360px" style="display:block;">
-
-4.png
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/4.png" width="360px" style="display:block;">
-
-5.png
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/5.png" width="360px" style="display:block;">
-
-6.png
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/6.png" width="360px" style="display:block;">
-
-7.png
-
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/7.png" width="360px" style="display:block;">
+> 3、在微信后台设置服务器IP地址白名单（106.14.43.122）

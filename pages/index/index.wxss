@@ -43,7 +43,6 @@ swiper-item image {
 
 .type-navbar{
   white-space: nowrap;
-  display: flex;
   height: 88rpx;
   width: 100%;
   background-color: #fff;
@@ -134,7 +133,6 @@ swiper-item image {
   overflow: hidden;
 }
 .coupons-scroll{
-  display: flex;
   white-space: nowrap;
   height: 180rpx;
   width: 100%;

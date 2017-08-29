@@ -1,10 +1,10 @@
 <view class="container">
     <view class="coupons-list">
       <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx"  bindtap="gitCoupon" data-id="{{item.id}}">
-        <view style="font-size: 50rpx"> ￥ {{item.money}}元 </view>
-        <view> {{item.name}} </view>
-        <view> 满 {{item.moneyHreshold}} 元使用 </view>
-        <view> {{item.dateEnd}} 前有效 </view>
+        <view class="moneyDiscount"> ￥ {{item.money}}元 </view>
+        <view class="itemName"> {{item.name}} </view>
+        <view class="itemUseMin"> 满 {{item.moneyHreshold}} 元使用 </view>
+        <view class="itemValid"> {{item.dateEnd}} 前有效 </view>
       </view>
     </view>
     <view style="height:100rpx;background-color:#fff;width:100%;"></view>

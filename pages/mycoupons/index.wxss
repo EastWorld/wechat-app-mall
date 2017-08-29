@@ -11,7 +11,7 @@
     position: absolute;
     width: 100%;
     bottom: 0;
-    font-size:28rpx;
+    font-size:24rpx;
     color:#000000;
     border-top: 1rpx solid #eee;
     height:100rpx;
@@ -31,8 +31,21 @@
   height: 180rpx;
   margin: 10rpx;
   padding: 50rpx;
+  border-radius: 2%;
   background-color: #f1a83b;
   font-size: 30rpx;
   line-height: 50rpx;
   color: #fff;
+}
+.coupons-item .moneyDiscount{
+  font-size: 48rpx;
+}
+.coupons-item .itemUseMin{
+  font-size: 24rpx;
+}
+.coupons-item .itemName{
+  font-size: 24rpx;
+}
+.coupons-item .itemValid{
+  font-size: 24rpx;
 }

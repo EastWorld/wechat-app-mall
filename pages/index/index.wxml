@@ -42,7 +42,14 @@
               <image src="{{item.pic}}" class="image"/>
            </view>
            <view class="goods-title">{{item.name}}</view>
-           <view class="goods-price">¥ {{item.minPrice}}</view>
+           <view class="goods-price-box" >
+              <view class="goods-minPrice" style="width:55%;height:30px;">¥{{item.minPrice}}/斤</view>
+              <view class="goods-originalPrice" style="width:45%;height:30px;">¥{{item.originalPrice}}/斤</view>
+           </view>
+           <view class="sellInformation">
+              <view class="goodsSoldNumber" style="width:50%;">销量：</view>
+              <view class="goodsScore" style="width:50%;">评分：</view>
+           </view>
         </view>
     </view>
     <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>

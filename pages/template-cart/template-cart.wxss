@@ -4,6 +4,12 @@ page{
 .container{
     justify-content:initial;
 }
+.welcome{
+  font-size: 24rpx;
+  padding-top: 50rpx;
+  text-align: center;
+  color: #999;
+}
 .title-box{
     width: 100%;
     padding-top: 330rpx;

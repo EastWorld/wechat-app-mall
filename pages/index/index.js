@@ -60,6 +60,17 @@ Page({
     // console.log('e.detail.scrollTop:'+e.detail.scrollTop) ;
     // console.log('scrollTop:'+scrollTop)
   },
+  onPullDownRefresh() {
+    console.log('--------下拉刷新-------')
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onLoad()
+    wx.stopPullDownRefresh() //停止下拉刷新
+    wx.hideNavigationBarLoading() //完成停止加载
+  },
+  onReachBottom: function () {
+    console.log('首页ReachBottom')
+    wx.hideNavigationBarLoading() //完成停止加载
+  },
   onLoad: function () {
     console.log('onLoad')
     var that = this

@@ -9,6 +9,7 @@ Page({
     allGoodsPrice:0,
     yunPrice:0,
     allGoodsAndYunPrice:0,
+    totalPrice:0,
     goodsJsonStr:"",
     orderType:"", //订单类型，购物车下单或立即支付下单，默认是购物车，
 
@@ -76,7 +77,7 @@ Page({
       if (!that.data.curAddressData) {
         wx.hideLoading();
         wx.showModal({
-          title: '错误',
+          title: '收货地址为空',
           content: '请先设置您的收货地址！',
           showCancel: false
         })
@@ -241,9 +242,10 @@ Page({
     that.setData({
       isNeedLogistics: isNeedLogistics,
       allGoodsPrice: parseFloat(allGoodsPrice.toFixed(2)),
-      allGoodsAndYunPrice: parseFloat((allGoodsPrice + that.data.yunPrice).toFixed(2)),
+      allGoodsAndYunPrice: parseFloat((allGoodsPrice + that.data.yunPrice).toFixed(2)).toFixed(2),
       yunPrice: that.data.yunPrice,
-      goodsJsonStr: goodsJsonStr
+      goodsJsonStr: goodsJsonStr,
+      totalPrice: parseFloat((allGoodsPrice + that.data.yunPrice).toFixed(2)).toFixed(2)
     });
     that.getMyCoupons();
   },
@@ -285,14 +287,16 @@ Page({
     if (selIndex == -1) {
       this.setData({
         youhuijine: 0,
-        curCoupon:null
+        curCoupon:null,
+        totalPrice: parseFloat(this.data.allGoodsAndYunPrice).toFixed(2),
       });
       return;
     }
     console.log("selIndex:" + selIndex);
     this.setData({
       youhuijine: this.data.coupons[selIndex].money,
-      curCoupon: this.data.coupons[selIndex]
+      curCoupon: this.data.coupons[selIndex],
+      totalPrice: parseFloat(this.data.allGoodsAndYunPrice - this.data.coupons[selIndex].money).toFixed(2),
     });
   }
 })

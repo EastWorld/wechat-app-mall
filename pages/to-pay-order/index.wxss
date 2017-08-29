@@ -52,7 +52,7 @@ form{
     padding: 30rpx 0 25rpx 30rpx;
 }
 .goods-list  .a-goods{
-    width: 720rpx;
+    width: 690rpx;
     margin-left: 30rpx;
     display: flex;
     /*justify-content: space-between;*/
@@ -126,7 +126,6 @@ form{
 .peisong-way .right-text{
     font-size: 28rpx;
     color: #666;
-    padding-right: 30rpx;
 }
 .peisong-way .liuyan{
     width: 510rpx;

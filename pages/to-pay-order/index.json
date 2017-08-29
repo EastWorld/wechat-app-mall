@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText":  "待付款订单"
+    "navigationBarTitleText":  "待付款订单",
+    "enablePullDownRefresh": false
 }

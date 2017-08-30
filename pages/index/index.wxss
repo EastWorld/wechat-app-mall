@@ -77,8 +77,7 @@ swiper-item image {
 }
 .goods-box{
   width: 339rpx;
-  height: 475rpx;  /*435*/
-  border-radius: 2%;
+  height: 475rpx;
   background-color: #fff;
   overflow: hidden;
   margin-bottom: 24rpx;
@@ -105,7 +104,7 @@ swiper-item image {
 }
 .goods-box .goods-price-box{
   width: 339rpx;
-  height: 40rpx;
+  height: 45rpx;
   display: flex;  
   flex-direction: row;
   overflow: hidden;
@@ -114,7 +113,7 @@ swiper-item image {
 .goods-box .goods-price-box .goods-minPrice{
   overflow: hidden;
   font-size: 24rpx;
-  padding: 10rpx 0;
+  padding: 15rpx 0;
   text-align: left;
   margin-left: 24rpx;
   color: #e64340;
@@ -122,18 +121,18 @@ swiper-item image {
 .goods-box .goods-price-box .goods-originalPrice{
   overflow: hidden;
   font-size: 20rpx;
-  padding: 15rpx 0;
+  padding: 19rpx 0;
   text-align: right;
   margin-right: 24rpx;
   color: dimgrey;
   background: url(../../images/delLineBlack.png) 0 0 no-repeat;
-  background-position-y: 25rpx;
+  background-position-y: 30rpx;
   background-position-x: 38rpx;
   background-size: 120rpx 2rpx;
 }
 .goods-box .sellInformation{
   width: 339rpx;
-  height: 55rpx;
+  height: 50rpx;
   display: flex;  
   flex-direction: row;
   overflow: hidden;
@@ -151,8 +150,8 @@ swiper-item image {
   overflow: hidden;
   font-size: 24rpx;
   padding: 10rpx 0;
-  text-align: left;
-  margin-right: 24rpx;
+  text-align: right;
+  margin-right: 55rpx;
   color: #000;
 }
 .no-more-goods{

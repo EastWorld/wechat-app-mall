@@ -43,8 +43,8 @@
            </view>
            <view class="goods-title">{{item.name}}</view>
            <view class="goods-price-box" >
-              <view class="goods-minPrice" style="width:55%;height:30px;">¥{{item.minPrice}}/斤</view>
-              <view class="goods-originalPrice" style="width:45%;height:30px;">¥{{item.originalPrice}}/斤</view>
+              <view class="goods-minPrice" style="width:55%;height:30px;">¥{{item.minPrice}}/500g</view>
+              <view class="goods-originalPrice" style="width:45%;height:30px;">¥{{item.originalPrice}}/500g</view>
            </view>
            <view class="sellInformation">
               <view class="goodsSoldNumber" style="width:50%;">销量：</view>

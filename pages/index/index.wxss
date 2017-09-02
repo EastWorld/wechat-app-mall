@@ -40,10 +40,15 @@ swiper-item image {
   width: 10rpx;  
   opacity: 1;
 }
-
+.type-container{
+  width: 100%;
+  height: 90rpx;
+  background-color: #fff;
+  overflow: hidden;
+}
 .type-navbar{
   white-space: nowrap;
-  height: 88rpx;
+  height: 90rpx;
   width: 100%;
   background-color: #fff;
 }
@@ -55,32 +60,40 @@ swiper-item image {
 .type-box{
   width:160rpx;
   box-sizing: content-box;
-  font-size: 36rpx;
+  font-size: 24rpx;
   line-height: 84rpx;
   text-align: center;
   display: inline-block;
   overflow: hidden;
 }
 .type-navbar-item{
-  border-bottom: 4rpx solid #fff;
+  border-bottom: 6rpx solid #fff;
 }
 .type-item-on{
-  border-bottom: 4rpx solid #e64340;
+  border-bottom: 6rpx solid #e64340;
 }
 
 .goods-container{
-  display: flex;
+  /*display: flex;
   justify-content: space-between;  
   flex-wrap:wrap;
   box-sizing: content-box;
-  padding: 24rpx;
+  padding: 24rpx;*/
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 .goods-box{
+  float: left;
   width: 339rpx;
-  height: 475rpx;
+  height: 470rpx;
   background-color: #fff;
   overflow: hidden;
-  margin-bottom: 24rpx;
+  margin: 24rpx 0 0 24rpx;
+  border-right: 1px solid rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-left: 1px solid rgba(0,0,0,.15);
+  border-top: 1px solid rgba(0,0,0,.15);
 }
 .goods-box .img-box{
   width: 339rpx;
@@ -93,16 +106,41 @@ swiper-item image {
 }
 .goods-box .goods-title{
   width: 339rpx;
-  height: 24rpx;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  height: 40rpx;
   font-size: 24rpx;
   text-align: center;
-  padding: 12rpx 0 12rpx 0;
+  padding-top: 12rpx;
   color:#000;
 }
 .goods-box .goods-price-box{
+  width: 339rpx;
+  height: 40rpx;
+  display: flex;  
+  flex-direction: row;
+  overflow: hidden;
+  background: bisque;
+}
+.goods-box .goods-price-box .goods-minPrice{
+  height: 40rpx;
+  overflow: hidden;
+  font-size: 24rpx;
+  text-align: left;
+  padding-left: 24rpx;
+  padding-top: 8rpx;
+  color: #e64340;
+}
+.goods-box .goods-price-box .goods-originalPrice{
+  height: 40rpx;
+  overflow: hidden;
+  font-size: 20rpx;
+  text-align: right;
+  text-decoration: line-through;
+  padding-right: 24rpx;
+  padding-top: 12rpx;
+  color: dimgrey;
+  
+}
+.goods-box .sellInformation{
   width: 339rpx;
   height: 45rpx;
   display: flex;  
@@ -110,61 +148,27 @@ swiper-item image {
   overflow: hidden;
   background: bisque;
 }
-.goods-box .goods-price-box .goods-minPrice{
-  overflow: hidden;
-  font-size: 24rpx;
-  padding: 15rpx 0;
-  text-align: left;
-  margin-left: 24rpx;
-  color: #e64340;
-}
-.goods-box .goods-price-box .goods-originalPrice{
-  overflow: hidden;
-  font-size: 20rpx;
-  padding: 19rpx 0;
-  text-align: right;
-  margin-right: 24rpx;
-  color: dimgrey;
-  background: url(../../images/delLineBlack.png) 0 0 no-repeat;
-  background-position-y: 30rpx;
-  background-position-x: 38rpx;
-  background-size: 120rpx 2rpx;
-}
-.goods-box .sellInformation{
-  width: 339rpx;
-  height: 50rpx;
-  display: flex;  
-  flex-direction: row;
-  overflow: hidden;
-  background: bisque;
-}
 .goods-box .sellInformation .goodsSoldNumber{
   overflow: hidden;
-  font-size: 24rpx;
-  padding: 10rpx 0;
+  font-size: 20rpx;
+  padding: 5rpx 0;
   text-align: left;
   margin-left: 24rpx;
-  color: #000;
+  color: dimgrey;
 }
 .goods-box .sellInformation .goodsScore{
   overflow: hidden;
-  font-size: 24rpx;
-  padding: 10rpx 0;
-  text-align: right;
-  margin-right: 55rpx;
-  color: #000;
+  font-size: 20rpx;
+  padding: 5rpx 0;
+  text-align: left;
+  margin-left: 20rpx;
+  color: dimgrey;
 }
 .no-more-goods{
   text-align: center;
   font-size: 24rpx;
-  padding-bottom:48rpx; 
+  padding:24rpx 0; 
   color: #999;
-}
-.type-container{
-  width: 100%;
-  height: 88rpx;
-  background-color: #fff;
-  overflow: hidden;
 }
 .pos-fiexd{
   position: fixed;
@@ -176,25 +180,26 @@ swiper-item image {
   width: 100%;
   height: 200rpx;
   overflow: hidden;
-}
+  }
 .coupons-scroll{
   white-space: nowrap;
-  height: 200rpx;
+  height: 190rpx;
   width: 100%;
   background-color: #fff;
 }
 .coupons-item{
-  width:300rpx;
-  height: 163rpx;
+  width:250rpx;
+  height: 150rpx;
   margin: 10rpx;
-  border-radius: 2%;
   padding-top: 20rpx;
-  padding-left: 15rpx;
-  background-color: cornflowerblue; /*#f1a83b*/
+  padding-left: 25rpx;
   box-sizing: content-box;
   font-size: 20rpx;
   line-height: 35rpx;
   overflow: hidden;
   color: #fff;
   display: inline-block;
+  /*background-color: slategray; /*#f1a83b*/
+  background: url(https://cdn.it120.cc/apifactory/2017/08/30/2c0856238ce8b77d11dfeb55730ad332.png) 0 0 no-repeat;
+  background-size: 250rpx 150rpx;
 }

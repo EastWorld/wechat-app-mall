@@ -34,9 +34,9 @@ Page({
   },
   onLoad: function () {
       this.initEleWidth();
-      this.onshow();
+      this.onShow();
   },
-  onshow: function(){
+  onShow: function(){
       var shopList = [];
       // 获取购物车数据
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');

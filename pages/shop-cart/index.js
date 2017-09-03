@@ -253,6 +253,7 @@ Page({
       wx.showLoading();
       var that = this;
       if (this.data.goodsList.noSelect) {
+        wx.hideLoading();
         return;
       }
       // 重新计算价格，判断库存
@@ -265,6 +266,7 @@ Page({
         });
       }
       if (shopList.length == 0) {
+        wx.hideLoading();
         return;
       }
       var isFail = false;

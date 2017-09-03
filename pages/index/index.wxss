@@ -199,7 +199,7 @@ swiper-item image {
   overflow: hidden;
   color: #fff;
   display: inline-block;
-  /*background-color: slategray; /*#f1a83b*/
-  background: url(https://cdn.it120.cc/apifactory/2017/08/30/2c0856238ce8b77d11dfeb55730ad332.png) 0 0 no-repeat;
-  background-size: 250rpx 150rpx;
+  background-color: slategray; /*#f1a83b*/
+  /*background: url(https://cdn.it120.cc/apifactory/2017/08/30/2c0856238ce8b77d11dfeb55730ad332.png) 0 0 no-repeat;
+  background-size: 250rpx 150rpx;*/
 }

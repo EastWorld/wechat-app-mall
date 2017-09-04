@@ -17,6 +17,14 @@ import HtmlToJson from './html2json.js';
 /**
  * 配置及公有属性
  **/
+var realWindowWidth = 0;
+var realWindowHeight = 0;
+wx.getSystemInfo({
+  success: function (res) {
+    realWindowWidth = res.windowWidth
+    realWindowHeight = res.windowHeight
+  }
+})
 /**
  * 主函数入口区
  **/
@@ -70,18 +78,27 @@ function wxParseImgLoad(e) {
 // 假循环获取计算图片视觉最佳宽高
 function calMoreImageInfo(e, idx, that, bindName) {
   var temData = that.data[bindName];
-  if (temData.images.length == 0) {
+  if (!temData || temData.images.length == 0) {
     return;
   }
   var temImages = temData.images;
   //因为无法获取view宽度 需要自定义padding进行计算，稍后处理
   var recal = wxAutoImageCal(e.detail.width, e.detail.height,that,bindName); 
-  temImages[idx].width = recal.imageWidth;
-  temImages[idx].height = recal.imageheight; 
-  temData.images = temImages;
-  var bindData = {};
-  bindData[bindName] = temData;
-  that.setData(bindData);
+  // temImages[idx].width = recal.imageWidth;
+  // temImages[idx].height = recal.imageheight; 
+  // temData.images = temImages;
+  // var bindData = {};
+  // bindData[bindName] = temData;
+  // that.setData(bindData);
+  var index = temImages[idx].index
+  var key = `${bindName}`
+  for (var i of index.split('.')) key+=`.nodes[${i}]`
+  var keyW = key + '.width'
+  var keyH = key + '.height'
+  that.setData({
+    [keyW]: recal.imageWidth,
+    [keyH]: recal.imageheight,
+  })
 }
 
 // 计算视觉优先的图片宽高
@@ -90,26 +107,22 @@ function wxAutoImageCal(originalWidth, originalHeight,that,bindName) {
   var windowWidth = 0, windowHeight = 0;
   var autoWidth = 0, autoHeight = 0;
   var results = {};
-  wx.getSystemInfo({
-    success: function (res) {
-      var padding = that.data[bindName].view.imagePadding;
-      windowWidth = res.windowWidth-2*padding;
-      windowHeight = res.windowHeight;
-      //判断按照那种方式进行缩放
-      console.log("windowWidth" + windowWidth);
-      if (originalWidth > windowWidth) {//在图片width大于手机屏幕width时候
-        autoWidth = windowWidth;
-        console.log("autoWidth" + autoWidth);
-        autoHeight = (autoWidth * originalHeight) / originalWidth;
-        console.log("autoHeight" + autoHeight);
-        results.imageWidth = autoWidth;
-        results.imageheight = autoHeight;
-      } else {//否则展示原来的数据
-        results.imageWidth = originalWidth;
-        results.imageheight = originalHeight;
-      }
-    }
-  })
+  var padding = that.data[bindName].view.imagePadding;
+  windowWidth = realWindowWidth-2*padding;
+  windowHeight = realWindowHeight;
+  //判断按照那种方式进行缩放
+  // console.log("windowWidth" + windowWidth);
+  if (originalWidth > windowWidth) {//在图片width大于手机屏幕width时候
+    autoWidth = windowWidth;
+    // console.log("autoWidth" + autoWidth);
+    autoHeight = (autoWidth * originalHeight) / originalWidth;
+    // console.log("autoHeight" + autoHeight);
+    results.imageWidth = autoWidth;
+    results.imageheight = autoHeight;
+  } else {//否则展示原来的数据
+    results.imageWidth = originalWidth;
+    results.imageheight = originalHeight;
+  }
   return results;
 }
 

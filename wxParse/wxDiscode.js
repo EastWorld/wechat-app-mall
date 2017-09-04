@@ -111,6 +111,7 @@ function strcharacterDiscode(str){
 
     str = str.replace(/&lt;/g, '<');
     str = str.replace(/&gt;/g, '>');
+    str = str.replace(/&#8226;/g, '•');
 
     return str;
 }
@@ -170,7 +171,7 @@ function strOtherDiscode(str){
     str = str.replace(/&hearts;/g, '♥');
 
     str = str.replace(/&diams;/g, '♦');
-
+    str = str.replace(/&#39;/g, '\'');
     return str;
 }
 

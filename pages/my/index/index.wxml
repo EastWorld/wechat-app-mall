@@ -1,0 +1,77 @@
+<view class="container">
+  <view  bindtap="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+	<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+  </view>
+  <view class="user-menu">
+    <view class="item">
+      <navigator url="/pages/order-list/index" hover-class="none" class="a">
+        <text class="icon order"></text>
+        <text class="txt">我的订单</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="/pages/ucenter/collect/collect" hover-class="none" class="a">
+        <text class="icon address"></text>
+        <text class="txt">我的收藏</text>
+      </navigator>
+    </view>
+    <view class="item no-border">
+      <navigator url="/pages/ucenter/footprint/footprint" hover-class="none" class="a">
+        <text class="icon security"></text>
+        <text class="txt">我的足迹</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="/pages/mycoupons/index" hover-class="none" class="a">
+        <text class="icon coupon"></text>
+        <text class="txt">优惠券</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="url" hover-class="none" class="a">
+        <text class="icon gift"></text>
+        <text class="txt">礼品卡</text>
+      </navigator>
+    </view>
+    <view class="item no-border">
+      <navigator url="url" hover-class="none" class="a">
+        <text class="icon kefu"></text>
+        <text class="txt">会员福利</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="/pages/select-address/index" hover-class="none" class="a"> 
+        <text class="icon address"></text>
+        <text class="txt">地址管理</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="url" hover-class="none" class="a">
+        <text class="icon security"></text>
+        <text class="txt">账号安全</text>
+      </navigator>
+    </view>
+    <view class="item no-border">
+      <navigator url="url" hover-class="none" class="a">
+          <text class="icon kefu"></text>
+          <text class="txt">联系客服</text>
+      </navigator>
+    </view>
+    <view class="item item-bottom">
+      <navigator url="/pages/ucenter/feedback/feedback" hover-class="none" class="a">
+        <text class="icon feedback"></text>
+        <text class="txt">意见反馈</text>
+      </navigator>
+    </view>
+    <view class="item item-bottom" bindtap="aboutTianGuoGuo">
+      <navigator url="url" hover-class="navigator-hover" class="a">
+        <text class="icon help"></text>
+        <text class="txt">关于我们</text>
+      </navigator>
+    </view>
+    <view class="item no-border-bottom"></view>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="version">Powered by EastWorld v {{version}}</view>
+</view>

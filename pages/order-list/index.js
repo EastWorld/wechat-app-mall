@@ -2,15 +2,15 @@ var wxpay = require('../../utils/pay.js')
 var app = getApp()
 Page({
   data:{
-    statusType:["全部","待付款","待发货","待收货","已完成"],
-    currentTpye:0,
+    statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
+    currentType:0,
     tabClass: ["", "", "", "", ""]
   },
   statusTap:function(e){
      var curType =  e.currentTarget.dataset.index;
-     this.data.currentTpye = curType
+     this.data.currentType = curType
      this.setData({
-      currentTpye:curType
+       currentType:curType
      });
      this.onShow();
   },
@@ -69,16 +69,29 @@ Page({
         if (res.data.code == 0) {
           var tabClass = that.data.tabClass;
           if (res.data.data.count_id_no_pay > 0) {
-            tabClass[1] = "red-dot"
+            tabClass[0] = "red-dot"
+          } else {
+            tabClass[0] = ""
           }
           if (res.data.data.count_id_no_transfer > 0) {
-            tabClass[2] = "red-dot"
+            tabClass[1] = "red-dot"
+          } else {
+            tabClass[1] = ""
           }
           if (res.data.data.count_id_no_confirm > 0) {
+            tabClass[2] = "red-dot"
+          } else {
+            tabClass[2] = ""
+          }
+          if (res.data.data.count_id_no_reputation > 0) {
             tabClass[3] = "red-dot"
+          } else {
+            tabClass[3] = ""
           }
           if (res.data.data.count_id_success > 0) {
-            tabClass[4] = "red-dot"
+            //tabClass[4] = "red-dot"
+          } else {
+            //tabClass[4] = ""
           }
 
           that.setData({
@@ -95,18 +108,7 @@ Page({
     var postData = {
       token: app.globalData.token
     };
-    if (that.data.currentTpye == 1) {
-      postData.status = 0
-    }
-    if (that.data.currentTpye == 2) {
-      postData.status = 1
-    }
-    if (that.data.currentTpye == 3) {
-      postData.status = 2
-    }
-    if (that.data.currentTpye == 4) {
-      postData.status = 4
-    }
+    postData.status = that.data.currentType;
     this.getOrderStatistics();
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/list',

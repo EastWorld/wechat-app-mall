@@ -1,7 +1,6 @@
 //app.js
 App({
   onLaunch: function () {
-    console.log('test');
     var that = this;
     //  获取商城名称
     wx.request({
@@ -10,7 +9,11 @@ App({
         key: 'mallName'
       },
       success: function(res) {
-        wx.setStorageSync('mallName', res.data.data.value);
+        if (res.data.code == 0) {
+          wx.setStorageSync('mallName', res.data.data.value);
+        } else {
+          wx.setStorageSync('mallName', "系统参数 mallName 未设置");
+        }
       }
     })
     this.login();
@@ -88,6 +91,6 @@ App({
   globalData:{
     userInfo:null,
     subDomain: "mall",
-    version: "1.4.0"
+    version: "1.5.0"
   }
 })

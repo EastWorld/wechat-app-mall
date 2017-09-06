@@ -4,7 +4,7 @@
    <view class="swiper-container">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-            <block wx:for="{{banners}}">
+            <block wx:for="{{banners}}" wx:key="id">
                 <swiper-item>
                     <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" class="slide-image" width="750rpx" height="562.5rpx"/>
                 </swiper-item>
@@ -18,7 +18,7 @@
    </view>
     <view class="type-container">
         <scroll-view class="type-navbar" scroll-x="true">
-            <view class="type-box" wx:for-items="{{categories}}">
+            <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
                 <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
                     {{item.name}}
                 </view>
@@ -27,7 +27,7 @@
     </view>
     <view class="coupons" hidden="{{hasNoCoupons}}">
         <scroll-view class="coupons-scroll" scroll-x="true">
-            <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx"  bindtap="gitCoupon" data-id="{{item.id}}">
+            <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id"  bindtap="gitCoupon" data-id="{{item.id}}">
                <view style="font-size: 35rpx"> ￥ {{item.moneyMax}}元 </view>
                <view> {{item.name}} </view>
                <view> 满 {{item.moneyHreshold}} 元使用 </view>

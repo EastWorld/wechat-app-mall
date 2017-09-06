@@ -56,10 +56,11 @@ swiper-item image {
 }
 .goods-info .goods-price{
    box-sizing:border-box;
-   padding: 0 35rpx;
    color:#e64340;
    font-size: 28rpx;
    font-weight: bold;
+   width: 30%;
+   float:left;
 }
 .row-arrow{
   width: 100%;

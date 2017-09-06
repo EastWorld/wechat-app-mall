@@ -83,24 +83,48 @@ Page({
                   orderId: orderId
                 },
                 success: (res) => {
-                  wx.request({
-                    url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/reputation',
-                    data: {
-                      token: app.globalData.token,
-                      orderId: orderId,
-                      reputation:2
-                    },
-                    success: (res) => {
-                      wx.hideLoading();
-                      if (res.data.code == 0) {
-                        that.onShow();
-                      }
-                    }
-                  })
+                  if (res.data.code == 0) {
+                    that.onShow();
+                  }
                 }
               })
             }
           }
+      })
+    },
+    submitReputation: function (e) {
+      var that = this;
+      var postJsonString = {};
+      postJsonString.token = app.globalData.token;
+      postJsonString.orderId = this.data.orderId;
+      var reputations = [];
+      var i = 0;
+      while (e.detail.value["orderGoodsId" + i]) {
+        var orderGoodsId = e.detail.value["orderGoodsId" + i];
+        var goodReputation = e.detail.value["goodReputation" + i];
+        var goodReputationRemark = e.detail.value["goodReputationRemark" + i];
+
+        var reputations_json = {};
+        reputations_json.id = orderGoodsId;
+        reputations_json.reputation = goodReputation;
+        reputations_json.remark = goodReputationRemark;
+
+        reputations.push(reputations_json);
+        i++;
+      }
+      postJsonString.reputations = reputations;
+      wx.showLoading();
+      wx.request({
+        url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/reputation',
+        data: {
+          postJsonString: postJsonString
+        },
+        success: (res) => {
+          wx.hideLoading();
+          if (res.data.code == 0) {
+            that.onShow();
+          }
+        }
       })
     }
 })

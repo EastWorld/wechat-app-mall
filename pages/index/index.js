@@ -61,7 +61,6 @@ Page({
     // console.log('scrollTop:'+scrollTop)
   },
   onLoad: function () {
-    console.log('onLoad')
     var that = this
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
@@ -76,22 +75,32 @@ Page({
     })
     */
     wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/banner/list',
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/banner/list',
       data: {
         key: 'mallName'
       },
       success: function(res) {
-        that.setData({
-          banners: res.data.data
-        });
+        if (res.data.code == 404) {
+          wx.showModal({
+            title: '提示',
+            content: '请在后台添加 banner 轮播图片',
+            showCancel: false
+          })
+        } else {
+          that.setData({
+            banners: res.data.data
+          });
+        }
       }
     })
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/category/all',
       success: function(res) {
         var categories = [{id:0, name:"全部"}];
-        for(var i=0;i<res.data.data.length;i++){
-          categories.push(res.data.data[i]);
+        if (res.data.code == 0) {
+          for (var i = 0; i < res.data.data.length; i++) {
+            categories.push(res.data.data[i]);
+          }
         }
         that.setData({
           categories:categories,

@@ -3,7 +3,7 @@
    <view class="swiper-container">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-            <block wx:for="{{goodsDetail.pics}}">
+            <block wx:for="{{goodsDetail.pics}}" wx:key="id">
                 <swiper-item>
                     <image src="{{item.pic}}" class="slide-image" width="355" height="150"/>
                 </swiper-item>
@@ -17,7 +17,9 @@
    </view>
    <view class="goods-info">
         <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
-        <view class="goods-price">¥ {{selectSizePrice}}</view>
+        <view class="goods-price" style="padding-left:35rpx;">¥ {{selectSizePrice}}</view>
+        <view class="goods-price" style="color:#999;font-size:24rpx;">购买{{goodsDetail.basicInfo.numberOrders}}次</view>
+        <view class="goods-price" style="color:#999;font-size:24rpx;">共收到 {{goodsDetail.basicInfo.numberGoodReputation}} 次好评</view>
    </view>
    <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
       {{selectSize}}
@@ -27,6 +29,19 @@
         <view class="goods-text">
             <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
          </view>
+    </view>
+    <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{reputation}}">
+        <view class="label-title" style="border-bottom:1px solid #eee;">大家评价<text style="color:red">（{{reputation.length}}）</text></view>
+        <view class="goods-text" style="margin-top:15rpx;" wx:for="{{reputation}}" wx:key="id">
+          <view style="width:100rpx;float:left;">
+            <image style="width: 100rpx; height: 100rpx;" src="{{item.user.avatarUrl}}"></image>
+            <view style="text-align:center;width:100rpx;">{{item.goods.goodReputationStr}}</view>
+          </view>
+          <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
+            <view>{{item.goods.goodReputationRemark}}</view>
+            <view style="color: #B0B0B0;font-size:24rpx;">{{item.goods.dateReputation}}     {{item.goods.property}}</view>
+          </view>
+        </view>
     </view>
     <view class="footer-box">        
         <view class="contact">
@@ -54,10 +69,10 @@
                 <view class="pop-goods-close" bindtap="closePopupTap"></view>
              </view>
              <view class="size-label-box">
-                <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx">
+                <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
                 <view class="label">{{property.name}}</view> 
                 <view class="label-item-box">
-                    <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}" data-propertychildindex="{{index}}" data-propertychildid="{{item.id}}" data-propertychildname="{{item.name}}">
+                    <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}" data-propertychildindex="{{index}}" data-propertychildid="{{item.id}}" data-propertychildname="{{item.name}}">
                         {{item.name}}
                     </view> 
                 </view>

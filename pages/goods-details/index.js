@@ -34,13 +34,11 @@ Page({
     })  
   },
   onLoad: function (e) {
-    console.log('onLoad');
     var that = this;
     // 获取购物车数据
     wx.getStorage({
       key: 'shopCarInfo',
       success: function(res) {
-        console.log(res.data)
         that.setData({
           shopCarInfo:res.data,
           shopNum:res.data.shopNum
@@ -74,7 +72,7 @@ Page({
         WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
       }
     })
-
+    this.reputation(e.id);
   },
   goShopCar: function () {
     wx.reLaunch({
@@ -394,5 +392,22 @@ Page({
         // 转发失败
       }
     }
+  },
+  reputation: function (goodsId) {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/reputation',
+      data: {
+        goodsId: goodsId
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          console.log(res.data.data);
+          that.setData({
+            reputation: res.data.data
+          });
+        }
+      }
+    })
   }
 })

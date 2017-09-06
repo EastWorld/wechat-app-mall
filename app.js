@@ -90,7 +90,7 @@ App({
   },  
   globalData:{
     userInfo:null,
-    subDomain: "mall",
+    subDomain: "tianguoguoxiaopu",
     version: "1.5.0"
   }
 })

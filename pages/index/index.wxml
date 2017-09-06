@@ -16,16 +16,7 @@
             </block>  
         </view>  
    </view>
-    <view class="type-container">
-        <scroll-view class="type-navbar" scroll-x="true">
-            <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
-                <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
-                    {{item.name}}
-                </view>
-            </view>
-        </scroll-view>
-    </view>
-    <view class="coupons" hidden="{{hasNoCoupons}}">
+   <view class="coupons" hidden="{{hasNoCoupons}}">
         <scroll-view class="coupons-scroll" scroll-x="true">
             <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id"  bindtap="gitCoupon" data-id="{{item.id}}">
                <view style="font-size: 35rpx"> ￥ {{item.moneyMax}}元 </view>
@@ -36,14 +27,30 @@
             </view>
         </scroll-view>
     </view>
+    <view class="type-container">
+        <scroll-view class="type-navbar" scroll-x="true">
+            <view class="type-box" wx:for-items="{{categories}}">
+                <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+                    {{item.name}}
+                </view>
+            </view>
+        </scroll-view>
+    </view>
     <view class="goods-container">
         <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
            <view class="img-box">
               <image src="{{item.pic}}" class="image"/>
            </view>
            <view class="goods-title">{{item.name}}</view>
-           <view class="goods-price">¥ {{item.minPrice}}</view>
+           <view class="goods-price-box" >
+              <view class="goods-minPrice" style="width:55%;height:30px;">¥{{item.minPrice}}/500g</view>
+              <view class="goods-originalPrice" style="width:45%;height:30px;">¥{{item.originalPrice}}/500g</view>
+           </view>
+           <view class="sellInformation">
+              <view class="goodsSoldNumber" style="width:50%;">销量：</view>
+              <view class="goodsScore" style="width:50%;">评分：</view>
+           </view>
         </view>
     </view>
-    <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+    <view class="no-more-goods">---------- 没有更多啦 ----------</view>
 </view>

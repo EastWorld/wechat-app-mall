@@ -5,6 +5,17 @@ Page({
   data: {
     coupons:[]
   },
+  onPullDownRefresh() {
+    console.log('--------下拉刷新-------')
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onShow()
+    wx.stopPullDownRefresh() //停止下拉刷新
+    wx.hideNavigationBarLoading() //完成停止加载
+  },
+  onReachBottom: function () {
+    console.log('首页ReachBottom')
+    wx.hideNavigationBarLoading() //完成停止加载
+  },
   onLoad: function () {
   },
   onShow : function () {

@@ -10,14 +10,14 @@
 }
 .swiper_box {
   width: 100%;
-  height:562.5rpx;
+  height:350rpx;  /* 562.5 */
 }
 
 swiper-item image {
   width: 100%;
   display: inline-block;
   overflow: hidden;
-  height:562.5rpx;
+  height:350rpx;  /* 562.5 */
 }
 .swiper-container .dots{  
   position: absolute;  
@@ -29,21 +29,26 @@ swiper-item image {
 }  
 .swiper-container .dots .dot{  
   margin: 0 8rpx;  
-  width: 14rpx;  
-  height: 14rpx;  
+  width: 20rpx;  
+  height: 10rpx;  
   background: #fff;  
-  border-radius: 50%;  
+  border-radius: 5%;  
   transition: all .6s;  
   opacity: .5;
 }  
 .swiper-container .dots .dot.active{  
-  width: 14rpx;  
+  width: 10rpx;  
   opacity: 1;
 }
-
+.type-container{
+  width: 100%;
+  height: 90rpx;
+  background-color: #fff;
+  overflow: hidden;
+}
 .type-navbar{
   white-space: nowrap;
-  height: 88rpx;
+  height: 90rpx;
   width: 100%;
   background-color: #fff;
 }
@@ -62,25 +67,33 @@ swiper-item image {
   overflow: hidden;
 }
 .type-navbar-item{
-  border-bottom: 4rpx solid #fff;
+  border-bottom: 6rpx solid #fff;
 }
 .type-item-on{
-  border-bottom: 4rpx solid #e64340;
+  border-bottom: 6rpx solid #e64340;
 }
 
 .goods-container{
-  display: flex;
+  /*display: flex;
   justify-content: space-between;  
   flex-wrap:wrap;
   box-sizing: content-box;
-  padding: 24rpx;
+  padding: 24rpx;*/
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 .goods-box{
+  float: left;
   width: 339rpx;
-  height: 472rpx;
+  height: 470rpx;
   background-color: #fff;
   overflow: hidden;
-  margin-bottom: 24rpx;
+  margin: 24rpx 0 0 24rpx;
+  border-right: 1px solid rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-left: 1px solid rgba(0,0,0,.15);
+  border-top: 1px solid rgba(0,0,0,.15);
 }
 .goods-box .img-box{
   width: 339rpx;
@@ -92,34 +105,70 @@ swiper-item image {
    height: 339rpx;
 }
 .goods-box .goods-title{
-  width: 280rpx;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  width: 339rpx;
+  height: 40rpx;
   font-size: 24rpx;
-  padding: 24rpx 0 0rpx 0;
+  text-align: center;
+  padding-top: 12rpx;
   color:#000;
-  margin-left: 24rpx;
 }
-.goods-box .goods-price{
-  width: 280rpx;
+.goods-box .goods-price-box{
+  width: 339rpx;
+  height: 40rpx;
+  display: flex;  
+  flex-direction: row;
+  overflow: hidden;
+  background: bisque;
+}
+.goods-box .goods-price-box .goods-minPrice{
+  height: 40rpx;
   overflow: hidden;
   font-size: 24rpx;
-  padding: 24rpx 0;
-  color:#e64340;
+  text-align: left;
+  padding-left: 24rpx;
+  padding-top: 8rpx;
+  color: #e64340;
+}
+.goods-box .goods-price-box .goods-originalPrice{
+  height: 40rpx;
+  overflow: hidden;
+  font-size: 20rpx;
+  text-align: right;
+  text-decoration: line-through;
+  padding-right: 24rpx;
+  padding-top: 12rpx;
+  color: dimgrey;
+  
+}
+.goods-box .sellInformation{
+  width: 339rpx;
+  height: 45rpx;
+  display: flex;  
+  flex-direction: row;
+  overflow: hidden;
+  background: bisque;
+}
+.goods-box .sellInformation .goodsSoldNumber{
+  overflow: hidden;
+  font-size: 20rpx;
+  padding: 5rpx 0;
+  text-align: left;
   margin-left: 24rpx;
+  color: dimgrey;
+}
+.goods-box .sellInformation .goodsScore{
+  overflow: hidden;
+  font-size: 20rpx;
+  padding: 5rpx 0;
+  text-align: left;
+  margin-left: 20rpx;
+  color: dimgrey;
 }
 .no-more-goods{
   text-align: center;
   font-size: 24rpx;
-  padding-bottom:48rpx; 
+  padding:24rpx 0; 
   color: #999;
-}
-.type-container{
-  width: 100%;
-  height: 88rpx;
-  background-color: #fff;
-  overflow: hidden;
 }
 .pos-fiexd{
   position: fixed;
@@ -129,26 +178,28 @@ swiper-item image {
 .coupons{
   margin-top:10rpx;
   width: 100%;
-  height: 180rpx;
+  height: 200rpx;
   overflow: hidden;
-}
+  }
 .coupons-scroll{
   white-space: nowrap;
-  height: 180rpx;
+  height: 190rpx;
   width: 100%;
   background-color: #fff;
 }
 .coupons-item{
-  width:300rpx;
-  height: 180rpx;
+  width:250rpx;
+  height: 150rpx;
   margin: 10rpx;
   padding-top: 20rpx;
-  padding-left: 15rpx;
-  background-color: #f1a83b;
+  padding-left: 25rpx;
   box-sizing: content-box;
   font-size: 20rpx;
   line-height: 35rpx;
   overflow: hidden;
   color: #fff;
   display: inline-block;
+  background-color: slategray; /*#f1a83b*/
+  /*background: url(https://cdn.it120.cc/apifactory/2017/08/30/2c0856238ce8b77d11dfeb55730ad332.png) 0 0 no-repeat;
+  background-size: 250rpx 150rpx;*/
 }

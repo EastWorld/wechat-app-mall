@@ -155,6 +155,7 @@ Page({
     var goodsJsonStr = "[";
     var isNeedLogistics = 0;
     var allGoodsPrice = 0;
+    var logisticsMap = {};
 
     for (let i = 0; i < goodsList.length; i++) {
       let carShopBean = goodsList[i];
@@ -169,70 +170,91 @@ Page({
       }
       goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0}';
       goodsJsonStr += goodsJsonStrTmp;
-      
-      if (carShopBean.logistics && !carShopBean.logistics.isFree) {
-         // 计算应付运费金额
-          let districtId = that.getDistrictId(that.data.curAddressData, that.data.curAddressData.districtId);
-          wx.request({
-            url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/price/freight',
-            method: 'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            data: {
-              templateId: carShopBean.logisticsType,
-              type: 0,
-              provinceId: this.data.curAddressData.provinceId,
-              cityId: this.data.curAddressData.cityId,
-              districtId: districtId
-            }, // 设置请求的 参数
-            success: (res) => {
-              wx.hideLoading();
-              if (res.data.code != 0) {
-                wx.showModal({
-                  title: '错误',
-                  content: res.data.msg,
-                  showCancel: false
-                })
-                return;
-              }
-              let firstNumber = res.data.data.firstNumber;
-              let addAmount = res.data.data.addAmount;
-              let firstAmount = res.data.data.firstAmount;
-              let addNumber = res.data.data.addNumber;
-              if (carShopBean.logistics.feeType == 0) {
-                // 按件数 
-                let amountLogistics = firstAmount;
-                let numberLeft = carShopBean.number - firstNumber;
-                while (numberLeft > 0) {
-                  numberLeft = numberLeft - addNumber;
-                  amountLogistics = amountLogistics + addAmount;
-                }
-                that.data.yunPrice = that.data.yunPrice + amountLogistics;
-                that.setData({
-                  yunPrice: parseFloat((that.data.yunPrice).toFixed(2))
-                });
-              }
-              if (carShopBean.logistics.feeType == 1) {
-                // 按重量
-                let totleWeight = carShopBean.weight * carShopBean.number;
-                let amountLogistics = firstAmount;
-                let leftWeight = totleWeight- firstNumber;
-                while (leftWeight > 0) {
-                  leftWeight = leftWeight - addNumber;
-                  amountLogistics = amountLogistics + addAmount;
-                }
-                that.data.yunPrice = that.data.yunPrice + amountLogistics;
-                that.setData({
-                  yunPrice: parseFloat((that.data.yunPrice).toFixed(2))
-                });
-              }
-            }
-          })
-        // 计算运费结束    
+      //根据运费模板获取
+      var yunFeiObj = logisticsMap[carShopBean.logisticsType]; 
+      if (yunFeiObj == undefined){
+        yunFeiObj = {
+          logisticsType: carShopBean.logisticsType,
+          "number": carShopBean.number,
+          logistics: carShopBean.logistics,
+          totleWeight: carShopBean.weight * carShopBean.number
+        }
+        logisticsMap[carShopBean.logisticsType] = yunFeiObj;
+      }else{
+        //同类运费的商品数量相加
+        yunFeiObj.number = yunFeiObj.number + carShopBean.number;
+        //同类运费商量总量相加
+        yunFeiObj.totleWeight = yunFeiObj.totleWeight + carShopBean.weight * carShopBean.number;
       }
-      
+        
     }
+    for (var j in logisticsMap) {//不使用过滤
+      console.log(j, ":", logisticsMap[j]);
+      let yunFeiObj = logisticsMap[j];
+      if (yunFeiObj.logistics && !yunFeiObj.logistics.isFree) {
+        // 计算应付运费金额
+        let districtId = that.getDistrictId(that.data.curAddressData, that.data.curAddressData.districtId);
+        wx.request({
+          url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/price/freight',
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            templateId: yunFeiObj.logisticsType,
+            type: 0,
+            provinceId: this.data.curAddressData.provinceId,
+            cityId: this.data.curAddressData.cityId,
+            districtId: districtId
+          }, // 设置请求的 参数
+          success: (res) => {
+            wx.hideLoading();
+            if (res.data.code != 0) {
+              wx.showModal({
+                title: '错误',
+                content: res.data.msg,
+                showCancel: false
+              })
+              return;
+            }
+            let firstNumber = res.data.data.firstNumber;
+            let addAmount = res.data.data.addAmount;
+            let firstAmount = res.data.data.firstAmount;
+            let addNumber = res.data.data.addNumber;
+            if (yunFeiObj.logistics.feeType == 0) {
+              // 按件数 
+              let amountLogistics = firstAmount;
+              let numberLeft = yunFeiObj.number - firstNumber;
+              while (numberLeft > 0) {
+                numberLeft = numberLeft - addNumber;
+                amountLogistics = amountLogistics + addAmount;
+              }
+              that.data.yunPrice = that.data.yunPrice + amountLogistics;
+              that.setData({
+                yunPrice: parseFloat((that.data.yunPrice).toFixed(2))
+              });
+            }
+            if (yunFeiObj.logistics.feeType == 1) {
+              // 按重量
+              //let totleWeight = yunFeiObj.weight * yunFeiObj.number;
+              let totleWeight = yunFeiObj.totleWeight;
+              let amountLogistics = firstAmount;
+              let leftWeight = totleWeight - firstNumber;
+              while (leftWeight > 0) {
+                leftWeight = leftWeight - addNumber;
+                amountLogistics = amountLogistics + addAmount;
+              }
+              that.data.yunPrice = that.data.yunPrice + amountLogistics;
+              that.setData({
+                yunPrice: parseFloat((that.data.yunPrice).toFixed(2))
+              });
+            }
+          }
+        })
+        // 计算运费结束    
+      }      
+    } 
+
     goodsJsonStr += "]";
     console.log("isNeedLogistics:" + isNeedLogistics);
     console.log("allGoodsPrice:" + parseFloat(allGoodsPrice.toFixed(2)));

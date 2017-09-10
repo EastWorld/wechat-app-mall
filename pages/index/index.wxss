@@ -121,6 +121,24 @@ swiper-item image {
   background-color: #fff;
   overflow: hidden;
 }
+.notice{
+  width: 750rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-top: 10rpx;
+  padding-top: 15rpx;
+  padding-left: 35rpx;
+  padding-bottom: 15rpx;
+  background-color: #fff;
+}
+.notice navigator{
+  width: 750rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  overflow: hidden;
+  color:#e64340;
+}
 .pos-fiexd{
   position: fixed;
   top: 0;

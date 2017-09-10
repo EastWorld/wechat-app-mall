@@ -110,6 +110,7 @@ Page({
       }
     })
     that.getCoupons ();
+    that.getNotice ();
   },
   getGoodsList: function (categoryId) {
     if (categoryId == 0) {
@@ -220,5 +221,19 @@ Page({
         // 转发失败
       }
     }
+  },
+  getNotice: function () {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/notice/last-one',
+      data: {},
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.setData({
+            noticeMap: res.data.data
+          });
+        }
+      }
+    })
   }
 })

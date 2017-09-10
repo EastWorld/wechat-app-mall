@@ -10,7 +10,8 @@
     "pages/order-details/index",
     "pages/wuliu/index",
     "pages/mycoupons/index",
-    "pages/my/index"
+    "pages/my/index",
+    "pages/notice/show"
   ],
   "window":{
     "backgroundTextStyle":"light",

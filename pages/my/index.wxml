@@ -1,6 +1,6 @@
 <view class="container">
 	<view  bindtap="bindViewTap" class="userinfo">
-		<image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
 	</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>

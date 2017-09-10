@@ -48,7 +48,7 @@
           <picker-view indicator-style="height: 50rpx;" style="width: 100%; height: 150rpx;" value="0" bindchange="bindChangeCoupon">
             <picker-view-column>
               <view style="line-height: 50px">不使用优惠券</view>
-              <view wx:for="{{coupons}}" style="line-height: 50px">{{item.money}}元 {{item.name}}</view>
+              <view wx:for="{{coupons}}" wx:key="id" style="line-height: 50px">{{item.money}}元 {{item.name}}</view>
             </picker-view-column>
           </picker-view>
         </view>

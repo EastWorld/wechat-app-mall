@@ -25,8 +25,20 @@
             </view>
         </scroll-view>
     </view>
-    <view class="notice" wx:if="{{noticeMap}}">
-        <navigator url="/pages/notice/show?id={{noticeMap.id}}">公告：{{noticeMap.title}}</navigator>
+    <view class="notice">
+      <view class="notice_iteml">公告：</view>
+      <swiper wx:if="{{noticeMap}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="3000">
+        <navigator url="/pages/notice/show?id={{noticeMap.id}}" open-type="navigate">
+          <swiper-item >
+            <view class="notice_itemr">{{noticeMap.title}}</view>
+          </swiper-item>
+        </navigator>
+        <navigator url="/pages/notice/show?id={{noticeMap.id}}" open-type="navigate">
+          <swiper-item >
+            <view class="notice_itemr">{{noticeMap.title}}</view>
+          </swiper-item>
+        </navigator>
+      </swiper>
     </view>
     <view class="coupons" hidden="{{hasNoCoupons}}">
         <scroll-view class="coupons-scroll" scroll-x="true">

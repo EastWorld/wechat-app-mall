@@ -16,6 +16,7 @@
 ## 扫码体验
 
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
 
 ## 用户案例
 
@@ -113,6 +114,12 @@
 > 2、可选择退款至用户可用余额或者按照用户支付原路退还第三方或者银行卡；
 >
 > 3、如果选用原路退还，需要在商户号和秘钥设置的地方上传您的微信支付证书文件（PK12格式文件）
+- 如何设置满多少包邮？
+> 1、后台系统设置 --> 系统参数，增加系统参数；
+>
+> 2、参数名 free_shipping_for_purchases （注意不要有空格）
+>
+> 3、参数值填写您希望的买满金额即可
 
 ## 如何升级到最新版
 

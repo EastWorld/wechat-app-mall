@@ -25,7 +25,7 @@
             </view>
         </scroll-view>
     </view>
-    <view class="notice">
+    <view wx:if="{{noticeMap}}" class="notice">
       <view class="notice_iteml">公告：</view>
       <swiper wx:if="{{noticeMap}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="3000">
         <navigator url="/pages/notice/show?id={{noticeMap.id}}" open-type="navigate">

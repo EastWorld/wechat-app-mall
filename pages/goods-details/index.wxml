@@ -5,7 +5,7 @@
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
             <block wx:for="{{goodsDetail.pics}}" wx:key="id">
                 <swiper-item>
-                    <image src="{{item.pic}}" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true"/>
+                    <image src="{{item.pic}}_m" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true"/>
                 </swiper-item>
             </block>
         </swiper>

@@ -4,6 +4,14 @@
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
 	</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" style='background:none;'>
+    可用余额 {{balance}} 元， 冻结金额 {{freeze}} 元
+  </view>
+  <view class="my-item" style='background:none;display:flex;'>
+    <view>当前积分 {{score}} </view>
+    <button wx:if="{{score_sign_continuous == 0}}" style='height:80rpx;margin-right:70rpx;' bindtap="scoresign">每日签到</button>
+    <button wx:if="{{score_sign_continuous > 0}}" disabled='true' style='height:80rpx;margin-right:70rpx;'>已连续{{score_sign_continuous}}天签到</button>
+  </view>
   <view class="my-item">
     <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
   </view>

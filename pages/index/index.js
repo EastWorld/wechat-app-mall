@@ -186,6 +186,14 @@ Page({
           })
           return;
         }
+        if (res.data.code == 30001) {
+          wx.showModal({
+            title: '错误',
+            content: '您的积分不足',
+            showCancel: false
+          })
+          return;
+        }
         if (res.data.code == 20004) {
           wx.showModal({
             title: '错误',

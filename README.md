@@ -61,6 +61,8 @@
 >
 > > > 平台公告模块
 >
+> > > 每日签到【签到送积分】
+>
 > 修改源码中  app.js 文件
 > > > globalData:{
 >  userInfo:null,

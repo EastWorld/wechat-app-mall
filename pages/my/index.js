@@ -134,6 +134,7 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 0) {
+          that.getUserAmount();
           that.checkScoreSign();
         } else {
           wx.showModal({

@@ -11,8 +11,6 @@ App({
       success: function(res) {
         if (res.data.code == 0) {
           wx.setStorageSync('mallName', res.data.data.value);
-        } else {
-          wx.setStorageSync('mallName', "系统参数 mallName 未设置");
         }
       }
     })
@@ -59,6 +57,7 @@ App({
               })
               return;
             }
+            //console.log(res.data.data.token)
             that.globalData.token = res.data.data.token;
           }
         })

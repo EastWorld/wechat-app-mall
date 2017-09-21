@@ -8,14 +8,17 @@ Page({
     score_sign_continuous:0
   },
 	onLoad() {
+    
+	},	
+  onShow() {
     this.getUserInfo();
     this.setData({
       version: app.globalData.version
     });
-    this.getUserApiInfo ();
+    this.getUserApiInfo();
     this.getUserAmount();
     this.checkScoreSign();
-	},	
+  },	
   getUserInfo: function (cb) {
       var that = this
       wx.login({
@@ -142,6 +145,21 @@ Page({
             content: res.data.msg,
             showCancel: false
           })
+        }
+      }
+    })
+  },
+  relogin:function(){
+    var that = this;
+    app.globalData.token = null;
+    app.login();
+    wx.showModal({
+      title: '提示',
+      content: '重新登陆成功',
+      showCancel:false,
+      success: function (res) {
+        if (res.confirm) {
+          that.onShow();
         }
       }
     })

@@ -1,5 +1,5 @@
 <view class="container">
-	<view  bindtap="bindViewTap" class="userinfo">
+	<view class="userinfo">
 		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
 	</view>
@@ -30,6 +30,11 @@
   <view style="height:20rpx;background: #eee;width:100%;"></view>
   <view class="about" bindtap="aboutUs">
     关于我们
+  </view>
+
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" style="border:none;padding:0rpx;margin:0rpx;background:none;border:none;height:auto;line-height:auto;">
+    <button type="warn" bindtap="relogin">重新登录</button>
   </view>
   
   <view style="height:20rpx;background: #eee;width:100%;"></view>

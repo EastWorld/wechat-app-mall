@@ -402,7 +402,7 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 0) {
-          console.log(res.data.data);
+          //console.log(res.data.data);
           that.setData({
             reputation: res.data.data
           });

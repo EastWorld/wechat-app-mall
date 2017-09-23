@@ -220,7 +220,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: wx.getStorageSync('mallName'),
+      title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
       path: '/pages/index/index',
       success: function (res) {
         // 转发成功

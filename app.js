@@ -48,7 +48,7 @@ App({
               return;
             }
             if (res.data.code != 0) {
-              // 登录错误 
+              // 登录错误
               wx.hideLoading();
               wx.showModal({
                 title: '提示',
@@ -86,7 +86,7 @@ App({
         })
       }
     })
-  },  
+  },
   sendTempleMsg: function (orderId, trigger, template_id, form_id, page, postJsonString){
     var that = this;
     wx.request({
@@ -107,9 +107,9 @@ App({
         postJsonString: postJsonString
       },
       success: (res) => {
-        console.log('*********************');
-        console.log(res.data);
-        console.log('*********************');
+        //console.log('*********************');
+        //console.log(res.data);
+        //console.log('*********************');
       }
     })
   },

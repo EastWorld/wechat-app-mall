@@ -54,6 +54,14 @@ swiper-item image {
   color: #000;
   margin-bottom: 28rpx;
 }
+.goods-info .goods-share{
+  box-sizing: border-box;
+  padding: 0 35rpx;
+  font-size: 25rpx;
+  line-height: 1.4;
+  color: #CC0000;
+  margin-bottom: 28rpx;
+}
 .goods-info .goods-price{
    box-sizing:border-box;
    color:#e64340;

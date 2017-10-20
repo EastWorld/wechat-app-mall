@@ -19,7 +19,7 @@ Page({
   },
   onShow : function () {
     var that = this;
-    var shopList = [];   
+    var shopList = [];
     //立即购买下单
     if ("buyNow"==that.data.orderType){
       var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
@@ -39,16 +39,16 @@ Page({
     that.setData({
       goodsList: shopList,
     });
-    that.initShippingAddress();    
+    that.initShippingAddress();
   },
-  
+
   onLoad: function (e) {
     var that = this;
     //显示收货地址标识
     that.setData({
       isNeedLogistics: 1,
       orderType: e.orderType
-    });  
+    });
   },
 
   getDistrictId : function (obj, aaa){
@@ -120,7 +120,7 @@ Page({
           })
           return;
         }
-        
+
         if (e && "buyNow" != that.data.orderType) {
           // 清空购物车数据
           wx.removeStorageSync('shopCarInfo');
@@ -174,7 +174,7 @@ Page({
         }else{
           that.setData({
             curAddressData: null
-          });          
+          });
         }
         that.processYunfei();
       }
@@ -209,11 +209,11 @@ Page({
 
       goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id +'}';
       goodsJsonStr += goodsJsonStrTmp;
-      
-      
+
+
     }
     goodsJsonStr += "]";
-    console.log(goodsJsonStr);
+    //console.log(goodsJsonStr);
     that.setData({
       isNeedLogistics: isNeedLogistics,
       goodsJsonStr: goodsJsonStr

@@ -34,6 +34,12 @@ Page({
     })  
   },
   onLoad: function (e) {
+    if (e.inviter_id) {
+      wx.setStorage({
+        key: 'inviter_id_' + e.id,
+        data: e.inviter_id
+      })
+    }
     var that = this;
     // 获取购物车数据
     wx.getStorage({
@@ -384,7 +390,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + app.globalData.uid,
       success: function (res) {
         // 转发成功
       },

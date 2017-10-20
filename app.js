@@ -57,8 +57,9 @@ App({
               })
               return;
             }
-            //console.log(res.data.data.token)
+            //console.log(res.data.data)
             that.globalData.token = res.data.data.token;
+            that.globalData.uid = res.data.data.uid;
           }
         })
       }

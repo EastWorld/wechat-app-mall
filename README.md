@@ -113,6 +113,8 @@
 > 2、参数名 free_shipping_for_purchases （注意不要有空格）
 >
 > 3、参数值填写您希望的买满金额即可
+- [“规格与尺寸”怎么玩](https://www.it120.cc/info/faq/1208)
+- [如何设置用户提现手续费](https://www.it120.cc/info/faq/1589)
 
 ## 如何升级到最新版
 

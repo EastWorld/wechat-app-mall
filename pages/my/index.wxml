@@ -4,8 +4,14 @@
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
 	</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="my-item" style='background:none;'>
-    可用余额 {{balance}} 元， 冻结金额 {{freeze}} 元
+  <view class="my-item" style='background:none;display:flex;flex-direction:column;height:auto;'>
+    <view>
+      余额 {{balance}} 元， 冻结 {{freeze}} 元
+    </view>
+    <view style='display:flex;padding-bottom:20rpx;'>
+      <button type='primary' style='width:100%;margin-right:70rpx;' bindtap="recharge">充值</button>
+      <button type='warn' style='width:100%;margin-right:70rpx;' bindtap="withdraw">提现</button>
+    </view>
   </view>
   <view class="my-item" style='background:none;display:flex;'>
     <view>当前积分 {{score}} </view>

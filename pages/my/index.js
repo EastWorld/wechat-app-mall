@@ -163,5 +163,15 @@ Page({
         }
       }
     })
+  },
+  recharge: function () {
+    wx.navigateTo({
+      url: "/pages/recharge/index"
+    })
+  },
+  withdraw: function () {
+    wx.navigateTo({
+      url: "/pages/withdraw/index"
+    })
   }
 })

@@ -11,7 +11,9 @@
     "pages/wuliu/index",
     "pages/mycoupons/index",
     "pages/my/index",
-    "pages/notice/show"
+    "pages/notice/show",
+    "pages/recharge/index",
+    "pages/withdraw/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

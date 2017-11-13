@@ -18,7 +18,6 @@
 <p>
 <img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">
 <img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/09/03/697ee3f23484f96f6e86e0eea2a93a1a.jpeg" width="200px">
 </p>
 
 ## 使用说明

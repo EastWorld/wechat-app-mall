@@ -16,7 +16,6 @@
 ## 扫码体验
 
 <p>
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">
 <img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
 </p>
 
@@ -114,6 +113,7 @@
 > 3、参数值填写您希望的买满金额即可
 - [“规格与尺寸”怎么玩](https://www.it120.cc/info/faq/1208)
 - [如何设置用户提现手续费](https://www.it120.cc/info/faq/1589)
+- [商品如何显示视频？](https://www.it120.cc/info/wxapp/1802)
 
 ## 如何升级到最新版
 

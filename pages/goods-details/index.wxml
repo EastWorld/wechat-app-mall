@@ -1,6 +1,6 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class="container"> 
-   <view class="swiper-container">
+   <view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
             <block wx:for="{{goodsDetail.pics}}" wx:key="id">
@@ -14,6 +14,9 @@
                 <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
             </block>  
         </view>  
+   </view>
+   <view class="swiper-container" wx:if="{{goodsDetail.basicInfo.videoId}}">
+        <video src="{{videoMp4Src}}"></video>
    </view>
    <view class="goods-info">
         <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>

@@ -113,7 +113,8 @@
 > 3、参数值填写您希望的买满金额即可
 - [“规格与尺寸”怎么玩](https://www.it120.cc/info/faq/1208)
 - [如何设置用户提现手续费](https://www.it120.cc/info/faq/1589)
-- [商品如何显示视频？](https://www.it120.cc/info/wxapp/1802)
+- [商品如何显示视频？](https://www.it120.cc/info/faq/1802)
+- [货到付款、积分赠送规则设置](https://www.it120.cc/notice/22)
 
 ## 如何升级到最新版
 

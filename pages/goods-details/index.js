@@ -69,6 +69,9 @@ Page({
           });
         }
         that.data.goodsDetail = res.data.data;
+        if (res.data.data.basicInfo.videoId) {
+          that.getVideoSrc(res.data.data.basicInfo.videoId);
+        }
         that.setData({
           goodsDetail:res.data.data,
           selectSizePrice:res.data.data.basicInfo.minPrice,
@@ -411,6 +414,22 @@ Page({
           //console.log(res.data.data);
           that.setData({
             reputation: res.data.data
+          });
+        }
+      }
+    })
+  },
+  getVideoSrc: function (videoId) {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/media/video/detail',
+      data: {
+        videoId: videoId
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.setData({
+            videoMp4Src: res.data.data.fdMp4
           });
         }
       }

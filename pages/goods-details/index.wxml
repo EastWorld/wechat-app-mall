@@ -16,7 +16,7 @@
         </view>  
    </view>
    <view class="swiper-container" wx:if="{{goodsDetail.basicInfo.videoId}}">
-        <video src="{{videoMp4Src}}"></video>
+        <video src="{{videoMp4Src}}" autoplay="true" loop="true" style='width:100%'></video>
    </view>
    <view class="goods-info">
         <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>

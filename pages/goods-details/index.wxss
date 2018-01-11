@@ -45,6 +45,44 @@ swiper-item image {
   padding: 35rpx 0;
   margin-bottom: 24rpx;
   width: 100%;
+  position: relative;
+}
+
+.goods-info-fx {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  right: 0;
+  top: 0;
+}
+
+.goods-info-fx button {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+}
+
+.goods-info-fx image {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin: 10px 10px 0 5px;
+}
+
+.goods-info-fx text {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  z-index: 1;
+  font-size: 10px;
+  text-align: center;
 }
 .goods-info .goods-title{
   box-sizing: border-box;

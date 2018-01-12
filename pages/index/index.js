@@ -18,7 +18,8 @@ Page({
     loadingMoreHidden:true,
 
     hasNoCoupons:true,
-    coupons: []
+    coupons: [],
+    searchInput: '',
   },
 
   tabClick: function (e) {
@@ -121,7 +122,8 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/list',
       data: {
-        categoryId: categoryId
+        categoryId: categoryId,
+        nameLike: that.data.searchInput
       },
       success: function(res) {
         that.setData({
@@ -243,5 +245,14 @@ Page({
         }
       }
     })
+  },
+  listenerSearchInput: function (e) {
+    this.setData({
+      searchInput: e.detail.value
+    })
+
+  },
+  toSearch : function (){
+    this.getGoodsList(this.data.activeCategoryId);
   }
 })

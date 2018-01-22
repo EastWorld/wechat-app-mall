@@ -13,7 +13,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let recharge_amount_min = app.globalData.recharge_amount_min;
+    if (!recharge_amount_min) {
+      recharge_amount_min = 0;
+    }
+    this.setData({
+      recharge_amount_min: recharge_amount_min
+    });
   },
 
   /**
@@ -75,6 +81,14 @@ Page({
       wx.showModal({
         title: '错误',
         content: '请填写正确的充值金额',
+        showCancel: false
+      })
+      return
+    }
+    if (amount * 1 < that.data.recharge_amount_min*1) {
+      wx.showModal({
+        title: '错误',
+        content: '单次充值金额至少' + that.data.recharge_amount_min +'元',
         showCancel: false
       })
       return

@@ -15,13 +15,13 @@ App({
       }
     })
     wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/config/get-value',
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/score/send/rule',
       data: {
-        key: 'order_reputation_score'
+        code: 'goodReputation'
       },
       success: function (res) {
         if (res.data.code == 0) {
-          that.globalData.order_reputation_score = res.data.data.value;
+          that.globalData.order_reputation_score = res.data.data[0].score;
         }
       }
     })

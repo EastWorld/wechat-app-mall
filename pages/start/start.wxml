@@ -16,7 +16,7 @@
         <view class="confirm-btn" bindtap='goToIndex'>
           <text >进入店铺</text>
         </view>
-        <text class="copyright">感谢 @qindiandadudu 贡献本页代码</text>
+        <text class="copyright">@qindiandadudu 贡献本页代码</text>
       </view>
     </view>
   </block>

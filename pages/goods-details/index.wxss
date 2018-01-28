@@ -91,6 +91,7 @@ swiper-item image {
   line-height: 1.4;
   color: #000;
   margin-bottom: 28rpx;
+  padding-right: 60px;
 }
 .goods-info .goods-share{
   box-sizing: border-box;

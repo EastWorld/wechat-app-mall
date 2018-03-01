@@ -1,0 +1,14 @@
+<view class="container">
+    <form bindsubmit="bindSave">
+    <view class="form-box">
+        <view class="row-wrap">
+            <view class="label">充值金额</view>
+            <view class="label-right">
+                <input name="amount" class="input" type="text" placeholder="最少100元起"/>
+            </view>
+        </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">申请提现</button>
+    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
+    </form>
+</view>

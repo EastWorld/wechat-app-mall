@@ -34,6 +34,12 @@ Page({
     })  
   },
   onLoad: function (e) {
+    if (e.inviter_id) {
+      wx.setStorage({
+        key: 'inviter_id_' + e.id,
+        data: e.inviter_id
+      })
+    }
     var that = this;
     // 获取购物车数据
     wx.getStorage({
@@ -63,6 +69,9 @@ Page({
           });
         }
         that.data.goodsDetail = res.data.data;
+        if (res.data.data.basicInfo.videoId) {
+          that.getVideoSrc(res.data.data.basicInfo.videoId);
+        }
         that.setData({
           goodsDetail:res.data.data,
           selectSizePrice:res.data.data.basicInfo.minPrice,
@@ -384,7 +393,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + app.globalData.uid,
       success: function (res) {
         // 转发成功
       },
@@ -402,9 +411,25 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 0) {
-          console.log(res.data.data);
+          //console.log(res.data.data);
           that.setData({
             reputation: res.data.data
+          });
+        }
+      }
+    })
+  },
+  getVideoSrc: function (videoId) {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/media/video/detail',
+      data: {
+        videoId: videoId
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.setData({
+            videoMp4Src: res.data.data.fdMp4
           });
         }
       }

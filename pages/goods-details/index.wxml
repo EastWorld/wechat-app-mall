@@ -1,11 +1,11 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class="container"> 
-   <view class="swiper-container">
+   <view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
             <block wx:for="{{goodsDetail.pics}}" wx:key="id">
                 <swiper-item>
-                    <image src="{{item.pic}}" class="slide-image" width="355" height="150"/>
+                    <image src="{{item.pic}}_m" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true"/>
                 </swiper-item>
             </block>
         </swiper>
@@ -15,11 +15,21 @@
             </block>  
         </view>  
    </view>
+   <view class="swiper-container" wx:if="{{goodsDetail.basicInfo.videoId}}">
+        <video src="{{videoMp4Src}}" autoplay="true" loop="true" style='width:100%'></video>
+   </view>
    <view class="goods-info">
         <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
-        <view class="goods-price" style="padding-left:35rpx;">¥ {{selectSizePrice}}</view>
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
+    <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
+    <view class="goods-price" style="padding-left:35rpx;">¥ {{selectSizePrice}}</view>
         <view class="goods-price" style="color:#999;font-size:24rpx;">购买{{goodsDetail.basicInfo.numberOrders}}次</view>
         <view class="goods-price" style="color:#999;font-size:24rpx;">共收到 {{goodsDetail.basicInfo.numberGoodReputation}} 次好评</view>
+        <view class="goods-info-fx">
+          <image src='../../images/qd.png' />
+          <button open-type="share">分享</button>
+          <text>分享有赏</text>
+        </view>
    </view>
    <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
       {{selectSize}}
@@ -46,11 +56,11 @@
     <view class="footer-box">        
         <view class="contact">
           <contact-button style="opacity:0;position:absolute;" type="default-dark"  session-from="weapp" size="27"></contact-button>
-          客服
+          <view style='position:absolute;bottom:10rpx;'> 客服 </view>
         </view>
         <view class="shop-cart-btn" bindtap="goShopCar">
             <view class="shop-num">({{shopNum}})</view>
-            购物车
+            <view style='position:absolute;bottom:10rpx;'> 购物车 </view>
         </view>
         <view class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
         <view class="now-buy" bindtap="tobuy">立即购买</view>

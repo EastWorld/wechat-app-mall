@@ -5,6 +5,7 @@
     width: 100%;
     background-color: #fff;
     margin-top: 20rpx;
+    padding-bottom: 100rpx;
 }
 .address-list .a-address{
     width: 720rpx;
@@ -49,8 +50,7 @@
     border-top: 1rpx solid #eee;
     height:100rpx;
     line-height: 100rpx;
-    background-color: #fff;
-    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center;
+    background: #fff url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center;
     background-size: 15rpx auto;
 }
 .bottom-box .add-btn{

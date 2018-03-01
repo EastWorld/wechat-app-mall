@@ -11,22 +11,12 @@
 
 期待您的加入~
 
-开发问题欢迎加QQ群一起交流 ： 479413914
+开发问题欢迎一起交流 ： QQ交流群①：479413914（已满）   QQ交流群②：315181914
 
 ## 扫码体验
 
-<img src="https://cdn.it120.cc/images/weappshop/screenshot/qrcode.jpg" width="200px">
-
-## 用户案例
-
 <p>
-<img src="https://cdn.it120.cc/apifactory/2017/09/03/697ee3f23484f96f6e86e0eea2a93a1a.jpeg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/06/12/448c4cc5d256aa02ddc4106399a19256.png" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/06/21/4ae4c66856f377a8830f32a670dc0614.png" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/08/17/f3f7ddf9a47367fde19abb6db4c21619.png" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/08/17/413c6123f9c83e664587f1c0971ab52d.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/08/18/83bfd6a625fe50477bbeac65e9f1d0a7.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2017/08/18/742dba8ffd6e3ab0b6db92e452b6f4e4.png" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
 </p>
 
 ## 使用说明
@@ -48,7 +38,7 @@
 >
 > > > 商品类别接口；
 >
-> > > 商品列表和详情接口；
+> > > 商城商品管理接口；
 >
 > > > 商城订单管理接口；
 >
@@ -57,6 +47,8 @@
 > > > 优惠券接口；
 >
 > > > 平台公告模块
+>
+> > > 积分模块【签到送积分】
 >
 > 修改源码中  app.js 文件
 > > > globalData:{
@@ -78,6 +70,14 @@
 - [如何发布自己的商品？](https://www.it120.cc/info/faq/436)
 - [如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)
 - [获取我的accesstoken，以便我在其他系统使用](https://www.it120.cc/info/faq/763)
+- 工厂后台设置 appid、secret、微信支付商户号和秘钥时候的 token 怎么填？
+>  不要填！
+>
+>  不要填！
+>
+>  不要填！
+>
+> 重要的事情说三遍，这个小程序用不到，是给服务号使用的，所以大家空着不要填
 - 微信支付时候，提示 50000 错误，不能获取到预支付id
 >  这个错误是无法获取到微信支付的预支付信息
 > - 可能是你没有在后台配置您的微信支付商户号和秘钥，或者配置错误
@@ -113,6 +113,18 @@
 > 2、可选择退款至用户可用余额或者按照用户支付原路退还第三方或者银行卡；
 >
 > 3、如果选用原路退还，需要在商户号和秘钥设置的地方上传您的微信支付证书文件（PK12格式文件）
+- 如何设置满多少包邮？
+> 1、后台系统设置 --> 系统参数，增加系统参数；
+>
+> 2、参数名 free_shipping_for_purchases （注意不要有空格）
+>
+> 3、参数值填写您希望的买满金额即可
+- [“规格与尺寸”怎么玩](https://www.it120.cc/info/faq/1208)
+- [如何设置用户提现手续费](https://www.it120.cc/info/faq/1589)
+- [商品如何显示视频？](https://www.it120.cc/info/faq/1802)
+- [货到付款、积分赠送规则设置](https://www.it120.cc/notice/22)
+- [小程序如何使用“模板消息”给用户推送消息](https://www.it120.cc/info/faq/2823)
+
 
 ## 如何升级到最新版
 

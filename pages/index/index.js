@@ -18,7 +18,8 @@ Page({
     loadingMoreHidden:true,
 
     hasNoCoupons:true,
-    coupons: []
+    coupons: [],
+    searchInput: '',
   },
 
   tabClick: function (e) {
@@ -121,7 +122,8 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/list',
       data: {
-        categoryId: categoryId
+        categoryId: categoryId,
+        nameLike: that.data.searchInput
       },
       success: function(res) {
         that.setData({
@@ -186,6 +188,14 @@ Page({
           })
           return;
         }
+        if (res.data.code == 30001) {
+          wx.showModal({
+            title: '错误',
+            content: '您的积分不足',
+            showCancel: false
+          })
+          return;
+        }
         if (res.data.code == 20004) {
           wx.showModal({
             title: '错误',
@@ -212,7 +222,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: wx.getStorageSync('mallName'),
+      title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
       path: '/pages/index/index',
       success: function (res) {
         // 转发成功
@@ -225,15 +235,24 @@ Page({
   getNotice: function () {
     var that = this;
     wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/notice/last-one',
-      data: {},
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/notice/list',
+      data: { pageSize :5},
       success: function (res) {
         if (res.data.code == 0) {
           that.setData({
-            noticeMap: res.data.data
+            noticeList: res.data.data
           });
         }
       }
     })
+  },
+  listenerSearchInput: function (e) {
+    this.setData({
+      searchInput: e.detail.value
+    })
+
+  },
+  toSearch : function (){
+    this.getGoodsList(this.data.activeCategoryId);
   }
 })

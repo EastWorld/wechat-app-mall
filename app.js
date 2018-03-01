@@ -11,8 +11,28 @@ App({
       success: function(res) {
         if (res.data.code == 0) {
           wx.setStorageSync('mallName', res.data.data.value);
-        } else {
-          wx.setStorageSync('mallName', "系统参数 mallName 未设置");
+        }
+      }
+    })
+    wx.request({
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/score/send/rule',
+      data: {
+        code: 'goodReputation'
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.globalData.order_reputation_score = res.data.data[0].score;
+        }
+      }
+    })
+    wx.request({
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/config/get-value',
+      data: {
+        key: 'recharge_amount_min'
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.globalData.recharge_amount_min = res.data.data.value;
         }
       }
     })
@@ -50,7 +70,7 @@ App({
               return;
             }
             if (res.data.code != 0) {
-              // 登录错误 
+              // 登录错误
               wx.hideLoading();
               wx.showModal({
                 title: '提示',
@@ -59,7 +79,9 @@ App({
               })
               return;
             }
+            //console.log(res.data.data)
             that.globalData.token = res.data.data.token;
+            that.globalData.uid = res.data.data.uid;
           }
         })
       }
@@ -87,10 +109,86 @@ App({
         })
       }
     })
-  },  
+  },
+  sendTempleMsg: function (orderId, trigger, template_id, form_id, page, postJsonString){
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/template-msg/put',
+      method:'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        token: that.globalData.token,
+        type:0,
+        module:'order',
+        business_id: orderId,
+        trigger: trigger,
+        template_id: template_id,
+        form_id: form_id,
+        url:page,
+        postJsonString: postJsonString
+      },
+      success: (res) => {
+        //console.log('*********************');
+        //console.log(res.data);
+        //console.log('*********************');
+      }
+    })
+  },
+  sendTempleMsgImmediately: function (template_id, form_id, page, postJsonString) {
+    var that = this;
+    wx.request({
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/template-msg/put',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        token: that.globalData.token,
+        type: 0,
+        module: 'immediately',
+        template_id: template_id,
+        form_id: form_id,
+        url: page,
+        postJsonString: postJsonString
+      },
+      success: (res) => {
+        console.log('*********************');
+        console.log(res.data);
+        console.log('*********************');
+      }
+    })
+  },
+  getUserInfo: function (cb) {
+    var that = this
+    if (this.globalData.userInfo) {
+      typeof cb == "function" && cb(this.globalData.userInfo)
+    } else {
+      //调用登陆接口
+      wx.login({
+        success: function () {
+          wx.getUserInfo({
+            success: function (res) {
+              that.globalData.userInfo = res.userInfo
+              typeof cb == "function" && cb(that.globalData.userInfo)
+            }
+          })
+        }
+      })
+    }
+
+  },
   globalData:{
     userInfo:null,
-    subDomain: "mall",
-    version: "1.5.1"
+    subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
+    version: "1.9.SNAPSHOT",
+    shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
   }
+  /*
+  根据自己需要修改下单时候的模板消息内容设置，可增加关闭订单、收货时候模板消息提醒；
+  1、/pages/to-pay-order/index.js 中已添加关闭订单、商家发货后提醒消费者；
+  2、/pages/order-details/index.js 中已添加用户确认收货后提供用户参与评价；评价后提醒消费者好评奖励积分已到账；
+  3、请自行修改上面几处的模板消息ID，参数为您自己的变量设置即可。  
+   */
 })

@@ -16,7 +16,7 @@
         <view class="confirm-btn" bindtap='goToIndex'>
           <text >进入店铺</text>
         </view>
-        <text class="copyright">@qindiandadudu 贡献本页代码</text>
+        <text class="copyright">大连高新区彤达信息咨询服务部</text>
       </view>
     </view>
   </block>

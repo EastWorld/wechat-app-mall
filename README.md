@@ -64,7 +64,7 @@
 
 ## 常见问题
 
-- [如何修改小程序商城的标题“EastWorld”？](https://www.it120.cc/info/faq/778)
+- [如何修改小程序商城的标题？](https://www.it120.cc/info/faq/778)
 - [“无法登录”的错误？](https://www.it120.cc/info/faq/391)
 - [小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
 - [如何发布自己的商品？](https://www.it120.cc/info/faq/436)

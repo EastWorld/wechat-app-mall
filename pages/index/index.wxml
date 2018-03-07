@@ -69,3 +69,7 @@
     </view>
     <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
 </view>
+<contact-button  type="default-dark" size="20" session-from="weapp" class="img-plus-style zindex100 yc" >
+</contact-button>
+<image src="../../images/xk_kefu.png" class="img-plus-style"></image> 
+<image src="../../images/xk_tel.png" class="img-plus-style1" bindtap="calling"></image>

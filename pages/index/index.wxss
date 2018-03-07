@@ -236,3 +236,22 @@ swiper-item image {
   border:none;
   position: relative;
 }
+//客服呼叫
+.img-plus-style {  
+  height: 70rpx;  
+  width: 70rpx;  
+  position: fixed;  
+  bottom: 128rpx;  
+  right: 30rpx;  
+  opacity: 0.7
+}  
+.img-plus-style1 {  
+  height: 70rpx;  
+  width: 70rpx;  
+  position: fixed;  
+  bottom:28rpx;  
+  right: 30rpx;   
+  opacity: 0.7
+}  
+.zindex100{z-index: 30}
+.yc{opacity: 0}

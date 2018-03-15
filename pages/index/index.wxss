@@ -2,7 +2,7 @@
 
 .container {
   background-color: #F2f2f2;
-  min-height: 100%
+  min-height: 100%;
 }
 .swiper-container{
   width: 750rpx;
@@ -187,4 +187,52 @@ swiper-item image {
   overflow: hidden;
   color: #fff;
   display: inline-block;
+}
+
+.search-view{
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  z-index:500;
+  width: 100%;
+  height: 100rpx;
+  background: gray;
+  display: flex;
+  flex-direction: column;
+}
+.serarch-content{
+   background: white;
+   width:650rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   padding-top: auto;
+   padding-left: 20rpx;
+   padding-bottom: auto;
+   margin: auto;
+   height: 70rpx;
+   border-radius:5px 5px;
+}
+.search-icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+.search-input{
+  width: 500rpx;
+  font-size: 28rpx;
+}
+.search-btn{
+  width: 150rpx;
+  height: 70rpx;
+  margin-right: 0rpx;
+  background-color:blueviolet;
+  font-size: 28rpx;
+  align-items: center;
+  border-top-left-radius: 0rpx;
+  border-bottom-left-radius: 0rpx;
+  color:#fff;
+  border:none;
+  position: relative;
 }

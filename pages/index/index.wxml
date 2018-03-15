@@ -25,6 +25,15 @@
             </view>
         </scroll-view>
     </view>
+    <view class="search-view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
+    <view class="serarch-content">
+      <image src="/images/search-pic.png" class="search-icon" />
+      <input placeholder="请输入搜索内容" class="search-input" maxlength="30" confirm-type="搜索" bindinput='listenerSearchInput' bindconfirm='toSearch'>
+      </input>
+      <button class='search-btn' bindtap="toSearch">搜索
+      </button>
+    </view>
+  </view>
     <view wx:if="{{noticeList}}" class="notice">
       <view class="notice_iteml">公告：</view>
       <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="3000">
@@ -52,7 +61,10 @@
               <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true"/>
            </view>
            <view class="goods-title">{{item.name}}</view>
-           <view class="goods-price">¥ {{item.minPrice}}</view>
+           <view style='display:flex;'>
+            <view class="goods-price">¥ {{item.minPrice}}</view>
+            <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+           </view>           
         </view>
     </view>
     <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>

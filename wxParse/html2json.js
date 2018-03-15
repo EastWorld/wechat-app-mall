@@ -184,7 +184,7 @@ function html2json(html, bindName) {
             }
             
             if (unary) {
-                // if this tag dosen't have end tag
+                // if this tag doesn't have end tag
                 // like <img src="hoge.png"/>
                 // add to parents
                 var parent = bufArray[0] || results;

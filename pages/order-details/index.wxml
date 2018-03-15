@@ -53,7 +53,7 @@
     </view>
     <view class="goods-list">
             <view class="list-title">商品信息</view>
-            <form bindsubmit="submitReputation">
+            <form bindsubmit="submitReputation" report-submit="true">
             <block wx:for-items="{{orderDetail.goods}}" wx:key="{{index}}">
             <view class="a-goods">
                 <view class="img-box">
@@ -91,10 +91,11 @@
                 <button class="confirm-btn" formType="submit">提交评价</button>
             </view>
             </form>
+            <form bindsubmit="confirmBtnTap" report-submit="true">
             <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==2}}">
-                <view class="confirm-btn" bindtap="confirmBtnTap" data-id="{{orderDetail.orderInfo.id}}">确认收货</view>
+                <button class="confirm-btn" formType="submit">确认收货</button>
             </view>
-            
+            </form>
         </view>
         <view class="peisong-way" hidden="true">
             <view class="row-box">

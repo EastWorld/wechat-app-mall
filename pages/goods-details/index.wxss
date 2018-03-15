@@ -45,6 +45,44 @@ swiper-item image {
   padding: 35rpx 0;
   margin-bottom: 24rpx;
   width: 100%;
+  position: relative;
+}
+
+.goods-info-fx {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  right: 0;
+  top: 0;
+}
+
+.goods-info-fx button {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+}
+
+.goods-info-fx image {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin: 10px 10px 0 5px;
+}
+
+.goods-info-fx text {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  z-index: 1;
+  font-size: 10px;
+  text-align: center;
 }
 .goods-info .goods-title{
   box-sizing: border-box;
@@ -53,6 +91,7 @@ swiper-item image {
   line-height: 1.4;
   color: #000;
   margin-bottom: 28rpx;
+  padding-right: 60px;
 }
 .goods-info .goods-share{
   box-sizing: border-box;
@@ -95,7 +134,7 @@ swiper-item image {
   padding: 30rpx;
 }
 .goods-text{
-  padding: 0 30rpx;
+  padding: 0 10rpx;
   font-size:28rpx;
   color:#666666;
   line-height: 56rpx;
@@ -117,37 +156,41 @@ swiper-item image {
   display: flex;
   box-shadow:0 0 8rpx 0 ;
 }
-.footer-box .contact{
+.footer-box .contact {
   position: relative;
   width: 120rpx;
   height: 100%;
-  line-height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*line-height: 100rpx;
   text-align: center;
-  padding-top: 26rpx;
-  font-size:20rpx;
-  color:#008000;
+  padding-top: 26rpx;*/
+  font-size: 20rpx;
+  color: #008000;
   box-sizing: border-box;
-  background:url("https://cdn.it120.cc/images/weappshop/kefu.png") no-repeat center 21rpx;
+  background: url("https://cdn.it120.cc/images/weappshop/kefu.png") no-repeat center 21rpx;
   background-size: 55rpx auto;
 }
-.footer-box .shop-cart-btn{
+.footer-box .shop-cart-btn {
   position: relative;
-  width: 150rpx;
+  width: 135rpx;
   height: 100%;
-  line-height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding-top: 26rpx;
-  font-size:20rpx;
-  color:#acacb7;
+  font-size: 20rpx;
+  color: #acacb7;
   box-sizing: border-box;
-  background:url("https://cdn.it120.cc/images/weappshop/cart.png") no-repeat center 21rpx;
+  background: url("https://cdn.it120.cc/images/weappshop/cart.png") no-repeat center 21rpx; 
   background-size: 44rpx auto;
 }
 .footer-box .shop-cart-btn .shop-num{
   position: absolute;
   color:#e64340;
-  left: 80rpx;
-  top:-20rpx;
+  left: 85rpx;
+  top:10rpx;
 }
 .footer-box .join-shop-cart{
   text-align: center;

@@ -69,6 +69,12 @@ Page({
           });
         }
         that.data.goodsDetail = res.data.data;
+        if(that.data.goodsDetail.basicInfo.numberGoodReputation > 0){
+          let favourable = Math.floor(that.data.goodsDetail.basicInfo.numberOrders*0.98);
+          if(that.data.goodsDetail.basicInfo.numberGoodReputation < favourable){
+            that.data.goodsDetail.basicInfo.numberGoodReputation = favourable;
+          }
+        }               
         if (res.data.data.basicInfo.videoId) {
           that.getVideoSrc(res.data.data.basicInfo.videoId);
         }

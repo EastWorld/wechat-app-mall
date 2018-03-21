@@ -181,7 +181,7 @@ App({
   },
   globalData:{
     userInfo:null,
-    subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
+    subDomain: "smallapptest", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
     version: "1.9.SNAPSHOT",
     shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
   }

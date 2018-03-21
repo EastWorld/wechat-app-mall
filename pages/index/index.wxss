@@ -74,14 +74,16 @@ swiper-item image {
   flex-wrap:wrap;
   box-sizing: content-box;
   padding: 24rpx;
+  width:93%;
 }
 .goods-box{
   width: 339rpx;
   height: 472rpx;
   background-color: #fff;
   overflow: hidden;
-  margin-bottom: 24rpx;
+  margin-bottom: 24rpx;  
 }
+
 .goods-box .img-box{
   width: 339rpx;
   height: 339rpx;

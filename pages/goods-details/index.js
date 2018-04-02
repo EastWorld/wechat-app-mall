@@ -82,6 +82,7 @@ Page({
       }
     })
     this.reputation(e.id);
+    this.getKanjiaInfo(e.id);
   },
   goShopCar: function () {
     wx.reLaunch({
@@ -434,5 +435,53 @@ Page({
         }
       }
     })
-  }
+  },
+  getKanjiaInfo: function (gid) {
+    var that = this;
+    if (!app.globalData.kanjiaList || app.globalData.kanjiaList.length == 0){
+      that.setData({
+        curGoodsKanjia: undefined
+      });
+      return;
+    }
+    let curGoodsKanjia = app.globalData.kanjiaList.find(ele => {
+      return ele.goodsId == gid
+    });
+    if (curGoodsKanjia) {
+      that.setData({
+        curGoodsKanjia: curGoodsKanjia
+      });
+    } else {
+      that.setData({
+        curGoodsKanjia: undefined
+      });
+    }
+  },
+  goKanjia: function () {
+    var that = this;
+    if (!that.data.curGoodsKanjia) {
+      return;
+    }
+    wx.request({
+      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/kanjia/join',
+      data: {
+        kjid: that.data.curGoodsKanjia.id,
+        token: app.globalData.token
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          console.log(res.data);
+          wx.navigateTo({
+            url: "/pages/kanjia/index?kjId=" + res.data.data.kjId + "&joiner=" + res.data.data.uid + "&id=" + res.data.data.goodsId
+          })
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: res.data.msg,
+            showCancel: false
+          })
+        }
+      }
+    })
+  },
 })

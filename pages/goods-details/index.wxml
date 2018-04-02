@@ -31,6 +31,9 @@
           <text>分享有赏</text>
         </view>
    </view>
+   <view wx:if="{{curGoodsKanjia}}" class="row-arrow" bindtap="goKanjia">
+      邀请好友帮忙砍价 ( <text style='color:red'>底价 {{curGoodsKanjia.minPrice}} 元</text> )
+   </view>
    <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
       {{selectSize}}
    </view>

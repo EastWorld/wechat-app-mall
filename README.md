@@ -9,15 +9,22 @@
 - 小程序开发 [@jiulonggithub](https://github.com/orgs/EastWorld/people/jiulonggithub)
 - 接口及后台支持 [@gooking](https://github.com/gooking)
 
-期待您的加入~
+期待您的加入~ ,欢迎大家踊跃提交代码。
 
-开发问题欢迎加QQ群一起交流 ： 479413914
+开发问题欢迎一起交流 ： QQ交流群：479413914
 
 ## 扫码体验
 
 <p>
 <img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
+<img src="https://www.it120.cc/images/yxsc.jpg" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
 </p>
+
+## 最新功能
+
+- 新增商品砍价功能，扫码上面第一个二维码，第一个商品详情可体验砍价；
+- 分享商品给好友，好友下单后可获得积分、现金返现；
 
 ## 使用说明
 
@@ -64,7 +71,7 @@
 
 ## 常见问题
 
-- [如何修改小程序商城的标题“EastWorld”？](https://www.it120.cc/info/faq/778)
+- [如何修改小程序商城的标题？](https://www.it120.cc/info/faq/778)
 - [“无法登录”的错误？](https://www.it120.cc/info/faq/391)
 - [小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
 - [如何发布自己的商品？](https://www.it120.cc/info/faq/436)

@@ -265,27 +265,32 @@ Page({
         let cityName = res.cityName;
         let diatrictName = res.countyName;
         let retSelIdx = 0;
+
         for (var i = 0; i < commonCityData.cityData.length; i++) {
           if (provinceName == commonCityData.cityData[i].name) {
+            let eventJ = { detail: { value:i }};
+            that.bindPickerProvinceChange(eventJ);
             that.data.selProvinceIndex = i;
             for (var j = 0; j < commonCityData.cityData[i].cityList.length; j++) {
-              if (cityName == commonCityData.cityData[i].cityList[j].id) {
-                that.data.selCityIndex = j;
+              if (cityName == commonCityData.cityData[i].cityList[j].name) {
+                //that.data.selCityIndex = j;
+                eventJ = { detail: { value: j } };
+                that.bindPickerCityChange(eventJ);
                 for (var k = 0; k < commonCityData.cityData[i].cityList[j].districtList.length; k++) {
-                  if (diatrictName == commonCityData.cityData[i].cityList[j].districtList[k].id) {
-                    that.data.selDistrictIndex = k;
+                  if (diatrictName == commonCityData.cityData[i].cityList[j].districtList[k].name) {
+                    //that.data.selDistrictIndex = k;
+                    eventJ = { detail: { value: k } };
+                    that.bindPickerChange(eventJ);
                   }
                 }
               }
             }
+            
           }
         }
 
         that.setData({
           wxaddress: res,
-          selProvince: provinceName,
-          selCity: cityName,
-          selDistrict: diatrictName
         });
       }
     })

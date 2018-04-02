@@ -14,7 +14,8 @@
     "pages/my/index",
     "pages/notice/show",
     "pages/recharge/index",
-    "pages/withdraw/index"
+    "pages/withdraw/index",
+    "pages/kanjia/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

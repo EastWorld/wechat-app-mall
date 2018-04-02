@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    uid: undefined
   },
 
   /**
@@ -18,6 +18,7 @@ Page({
       recharge_amount_min = 0;
     }
     this.setData({
+      uid: app.globalData.uid,
       recharge_amount_min: recharge_amount_min
     });
   },

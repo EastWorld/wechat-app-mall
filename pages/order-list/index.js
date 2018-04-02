@@ -72,7 +72,7 @@ Page({
                 orderId: orderId
               },
               success: function (res2) {
-                wx.reLaunch({
+                wx.redirectTo({
                   url: "/pages/order-list/index"
                 });
               }

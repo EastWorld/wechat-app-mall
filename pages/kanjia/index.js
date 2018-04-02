@@ -19,10 +19,7 @@ Page({
         swiperCurrent: e.detail.current  
     })  
   },
-  onLoad: function (e) {
-    e.id = 6765
-    e.kjId = 3
-    e.joiner = 28598
+  onLoad: function (e) {    
     this.data.id = e.id;
     this.data.kjId = e.kjId;
     this.data.joiner = e.joiner;

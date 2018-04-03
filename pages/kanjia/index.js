@@ -44,6 +44,7 @@ Page({
     this.getKanjiaInfoMyHelp(e.kjId, e.joiner);
   },
   onShareAppMessage: function () {
+    var that = this;
     return {
       title: "帮我来砍价",
       path: "/pages/kanjia/index?kjId=" + that.data.kjId + "&joiner=" + that.data.joiner + "&id=" + that.data.id,

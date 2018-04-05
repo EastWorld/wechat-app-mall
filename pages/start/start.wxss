@@ -168,7 +168,7 @@ page{
 
 
 .copyright {
-  font-size: 28rpx;
+  font-size: 12rpx;
   color: #999;
   position: fixed;
   bottom: 0;

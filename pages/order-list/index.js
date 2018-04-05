@@ -72,9 +72,7 @@ Page({
                 orderId: orderId
               },
               success: function (res2) {
-                wx.redirectTo({
-                  url: "/pages/order-list/index"
-                });
+                that.onShow();
               }
             })
           } else {

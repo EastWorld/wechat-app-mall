@@ -36,6 +36,16 @@ App({
         }
       }
     })
+    // 获取砍价设置
+    wx.request({
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/shop/goods/kanjia/list',
+      data: {},
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.globalData.kanjiaList = res.data.data.result;
+        }
+      }
+    })
     this.login();
   },
   login : function () {
@@ -154,9 +164,7 @@ App({
         postJsonString: postJsonString
       },
       success: (res) => {
-        console.log('*********************');
         console.log(res.data);
-        console.log('*********************');
       }
     })
   },

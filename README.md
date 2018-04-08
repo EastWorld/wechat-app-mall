@@ -17,7 +17,7 @@
 
 <p>
 <img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
-<img src="https://www.it120.cc/images/yxsc.jpg" width="200px">
+<img src="https://cdn.it120.cc/apifactory/2018/04/04/570e9a77dbc9cacda176e98a4f2778c5.jpg" width="200px">
 <img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
 </p>
 
@@ -25,6 +25,7 @@
 
 - 新增商品砍价功能，扫码上面第一个二维码，第一个商品详情可体验砍价；
 - 分享商品给好友，好友下单后可获得积分、现金返现；
+- 可修改订单默认30分钟未支付被关闭的时间；
 
 ## 使用说明
 

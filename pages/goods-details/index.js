@@ -13,6 +13,7 @@ Page({
     hasMoreSelect:false,
     selectSize:"选择：",
     selectSizePrice:0,
+    totalScoreToPay: 0,
     shopNum:0,
     hideShopPopup:true,
     buyNumber:0,
@@ -66,6 +67,7 @@ Page({
             hasMoreSelect:true,
             selectSize:that.data.selectSize + selectSizeTemp,
             selectSizePrice:res.data.data.basicInfo.minPrice,
+            totalScoreToPay: res.data.data.basicInfo.minScore
           });
         }
         that.data.goodsDetail = res.data.data;
@@ -75,6 +77,7 @@ Page({
         that.setData({
           goodsDetail:res.data.data,
           selectSizePrice:res.data.data.basicInfo.minPrice,
+          totalScoreToPay: res.data.data.basicInfo.minScore,
           buyNumMax:res.data.data.basicInfo.stores,
           buyNumber:(res.data.data.basicInfo.stores>0) ? 1: 0
         });
@@ -199,6 +202,7 @@ Page({
         success: function(res) {
           that.setData({
             selectSizePrice:res.data.data.price,
+            totalScoreToPay: res.data.data.score,
             propertyChildIds:propertyChildIds,
             propertyChildNames:propertyChildNames,
             buyNumMax:res.data.data.stores,
@@ -247,7 +251,7 @@ Page({
 
     // 写入本地存储
     wx.setStorage({
-      key:"shopCarInfo",
+      key:'shopCarInfo',
       data:shopCarInfo
     })
     this.closePopupTap();
@@ -314,6 +318,7 @@ Page({
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
     shopCarMap.price = this.data.selectSizePrice;
+    shopCarMap.score = this.data.totalScoreToPay;
     shopCarMap.left = "";
     shopCarMap.active = true;
     shopCarMap.number = this.data.buyNumber;
@@ -358,6 +363,7 @@ Page({
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
     shopCarMap.price = this.data.selectSizePrice;
+    shopCarMap.score = this.data.totalScoreToPay;
     shopCarMap.left = "";
     shopCarMap.active = true;
     shopCarMap.number = this.data.buyNumber;

@@ -4,6 +4,7 @@ var app = getApp()
 
 Page({
   data: {
+    totalScoreToPay: 0,
     goodsList:[],
     isNeedLogistics:0, // 是否需要物流信息
     allGoodsPrice:0,
@@ -127,6 +128,7 @@ Page({
         }
         if (!e) {
           that.setData({
+            totalScoreToPay: res.data.data.score,
             isNeedLogistics: res.data.data.isNeedLogistics,
             allGoodsPrice: res.data.data.amountTotle,
             allGoodsAndYunPrice: res.data.data.amountLogistics + res.data.data.amountTotle,

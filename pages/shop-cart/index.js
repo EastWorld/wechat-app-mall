@@ -5,6 +5,7 @@ Page({
     goodsList:{
       saveHidden:true,
       totalPrice:0,
+      totalScoreToPay: 0,
       allSelect:true,
       noSelect:false,
       list:[]
@@ -116,12 +117,15 @@ Page({
    totalPrice:function(){
       var list = this.data.goodsList.list;
       var total = 0;
+      let totalScoreToPay = 0;
       for(var i = 0 ; i < list.length ; i++){
           var curItem = list[i];
           if(curItem.active){
             total+= parseFloat(curItem.price)*curItem.number;
+            totalScoreToPay += curItem.score * curItem.number;
           }
       }
+      this.data.goodsList.totalScoreToPay = totalScoreToPay;
       total = parseFloat(total.toFixed(2));//js浮点计算bug，取两位小数精度
       return total;
    },
@@ -155,13 +159,14 @@ Page({
       }
    },
    setGoodsList:function(saveHidden,total,allSelect,noSelect,list){
-      this.setData({
+     this.setData({
         goodsList:{
           saveHidden:saveHidden,
           totalPrice:total,
           allSelect:allSelect,
           noSelect:noSelect,
-          list:list
+          list:list,
+          totalScoreToPay: this.data.goodsList.totalScoreToPay
         }
       });
       var shopCarInfo = {};

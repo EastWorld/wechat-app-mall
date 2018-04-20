@@ -40,7 +40,7 @@
     <view class="jiesuan-box">
         <view class="left-price">
             <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">全选</view>
-            <view class="total" hidden="{{noSelect}}">合计：¥ {{totalPrice}}</view>
+            <view class="total" hidden="{{noSelect}}">合计：¥ {{totalPrice}} + {{totalScoreToPay}} 积分</view>
         </view>
         <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">去结算</view>
         <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">删除</view>

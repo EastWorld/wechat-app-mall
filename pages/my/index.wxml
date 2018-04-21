@@ -44,6 +44,6 @@
   </view>
   
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="version">Powered by EastWorld v {{version}}</view>
+  <view class="version">一叶绣 v {{version}}</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
 </view>

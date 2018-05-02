@@ -42,6 +42,7 @@ Page({
       })
     }
     var that = this;
+    that.data.kjId = e.kjId;
     // 获取购物车数据
     wx.getStorage({
       key: 'shopCarInfo',
@@ -349,6 +350,7 @@ Page({
     } else {
       shopCarInfo.shopList.push(shopCarMap);
     }
+    shopCarInfo.kjId = this.data.kjId;
     return shopCarInfo;
   },
 	/**
@@ -395,6 +397,7 @@ Page({
         }*/
 
     buyNowInfo.shopList.push(shopCarMap);
+    buyNowInfo.kjId = this.data.kjId;
     return buyNowInfo;
   },   
   onShareAppMessage: function () {

@@ -201,7 +201,7 @@ swiper-item image {
   display: flex;
   flex-direction: column;
 }
-.serarch-content{
+.search-content{
    background: white;
    width:650rpx;
    display: flex;

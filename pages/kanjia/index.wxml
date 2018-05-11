@@ -44,6 +44,9 @@
     </view>
     <view class="footer-box">        
         <view class="now-buy" bindtap="helpKanjia" wx:if="{{!kanjiaInfoMyHelp}}">帮忙砍一刀</view>
-        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp}}">您已砍 {{kanjiaInfoMyHelp.cutPrice}} 元</view>
+        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid != curuid}}">您已砍 {{kanjiaInfoMyHelp.cutPrice}} 元</view>
+        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid == curuid}}">
+          <view class="now-buy" bindtap="tobuy" style='margin-left:0;width:750rpx;'>以当前价购买</view>
+        </view>
    </view>
 </view>

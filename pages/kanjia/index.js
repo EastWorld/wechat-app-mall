@@ -107,7 +107,8 @@ Page({
       success: function (res) {
         if (res.data.code == 0) {
           that.setData({
-            kanjiaInfoMyHelp: res.data.data
+            kanjiaInfoMyHelp: res.data.data,
+            curuid: app.globalData.uid
           });
         }
       }
@@ -142,6 +143,11 @@ Page({
         that.getKanjiaInfo(that.data.kjId, that.data.joiner);
         that.getKanjiaInfoMyHelp(that.data.kjId, that.data.joiner);
       }
+    })
+  },
+  tobuy : function(){
+    wx.navigateTo({
+      url: "/pages/goods-details/index?id=" + this.data.kanjiaInfo.kanjiaInfo.goodsId + "&kjId=" + this.data.kanjiaInfo.kanjiaInfo.kjId
     })
   }
 })

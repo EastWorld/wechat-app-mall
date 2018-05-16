@@ -88,7 +88,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/' + apiAddoRuPDATE,
       data: {
-        token: app.globalData.token,
+        token: wx.getStorageSync('token'),
         id: apiAddid,
         provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
         cityId: cityId,
@@ -186,7 +186,7 @@ Page({
       wx.request({
         url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/detail',
         data: {
-          token: app.globalData.token,
+          token: wx.getStorageSync('token'),
           id: id
         },
         success: function (res) {
@@ -244,7 +244,7 @@ Page({
           wx.request({
             url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/delete',
             data: {
-              token: app.globalData.token,
+              token: wx.getStorageSync('token'),
               id: id
             },
             success: (res) => {

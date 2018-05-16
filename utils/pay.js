@@ -8,7 +8,7 @@ function wxpay(app, money, orderId, redirectUrl) {
   wx.request({
     url: 'https://api.it120.cc/' + app.globalData.subDomain + '/pay/wxapp/get-pay-data',
     data: {
-      token:app.globalData.token,
+      token: wx.getStorageSync('token'),
       money:money,
       remark: remark,
       payName:"在线支付",

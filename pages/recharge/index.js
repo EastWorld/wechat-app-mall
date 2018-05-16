@@ -18,7 +18,7 @@ Page({
       recharge_amount_min = 0;
     }
     this.setData({
-      uid: app.globalData.uid,
+      uid: wx.getStorageSync('uid'),
       recharge_amount_min: recharge_amount_min
     });
   },

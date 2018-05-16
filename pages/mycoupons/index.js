@@ -15,7 +15,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/my',
       data: {
-        token: app.globalData.token,
+        token: wx.getStorageSync('token'),
         status: 0
       },
       success: function (res) {

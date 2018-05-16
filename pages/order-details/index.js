@@ -17,7 +17,7 @@ Page({
       wx.request({
         url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/detail',
         data: {
-          token: app.globalData.token,
+          token: wx.getStorageSync('token'),
           id: that.data.orderId
         },
         success: (res) => {
@@ -65,7 +65,7 @@ Page({
               wx.request({
                 url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/delivery',
                 data: {
-                  token: app.globalData.token,
+                  token: wx.getStorageSync('token'),
                   orderId: orderId
                 },
                 success: (res) => {
@@ -92,7 +92,7 @@ Page({
       let that = this;
       let formId = e.detail.formId;
       let postJsonString = {};
-      postJsonString.token = app.globalData.token;
+      postJsonString.token = wx.getStorageSync('token');
       postJsonString.orderId = this.data.orderId;
       let reputations = [];
       let i = 0;

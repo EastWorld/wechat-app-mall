@@ -403,7 +403,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + app.globalData.uid,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function (res) {
         // 转发成功
       },
@@ -475,7 +475,7 @@ Page({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/kanjia/join',
       data: {
         kjid: that.data.curGoodsKanjia.id,
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       success: function (res) {
         if (res.data.code == 0) {

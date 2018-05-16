@@ -67,7 +67,7 @@ Page({
   createOrder:function (e) {
     wx.showLoading();
     var that = this;
-    var loginToken = app.globalData.token // 用户登录 token
+    var loginToken = wx.getStorageSync('token') // 用户登录 token
     var remark = ""; // 备注信息
     if (e) {
       remark = e.detail.value.remark; // 备注信息
@@ -171,7 +171,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/default',
       data: {
-        token:app.globalData.token
+        token: wx.getStorageSync('token')
       },
       success: (res) =>{
         if (res.data.code == 0) {
@@ -242,7 +242,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/my',
       data: {
-        token: app.globalData.token,
+        token: wx.getStorageSync('token'),
         status:0
       },
       success: function (res) {

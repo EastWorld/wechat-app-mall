@@ -102,13 +102,13 @@ Page({
       data: {
         kjid: kjid,
         joinerUser: joiner,
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       success: function (res) {
         if (res.data.code == 0) {
           that.setData({
             kanjiaInfoMyHelp: res.data.data,
-            curuid: app.globalData.uid
+            curuid: wx.getStorageSync('uid')
           });
         }
       }
@@ -121,7 +121,7 @@ Page({
       data: {
         kjid: that.data.kjId,
         joinerUser: that.data.joiner,
-        token: app.globalData.token
+        token: wx.getStorageSync('token')
       },
       success: function (res) {
         if (res.data.code != 0) {

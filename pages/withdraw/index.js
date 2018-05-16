@@ -81,7 +81,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/withDraw/apply',
       data: {
-        token: app.globalData.token,
+        token: wx.getStorageSync('token'),
         money: amount
       },
       success: function (res) {

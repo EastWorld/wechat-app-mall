@@ -202,10 +202,8 @@ Page({
     var index = e.currentTarget.dataset.index;
     var list = this.data.goodsList.list;
     if(index!=="" && index != null){
-      if(list[parseInt(index)].number<10){
         list[parseInt(index)].number++; 
         this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
-      }
     }
    },
    jianBtnTap:function(e){

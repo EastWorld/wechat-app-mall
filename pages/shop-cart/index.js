@@ -199,11 +199,30 @@ Page({
       this.setGoodsList(this.getSaveHide(),this.totalPrice(),!currentAllSelect,this.noSelect(),list);
    },
    jiaBtnTap:function(e){
+	var that = this
     var index = e.currentTarget.dataset.index;
-    var list = this.data.goodsList.list;
+    var list = that.data.goodsList.list;
     if(index!=="" && index != null){
-        list[parseInt(index)].number++; 
-        this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
+      // 添加判断当前商品购买数量是否超过当前商品可购买库存
+      var carShopBean = list[parseInt(index)];
+      var carShopBeanStores = 0;
+      wx.request({
+        url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/detail',
+        data: {
+          id: carShopBean.goodsId
+        },
+        success: function (res) {
+          carShopBeanStores = res.data.data.basicInfo.stores;
+          console.log(' currnet good id and stores is :',carShopBean.goodsId, carShopBeanStores)
+          if (list[parseInt(index)].number < carShopBeanStores) {
+            list[parseInt(index)].number++;
+            that.setGoodsList(that.getSaveHide(), that.totalPrice(), that.allSelect(), that.noSelect(), list);
+          }
+          that.setData({
+            curTouchGoodStore: carShopBeanStores
+          })
+        }
+      })
     }
    },
    jianBtnTap:function(e){

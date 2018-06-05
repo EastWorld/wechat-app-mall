@@ -1,25 +1,7 @@
 //app.js
 App({
   onLaunch: function () {
-    var that = this;
-    // 判断是否登录
-    let token = wx.getStorageSync('token');
-    if (!token){
-      that.goLoginPageTimeOut()
-      return
-    }
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/user/check-token',
-      data: {
-        token: token
-      },
-      success: function (res) {
-        if (res.data.code != 0) {
-          wx.removeStorageSync('token')
-          that.goLoginPageTimeOut()
-        }
-      }
-    })
+    var that = this;    
     //  获取商城名称
     wx.request({
       url: 'https://api.it120.cc/'+ that.globalData.subDomain +'/config/get-value',
@@ -61,6 +43,24 @@ App({
       success: function (res) {
         if (res.data.code == 0) {
           that.globalData.kanjiaList = res.data.data.result;
+        }
+      }
+    })
+    // 判断是否登录
+    let token = wx.getStorageSync('token');
+    if (!token) {
+      that.goLoginPageTimeOut()
+      return
+    }
+    wx.request({
+      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/user/check-token',
+      data: {
+        token: token
+      },
+      success: function (res) {
+        if (res.data.code != 0) {
+          wx.removeStorageSync('token')
+          that.goLoginPageTimeOut()
         }
       }
     })

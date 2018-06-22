@@ -4,21 +4,7 @@
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
 	</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="my-item" style='background:none;display:flex;flex-direction:column;height:auto;'>
-    <view>
-      余额 {{balance}} 元， 冻结 {{freeze}} 元
-    </view>
-    <view style='display:flex;padding-bottom:20rpx;'>
-      <button type='primary' style='width:100%;margin-right:70rpx;' bindtap="recharge">充值</button>
-      <button type='warn' style='width:100%;margin-right:70rpx;' bindtap="withdraw">提现</button>
-    </view>
-  </view>
-  <view class="my-item" style='background:none;display:flex;'>
-    <view>当前积分 {{score}} </view>
-    <button wx:if="{{score_sign_continuous == 0}}" style='height:80rpx;margin-right:70rpx;' bindtap="scoresign">每日签到</button>
-    <button wx:if="{{score_sign_continuous > 0}}" disabled='true' style='height:80rpx;margin-right:70rpx;'>已连续{{score_sign_continuous}}天签到</button>
-  </view>
-  <view class="my-item">
+  <!-- <view class="my-item">
     <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
   </view>
   <view class="my-item">
@@ -26,10 +12,7 @@
   </view>
   <view class="my-item">
     <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
-  </view>
-  <view wx:if="{{!userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
-  </view>
+  </view> -->
   <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
     {{userMobile}}
   </view>
@@ -44,6 +27,5 @@
   </view>
   
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="version">Powered by EastWorld v {{version}}</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
 </view>

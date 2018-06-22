@@ -7,6 +7,7 @@
 .swiper-container{
   width: 750rpx;
   position: relative;  
+  display: none;
 }
 .swiper_box {
   width: 100%;
@@ -97,7 +98,7 @@ swiper-item image {
   white-space: nowrap;
   overflow: hidden;
   font-size: 24rpx;
-  padding: 24rpx 0 0rpx 0;
+  padding: 12rpx 0 0rpx 0;
   color:#000;
   margin-left: 24rpx;
 }
@@ -105,9 +106,12 @@ swiper-item image {
   width: 280rpx;
   overflow: hidden;
   font-size: 24rpx;
-  padding: 24rpx 0;
+  padding-top: 6rpx;
   color:#e64340;
   margin-left: 24rpx;
+}
+.goods-box .before-price{
+  font-size: 22rpx;
 }
 .no-more-goods{
   text-align: center;
@@ -120,6 +124,7 @@ swiper-item image {
   height: 88rpx;
   background-color: #fff;
   overflow: hidden;
+  margin-top: 100rpx;
 }
 .notice{
   display: flex;

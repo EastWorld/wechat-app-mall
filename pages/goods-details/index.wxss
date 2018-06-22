@@ -54,6 +54,7 @@ swiper-item image {
   height: 60px;
   right: 0;
   top: 0;
+  display: none;
 }
 
 .goods-info-fx button {
@@ -174,7 +175,7 @@ swiper-item image {
 }
 .footer-box .shop-cart-btn {
   position: relative;
-  width: 135rpx;
+  width: 255rpx;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -189,7 +190,7 @@ swiper-item image {
 .footer-box .shop-cart-btn .shop-num{
   position: absolute;
   color:#e64340;
-  left: 85rpx;
+  left: 135rpx;
   top:10rpx;
 }
 .footer-box .join-shop-cart{

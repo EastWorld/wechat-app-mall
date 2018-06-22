@@ -57,10 +57,10 @@
         </view>
     </view>
     <view class="footer-box">        
-        <view class="contact">
+        <!-- <view class="contact">
           <contact-button style="opacity:0;position:absolute;" type="default-dark"  session-from="weapp" size="27"></contact-button>
           <view style='position:absolute;bottom:10rpx;'> 客服 </view>
-        </view>
+        </view> -->
         <view class="shop-cart-btn" bindtap="goShopCar">
             <view class="shop-num">({{shopNum}})</view>
             <view style='position:absolute;bottom:10rpx;'> 购物车 </view>

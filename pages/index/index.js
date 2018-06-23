@@ -14,7 +14,7 @@ Page({
     categories: [],
     activeCategoryId: 0,
     goods:[],
-    scrollTop:"0",
+    scrollTop:0,
     loadingMoreHidden:true,
 
     hasNoCoupons:true,
@@ -52,15 +52,6 @@ Page({
         selectCurrent: e.index  
     })  
   },
-  scroll: function (e) {
-    //  console.log(e) ;
-    var that = this,scrollTop=that.data.scrollTop;
-    that.setData({
-      scrollTop:e.detail.scrollTop
-    })
-    // console.log('e.detail.scrollTop:'+e.detail.scrollTop) ;
-    // console.log('scrollTop:'+scrollTop)
-  },
   onLoad: function () {
     var that = this
     wx.setNavigationBarTitle({
@@ -84,7 +75,7 @@ Page({
           });
         }
       }
-    })
+    }),
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/category/all',
       success: function(res) {
@@ -104,6 +95,12 @@ Page({
     that.getCoupons ();
     that.getNotice ();
   },
+  onPageScroll(e) {
+    let scrollTop = this.data.scrollTop
+    this.setData({
+      scrollTop: e.scrollTop
+    })
+   },
   getGoodsList: function (categoryId) {
     if (categoryId == 0) {
       categoryId = "";

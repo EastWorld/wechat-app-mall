@@ -6,7 +6,7 @@ function wxpay(app, money, orderId, redirectUrl) {
     nextAction = { type: 0, id: orderId };
   }
   wx.request({
-    url: 'https://api.it120.cc/' + app.globalData.subDomain + '/pay/wxapp/get-pay-data',
+    url: 'https://api.it120.cc/' + app.globalData.subDomain + '/pay/wx/wxapp',
     data: {
       token: wx.getStorageSync('token'),
       money:money,

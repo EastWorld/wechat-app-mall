@@ -35,7 +35,14 @@ function wxpay(app, money, orderId, redirectUrl) {
           }
         })
       } else {
-        wx.showToast({ title: '服务器忙' + res.data.code + res.data.msg})
+        wx.showModal({
+          title: '出错了',
+          content: res.data.code + ':' + res.data.msg + ':' + res.data.data,
+          showCancel: false,
+          success: function (res) {
+
+          }
+        })
       }
     }
   })

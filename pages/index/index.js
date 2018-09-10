@@ -20,11 +20,15 @@ Page({
     hasNoCoupons:true,
     coupons: [],
     searchInput: '',
+
+    curPage:1,
+    pageSize:20
   },
 
   tabClick: function (e) {
     this.setData({
-      activeCategoryId: e.currentTarget.id
+      activeCategoryId: e.currentTarget.id,
+      curPage: 1
     });
     this.getGoodsList(this.data.activeCategoryId);
   },
@@ -87,7 +91,8 @@ Page({
         }
         that.setData({
           categories:categories,
-          activeCategoryId:0
+          activeCategoryId:0,
+          curPage: 1
         });
         that.getGoodsList(0);
       }
@@ -101,34 +106,41 @@ Page({
       scrollTop: e.scrollTop
     })
    },
-  getGoodsList: function (categoryId) {
+  getGoodsList: function (categoryId, append) {
     if (categoryId == 0) {
       categoryId = "";
     }
-    console.log(categoryId)
     var that = this;
+    wx.showLoading({
+      "mask":true
+    })
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/list',
       data: {
         categoryId: categoryId,
-        nameLike: that.data.searchInput
+        nameLike: that.data.searchInput,
+        page: this.data.curPage,
+        pageSize: this.data.pageSize
       },
       success: function(res) {
-        that.setData({
-          goods:[],
-          loadingMoreHidden:true
-        });
-        var goods = [];
-        if (res.data.code != 0 || res.data.data.length == 0) {
-          that.setData({
-            loadingMoreHidden:false,
-          });
-          return;
+        wx.hideLoading()        
+        if (res.data.code == 404 || res.data.code == 700){
+          let newData = { loadingMoreHidden: false }
+          if (!append) {
+            newData.goods = []
+          }
+          that.setData(newData);
+          return
         }
+        let goods = [];
+        if (append) {
+          goods = that.data.goods
+        }        
         for(var i=0;i<res.data.data.length;i++){
           goods.push(res.data.data[i]);
         }
         that.setData({
+          loadingMoreHidden: true,
           goods:goods,
         });
       }
@@ -241,6 +253,21 @@ Page({
 
   },
   toSearch : function (){
+    this.setData({
+      curPage: 1
+    });
     this.getGoodsList(this.data.activeCategoryId);
+  },
+  onReachBottom: function () {
+    this.setData({
+      curPage: this.data.curPage+1
+    });
+    this.getGoodsList(this.data.activeCategoryId, true)
+  },
+  onPullDownRefresh: function(){
+    this.setData({
+      curPage: 1
+    });
+    this.getGoodsList(this.data.activeCategoryId)
   }
 })

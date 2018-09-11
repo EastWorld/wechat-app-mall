@@ -12,6 +12,7 @@ Page({
     allGoodsAndYunPrice:0,
     goodsJsonStr:"",
     orderType:"", //订单类型，购物车下单或立即支付下单，默认是购物车，
+    pingtuanOpenId:undefined, //拼团的话记录团号
 
     hasNoCoupons: true,
     coupons: [],
@@ -46,11 +47,10 @@ Page({
   },
 
   onLoad: function (e) {
-    var that = this;
-    //显示收货地址标识
-    that.setData({
+    this.setData({
       isNeedLogistics: 1,
-      orderType: e.orderType
+      orderType: e.orderType,
+      pingtuanOpenId: e.pingtuanOpenId
     });
   },
 
@@ -79,7 +79,10 @@ Page({
       remark: remark
     };
     if (that.data.kjId) {
-      postData.kjid = that.data.kjId;
+      postData.kjid = that.data.kjId
+    }
+    if (that.data.pingtuanOpenId) {
+      postData.pingtuanOpenId = that.data.pingtuanOpenId
     }
     if (that.data.isNeedLogistics > 0) {
       if (!that.data.curAddressData) {

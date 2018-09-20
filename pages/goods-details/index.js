@@ -104,13 +104,15 @@ Page({
   },
   tobuy: function () {
     this.setData({
-      shopType: "tobuy"
+      shopType: "tobuy",
+      selectSizePrice: this.data.goodsDetail.basicInfo.minPrice
     });
     this.bindGuiGeTap();
   },  
   toPingtuan: function () {
     this.setData({
-      shopType: "toPingtuan"
+      shopType: "toPingtuan",
+      selectSizePrice: this.data.goodsDetail.basicInfo.pingtuanPrice
     });
     this.bindGuiGeTap();
   },  

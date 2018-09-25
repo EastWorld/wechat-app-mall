@@ -3,6 +3,7 @@
 .container {
   background-color: #F2f2f2;
   min-height: 100%;
+  display: block;
 }
 .swiper-container{
   width: 750rpx;

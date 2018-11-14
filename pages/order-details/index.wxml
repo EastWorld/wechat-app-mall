@@ -87,8 +87,9 @@
                   </view>
             </view>
             </block>
-            <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
-                <button class="confirm-btn" formType="submit">提交评价</button>
+            <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">                
+                <navigator style="float:right;" class="confirm-btn" target="miniProgram" app-id="wx56c8f077de74b07c" path="/open/order-comment/order-comment?appid={{appid}}&order_id={{orderDetail.orderInfo.orderNumber}}">去购物单评价</navigator>
+                <button style="float:right;" class="confirm-btn" formType="submit">提交评价</button>
             </view>
             </form>
             <form bindsubmit="confirmBtnTap" report-submit="true">

@@ -173,7 +173,6 @@ page{
     width:164rpx;
     height:60rpx;
     line-height: 60rpx;
-    text-align: center;
     margin: 20rpx 30rpx 20rpx auto;
     font-size:26rpx;
     color:#e64340;

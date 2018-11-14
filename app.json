@@ -49,5 +49,8 @@
       "selectedIconPath": "images/nav/my-on.png",
       "text": "我的"
     }]
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx56c8f077de74b07c"
+  ]
 }

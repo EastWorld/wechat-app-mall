@@ -1,17 +1,13 @@
 # 微信小程序商城
 微信小程序商城，微信小程序微店，长期维护版本，欢迎大家踊跃提交贡献代码；
 
-## 参与开发
+## 该项目发起人
 
-更多项目请关注 [https://github.com/EastWorld](https://github.com/EastWorld)。
+- 产品设计 & UI blackjeffer [飞哥]
+- 小程序开发 jiulonggithub [龙哥]
+- 接口支持 gooking
 
-- 产品设计 & UI [@blackjeffer](https://github.com/orgs/EastWorld/people/blackjeffer)
-- 小程序开发 [@jiulonggithub](https://github.com/orgs/EastWorld/people/jiulonggithub)
-- 接口及后台支持 [@gooking](https://github.com/gooking)
-
-期待您的加入~ ,欢迎大家踊跃提交代码。
-
-开发问题欢迎一起交流 ： QQ交流群：479413914
+QQ交流群：479413914
 
 ## 扫码体验
 
@@ -20,51 +16,23 @@
 <img src="https://cdn.it120.cc/apifactory/2018/04/04/570e9a77dbc9cacda176e98a4f2778c5.jpg" width="200px">
 <img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
 <img src="https://cdn.it120.cc/apifactory/2018/04/19/fbf88e05686b6d9c7c5d5476c7b798d1.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/07/06/e13a655ab88ce5b7eb7435c7e95d12a1.jpg" width="200px">
 </p>
+
+## 接口 & 后台声明
+本项目为小程序商城纯前端项目，由于人力和精力所限，本项目并未有开发配套的后台系统，而是直接使用了 [api工厂](https://www.it120.cc/) 提供的免费接口和云后台，可以完全满足本项目的所有功能需求。
 
 ## 最新功能
 
-- 订单好评后可设置赠送积分奖励；
-- 样式优化；
-- 增加砍价功能；
-- 增加拼团功能；
-- 默认30分钟超时关闭订单现在可自定义时间了；
-- 用户授权方式更新，增加独立授权页面按钮点击授权；
-- 增加积分券兑换功能；
+- [新增小程序购物单支持](https://developers.weixin.qq.com/miniprogram/introduction/widget/order/quickstart/orderlist/import.html)
 
 ## 使用说明
 
-> [申请商城后台账号](https://www.it120.cc/info/wxapp/115)
+> 1、[申请后台账号/获取专属域名](https://www.it120.cc/info/wxapp/115)
 >
-> 选择使用商城模块
-> > 在 API 列表中选择使用以下API模块：
+> 2、开通商城模块
+> > <img src="https://cdn.it120.cc/apifactory/2018/11/14/b61fe6ffb2460f7e4554758b394814f5.png">
 >
-> > >系统参数设置： 用于配置商城名称；
->
-> > > 小程序用户注册接口：实现用户注册；
->
-> > > 小程序登录接口：实现用户自动登录；
->
-> > > App Banner管理接口: 设置商城首页轮播图片
->
-> > > 在线支付接口：完成小程序在线支付；
->
-> > > 商品类别接口；
->
-> > > 商城商品管理接口；
->
-> > > 商城订单管理接口；
->
-> > > 用户收货地址接口；
->
-> > > 优惠券接口；
->
-> > > 平台公告模块
->
-> > > 积分模块【签到送积分】
->
-> 修改源码中  app.js 文件
+> 3、修改源码中  app.js 文件
 > > > globalData:{
 >  userInfo:null,
 >  subDomain:"mall"
@@ -72,9 +40,9 @@
 > >
 > > > subDomain 中的 mall 为上面您注册开通的域名
 >
-> [设置小程序合法服务器域名](https://www.it120.cc/info/wxapp/116)
+> 4、[设置小程序合法服务器域名](https://www.it120.cc/info/wxapp/116)
 >
-> 重启您的小程序开发工具，完成
+> 5、重启您的小程序开发工具，完成
 
 ## 常见问题
 

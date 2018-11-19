@@ -68,8 +68,15 @@ Page({
     if (!e.detail.userInfo){
       return;
     }
-    wx.setStorageSync('userInfo', e.detail.userInfo)
-    this.login();
+    if (app.globalData.isConnected) {
+      wx.setStorageSync('userInfo', e.detail.userInfo)
+      this.login();
+    } else {
+      wx.showToast({
+        title: '当前无网络',
+        icon: 'none',
+      })
+    }
   },
   login: function () {
     let that = this;

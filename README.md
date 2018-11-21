@@ -47,7 +47,15 @@ QQ交流群：479413914
 ## 常见问题
 
 - [如何修改小程序商城的标题？](https://www.it120.cc/info/faq/778)
-- [“无法登录”的错误？](https://www.it120.cc/info/faq/391)
+- “无法登录” / Token 无效 ？
+> 1、app.js 里面的 subDomain  改成你自己的，保存；
+> 
+> 2、登录你的小程序后台（MP那个地址），Request 域名处增加 api.it120.cc
+> 
+> 3、确保小程序后台（MP那个地址） 的appid，工厂后台填写的 appid ，开发工具右上角 “项目详情” 打开后显示的 appid ，这3个 appid 是一模一样的；
+> 
+> 4、开发工具上点击 “清除缓存” —>  “编译”
+> 
 - [小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
 - [如何发布自己的商品？](https://www.it120.cc/info/faq/436)
 - [如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)

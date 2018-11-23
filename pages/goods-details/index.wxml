@@ -44,7 +44,7 @@
           <view style="width:500rpx;float:left;margin-left:35rpx;">
             <view>已有<text style="color:red"> {{item.helpNumber}} </text>人参与</view>
             <view style="color: #B0B0B0;font-size:24rpx;">截止: {{item.dateEnd}}</view>
-            <button type="warn" size="mini" data-pingtuanopenid="{{item.id}}" bindtap="joinPingtuan"> 去拼单 </button>
+            <button type="warn" size="mini" data-pingtuanopenid="{{item.id}}" bindtap="toPingtuan"> 去拼单 </button>
           </view>
         </view>
   </view>

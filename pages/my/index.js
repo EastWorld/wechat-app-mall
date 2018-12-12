@@ -78,10 +78,12 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 0) {
-          that.setData({
-            apiUserInfoMap: res.data.data,
-            userMobile: res.data.data.base.mobile
-          });
+          let _data = {}
+          _data.apiUserInfoMap = res.data.data
+          if (res.data.data.base.mobile) {
+            _data.userMobile = res.data.data.base.mobile
+          }
+          that.setData(_data);
         }
       }
     })

@@ -1,4 +1,5 @@
 //index.js
+const api = require('../../utils/request.js')
 //获取应用实例
 var app = getApp()
 Page({
@@ -61,25 +62,48 @@ Page({
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/banner/list',
-      data: {
-        key: 'mallName'
-      },
-      success: function(res) {
-        if (res.data.code == 404) {
-          wx.showModal({
-            title: '提示',
-            content: '请在后台添加 banner 轮播图片',
-            showCancel: false
-          })
-        } else {
-          that.setData({
-            banners: res.data.data
-          });
-        }
+    /**
+     * 示例：
+     * 调用接口封装方法
+     */
+    api.fetchRequest('/banner/list', {key: 'mallName'}).then(function (res) {
+      if (res.data.code == 404) {
+        wx.showModal({
+          title: '提示',
+          content: '请在后台添加 banner 轮播图片',
+          showCancel: false
+        })
+      } else {
+        that.setData({
+          banners: res.data.data
+        });
       }
-    }),
+    }).catch(function (res) {
+      wx.showToast({
+        title: res.data.msg,
+        icon: 'none'
+      })
+    })
+    // 原请求方式
+    // wx.request({
+    //   url: 'https://api.it120.cc/' + app.globalData.subDomain + '/banner/list',
+    //   data: {
+    //     key: 'mallName'
+    //   },
+      // success: function(res) {
+      //   if (res.data.code == 404) {
+      //     wx.showModal({
+      //       title: '提示',
+      //       content: '请在后台添加 banner 轮播图片',
+      //       showCancel: false
+      //     })
+      //   } else {
+      //     that.setData({
+      //       banners: res.data.data
+      //     });
+      //   }
+    //   }
+    // }),
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/category/all',
       success: function(res) {

@@ -32,7 +32,7 @@ Page({
         id: that.data.id
       },
       success: function (res) {
-        if (res.code == 0) {
+        if (res.data.code == 0) {
           that.data.goodsDetail = res.data.data;
           if (res.data.data.basicInfo.videoId) {
             that.getVideoSrc(res.data.data.basicInfo.videoId);

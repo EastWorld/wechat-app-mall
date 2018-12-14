@@ -40,6 +40,10 @@ Page({
         key: 'inviter_id_' + e.id,
         data: e.inviter_id
       })
+      wx.setStorage({
+        key: 'referrer',
+        data: e.inviter_id
+      })
     }
     var that = this;
     that.data.kjId = e.kjId;

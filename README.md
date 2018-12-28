@@ -21,7 +21,7 @@
 
 ## 使用说明
 
-1、[申请后台账号/获取专属域名](https://www.it120.cc/info/wxapp/115)
+1、申请后台账号/获取专属域名
 
 2、开通商城模块
 
@@ -45,14 +45,14 @@ module.exports = {
 */
 ```
 
-4、[设置小程序合法服务器域名](https://www.it120.cc/info/wxapp/116)
+4、[设置小程序合法服务器域名](https://www.it120.cc/info/faq/10469)
 
 5、重启您的小程序开发工具，完成
 
 
 ## 常见问题
 
-- [如何修改小程序商城的标题？](https://www.it120.cc/info/faq/778)
+- [如何修改小程序商城的标题？](https://www.it120.cc/info/wechat-app-mall/10478)
 
 - “无法登录” / Token 无效 ？
 
@@ -61,13 +61,9 @@ module.exports = {
   3. 确保小程序后台（MP那个地址） 的appid，工厂后台填写的 appid ，开发工具右上角 “项目详情” 打开后显示的 appid ，这3个 appid 是一模一样的；
   4. 开发工具上点击 “清除缓存” —>  “编译”
 
-- [小程序提示“无法登录”的错误？](https://www.it120.cc/info/faq/392)
+- 登录后台发布您自己的商品
 
-- [如何发布自己的商品？](https://www.it120.cc/info/faq/436)
-
-- [如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/faq/437)
-
-- [获取我的accesstoken，以便我在其他系统使用](https://www.it120.cc/info/faq/763)
+- [如何给Banner增加链接，点击打开某个商品？](https://www.it120.cc/info/wechat-app-mall/10477)
 
 - 工厂后台设置 appid、secret、微信支付商户号和秘钥时候的 token 怎么填？
 
@@ -98,8 +94,6 @@ module.exports = {
   3. 您的代码合并请求审核通过后，我们将会为您完善配套的后台功能；
   4. 开源项目离不开您的支持和代码共享，我们一起把 EastWorld 项目长期维护下去；
 
-- [如何使用在线客服功能？](https://www.it120.cc/info/faq/867)
-
 - 下单的时候没有地方填写收货地址？
 
   1. 添加一个“物流模板”，只有需要快递的商品才会提示用户填写收货地址
@@ -124,21 +118,12 @@ module.exports = {
   2. 参数名 free_shipping_for_purchases （注意不要有空格）
   3. 参数值填写您希望的买满金额即可
 
-- [“规格与尺寸”怎么玩](https://www.it120.cc/info/faq/1208)
-
-- [如何设置用户提现手续费](https://www.it120.cc/info/faq/1589)
-
-- [商品如何显示视频？](https://www.it120.cc/info/faq/1802)
-
-- [货到付款、积分赠送规则设置](https://www.it120.cc/notice/22)
-
-- [小程序如何使用“模板消息”给用户推送消息](https://www.it120.cc/info/faq/2823)
-
 - 如何修改或者关闭订单超过30分钟未付款自动关闭？
 
   1. 创建订单接口增加 expireMinutes 参数；
   2. 代表多少分钟未支付自动关闭本订单，传0不自动关闭订单；
 
+- [更多问题？](https://www.it120.cc/info/all)
 
 ## 如何升级到最新版
 

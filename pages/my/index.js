@@ -1,5 +1,6 @@
 const app = getApp()
 const api = require('../../utils/request.js')
+const CONFIG = require('../../config.js')
 Page({
 	data: {
     balance:0,
@@ -14,13 +15,11 @@ Page({
     let that = this;
     let userInfo = wx.getStorageSync('userInfo')
     if (!userInfo) {
-      wx.navigateTo({
-        url: "/pages/authorize/index"
-      })
+      app.goLoginPageTimeOut()
     } else {
       that.setData({
         userInfo: userInfo,
-        version: app.globalData.version
+        version: CONFIG.version
       })
     }
     this.getUserApiInfo();
@@ -124,9 +123,7 @@ Page({
     })
   },
   relogin:function(){
-    wx.navigateTo({
-      url: "/pages/authorize/index"
-    })
+    app.goLoginPageTimeOut()
   },
   recharge: function () {
     wx.navigateTo({

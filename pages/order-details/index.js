@@ -1,11 +1,12 @@
 var app = getApp();
 const api = require('../../utils/request.js')
+const CONFIG = require('../../config.js')
 Page({
     data:{
       orderId:0,
       goodsList:[],
       yunPrice:"0.00",
-      appid: app.globalData.appid
+      appid: CONFIG.appid
     },
     onLoad:function(e){
       var orderId = e.id;

@@ -1,7 +1,6 @@
-const app = getApp()
-const REQUEST_CACHE = [];
-// const _path = 'https://api.it120.cc/tz';
-const _path = 'https://api.it120.cc/1eb0acd21084de279938189ba06492af';
+const CONFIG = require('../config.js')
+const REQUEST_CACHE = []
+const API_BASE_URL = 'https://api.it120.cc'
 /**
  * 简单请求封装
  * url: 请求地址
@@ -9,7 +8,7 @@ const _path = 'https://api.it120.cc/1eb0acd21084de279938189ba06492af';
  * method: 请求方法
  * cache: 缓存时长(单位: 秒)
  */
-function FetchRequest(url, data, method = 'GET', cache = 0, header = {}) {
+function FetchRequest(url, data, method = 'GET', cache = 0, header = {}, noSubDomain = false) {
   var request_key = GetStorageKey(url, method);
   if (cache) {
     return new Promise(Storage);
@@ -54,11 +53,15 @@ function FetchRequest(url, data, method = 'GET', cache = 0, header = {}) {
       return;
     }
     SaveRequest(request_key);
+    let _url = API_BASE_URL + '/' + CONFIG.subDomain + url
+    if (noSubDomain) {
+      _url = API_BASE_URL + url
+    }
     wx.request({
-      url: _path + url,
+      url: _url,
       method: method.toUpperCase(),
       data: data,
-      header: header || app.globalData.header,
+      header: header,
       success: FetchSuccess,
       fail: FetchError,
       complete: RequestOver
@@ -75,7 +78,7 @@ function FetchRequest(url, data, method = 'GET', cache = 0, header = {}) {
         FetchError(res.data);
         switch (res.statusCode) {
           case 403:
-            app.goLoginPageTimeOut();
+            // 业务逻辑处理
             break
         }
       }

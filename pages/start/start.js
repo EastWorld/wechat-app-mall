@@ -29,9 +29,7 @@ Page({
     let that = this
     let userInfo = wx.getStorageSync('userInfo')
     if (!userInfo) {
-      wx.navigateTo({
-        url: "/pages/authorize/index"
-      })
+      app.goLoginPageTimeOut()
     } else {
       that.setData({
         userInfo: userInfo

@@ -1,4 +1,3 @@
-// pages/authorize/index.js
 const api = require('../../utils/request.js')
 var app = getApp();
 Page({
@@ -89,6 +88,7 @@ Page({
           that.login();
         } else {
           // 回到原来的地方放
+          app.navigateToLogin = false
           wx.navigateBack();
         }
       })
@@ -117,6 +117,7 @@ Page({
           wx.setStorageSync('token', res.data.data.token)
           wx.setStorageSync('uid', res.data.data.uid)
           // 回到原来的地方放
+          app.navigateToLogin = false
           wx.navigateBack();
         })
       }

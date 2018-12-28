@@ -1,5 +1,6 @@
 //index.js
 const api = require('../../utils/request.js')
+const CONFIG = require('../../config.js')
 //获取应用实例
 var app = getApp()
 Page({
@@ -216,7 +217,7 @@ Page({
   },
   onShareAppMessage: function() {
     return {
-      title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
+      title: wx.getStorageSync('mallName') + '——' + CONFIG.shareProfile,
       path: '/pages/index/index',
       success: function(res) {
         // 转发成功

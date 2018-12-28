@@ -1,6 +1,7 @@
 const app = getApp()
 const REQUEST_CACHE = [];
-
+// const _path = 'https://api.it120.cc/tz';
+const _path = 'https://api.it120.cc/1eb0acd21084de279938189ba06492af';
 /**
  * 简单请求封装
  * url: 请求地址
@@ -8,7 +9,7 @@ const REQUEST_CACHE = [];
  * method: 请求方法
  * cache: 缓存时长(单位: 秒)
  */
-function FetchRequest(url, data, method = 'GET', cache = 0) {
+function FetchRequest(url, data, method = 'GET', cache = 0, header = {}) {
   var request_key = GetStorageKey(url, method);
   if (cache) {
     return new Promise(Storage);
@@ -54,10 +55,10 @@ function FetchRequest(url, data, method = 'GET', cache = 0) {
     }
     SaveRequest(request_key);
     wx.request({
-      url: app.globalData._path + url,
+      url: _path + url,
       method: method.toUpperCase(),
       data: data,
-      header: app.globalData.header,
+      header: header || app.globalData.header,
       success: FetchSuccess,
       fail: FetchError,
       complete: RequestOver

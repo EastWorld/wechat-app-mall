@@ -1,4 +1,5 @@
 var commonCityData = require('../../utils/city.js')
+const api = require('../../utils/request.js')
 //获取应用实例
 var app = getApp()
 Page({
@@ -85,34 +86,30 @@ Page({
     } else {
       apiAddid = 0;
     }
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/' + apiAddoRuPDATE,
-      data: {
-        token: wx.getStorageSync('token'),
-        id: apiAddid,
-        provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
-        cityId: cityId,
-        districtId: districtId,
-        linkMan:linkMan,
-        address:address,
-        mobile:mobile,
-        code:code,
-        isDefault:'true'
-      },
-      success: function(res) {
-        if (res.data.code != 0) {
-          // 登录错误 
-          wx.hideLoading();
-          wx.showModal({
-            title: '失败',
-            content: res.data.msg,
-            showCancel:false
-          })
-          return;
-        }
-        // 跳转到结算页面
-        wx.navigateBack({})
+    api.fetchRequest(`/user/shipping-address/${apiAddoRuPDATE}`, {
+      token: wx.getStorageSync('token'),
+      id: apiAddid,
+      provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
+      cityId: cityId,
+      districtId: districtId,
+      linkMan: linkMan,
+      address: address,
+      mobile: mobile,
+      code: code,
+      isDefault: 'true'
+    }).then(function (res) {
+      if (res.data.code != 0) {
+        // 登录错误 
+        wx.hideLoading();
+        wx.showModal({
+          title: '失败',
+          content: res.data.msg,
+          showCancel: false
+        })
+        return;
       }
+      // 跳转到结算页面
+      wx.navigateBack({})
     })
   },
   initCityData:function(level, obj){
@@ -183,32 +180,29 @@ Page({
     if (id) {
       // 初始化原数据
       wx.showLoading();
-      wx.request({
-        url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/detail',
-        data: {
-          token: wx.getStorageSync('token'),
-          id: id
-        },
-        success: function (res) {
-          wx.hideLoading();
-          if (res.data.code == 0) {
-            that.setData({
-              id:id,
-              addressData: res.data.data,
-              selProvince: res.data.data.provinceStr,
-              selCity: res.data.data.cityStr,
-              selDistrict: res.data.data.areaStr
-              });
-            that.setDBSaveAddressId(res.data.data);
-            return;
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: '无法获取快递地址数据',
-              showCancel: false
-            })
-          }
+      api.fetchRequest('/user/shipping-address/detail', {
+        token: wx.getStorageSync('token'),
+        id: id
+      }).then(function (res) {
+        if (res.data.code == 0) {
+          that.setData({
+            id: id,
+            addressData: res.data.data,
+            selProvince: res.data.data.provinceStr,
+            selCity: res.data.data.cityStr,
+            selDistrict: res.data.data.areaStr
+          });
+          that.setDBSaveAddressId(res.data.data);
+          return;
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '无法获取快递地址数据',
+            showCancel: false
+          })
         }
+      }).finally(function() {
+        wx.hideLoading();
       })
     }
   },
@@ -241,15 +235,11 @@ Page({
       content: '确定要删除该收货地址吗？',
       success: function (res) {
         if (res.confirm) {
-          wx.request({
-            url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/delete',
-            data: {
-              token: wx.getStorageSync('token'),
-              id: id
-            },
-            success: (res) => {
-              wx.navigateBack({})
-            }
+          api.fetchRequest('/user/shipping-address/delete', {
+            token: wx.getStorageSync('token'),
+            id: id
+          }).then(function (res) {
+            wx.navigateBack({})
           })
         } else if (res.cancel) {
           console.log('用户点击取消')

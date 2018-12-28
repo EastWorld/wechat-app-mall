@@ -1,11 +1,13 @@
 //app.js
+const api = require('./utils/request.js')
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     var that = this;
+    that.globalData.path = that.globalData._path
     /**
-   * 初次加载判断网络情况
-   * 无网络状态下根据实际情况进行调整
-   */
+     * 初次加载判断网络情况
+     * 无网络状态下根据实际情况进行调整
+     */
     wx.getNetworkType({
       success(res) {
         const networkType = res.networkType
@@ -23,7 +25,7 @@ App({
      * 监听网络状态变化
      * 可根据业务需求进行调整
      */
-    wx.onNetworkStatusChange(function (res) {
+    wx.onNetworkStatusChange(function(res) {
       if (!res.isConnected) {
         that.globalData.isConnected = false
         wx.showToast({
@@ -38,49 +40,33 @@ App({
         that.globalData.isConnected = true
         wx.hideToast()
       }
-    });       
+    });
     //  获取商城名称
-    wx.request({
-      url: 'https://api.it120.cc/'+ that.globalData.subDomain +'/config/get-value',
-      data: {
-        key: 'mallName'
-      },
-      success: function(res) {
-        if (res.data.code == 0) {
-          wx.setStorageSync('mallName', res.data.data.value);
-        }
+    api.fetchRequest('/config/get-value', {
+      key: 'mallName'
+    }).then(function(res) {
+      if (res.data.code == 0) {
+        wx.setStorageSync('mallName', res.data.data.value);
       }
     })
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/score/send/rule',
-      data: {
-        code: 'goodReputation'
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.globalData.order_reputation_score = res.data.data[0].score;
-        }
+    api.fetchRequest('/score/send/rule', {
+      code: 'goodReputation'
+    }).then(function(res) {
+      if (res.data.code == 0) {
+        that.globalData.order_reputation_score = res.data.data[0].score;
       }
     })
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/config/get-value',
-      data: {
-        key: 'recharge_amount_min'
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.globalData.recharge_amount_min = res.data.data.value;
-        }
+    api.fetchRequest('/config/get-value', {
+      key: 'recharge_amount_min'
+    }).then(function(res) {
+      if (res.data.code == 0) {
+        that.globalData.recharge_amount_min = res.data.data.value;
       }
     })
     // 获取砍价设置
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/shop/goods/kanjia/list',
-      data: {},
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.globalData.kanjiaList = res.data.data.result;
-        }
+    api.fetchRequest('/shop/goods/kanjia/list').then(function(res) {
+      if (res.data.code == 0) {
+        that.globalData.kanjiaList = res.data.data.result;
       }
     })
     // 判断是否登录
@@ -89,90 +75,71 @@ App({
       that.goLoginPageTimeOut()
       return
     }
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/user/check-token',
-      data: {
-        token: token
-      },
-      success: function (res) {
-        if (res.data.code != 0) {
-          wx.removeStorageSync('token')
-          that.goLoginPageTimeOut()
-        }
+    api.fetchRequest('/user/check-token', {
+      token: token
+    }).then(function(res) {
+      if (res.data.code != 0) {
+        wx.removeStorageSync('token')
+        that.goLoginPageTimeOut()
       }
     })
   },
-  sendTempleMsg: function (orderId, trigger, template_id, form_id, page, postJsonString){
+  sendTempleMsg: function(orderId, trigger, template_id, form_id, page, postJsonString) {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/template-msg/put',
-      method:'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        token: wx.getStorageSync('token'),
-        type:0,
-        module:'order',
-        business_id: orderId,
-        trigger: trigger,
-        template_id: template_id,
-        form_id: form_id,
-        url:page,
-        postJsonString: postJsonString
-      },
-      success: (res) => {
-        //console.log('*********************');
-        //console.log(res.data);
-        //console.log('*********************');
-      }
-    })
+    api.fetchRequest('/template-msg/put', {
+      token: wx.getStorageSync('token'),
+      type: 0,
+      module: 'order',
+      business_id: orderId,
+      trigger: trigger,
+      template_id: template_id,
+      form_id: form_id,
+      url: page,
+      postJsonString: postJsonString
+    }, 'POST', 0, {
+      'content-type': 'application/x-www-form-urlencoded'
+    }).then(function(res) {})
   },
-  sendTempleMsgImmediately: function (template_id, form_id, page, postJsonString) {
+  sendTempleMsgImmediately: function(template_id, form_id, page, postJsonString) {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/template-msg/put',
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        token: wx.getStorageSync('token'),
-        type: 0,
-        module: 'immediately',
-        template_id: template_id,
-        form_id: form_id,
-        url: page,
-        postJsonString: postJsonString
-      },
-      success: (res) => {
-        console.log(res.data);
-      }
-    })
-  },  
-  goLoginPageTimeOut: function () {
-    setTimeout(function(){
+    api.fetchRequest('/template-msg/put', {
+      token: wx.getStorageSync('token'),
+      type: 0,
+      module: 'immediately',
+      template_id: template_id,
+      form_id: form_id,
+      url: page,
+      postJsonString: postJsonString
+    }, 'POST', 0, {
+      'content-type': 'application/x-www-form-urlencoded'
+    }).then(function(res) {})
+  },
+  goLoginPageTimeOut: function() {
+    setTimeout(function() {
       wx.navigateTo({
         url: "/pages/authorize/index"
       })
-    }, 1000)    
+    }, 1000)
   },
-  goStartIndexPage: function () {
-    setTimeout(function () {
+  goStartIndexPage: function() {
+    setTimeout(function() {
       wx.redirectTo({
         url: "/pages/start/start"
       })
     }, 1000)
   },
-  globalData:{
-    userInfo:null,
+  globalData: {
+    userInfo: null,
     subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
     version: "4.1.0",
-    note:'增加小程序购物单支持',
+    note: '增加小程序购物单支持',
     appid: "wxa46b09d413fbcaff", // 您的小程序的appid
     shareProfile: '百款精品商品，总有一款适合您', // 首页转发的时候话术
     isConnected: true, // 网络是否连接
-    _path: 'https://api.it120.cc/tz' // 原项目路由配置在页面中，改为配置项
+    // _path: 'https://api.it120.cc/1eb0acd21084de279938189ba06492af', // 原项目路由配置在页面中，改为配置项
+    header: {
+      Authorization: wx.getStorageSync('token')
+    },
   }
   /*
   根据自己需要修改下单时候的模板消息内容设置，可增加关闭订单、收货时候模板消息提醒；

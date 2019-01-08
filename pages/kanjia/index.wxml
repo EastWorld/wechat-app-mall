@@ -1,0 +1,52 @@
+<import src="../../wxParse/wxParse.wxml" />
+<view class="container"> 
+   <view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
+        <swiper class="swiper_box" 
+                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+            <block wx:for="{{goodsDetail.pics}}" wx:key="id">
+                <swiper-item>
+                    <image src="{{item.pic}}_m" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true"/>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="dots">  
+            <block wx:for="{{goodsDetail.pics}}" wx:key="unique">  
+                <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
+            </block>  
+        </view>  
+   </view>
+   <view class="swiper-container" wx:if="{{goodsDetail.basicInfo.videoId}}">
+        <video src="{{videoMp4Src}}" autoplay="true" loop="true" style='width:100%'></video>
+   </view>
+   <view class="goods-info">
+        <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
+        <view class="goods-price" style="padding-left:35rpx;">当前价格: ¥ {{kanjiaInfo.kanjiaInfo.curPrice}} , 底价 ¥ {{kanjiaInfo.kanjiaInfo.minPrice}} </view>
+        <view class="goods-price" style="color:#999;font-size:24rpx;padding-left:10rpx;"> (转发帮 {{kanjiaInfo.joiner.nick}} 砍价) </view>
+    </view>
+    <view class="goods-des-info">
+        <view class="label-title">商品介绍</view>
+        <view class="goods-text">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+         </view>
+    </view>
+    <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{kanjiaInfo.helps}}">
+        <view class="label-title" style="border-bottom:1px solid #eee;">砍价记录<text style="color:red">（{{kanjiaInfo.kanjiaInfo.helpNumber}}）</text></view>
+        <view class="goods-text" style="margin-top:15rpx;" wx:for="{{kanjiaInfo.helps}}" wx:key="id">
+          <view style="width:100rpx;float:left;">
+            <image style="width: 100rpx; height: 100rpx;" src="{{item.avatarUrl}}"></image>
+            <view style="text-align:center;width:100rpx;"> </view>
+          </view>
+          <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
+            <view>{{item.nick}} 帮忙砍掉 <text style="color: red">{{item.cutPrice}}</text> 元</view>
+            <view style="color: #B0B0B0;font-size:24rpx;">{{item.dateAdd}}</view>
+          </view>
+        </view>
+    </view>
+    <view class="footer-box">        
+        <view class="now-buy" bindtap="helpKanjia" wx:if="{{!kanjiaInfoMyHelp}}">帮忙砍一刀</view>
+        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid != curuid}}">您已砍 {{kanjiaInfoMyHelp.cutPrice}} 元</view>
+        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid == curuid}}">
+          <view class="now-buy" bindtap="tobuy" style='margin-left:0;width:750rpx;'>以当前价购买</view>
+        </view>
+   </view>
+</view>

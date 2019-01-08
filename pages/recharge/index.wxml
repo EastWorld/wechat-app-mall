@@ -1,0 +1,18 @@
+<view class="container">
+    <form bindsubmit="bindSave">
+    <view class="form-box">
+        <view class="row-wrap">
+            <view class="label">充值金额</view>
+            <view class="label-right">
+                <input name="amount" class="input" type="text" placeholder="{{recharge_amount_min}}"/>
+            </view>
+        </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">立即支付</button>
+    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
+    </form>
+    <view style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'>您也可以直接给下面的支付宝账户转账；</view>
+    <view style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'>转账金额将自动进入您的账户；</view>
+    <input style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'  class="input" type="text" value='javazj@foxmail.com'/>
+    <view style='width:100%;padding-left:30rpx;font-size: 30rpx;margin-top:30rpx;color:red'>转账备注请填写： {{uid}}</view>
+</view>

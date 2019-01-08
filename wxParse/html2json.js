@@ -109,14 +109,14 @@ function html2json(html, bindName) {
                     var name = attr.name;
                     var value = attr.value;
                     if (name == 'class') {
-                        console.dir(value);
+                        // console.dir(value);
                         //  value = value.join("")
                         node.classStr = value;
                     }
                     // has multi attibutes
                     // make it array of attribute
                     if (name == 'style') {
-                        console.dir(value);
+                        // console.dir(value);
                         //  value = value.join("")
                         node.styleStr = value;
                     }
@@ -184,7 +184,7 @@ function html2json(html, bindName) {
             }
             
             if (unary) {
-                // if this tag dosen't have end tag
+                // if this tag doesn't have end tag
                 // like <img src="hoge.png"/>
                 // add to parents
                 var parent = bufArray[0] || results;

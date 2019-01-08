@@ -1,0 +1,7 @@
+<view class="container">
+    <form bindsubmit="bindSave">
+    <view style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'>1、同意当前小程序获取我的微信头像；</view>
+    <view style='width:100%;padding-left:30rpx;font-size: 28rpx;margin-top:30rpx;'>2、同意当前小程序获取我的微信昵称等其他信息；</view>
+    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="save-btn">授权登录</button>
+    </form>
+</view>

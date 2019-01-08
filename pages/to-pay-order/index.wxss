@@ -1,5 +1,6 @@
 .container{
     background-color:#F2f2f2;
+    padding-bottom: 100rpx;
 }
 .address-box{
     width: 100%;
@@ -161,6 +162,7 @@ form{
     left: 0;
     border-top:1px solid #eee; 
     background-color: #fff;
+    z-index: 999;
 }
 .jiesuan-box .to-pay-btn{
     width:250rpx;

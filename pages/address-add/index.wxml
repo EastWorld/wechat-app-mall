@@ -4,13 +4,13 @@
         <view class="row-wrap">
             <view class="label">联系人</view>
             <view class="label-right">
-                <input name="linkMan" class="input" type="text" placeholder="姓名" value="{{addressData.linkMan}}"/>
+                <input name="linkMan" class="input" type="text" placeholder="姓名" value="{{addressData.linkMan}}{{wxaddress.userName}}"/>
             </view>
         </view>
         <view class="row-wrap">
             <view class="label">手机号码</view>
             <view class="label-right">
-                <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}"/>
+                <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}{{wxaddress.telNumber}}"/>
             </view>
         </view>
         <view class="row-wrap" bindtap="selectCity">
@@ -35,17 +35,18 @@
             <view class="label">详细地址</view>
             <view class="label-right">
                 <!--<input class="input" type="text" placeholder="街道门牌信息"/>-->
-                <textarea name="address" auto-height placeholder="街道门牌信息"  value="{{addressData.address}}"/>
+                <textarea name="address" auto-height placeholder="街道门牌信息"  value="{{addressData.address}}{{wxaddress.detailInfo}}"/>
             </view>
         </view>
         <view class="row-wrap">
             <view class="label">邮政编号</view>
             <view class="label-right">
-                <input name="code" class="input" type="text" value="{{addressData.code}}"/>
+                <input name="code" class="input" type="text" value="{{addressData.code}}{{wxaddress.postalCode}}"/>
             </view>
         </view>
     </view>
     <button type="warn" class="save-btn" formType="submit">保存</button>
+    <button wx:if="{{!addressData}}" type="primary" class="save-btn" bindtap="readFromWx">从微信读取</button>
     <button type="default" class="save-btn" bindtap="deleteAddress" data-id="{{addressData.id}}" wx:if="{{addressData}}">删除该地址</button>
     <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
     </form>

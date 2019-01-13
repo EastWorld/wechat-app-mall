@@ -12,10 +12,12 @@
         <image class="wave wave-bg" src="/images/more/wave.png" mode="aspectFill"></image>
       </view>
       <view class="bd">
-         <image class="smalltitle" src="/images/more/confirm-word1.png"></image>
-        <view class="confirm-btn" bindtap='goToIndex'>
-          <text >进入店铺</text>
-        </view>
+        <image class="smalltitle" src="/images/more/confirm-word1.png"></image>
+        <form bindsubmit="goToIndex" report-submit="true">
+          <button class="confirm-btn" form-type="submit">
+            <text >进入店铺</text>
+          </button>
+        </form>
         <text class="copyright">@qindiandadudu 贡献本页代码</text>
       </view>
     </view>

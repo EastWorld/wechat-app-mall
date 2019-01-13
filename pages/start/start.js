@@ -1,4 +1,4 @@
-//login.js
+const api = require('../../utils/request.js')
 //获取应用实例
 var app = getApp();
 Page({
@@ -7,7 +7,12 @@ Page({
     angle: 0,
     userInfo: {}
   },
-  goToIndex:function(){
+  goToIndex:function(e){    
+    api.fetchRequest('/template-msg/wxa/formId', {
+      token: wx.getStorageSync('token'),
+      type: 'form',
+      formId: e.detail.formId
+    })
     if (app.globalData.isConnected) {
       wx.switchTab({
         url: '/pages/index/index',

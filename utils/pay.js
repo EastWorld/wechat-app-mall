@@ -25,6 +25,13 @@ function wxpay(app, money, orderId, redirectUrl) {
           wx.showToast({ title: '支付失败:' + aaa })
         },
         success: function () {
+          // 保存 formid
+          api.fetchRequest('/template-msg/wxa/formId', {
+            token: wx.getStorageSync('token'),
+            type: 'pay',
+            formId: res.data.data.prepayId
+          })
+          // 提示支付成功
           wx.showToast({ title: '支付成功' })
           wx.redirectTo({
             url: redirectUrl

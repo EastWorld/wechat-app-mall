@@ -55,7 +55,11 @@ Page({
     confirmBtnTap:function(e){
       let that = this;
       let orderId = this.data.orderId;
-      let formId = e.detail.formId;
+      api.fetchRequest('/template-msg/wxa/formId', {
+        token: wx.getStorageSync('token'),
+        type: 'form',
+        formId: e.detail.formId
+      })
       wx.showModal({
           title: '确认您已收到商品？',
           content: '',
@@ -76,7 +80,7 @@ Page({
                     keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score + '积分奖励。';
                   }
                   postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-                  app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', formId,
+                  app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', '',
                     '/pages/order-details/index?id=' + orderId, JSON.stringify(postJsonString));
                 }
               })
@@ -86,7 +90,11 @@ Page({
     },
     submitReputation: function (e) {
       let that = this;
-      let formId = e.detail.formId;
+      api.fetchRequest('/template-msg/wxa/formId', {
+        token: wx.getStorageSync('token'),
+        type: 'form',
+        formId: e.detail.formId
+      })
       let postJsonString = {};
       postJsonString.token = wx.getStorageSync('token');
       postJsonString.orderId = this.data.orderId;
@@ -120,7 +128,7 @@ Page({
             keywords2 += app.globalData.order_reputation_score + '积分奖励已发放至您的账户。';
           }
           postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-          app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', formId,
+          app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', '',
             '/pages/order-details/index?id=' + that.data.orderId, JSON.stringify(postJsonString));
         }
       }).finally(res => {

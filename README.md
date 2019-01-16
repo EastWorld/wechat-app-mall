@@ -19,6 +19,8 @@
 
 - [新增小程序购物单支持](https://developers.weixin.qq.com/miniprogram/introduction/widget/order/quickstart/orderlist/import.html)
 
+- [新增三级分销功能](https://www.it120.cc/info/help/10474)
+
 ## 使用说明
 
 1、申请后台账号/获取专属域名

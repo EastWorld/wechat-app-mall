@@ -10,6 +10,7 @@ const API_BASE_URL = 'https://api.it120.cc'
  */
 function FetchRequest(url, data, method = 'GET', cache = 0, header = {}, noSubDomain = false) {
   var request_key = GetStorageKey(url, method);
+  console.log(111, cache)
   if (cache) {
     return new Promise(Storage);
   } else {
@@ -49,9 +50,9 @@ function FetchRequest(url, data, method = 'GET', cache = 0, header = {}, noSubDo
    * 请求接口
    */
   function Request(resolve, reject) {
-    if (CheckRequest(request_key)) {
-      return;
-    }
+    // if (CheckRequest(request_key)) {
+    //   return;
+    // }
     SaveRequest(request_key);
     let _url = API_BASE_URL + '/' + CONFIG.subDomain + url
     if (noSubDomain) {

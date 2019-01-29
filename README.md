@@ -58,7 +58,7 @@ module.exports = {
 
 - “无法登录” / Token 无效 ？
 
-  1. app.js 里面的 subDomain  改成你自己的，保存；
+  1. config.js 里面的 subDomain  改成你自己的，保存；
   2. 登录你的小程序后台（MP那个地址），Request 域名处增加 api.it120.cc
   3. 确保小程序后台（MP那个地址） 的appid，工厂后台填写的 appid ，开发工具右上角 “项目详情” 打开后显示的 appid ，这3个 appid 是一模一样的；
   4. 开发工具上点击 “清除缓存” —>  “编译”

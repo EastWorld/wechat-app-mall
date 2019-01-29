@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+const api = require('../../utils/request.js')
 var app = getApp()
 Page({
   data: {},

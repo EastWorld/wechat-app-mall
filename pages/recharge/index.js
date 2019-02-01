@@ -1,4 +1,6 @@
-var wxpay = require('../../utils/pay.js')
+const wxpay = require('../../utils/pay.js')
+const API = require('../../utils/request.js')
+import drawQrcode from '../../utils/weapp.qrcode.min.js'
 var app = getApp()
 Page({
 
@@ -6,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    uid: undefined
+    uid: undefined,
+    showalipay: false
   },
 
   /**
@@ -71,10 +74,8 @@ Page({
   onShareAppMessage: function () {
   
   },
-  bindCancel: function () {
-    wx.navigateBack({})
-  },
   bindSave: function (e) {
+    console.log(e)
     var that = this;
     var amount = e.detail.value.amount;
 
@@ -94,6 +95,63 @@ Page({
       })
       return
     }
-    wxpay.wxpay(app, amount, 0, "/pages/my/index");    
+    that.setData({
+      showalipay: e.detail.value.type == 'alipay'
+    })
+    if (e.detail.value.type == 'wx') {
+      // 微信充值
+      wxpay.wxpay(app, amount, 0, "/pages/my/index");
+    } else {
+      // 支付宝充值
+      API.fetchRequest('/pay/alipay/semiAutomatic/payurl', {
+        token: wx.getStorageSync('token'),
+        money: amount
+      }, 'post').then(res => {
+        const _data = res.data
+        if (_data.code != 0) {
+          wx.showModal({
+            title: '错误',
+            content: _data.msg,
+            showCancel: false
+          })
+          return
+        }
+        
+        console.log(_data)
+        drawQrcode({
+          width: 200,
+          height: 200,
+          canvasId: 'myQrcode',
+          text: _data.data,
+          _this: that
+        })
+      })
+    }  
+  },
+  saveToMobile: function(){
+    wx.canvasToTempFilePath({
+      canvasId: 'myQrcode',
+      success: function (res) {
+        let tempFilePath = res.tempFilePath
+        wx.saveImageToPhotosAlbum({
+          filePath: tempFilePath,
+          success: (res) => {
+            wx.showModal({
+              content: '已保存到手机相册',
+              showCancel: false,
+              confirmText: '知道了',
+              confirmColor: '#333'
+            })
+          },
+          fail: (res) => {
+            wx.showToast({
+              title: res.errMsg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+      }
+    })
   }
 })

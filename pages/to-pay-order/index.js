@@ -1,7 +1,6 @@
-//index.js
 const api = require('../../utils/request.js')
-//获取应用实例
-var app = getApp()
+const app = getApp()
+const WXAPI = require('../../wxapi/main')
 
 Page({
   data: {
@@ -151,16 +150,30 @@ Page({
       postJsonString.keyword3 = { value: res.data.data.orderNumber, color: '#173177' }
       postJsonString.keyword4 = { value: '订单已关闭', color: '#173177' }
       postJsonString.keyword5 = { value: '您可以重新下单，请在30分钟内完成支付', color: '#173177' }
-      app.sendTempleMsg(res.data.data.id, -1,
-        'mGVFc31MYNMoR9Z-A9yeVVYLIVGphUVcK2-S2UdZHmg', '',
-        'pages/index/index', JSON.stringify(postJsonString));
+      WXAPI.sendTempleMsg({
+        module: 'order',
+        business_id: res.data.data.id,
+        trigger: -1,
+        postJsonString: JSON.stringify(postJsonString),
+        template_id: 'mGVFc31MYNMoR9Z-A9yeVVYLIVGphUVcK2-S2UdZHmg',
+        type: 0,
+        token: wx.getStorageSync('token'),
+        url: 'pages/index/index'
+      })
       postJsonString = {};
       postJsonString.keyword1 = { value: '您的订单已发货，请注意查收', color: '#173177' }
       postJsonString.keyword2 = { value: res.data.data.orderNumber, color: '#173177' }
       postJsonString.keyword3 = { value: res.data.data.dateAdd, color: '#173177' }
-      app.sendTempleMsg(res.data.data.id, 2,
-        'Arm2aS1rsklRuJSrfz-QVoyUzLVmU2vEMn_HgMxuegw', '',
-        'pages/order-details/index?id=' + res.data.data.id, JSON.stringify(postJsonString));
+      WXAPI.sendTempleMsg({
+        module: 'order',
+        business_id: res.data.data.id,
+        trigger: 2,
+        postJsonString: JSON.stringify(postJsonString),
+        template_id: 'Arm2aS1rsklRuJSrfz-QVoyUzLVmU2vEMn_HgMxuegw',
+        type: 0,
+        token: wx.getStorageSync('token'),
+        url: 'pages/order-details/index?id=' + res.data.data.id
+      })
       // 下单成功，跳转到订单管理界面
       wx.redirectTo({
         url: "/pages/order-list/index"

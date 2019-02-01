@@ -8,9 +8,8 @@ const API_BASE_URL = 'https://api.it120.cc'
  * method: 请求方法
  * cache: 缓存时长(单位: 秒)
  */
-function FetchRequest(url, data, method = 'GET', cache = 0, header = {}, noSubDomain = false) {
+function FetchRequest(url, data, method = 'GET', cache = 0, header = { 'content-type': 'application/x-www-form-urlencoded'}, noSubDomain = false) {
   var request_key = GetStorageKey(url, method);
-  console.log(111, cache)
   if (cache) {
     return new Promise(Storage);
   } else {

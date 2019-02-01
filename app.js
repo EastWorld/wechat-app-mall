@@ -1,4 +1,4 @@
-const api = require('./utils/request.js')
+const WXAPI = require('wxapi/main')
 App({
   navigateToLogin: false,
   onLaunch: function() {
@@ -41,31 +41,32 @@ App({
       }
     });
     //  获取商城名称
-    api.fetchRequest('/config/get-value', {
+    WXAPI.queryConfig({
       key: 'mallName'
     }).then(function(res) {
-      if (res.data.code == 0) {
-        wx.setStorageSync('mallName', res.data.data.value);
+      if (res.code == 0) {
+        wx.setStorageSync('mallName', res.data.value);
       }
     })
-    api.fetchRequest('/score/send/rule', {
+    WXAPI.scoreRules({
       code: 'goodReputation'
     }).then(function(res) {
-      if (res.data.code == 0) {
-        that.globalData.order_reputation_score = res.data.data[0].score;
+      if (res.code == 0) {        
+        that.globalData.order_reputation_score = res.data[0].score;
       }
     })
-    api.fetchRequest('/config/get-value', {
+    // 获取充值的最低金额
+    WXAPI.queryConfig({
       key: 'recharge_amount_min'
     }).then(function(res) {
-      if (res.data.code == 0) {
-        that.globalData.recharge_amount_min = res.data.data.value;
+      if (res.code == 0) {
+        that.globalData.recharge_amount_min = res.data.value;
       }
     })
     // 获取砍价设置
-    api.fetchRequest('/shop/goods/kanjia/list').then(function(res) {
-      if (res.data.code == 0) {
-        that.globalData.kanjiaList = res.data.data.result;
+    WXAPI.kanjiaList().then(function(res) {
+      if (res.code == 0) {
+        that.globalData.kanjiaList = res.data.result;
       }
     })
     // 判断是否登录
@@ -74,44 +75,12 @@ App({
       that.goLoginPageTimeOut()
       return
     }
-    api.fetchRequest('/user/check-token', {
-      token: token
-    }).then(function(res) {
-      if (res.data.code != 0) {
+    WXAPI.checkToken(token).then(function(res) {
+      if (res.code != 0) {
         wx.removeStorageSync('token')
         that.goLoginPageTimeOut()
       }
     })
-  },
-  sendTempleMsg: function(orderId, trigger, template_id, form_id, page, postJsonString) {
-    var that = this;
-    api.fetchRequest('/template-msg/put', {
-      token: wx.getStorageSync('token'),
-      type: 0,
-      module: 'order',
-      business_id: orderId,
-      trigger: trigger,
-      template_id: template_id,
-      form_id: form_id,
-      url: page,
-      postJsonString: postJsonString
-    }, 'POST', 0, {
-      'content-type': 'application/x-www-form-urlencoded'
-    }).then(function(res) {})
-  },
-  sendTempleMsgImmediately: function(template_id, form_id, page, postJsonString) {
-    var that = this;
-    api.fetchRequest('/template-msg/put', {
-      token: wx.getStorageSync('token'),
-      type: 0,
-      module: 'immediately',
-      template_id: template_id,
-      form_id: form_id,
-      url: page,
-      postJsonString: postJsonString
-    }, 'POST', 0, {
-      'content-type': 'application/x-www-form-urlencoded'
-    }).then(function(res) {})
   },
   goLoginPageTimeOut: function() {
     if (this.navigateToLogin){

@@ -1,5 +1,5 @@
 module.exports = {
-  version: "5.0",
+  version: "5.1",
   note: '优化接口调用流程',
   subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
   appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用

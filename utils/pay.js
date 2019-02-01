@@ -1,4 +1,4 @@
-const api = require('./request.js')
+const WXAPI = require('../wxapi/main')
 function wxpay(app, money, orderId, redirectUrl) {
   let remark = "在线充值";
   let nextAction = {};
@@ -6,30 +6,30 @@ function wxpay(app, money, orderId, redirectUrl) {
     remark = "支付订单 ：" + orderId;
     nextAction = { type: 0, id: orderId };
   }
-  api.fetchRequest('/pay/wx/wxapp', {
+  WXAPI.wxpay({
     token: wx.getStorageSync('token'),
     money: money,
     remark: remark,
     payName: "在线支付",
     nextAction: nextAction
   }).then(function (res) {
-    if (res.data.code == 0) {
+    if (res.code == 0) {
       // 发起支付
       wx.requestPayment({
-        timeStamp: res.data.data.timeStamp,
-        nonceStr: res.data.data.nonceStr,
-        package: 'prepay_id=' + res.data.data.prepayId,
+        timeStamp: res.data.timeStamp,
+        nonceStr: res.data.nonceStr,
+        package: 'prepay_id=' + res.data.prepayId,
         signType: 'MD5',
-        paySign: res.data.data.sign,
+        paySign: res.data.sign,
         fail: function (aaa) {
           wx.showToast({ title: '支付失败:' + aaa })
         },
         success: function () {
           // 保存 formid
-          api.fetchRequest('/template-msg/wxa/formId', {
+          WXAPI.addTempleMsgFormid({
             token: wx.getStorageSync('token'),
             type: 'pay',
-            formId: res.data.data.prepayId
+            formId: res.data.prepayId
           })
           // 提示支付成功
           wx.showToast({ title: '支付成功' })
@@ -41,7 +41,7 @@ function wxpay(app, money, orderId, redirectUrl) {
     } else {
       wx.showModal({
         title: '出错了',
-        content: res.data.code + ':' + res.data.msg + ':' + res.data.data,
+        content: res.code + ':' + res.msg + ':' + res.data,
         showCancel: false,
         success: function (res) {
 

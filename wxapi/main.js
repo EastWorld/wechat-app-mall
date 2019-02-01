@@ -42,7 +42,19 @@ module.exports = {
   checkToken: (token) => {
     return request('/user/check-token', true, 'get', { token })
   },
+  addTempleMsgFormid: (data) => {
+    return request('/template-msg/wxa/formId', true, 'post', data)
+  },
   sendTempleMsg: (data) => {
     return request('/template-msg/put', true, 'post', data)
+  },
+  wxpay: (data) => {
+    return request('/pay/wx/wxapp', true, 'post', data)
+  },
+  login: (code) => {
+    return request('/user/wxapp/login', true, 'post', { code, type:2 })
+  },
+  register: (data) => {
+    return request('/user/wxapp/register/complex', true, 'post', data)
   }
 }

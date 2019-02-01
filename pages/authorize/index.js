@@ -1,4 +1,4 @@
-const api = require('../../utils/request.js')
+const WXAPI = require('../../wxapi/main')
 var app = getApp();
 Page({
 
@@ -79,11 +79,11 @@ Page({
     }
   },
   login: function() {
-    let that = this;
-    let token = wx.getStorageSync('token');
+    const that = this;
+    const token = wx.getStorageSync('token');
     if (token) {
-      api.fetchRequest('/user/check-token').then(function(res) {
-        if (res.data.code != 0) {
+      WXAPI.checkToken(token).then(function(res) {
+        if (res.code != 0) {
           wx.removeStorageSync('token')
           that.login();
         } else {
@@ -96,15 +96,13 @@ Page({
     }
     wx.login({
       success: function(res) {
-        api.fetchRequest('/user/wxapp/login', {
-          code: res.code
-        }).then(function(res) {
-          if (res.data.code == 10000) {
+        WXAPI.login(res.code).then(function(res) {
+          if (res.code == 10000) {
             // 去注册
             that.registerUser();
             return;
           }
-          if (res.data.code != 0) {
+          if (res.code != 0) {
             // 登录错误
             wx.hideLoading();
             wx.showModal({
@@ -114,8 +112,8 @@ Page({
             })
             return;
           }
-          wx.setStorageSync('token', res.data.data.token)
-          wx.setStorageSync('uid', res.data.data.uid)
+          wx.setStorageSync('token', res.data.token)
+          wx.setStorageSync('uid', res.data.uid)
           // 回到原来的地方放
           app.navigateToLogin = false
           wx.navigateBack();
@@ -138,7 +136,7 @@ Page({
               referrer = referrer_storge;
             }
             // 下面开始调用注册接口
-            api.fetchRequest('/user/wxapp/register/complex', {
+            WXAPI.register( {
               code: code,
               encryptedData: encryptedData,
               iv: iv,

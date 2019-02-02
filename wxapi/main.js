@@ -32,12 +32,33 @@ module.exports = {
   },
   queryConfig: (data) => {
     return request('/config/get-value', true, 'get', data)
-  },
+  },  
   scoreRules: (data) => {
     return request('/score/send/rule', true, 'post', data)
   },
+  scoreSign: (token) => {
+    return request('/score/sign', true, 'post', { token })
+  },
+  scoreTodaySignedInfo: (token) => {
+    return request('/score/today-signed', true, 'get', { token })
+  },
+  scoreExchange: (number, token) => {
+    return request('/score/exchange', true, 'post', { number, token })
+  },
   kanjiaList: (data) => {
     return request('/shop/goods/kanjia/list', true, 'post', data)
+  },
+  kanjiaJoin: (kjid, token) => {
+    return request('/shop/goods/kanjia/join', true, 'post', { kjid, token })
+  },
+  kanjiaDetail: (kjid, joiner) => {
+    return request('/shop/goods/kanjia/info', true, 'get', { kjid, joiner })
+  },
+  kanjiaHelp: (kjid, joiner, token, remark) => {
+    return request('/shop/goods/kanjia/help', true, 'post', { kjid, joinerUser: joiner, token, remark })
+  },
+  kanjiaHelpDetail: (kjid, joiner, token) => {
+    return request('/shop/goods/kanjia/myHelp', true, 'get', { kjid, joinerUser: joiner, token })
   },
   checkToken: (token) => {
     return request('/user/check-token', true, 'get', { token })
@@ -51,10 +72,110 @@ module.exports = {
   wxpay: (data) => {
     return request('/pay/wx/wxapp', true, 'post', data)
   },
+  alipay: (data) => {
+    return request('/pay/alipay/semiAutomatic/payurl', true, 'post', data)
+  },
   login: (code) => {
     return request('/user/wxapp/login', true, 'post', { code, type:2 })
   },
   register: (data) => {
     return request('/user/wxapp/register/complex', true, 'post', data)
+  },
+  // 2019-02-01
+  banners: (data) => {
+    return request('/banner/list', true, 'get', data)
+  },
+  goodsCategory: () => {
+    return request('/shop/goods/category/all', true, 'get')
+  },
+  goods: (data) => {
+    return request('/shop/goods/list', true, 'post', data)
+  },
+  goodsDetail: (id) => {
+    return request('/shop/goods/detail', true, 'get', { id })
+  },
+  goodsPrice: (data) => {
+    return request('/shop/goods/price', true, 'post', data)
+  },
+  goodsReputation: (data) => {
+    return request('/shop/goods/reputation', true, 'post', data)
+  },
+  coupons: (data) => {
+    return request('/discounts/coupons', true, 'get', data)
+  },
+  myCoupons: (data) => {
+    return request('/discounts/my', true, 'get', data)
+  },
+  fetchCoupons: (data) => {
+    return request('/discounts/fetch', true, 'post', data)
+  },
+  noticeList: (data) => {
+    return request('/notice/list', true, 'post', data)
+  },
+  noticeDetail: (id) => {
+    return request('/notice/detail', true, 'get', { id })
+  },
+  addAddress: (data) => {
+    return request('/user/shipping-address/add', true, 'post', data)
+  },
+  updateAddress: (data) => {
+    return request('/user/shipping-address/update', true, 'post', data)
+  },
+  deleteAddress: (id, token) => {
+    return request('/user/shipping-address/delete', true, 'post', { id, token })
+  },
+  queryAddress: (token) => {
+    return request('/user/shipping-address/list', true, 'get', { token })
+  },
+  defaultAddress: (token) => {
+    return request('/user/shipping-address/default', true, 'get', { token })
+  },
+  addressDetail: (id, token) => {
+    return request('/user/shipping-address/detail', true, 'get', { id, token })
+  },
+  pingtuanOpen: (goodsId, token) => {
+    return request('/shop/goods/pingtuan/open', true, 'post', { goodsId, token })
+  },
+  pingtuanList: (goodsId) => {
+    return request('/shop/goods/pingtuan/list', true, 'get', { goodsId })
+  },
+  videoDetail: (videoId) => {
+    return request('/media/video/detail', true, 'get', { videoId })
+  },
+  bindMobile: (data) => {
+    return request('/user/wxapp/bindMobile', true, 'post', data)
+  },
+  userDetail: (token) => {
+    return request('/user/detail', true, 'get', { token })
+  },
+  userAmount: (token) => {
+    return request('/user/amount', true, 'get', { token })
+  },
+  orderCreate: (data) => {
+    return request('/order/create', true, 'post', data)
+  },
+  orderList: (data) => {
+    return request('/order/list', true, 'post', data)
+  },
+  orderDetail: (id, token) => {
+    return request('/order/detail', true, 'get', { id, token })
+  },
+  orderDelivery: (orderId, token) => {
+    return request('/order/delivery', true, 'post', { orderId, token })
+  },
+  orderReputation: (data) => {
+    return request('/order/reputation', true, 'post', data)
+  },
+  orderClose: (orderId, token) => {
+    return request('/order/close', true, 'post', { orderId, token })
+  },
+  orderPay: (orderId, token) => {
+    return request('/order/pay', true, 'post', { orderId, token })
+  },
+  orderStatistics: (token) => {
+    return request('/order/statistics', true, 'get', { token })
+  },
+  withDrawApply: (money, token) => {
+    return request('/user/withDraw/apply', true, 'post', { money, token })
   }
 }

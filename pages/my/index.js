@@ -1,6 +1,6 @@
 const app = getApp()
-const api = require('../../utils/request.js')
 const CONFIG = require('../../config.js')
+const WXAPI = require('../../wxapi/main')
 Page({
 	data: {
     balance:0,
@@ -43,12 +43,12 @@ Page({
       return;
     }
     var that = this;
-    api.fetchRequest('/user/wxapp/bindMobile', {
+    WXAPI.bindMobile({
       token: wx.getStorageSync('token'),
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv
     }).then(function (res) {
-      if (res.data.code == 0) {
+      if (res.code == 0) {
         wx.showToast({
           title: '绑定成功',
           icon: 'success',
@@ -66,14 +66,12 @@ Page({
   },
   getUserApiInfo: function () {
     var that = this;
-    api.fetchRequest('/user/detail', {
-      token: wx.getStorageSync('token'),
-    }).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
         let _data = {}
-        _data.apiUserInfoMap = res.data.data
-        if (res.data.data.base.mobile) {
-          _data.userMobile = res.data.data.base.mobile
+        _data.apiUserInfoMap = res.data
+        if (res.data.base.mobile) {
+          _data.userMobile = res.data.base.mobile
         }
         that.setData(_data);
       }
@@ -81,42 +79,36 @@ Page({
   },
   getUserAmount: function () {
     var that = this;
-    api.fetchRequest('/user/amount', {
-      token: wx.getStorageSync('token'),
-    }).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
         that.setData({
-          balance: res.data.data.balance,
-          freeze: res.data.data.freeze,
-          score: res.data.data.score
+          balance: res.data.balance,
+          freeze: res.data.freeze,
+          score: res.data.score
         });
       }
     })
   },
   checkScoreSign: function () {
     var that = this;
-    api.fetchRequest('/score/today-signed', {
-      token: wx.getStorageSync('token'),
-    }).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.scoreTodaySignedInfo(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
         that.setData({
-          score_sign_continuous: res.data.data.continuous
+          score_sign_continuous: res.data.continuous
         });
       }
     })
   },
   scoresign: function () {
     var that = this;
-    api.fetchRequest('/score/sign', {
-      token: wx.getStorageSync('token'),
-    }).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.scoreSign(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
         that.getUserAmount();
         that.checkScoreSign();
       } else {
         wx.showModal({
           title: '错误',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
       }

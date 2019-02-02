@@ -1,7 +1,6 @@
-//index.js
-const api = require('../../utils/request.js')
+const WXAPI = require('../../wxapi/main')
 //获取应用实例
-var app = getApp()
+const app = getApp()
 Page({
   data: {
     coupons: []
@@ -12,12 +11,12 @@ Page({
   },
   getMyCoupons: function() {
     var that = this;
-    api.fetchRequest('/discounts/my', {
+    WXAPI.myCoupons({
       token: wx.getStorageSync('token'),
       status: 0
     }).then(function(res) {
-      if (res.data.code == 0) {
-        var coupons = res.data.data;
+      if (res.code == 0) {
+        var coupons = res.data;
         if (coupons.length > 0) {
           that.setData({
             coupons: coupons

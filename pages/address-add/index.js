@@ -1,5 +1,5 @@
-var commonCityData = require('../../utils/city.js')
-const api = require('../../utils/request.js')
+const commonCityData = require('../../utils/city.js')
+const WXAPI = require('../../wxapi/main')
 //获取应用实例
 var app = getApp()
 Page({
@@ -79,31 +79,40 @@ Page({
       })
       return
     }
-    var apiAddoRuPDATE = "add";
-    var apiAddid = that.data.id;
-    if (apiAddid) {
-      apiAddoRuPDATE = "update";
+    let apiResult
+    if (that.data.id) {
+      apiResult = WXAPI.updateAddress({
+        token: wx.getStorageSync('token'),
+        id: that.data.id,
+        provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
+        cityId: cityId,
+        districtId: districtId,
+        linkMan: linkMan,
+        address: address,
+        mobile: mobile,
+        code: code,
+        isDefault: 'true'
+      })
     } else {
-      apiAddid = 0;
+      apiResult = WXAPI.addAddress({
+        token: wx.getStorageSync('token'),
+        provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
+        cityId: cityId,
+        districtId: districtId,
+        linkMan: linkMan,
+        address: address,
+        mobile: mobile,
+        code: code,
+        isDefault: 'true'
+      })
     }
-    api.fetchRequest(`/user/shipping-address/${apiAddoRuPDATE}`, {
-      token: wx.getStorageSync('token'),
-      id: apiAddid,
-      provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
-      cityId: cityId,
-      districtId: districtId,
-      linkMan: linkMan,
-      address: address,
-      mobile: mobile,
-      code: code,
-      isDefault: 'true'
-    }).then(function (res) {
-      if (res.data.code != 0) {
+    apiResult.then(function (res) {
+      if (res.code != 0) {
         // 登录错误 
         wx.hideLoading();
         wx.showModal({
           title: '失败',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
         return;
@@ -180,19 +189,16 @@ Page({
     if (id) {
       // 初始化原数据
       wx.showLoading();
-      api.fetchRequest('/user/shipping-address/detail', {
-        token: wx.getStorageSync('token'),
-        id: id
-      }).then(function (res) {
-        if (res.data.code == 0) {
+      WXAPI.addressDetail(id, wx.getStorageSync('token')).then(function (res) {
+        if (res.code == 0) {
           that.setData({
             id: id,
-            addressData: res.data.data,
-            selProvince: res.data.data.provinceStr,
-            selCity: res.data.data.cityStr,
-            selDistrict: res.data.data.areaStr
+            addressData: res.data,
+            selProvince: res.data.provinceStr,
+            selCity: res.data.cityStr,
+            selDistrict: res.data.areaStr
           });
-          that.setDBSaveAddressId(res.data.data);
+          that.setDBSaveAddressId(res.data);
           return;
         } else {
           wx.showModal({
@@ -235,13 +241,10 @@ Page({
       content: '确定要删除该收货地址吗？',
       success: function (res) {
         if (res.confirm) {
-          api.fetchRequest('/user/shipping-address/delete', {
-            token: wx.getStorageSync('token'),
-            id: id
-          }).then(function (res) {
+          WXAPI.deleteAddress(id, wx.getStorageSync('token')).then(function () {
             wx.navigateBack({})
           })
-        } else if (res.cancel) {
+        } else {
           console.log('用户点击取消')
         }
       }

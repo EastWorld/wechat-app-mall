@@ -1,4 +1,3 @@
-const api = require('../../utils/request.js')
 const app = getApp()
 const WXAPI = require('../../wxapi/main')
 
@@ -111,13 +110,11 @@ Page({
       postData.calculate = "true";
     }
 
-    api.fetchRequest('/order/create', postData, 'POST', 0, {
-      'content-type': 'application/x-www-form-urlencoded'
-    }).then(function (res) {
-      if (res.data.code != 0) {
+    WXAPI.orderCreate(postData).then(function (res) {
+      if (res.code != 0) {
         wx.showModal({
           title: '错误',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
         return;
@@ -129,30 +126,30 @@ Page({
       }
       if (!e) {
         that.setData({
-          totalScoreToPay: res.data.data.score,
-          isNeedLogistics: res.data.data.isNeedLogistics,
-          allGoodsPrice: res.data.data.amountTotle,
-          allGoodsAndYunPrice: res.data.data.amountLogistics + res.data.data.amountTotle,
-          yunPrice: res.data.data.amountLogistics
+          totalScoreToPay: res.data.score,
+          isNeedLogistics: res.data.isNeedLogistics,
+          allGoodsPrice: res.data.amountTotle,
+          allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
+          yunPrice: res.data.amountLogistics
         });
         that.getMyCoupons();
         return;
       }
-      api.fetchRequest('/template-msg/wxa/formId', {
+      WXAPI.addTempleMsgFormid({
         token: wx.getStorageSync('token'),
         type: 'form',
         formId: e.detail.formId
       })
       // 配置模板消息推送
       var postJsonString = {};
-      postJsonString.keyword1 = { value: res.data.data.dateAdd, color: '#173177' }
-      postJsonString.keyword2 = { value: res.data.data.amountReal + '元', color: '#173177' }
-      postJsonString.keyword3 = { value: res.data.data.orderNumber, color: '#173177' }
+      postJsonString.keyword1 = { value: res.data.dateAdd, color: '#173177' }
+      postJsonString.keyword2 = { value: res.data.amountReal + '元', color: '#173177' }
+      postJsonString.keyword3 = { value: res.data.orderNumber, color: '#173177' }
       postJsonString.keyword4 = { value: '订单已关闭', color: '#173177' }
       postJsonString.keyword5 = { value: '您可以重新下单，请在30分钟内完成支付', color: '#173177' }
       WXAPI.sendTempleMsg({
         module: 'order',
-        business_id: res.data.data.id,
+        business_id: res.data.id,
         trigger: -1,
         postJsonString: JSON.stringify(postJsonString),
         template_id: 'mGVFc31MYNMoR9Z-A9yeVVYLIVGphUVcK2-S2UdZHmg',
@@ -162,17 +159,17 @@ Page({
       })
       postJsonString = {};
       postJsonString.keyword1 = { value: '您的订单已发货，请注意查收', color: '#173177' }
-      postJsonString.keyword2 = { value: res.data.data.orderNumber, color: '#173177' }
-      postJsonString.keyword3 = { value: res.data.data.dateAdd, color: '#173177' }
+      postJsonString.keyword2 = { value: res.data.orderNumber, color: '#173177' }
+      postJsonString.keyword3 = { value: res.data.dateAdd, color: '#173177' }
       WXAPI.sendTempleMsg({
         module: 'order',
-        business_id: res.data.data.id,
+        business_id: res.data.id,
         trigger: 2,
         postJsonString: JSON.stringify(postJsonString),
         template_id: 'Arm2aS1rsklRuJSrfz-QVoyUzLVmU2vEMn_HgMxuegw',
         type: 0,
         token: wx.getStorageSync('token'),
-        url: 'pages/order-details/index?id=' + res.data.data.id
+        url: 'pages/order-details/index?id=' + res.data.id
       })
       // 下单成功，跳转到订单管理界面
       wx.redirectTo({
@@ -184,12 +181,10 @@ Page({
   },
   initShippingAddress: function () {
     var that = this;
-    api.fetchRequest('/user/shipping-address/default', {
-      token: wx.getStorageSync('token')
-    }).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.defaultAddress(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
         that.setData({
-          curAddressData: res.data.data
+          curAddressData: res.data
         });
       } else {
         that.setData({
@@ -251,12 +246,12 @@ Page({
   },
   getMyCoupons: function () {
     var that = this;
-    api.fetchRequest('/discounts/my', {
+    WXAPI.myCoupons({
       token: wx.getStorageSync('token'),
       status: 0
     }).then(function (res) {
-      if (res.data.code == 0) {
-        var coupons = res.data.data.filter(entity => {
+      if (res.code == 0) {
+        var coupons = res.data.filter(entity => {
           return entity.moneyHreshold <= that.data.allGoodsAndYunPrice;
         });
         if (coupons.length > 0) {

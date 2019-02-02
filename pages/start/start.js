@@ -1,4 +1,4 @@
-const api = require('../../utils/request.js')
+const WXAPI = require('../../wxapi/main')
 //获取应用实例
 var app = getApp();
 Page({
@@ -8,7 +8,7 @@ Page({
     userInfo: {}
   },
   goToIndex:function(e){    
-    api.fetchRequest('/template-msg/wxa/formId', {
+    WXAPI.addTempleMsgFormid({
       token: wx.getStorageSync('token'),
       type: 'form',
       formId: e.detail.formId

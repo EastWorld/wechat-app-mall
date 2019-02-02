@@ -1,8 +1,6 @@
-//index.js
-//获取应用实例
-var app = getApp();
-const api = require('../../utils/request.js')
-var WxParse = require('../../wxParse/wxParse.js');
+const WXAPI = require('../../wxapi/main')
+const app = getApp();
+const WxParse = require('../../wxParse/wxParse.js');
 
 Page({
   data: {
@@ -27,18 +25,16 @@ Page({
   },
   onShow: function() {
     var that = this
-    api.fetchRequest('/shop/goods/detail', {
-      id: that.data.id
-    }).then(function(res) {
-      if (res.data.code == 0) {
-        that.data.goodsDetail = res.data.data;
-        if (res.data.data.basicInfo.videoId) {
-          that.getVideoSrc(res.data.data.basicInfo.videoId);
+    WXAPI.goodsDetail(that.data.id).then(function(res) {
+      if (res.code == 0) {
+        that.data.goodsDetail = res.data;
+        if (res.data.basicInfo.videoId) {
+          that.getVideoSrc(res.data.basicInfo.videoId);
         }
         that.setData({
-          goodsDetail: res.data.data
+          goodsDetail: res.data
         });
-        WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
+        WxParse.wxParse('article', 'html', res.data.content, that, 5);
         that.getKanjiaInfo(that.data.kjId, that.data.joiner);
         that.getKanjiaInfoMyHelp(that.data.kjId, that.data.joiner);
       }
@@ -59,45 +55,36 @@ Page({
   },
   getVideoSrc: function(videoId) {
     var that = this;
-    api.fetchRequest('/media/video/detail', {
-      videoId: videoId
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.videoDetail(videoId).then(function(res) {
+      if (res.code == 0) {
         that.setData({
-          videoMp4Src: res.data.data.fdMp4
+          videoMp4Src: res.data.fdMp4
         });
       }
     })
   },
   getKanjiaInfo: function(kjid, joiner) {
     var that = this;
-    api.fetchRequest('/shop/goods/kanjia/info', {
-      kjid: kjid,
-      joiner: joiner,
-    }).then(function(res) {
-      if (res.data.code != 0) {
+    WXAPI.kanjiaDetail(kjid, joiner).then(function(res) {
+      if (res.code != 0) {
         wx.showModal({
           title: '错误',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
         return;
       }
       that.setData({
-        kanjiaInfo: res.data.data
+        kanjiaInfo: res.data
       });
     })
   },
   getKanjiaInfoMyHelp: function(kjid, joiner) {
     var that = this;
-    api.fetchRequest('/shop/goods/kanjia/myHelp', {
-      kjid: kjid,
-      joinerUser: joiner,
-      token: wx.getStorageSync('token')
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.kanjiaHelpDetail(kjid, joiner, wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
         that.setData({
-          kanjiaInfoMyHelp: res.data.data,
+          kanjiaInfoMyHelp: res.data,
           curuid: wx.getStorageSync('uid')
         });
       }
@@ -105,25 +92,21 @@ Page({
   },
   helpKanjia: function() {
     var that = this;
-    api.fetchRequest('/shop/goods/kanjia/help', {
-      kjid: that.data.kjId,
-      joinerUser: that.data.joiner,
-      token: wx.getStorageSync('token')
-    }).then(function(res) {
-      if (res.data.code != 0) {
+    WXAPI.kanjiaHelp(that.data.kjId, that.data.joiner, wx.getStorageSync('token'), '').then(function(res) {
+      if (res.code != 0) {
         wx.showModal({
           title: '错误',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
         return;
       }
       that.setData({
-        mykanjiaInfo: res.data.data
+        mykanjiaInfo: res.data
       });
       wx.showModal({
         title: '成功',
-        content: '成功帮好友砍掉 ' + res.data.data.cutPrice + ' 元',
+        content: '成功帮好友砍掉 ' + res.data.cutPrice + ' 元',
         showCancel: false
       })
       that.getKanjiaInfo(that.data.kjId, that.data.joiner);

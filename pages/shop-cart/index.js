@@ -1,6 +1,5 @@
-//index.js
-const api = require('../../utils/request.js')
-var app = getApp()
+const WXAPI = require('../../wxapi/main')
+const app = getApp()
 Page({
   data: {
     goodsList: {
@@ -207,10 +206,8 @@ Page({
       // 添加判断当前商品购买数量是否超过当前商品可购买库存
       var carShopBean = list[parseInt(index)];
       var carShopBeanStores = 0;
-      api.fetchRequest('/shop/goods/detail', {
-        id: carShopBean.goodsId
-      }).then(function(res) {
-        carShopBeanStores = res.data.data.basicInfo.stores;
+      WXAPI.goodsDetail(carShopBean.goodsId).then(function(res) {
+        carShopBeanStores = res.data.basicInfo.stores;
         if (list[parseInt(index)].number < carShopBeanStores) {
           list[parseInt(index)].number++;
           that.setGoodsList(that.getSaveHide(), that.totalPrice(), that.allSelect(), that.noSelect(), list);
@@ -298,34 +295,32 @@ Page({
       let carShopBean = shopList[i];
       // 获取价格和库存
       if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
-        api.fetchRequest('/shop/goods/detail', {
-          id: carShopBean.goodsId
-        }).then(function(res) {
+        WXAPI.goodsDetail(carShopBean.goodsId).then(function(res) {
           doneNumber++;
-          if (res.data.data.properties) {
+          if (res.data.properties) {
             wx.showModal({
               title: '提示',
-              content: res.data.data.basicInfo.name + ' 商品已失效，请重新购买',
+              content: res.data.basicInfo.name + ' 商品已失效，请重新购买',
               showCancel: false
             })
             isFail = true;
             wx.hideLoading();
             return;
           }
-          if (res.data.data.basicInfo.stores < carShopBean.number) {
+          if (res.data.basicInfo.stores < carShopBean.number) {
             wx.showModal({
               title: '提示',
-              content: res.data.data.basicInfo.name + ' 库存不足，请重新购买',
+              content: res.data.basicInfo.name + ' 库存不足，请重新购买',
               showCancel: false
             })
             isFail = true;
             wx.hideLoading();
             return;
           }
-          if (res.data.data.basicInfo.minPrice != carShopBean.price) {
+          if (res.data.basicInfo.minPrice != carShopBean.price) {
             wx.showModal({
               title: '提示',
-              content: res.data.data.basicInfo.name + ' 价格有调整，请重新购买',
+              content: res.data.basicInfo.name + ' 价格有调整，请重新购买',
               showCancel: false
             })
             isFail = true;
@@ -337,12 +332,12 @@ Page({
           }
         })
       } else {
-        api.fetchRequest('/shop/goods/price', {
+        WXAPI.goodsPrice({
           goodsId: carShopBean.goodsId,
           propertyChildIds: carShopBean.propertyChildIds
         }).then(function(res) {
           doneNumber++;
-          if (res.data.data.stores < carShopBean.number) {
+          if (res.data.stores < carShopBean.number) {
             wx.showModal({
               title: '提示',
               content: carShopBean.name + ' 库存不足，请重新购买',
@@ -352,7 +347,7 @@ Page({
             wx.hideLoading();
             return;
           }
-          if (res.data.data.price != carShopBean.price) {
+          if (res.data.price != carShopBean.price) {
             wx.showModal({
               title: '提示',
               content: carShopBean.name + ' 价格有调整，请重新购买',

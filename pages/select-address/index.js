@@ -1,7 +1,5 @@
-//index.js
-const api = require('../../utils/request.js')
-//获取应用实例
-var app = getApp()
+const WXAPI = require('../../wxapi/main')
+const app = getApp()
 Page({
   data: {
     addressList: []
@@ -9,7 +7,7 @@ Page({
 
   selectTap: function(e) {
     var id = e.currentTarget.dataset.id;
-    api.fetchRequest('/user/shipping-address/update', {
+    WXAPI.updateAddress({
       token: wx.getStorageSync('token'),
       id: id,
       isDefault: 'true'
@@ -40,14 +38,12 @@ Page({
   },
   initShippingAddress: function() {
     var that = this;
-    api.fetchRequest('/user/shipping-address/list', {
-      token: wx.getStorageSync('token')
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.queryAddress(wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
         that.setData({
-          addressList: res.data.data
+          addressList: res.data
         });
-      } else if (res.data.code == 700) {
+      } else if (res.code == 700) {
         that.setData({
           addressList: null
         });

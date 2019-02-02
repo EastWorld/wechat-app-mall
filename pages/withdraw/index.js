@@ -1,4 +1,5 @@
-var app = getApp()
+const app = getApp()
+const WXAPI = require('../../wxapi/main')
 Page({
 
   /**
@@ -78,11 +79,8 @@ Page({
       })
       return
     }
-    api.fetchRequest('/user/withDraw/apply', {
-      token: wx.getStorageSync('token'),
-      money: amount
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.withDrawApply(amount, wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
         wx.showModal({
           title: '成功',
           content: '您的提现申请已提交，等待财务打款',
@@ -96,7 +94,7 @@ Page({
       } else {
         wx.showModal({
           title: '错误',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
       }

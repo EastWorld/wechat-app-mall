@@ -1,5 +1,4 @@
-//index.js
-const api = require('../../utils/request.js')
+const WXAPI = require('../../wxapi/main')
 //获取应用实例
 var app = getApp();
 var WxParse = require('../../wxParse/wxParse.js');
@@ -58,36 +57,34 @@ Page({
         });
       }
     })
-    api.fetchRequest('/shop/goods/detail', {
-      id: e.id
-    }).then(function(res) {
+    WXAPI.goodsDetail(e.id).then(function(res) {
       var selectSizeTemp = "";
-      if (res.data.data.properties) {
-        for (var i = 0; i < res.data.data.properties.length; i++) {
-          selectSizeTemp = selectSizeTemp + " " + res.data.data.properties[i].name;
+      if (res.data.properties) {
+        for (var i = 0; i < res.data.properties.length; i++) {
+          selectSizeTemp = selectSizeTemp + " " + res.data.properties[i].name;
         }
         that.setData({
           hasMoreSelect: true,
           selectSize: that.data.selectSize + selectSizeTemp,
-          selectSizePrice: res.data.data.basicInfo.minPrice,
-          totalScoreToPay: res.data.data.basicInfo.minScore
+          selectSizePrice: res.data.basicInfo.minPrice,
+          totalScoreToPay: res.data.basicInfo.minScore
         });
       }
-      if (res.data.data.basicInfo.pingtuan) {
+      if (res.data.basicInfo.pingtuan) {
         that.pingtuanList(e.id)
       }
-      that.data.goodsDetail = res.data.data;
-      if (res.data.data.basicInfo.videoId) {
-        that.getVideoSrc(res.data.data.basicInfo.videoId);
+      that.data.goodsDetail = res.data;
+      if (res.data.basicInfo.videoId) {
+        that.getVideoSrc(res.data.basicInfo.videoId);
       }
       that.setData({
-        goodsDetail: res.data.data,
-        selectSizePrice: res.data.data.basicInfo.minPrice,
-        totalScoreToPay: res.data.data.basicInfo.minScore,
-        buyNumMax: res.data.data.basicInfo.stores,
-        buyNumber: (res.data.data.basicInfo.stores > 0) ? 1 : 0
+        goodsDetail: res.data,
+        selectSizePrice: res.data.basicInfo.minPrice,
+        totalScoreToPay: res.data.basicInfo.minScore,
+        buyNumMax: res.data.basicInfo.stores,
+        buyNumber: (res.data.basicInfo.stores > 0) ? 1 : 0
       });
-      WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
+      WxParse.wxParse('article', 'html', res.data.content, that, 5);
     })
     this.reputation(e.id);
     this.getKanjiaInfo(e.id);
@@ -197,17 +194,17 @@ Page({
     }
     // 计算当前价格
     if (canSubmit) {
-      api.fetchRequest('/shop/goods/price', {
+      WXAPI.goodsPrice({
         goodsId: that.data.goodsDetail.basicInfo.id,
         propertyChildIds: propertyChildIds
       }).then(function(res) {
         that.setData({
-          selectSizePrice: res.data.data.price,
-          totalScoreToPay: res.data.data.score,
+          selectSizePrice: res.data.price,
+          totalScoreToPay: res.data.score,
           propertyChildIds: propertyChildIds,
           propertyChildNames: propertyChildNames,
-          buyNumMax: res.data.data.stores,
-          buyNumber: (res.data.data.stores > 0) ? 1 : 0
+          buyNumMax: res.data.stores,
+          buyNumber: (res.data.stores > 0) ? 1 : 0
         });
       })
     }
@@ -309,20 +306,17 @@ Page({
           url: "/pages/to-pay-order/index?orderType=buyNow&pingtuanOpenId=" + this.data.pingtuanopenid
         })
       } else {
-        api.fetchRequest('/shop/goods/pingtuan/open', {
-          token: wx.getStorageSync('token'),
-          goodsId: that.data.goodsDetail.basicInfo.id
-        }).then(function(res) {
-          if (res.data.code != 0) {
+        WXAPI.pingtuanOpen(that.data.goodsDetail.basicInfo.id, wx.getStorageSync('token')).then(function(res) {
+          if (res.code != 0) {
             wx.showToast({
-              title: res.data.msg,
+              title: res.msg,
               icon: 'none',
               duration: 2000
             })
             return
           }
           wx.navigateTo({
-            url: "/pages/to-pay-order/index?orderType=buyNow&pingtuanOpenId=" + res.data.data.id
+            url: "/pages/to-pay-order/index?orderType=buyNow&pingtuanOpenId=" + res.data.id
           })
         })
       }
@@ -444,36 +438,32 @@ Page({
   },
   reputation: function(goodsId) {
     var that = this;
-    api.fetchRequest('/shop/goods/reputation', {
+    WXAPI.goodsReputation({
       goodsId: goodsId
     }).then(function(res) {
-      if (res.data.code == 0) {
+      if (res.code == 0) {
         that.setData({
-          reputation: res.data.data
+          reputation: res.data
         });
       }
     })
   },
   pingtuanList: function(goodsId) {
     var that = this;
-    api.fetchRequest('/shop/goods/pingtuan/list', {
-      goodsId: goodsId
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.pingtuanList(goodsId).then(function(res) {
+      if (res.code == 0) {
         that.setData({
-          pingtuanList: res.data.data
+          pingtuanList: res.data
         });
       }
     })
   },
   getVideoSrc: function(videoId) {
     var that = this;
-    api.fetchRequest('/media/video/detail', {
-      videoId: videoId
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.videoDetail(videoId).then(function(res) {
+      if (res.code == 0) {
         that.setData({
-          videoMp4Src: res.data.data.fdMp4
+          videoMp4Src: res.data.fdMp4
         });
       }
     })
@@ -504,18 +494,15 @@ Page({
     if (!that.data.curGoodsKanjia) {
       return;
     }
-    api.fetchRequest('/shop/goods/kanjia/join', {
-      kjid: that.data.curGoodsKanjia.id,
-      token: wx.getStorageSync('token')
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.kanjiaJoin(that.data.curGoodsKanjia.id, wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
         wx.navigateTo({
-          url: "/pages/kanjia/index?kjId=" + res.data.data.kjId + "&joiner=" + res.data.data.uid + "&id=" + res.data.data.goodsId
+          url: "/pages/kanjia/index?kjId=" + res.data.kjId + "&joiner=" + res.data.uid + "&id=" + res.data.goodsId
         })
       } else {
         wx.showModal({
           title: '错误',
-          content: res.data.msg,
+          content: res.msg,
           showCancel: false
         })
       }

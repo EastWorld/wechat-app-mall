@@ -1,7 +1,7 @@
 const wxpay = require('../../utils/pay.js')
-const API = require('../../utils/request.js')
+const WXAPI = require('../../wxapi/main')
 import drawQrcode from '../../utils/weapp.qrcode.min.js'
-var app = getApp()
+const app = getApp()
 Page({
 
   /**
@@ -103,12 +103,11 @@ Page({
       wxpay.wxpay(app, amount, 0, "/pages/my/index");
     } else {
       // 支付宝充值
-      API.fetchRequest('/pay/alipay/semiAutomatic/payurl', {
+      WXAPI.alipay({
         token: wx.getStorageSync('token'),
         money: amount
       }, 'post').then(res => {
-        const _data = res.data
-        if (_data.code != 0) {
+        if (res.code != 0) {
           wx.showModal({
             title: '错误',
             content: _data.msg,
@@ -116,13 +115,11 @@ Page({
           })
           return
         }
-        
-        console.log(_data)
         drawQrcode({
           width: 200,
           height: 200,
           canvasId: 'myQrcode',
-          text: _data.data,
+          text: res.data,
           _this: that
         })
       })

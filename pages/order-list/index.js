@@ -29,13 +29,10 @@ Page({
       content: '',
       success: function(res) {
         if (res.confirm) {
-          wx.showLoading();
           WXAPI.orderClose(orderId, wx.getStorageSync('token')).then(function(res) {
             if (res.code == 0) {
               that.onShow();
             }
-          }).finally(function(res) {
-            wx.hideLoading();
           })
         }
       }
@@ -118,8 +115,6 @@ Page({
           tabClass: tabClass,
         });
       }
-    }).finally(function(res) {
-      wx.hideLoading();
     })
   },
   onShow: function() {
@@ -145,8 +140,6 @@ Page({
           goodsMap: {}
         });
       }
-    }).finally(function(res) {
-      wx.hideLoading();
     })
   },
   onHide: function() {

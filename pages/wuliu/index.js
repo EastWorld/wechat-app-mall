@@ -21,8 +21,6 @@ Page({
         orderDetail: res.data,
         logisticsTraces: res.data.logisticsTraces.reverse()
       });
-    }).finally(res => {
-      wx.hideLoading();
     })
   }
 })

@@ -188,7 +188,6 @@ Page({
     var id = e.id;
     if (id) {
       // 初始化原数据
-      wx.showLoading();
       WXAPI.addressDetail(id, wx.getStorageSync('token')).then(function (res) {
         if (res.code == 0) {
           that.setData({
@@ -207,8 +206,6 @@ Page({
             showCancel: false
           })
         }
-      }).finally(function() {
-        wx.hideLoading();
       })
     }
   },

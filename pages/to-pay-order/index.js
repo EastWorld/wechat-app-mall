@@ -46,11 +46,14 @@ Page({
   },
 
   onLoad: function (e) {
-    this.setData({
+    let _data = {
       isNeedLogistics: 1,
-      orderType: e.orderType,
-      pingtuanOpenId: e.pingtuanOpenId
-    });
+      orderType: e.orderType
+    }
+    if (e.pingtuanOpenId) {
+      _data.pingtuanOpenId = e.pingtuanOpenId
+    }
+    this.setData(_data);
   },
 
   getDistrictId : function (obj, aaa){
@@ -175,8 +178,6 @@ Page({
       wx.redirectTo({
         url: "/pages/order-list/index"
       });
-    }).finally(function() {
-      wx.hideLoading();
     })
   },
   initShippingAddress: function () {

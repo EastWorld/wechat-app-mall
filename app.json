@@ -31,7 +31,6 @@
     "selectedColor": "#e64340",
     "borderStyle": "white",
     "backgroundColor": "#fff",
-    "box-shadow":"0 0 6px 0",
     "list": [{
      "pagePath": "pages/index/index",
       "iconPath": "images/nav/home-off.png",

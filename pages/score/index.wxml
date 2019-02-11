@@ -1,0 +1,12 @@
+<view class="score">
+  <view>可用积分</view>
+  <view>{{score}}</view>
+</view>
+<view class='no-data' wx:if="{{!cashlogs}}">暂无积分明细~</view>
+<view class='cashlogs' wx:if="{{cashlogs}}" wx:for-items="{{cashlogs}}" wx:key="{{index}}">
+  <view class='profile'>
+    <view class='typeStr'>{{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}</view>
+    <view class='dateAdd'>{{ item.dateAdd }}</view>
+  </view>
+  <view class='amount' style="color: {{ (item.behavior ==0 ) ? 'red' : 'green' }}"> {{ (item.behavior ==0 ) ? '+' : '-' }} {{ item.score }} </view>
+</view>

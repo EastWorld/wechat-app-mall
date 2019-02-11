@@ -1,0 +1,57 @@
+.asset {
+  display: flex;
+  padding-top:50rpx;
+  height: 150rpx;
+  background-color: #e85654;
+}
+.asset .item {
+  display: flex;
+  flex-direction: column;
+  width:250rpx;
+  text-align: center;
+  font-size: 14px;
+  line-height: 30px;
+  color:#fff;
+}
+
+.btn-view {
+  text-align: right;
+  height: 70rpx;
+  background-color: #e85654;
+  padding-right:40rpx;
+  padding-bottom:30rpx;  
+}
+.btn-view .btn {
+  border-color: #fff !important;
+  color:#fff !important;
+}
+.btn-view .bth-right {
+  margin-left:20rpx;  
+}
+.btn-hover {
+  border-color: #fff;
+  color:#fff;
+}
+
+.no-data {
+  margin-top: 100rpx;
+  text-align: center;
+  font-size: 13px;
+  color:#ccc;
+}
+
+.cashlogs {
+  display: flex;
+  font-size: 12px;
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #eee;
+  line-height: 20px;
+}
+.cashlogs .profile {
+  width:600rpx;
+  padding-left: 30rpx;
+}
+.cashlogs .amount {
+  width:150rpx;
+}

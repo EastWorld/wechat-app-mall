@@ -3,7 +3,7 @@ const CONFIG = require('../../config.js')
 const WXAPI = require('../../wxapi/main')
 Page({
 	data: {
-    balance:0,
+    balance:0.00,
     freeze:0,
     score:0,
     score_sign_continuous:0
@@ -24,7 +24,6 @@ Page({
     }
     this.getUserApiInfo();
     this.getUserAmount();
-    this.checkScoreSign();
   },
   aboutUs : function () {
     wx.showModal({
@@ -82,49 +81,24 @@ Page({
     WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
       if (res.code == 0) {
         that.setData({
-          balance: res.data.balance,
-          freeze: res.data.freeze,
+          balance: res.data.balance.toFixed(2),
+          freeze: res.data.freeze.toFixed(2),
           score: res.data.score
         });
-      }
-    })
-  },
-  checkScoreSign: function () {
-    var that = this;
-    WXAPI.scoreTodaySignedInfo(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        that.setData({
-          score_sign_continuous: res.data.continuous
-        });
-      }
-    })
-  },
-  scoresign: function () {
-    var that = this;
-    WXAPI.scoreSign(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        that.getUserAmount();
-        that.checkScoreSign();
-      } else {
-        wx.showModal({
-          title: '错误',
-          content: res.msg,
-          showCancel: false
-        })
       }
     })
   },
   relogin:function(){
     app.goLoginPageTimeOut()
   },
-  recharge: function () {
+  goAsset: function () {
     wx.navigateTo({
-      url: "/pages/recharge/index"
+      url: "/pages/asset/index"
     })
   },
-  withdraw: function () {
+  goScore: function () {
     wx.navigateTo({
-      url: "/pages/withdraw/index"
+      url: "/pages/score/index"
     })
   }
 })

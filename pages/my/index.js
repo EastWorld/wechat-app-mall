@@ -100,5 +100,10 @@ Page({
     wx.navigateTo({
       url: "/pages/score/index"
     })
+  },
+  goOrder: function (e) {
+    wx.navigateTo({
+      url: "/pages/order-list/index?type=" + e.currentTarget.dataset.type
+    })
   }
 })

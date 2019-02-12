@@ -8,7 +8,7 @@ Page({
     tabClass: ["", "", "", "", ""]
   },
   statusTap: function(e) {
-    var curType = e.currentTarget.dataset.index;
+    const curType = e.currentTarget.dataset.index;
     this.data.currentType = curType
     this.setData({
       currentType: curType
@@ -73,8 +73,11 @@ Page({
     })
   },
   onLoad: function(options) {
-    // 生命周期函数--监听页面加载
-
+    if (options && options.type) {
+      this.setData({
+        currentType: options.type
+      });
+    }
   },
   onReady: function() {
     // 生命周期函数--监听页面初次渲染完成

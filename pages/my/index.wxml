@@ -14,7 +14,28 @@
     </view>
   </view>
   <view style="height:10rpx;background: #eee;width:100%;"></view>
-  
+  <view class="my-item">
+    <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
+  </view>
+  <view class='order-shortcut'>
+    <view class='item' bindtap='goOrder' data-type="0">
+      <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
+      <view class='text'>待付款</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="1">
+      <image class="icon" src="/images/order/fahuo.png" background-size="cover"></image>
+      <view class='text'>待发货</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="2">
+      <image class="icon" src="/images/order/shouhuo.png" background-size="cover"></image>
+      <view class='text'>待收货</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="3">
+      <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
+      <view class='text'>待评价</view>
+    </view>
+  </view>
+  <view style="height:10rpx;background: #eee;width:100%;"></view>
   <view class="my-item">
     <navigator url="/pages/asset/index" hover-class="navigator-hover">资金明细</navigator>
   </view>
@@ -23,15 +44,12 @@
   </view>
   <view class="my-item">
     <navigator url="/pages/score-excharge/index" hover-class="navigator-hover">积分兑换</navigator>
+  </view>  
+  <view class="my-item">
+    <navigator url="/pages/select-address/index" hover-class="navigator-hover">收货地址</navigator>
   </view>
   <view class="my-item">
-    <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
-  </view>
-  <view class="my-item">
-    <navigator url="/pages/select-address/index" hover-class="navigator-hover">我的收货地址</navigator>
-  </view>
-  <view class="my-item">
-    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
+    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">优惠券</navigator>
   </view>
   <view wx:if="{{!userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
     <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>

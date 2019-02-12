@@ -68,3 +68,23 @@
     line-height: 80rpx;
     padding-left: 100rpx;
 }
+
+.order-shortcut {
+  display: flex;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.order-shortcut .item {
+  display: flex;
+  flex-direction: column;
+  width: 187rpx;
+  text-align: center;
+}
+.order-shortcut .item .icon {
+  width: 67rpx;
+  height: 67rpx;
+  margin-left: 60rpx;
+}
+.order-shortcut .item .text {
+  font-size: 12px;
+}

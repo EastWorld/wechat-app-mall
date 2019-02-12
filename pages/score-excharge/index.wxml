@@ -9,6 +9,5 @@
         </view>
     </view>
     <button type="warn" class="save-btn" formType="submit">立即兑换</button>
-    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
     </form>
 </view>

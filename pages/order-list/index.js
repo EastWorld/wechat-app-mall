@@ -119,7 +119,6 @@ Page({
   },
   onShow: function() {
     // 获取订单列表
-    wx.showLoading();
     var that = this;
     var postData = {
       token: wx.getStorageSync('token')

@@ -64,9 +64,6 @@ Page({
   onShareAppMessage: function() {
 
   },
-  bindCancel: function() {
-    wx.navigateBack({})
-  },
   bindSave: function(e) {
     var that = this;
     var amount = e.detail.value.amount;

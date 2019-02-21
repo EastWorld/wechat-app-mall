@@ -160,7 +160,13 @@ Page({
     })
   },
   gitCoupon: function(e) {
-    var that = this;
+    const that = this
+    if (e.currentTarget.dataset.pwd) {
+      wx.navigateTo({
+        url: "/pages/fetch-coupon/index?id=" + e.currentTarget.dataset.id
+      })
+      return
+    }
     WXAPI.fetchCoupons({
       id: e.currentTarget.dataset.id,
       token: wx.getStorageSync('token')

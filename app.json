@@ -20,7 +20,8 @@
     "pages/score-excharge/index",
     "pages/asset/index",
     "pages/score/index",
-    "pages/sign/index"
+    "pages/sign/index",
+    "pages/fetch-coupon/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

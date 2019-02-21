@@ -46,8 +46,9 @@
     </view>
     <view class="coupons" hidden="{{hasNoCoupons}}">
         <scroll-view class="coupons-scroll" scroll-x="true">
-            <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id"  bindtap="gitCoupon" data-id="{{item.id}}">
-               <view style="font-size: 35rpx"> ￥ {{item.moneyMax}}元 </view>
+            <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id"  bindtap="gitCoupon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">
+               <view style="font-size: 35rpx" wx:if="{{item.moneyMin == item.moneyMax}}"> ￥ {{item.moneyMax}} </view>
+               <view style="font-size: 35rpx" wx:else> ￥ {{item.moneyMin}} - {{item.moneyMax}} </view>
                <view> {{item.name}} </view>
                <view> 满 {{item.moneyHreshold}} 元使用 </view>
                <view wx:if="{{item.dateEndType == 0}}"> {{item.dateEnd}} 前有效 </view>

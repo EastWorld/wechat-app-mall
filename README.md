@@ -23,6 +23,25 @@
 
 - [WeUI](https://github.com/Tencent/weui-wxss/)
 
+## 关于分类页面
+
+感谢 @yrx0910 编写并提交了分类页面；
+
+不过新增的分类页面视觉美观度上稍欠缺，所以，项目模块并未开启分类页面；
+
+期待后面可以有朋友协助美化~
+
+如果您先体验分类页面，可以在 app.json 中放开分类底部菜单的入口:
+
+```java
+{
+  "pagePath": "pages/category/category",
+  "iconPath": "images/nav/ic_catefory_normal.png",
+  "selectedIconPath": "images/nav/ic_catefory_pressed.png",
+  "text": "分类"
+}
+```
+
 ## 使用说明
 
 1、申请后台账号/获取专属域名

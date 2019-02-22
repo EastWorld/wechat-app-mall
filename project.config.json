@@ -10,7 +10,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.3",
-	"appid": "wx9e8f8c4eaa21eb01",
+	"appid": "wxa46b09d413fbcaff",
 	"projectname": "%E5%A4%A9%E4%BD%BF%E7%AB%A5%E8%A3%85",
 	"scripts": {},
 	"condition": {
@@ -32,14 +32,12 @@
 		},
 		"miniprogram": {
 			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "home",
-					"pathName": "pages/index/index",
-					"scene": null
-				}
-			]
+			"list": [{
+				"id": -1,
+				"name": "home",
+				"pathName": "pages/index/index",
+				"scene": null
+			}]
 		}
 	}
 }

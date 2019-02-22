@@ -43,12 +43,6 @@
       "text": "首页"
     },
     {
-      "pagePath": "pages/category/category",
-      "iconPath": "images/nav/ic_catefory_normal.png",
-      "selectedIconPath": "images/nav/ic_catefory_pressed.png",
-      "text": "分类"
-    },
-    {
       "pagePath": "pages/shop-cart/index",
       "iconPath": "images/nav/cart-off.png",
       "selectedIconPath": "images/nav/cart-on.png",

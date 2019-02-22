@@ -21,7 +21,8 @@
     "pages/asset/index",
     "pages/score/index",
     "pages/sign/index",
-    "pages/fetch-coupon/index"
+    "pages/fetch-coupon/index",
+    "pages/category/category"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -40,12 +41,19 @@
       "iconPath": "images/nav/home-off.png",
       "selectedIconPath": "images/nav/home-on.png",
       "text": "首页"
-    }, {
+    },
+    {
+      "pagePath": "pages/category/category",
+      "iconPath": "images/nav/ic_catefory_normal.png",
+      "selectedIconPath": "images/nav/ic_catefory_pressed.png",
+      "text": "分类"
+    },
+    {
       "pagePath": "pages/shop-cart/index",
       "iconPath": "images/nav/cart-off.png",
       "selectedIconPath": "images/nav/cart-on.png",
       "text": "购物车"
-    },
+    },    
     {
       "pagePath": "pages/my/index",
       "iconPath": "images/nav/my-off.png",

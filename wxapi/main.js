@@ -161,6 +161,11 @@ module.exports = {
   coupons: (data) => {
     return request('/discounts/coupons', true, 'get', data)
   },
+  couponDetail: (id) => {
+    return request('/discounts/detail', true, 'get', {
+      id
+    })
+  },
   myCoupons: (data) => {
     return request('/discounts/my', true, 'get', data)
   },

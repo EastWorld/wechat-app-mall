@@ -1,0 +1,13 @@
+<view class="container">
+    <form bindsubmit="bindSave" report-submit="true">
+    <view class="form-box">
+        <view class="row-wrap">
+            <view class="label">口令</view>
+            <view class="label-right">
+                <input name="pwd" class="input" type="text" placeholder="请输入优惠券口令"/>
+            </view>
+        </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">立即领取</button>
+    </form>
+</view>

@@ -1,5 +1,5 @@
 <view class="container">
-    <form bindsubmit="bindSave">
+    <form bindsubmit="bindSave" report-submit="true">
     <view class="form-box">
         <view class="row-wrap">
             <view class="label">充值金额</view>

@@ -69,6 +69,11 @@ Page({
   },
   bindSave: function(e) {
     var that = this;
+    WXAPI.addTempleMsgFormid({
+      token: wx.getStorageSync('token'),
+      type: 'form',
+      formId: e.detail.formId
+    })
     var amount = e.detail.value.amount;
 
     if (amount == "" || amount * 1 < 100) {

@@ -4,31 +4,31 @@ const WXAPI = require('../../wxapi/main')
 Page({
   data: {
     totalScoreToPay: 0,
-    goodsList:[],
-    isNeedLogistics:0, // 是否需要物流信息
-    allGoodsPrice:0,
-    yunPrice:0,
-    allGoodsAndYunPrice:0,
-    goodsJsonStr:"",
-    orderType:"", //订单类型，购物车下单或立即支付下单，默认是购物车，
-    pingtuanOpenId:undefined, //拼团的话记录团号
+    goodsList: [],
+    isNeedLogistics: 0, // 是否需要物流信息
+    allGoodsPrice: 0,
+    yunPrice: 0,
+    allGoodsAndYunPrice: 0,
+    goodsJsonStr: "",
+    orderType: "", //订单类型，购物车下单或立即支付下单，默认是购物车，
+    pingtuanOpenId: undefined, //拼团的话记录团号
 
     hasNoCoupons: true,
     coupons: [],
-    youhuijine:0, //优惠券金额
-    curCoupon:null // 当前选择使用的优惠券
+    youhuijine: 0, //优惠券金额
+    curCoupon: null // 当前选择使用的优惠券
   },
-  onShow : function () {
+  onShow: function () {
     var that = this;
     var shopList = [];
     //立即购买下单
-    if ("buyNow"==that.data.orderType){
+    if ("buyNow" == that.data.orderType) {
       var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
       that.data.kjId = buyNowInfoMem.kjId;
       if (buyNowInfoMem && buyNowInfoMem.shopList) {
         shopList = buyNowInfoMem.shopList
       }
-    }else{
+    } else {
       //购物车下单
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
       that.data.kjId = shopCarInfoMem.kjId;
@@ -56,7 +56,7 @@ Page({
     this.setData(_data);
   },
 
-  getDistrictId : function (obj, aaa){
+  getDistrictId: function (obj, aaa) {
     if (!obj) {
       return "";
     }
@@ -66,8 +66,7 @@ Page({
     return aaa;
   },
 
-  createOrder:function (e) {
-    wx.showLoading();
+  createOrder: function (e) {
     var that = this;
     var loginToken = wx.getStorageSync('token') // 用户登录 token
     var remark = ""; // 备注信息
@@ -145,11 +144,26 @@ Page({
       })
       // 配置模板消息推送
       var postJsonString = {};
-      postJsonString.keyword1 = { value: res.data.dateAdd, color: '#173177' }
-      postJsonString.keyword2 = { value: res.data.amountReal + '元', color: '#173177' }
-      postJsonString.keyword3 = { value: res.data.orderNumber, color: '#173177' }
-      postJsonString.keyword4 = { value: '订单已关闭', color: '#173177' }
-      postJsonString.keyword5 = { value: '您可以重新下单，请在30分钟内完成支付', color: '#173177' }
+      postJsonString.keyword1 = {
+        value: res.data.dateAdd,
+        color: '#173177'
+      }
+      postJsonString.keyword2 = {
+        value: res.data.amountReal + '元',
+        color: '#173177'
+      }
+      postJsonString.keyword3 = {
+        value: res.data.orderNumber,
+        color: '#173177'
+      }
+      postJsonString.keyword4 = {
+        value: '订单已关闭',
+        color: '#173177'
+      }
+      postJsonString.keyword5 = {
+        value: '您可以重新下单，请在30分钟内完成支付',
+        color: '#173177'
+      }
       WXAPI.sendTempleMsg({
         module: 'order',
         business_id: res.data.id,
@@ -161,9 +175,18 @@ Page({
         url: 'pages/index/index'
       })
       postJsonString = {};
-      postJsonString.keyword1 = { value: '您的订单已发货，请注意查收', color: '#173177' }
-      postJsonString.keyword2 = { value: res.data.orderNumber, color: '#173177' }
-      postJsonString.keyword3 = { value: res.data.dateAdd, color: '#173177' }
+      postJsonString.keyword1 = {
+        value: '您的订单已发货，请注意查收',
+        color: '#173177'
+      }
+      postJsonString.keyword2 = {
+        value: res.data.orderNumber,
+        color: '#173177'
+      }
+      postJsonString.keyword3 = {
+        value: res.data.dateAdd,
+        color: '#173177'
+      }
       WXAPI.sendTempleMsg({
         module: 'order',
         business_id: res.data.id,
@@ -222,7 +245,7 @@ Page({
       }
 
 
-      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id +'}';
+      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
       goodsJsonStr += goodsJsonStrTmp;
 
 
@@ -237,12 +260,12 @@ Page({
   },
   addAddress: function () {
     wx.navigateTo({
-      url:"/pages/address-add/index"
+      url: "/pages/address-add/index"
     })
   },
   selectAddress: function () {
     wx.navigateTo({
-      url:"/pages/select-address/index"
+      url: "/pages/select-address/index"
     })
   },
   getMyCoupons: function () {
@@ -269,7 +292,7 @@ Page({
     if (selIndex == -1) {
       this.setData({
         youhuijine: 0,
-        curCoupon:null
+        curCoupon: null
       });
       return;
     }

@@ -1,11 +1,12 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": false,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.3",
@@ -21,17 +22,22 @@
 			"current": -1,
 			"list": []
 		},
-		"game": {
-			"current": -1,
-			"list": []
-		},
 		"plugin": {
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"game": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [{
+				"id": -1,
+				"name": "home",
+				"pathName": "pages/index/index",
+				"scene": null
+			}]
 		}
 	}
 }

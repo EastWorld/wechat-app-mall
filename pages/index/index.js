@@ -66,11 +66,13 @@ Page({
      * 示例：
      * 调用接口封装方法
      */
-    WXAPI.banners().then(function(res) {
+    WXAPI.banners({
+      type: 'index'
+    }).then(function(res) {
       if (res.code == 700) {
         wx.showModal({
           title: '提示',
-          content: '请在后台添加 banner 轮播图片',
+          content: '请在后台添加 banner 轮播图片，自定义类型填写 index',
           showCancel: false
         })
       } else {

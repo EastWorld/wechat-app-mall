@@ -72,6 +72,15 @@ module.exports = {
 
 5、重启您的小程序开发工具，完成
 
+6、如何在后台管理小程序启动图和首页头部的轮播 banner 图片
+
+```javascript
+这两个功能都是使用后台 “系统设置” --> “banner” 管理功能来实现的；
+后台发布banner的时候，自定义类型请分别填写  app  和  index；
+小程序会自动读取类型为 app 的banner图片作为启动展示图片；
+小程序会自动读取类型为 index 的banner图片作为首页头部的轮播图；
+```
+
 ## 常见问题
 
 - [如何修改小程序商城的标题？](https://www.it120.cc/info/wechat-app-mall/10478)

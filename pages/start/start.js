@@ -4,25 +4,13 @@ const CONFIG = require('../../config.js')
 var app = getApp();
 Page({
   data: {
-    banners:[
-      {
-        id:1,
-        picUrl: 'https://cdn.it120.cc/apifactory/2019/02/21/2d2717a2ab4782d5e752ec087b9fa5fe.png'
-      },
-      {
-        id: 2,
-        picUrl: 'https://cdn.it120.cc/apifactory/2019/02/21/e04ec54592d16c98fc79eb0107a12731.png'
-      },
-      {
-        id: 3,
-        picUrl: 'https://cdn.it120.cc/apifactory/2019/02/21/70bccd7ef011cbf7c72cdfac1eb157e8.png'
-      } 
-    ],
+    banners:[],
     swiperMaxNumber: 3,
     swiperCurrent: 0,
     height: wx.getSystemInfoSync().windowHeight
   },
-  onLoad:function(){    
+  onLoad:function(){
+    const _this = this
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
@@ -31,6 +19,25 @@ Page({
       wx.switchTab({
         url: '/pages/index/index',
       });
+    } else {
+      // 展示启动页
+      WXAPI.banners({
+        type: 'app'
+      }).then(function (res) {
+        if (res.code == 700) {
+          wx.switchTab({
+            url: '/pages/index/index',
+          });
+        } else {
+          _this.setData({
+            banners: res.data
+          });
+        }
+      }).catch(function (e) {
+        wx.switchTab({
+          url: '/pages/index/index',
+        });
+      })
     }
   },
   onShow:function(){

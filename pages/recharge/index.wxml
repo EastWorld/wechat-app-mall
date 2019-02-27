@@ -4,7 +4,7 @@
         <view class="row-wrap">
             <view class="label">充值金额</view>
             <view class="label-right">
-                <input name="amount" class="input" type="text" placeholder="至少充值 {{recharge_amount_min}} 元"/>
+                <input name="amount" class="input" type="text" value="{{amount}}" placeholder="至少充值 {{recharge_amount_min}} 元"/>
             </view>
         </view>
     </view>
@@ -20,14 +20,21 @@
         </radio-group>
       </view>
     </view>
+    
 
    <block wx:if='{{rechargeSendRules}}'>
       <view class="charge-rule-wrap">
             <block  wx:for='{{rechargeSendRules}}' wx:for-item="item">
-              <button  class='font charge-detail' bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
-                <text>充{{item.confine}}送{{item.send}}</text>
-              </button>
+            
+                <!-- <button  class='font charge-detail' bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
+                  <text>充{{item.confine}}送{{item.send}}</text>
+                </button> -->
+                  <view class="btn charge-detail" bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
+                      <text>充{{item.confine}}</text>
+                      <text>送{{item.send}}</text>
+                  </view>
             </block>
+             
       </view>
     </block>
 

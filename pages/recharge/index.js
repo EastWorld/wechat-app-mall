@@ -33,6 +33,9 @@ Page({
   rechargeAmount: function (e) {
     var confine = e.currentTarget.dataset.confine;
     var amount = confine;
+    this.setData({
+      amount: amount
+    });
     wxpay.wxpay(app, amount, 0, "/pages/cashier/cashier");
   },
 

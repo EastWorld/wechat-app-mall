@@ -20,6 +20,17 @@
         </radio-group>
       </view>
     </view>
+
+   <block wx:if='{{rechargeDic}}'>
+      <view class="charge-rule-wrap">
+            <block  wx:for='{{rechargeDic}}' wx:for-item="item">
+              <button  class='font charge-detail' bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
+                <text>充{{item.confine}}送{{item.send}}</text>
+              </button>
+            </block>
+      </view>
+    </block>
+
     <button type="warn" class="save-btn" formType="submit">立即支付</button>
     </form>
     <view wx:if="{{showalipay}}" style='width:100%;font-size: 30rpx;margin-top:30rpx;color:red;text-align:center;margin-bottom:30rpx;'>保存以下二维码，使用支付宝扫码付款</view>

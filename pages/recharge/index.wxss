@@ -35,7 +35,7 @@ page{
     padding-right: 30rpx;
 }
 .row-wrap .right-box{
-    margin-right: 30rpx; 
+    margin-right: 30rpx;
 }
 .arrow-right{
     width: 15rpx;
@@ -47,7 +47,7 @@ page{
     height: 80rpx;
     line-height: 80rpx;
     text-align: center;
-    margin-top:30rpx; 
+    margin-top:30rpx;
     border-radius: 6rpx;
     box-sizing: border-box;
 }
@@ -85,6 +85,31 @@ picker {
 .hui{
     color: #777;
 }
+
 .weui-panel {
   width:740rpx;
+}
+
+.charge-rule-wrap{
+  background: white;
+  margin-top:10rpx;
+  padding:10rpx
+}
+.charge-detail{
+  width: 160rpx;
+  height: 80rpx;
+  color: rgba(46, 189, 2, 0.925);
+  /* padding-left: 6rpx; */
+  background-color:white;
+  border:2rpx solid rgba(46, 189, 2, 0.925);
+
+   display: table-cell;
+    line-height: 30rpx;
+}
+.charge-detail text{
+   vertical-align:middle;
+   font-size: 28rpx;
+}
+.button-hover{
+  background-color:grey;
 }

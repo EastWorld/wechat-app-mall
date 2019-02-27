@@ -85,3 +85,30 @@ picker {
 .hui{
     color: #777;
 }
+
+
+
+.charge-rule-wrap{
+  background: white;
+  margin-top:10rpx;
+  padding:10rpx
+}
+.charge-detail{
+  width: 160rpx;
+  height: 80rpx;
+  color: rgba(46, 189, 2, 0.925); 
+  /* padding-left: 6rpx; */
+  background-color:white;
+  border:2rpx solid rgba(46, 189, 2, 0.925);
+
+   display: table-cell;
+    line-height: 30rpx;
+}
+.charge-detail text{
+   vertical-align:middle;
+   font-size: 28rpx;
+}
+.button-hover{
+  background-color:grey;
+} 
+

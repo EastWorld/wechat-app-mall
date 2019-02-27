@@ -85,3 +85,6 @@ picker {
 .hui{
     color: #777;
 }
+.weui-panel {
+  width:740rpx;
+}

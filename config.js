@@ -1,6 +1,6 @@
 module.exports = {
-  version: "6.2.0",
-  note: '启动图后台可管理、充值增加单笔满多少金额赠送一定的金额',
+  version: "6.2.1",
+  note: '充值界面增加展示 充值满一定金额赠送一定金额 的规则',
   subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
   appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用
   shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术

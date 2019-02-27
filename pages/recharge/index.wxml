@@ -25,4 +25,14 @@
     <view wx:if="{{showalipay}}" style='width:100%;font-size: 30rpx;margin-top:30rpx;color:red;text-align:center;margin-bottom:30rpx;'>保存以下二维码，使用支付宝扫码付款</view>
     <canvas wx:if="{{showalipay}}" style="width: 200px; height: 200px;text-align:center;" canvas-id="myQrcode"></canvas>
     <button wx:if="{{showalipay}}" type="primary" class="save-btn" bindtap="saveToMobile">保存相册</button>
+  <view wx:if="{{rechargeSendRules}}" class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">充值满送活动：</view>
+      <view class="weui-panel__bd">
+          <view wx:for="{{rechargeSendRules}}" wx:key="id" class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">单笔充值每满 {{ item.confine }} 元, 送 {{ item.send }} 元</view>
+              <view class="weui-media-box__desc">单笔充值每满 {{ item.confine }} 元，即可获得奖励。</view>
+              <view wx-if="{{item.loop}}" class="weui-media-box__desc">充的多送的多，上不封顶。</view>
+          </view>
+      </view>
+  </view>
 </view>

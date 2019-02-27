@@ -36,7 +36,7 @@ Page({
     this.setData({
       amount: amount
     });
-    wxpay.wxpay(app, amount, 0, "/pages/cashier/cashier");
+    wxpay.wxpay(app, amount, 0, "/pages/my/index");
   },
 
 

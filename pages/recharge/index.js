@@ -136,7 +136,7 @@ Page({
         if (res.code != 0) {
           wx.showModal({
             title: '错误',
-            content: _data.msg,
+            content: res.msg,
             showCancel: false
           })
           return

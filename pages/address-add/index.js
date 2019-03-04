@@ -1,29 +1,133 @@
-const commonCityData = require('../../utils/city.js')
 const WXAPI = require('../../wxapi/main')
+const regeneratorRuntime = require('../../utils/runtime')
 //获取应用实例
 var app = getApp()
 Page({
   data: {
-    provinces:[],
-    citys:[],
-    districts:[],
-    selProvince:'请选择',
-    selCity:'请选择',
-    selDistrict:'请选择',
-    selProvinceIndex:0,
-    selCityIndex:0,
-    selDistrictIndex:0
+    pickerRegionRange: [],
+    pickerSelect:[0, 0, 0],
+    showRegionStr: '请选择'
   },
-  bindCancel:function () {
-    wx.navigateBack({})
+  initRegionPicker () {
+    WXAPI.province().then(res => {
+      if (res.code === 0) {
+        let _pickerRegionRange = []
+        _pickerRegionRange.push(res.data)
+        _pickerRegionRange.push([{ name: '请选择' }])
+        _pickerRegionRange.push([{ name: '请选择' }])
+        this.setData({
+          pickerRegionRange: _pickerRegionRange
+        })
+      }
+    })
+  },
+  async initRegionDB (pname, cname, dname) {
+    this.data.showRegionStr = pname + cname + dname
+    let pObject = undefined
+    let cObject = undefined
+    let dObject = undefined
+    if (pname) {
+      const index = this.data.pickerRegionRange[0].findIndex(ele=>{
+        return ele.name == pname
+      })
+      console.log('pindex', index)
+      if (index >= 0) {
+        this.data.pickerSelect[0] = index
+        pObject = this.data.pickerRegionRange[0][index]
+      }
+    }    
+    if (!pObject) {
+      return
+    }
+    const _cRes = await WXAPI.nextRegion(pObject.id)
+    if (_cRes.code === 0) {
+      this.data.pickerRegionRange[1] = _cRes.data
+      if (cname) {
+        const index = this.data.pickerRegionRange[1].findIndex(ele => {
+          return ele.name == cname
+        })
+        if (index >= 0) {
+          this.data.pickerSelect[1] = index
+          cObject = this.data.pickerRegionRange[1][index]
+        }
+      }
+    }    
+    if (!cObject) {
+      return
+    }
+    const _dRes = await WXAPI.nextRegion(cObject.id)
+    if (_dRes.code === 0) {
+      this.data.pickerRegionRange[2] = _dRes.data
+      if (dname) {
+        const index = this.data.pickerRegionRange[2].findIndex(ele => {
+          return ele.name == dname
+        })
+        if (index >= 0) {
+          this.data.pickerSelect[2] = index
+          dObject = this.data.pickerRegionRange[2][index]
+        }
+      }
+    }
+    this.setData({
+      pickerRegionRange: this.data.pickerRegionRange,
+      pickerSelect: this.data.pickerSelect,
+      showRegionStr: this.data.showRegionStr,
+      pObject: pObject,
+      cObject: cObject,
+      dObject: dObject
+    })
+  },
+  bindchange: function(e) {
+    console.log(e)
+    const pObject = this.data.pickerRegionRange[0][e.detail.value[0]]
+    const cObject = this.data.pickerRegionRange[1][e.detail.value[1]]
+    const dObject = this.data.pickerRegionRange[2][e.detail.value[2]]
+    const showRegionStr = pObject.name + cObject.name + dObject.name
+    this.setData({
+      pObject: pObject,
+      cObject: cObject,
+      dObject: dObject,
+      showRegionStr: showRegionStr
+    })
+  },
+  bindcolumnchange: function(e) {
+    const column = e.detail.column
+    const index = e.detail.value
+    const regionObject = this.data.pickerRegionRange[column][index]
+    console.log('bindcolumnchange', regionObject)
+    if (column === 2) {
+      return
+    }
+    if (column === 1) {
+      this.data.pickerRegionRange[2] = [{ name: '请选择' }]
+    }
+    if (column === 0) {
+      this.data.pickerRegionRange[1] = [{ name: '请选择' }]
+      this.data.pickerRegionRange[2] = [{ name: '请选择' }]
+    }
+    // 后面的数组全部清空
+    this.data.pickerRegionRange.splice(column+1)
+    // 追加后面的一级数组
+    WXAPI.nextRegion(regionObject.id).then(res => {
+      if (res.code === 0) {
+        this.data.pickerRegionRange[column + 1] = res.data
+      }
+      this.setData({
+        pickerRegionRange: this.data.pickerRegionRange
+      })
+    })
   },
   bindSave: function(e) {
+    WXAPI.addTempleMsgFormid({
+      token: wx.getStorageSync('token'),
+      type: 'form',
+      formId: e.detail.formId
+    })
     var that = this;
     var linkMan = e.detail.value.linkMan;
     var address = e.detail.value.address;
     var mobile = e.detail.value.mobile;
     var code = e.detail.value.code;
-
     if (linkMan == ""){
       wx.showModal({
         title: '提示',
@@ -40,28 +144,13 @@ Page({
       })
       return
     }
-    if (this.data.selProvince == "请选择"){
+    if (!this.data.pObject || !this.data.cObject){
       wx.showModal({
         title: '提示',
         content: '请选择地区',
         showCancel:false
       })
       return
-    }
-    if (this.data.selCity == "请选择"){
-      wx.showModal({
-        title: '提示',
-        content: '请选择地区',
-        showCancel:false
-      })
-      return
-    }
-    var cityId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id;
-    var districtId;
-    if (this.data.selDistrict == "请选择" || !this.data.selDistrict){
-      districtId = '';
-    } else {
-      districtId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id;
     }
     if (address == ""){
       wx.showModal({
@@ -84,9 +173,9 @@ Page({
       apiResult = WXAPI.updateAddress({
         token: wx.getStorageSync('token'),
         id: that.data.id,
-        provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
-        cityId: cityId,
-        districtId: districtId,
+        provinceId: this.data.pObject.id,
+        cityId: this.data.cObject.id,
+        districtId: this.data.dObject ? this.data.dObject.id : '',
         linkMan: linkMan,
         address: address,
         mobile: mobile,
@@ -96,9 +185,9 @@ Page({
     } else {
       apiResult = WXAPI.addAddress({
         token: wx.getStorageSync('token'),
-        provinceId: commonCityData.cityData[this.data.selProvinceIndex].id,
-        cityId: cityId,
-        districtId: districtId,
+        provinceId: this.data.pObject.id,
+        cityId: this.data.cObject.id,
+        districtId: this.data.dObject ? this.data.dObject.id : '',
         linkMan: linkMan,
         address: address,
         mobile: mobile,
@@ -121,83 +210,18 @@ Page({
       wx.navigateBack({})
     })
   },
-  initCityData:function(level, obj){
-    if(level == 1){
-      var pinkArray = [];
-      for(var i = 0;i<commonCityData.cityData.length;i++){
-        pinkArray.push(commonCityData.cityData[i].name);
-      }
-      this.setData({
-        provinces:pinkArray
-      });
-    } else if (level == 2){
-      var pinkArray = [];
-      var dataArray = obj.cityList
-      for(var i = 0;i<dataArray.length;i++){
-        pinkArray.push(dataArray[i].name);
-      }
-      this.setData({
-        citys:pinkArray
-      });
-    } else if (level == 3){
-      var pinkArray = [];
-      var dataArray = obj.districtList
-      for(var i = 0;i<dataArray.length;i++){
-        pinkArray.push(dataArray[i].name);
-      }
-      this.setData({
-        districts:pinkArray
-      });
-    }
-    
-  },
-  bindPickerProvinceChange:function(event){
-    var selIterm = commonCityData.cityData[event.detail.value];
-    this.setData({
-      selProvince:selIterm.name,
-      selProvinceIndex:event.detail.value,
-      selCity:'请选择',
-      selCityIndex:0,
-      selDistrict:'请选择',
-      selDistrictIndex: 0
-    })
-    this.initCityData(2, selIterm)
-  },
-  bindPickerCityChange:function (event) {
-    var selIterm = commonCityData.cityData[this.data.selProvinceIndex].cityList[event.detail.value];
-    this.setData({
-      selCity:selIterm.name,
-      selCityIndex:event.detail.value,
-      selDistrict: '请选择',
-      selDistrictIndex: 0
-    })
-    this.initCityData(3, selIterm)
-  },
-  bindPickerChange:function (event) {
-    var selIterm = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[event.detail.value];
-    if (selIterm && selIterm.name && event.detail.value) {
-      this.setData({
-        selDistrict: selIterm.name,
-        selDistrictIndex: event.detail.value
-      })
-    }
-  },
   onLoad: function (e) {
-    var that = this;
-    this.initCityData(1);
-    var id = e.id;
-    if (id) {
-      // 初始化原数据
-      WXAPI.addressDetail(id, wx.getStorageSync('token')).then(function (res) {
-        if (res.code == 0) {
-          that.setData({
-            id: id,
+    const _this = this
+    _this.initRegionPicker() // 初始化省市区选择器
+    if (e.id) { // 修改初始化数据库数据
+      WXAPI.addressDetail(e.id, wx.getStorageSync('token')).then(function (res) {
+        if (res.code === 0) {
+          _this.setData({
+            id: e.id,
             addressData: res.data,
-            selProvince: res.data.provinceStr,
-            selCity: res.data.cityStr,
-            selDistrict: res.data.areaStr
+            showRegionStr: res.data.provinceStr + res.data.cityStr + res.data.areaStr
           });
-          that.setDBSaveAddressId(res.data);
+          _this.initRegionDB(res.data.provinceStr, res.data.cityStr, res.data.areaStr)
           return;
         } else {
           wx.showModal({
@@ -208,27 +232,6 @@ Page({
         }
       })
     }
-  },
-  setDBSaveAddressId: function(data) {
-    var retSelIdx = 0;
-    for (var i = 0; i < commonCityData.cityData.length; i++) {
-      if (data.provinceId == commonCityData.cityData[i].id) {
-        this.data.selProvinceIndex = i;
-        for (var j = 0; j < commonCityData.cityData[i].cityList.length; j++) {
-          if (data.cityId == commonCityData.cityData[i].cityList[j].id) {
-            this.data.selCityIndex = j;
-            for (var k = 0; k < commonCityData.cityData[i].cityList[j].districtList.length; k++) {
-              if (data.districtId == commonCityData.cityData[i].cityList[j].districtList[k].id) {
-                this.data.selDistrictIndex = k;
-              }
-            }
-          }
-        }
-      }
-    }
-   },
-  selectCity: function () {
-    
   },
   deleteAddress: function (e) {
     var that = this;
@@ -248,39 +251,13 @@ Page({
     })
   },
   readFromWx : function () {
-    let that = this;
+    const _this = this
     wx.chooseAddress({
       success: function (res) {
-        let provinceName = res.provinceName;
-        let cityName = res.cityName;
-        let diatrictName = res.countyName;
-        let retSelIdx = 0;
-
-        for (var i = 0; i < commonCityData.cityData.length; i++) {
-          if (provinceName == commonCityData.cityData[i].name) {
-            let eventJ = { detail: { value:i }};
-            that.bindPickerProvinceChange(eventJ);
-            that.data.selProvinceIndex = i;
-            for (var j = 0; j < commonCityData.cityData[i].cityList.length; j++) {
-              if (cityName == commonCityData.cityData[i].cityList[j].name) {
-                //that.data.selCityIndex = j;
-                eventJ = { detail: { value: j } };
-                that.bindPickerCityChange(eventJ);
-                for (var k = 0; k < commonCityData.cityData[i].cityList[j].districtList.length; k++) {
-                  if (diatrictName == commonCityData.cityData[i].cityList[j].districtList[k].name) {
-                    //that.data.selDistrictIndex = k;
-                    eventJ = { detail: { value: k } };
-                    that.bindPickerChange(eventJ);
-                  }
-                }
-              }
-            }
-            
-          }
-        }
-
-        that.setData({
-          wxaddress: res,
+        console.log(res)
+        _this.initRegionDB(res.provinceName, res.cityName, res.countyName)
+        _this.setData({
+          wxaddress: res
         });
       }
     })

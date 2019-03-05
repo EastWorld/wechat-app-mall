@@ -15,9 +15,8 @@ Page({
         _pickerRegionRange.push(res.data)
         _pickerRegionRange.push([{ name: '请选择' }])
         _pickerRegionRange.push([{ name: '请选择' }])
-        this.setData({
-          pickerRegionRange: _pickerRegionRange
-        })
+        this.data.pickerRegionRange = _pickerRegionRange
+        this.bindcolumnchange({ detail: { column: 0, value: 0 } })
       }
     })
   },
@@ -96,6 +95,9 @@ Page({
     const regionObject = this.data.pickerRegionRange[column][index]
     console.log('bindcolumnchange', regionObject)
     if (column === 2) {
+      this.setData({
+        pickerRegionRange: this.data.pickerRegionRange
+      })
       return
     }
     if (column === 1) {
@@ -110,11 +112,9 @@ Page({
     // 追加后面的一级数组
     WXAPI.nextRegion(regionObject.id).then(res => {
       if (res.code === 0) {
-        this.data.pickerRegionRange[column + 1] = res.data
+        this.data.pickerRegionRange[column + 1] = res.data     
       }
-      this.setData({
-        pickerRegionRange: this.data.pickerRegionRange
-      })
+      this.bindcolumnchange({ detail: { column: column + 1, value: 0 } })
     })
   },
   bindSave: function(e) {

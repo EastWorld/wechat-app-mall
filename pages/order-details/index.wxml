@@ -45,7 +45,10 @@
               <view class="right-box">
                   <view class="name-tel">{{orderDetail.logistics.linkMan}}  {{orderDetail.logistics.mobile}}</view>
                   <view class="text">
-                      {{orderDetail.logistics.address}}
+                    {{orderDetail.logistics.provinceStr}}
+                    {{orderDetail.logistics.cityStr}}
+                    {{orderDetail.logistics.areaStr}}
+                    {{orderDetail.logistics.address}}
                   </view>
               </view>
           </view>

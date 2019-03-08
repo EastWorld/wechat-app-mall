@@ -23,13 +23,21 @@ Page({
     searchInput: '',
 
     curPage: 1,
-    pageSize: 20
+    pageSize: 20,
+    cateScrollTop: 0
   },
 
   tabClick: function(e) {
+    let offset = e.currentTarget.offsetLeft;
+    if (offset > 150) {
+      offset = offset - 150
+    } else {
+      offset = 0;
+    }
     this.setData({
       activeCategoryId: e.currentTarget.id,
-      curPage: 1
+      curPage: 1,
+      cateScrollTop: offset
     });
     this.getGoodsList(this.data.activeCategoryId);
   },

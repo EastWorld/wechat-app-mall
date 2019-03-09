@@ -88,3 +88,17 @@
 .order-shortcut .item .text {
   font-size: 12px;
 }
+.to-authorize{
+  border: none;
+  padding: 0rpx;
+  margin: 0rpx;
+  background: none;
+  border: none;
+  height: auto;
+  line-height: auto;
+}
+/* 绑定手机号 */
+.bind-phone-number{
+  margin: 20rpx;
+  width: 100%;
+}

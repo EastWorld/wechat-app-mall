@@ -225,6 +225,12 @@ Page({
     var isNeedLogistics = 0;
     var allGoodsPrice = 0;
 
+
+    let inviter_id = 0;
+    let inviter_id_storge = wx.getStorageSync('referrer');
+    if (inviter_id_storge) {
+      inviter_id = inviter_id_storge;
+    }
     for (let i = 0; i < goodsList.length; i++) {
       let carShopBean = goodsList[i];
       if (carShopBean.logistics) {
@@ -236,14 +242,6 @@ Page({
       if (i > 0) {
         goodsJsonStrTmp = ",";
       }
-
-
-      let inviter_id = 0;
-      let inviter_id_storge = wx.getStorageSync('inviter_id_' + carShopBean.goodsId);
-      if (inviter_id_storge) {
-        inviter_id = inviter_id_storge;
-      }
-
 
       goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
       goodsJsonStr += goodsJsonStrTmp;

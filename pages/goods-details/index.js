@@ -25,6 +25,7 @@ Page({
     canSubmit: false, //  选中规格尺寸时候是否允许加入购物车
     shopCarInfo: {},
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
+    currentPages: undefined
   },
 
   //事件处理函数
@@ -35,17 +36,7 @@ Page({
     })
   },
   onLoad: function(e) {
-    if (e.inviter_id) {
-      wx.setStorage({
-        key: 'inviter_id_' + e.id,
-        data: e.inviter_id
-      })
-      wx.setStorage({
-        key: 'referrer',
-        data: e.inviter_id
-      })
-    }
-    var that = this;
+    const that = this;
     that.data.kjId = e.kjId;
     // 获取购物车数据
     wx.getStorage({
@@ -82,7 +73,8 @@ Page({
         selectSizePrice: res.data.basicInfo.minPrice,
         totalScoreToPay: res.data.basicInfo.minScore,
         buyNumMax: res.data.basicInfo.stores,
-        buyNumber: (res.data.basicInfo.stores > 0) ? 1 : 0
+        buyNumber: (res.data.basicInfo.stores > 0) ? 1 : 0,
+        currentPages: getCurrentPages()
       });
       WxParse.wxParse('article', 'html', res.data.content, that, 5);
     })
@@ -513,5 +505,10 @@ Page({
     wx.navigateTo({
       url: "/pages/to-pay-order/index?orderType=buyNow&pingtuanOpenId=" + pingtuanopenid
     })
+  },
+  goIndex(){
+    wx.switchTab({
+      url: '/pages/index/index',
+    });
   }
 })

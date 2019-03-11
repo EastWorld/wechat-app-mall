@@ -342,3 +342,19 @@ swiper-item image {
 .buy-num-box .num-box .hui{
   background-color: #f5f5f9;
 }
+.goIndex {
+  position:fixed;
+  right:20rpx;
+  bottom:200rpx;
+  width:80rpx;
+  height:80rpx;
+  border-radius:15px;
+  background-color: #fff;
+  text-align: center;
+
+}
+.goIndex-icon {
+  width:50rpx;
+  height:50rpx;
+  margin-top: 15rpx;
+}

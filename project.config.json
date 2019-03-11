@@ -31,13 +31,30 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
-			"list": [{
-				"id": -1,
-				"name": "home",
-				"pathName": "pages/index/index",
-				"scene": null
-			}]
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "home",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id=134&inviter_id=456",
+					"scene": 1011
+				},
+				{
+					"id": -1,
+					"name": "商品详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id= 6761",
+					"scene": null
+				}
+			]
 		}
 	}
 }

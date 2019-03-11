@@ -100,6 +100,7 @@ App({
     if (this.navigateToLogin){
       return
     }
+    wx.removeStorageSync('token')
     this.navigateToLogin = true
     setTimeout(function() {
       wx.navigateTo({

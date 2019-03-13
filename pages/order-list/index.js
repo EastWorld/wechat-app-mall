@@ -95,7 +95,7 @@ Page({
         _this.onShow();
       })
     } else {
-      wxpay.wxpay(app, money, orderId, "/pages/order-list/index");
+      wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
     }
   },
   onLoad: function(options) {

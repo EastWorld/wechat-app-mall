@@ -294,5 +294,11 @@ module.exports = {
   },
   rechargeSendRules: () => {
     return request('/user/recharge/send/rule', true, 'get')
+  },
+  payBillDiscounts: () => {
+    return request('/payBill/discounts', true, 'get')
+  },
+  payBill: (data) => {
+    return request('/payBill/pay', true, 'post', data)
   }
 }

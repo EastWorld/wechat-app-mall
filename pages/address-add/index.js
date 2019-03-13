@@ -92,6 +92,7 @@ Page({
   bindcolumnchange: function(e) {
     const column = e.detail.column
     const index = e.detail.value
+    console.log('eeee:', e)
     const regionObject = this.data.pickerRegionRange[column][index]
     console.log('bindcolumnchange', regionObject)
     if (column === 2) {
@@ -107,8 +108,8 @@ Page({
       this.data.pickerRegionRange[1] = [{ name: '请选择' }]
       this.data.pickerRegionRange[2] = [{ name: '请选择' }]
     }
-    // 后面的数组全部清空
-    this.data.pickerRegionRange.splice(column+1)
+    // // 后面的数组全部清空
+    // this.data.pickerRegionRange.splice(column+1)
     // 追加后面的一级数组
     WXAPI.nextRegion(regionObject.id).then(res => {
       if (res.code === 0) {

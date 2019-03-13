@@ -36,7 +36,7 @@ Page({
     this.setData({
       amount: amount
     });
-    wxpay.wxpay(app, amount, 0, "/pages/my/index");
+    wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
   },
 
 
@@ -102,8 +102,8 @@ Page({
       type: 'form',
       formId: e.detail.formId
     })
-    var that = this;
-    var amount = e.detail.value.amount;
+    const that = this;
+    const amount = e.detail.value.amount;
 
     if (amount == "" || amount * 1 < 0) {
       wx.showModal({
@@ -126,7 +126,7 @@ Page({
     })
     if (e.detail.value.type == 'wx') {
       // 微信充值
-      wxpay.wxpay(app, amount, 0, "/pages/my/index");
+      wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
     } else {
       // 支付宝充值
       WXAPI.alipay({

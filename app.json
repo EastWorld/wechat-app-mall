@@ -22,7 +22,8 @@
     "pages/score/index",
     "pages/sign/index",
     "pages/fetch-coupon/index",
-    "pages/category/category"
+    "pages/category/category",
+    "pages/maidan/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

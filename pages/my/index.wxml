@@ -37,6 +37,9 @@
   </view>
   <view style="height:10rpx;background: #eee;width:100%;"></view>
   <view class="my-item">
+    <navigator url="/pages/maidan/index" hover-class="navigator-hover">优惠买单</navigator>
+  </view>
+  <view class="my-item">
     <navigator url="/pages/asset/index" hover-class="navigator-hover">资金明细</navigator>
   </view>
   <view class="my-item">

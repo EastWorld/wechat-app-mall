@@ -4,7 +4,7 @@
         <view class="row-wrap">
             <view class="label">充值金额</view>
             <view class="label-right">
-                <input name="amount" class="input" type="text" value="{{amount}}" placeholder="至少充值 {{recharge_amount_min}} 元"/>
+                <input name="amount" class="input" type="digit" value="{{amount}}" placeholder="至少充值 {{recharge_amount_min}} 元"/>
             </view>
         </view>
     </view>

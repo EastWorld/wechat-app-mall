@@ -300,5 +300,20 @@ module.exports = {
   },
   payBill: (data) => {
     return request('/payBill/pay', true, 'post', data)
+  },
+  vipLevel: () => {
+    return request('/config/vipLevel', true, 'get')
+  },
+  fxApply: (token, name, mobile) => {
+    return request('/saleDistribution/apply', true, 'post', { token, name, mobile })
+  },
+  fxApplyProgress: (token) => {
+    return request('/saleDistribution/apply/progress', true, 'get', { token })
+  },
+  fxMembers: (data) => {
+    return request('/saleDistribution/members', true, 'post', data)
+  },
+  fxCommisionLog: (data) => {
+    return request('/saleDistribution/commision/log', true, 'post', data)
   }
 }

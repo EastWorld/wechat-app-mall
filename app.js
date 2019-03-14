@@ -54,6 +54,10 @@ App({
         wx.hideToast()
       }
     });
+    //  获取接口和后台权限
+    WXAPI.vipLevel().then(res => {
+      that.globalData.vipLevel = res.data
+    })
     //  获取商城名称
     WXAPI.queryConfig({
       key: 'mallName'
@@ -124,6 +128,7 @@ App({
   },
   globalData: {                
     isConnected: true,
-    launchOption: undefined
+    launchOption: undefined,
+    vipLevel: 0
   }
 })

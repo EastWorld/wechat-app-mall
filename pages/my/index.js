@@ -19,7 +19,8 @@ Page({
     } else {
       that.setData({
         userInfo: userInfo,
-        version: CONFIG.version
+        version: CONFIG.version,
+        vipLevel: app.globalData.vipLevel
       })
     }
     this.getUserApiInfo();

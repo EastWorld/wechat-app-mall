@@ -42,6 +42,9 @@
     <navigator url="/pages/fx/apply-status" hover-class="navigator-hover">成为分销商</navigator>
   </view>
   <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">
+    <navigator url="/pages/fx/apply-status" hover-class="navigator-hover">分销中心</navigator>
+  </view>
+  <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">
     <navigator url="/pages/fx/members" hover-class="navigator-hover">我的团队</navigator>
   </view>
   <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">

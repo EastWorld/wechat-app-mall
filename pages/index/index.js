@@ -65,8 +65,14 @@ Page({
       selectCurrent: e.index
     })
   },
-  onLoad: function() {
-    var that = this
+  onLoad: function(e) {
+    const that = this
+    if (e && e.scene) {
+      const scene = decodeURIComponent(e.scene)
+      if (scene) {        
+        wx.setStorageSync('referrer', scene.substring(11))
+      }
+    }
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })

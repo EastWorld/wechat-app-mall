@@ -315,5 +315,8 @@ module.exports = {
   },
   fxCommisionLog: (data) => {
     return request('/saleDistribution/commision/log', true, 'post', data)
+  },
+  wxaQrcode: (data) => {
+    return request('/qrcode/wxa/unlimit', true, 'post', data)
   }
 }

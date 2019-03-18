@@ -31,7 +31,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -52,6 +52,20 @@
 					"name": "商品详情页面",
 					"pathName": "pages/goods-details/index",
 					"query": "id= 6761",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "砍价详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id=6765",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "砍价详情页面",
+					"pathName": "pages/goods-details/index",
+					"query": "id=6765&kjJoinUid=701677",
 					"scene": null
 				}
 			]

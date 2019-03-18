@@ -1,6 +1,6 @@
 module.exports = {
-  version: "6.5.1",
-  note: '增加分销二维码及转发',
+  version: "6.5.2",
+  note: '调整首页布局调整，优化砍价流程',
   subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
   appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用
   shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术

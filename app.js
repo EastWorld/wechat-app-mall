@@ -81,12 +81,6 @@ App({
         that.globalData.recharge_amount_min = res.data.value;
       }
     })
-    // 获取砍价设置
-    WXAPI.kanjiaList().then(function(res) {
-      if (res.code == 0) {
-        that.globalData.kanjiaList = res.data.result;
-      }
-    })
     // 判断是否登录
     let token = wx.getStorageSync('token');
     if (!token) {

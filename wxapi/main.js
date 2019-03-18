@@ -85,6 +85,9 @@ module.exports = {
   kanjiaList: (data) => {
     return request('/shop/goods/kanjia/list', true, 'post', data)
   },
+  kanjiaSet: (goodsId) => {
+    return request('/shop/goods/kanjia/set', true, 'get', { goodsId })
+  },
   kanjiaJoin: (kjid, token) => {
     return request('/shop/goods/kanjia/join', true, 'post', {
       kjid,

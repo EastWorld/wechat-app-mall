@@ -11,3 +11,7 @@
 .wxParse-img {
   display: block !important;
 }
+.space {
+  height:20rpx;
+  background-color: #F2f2f2;
+}

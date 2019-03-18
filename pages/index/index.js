@@ -4,6 +4,13 @@ const CONFIG = require('../../config.js')
 var app = getApp()
 Page({
   data: {
+    inputShowed: false, // 是否显示搜索框
+    inputVal: "", // 搜索框内容
+    category_box_width: 750, //分类总宽度
+    goodsRecommend: [], // 推荐商品
+    kanjiaList: [], //砍价商品列表
+    kanjiaGoodsMap: {}, //砍价商品列表
+
     indicatorDots: true,
     autoplay: true,
     interval: 3000,
@@ -15,12 +22,12 @@ Page({
     categories: [],
     activeCategoryId: 0,
     goods: [],
+    
     scrollTop: 0,
     loadingMoreHidden: true,
 
     hasNoCoupons: true,
     coupons: [],
-    searchInput: '',
 
     curPage: 1,
     pageSize: 20,
@@ -81,7 +88,7 @@ Page({
      * 调用接口封装方法
      */
     WXAPI.banners({
-      type: 'index'
+      type: 'new'
     }).then(function(res) {
       if (res.code == 700) {
         wx.showModal({
@@ -101,24 +108,35 @@ Page({
       })
     })
     WXAPI.goodsCategory().then(function(res) {
-      var categories = [{
+      let categories = [{
         id: 0,
+        icon: '/images/fl.png',
         name: "全部"
       }];
       if (res.code == 0) {
-        for (var i = 0; i < res.data.length; i++) {
-          categories.push(res.data[i]);
-        }
+        categories = categories.concat(res.data)
       }
+      const _n = Math.ceil(categories.length / 2)
       that.setData({
         categories: categories,
+        category_box_width: 150 * _n,
         activeCategoryId: 0,
         curPage: 1
       });
       that.getGoodsList(0);
     })
-    that.getCoupons();
-    that.getNotice();
+    WXAPI.goods({
+      recommendStatus: 1
+    }).then(res => {
+      if (res.code === 0){
+        that.setData({
+          goodsRecommend: res.data
+        })
+      }      
+    })
+    that.getCoupons()
+    that.getNotice()
+    that.kanjiaGoods()
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop
@@ -136,7 +154,7 @@ Page({
     })
     WXAPI.goods({
       categoryId: categoryId,
-      nameLike: that.data.searchInput,
+      nameLike: that.data.inputVal,
       page: this.data.curPage,
       pageSize: this.data.pageSize
     }).then(function(res) {
@@ -256,12 +274,6 @@ Page({
       }
     })
   },
-  listenerSearchInput: function(e) {
-    this.setData({
-      searchInput: e.detail.value
-    })
-
-  },
   toSearch: function() {
     this.setData({
       curPage: 1
@@ -279,5 +291,39 @@ Page({
       curPage: 1
     });
     this.getGoodsList(this.data.activeCategoryId)
+  },
+  // 以下为搜索框事件
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
+  },
+  hideInput: function () {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
+  },
+  clearInput: function () {
+    this.setData({
+      inputVal: ""
+    });
+  },
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
+  },
+  // 以下为砍价业务
+  kanjiaGoods(){
+    const _this = this
+    WXAPI.kanjiaList().then(function (res) {
+      if (res.code == 0) {
+        _this.setData({
+          kanjiaList: res.data.result,
+          kanjiaGoodsMap: res.data.goodsMap
+        })
+      }
+    })
   }
 })

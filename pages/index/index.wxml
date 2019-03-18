@@ -1,72 +1,146 @@
-<!--index.wxml-->
-<!--1px = 750/320 = 2.34rpx;-->
 <view class="container">
-   <view class="swiper-container">
-        <swiper class="swiper_box" 
-                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-            <block wx:for="{{banners}}" wx:key="id">
-                <swiper-item>
-                    <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="562.5rpx"/>
-                </swiper-item>
-            </block>
-        </swiper>
-        <view class="dots">  
-            <block wx:for="{{banners}}" wx:key="unique">  
-                <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
-            </block>  
-        </view>  
-   </view>
-    <view class="type-container">
-        <scroll-view class="type-navbar" scroll-x="true" scroll-left="{{cateScrollTop}}">
-            <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
-                <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
-                    {{item.name}}
-                </view>
-            </view>
-        </scroll-view>
+  <view class="page__bd">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text " class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" confirm-type="search" bindconfirm='toSearch' />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text">搜索</view>
+        </label>
+      </view>
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
     </view>
-    <view class="search-view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
-    <view class="search-content">
-      <image src="/images/search-pic.png" class="search-icon" />
-      <input placeholder="请输入搜索内容" class="search-input" maxlength="30" confirm-type="搜索" bindinput='listenerSearchInput' bindconfirm='toSearch'>
-      </input>
-      <button class='search-btn' bindtap="toSearch">搜索
-      </button>
-    </view>
-  </view>
+    <!-- <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+    </view> -->
     <view wx:if="{{noticeList}}" class="notice">
-      <view class="notice_iteml">公告：</view>
+      <image class="notice_icon" src="/images/notice.png"></image>
       <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="3000">
         <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/show?id={{item.id}}" open-type="navigate">
-          <swiper-item >
+          <swiper-item>
             <view class="notice_itemr">{{item.title}}</view>
           </swiper-item>
         </navigator>
       </swiper>
     </view>
-    <view class="coupons" hidden="{{hasNoCoupons}}">
-        <scroll-view class="coupons-scroll" scroll-x="true">
-            <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id"  bindtap="gitCoupon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">
-               <view style="font-size: 35rpx" wx:if="{{item.moneyMin == item.moneyMax}}"> ￥ {{item.moneyMax}} </view>
-               <view style="font-size: 35rpx" wx:else> ￥ {{item.moneyMin}} - {{item.moneyMax}} </view>
-               <view> {{item.name}} </view>
-               <view> 满 {{item.moneyHreshold}} 元使用 </view>
-               <view wx:if="{{item.dateEndType == 0}}"> {{item.dateEnd}} 前有效 </view>
-               <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
-            </view>
-        </scroll-view>
-    </view>
-    <view class="goods-container">
-        <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
-           <view class="img-box">
-              <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true"/>
-           </view>
-           <view class="goods-title">{{item.name}}</view>
-           <view style='display:flex;'>
-            <view class="goods-price">¥ {{item.minPrice}}</view>
-            <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
-           </view>           
+    <scroll-view scroll-x>
+      <view class="category-box" style='width:{{category_box_width}}rpx;'>
+        <view class="category-list" wx:for="{{categories}}" wx:if="{{index%2===0}}" wx:key="*this">
+          <view class="category-column {{activeCategoryId == categories[index].id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{categories[index].id}}">
+            <image class="category-imgbox" src="{{categories[index].icon}}"></image>
+            <view class="category-title">{{categories[index].name}}</view>
+          </view>
+          <view class="category-column {{activeCategoryId == categories[index+1].id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{categories[index+1].id}}">
+            <image class="category-imgbox" src="{{categories[index+1].icon}}"></image>
+            <view class="category-title">{{categories[index+1].name}}</view>
+          </view>
         </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="swiper-container">
+    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+      <block wx:for="{{banners}}" wx:key="id">
+        <swiper-item>
+          <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="562.5rpx" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{banners}}" wx:key="unique">
+        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+      </block>
     </view>
-    <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+  </view>
+
+  <!-- <view class="coupons" hidden="{{hasNoCoupons}}">
+    <scroll-view class="coupons-scroll" scroll-x="true">
+      <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id" bindtap="gitCoupon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">
+        <view style="font-size: 35rpx" wx:if="{{item.moneyMin == item.moneyMax}}"> ￥ {{item.moneyMax}} </view>
+        <view style="font-size: 35rpx" wx:else> ￥ {{item.moneyMin}} - {{item.moneyMax}} </view>
+        <view> {{item.name}} </view>
+        <view> 满 {{item.moneyHreshold}} 元使用 </view>
+        <view wx:if="{{item.dateEndType == 0}}"> {{item.dateEnd}} 前有效 </view>
+        <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
+      </view>
+    </scroll-view>
+  </view> -->
+  <view class="weui-loadmore weui-loadmore_line" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
+  </view>
+  <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
+    <view class="goods-box" wx:for-items="{{goodsRecommend}}" wx:key="*this" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="img-box">
+        <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">{{item.name}}</view>
+      <view style='display:flex;'>
+        <view class="goods-price">¥ {{item.minPrice}}</view>
+        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+      </view>
+    </view>
+  </view>
+  <view wx-if="{{kanjiaList.length > 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
+    <view class="weui-panel__hd">疯狂砍价</view>
+    <view class="weui-panel__bd">
+      <view wx:for-items="{{kanjiaList}}" wx:key="*this" class="weui-media-box weui-media-box_appmsg">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="{{kanjiaGoodsMap[item.goodsId].pic}}_m" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{kanjiaGoodsMap[item.goodsId].name}}</view>
+          <view class="weui-media-box__desc">{{kanjiaGoodsMap[item.goodsId].characteristic}}</view>
+          <view class="weui-media-box__info" style='color:#333;line-height:2em;'>
+            <view class="weui-media-box__info__meta">原价:{{item.originalPrice}}</view>
+            <view class="weui-media-box__info__meta" style='color:#e64340;'>底价:{{item.minPrice}}</view>
+            <view class="weui-media-box__info__meta" style='float:right;'>
+              <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.goodsId}}">砍价</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='space'></view>
+  <view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">商品列表</view>
+  </view>
+  <view class="goods-container">
+    <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="img-box">
+        <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">{{item.name}}</view>
+      <view style='display:flex;'>
+        <view class="goods-price">¥ {{item.minPrice}}</view>
+        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+      </view>
+    </view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
 </view>

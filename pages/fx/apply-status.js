@@ -2,6 +2,7 @@ const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('../../wxapi/main')
 const regeneratorRuntime = require('../../utils/runtime')
+import imageUtil from '../../utils/image'
 
 Page({
 
@@ -11,7 +12,7 @@ Page({
   data: {
     applyStatus: -2, // -1 表示未申请，0 审核中 1 不通过 2 通过
     applyInfo: {},
-    qrcode: '/images/fx.png'
+    canvasHeight: 0
   },
 
   /**
@@ -75,9 +76,29 @@ Page({
     }).then(res => {
       wx.hideLoading()
       if (res.code == 0) {
+        _this.showCanvas(res.data)
+      }
+    })
+  },
+  showCanvas(qrcode){
+    const _this = this
+    let ctx
+    wx.getImageInfo({
+      src: qrcode,
+      success: (res) => {
+        const imageSize = imageUtil(res.width, res.height)
+        const qrcodeWidth = imageSize.windowWidth / 2
         _this.setData({
-          qrcode: res.data
+          canvasHeight: qrcodeWidth
         })
+        ctx = wx.createCanvasContext('firstCanvas')
+        // ctx.setFillStyle('#fff')
+        // ctx.fillRect(0, 0, imageSize.windowWidth, imageSize.imageHeight + additionHeight + qrcodeWidth)
+        ctx.drawImage(res.path, (imageSize.windowWidth - qrcodeWidth) / 2, 0, qrcodeWidth, qrcodeWidth)
+        setTimeout(function () {
+          wx.hideLoading()
+          ctx.draw()
+        }, 1000)
       }
     })
   },
@@ -142,6 +163,32 @@ Page({
     })
     wx.switchTab({
       url: '/pages/index/index',
+    })
+  },
+  saveToMobile() { //下载二维码到手机
+    wx.canvasToTempFilePath({
+      canvasId: 'firstCanvas',
+      success: function (res) {
+        let tempFilePath = res.tempFilePath
+        wx.saveImageToPhotosAlbum({
+          filePath: tempFilePath,
+          success: (res) => {
+            wx.showModal({
+              content: '二维码已保存到手机相册',
+              showCancel: false,
+              confirmText: '知道了',
+              confirmColor: '#333'
+            })
+          },
+          fail: (res) => {
+            wx.showToast({
+              title: res.errMsg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+      }
     })
   }
 })

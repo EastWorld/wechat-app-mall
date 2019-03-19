@@ -16,3 +16,9 @@
   margin-left: 50px;
   margin-right: 50px;
 }
+.qrcode-button {
+  padding:30rpx;
+}
+.canvas {
+  width:750rpx;
+}

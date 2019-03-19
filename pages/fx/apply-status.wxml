@@ -24,7 +24,14 @@
 </view>
 
 <view class='noApply' wx:if="{{applyStatus == 2}}">
-  <image class="logo" src="{{qrcode}}" mode="widthFix" />
+  <canvas class="canvas" style="height:{{canvasHeight}}px" canvas-id="firstCanvas"></canvas>
   <view class="profile">扫码关注您的专属推广码，或者转发邀请好友</view>
-  <button type="primary" open-type="share" class="mini-btn">转发</button>
+  <view class="weui-flex">
+    <view class="weui-flex__item qrcode-button">
+      <button class="weui-btn" type="primary" open-type="share">转发</button>
+    </view>
+    <view class="weui-flex__item qrcode-button">
+      <button class="weui-btn" type="primary" bindtap="saveToMobile">下载二维码</button>
+    </view>
+  </view>
 </view>

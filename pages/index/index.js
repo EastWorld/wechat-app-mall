@@ -9,6 +9,7 @@ Page({
     category_box_width: 750, //分类总宽度
     goodsRecommend: [], // 推荐商品
     kanjiaList: [], //砍价商品列表
+    pingtuanList: [], //拼团商品列表
     kanjiaGoodsMap: {}, //砍价商品列表
 
     indicatorDots: true,
@@ -136,6 +137,7 @@ Page({
     that.getCoupons()
     that.getNotice()
     that.kanjiaGoods()
+    that.pingtuanGoods()
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop
@@ -268,6 +270,18 @@ Page({
   goCoupons: function (e) {
     wx.navigateTo({
       url: "/pages/coupons/index"
+    })
+  },
+  pingtuanGoods(){ // 获取团购商品列表
+    const _this = this
+    WXAPI.goods({
+      pingtuan: true
+    }).then(res => {
+      if (res.code === 0) {
+        _this.setData({
+          pingtuanList: res.data
+        })
+      }
     })
   }
 })

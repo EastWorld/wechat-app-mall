@@ -36,6 +36,7 @@ Page({
     })
   },
   async onLoad(e) {
+    this.data.goodsId = e.id
     const that = this
     this.data.kjJoinUid = e.kjJoinUid
     // 获取购物车数据
@@ -49,8 +50,10 @@ Page({
         });
       }
     })
-    this.getGoodsDetailAndKanjieInfo(e.id)
     this.reputation(e.id)
+  },
+  onShow (){
+    this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const that = this;
@@ -99,6 +102,12 @@ Page({
         if (myHelpDetail.code == 0) {
           _data.myHelpDetail = myHelpDetail.data
         }
+      }
+      if (goodsDetailRes.data.basicInfo.pingtuan) {
+        const pingtuanSetRes = await WXAPI.pingtuanSet(goodsId)
+        if (pingtuanSetRes.code == 0) {
+          _data.pingtuanSet = pingtuanSetRes.data
+        }        
       }
       that.setData(_data);
       WxParse.wxParse('article', 'html', goodsDetailRes.data.content, that, 5);

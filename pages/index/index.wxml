@@ -113,6 +113,30 @@
       </view>
     </view>
   </view>
+  <block wx:if="{{pingtuanList.length > 0}}">
+    <view class='space'></view>
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">全民拼团</view>
+    </view>
+    <view class='tuan'>
+      <view class='tuan-item' wx:for-items="{{pingtuanList}}" wx:key="*this">
+        <view class='tuan-goods-pic'>
+          <image src="{{item.pic}}" mode="widthFix" lazy-load="true" />
+        </view>
+        <view class='tuan-title'>{{item.name}}</view>
+        <view class='tuan-profile'>{{item.characteristic}}</view>
+        <view class="weui-badge" style="margin-left: 20rpx;" wx:if="{{item.tags}}">{{item.tags}}</view>
+        <view class='tuan-price'>
+          <text class='now'>￥ {{item.pingtuanPrice}}</text>
+          <text class='original'>￥ {{item.originalPrice}}</text>
+        </view>
+        <view class="tuan-btn">
+          <button type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}">拼团</button>
+        </view>
+      </view>
+    </view>
+  </block>
+
   <view class='space'></view>
   <view class="weui-loadmore weui-loadmore_line">
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">商品列表</view>

@@ -55,6 +55,27 @@
       </view>
     </view>
   </view>
+  <view class="page__bd" wx:if="{{pingtuanSet}}" style='width:750rpx;'>
+    <view class="weui-cells__title">商品拼团设置</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">已成团</view>
+        <view class="weui-cell__ft">{{pingtuanSet.numberSucccess}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">成团人数</view>
+        <view class="weui-cell__ft">{{pingtuanSet.numberPersion}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">退款条件</view>
+        <view class="weui-cell__ft">{{pingtuanSet.timeoutHours}}小时未成团</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">截止</view>
+        <view class="weui-cell__ft">{{pingtuanSet.dateEnd}}</view>
+      </view>
+    </view>
+  </view>
   <view class="curKanjiaprogress" wx:if="{{curKanjiaprogress}}">
     <view class="name">帮
       <text style='color:red;font-weight:bold;'>{{curKanjiaprogress.joiner.nick}}</text> 砍价吧！</view>

@@ -203,3 +203,54 @@ swiper-item image {
   height:60rpx;
   margin-top: 10rpx;
 }
+.tuan {
+  width:750rpx;
+  background-color: #F2f2f2;
+  padding-top:10rpx;
+}
+.tuan-item {
+  width:720rpx;
+  margin: auto;
+  margin-top: 20rpx;
+  border-radius: 15px;
+  background-color: #FFF;
+  position: relative;
+}
+.tuan-goods-pic {
+  width:100%;
+  height: 250rpx;
+  overflow: hidden;
+}
+.tuan-goods-pic image {
+  width:100%;
+  border-radius: 15px;
+}
+.tuan-title {
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  font-size:30rpx;
+  font-weight: 400;
+}
+.tuan-profile {
+  margin-left: 20rpx;
+  font-size:28rpx;
+  color:#999;
+}
+.tuan-price {
+  margin-left: 20rpx;
+}
+.tuan-price .now {
+  font-size:36rpx;
+  color:#e64340;
+}
+.tuan-price .original {
+  margin-left: 20rpx;
+  font-size:26rpx;
+  color:#999;
+  text-decoration:line-through;
+}
+.tuan-btn {
+  position: absolute;
+  right:30rpx;
+  bottom: 10rpx;
+}

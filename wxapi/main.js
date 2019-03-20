@@ -211,6 +211,11 @@ module.exports = {
       token
     })
   },
+  pingtuanSet: (goodsId) => {
+    return request('/shop/goods/pingtuan/set', true, 'get', {
+      goodsId
+    })
+  },
   pingtuanOpen: (goodsId, token) => {
     return request('/shop/goods/pingtuan/open', true, 'post', {
       goodsId,

@@ -187,3 +187,19 @@ swiper-item image {
   color: #fff;
   display: inline-block;
 }
+.coupons-float {
+  position: fixed;
+  right:15rpx;
+  bottom:80rpx;
+  width:80rpx;
+  height:80rpx;
+  background-color: #fff;
+  text-align: center;
+  border-radius:50%;
+  border: 1rpx solid #ddd;
+}
+.coupons-float image {
+  width:60rpx;
+  height:60rpx;
+  margin-top: 10rpx;
+}

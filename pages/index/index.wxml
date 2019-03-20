@@ -77,19 +77,6 @@
       </block>
     </view>
   </view>
-
-  <!-- <view class="coupons" hidden="{{hasNoCoupons}}">
-    <scroll-view class="coupons-scroll" scroll-x="true">
-      <view class="coupons-item" wx:for-items="{{coupons}}" wx:for-index="idx" wx:key="id" bindtap="gitCoupon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">
-        <view style="font-size: 35rpx" wx:if="{{item.moneyMin == item.moneyMax}}"> ￥ {{item.moneyMax}} </view>
-        <view style="font-size: 35rpx" wx:else> ￥ {{item.moneyMin}} - {{item.moneyMax}} </view>
-        <view> {{item.name}} </view>
-        <view> 满 {{item.moneyHreshold}} 元使用 </view>
-        <view wx:if="{{item.dateEndType == 0}}"> {{item.dateEnd}} 前有效 </view>
-        <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
-      </view>
-    </scroll-view>
-  </view> -->
   <view class="weui-loadmore weui-loadmore_line" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
   </view>
@@ -143,4 +130,7 @@
     </view>
   </view>
   <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+</view>
+<view class='coupons-float' bindtap="goCoupons">
+  <image src="/images/gift.png"></image>
 </view>

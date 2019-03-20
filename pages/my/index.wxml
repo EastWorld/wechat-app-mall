@@ -69,7 +69,7 @@
     <navigator url="/pages/select-address/index" hover-class="navigator-hover">收货地址</navigator>
   </view>
   <view class="my-item">
-    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">优惠券</navigator>
+    <navigator url="/pages/coupons/index" hover-class="navigator-hover">领券中心</navigator>
   </view>
   <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
     {{userMobile}}

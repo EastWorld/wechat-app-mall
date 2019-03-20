@@ -8,10 +8,17 @@
 
 <p>
 <img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/12/28/86af021ee227269eae3ac7cfe2bd6e9d.jpeg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/04/04/570e9a77dbc9cacda176e98a4f2778c5.jpg" width="200px">
 </p>
+
+## 其他开源模板
+
+### TianguoguoXiaopu
+
+<p>
+<img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
+</p>
+
+[Github地址](https://github.com/qindiandadudu/TianguoguoXiaopu)
 
 ## 接口 & 后台声明
 
@@ -79,6 +86,7 @@ module.exports = {
 后台发布banner的时候，自定义类型请分别填写  app  和  index；
 小程序会自动读取类型为 app 的banner图片作为启动展示图片；
 小程序会自动读取类型为 index 的banner图片作为首页头部的轮播图；
+小程序会自动读取类型为 new 的banner图片作为新首页头部的轮播图；
 ```
 
 ## 常见问题

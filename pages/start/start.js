@@ -5,7 +5,7 @@ var app = getApp();
 Page({
   data: {
     banners:[],
-    swiperMaxNumber: 3,
+    swiperMaxNumber: 0,
     swiperCurrent: 0,
     height: wx.getSystemInfoSync().windowHeight
   },
@@ -30,7 +30,8 @@ Page({
           });
         } else {
           _this.setData({
-            banners: res.data
+            banners: res.data,
+            swiperMaxNumber: res.data.length
           });
         }
       }).catch(function (e) {

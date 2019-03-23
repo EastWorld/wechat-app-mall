@@ -82,6 +82,13 @@ module.exports = {
   scoreLogs: (data) => {
     return request('/score/logs', true, 'post', data)
   },
+  shareGroupGetScore: (referrer, encryptedData, iv) => {
+    return request('/score/share/wxa/group', true, 'post', {
+      referrer,
+      encryptedData,
+      iv
+    })
+  },
   kanjiaList: (data) => {
     return request('/shop/goods/kanjia/list', true, 'post', data)
   },

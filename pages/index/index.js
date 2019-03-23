@@ -72,7 +72,10 @@ Page({
       selectCurrent: e.index
     })
   },
-  onLoad: function(e) {
+  onLoad: function(e) {   
+    wx.showShareMenu({
+      withShareTicket: true
+    }) 
     const that = this
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene)
@@ -193,16 +196,10 @@ Page({
       }
     })
   },
-  onShareAppMessage: function() {
+  onShareAppMessage: function() {    
     return {
       title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid'),
-      success: function(res) {
-        // 转发成功
-      },
-      fail: function(res) {
-        // 转发失败
-      }
+      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
     }
   },
   getNotice: function() {

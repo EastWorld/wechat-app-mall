@@ -1,0 +1,38 @@
+<!--pages/category/category.wxml-->
+<view class='content'>
+
+  <scroll-view class='left' scroll-y="true" scroll-into-view="{{categoryToView}}">
+
+    <block wx:for="{{categories}}" wx:key="id">
+
+      <view class="category-item {{categorySelected==item.scrollId?'category-item-active':''}}" data-id='{{item.scrollId}}' id='{{item.scrollId}}' bindtap='onCategoryClick'>
+        <text>{{item.name}}</text>
+      </view>
+
+    </block>
+
+  </scroll-view>
+
+  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" bindscroll="scroll">
+    <block wx:for="{{goodsWrap}}" wx:key="id">
+
+      <view class="goodsWrap-category" id='{{item.scrollId}}'>
+        <text>{{item.name}}</text>
+      </view>
+
+      <block wx:for="{{item.goods}}" wx:for-item="goods" wx:key="id">
+        <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
+
+          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.pic}}_m"></image>
+
+          <view class='goods-info'>
+            <text >{{goods.name}}</text>
+            <text style='color:red;'>￥{{goods.minPrice}}</text>
+          </view>
+
+
+        </view>
+      </block>
+    </block>
+  </scroll-view>
+</view>

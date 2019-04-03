@@ -10,14 +10,23 @@
     "pages/order-list/index",
     "pages/order-details/index",
     "pages/wuliu/index",
-    "pages/mycoupons/index",
     "pages/my/index",
     "pages/notice/show",
     "pages/recharge/index",
     "pages/withdraw/index",
     "pages/kanjia/index",
     "pages/authorize/index",
-    "pages/score-excharge/index"
+    "pages/score-excharge/index",
+    "pages/asset/index",
+    "pages/score/index",
+    "pages/sign/index",
+    "pages/category/category",
+    "pages/maidan/index",
+    "pages/fx/apply",
+    "pages/fx/apply-status",
+    "pages/fx/members",
+    "pages/fx/commisionLog",
+    "pages/coupons/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -31,18 +40,18 @@
     "selectedColor": "#e64340",
     "borderStyle": "white",
     "backgroundColor": "#fff",
-    "box-shadow":"0 0 6px 0",
     "list": [{
      "pagePath": "pages/index/index",
       "iconPath": "images/nav/home-off.png",
       "selectedIconPath": "images/nav/home-on.png",
       "text": "首页"
-    }, {
+    },
+    {
       "pagePath": "pages/shop-cart/index",
       "iconPath": "images/nav/cart-off.png",
       "selectedIconPath": "images/nav/cart-on.png",
       "text": "购物车"
-    },
+    },    
     {
       "pagePath": "pages/my/index",
       "iconPath": "images/nav/my-off.png",

@@ -1,10 +1,17 @@
-//index.js
-const api = require('../../utils/request.js')
+const WXAPI = require('../../wxapi/main')
 const CONFIG = require('../../config.js')
 //获取应用实例
 var app = getApp()
 Page({
   data: {
+    inputShowed: false, // 是否显示搜索框
+    inputVal: "", // 搜索框内容
+    category_box_width: 750, //分类总宽度
+    goodsRecommend: [], // 推荐商品
+    kanjiaList: [], //砍价商品列表
+    pingtuanList: [], //拼团商品列表
+    kanjiaGoodsMap: {}, //砍价商品列表
+
     indicatorDots: true,
     autoplay: true,
     interval: 3000,
@@ -16,21 +23,28 @@ Page({
     categories: [],
     activeCategoryId: 0,
     goods: [],
+    
     scrollTop: 0,
     loadingMoreHidden: true,
 
-    hasNoCoupons: true,
     coupons: [],
-    searchInput: '',
 
     curPage: 1,
-    pageSize: 20
+    pageSize: 20,
+    cateScrollTop: 0
   },
 
   tabClick: function(e) {
+    let offset = e.currentTarget.offsetLeft;
+    if (offset > 150) {
+      offset = offset - 150
+    } else {
+      offset = 0;
+    }
     this.setData({
       activeCategoryId: e.currentTarget.id,
-      curPage: 1
+      curPage: 1,
+      cateScrollTop: offset
     });
     this.getGoodsList(this.data.activeCategoryId);
   },
@@ -58,8 +72,17 @@ Page({
       selectCurrent: e.index
     })
   },
-  onLoad: function() {
-    var that = this
+  onLoad: function(e) {   
+    wx.showShareMenu({
+      withShareTicket: true
+    }) 
+    const that = this
+    if (e && e.scene) {
+      const scene = decodeURIComponent(e.scene)
+      if (scene) {        
+        wx.setStorageSync('referrer', scene.substring(11))
+      }
+    }
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
@@ -67,45 +90,57 @@ Page({
      * 示例：
      * 调用接口封装方法
      */
-    api.fetchRequest('/banner/list', {
-      key: 'mallName'
+    WXAPI.banners({
+      type: 'new'
     }).then(function(res) {
-      if (res.data.code == 404) {
+      if (res.code == 700) {
         wx.showModal({
           title: '提示',
-          content: '请在后台添加 banner 轮播图片',
+          content: '请在后台添加 banner 轮播图片，自定义类型填写 index',
           showCancel: false
         })
       } else {
         that.setData({
-          banners: res.data.data
+          banners: res.data
         });
       }
-    }).catch(function(res) {
+    }).catch(function(e) {
       wx.showToast({
-        title: res.data.msg,
+        title: res.msg,
         icon: 'none'
       })
     })
-    api.fetchRequest('/shop/goods/category/all').then(function(res) {
-      var categories = [{
+    WXAPI.goodsCategory().then(function(res) {
+      let categories = [{
         id: 0,
+        icon: '/images/fl.png',
         name: "全部"
       }];
-      if (res.data.code == 0) {
-        for (var i = 0; i < res.data.data.length; i++) {
-          categories.push(res.data.data[i]);
-        }
+      if (res.code == 0) {
+        categories = categories.concat(res.data)
       }
+      const _n = Math.ceil(categories.length / 2)
       that.setData({
         categories: categories,
+        category_box_width: 150 * _n,
         activeCategoryId: 0,
         curPage: 1
       });
       that.getGoodsList(0);
     })
-    that.getCoupons();
-    that.getNotice();
+    WXAPI.goods({
+      recommendStatus: 1
+    }).then(res => {
+      if (res.code === 0){
+        that.setData({
+          goodsRecommend: res.data
+        })
+      }      
+    })
+    that.getCoupons()
+    that.getNotice()
+    that.kanjiaGoods()
+    that.pingtuanGoods()
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop
@@ -121,14 +156,14 @@ Page({
     wx.showLoading({
       "mask": true
     })
-    api.fetchRequest('/shop/goods/list', {
+    WXAPI.goods({
       categoryId: categoryId,
-      nameLike: that.data.searchInput,
+      nameLike: that.data.inputVal,
       page: this.data.curPage,
       pageSize: this.data.pageSize
     }).then(function(res) {
       wx.hideLoading()
-      if (res.data.code == 404 || res.data.code == 700) {
+      if (res.code == 404 || res.code == 700) {
         let newData = {
           loadingMoreHidden: false
         }
@@ -142,8 +177,8 @@ Page({
       if (append) {
         goods = that.data.goods
       }
-      for (var i = 0; i < res.data.data.length; i++) {
-        goods.push(res.data.data[i]);
+      for (var i = 0; i < res.data.length; i++) {
+        goods.push(res.data[i]);
       }
       that.setData({
         loadingMoreHidden: true,
@@ -153,95 +188,29 @@ Page({
   },
   getCoupons: function() {
     var that = this;
-    api.fetchRequest('/discounts/coupons').then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.coupons().then(function (res) {
+      if (res.code == 0) {
         that.setData({
-          hasNoCoupons: false,
-          coupons: res.data.data
+          coupons: res.data
         });
       }
     })
   },
-  gitCoupon: function(e) {
-    var that = this;
-    api.fetchRequest('/discounts/fetch', {
-      id: e.currentTarget.dataset.id,
-      token: wx.getStorageSync('token')
-    }).then(function (res) {
-      if (res.data.code == 20001 || res.data.code == 20002) {
-        wx.showModal({
-          title: '错误',
-          content: '来晚了',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.data.code == 20003) {
-        wx.showModal({
-          title: '错误',
-          content: '你领过了，别贪心哦~',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.data.code == 30001) {
-        wx.showModal({
-          title: '错误',
-          content: '您的积分不足',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.data.code == 20004) {
-        wx.showModal({
-          title: '错误',
-          content: '已过期~',
-          showCancel: false
-        })
-        return;
-      }
-      if (res.data.code == 0) {
-        wx.showToast({
-          title: '领取成功，赶紧去下单吧~',
-          icon: 'success',
-          duration: 2000
-        })
-      } else {
-        wx.showModal({
-          title: '错误',
-          content: res.data.msg,
-          showCancel: false
-        })
-      }
-    })
-  },
-  onShareAppMessage: function() {
+  onShareAppMessage: function() {    
     return {
-      title: wx.getStorageSync('mallName') + '——' + CONFIG.shareProfile,
-      path: '/pages/index/index',
-      success: function(res) {
-        // 转发成功
-      },
-      fail: function(res) {
-        // 转发失败
-      }
+      title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
+      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
     }
   },
   getNotice: function() {
     var that = this;
-    api.fetchRequest('/notice/list', {pageSize: 5}).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.noticeList({pageSize: 5}).then(function (res) {
+      if (res.code == 0) {
         that.setData({
-          noticeList: res.data.data
+          noticeList: res.data
         });
       }
     })
-  },
-  listenerSearchInput: function(e) {
-    this.setData({
-      searchInput: e.detail.value
-    })
-
   },
   toSearch: function() {
     this.setData({
@@ -260,5 +229,56 @@ Page({
       curPage: 1
     });
     this.getGoodsList(this.data.activeCategoryId)
+  },
+  // 以下为搜索框事件
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
+  },
+  hideInput: function () {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
+  },
+  clearInput: function () {
+    this.setData({
+      inputVal: ""
+    });
+  },
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
+  },
+  // 以下为砍价业务
+  kanjiaGoods(){
+    const _this = this
+    WXAPI.kanjiaList().then(function (res) {
+      if (res.code == 0) {
+        _this.setData({
+          kanjiaList: res.data.result,
+          kanjiaGoodsMap: res.data.goodsMap
+        })
+      }
+    })
+  },
+  goCoupons: function (e) {
+    wx.navigateTo({
+      url: "/pages/coupons/index"
+    })
+  },
+  pingtuanGoods(){ // 获取团购商品列表
+    const _this = this
+    WXAPI.goods({
+      pingtuan: true
+    }).then(res => {
+      if (res.code === 0) {
+        _this.setData({
+          pingtuanList: res.data
+        })
+      }
+    })
   }
 })

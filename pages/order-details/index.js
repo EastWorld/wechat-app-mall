@@ -1,6 +1,6 @@
-var app = getApp();
-const api = require('../../utils/request.js')
+const app = getApp();
 const CONFIG = require('../../config.js')
+const WXAPI = require('../../wxapi/main')
 Page({
     data:{
       orderId:0,
@@ -17,23 +17,18 @@ Page({
     },
     onShow : function () {
       var that = this;
-      api.fetchRequest('/order/detail', {
-        token: wx.getStorageSync('token'),
-        id: that.data.orderId
-      }).then(function (res) {
-        if (res.data.code != 0) {
+      WXAPI.orderDetail(that.data.orderId, wx.getStorageSync('token')).then(function (res) {
+        if (res.code != 0) {
           wx.showModal({
             title: '错误',
-            content: res.data.msg,
+            content: res.msg,
             showCancel: false
           })
           return;
         }
         that.setData({
-          orderDetail: res.data.data
+          orderDetail: res.data
         });
-      }).finally(res => {
-        wx.hideLoading();
       })
       var yunPrice = parseFloat(this.data.yunPrice);
       var allprice = 0;
@@ -55,7 +50,7 @@ Page({
     confirmBtnTap:function(e){
       let that = this;
       let orderId = this.data.orderId;
-      api.fetchRequest('/template-msg/wxa/formId', {
+      WXAPI.addTempleMsgFormid({
         token: wx.getStorageSync('token'),
         type: 'form',
         formId: e.detail.formId
@@ -65,12 +60,8 @@ Page({
           content: '',
           success: function(res) {
             if (res.confirm) {
-              wx.showLoading();
-              api.fetchRequest('/order/delivery', {
-                token: wx.getStorageSync('token'),
-                orderId: orderId
-              }).then(function (res) {
-                if (res.data.code == 0) {
+              WXAPI.orderDelivery(orderId, wx.getStorageSync('token')).then(function (res) {
+                if (res.code == 0) {
                   that.onShow();
                   // 模板消息，提醒用户进行评价
                   let postJsonString = {};
@@ -80,8 +71,14 @@ Page({
                     keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score + '积分奖励。';
                   }
                   postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-                  app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', '',
-                    '/pages/order-details/index?id=' + orderId, JSON.stringify(postJsonString));
+                  WXAPI.sendTempleMsg({
+                    module: 'immediately',
+                    postJsonString: JSON.stringify(postJsonString),
+                    template_id: 'uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco',
+                    type: 0,
+                    token: wx.getStorageSync('token'),
+                    url: '/pages/order-details/index?id=' + orderId
+                  })
                 }
               })
             }
@@ -90,7 +87,7 @@ Page({
     },
     submitReputation: function (e) {
       let that = this;
-      api.fetchRequest('/template-msg/wxa/formId', {
+      WXAPI.addTempleMsgFormid({
         token: wx.getStorageSync('token'),
         type: 'form',
         formId: e.detail.formId
@@ -114,11 +111,10 @@ Page({
         i++;
       }
       postJsonString.reputations = reputations;
-      wx.showLoading();
-      api.fetchRequest('/order/reputation', {
-        postJsonString: postJsonString
+      WXAPI.orderReputation({
+        postJsonString: JSON.stringify(postJsonString)
       }).then(function (res) {
-        if (res.data.code == 0) {
+        if (res.code == 0) {
           that.onShow();
           // 模板消息，通知用户已评价
           let postJsonString = {};
@@ -128,11 +124,15 @@ Page({
             keywords2 += app.globalData.order_reputation_score + '积分奖励已发放至您的账户。';
           }
           postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-          app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', '',
-            '/pages/order-details/index?id=' + that.data.orderId, JSON.stringify(postJsonString));
+          WXAPI.sendTempleMsg({
+            module: 'immediately',
+            postJsonString: JSON.stringify(postJsonString),
+            template_id: 'uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco',
+            type: 0,
+            token: wx.getStorageSync('token'),
+            url: '/pages/order-details/index?id=' + that.data.orderId
+          })
         }
-      }).finally(res => {
-        wx.hideLoading();
       })
     }
 })

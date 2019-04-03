@@ -1,6 +1,6 @@
-var app = getApp();
-var WxParse = require('../../wxParse/wxParse.js');
-const api = require('../../utils/request.js')
+const app = getApp();
+const WxParse = require('../../wxParse/wxParse.js');
+const WXAPI = require('../../wxapi/main')
 Page({
 
   /**
@@ -15,14 +15,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    api.fetchRequest('/notice/detail', {
-      id: options.id
-    }).then(function (res) {
-      if (res.data.code == 0) {
+    WXAPI.noticeDetail(options.id).then(function (res) {
+      if (res.code == 0) {
         that.setData({
-          notice: res.data.data
+          notice: res.data
         });
-        WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
+        WxParse.wxParse('article', 'html', res.data.content, that, 5);
       }
     })
   },

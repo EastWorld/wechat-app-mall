@@ -1,6 +1,6 @@
-var wxpay = require('../../utils/pay.js')
-const api = require('../../utils/request.js')
-var app = getApp()
+const wxpay = require('../../utils/pay.js')
+const app = getApp()
+const WXAPI = require('../../wxapi/main')
 Page({
   data: {
     statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
@@ -8,7 +8,7 @@ Page({
     tabClass: ["", "", "", "", ""]
   },
   statusTap: function(e) {
-    var curType = e.currentTarget.dataset.index;
+    const curType = e.currentTarget.dataset.index;
     this.data.currentType = curType
     this.setData({
       currentType: curType
@@ -29,53 +29,55 @@ Page({
       content: '',
       success: function(res) {
         if (res.confirm) {
-          wx.showLoading();
-          api.fetchRequest('/order/close', {
-            token: wx.getStorageSync('token'),
-            orderId: orderId
-          }).then(function(res) {
-            if (res.data.code == 0) {
+          WXAPI.orderClose(orderId, wx.getStorageSync('token')).then(function(res) {
+            if (res.code == 0) {
               that.onShow();
             }
-          }).finally(function(res) {
-            wx.hideLoading();
           })
         }
       }
     })
   },
   toPayTap: function(e) {
-    var that = this;
-    var orderId = e.currentTarget.dataset.id;
-    var money = e.currentTarget.dataset.money;
-    var needScore = e.currentTarget.dataset.score;
-    api.fetchRequest('/user/amount', {
-      token: wx.getStorageSync('token'),
-    }).then(function(res) {
-      if (res.data.code == 0) {
-        // res.data.data.balance
-        money = money - res.data.data.balance;
-        if (res.data.data.score < needScore) {
-          wx.showModal({
-            title: '错误',
-            content: '您的积分不足，无法支付',
-            showCancel: false
+    const that = this;
+    const orderId = e.currentTarget.dataset.id;
+    let money = e.currentTarget.dataset.money;
+    const needScore = e.currentTarget.dataset.score;
+    WXAPI.userAmount(wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
+        // 增加提示框
+        if (res.data.score < needScore) {
+          wx.showToast({
+            title: '您的积分不足，无法支付',
+            icon: 'none'
           })
           return;
         }
-        if (money <= 0) {
-          // 直接使用余额支付
-          api.fetchRequest('/order/pay', {
-            token: wx.getStorageSync('token'),
-            orderId: orderId
-          }, 'POST', 0, {
-            'content-type': 'application/x-www-form-urlencoded'
-          }).then(function(res) {
-            that.onShow();
-          })
-        } else {
-          wxpay.wxpay(app, money, orderId, "/pages/order-list/index");
+        let _msg = '订单金额: ' + money +' 元'
+        if (res.data.balance > 0) {
+          _msg += ',可用余额为 ' + res.data.balance +' 元'
+          if (money - res.data.balance > 0) {
+            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
+          }          
         }
+        if (needScore > 0) {
+          _msg += ',并扣除 ' + money + ' 积分'
+        }
+        money = money - res.data.balance
+        wx.showModal({
+          title: '请确认支付',
+          content: _msg,
+          confirmText: "确认支付",
+          cancelText: "取消支付",
+          success: function (res) {
+            console.log(res);
+            if (res.confirm) {
+              that._toPayTap(orderId, money)
+            } else {
+              console.log('用户点击取消支付')
+            }
+          }
+        });
       } else {
         wx.showModal({
           title: '错误',
@@ -85,9 +87,23 @@ Page({
       }
     })
   },
+  _toPayTap: function (orderId, money){
+    const _this = this
+    if (money <= 0) {
+      // 直接使用余额支付
+      WXAPI.orderPay(orderId, wx.getStorageSync('token')).then(function (res) {
+        _this.onShow();
+      })
+    } else {
+      wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
+    }
+  },
   onLoad: function(options) {
-    // 生命周期函数--监听页面加载
-
+    if (options && options.type) {
+      this.setData({
+        currentType: options.type
+      });
+    }
   },
   onReady: function() {
     // 生命周期函数--监听页面初次渲染完成
@@ -95,32 +111,30 @@ Page({
   },
   getOrderStatistics: function() {
     var that = this;
-    api.fetchRequest('/order/statistics', {
-      token: wx.getStorageSync('token')
-    }).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.orderStatistics(wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
         var tabClass = that.data.tabClass;
-        if (res.data.data.count_id_no_pay > 0) {
+        if (res.data.count_id_no_pay > 0) {
           tabClass[0] = "red-dot"
         } else {
           tabClass[0] = ""
         }
-        if (res.data.data.count_id_no_transfer > 0) {
+        if (res.data.count_id_no_transfer > 0) {
           tabClass[1] = "red-dot"
         } else {
           tabClass[1] = ""
         }
-        if (res.data.data.count_id_no_confirm > 0) {
+        if (res.data.count_id_no_confirm > 0) {
           tabClass[2] = "red-dot"
         } else {
           tabClass[2] = ""
         }
-        if (res.data.data.count_id_no_reputation > 0) {
+        if (res.data.count_id_no_reputation > 0) {
           tabClass[3] = "red-dot"
         } else {
           tabClass[3] = ""
         }
-        if (res.data.data.count_id_success > 0) {
+        if (res.data.count_id_success > 0) {
           //tabClass[4] = "red-dot"
         } else {
           //tabClass[4] = ""
@@ -130,25 +144,22 @@ Page({
           tabClass: tabClass,
         });
       }
-    }).finally(function(res) {
-      wx.hideLoading();
     })
   },
   onShow: function() {
     // 获取订单列表
-    wx.showLoading();
     var that = this;
     var postData = {
       token: wx.getStorageSync('token')
     };
     postData.status = that.data.currentType;
     this.getOrderStatistics();
-    api.fetchRequest('/order/list', postData).then(function(res) {
-      if (res.data.code == 0) {
+    WXAPI.orderList(postData).then(function(res) {
+      if (res.code == 0) {
         that.setData({
-          orderList: res.data.data.orderList,
-          logisticsMap: res.data.data.logisticsMap,
-          goodsMap: res.data.data.goodsMap
+          orderList: res.data.orderList,
+          logisticsMap: res.data.logisticsMap,
+          goodsMap: res.data.goodsMap
         });
       } else {
         that.setData({
@@ -157,8 +168,6 @@ Page({
           goodsMap: {}
         });
       }
-    }).finally(function(res) {
-      wx.hideLoading();
     })
   },
   onHide: function() {

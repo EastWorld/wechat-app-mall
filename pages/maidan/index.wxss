@@ -1,0 +1,42 @@
+.page__title {
+  padding-left: 20rpx;
+}
+.charge-rule-wrap{
+  background: white;
+  margin-top:20rpx;
+  padding:10rpx;
+  padding-left:20rpx;
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+}
+.btn{
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 6rpx;
+    margin-left: 20rpx;
+}
+.charge-detail{
+  width:220rpx;
+  height:100rpx;
+  color:rgba(99, 190, 133, 1);
+  background-color:white;
+  border:3rpx solid rgba(99, 190, 133, 1);
+  display:table-cell;
+  line-height:30rpx;
+  font-weight:300;
+  font-size:30rpx;
+  margin:10rpx;
+  align-items:flex-start;
+}
+.charge-detail text{
+  vertical-align:middle;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:12rpx;
+}
+.button-hover{
+  background-color:grey;
+}

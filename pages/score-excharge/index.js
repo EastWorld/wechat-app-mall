@@ -1,5 +1,5 @@
-var wxpay = require('../../utils/pay.js')
-var app = getApp()
+const app = getApp()
+const WXAPI = require('../../wxapi/main')
 Page({
 
   /**
@@ -64,9 +64,6 @@ Page({
   onShareAppMessage: function() {
 
   },
-  bindCancel: function() {
-    wx.navigateBack({})
-  },
   bindSave: function(e) {
     var that = this;
     var amount = e.detail.value.amount;
@@ -79,11 +76,8 @@ Page({
       })
       return
     }
-    api.fetchRequest('/score/exchange', {
-      token: wx.getStorageSync('token'),
-      number: amount
-    }).then(function(res) {
-      if (res.data.code == 700) {
+    WXAPI.scoreExchange(amount, wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 700) {
         wx.showModal({
           title: '错误',
           content: '券号不正确',
@@ -91,10 +85,10 @@ Page({
         })
         return
       }
-      if (res.data.code == 0) {
+      if (res.code == 0) {
         wx.showModal({
           title: '成功',
-          content: '恭喜您，成功兑换 ' + res.data.data.score + ' 积分',
+          content: '恭喜您，成功兑换 ' + res.data.score + ' 积分',
           showCancel: false,
           success: function(res) {
             if (res.confirm) {

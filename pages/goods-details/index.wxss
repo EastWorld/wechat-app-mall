@@ -342,3 +342,47 @@ swiper-item image {
 .buy-num-box .num-box .hui{
   background-color: #f5f5f9;
 }
+.goIndex {
+  position:fixed;
+  right:20rpx;
+  bottom:200rpx;
+  width:80rpx;
+  height:80rpx;
+  border-radius:15px;
+  background-color: #fff;
+  text-align: center;
+
+}
+.goIndex-icon {
+  width:50rpx;
+  height:50rpx;
+  margin-top: 15rpx;
+}
+.curKanjiaprogress {
+  width:750rpx;
+  background-color:#fff;
+  margin-top:20rpx;
+}
+.curKanjiaprogress .name {
+  font-size: 40rpx;
+  padding:20rpx;
+  text-align: center;
+}
+.curKanjiaprogress .weui-badge {
+  margin-left:250rpx;
+}
+.curKanjiaprogress .placeholder {
+  margin-left:30rpx;
+  margin-right:30rpx;
+  text-align: center;
+  font-size: 26rpx;
+  width:100rpx;
+  color:#999;
+}
+.curKanjiaprogress .kjbutton {
+  padding:30rpx;
+}
+.kjBuyButton {
+  width:700rpx;
+  margin-top:50rpx;
+}

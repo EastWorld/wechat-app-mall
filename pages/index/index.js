@@ -229,6 +229,7 @@ Page({
       curPage: 1
     });
     this.getGoodsList(this.data.activeCategoryId)
+    wx.stopPullDownRefresh()
   },
   // 以下为搜索框事件
   showInput: function () {

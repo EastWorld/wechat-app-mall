@@ -1,5 +1,6 @@
 <view class="container">
-    <form bindsubmit="bindSave">
+  <button wx:if="{{!addressData}}" type="primary" class="save-btn" bindtap="readFromWx">读取微信地址</button>
+    <form bindsubmit="bindSave" report-submit="true">
     <view class="form-box">
         <view class="row-wrap">
             <view class="label">联系人</view>
@@ -15,26 +16,13 @@
         </view>
         <view class="row-wrap" bindtap="selectCity">
             <view class="label">选择地区</view>
-            <picker bindchange="bindPickerProvinceChange" range="{{provinces}}">
-              <view class="picker {{selProvince=='请选择'?'hui':''}}">
-                {{selProvince}}
-              </view>
-            </picker>
-            <picker bindchange="bindPickerCityChange" range="{{citys}}">
-              <view class="picker {{selCity=='请选择'?'hui':''}}">
-                {{selCity}}
-              </view>
-            </picker>
-            <picker bindchange="bindPickerChange" range="{{districts}}">
-              <view class="picker {{selDistrict=='请选择'?'hui':''}}">
-                {{selDistrict}}
-              </view>
+            <picker mode="multiSelector" range="{{pickerRegionRange}}" range-key="name" value="{{pickerSelect}}" bindchange="bindchange" bindcolumnchange="bindcolumnchange">
+              {{showRegionStr}}
             </picker>
         </view>
         <view class="addr-details">
             <view class="label">详细地址</view>
             <view class="label-right">
-                <!--<input class="input" type="text" placeholder="街道门牌信息"/>-->
                 <textarea name="address" auto-height placeholder="街道门牌信息"  value="{{addressData.address}}{{wxaddress.detailInfo}}"/>
             </view>
         </view>
@@ -45,9 +33,7 @@
             </view>
         </view>
     </view>
-    <button type="warn" class="save-btn" formType="submit">保存</button>
-    <button wx:if="{{!addressData}}" type="primary" class="save-btn" bindtap="readFromWx">从微信读取</button>
+    <button type="warn" class="save-btn" formType="submit">保存</button>    
     <button type="default" class="save-btn" bindtap="deleteAddress" data-id="{{addressData.id}}" wx:if="{{addressData}}">删除该地址</button>
-    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
     </form>
 </view>

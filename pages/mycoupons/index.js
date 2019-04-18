@@ -1,36 +1,31 @@
-//index.js
+const WXAPI = require('../../wxapi/main')
 //获取应用实例
-var app = getApp()
+const app = getApp()
 Page({
   data: {
-    coupons:[]
+    coupons: []
   },
-  onLoad: function () {
-  },
-  onShow : function () {
+  onLoad: function() {},
+  onShow: function() {
     this.getMyCoupons();
   },
-  getMyCoupons: function () {
+  getMyCoupons: function() {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/my',
-      data: {
-        token: app.globalData.token,
-        status: 0
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          var coupons = res.data.data;
-          if (coupons.length > 0) {
-            that.setData({
-              coupons: coupons
-            });
-          }
+    WXAPI.myCoupons({
+      token: wx.getStorageSync('token'),
+      status: 0
+    }).then(function(res) {
+      if (res.code == 0) {
+        var coupons = res.data;
+        if (coupons.length > 0) {
+          that.setData({
+            coupons: coupons
+          });
         }
       }
     })
   },
-  goBuy:function(){
+  goBuy: function() {
     wx.reLaunch({
       url: '/pages/index/index'
     })

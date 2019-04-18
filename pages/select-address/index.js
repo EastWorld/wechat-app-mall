@@ -1,63 +1,52 @@
-//index.js
-//获取应用实例
-var app = getApp()
+const WXAPI = require('../../wxapi/main')
+const app = getApp()
 Page({
   data: {
-    addressList:[]
+    addressList: []
   },
 
-  selectTap: function (e) {
+  selectTap: function(e) {
     var id = e.currentTarget.dataset.id;
-    wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/update',
-      data: {
-        token:app.globalData.token,
-        id:id,
-        isDefault:'true'
-      },
-      success: (res) =>{
-        wx.navigateBack({})
-      }
+    WXAPI.updateAddress({
+      token: wx.getStorageSync('token'),
+      id: id,
+      isDefault: 'true'
+    }).then(function(res) {
+      wx.navigateBack({})
     })
   },
 
-  addAddess : function () {
+  addAddess: function() {
     wx.navigateTo({
-      url:"/pages/address-add/index"
+      url: "/pages/address-add/index"
     })
   },
-  
-  editAddess: function (e) {
+
+  editAddess: function(e) {
     wx.navigateTo({
       url: "/pages/address-add/index?id=" + e.currentTarget.dataset.id
     })
   },
-  
-  onLoad: function () {
+
+  onLoad: function() {
     console.log('onLoad')
 
-   
+
   },
-  onShow : function () {
+  onShow: function() {
     this.initShippingAddress();
   },
-  initShippingAddress: function () {
+  initShippingAddress: function() {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/list',
-      data: {
-        token:app.globalData.token
-      },
-      success: (res) =>{
-        if (res.data.code == 0) {
-          that.setData({
-            addressList:res.data.data
-          });
-        } else if (res.data.code == 700){
-          that.setData({
-            addressList: null
-          });
-        }
+    WXAPI.queryAddress(wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
+        that.setData({
+          addressList: res.data
+        });
+      } else if (res.code == 700) {
+        that.setData({
+          addressList: null
+        });
       }
     })
   }

@@ -1,0 +1,37 @@
+<view class='noApply' wx:if="{{applyStatus == -1}}">
+  <form bindsubmit="bindSave" report-submit="true">
+    <image class="logo" src="/images/fx.png" mode="widthFix" />
+    <view class="profile">您还不是分销商，无法使用分销功能</view>
+    <button type="primary" class="mini-btn" formType="submit">申请开通</button>
+  </form>
+</view>
+
+<view class='noApply' wx:if="{{applyStatus == 0}}">
+  <form bindsubmit="goShop" report-submit="true">
+    <image class="logo" src="/images/fx.png" mode="widthFix" />
+    <view class="profile">感谢您的支持，请等待审核！</view>
+    <button type="primary" class="mini-btn" formType="submit">去商城逛逛</button>
+  </form>
+</view>
+
+<view class='noApply' wx:if="{{applyStatus == 1}}">
+  <form bindsubmit="goShop" report-submit="true">
+    <image class="logo" src="/images/fx.png" mode="widthFix" />
+    <view class="profile">很遗憾，您的申请没有通过</view>
+    <view wx:if="{{applyInfo.remark}}" class="profile" style="color:red;">{{applyInfo.remark}}</view>
+    <button type="primary" class="mini-btn" formType="submit">去商城逛逛</button>
+  </form>
+</view>
+
+<view class='noApply' wx:if="{{applyStatus == 2}}">
+  <canvas class="canvas" style="height:{{canvasHeight}}px" canvas-id="firstCanvas"></canvas>
+  <view class="profile">扫码关注您的专属推广码，或者转发邀请好友</view>
+  <view class="weui-flex">
+    <view class="weui-flex__item qrcode-button">
+      <button class="weui-btn" type="primary" open-type="share">转发</button>
+    </view>
+    <view class="weui-flex__item qrcode-button">
+      <button class="weui-btn" type="primary" bindtap="saveToMobile">下载二维码</button>
+    </view>
+  </view>
+</view>

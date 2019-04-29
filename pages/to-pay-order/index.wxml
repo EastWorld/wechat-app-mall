@@ -1,14 +1,5 @@
 <view class="container">
-     <form bindsubmit="createOrder" report-submit="true">
-     <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
-        <view class="add-address" hidden="{{curAddressData}}">
-            <view class="title" bindtap="addAddress">新增收货地址</view>
-        </view>
-        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
-            <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
-            <view class="addr-text">{{curAddressData.address}}</view>
-        </view>
-     </view>
+     <form bindsubmit="createOrder" report-submit="true">     
      <view class="goods-list">
         <view class="list-title">商品列表</view>
         <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
@@ -30,8 +21,23 @@
      <view class="peisong-way">
         <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">配送方式</view>
-            <view class="right-text" wx:if="{{yunPrice > 0}}">快递</view>
-            <view class="right-text" wx:if="{{yunPrice == 0}}">包邮</view>
+            <radio-group bindchange="radioChange">
+              <label class="radio">
+                <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
+              </label>
+              <label class="radio">
+                <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
+              </label>
+            </radio-group>
+        </view>
+        <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
+          <view class="add-address" hidden="{{curAddressData}}">
+              <view class="title" bindtap="addAddress">新增收货地址</view>
+          </view>
+          <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
+              <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
+              <view class="addr-text">{{curAddressData.address}}</view>
+          </view>
         </view>
         <view class="row-box">
             <view class="row-label">备注</view>

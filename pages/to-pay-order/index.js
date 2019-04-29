@@ -16,11 +16,17 @@ Page({
     hasNoCoupons: true,
     coupons: [],
     youhuijine: 0, //优惠券金额
-    curCoupon: null // 当前选择使用的优惠券
+    curCoupon: null, // 当前选择使用的优惠券
+    allowSelfCollection: '0', // 是否允许到店自提
+    peisongType: 'zq' // 配送方式 kd,zq 分别表示快递/到店自取
   },
   onShow: function () {
-    var that = this;
-    var shopList = [];
+    let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
+    if (!allowSelfCollection || allowSelfCollection != '1') {
+      allowSelfCollection = '0'
+    }
+    const that = this;
+    let shopList = [];
     //立即购买下单
     if ("buyNow" == that.data.orderType) {
       var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
@@ -41,14 +47,17 @@ Page({
     }
     that.setData({
       goodsList: shopList,
+      allowSelfCollection: allowSelfCollection
     });
     that.initShippingAddress();
   },
 
   onLoad: function (e) {
     let _data = {
-      isNeedLogistics: 1,
-      orderType: e.orderType
+      isNeedLogistics: 1
+    }
+    if (e.orderType) {
+      _data.orderType = e.orderType
     }
     if (e.pingtuanOpenId) {
       _data.pingtuanOpenId = e.pingtuanOpenId
@@ -74,10 +83,11 @@ Page({
       remark = e.detail.value.remark; // 备注信息
     }
 
-    var postData = {
+    let postData = {
       token: loginToken,
       goodsJsonStr: that.data.goodsJsonStr,
-      remark: remark
+      remark: remark,
+      peisongType: that.data.peisongType
     };
     if (that.data.kjId) {
       postData.kjid = that.data.kjId
@@ -85,7 +95,7 @@ Page({
     if (that.data.pingtuanOpenId) {
       postData.pingtuanOpenId = that.data.pingtuanOpenId
     }
-    if (that.data.isNeedLogistics > 0) {
+    if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
         wx.showModal({
@@ -95,15 +105,17 @@ Page({
         })
         return;
       }
-      postData.provinceId = that.data.curAddressData.provinceId;
-      postData.cityId = that.data.curAddressData.cityId;
-      if (that.data.curAddressData.districtId) {
-        postData.districtId = that.data.curAddressData.districtId;
-      }
-      postData.address = that.data.curAddressData.address;
-      postData.linkMan = that.data.curAddressData.linkMan;
-      postData.mobile = that.data.curAddressData.mobile;
-      postData.code = that.data.curAddressData.code;
+      if (postData.peisongType == 'kd') {
+        postData.provinceId = that.data.curAddressData.provinceId;
+        postData.cityId = that.data.curAddressData.cityId;
+        if (that.data.curAddressData.districtId) {
+          postData.districtId = that.data.curAddressData.districtId;
+        }
+        postData.address = that.data.curAddressData.address;
+        postData.linkMan = that.data.curAddressData.linkMan;
+        postData.mobile = that.data.curAddressData.mobile;
+        postData.code = that.data.curAddressData.code;
+      }      
     }
     if (that.data.curCoupon) {
       postData.couponId = that.data.curCoupon.id;
@@ -299,5 +311,10 @@ Page({
       youhuijine: this.data.coupons[selIndex].money,
       curCoupon: this.data.coupons[selIndex]
     });
+  },
+  radioChange (e) {
+    this.setData({
+      peisongType: e.detail.value
+    })
   }
 })

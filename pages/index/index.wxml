@@ -50,15 +50,11 @@
     </view>
     <scroll-view scroll-x>
       <view class="category-box" style='width:{{category_box_width}}rpx;'>
-        <view class="category-list" wx:for="{{categories}}" wx:if="{{index%2===0}}" wx:key="*this">
-          <view class="category-column {{activeCategoryId == categories[index].id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{categories[index].id}}">
-            <image class="category-imgbox" src="{{categories[index].icon}}"></image>
-            <view class="category-title">{{categories[index].name}}</view>
-          </view>
-          <view class="category-column {{activeCategoryId == categories[index+1].id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{categories[index+1].id}}">
-            <image class="category-imgbox" src="{{categories[index+1].icon}}"></image>
-            <view class="category-title">{{categories[index+1].name}}</view>
-          </view>
+        <view class="category-list" wx:for="{{categories}}" wx:key="*this">
+          <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{item.id}}">
+            <image class="category-imgbox" src="{{item.icon}}"></image>
+            <view class="category-title">{{item.name}}</view>
+          </view>          
         </view>
       </view>
     </scroll-view>
@@ -92,7 +88,7 @@
       </view>
     </view>
   </view>
-  <view wx-if="{{kanjiaList.length > 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
+  <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">
       <view wx:for-items="{{kanjiaList}}" wx:key="*this" class="weui-media-box weui-media-box_appmsg">
@@ -113,7 +109,7 @@
       </view>
     </view>
   </view>
-  <block wx:if="{{pingtuanList.length > 0}}">
+  <block wx:if="{{pingtuanList.length > 0 && activeCategoryId == 0}}">
     <view class='space'></view>
     <view class="weui-loadmore weui-loadmore_line">
       <view class="weui-loadmore__tips weui-loadmore__tips_in-line">全民拼团</view>

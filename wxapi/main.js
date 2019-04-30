@@ -54,8 +54,8 @@ module.exports = {
   queryMobileLocation: (data) => {
     return request('/common/mobile-segment/location', false, 'get', data)
   },
-  queryConfig: (data) => {
-    return request('/config/get-value', true, 'get', data)
+  queryConfigBatch: (keys) => {
+    return request('/config/values', true, 'get', { keys })
   },
   scoreRules: (data) => {
     return request('/score/send/rule', true, 'post', data)

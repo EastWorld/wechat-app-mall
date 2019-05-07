@@ -59,15 +59,11 @@ App({
       that.globalData.vipLevel = res.data
     })
     //  获取商城名称
-    WXAPI.queryConfigBatch('mallName,recharge_amount_min,ALLOW_SELF_COLLECTION').then(function(res) {
+    WXAPI.queryConfig({
+      key: 'mallName'
+    }).then(function(res) {
       if (res.code == 0) {
-        res.data.forEach(config => {
-          wx.setStorageSync(config.key, config.value);
-          if (config.key === 'recharge_amount_min') {
-            that.globalData.recharge_amount_min = res.data.value;
-          }
-        })
-        
+        wx.setStorageSync('mallName', res.data.value);
       }
     })
     WXAPI.scoreRules({
@@ -75,6 +71,14 @@ App({
     }).then(function(res) {
       if (res.code == 0) {        
         that.globalData.order_reputation_score = res.data[0].score;
+      }
+    })
+    // 获取充值的最低金额
+    WXAPI.queryConfig({
+      key: 'recharge_amount_min'
+    }).then(function(res) {
+      if (res.code == 0) {
+        that.globalData.recharge_amount_min = res.data.value;
       }
     })
   },

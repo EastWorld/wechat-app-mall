@@ -1,6 +1,6 @@
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 const CONFIG = require('./config.js')
-const API_BASE_URL = 'https://api.it120.cc'
+const API_BASE_URL = 'https://wx.nz110.cn'
 
 
 const request = (url, needSubDomain, method, data) => {
@@ -54,8 +54,8 @@ module.exports = {
   queryMobileLocation: (data) => {
     return request('/common/mobile-segment/location', false, 'get', data)
   },
-  queryConfigBatch: (keys) => {
-    return request('/config/values', true, 'get', { keys })
+  queryConfig: (data) => {
+    return request('/config/get-value', true, 'get', data)
   },
   scoreRules: (data) => {
     return request('/score/send/rule', true, 'post', data)

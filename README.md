@@ -6,20 +6,14 @@
 
 ## 扫码体验
 
-<p>
 <img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2019/03/29/9e30cfe31eabcd218eb9c434f17e9295.jpg" width="200px">
-</p>
 
 ## 其他开源模板
 
-### TianguoguoXiaopu
-
-<p>
-<img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
-</p>
-
-[Github地址](https://github.com/qindiandadudu/TianguoguoXiaopu)
+| 舔果果小铺 | 面馆风格小程序 |
+| :------: | :------: |
+| <img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2019/03/29/9e30cfe31eabcd218eb9c434f17e9295.jpg" width="200px"> | 
+| [开源地址](https://github.com/qindiandadudu/TianguoguoXiaopu) | [开源地址](https://gitee.com/javazj/noodle_shop_procedures) |
 
 ## 接口 & 后台声明
 

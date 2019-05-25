@@ -124,12 +124,12 @@ App({
         wx.getShareInfo({
           shareTicket: e.shareTicket,
           success: res => {
-            console.error(res)
-            console.error({
-              referrer: e.query.inviter_id,
-              encryptedData: res.encryptedData,
-              iv: res.iv
-            })
+            // console.error(res)
+            // console.error({
+            //   referrer: e.query.inviter_id,
+            //   encryptedData: res.encryptedData,
+            //   iv: res.iv
+            // })
             WXAPI.shareGroupGetScore(
               e.query.inviter_id,
               res.encryptedData,

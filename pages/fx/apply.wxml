@@ -2,12 +2,12 @@
   <image class="logo" src="/images/fxad.jpeg" mode="widthFix" />
   <view class="weui-cells__title title">请填写申请信息</view>
   <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
+    <view wx:if="{{ userDetail && userDetail.referrer }}" class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">邀请人</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" value="张龙湖 (请确认)" disabled style='color:red;' />
+        <input class="weui-input" value="{{userDetail.referrer.nick}} (请确认)" disabled style='color:red;' />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">

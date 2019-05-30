@@ -21,7 +21,7 @@
 
 - [接口 SDK](https://github.com/gooking/wxapi)
 
-- [免费后台](https://www.it120.cc/user)
+- [免费后台](https://admin.it120.cc)
 
 - [WeUI](https://github.com/Tencent/weui-wxss/)
 

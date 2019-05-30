@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -75,6 +75,13 @@
 					"name": "拼团",
 					"pathName": "pages/goods-details/index",
 					"query": "id=6761",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "生成海报",
+					"pathName": "pages/goods-details/poster",
+					"query": "goodsid=6761",
 					"scene": null
 				}
 			]

@@ -21,7 +21,7 @@
         </view>
       </scroll-view>
       <view class="goods-price">
-        共 1 件商品 合计：
+        共 {{item.goodsNumber}} 件商品 合计：
         <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
         <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text>
       </view>

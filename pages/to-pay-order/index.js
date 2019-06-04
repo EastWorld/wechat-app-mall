@@ -24,6 +24,7 @@ Page({
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
     if (!allowSelfCollection || allowSelfCollection != '1') {
       allowSelfCollection = '0'
+      this.data.peisongType = 'kd'
     }
     const that = this;
     let shopList = [];
@@ -47,7 +48,8 @@ Page({
     }
     that.setData({
       goodsList: shopList,
-      allowSelfCollection: allowSelfCollection
+      allowSelfCollection: allowSelfCollection,
+      peisongType: that.data.peisongType
     });
     that.initShippingAddress();
   },

@@ -1,6 +1,6 @@
 module.exports = {
-  version: "6.6.0",
-  note: '增加商品详情页生成海报功能',
+  version: "6.7.0",
+  note: '增加在线申请退换货逻辑',
   subDomain: "tz", // https://admin.it120.cc 登录后台首页的专属域名
   appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用
   shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术

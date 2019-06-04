@@ -333,5 +333,62 @@ module.exports = {
   },
   wxaQrcode: (data) => {
     return request('/qrcode/wxa/unlimit', true, 'post', data)
-  }
+  },
+  uploadFile: (token, tempFilePath) => {
+    const uploadUrl = API_BASE_URL + '/' + CONFIG.subDomain + '/dfs/upload/file'
+    return new Promise((resolve, reject) => {
+      wx.uploadFile({
+        url: uploadUrl,
+        filePath: tempFilePath,
+        name: 'upfile',
+        formData: {
+          'token': token
+        },
+        success(res) {
+          resolve(JSON.parse(res.data))
+        },
+        fail(error) {
+          reject(error)
+        },
+        complete(aaa) {
+          // 加载完成
+        }
+      })
+    })
+  },
+  refundApply: (token, orderId, type, logisticsStatus, reason, amount, remark, pic) => {
+    return request('/order/refundApply/apply', true, 'post', {
+      token,
+      orderId,
+      type,
+      logisticsStatus,
+      reason,
+      amount,
+      remark,
+      pic
+    })
+  },
+  refundApplyDetail: (token, orderId) => {
+    return request('/order/refundApply/info', true, 'get', {
+      token,
+      orderId
+    })
+  },
+  refundApplyCancel: (token, orderId) => {
+    return request('/order/refundApply/cancel', true, 'post', {
+      token,
+      orderId
+    })
+  },
+  cmsCategories: () => {
+    return request('/cms/category/list', true, 'get', {})
+  },
+  cmsArticles: (data) => {
+    return request('/cms/news/list', true, 'post', data)
+  },
+  cmsArticleDetail: (id) => {
+    return request('/cms/news/detail', true, 'get', {
+      id
+    })
+  },
 }

@@ -34,6 +34,10 @@
       <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
       <view class='text'>待评价</view>
     </view>
+    <view class='item' bindtap='goOrder' data-type="99">
+      <image class="icon" src="/images/order/shouhou.png" background-size="cover"></image>
+      <view class='text'>退款/售后</view>
+    </view>
   </view>
 
   <block wx:if="{{vipLevel > 0}}">

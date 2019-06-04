@@ -24,15 +24,6 @@
     color:#e64340;
     border-bottom: 6rpx solid #e64340;
 }
-.status-box .status-label .red-dot{
-    width: 16rpx;
-    height: 16rpx;
-    position: absolute;
-    left: 116rpx;
-    top:23rpx;
-    background-color: #f43530;
-    border-radius: 50%;
-}
 .no-order{
     width: 100%;
     position: absolute;
@@ -62,28 +53,24 @@
     background-color: #fff;
     margin-top: 20rpx;
 }
-.order-list .a-order .order-date{
-    padding: 0 30rpx;
-    height: 88rpx;
-    display: flex;
-    justify-content: space-between;
-    font-size:26rpx;
-    color:#000000;
-    align-items: center;
-}
-.order-list .a-order .order-date .red{
-    font-size:26rpx;
-    color:#e64340;
-}
 .a-order  .goods-info,
 .goods-img-container{
     width: 720rpx;
     margin-left: 30rpx;
     border-top: 1rpx solid #eee;
-    border-bottom: 1rpx solid #eee;
     padding: 30rpx 0;
     display: flex;
     align-items: center;
+}
+.goods-price {
+  font-size:26rpx;
+  width:720rpx;
+  text-align: right;
+  margin-bottom:30rpx;
+}
+.goods-price .p {
+  font-size:36rpx;
+  color:#e64340;
 }
 .goods-info .img-box{
     width: 120rpx;
@@ -98,12 +85,8 @@
     height: 120rpx;
 }
 .goods-info  .goods-des{
-    width: 540rpx;
-    height: 78rpx;
-    line-height: 39rpx;
     font-size:26rpx;
     color:#000000;
-    overflow: hidden;
 }
 .goods-img-container{
     height: 180rpx;
@@ -118,38 +101,28 @@
     background-color: #f7f7f7;
     display: inline-block;
 }
-.order-list .a-order .price-box{
-    position: relative;
+.price-box{
     width: 720rpx;
-    height: 100rpx;
-    margin-left: 30rpx;
-    box-sizing: border-box;
-    padding: 20rpx 30rpx 20rpx 0;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size:26rpx;
+    flex-direction:row-reverse;
+    padding-bottom: 30rpx;
 }
-.order-list .a-order .price-box .total-price{
-    font-size:26rpx;
-    color:#e64340;
-}
-.a-order .price-box .btn{
+.price-box .btn{
     width: 166rpx;
     height: 60rpx;
     box-sizing: border-box;
     text-align: center;
     line-height: 60rpx;
+    border: 1rpx solid #ccc;
     border-radius: 6rpx;
     margin-left: 20rpx;
+    font-size:26rpx;
 }
-.a-order .price-box .cancel-btn{
-    border: 1rpx solid #ccc;
-    position: absolute;
-    right: 216rpx;
-    top:20rpx;
-}
-.a-order .price-box .topay-btn{
+.price-box .active{
     border:1px solid #e64340;
     color: #e64340;
+}
+.remark {
+  color:#e64340;
+  margin-bottom: 20rpx;
 }

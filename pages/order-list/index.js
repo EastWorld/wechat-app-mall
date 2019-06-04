@@ -4,6 +4,7 @@ const WXAPI = require('../../wxapi/main')
 Page({
   data: {
     statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
+    hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""]
   },
@@ -15,15 +16,9 @@ Page({
     });
     this.onShow();
   },
-  orderDetail: function(e) {
-    var orderId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: "/pages/order-details/index?id=" + orderId
-    })
-  },
   cancelOrderTap: function(e) {
-    var that = this;
-    var orderId = e.currentTarget.dataset.id;
+    const that = this;
+    const orderId = e.currentTarget.dataset.id;
     wx.showModal({
       title: '确定要取消该订单吗？',
       content: '',
@@ -36,6 +31,14 @@ Page({
           })
         }
       }
+    })
+  },
+  refundApply (e) {
+    // 申请售后
+    const orderId = e.currentTarget.dataset.id;
+    const amount = e.currentTarget.dataset.amount;
+    wx.navigateTo({
+      url: "/pages/order/refundApply?id=" + orderId + "&amount=" + amount
     })
   },
   toPayTap: function(e) {
@@ -100,9 +103,17 @@ Page({
   },
   onLoad: function(options) {
     if (options && options.type) {
-      this.setData({
-        currentType: options.type
-      });
+      if (options.type == 99) {
+        this.setData({
+          hasRefund: true,
+          currentType: options.type
+        });
+      } else {
+        this.setData({
+          hasRefund: false,
+          currentType: options.type
+        });
+      }      
     }
   },
   onReady: function() {
@@ -152,7 +163,10 @@ Page({
     var postData = {
       token: wx.getStorageSync('token')
     };
-    postData.status = that.data.currentType;
+    postData.hasRefund = that.data.hasRefund;
+    if (!postData.hasRefund) {
+      postData.status = that.data.currentType;
+    }
     this.getOrderStatistics();
     WXAPI.orderList(postData).then(function(res) {
       if (res.code == 0) {

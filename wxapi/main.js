@@ -391,4 +391,13 @@ module.exports = {
       id
     })
   },
+  invoiceList: (data) => {
+    return request('/invoice/list', true, 'post', data)
+  },
+  invoiceApply: (data) => {
+    return request('/invoice/apply', true, 'post', data)
+  },
+  invoiceDetail: (token, id) => {
+    return request('/invoice/info', true, 'get', { token, id })
+  },
 }

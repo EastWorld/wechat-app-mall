@@ -56,6 +56,16 @@
   </view>
   </block>
 
+  <block wx:if="{{vipLevel > 0}}">
+    <view style="height:10rpx;background: #eee;width:100%;"></view>
+    <view class="my-item">
+      <navigator url="/pages/invoice/apply" hover-class="navigator-hover">申请开票</navigator>
+    </view>
+    <view class="my-item">
+      <navigator url="/pages/invoice/list" hover-class="navigator-hover">开票记录</navigator>
+    </view>
+  </block>
+
   <view style="height:10rpx;background: #eee;width:100%;"></view>
   <view class="my-item" wx:if="{{vipLevel > 0}}">
     <navigator url="/pages/maidan/index" hover-class="navigator-hover">优惠买单</navigator>

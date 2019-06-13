@@ -62,7 +62,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '点击进入小程序申请开票',
+      imageUrl: 'https://cdn.it120.cc/apifactory/2019/06/13/13f5f43c-4819-414d-88f5-968e32facd79.png',
+      path: '/pages/invoice/apply?inviter_id=' + wx.getStorageSync('uid')
+    }
   },
   async bindSave(e) {
     // 提交保存
@@ -74,6 +78,7 @@ Page({
     const _this = this;
     let comName = e.detail.value.comName;
     let tfn = e.detail.value.tfn;
+    let mobile = e.detail.value.mobile;
     let amount = e.detail.value.amount;
     let consumption = e.detail.value.consumption;
     let remark = e.detail.value.remark;
@@ -98,6 +103,13 @@ Page({
       })
       return
     }
+    if (!mobile) {
+      wx.showToast({
+        title: '请填写您在工厂注册的手机号码',
+        icon: 'none'
+      })
+      return
+    }
     if (!remark) {
       wx.showToast({
         title: '快递地址不能为空',
@@ -112,13 +124,16 @@ Page({
       })
       return
     }
+    const extJsonStr = {}
+    extJsonStr['手机号码'] = mobile
     WXAPI.invoiceApply({
       token: wx.getStorageSync('token'),
       comName,
       tfn,
       amount,
       consumption,
-      remark
+      remark,
+      extJsonStr: JSON.stringify(extJsonStr)
     }).then(res => {
       if (res.code == 0) {
         wx.showModal({

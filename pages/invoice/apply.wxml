@@ -29,6 +29,14 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
+          <view class="weui-label">工厂账号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" name='mobile' placeholder='工厂注册的手机号码' />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
           <view class="weui-label">开票金额</view>
         </view>
         <view class="weui-cell__bd">

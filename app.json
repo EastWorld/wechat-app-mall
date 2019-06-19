@@ -30,7 +30,8 @@
     "pages/fx/commisionLog",
     "pages/coupons/index",
     "pages/invoice/list",
-    "pages/invoice/apply"
+    "pages/invoice/apply",
+    "pages/deposit/pay"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -6,11 +6,15 @@
   <view class="asset">
     <view class='item' bindtap='goAsset'>
       <view>{{balance}}</view>
-      <view>可用余额</view>
+      <view>余额</view>
+    </view>
+    <view class='item right' bindtap='goAsset'>
+      <view>{{freeze}}</view>
+      <view>冻结</view>
     </view>
     <view class='item right' bindtap='goScore'>
       <view>{{score}}</view>
-      <view>剩余积分</view>
+      <view>积分</view>
     </view>
   </view>
   <view style="height:10rpx;background: #eee;width:100%;"></view>

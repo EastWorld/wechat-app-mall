@@ -29,7 +29,7 @@
 .asset .item {
   display: flex;
   flex-direction: column;
-  width:375rpx;
+  width:250rpx;
   text-align: center;
   font-size: 13px;
   line-height: 20px;

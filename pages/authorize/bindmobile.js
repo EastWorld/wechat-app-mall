@@ -81,10 +81,6 @@ Page({
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv
     }).then(function (res) {
-      if (res.code === 10002) {
-        app.goLoginPageTimeOut()
-        return
-      }
       if (res.code == 0) {
         wx.showToast({
           title: '绑定成功',

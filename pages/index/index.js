@@ -77,6 +77,9 @@ Page({
       withShareTicket: true
     }) 
     const that = this
+    // if (e && e.query && e.query.inviter_id) { 
+    //   wx.setStorageSync('referrer', e.query.inviter_id)
+    // }
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene)
       if (scene) {        

@@ -18,6 +18,7 @@
     "pages/withdraw/index",
     "pages/kanjia/index",
     "pages/authorize/index",
+    "pages/authorize/bindmobile",
     "pages/score-excharge/index",
     "pages/asset/index",
     "pages/score/index",

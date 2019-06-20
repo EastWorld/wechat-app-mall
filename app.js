@@ -1,4 +1,5 @@
 const WXAPI = require('wxapi/main')
+const CONFIG = require('config.js')
 App({
   navigateToLogin: false,
   onLaunch: function() {
@@ -98,23 +99,7 @@ App({
     }, 1000)
   },  
   onShow (e) {
-    const _this = this
-    const token = wx.getStorageSync('token');
-    if (!token) {
-      _this.goLoginPageTimeOut()
-      return
-    }
-    WXAPI.checkToken(token).then(function (res) {
-      if (res.code != 0) {
-        wx.removeStorageSync('token')
-        _this.goLoginPageTimeOut()
-      }
-    })
-    wx.checkSession({
-      fail() {
-        _this.goLoginPageTimeOut()
-      }
-    })
+    console.log('app.js --- onShow')    
     this.globalData.launchOption = e
     // 保存邀请人
     if (e && e.query && e.query.inviter_id) {
@@ -138,6 +123,41 @@ App({
           }
         })
       }
+    }
+    this.navigateToLogin = false
+    this.checkLoginStatus()
+  },
+  checkLoginStatus(){ // 检测登录状态
+    const _this = this
+    const token = wx.getStorageSync('token');
+    if (!token) {
+      _this.goLoginPageTimeOut()
+      return
+    }
+    WXAPI.checkToken(token).then(function (res) {
+      if (res.code != 0) {
+        wx.removeStorageSync('token')
+        _this.goLoginPageTimeOut()
+        return
+      }
+    })
+    wx.checkSession({
+      fail() {
+        _this.goLoginPageTimeOut()
+        return
+      }
+    })
+    // 已经处于登录状态，检测是否强制需要手机号码
+    if (CONFIG.requireBindMobile) {
+      WXAPI.userDetail(token).then(function (res) {
+        if (res.code == 0) {
+          if (!res.data.base.mobile) {
+            wx.navigateTo({
+              url: "/pages/authorize/bindmobile"
+            })
+          }
+        }
+      })
     }    
   },
   globalData: {                

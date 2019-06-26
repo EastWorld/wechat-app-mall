@@ -35,3 +35,5 @@
     </view>
   </view>
 </view>
+
+<button wx:if="{{currentPages.length == 1}}" class="weui-btn" style="margin:50rpx;" type="default" bindtap="goIndex">返回首页</button>

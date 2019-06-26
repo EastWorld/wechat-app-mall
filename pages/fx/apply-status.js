@@ -12,7 +12,9 @@ Page({
   data: {
     applyStatus: -2, // -1 表示未申请，0 审核中 1 不通过 2 通过
     applyInfo: {},
-    canvasHeight: 0
+    canvasHeight: 0,
+
+    currentPages: undefined,
   },
 
   /**
@@ -60,6 +62,9 @@ Page({
       if (applyStatus == 2) {
         _this.fetchQrcode()
       }
+    })
+    this.setData({
+      currentPages: getCurrentPages()
     })
   },
   fetchQrcode(){
@@ -190,5 +195,10 @@ Page({
         })
       }
     })
+  },
+  goIndex() {
+    wx.switchTab({
+      url: '/pages/index/index',
+    });
   }
 })

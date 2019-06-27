@@ -212,18 +212,16 @@ swiper-item image {
   width:720rpx;
   margin: auto;
   margin-top: 20rpx;
-  border-radius: 15px;
   background-color: #FFF;
   position: relative;
 }
 .tuan-goods-pic {
-  width:100%;
+  width:720rpx;
   height: 250rpx;
   overflow: hidden;
 }
 .tuan-goods-pic image {
-  width:100%;
-  border-radius: 15px;
+  width:720rpx;
 }
 .tuan-title {
   margin-top: 20rpx;

@@ -6,10 +6,19 @@ Page({
     balance:0.00,
     freeze:0,
     score:0,
-    score_sign_continuous:0
+    score_sign_continuous:0,
+    rechargeOpen: false // 是否开启充值[预存]功能
   },
 	onLoad() {
-    
+    let rechargeOpen = wx.getStorageSync('RECHARGE_OPEN')
+    if (rechargeOpen && rechargeOpen == "1") {
+      rechargeOpen = true
+    } else {
+      rechargeOpen = false
+    }
+    this.setData({
+      rechargeOpen: rechargeOpen
+    })
 	},	
   onShow() {
     let that = this;

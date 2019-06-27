@@ -1,4 +1,4 @@
-<view class="asset">
+<view wx:if="{{ rechargeOpen }}" class="asset">
   <view class='item'>
     <view>可用余额(元)</view>
     <view>{{balance}}</view>
@@ -12,7 +12,7 @@
     <view>{{totleConsumed}}</view>
   </view>
 </view>
-<view class='btn-view'>
+<view wx:if="{{ rechargeOpen }}" class='btn-view'>
   <form bindsubmit="recharge" report-submit="true">
     <button class="btn" type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
       充值

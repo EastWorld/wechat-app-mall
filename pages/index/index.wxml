@@ -88,6 +88,7 @@
       </view>
     </view>
   </view>
+  <ad unit-id="adunit-588264b3e2362e1e"></ad>
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">
@@ -117,7 +118,7 @@
     <view class='tuan'>
       <view class='tuan-item' wx:for-items="{{pingtuanList}}" wx:key="*this">
         <view class='tuan-goods-pic'>
-          <image src="{{item.pic}}" mode="widthFix" lazy-load="true" />
+          <image src="{{item.pic}}" mode="aspectFill" lazy-load='{{true}}' />
         </view>
         <view class='tuan-title'>{{item.name}}</view>
         <view class='tuan-profile'>{{item.characteristic}}</view>

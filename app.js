@@ -60,7 +60,7 @@ App({
       that.globalData.vipLevel = res.data
     })
     //  获取商城名称
-    WXAPI.queryConfigBatch('mallName,recharge_amount_min,ALLOW_SELF_COLLECTION').then(function(res) {
+    WXAPI.queryConfigBatch('mallName,recharge_amount_min,ALLOW_SELF_COLLECTION,RECHARGE_OPEN').then(function(res) {
       if (res.code == 0) {
         res.data.forEach(config => {
           wx.setStorageSync(config.key, config.value);

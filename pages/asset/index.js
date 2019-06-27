@@ -22,6 +22,8 @@ Page({
 
     withDrawlogs: undefined,
     depositlogs: undefined,
+
+    rechargeOpen: false // 是否开启充值[预存]功能
   },
 
   /**
@@ -37,6 +39,15 @@ Page({
         });
       }
     });
+    let rechargeOpen = wx.getStorageSync('RECHARGE_OPEN')
+    if (rechargeOpen && rechargeOpen == "1") {
+      rechargeOpen = true
+    } else {
+      rechargeOpen = false
+    }
+    this.setData({
+      rechargeOpen: rechargeOpen
+    })
   },
 
   /**

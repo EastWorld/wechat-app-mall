@@ -140,6 +140,9 @@ swiper-item image {
   line-height: 56rpx;
   margin-bottom: 30rpx;
 }
+.goods-text image{
+  width: 100%;
+}
 .des-imgs{
   width:100%;
 }

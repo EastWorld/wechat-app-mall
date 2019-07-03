@@ -5,6 +5,9 @@
     <view class="to-index-btn" bindtap="toIndexPage">
             去逛逛
     </view>
+    <view style="position:absolute;bottom:10rpx;width:750rpx;">
+      <ad unit-id="adunit-588264b3e2362e1e"></ad>
+    </view>
 </template>
 
 <template name="cart-goods-list">
@@ -37,6 +40,7 @@
             </view>
         </view>
     </view>
+    <ad unit-id="adunit-588264b3e2362e1e"></ad>
     <view class="jiesuan-box">
         <view class="left-price">
             <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">全选</view>

@@ -2,6 +2,8 @@ import initCalendar from '../../template/calendar/index';
 import { setTodoLabels } from '../../template/calendar/index';
 const WXAPI = require('../../wxapi/main')
 
+let interstitialAd = null
+
 Page({
 
   /**
@@ -15,7 +17,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-b5abb25cb93c2769'
+      })
+      interstitialAd.onLoad(() => { })
+      interstitialAd.onError((err) => { })
+      interstitialAd.onClose(() => { })
+    }
   },
 
   /**
@@ -85,6 +94,12 @@ Page({
         })
       }
     })    
+    // 显示广告
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
   },
 
   /**

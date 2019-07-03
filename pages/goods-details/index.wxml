@@ -30,6 +30,7 @@
       <!-- <text>好友分享</text> -->
     </view>
   </view>
+  <ad unit-id="adunit-b28576e058668589"></ad>
   <view class="page__bd" wx:if="{{curGoodsKanjia}}" style='width:750rpx;'>
     <view class="weui-cells__title">商品砍价设置</view>
     <view class="weui-cells weui-cells_after-title">
@@ -106,7 +107,7 @@
     </view>
     <view class="weui-flex">
       <view class="weui-flex__item kjbutton">
-        <button class="weui-btn" type="warn" open-type="share">邀请朋友帮忙</button>
+        <button class="weui-btn" type="primary" open-type="share">邀请朋友帮忙</button>
       </view>
       <view class="weui-flex__item kjbutton">
         <button class="weui-btn" type="warn" bindtap="helpKanjia" disabled="{{myHelpDetail}}">{{myHelpDetail?"您已砍过":"帮TA砍"}}</button>

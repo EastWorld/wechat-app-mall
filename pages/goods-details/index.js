@@ -2,6 +2,9 @@ const WXAPI = require('../../wxapi/main')
 const app = getApp();
 const WxParse = require('../../wxParse/wxParse.js');
 const regeneratorRuntime = require('../../utils/runtime')
+const CONFIG = require('../../config.js')
+
+let videoAd = null; // 视频激励广告
 
 Page({
   data: {
@@ -59,7 +62,26 @@ Page({
         });
       }
     })
-    this.reputation(e.id)
+    this.reputation(e.id);
+    // 视频激励广告信息
+    if (wx.createRewardedVideoAd) {
+      videoAd = wx.createRewardedVideoAd({
+        adUnitId: 'adunit-12c4520ad7c062eb'
+      })
+      videoAd.onLoad(() => { console.log('-----------onLoad') })
+      videoAd.onError((err) => { })
+      videoAd.onClose((res) => { 
+        if (res && res.isEnded) {
+          that.helpKanjiaDone();
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '完整观看完视频才能砍价',
+            showCancel: false
+          })
+        }
+      })
+    }
   },
   onShow (){
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
@@ -540,6 +562,26 @@ Page({
     });
   },
   helpKanjia() {
+    const _this = this;
+    if (CONFIG.kanjiaRequirePlayAd) {
+      // 显示激励视频广告
+      if (videoAd) {
+        videoAd.show().catch(() => {
+          // 失败重试
+          videoAd.load()
+            .then(() => videoAd.show())
+            .catch(err => {
+              console.log('激励视频 广告显示失败')
+            })
+        })
+      }
+      return;
+    } else {
+      _this.helpKanjiaDone();
+    }
+    
+  },
+  helpKanjiaDone(){
     const _this = this;
     WXAPI.kanjiaHelp(_this.data.kjId, _this.data.kjJoinUid, wx.getStorageSync('token'), '').then(function (res) {
       if (res.code != 0) {

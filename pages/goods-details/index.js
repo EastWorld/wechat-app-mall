@@ -254,8 +254,12 @@ Page({
         goodsId: that.data.goodsDetail.basicInfo.id,
         propertyChildIds: propertyChildIds
       }).then(function(res) {
+        let _price = res.data.price
+        if (that.data.shopType == 'toPingtuan') {
+          _price = res.data.pingtuanPrice
+        }
         that.setData({
-          selectSizePrice: res.data.price,
+          selectSizePrice: _price,
           totalScoreToPay: res.data.score,
           propertyChildIds: propertyChildIds,
           propertyChildNames: propertyChildNames,
@@ -442,9 +446,9 @@ Page({
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
     shopCarMap.price = this.data.selectSizePrice;
-    if (shoptype == 'toPingtuan') {
-      shopCarMap.price = this.data.goodsDetail.basicInfo.pingtuanPrice;
-    }
+    // if (shoptype == 'toPingtuan') { // 20190714 拼团价格注释掉
+    //   shopCarMap.price = this.data.goodsDetail.basicInfo.pingtuanPrice;
+    // }
     shopCarMap.score = this.data.totalScoreToPay;
     shopCarMap.left = "";
     shopCarMap.active = true;

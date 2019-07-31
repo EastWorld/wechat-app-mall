@@ -1,5 +1,7 @@
 const app = getApp()
 const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
+
 Page({
 
   /**
@@ -27,7 +29,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    AUTH.checkHasLogined().then(isLogined => {
+      if (!isLogined) {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              wx.navigateBack()
+            }
+          }
+        })
+      }
+    })
   },
 
   /**

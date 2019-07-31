@@ -66,6 +66,7 @@ Page({
   },
   bindGetUserInfo: function(e) {
     if (!e.detail.userInfo) {
+      wx.navigateBack();
       return;
     }
     if (app.globalData.isConnected) {

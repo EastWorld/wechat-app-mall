@@ -1,4 +1,5 @@
 const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -44,9 +45,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.sysCoupons()
-    this.getMyCoupons()
-    this.invalidCoupons()
+    this.sysCoupons()    
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.getMyCoupons()
+        this.invalidCoupons()
+      }
+    })
   },
 
   /**

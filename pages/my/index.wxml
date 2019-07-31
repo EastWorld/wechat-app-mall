@@ -1,7 +1,11 @@
 <view class="container">
-	<view class="userinfo">
-		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+	<view wx:if="{{userInfo}}" class="userinfo">
+		<image wx:if="{{userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+	</view>
+  <view wx:else class="userinfo" style="margin-bottom:50rpx;">
+		<image class="userinfo-avatar" src="/images/nologin.png" background-size="cover"></image>
+		<button class="weui-btn mini-btn" plain="true" size="mini" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">点击登录账户</button>
 	</view>
   <view wx:if="{{ rechargeOpen }}" class="asset">
     <view class='item' bindtap='goAsset'>
@@ -93,15 +97,15 @@
     {{userMobile}}
   </view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="about" bindtap="aboutUs">
+  <view class="my-item" bindtap="aboutUs">
     关于我们
+  </view>
+  <view wx:if="{{userInfo}}" class="my-item" bindtap="loginOut" style="color:red;font-weight:bold;">
+    退出登录
   </view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
   <view wx:if="{{!userMobile}}" class="bind-phone-number">
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
-  </view>
-  <view class="my-item to-authorize">
-    <button type="warn" bindtap="relogin">重新授权登录</button>
+    <button style="width:700rpx;" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
   </view>
   
   <view style="height:20rpx;background: #eee;width:100%;"></view>

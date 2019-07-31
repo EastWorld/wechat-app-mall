@@ -1,8 +1,8 @@
 const WXAPI = require('../../wxapi/main')
 const app = getApp();
 const WxParse = require('../../wxParse/wxParse.js');
-const regeneratorRuntime = require('../../utils/runtime')
 const CONFIG = require('../../config.js')
+const AUTH = require('../../utils/auth')
 const SelectSizePrefix = "选择："
 
 let videoAd = null; // 视频激励广告
@@ -367,6 +367,22 @@ Page({
         })
       } else {
         WXAPI.pingtuanOpen(that.data.goodsDetail.basicInfo.id, wx.getStorageSync('token')).then(function(res) {
+          if (res.code == 2000) {
+            wx.showModal({
+              title: '提示',
+              content: '本次操作需要您的登录授权',
+              cancelText: '暂不登录',
+              confirmText: '前往登录',
+              success(res) {
+                if (res.confirm) {
+                  wx.switchTab({
+                    url: "/pages/my/index"
+                  })
+                }
+              }
+            })
+            return
+          }
           if (res.code != 0) {
             wx.showToast({
               title: res.msg,
@@ -533,7 +549,28 @@ Page({
       }
     })
   },
-  joinKanjia: function() { // 报名参加砍价活动
+  joinKanjia(){
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.doneJoinKanjia();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            }
+          }
+        })
+      }
+    })
+  },
+  doneJoinKanjia: function() { // 报名参加砍价活动
     const _this = this;
     if (!_this.data.curGoodsKanjia) {
       return;
@@ -568,23 +605,28 @@ Page({
   },
   helpKanjia() {
     const _this = this;
-    if (CONFIG.kanjiaRequirePlayAd) {
-      // 显示激励视频广告
-      if (videoAd) {
-        videoAd.show().catch(() => {
-          // 失败重试
-          videoAd.load()
-            .then(() => videoAd.show())
-            .catch(err => {
-              console.log('激励视频 广告显示失败')
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        if (CONFIG.kanjiaRequirePlayAd) {
+          // 显示激励视频广告
+          if (videoAd) {
+            videoAd.show().catch(() => {
+              // 失败重试
+              videoAd.load()
+                .then(() => videoAd.show())
+                .catch(err => {
+                  console.log('激励视频 广告显示失败')
+                })
             })
-        })
+          }
+          return;
+        } else {
+          _this.helpKanjiaDone()
+        }
+      } else {
+        app.goLoginPageTimeOut()
       }
-      return;
-    } else {
-      _this.helpKanjiaDone();
-    }
-    
+    })
   },
   helpKanjiaDone(){
     const _this = this;

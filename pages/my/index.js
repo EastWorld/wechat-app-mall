@@ -1,6 +1,8 @@
 const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
+
 Page({
 	data: {
     balance:0.00,
@@ -21,25 +23,50 @@ Page({
     })
 	},	
   onShow() {
-    let that = this;
-    let userInfo = wx.getStorageSync('userInfo')
-    if (!userInfo) {
-      app.goLoginPageTimeOut()
+    const _this = this
+    this.setData({
+      version: CONFIG.version,
+      vipLevel: app.globalData.vipLevel
+    })
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        _this.setData({
+          userInfo: wx.getStorageSync('userInfo')
+        })
+        _this.getUserApiInfo();
+        _this.getUserAmount();
+      }
+    })
+  },
+  onGotUserInfo(e){
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '您已取消登录',
+        icon: 'none',
+      })
+      return;
+    }
+    if (app.globalData.isConnected) {
+      wx.setStorageSync('userInfo', e.detail.userInfo)
+      AUTH.login(this);
     } else {
-      that.setData({
-        userInfo: userInfo,
-        version: CONFIG.version,
-        vipLevel: app.globalData.vipLevel
+      wx.showToast({
+        title: '当前无网络',
+        icon: 'none',
       })
     }
-    this.getUserApiInfo();
-    this.getUserAmount();
   },
   aboutUs : function () {
     wx.showModal({
       title: '关于我们',
       content: '本系统基于开源小程序商城系统 https://github.com/EastWorld/wechat-app-mall 搭建，祝大家使用愉快！',
       showCancel:false
+    })
+  },
+  loginOut(){
+    AUTH.loginOut()
+    wx.reLaunch({
+      url: '/pages/my/index'
     })
   },
   getPhoneNumber: function(e) {
@@ -101,10 +128,6 @@ Page({
         });
       }
     })
-  },
-  relogin:function(){
-    app.navigateToLogin = false;
-    app.goLoginPageTimeOut()
   },
   goAsset: function () {
     wx.navigateTo({

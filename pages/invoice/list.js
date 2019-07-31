@@ -1,4 +1,6 @@
 const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
+
 Page({
 
   /**
@@ -27,16 +29,36 @@ Page({
    */
   onShow: function () {
     const _this = this
-    WXAPI.invoiceList({
-      token: wx.getStorageSync('token')
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
-          invoiceList: res.data.result
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        WXAPI.invoiceList({
+          token: wx.getStorageSync('token')
+        }).then(res => {
+          if (res.code == 0) {
+            _this.setData({
+              invoiceList: res.data.result
+            })
+          } else {
+            _this.setData({
+              invoiceList: []
+            })
+          }
         })
       } else {
-        _this.setData({
-          invoiceList: []
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              wx.navigateBack()
+            }
+          }
         })
       }
     })

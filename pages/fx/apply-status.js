@@ -1,7 +1,8 @@
 const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('../../wxapi/main')
-const regeneratorRuntime = require('../../utils/runtime')
+const AUTH = require('../../utils/auth')
+
 import imageUtil from '../../utils/image'
 
 Page({
@@ -34,7 +35,37 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {
+  onShow() {
+    const _this = this
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.doneShow();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              if (getCurrentPages().length == 1) {
+                wx.switchTab({
+                  url: "/pages/index/index"
+                })
+              } else {
+                wx.navigateBack()
+              }
+            }
+          }
+        })
+      }
+    })
+  },
+  async doneShow() {
     const _this = this
     const userDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
     WXAPI.fxApplyProgress(wx.getStorageSync('token')).then(res => {

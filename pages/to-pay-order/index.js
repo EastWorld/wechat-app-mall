@@ -1,5 +1,6 @@
 const app = getApp()
 const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
 
 Page({
   data: {
@@ -20,7 +21,30 @@ Page({
     allowSelfCollection: '0', // 是否允许到店自提
     peisongType: 'zq' // 配送方式 kd,zq 分别表示快递/到店自取
   },
-  onShow: function () {
+  onShow(){
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.doneShow()
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              wx.navigateBack()
+            }
+          }
+        })
+      }
+    })
+  },
+  doneShow: function () {
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
     if (!allowSelfCollection || allowSelfCollection != '1') {
       allowSelfCollection = '0'

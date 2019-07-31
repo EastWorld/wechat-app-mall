@@ -3,9 +3,11 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": true,
+		"enhance": true,
 		"postcss": false,
 		"minified": true,
 		"newFeature": true,
+		"nodeModules": false,
 		"autoAudits": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -17,7 +19,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.6",
+	"libVersion": "2.7.7",
 	"appid": "wxa46b09d413fbcaff",
 	"projectname": "%E5%A4%A9%E4%BD%BF%E7%AB%A5%E8%A3%85",
 	"scripts": {},

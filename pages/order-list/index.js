@@ -44,6 +44,19 @@ Page({
     })
   },
   toPayTap: function(e) {
+    // 防止连续点击--开始
+    if (this.data.payButtonClicked) {
+      wx.showToast({
+        title: '休息一下~',
+        icon: 'none'
+      })
+      return
+    }
+    this.data.payButtonClicked = true
+    setTimeout(() => {
+      this.data.payButtonClicked = false
+    }, 3000)  // 可自行修改时间间隔（目前是3秒内只能点击一次支付按钮）
+    // 防止连续点击--结束
     const that = this;
     const orderId = e.currentTarget.dataset.id;
     let money = e.currentTarget.dataset.money;

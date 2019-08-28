@@ -60,6 +60,20 @@
 }
 ```
 
+## 编译说明
+
+本项目使用基于 ES7 的语法，所以请在开发工具中开启 “增强编译”， 否则会提示以下错误：
+
+```
+thirdScriptError 
+ sdk uncaught third Error 
+ regeneratorRuntime is not defined 
+ ReferenceError: regeneratorRuntime is not defined
+```
+
+<img src="https://dcdn.it120.cc/2019/08/28/c5169c15-abda-4e5f-91d5-6dfcfe382fb2.png">
+
+
 ## 使用说明
 
 1、申请后台账号/获取专属域名
@@ -67,6 +81,8 @@
 2、开通商城模块
 
 <img src="https://cdn.it120.cc/apifactory/2018/11/14/b61fe6ffb2460f7e4554758b394814f5.png">
+
+**如果你的开发工具没用看到“增强编译”的选项，请升级开发工具到最新版**
 
 3、修改根目录下 config.js 文件
 

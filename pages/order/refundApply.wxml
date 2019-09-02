@@ -1,0 +1,96 @@
+<view class="page">
+  <form bindsubmit="bindSave" report-submit="true">
+  <view class="page__bd">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 0}}">已申请，等待处理</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 2}}">本次申请已拒绝，请联系客服</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 3}}">正在处理中</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 4}}">已成功退换货</view>
+    <view class="weui-cells__title">选择服务类型</view>
+    <view class="weui-cells weui-cells_after-title">
+      <radio-group bindchange="typeItemsChange">
+        <label class="weui-cell weui-check__label" wx:for="{{typeItems}}" wx:key="value">
+          <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+          <view class="weui-cell__bd">{{item.name}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+
+    <view class="weui-cells__title" wx:if="{{type == 0}}">选择货物状态</view>
+    <view class="weui-cells weui-cells_after-title" wx:if="{{type == 0}}">
+      <radio-group bindchange="logisticsStatusItemsChange">
+        <label class="weui-cell weui-check__label" wx:for="{{logisticsStatusItems}}" wx:key="value">
+          <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+          <view class="weui-cell__bd">{{item.name}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+
+    <view class="weui-cells__title">售后原因</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__bd">
+          <picker bindchange="reasonChange" value="{{reasonIndex}}" range="{{reasons}}">
+            <view class="weui-select">{{reasons[reasonIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input" wx:if="{{type != 2}}">
+        <view class="weui-cell__hd">
+          <view class="weui-label">退款金额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" name='amount' value='{{amount}}' />
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">售后说明</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea name='remark' class="weui-textarea" placeholder="请输入退款说明" style="height: 3.3em" />
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">上传图片</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+              <view class="weui-uploader__title">图片上传</view>
+              <view class="weui-uploader__info">{{files.length}} 张</view>
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-btn-area">
+      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 0}}" class="weui-btn" type="warn" bindtap='refundApplyCancel'>撤回本次申请</button>
+      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 3}}" class="weui-btn" type="warn" disabled>等待处理</button>
+      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 4}}" class="weui-btn" type="primary" disabled>处理完毕</button>
+      <button wx:else class="weui-btn" type="warn" formType="submit">立即申请售后</button>
+    </view>
+  </view>
+  </form>
+</view>

@@ -1,0 +1,19 @@
+<view wx:if="{{invoiceList.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
+  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+</view>
+<view wx:else class="weui-panel weui-panel_access">
+  <view class="weui-panel__bd">
+    <view wx:for="{{invoiceList}}" wx:key="*this" class="weui-media-box weui-media-box_text">
+      <view class="weui-media-box__title weui-media-box__title_in-text">
+        <text style='color:red'>￥ {{ item.amount }}</text>
+        <view class="weui-badge" style="margin-left: 5px;">{{item.consumption }}</view>
+        <text wx:if="{{item.status == 0}}" style='color:gray;margin-left:10px;font-size:14px;'>待处理</text>
+        <text wx:if="{{item.status == 1}}" style='color:red;margin-left:10px;font-size:14px;'>不通过</text>
+        <text wx:if="{{item.status == 2}}" style='color:orange;margin-left:10px;font-size:14px;'>开票中</text>
+        <text wx:if="{{item.status == 3}}" style='color:green;margin-left:10px;font-size:14px;'>已开票</text>
+      </view>
+      <view class="weui-media-box__desc">{{ item.comName }}</view>
+      <view class="weui-media-box__desc" style='margin-top:10rpx;'>{{ item.dateAdd }}</view>
+    </view>
+  </view>
+</view>

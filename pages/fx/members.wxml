@@ -1,0 +1,49 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <view id="0" class="weui-navbar__item {{activeIndex == 0 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">
+            一级
+            <view wx:if="{{number1 > 0}}" class="weui-badge" style="margin-left: 5px;">{{number1}}</view>
+          </view>
+        </view>
+        <view id="1" class="weui-navbar__item {{activeIndex == 1 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">
+            二级
+            <view wx:if="{{number2 > 0}}" class="weui-badge" style="margin-left: 5px;">{{number1}}</view>
+          </view>
+        </view>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <view wx:if="{{number1 <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:300rpx;'>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+          </view>
+          <view wx:if="{{number1 > 0}}" class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+              <view wx:if="{{item.level == 1}}" wx:for="{{members}}" wx:key="*this" class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{ item.nicks }} {{ item.mobileMasks }}</view>
+                <view class="weui-media-box__desc">{{ item.dateAdd }}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <view wx:if="{{number2 <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:300rpx;'>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+          </view>
+          <view wx:if="{{number2 > 0}}" class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+              <view wx:if="{{item.level == 2}}" wx:for="{{members}}" wx:key="*this" class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{ item.nicks }} {{ item.mobileMasks }}</view>
+                <view class="weui-media-box__desc">{{ item.dateAdd }}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<form bindsubmit="bindSave" report-submit="true">
+  <image class="logo" src="/images/fxad.jpeg" mode="widthFix" />
+  <view class="weui-cells__title title">请填写申请信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view wx:if="{{ userDetail && userDetail.referrer }}" class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">邀请人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" value="{{userDetail.referrer.nick}} (请确认)" disabled style='color:red;' />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">姓名
+          <text style='color:red;'>*</text>
+        </view>
+      </view>
+      <view class="weui-cell__bd">
+        <input name="name" class="weui-input" placeholder="请输入真实姓名" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机
+          <text style='color:red;'>*</text>
+        </view>
+      </view>
+      <view class="weui-cell__bd">
+        <input name="mobile" class="weui-input" placeholder="请输入手机号码" />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__tips">成为分销商后卖出商品，您可以获得佣金</view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" formType="submit">申请成为分销商</button>
+  </view>
+</form>

@@ -1,0 +1,4 @@
+<view class='container'>
+  <canvas class="canvas" style="{{canvasstyle}}" canvas-id="firstCanvas"></canvas>
+  <button class="button" type="primary" bindtap='saveToMobile'>保存到手机相册</button>
+</view>

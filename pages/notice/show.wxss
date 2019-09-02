@@ -1,10 +1,15 @@
+@import "/wxParse/wxParse.wxss";
+
 .notice {
-  width: 750rpx;
+  width: 720rpx;
   padding: 15rpx;
-  font-size: 25rpx;
+  font-size: 14px;
 }
 .title {
   color:chocolate;
-  font-size: 30rpx;
   margin-bottom: 30rpx;
+  text-align: center;
+}
+.text {
+  line-height: 30px;
 }

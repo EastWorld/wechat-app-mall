@@ -1,0 +1,62 @@
+<view class="page">
+  <form bindsubmit="bindSave" report-submit="true">
+  <view class="page__bd">    
+    <view class="weui-cells__title">开票信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" placeholder='请填写公司名称' name='comName'/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">税号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" placeholder='请填写开票税号' name='tfn'/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">发票内容</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" name='consumption' value='服务费' />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">工厂账号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" name='mobile' placeholder='工厂注册的手机号码' />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">开票金额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input price" name='amount' placeholder='0.00' />
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">快递地址</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea name='remark' class="weui-textarea" placeholder="请填写快递地址" style="height: 5em" />
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-btn-area">      
+      <button class="weui-btn" type="warn" formType="submit">申请开票</button>
+    </view>
+  </view>
+  </form>
+</view>

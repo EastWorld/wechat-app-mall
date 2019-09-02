@@ -1,37 +1,60 @@
 const app = getApp()
+const CONFIG = require('../../config.js')
+const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
 
 Page({
 	data: {
-    balance:0,
+    balance:0.00,
     freeze:0,
     score:0,
-    score_sign_continuous:0
+    score_sign_continuous:0,
+    rechargeOpen: false // 是否开启充值[预存]功能
   },
 	onLoad() {
-    
+    let rechargeOpen = wx.getStorageSync('RECHARGE_OPEN')
+    if (rechargeOpen && rechargeOpen == "1") {
+      rechargeOpen = true
+    } else {
+      rechargeOpen = false
+    }
+    this.setData({
+      rechargeOpen: rechargeOpen
+    })
 	},	
   onShow() {
-    this.getUserInfo();
+    const _this = this
     this.setData({
-      version: app.globalData.version
-    });
-    this.getUserApiInfo();
-    this.getUserAmount();
-    this.checkScoreSign();
-  },	
-  getUserInfo: function (cb) {
-      var that = this
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.setData({
-                userInfo: res.userInfo
-              });
-            }
-          })
-        }
+      version: CONFIG.version,
+      vipLevel: app.globalData.vipLevel
+    })
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        _this.setData({
+          userInfo: wx.getStorageSync('userInfo')
+        })
+        _this.getUserApiInfo();
+        _this.getUserAmount();
+      }
+    })
+  },
+  onGotUserInfo(e){
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '您已取消登录',
+        icon: 'none',
       })
+      return;
+    }
+    if (app.globalData.isConnected) {
+      wx.setStorageSync('userInfo', e.detail.userInfo)
+      AUTH.login(this);
+    } else {
+      wx.showToast({
+        title: '当前无网络',
+        icon: 'none',
+      })
+    }
   },
   aboutUs : function () {
     wx.showModal({
@@ -40,147 +63,85 @@ Page({
       showCancel:false
     })
   },
+  loginOut(){
+    AUTH.loginOut()
+    wx.reLaunch({
+      url: '/pages/my/index'
+    })
+  },
   getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
       wx.showModal({
         title: '提示',
-        content: '无法获取手机号码',
+        content: '无法获取手机号码:' + e.detail.errMsg,
         showCancel: false
       })
       return;
     }
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/wxapp/bindMobile',
-      data: {
-        token: app.globalData.token,
-        encryptedData: e.detail.encryptedData,
-        iv: e.detail.iv
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          wx.showToast({
-            title: '绑定成功',
-            icon: 'success',
-            duration: 2000
-          })
-          that.getUserApiInfo();
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '绑定失败',
-            showCancel: false
-          })
-        }
+    WXAPI.bindMobile({
+      token: wx.getStorageSync('token'),
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv
+    }).then(function (res) {
+      if (res.code === 10002) {
+        app.goLoginPageTimeOut()
+        return
+      }
+      if (res.code == 0) {
+        wx.showToast({
+          title: '绑定成功',
+          icon: 'success',
+          duration: 2000
+        })
+        that.getUserApiInfo();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '绑定失败',
+          showCancel: false
+        })
       }
     })
   },
   getUserApiInfo: function () {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/detail',
-      data: {
-        token: app.globalData.token
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.setData({
-            apiUserInfoMap: res.data.data,
-            userMobile: res.data.data.base.mobile
-          });
+    WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
+        let _data = {}
+        _data.apiUserInfoMap = res.data
+        if (res.data.base.mobile) {
+          _data.userMobile = res.data.base.mobile
         }
+        that.setData(_data);
       }
     })
-
   },
   getUserAmount: function () {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/amount',
-      data: {
-        token: app.globalData.token
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.setData({
-            balance: res.data.data.balance,
-            freeze: res.data.data.freeze,
-            score: res.data.data.score
-          });
-        }
-      }
-    })
-
-  },
-  checkScoreSign: function () {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/today-signed',
-      data: {
-        token: app.globalData.token
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.setData({
-            score_sign_continuous: res.data.data.continuous
-          });
-        }
+    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
+      if (res.code == 0) {
+        that.setData({
+          balance: res.data.balance.toFixed(2),
+          freeze: res.data.freeze.toFixed(2),
+          score: res.data.score
+        });
       }
     })
   },
-  scoresign: function () {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/sign',
-      data: {
-        token: app.globalData.token
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.getUserAmount();
-          that.checkScoreSign();
-        } else {
-          wx.showModal({
-            title: '错误',
-            content: res.data.msg,
-            showCancel: false
-          })
-        }
-      }
-    })
-  },
-  relogin:function(){
-    var that = this;
-    wx.authorize({
-      scope: 'scope.userInfo',
-      success() {
-        app.globalData.token = null;
-        app.login();
-        wx.showModal({
-          title: '提示',
-          content: '重新登陆成功',
-          showCancel: false,
-          success: function (res) {
-            if (res.confirm) {
-              that.onShow();
-            }
-          }
-        })
-      },
-      fail(res){
-        console.log(res);
-        wx.openSetting({});
-      }
-    })
-  },
-  recharge: function () {
+  goAsset: function () {
     wx.navigateTo({
-      url: "/pages/recharge/index"
+      url: "/pages/asset/index"
     })
   },
-  withdraw: function () {
+  goScore: function () {
     wx.navigateTo({
-      url: "/pages/withdraw/index"
+      url: "/pages/score/index"
+    })
+  },
+  goOrder: function (e) {
+    wx.navigateTo({
+      url: "/pages/order-list/index?type=" + e.currentTarget.dataset.type
     })
   }
 })

@@ -212,6 +212,19 @@ module.exports = {
   1. 创建订单接口增加 expireMinutes 参数；
   2. 代表多少分钟未支付自动关闭本订单，传 0 不自动关闭订单；
 
+- 我没有那么多分类，首页2行分类能否改成1行？
+
+  打开 /pages/index/index.js 文件，找到下图所示位置，代码
+
+  ```js
+  // 这行代码为显示2行
+  const _n = Math.ceil(categories.length / 2)
+  // 这行代码为显示1行
+  const _n = Math.ceil(categories.length)
+  ```
+
+  <img src="https://dcdn.it120.cc/2019/09/05/31729239-dc73-47f6-938a-9ab2c9c0bfdd.png">
+
 - [更多问题？](https://www.it120.cc/info/all)
 
 ## 如何升级到最新版

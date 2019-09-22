@@ -1,0 +1,49 @@
+<template name="datepicker">
+	<view class="datepicker-bg" wx:if="{{showDatePicker}}" bindtap="closeDatePicker"></view>
+	<input
+		wx:if="{{showInput}}"
+		class="datepicker-input"
+		placeholder="{{placeholder}}"
+		value="{{selectedValue || ''}}"
+		type="text"
+		bindinput="onInputDate"
+		bindfocus="showDatepicker"/>
+	<view wx:if="{{showDatePicker}}" class="datepicker-wrap flex box box-tb box-align-center">
+		<view class="calendar pink-color box box-tb">
+			<view class="top-handle fs28 box box-lr box-align-center box-pack-center">
+				<view class="prev box box-rl" catchtap="handleCalendar" data-handle="prev">
+					<view class="prev-handle box box-lr box-align-center box-pack-center">《</view>
+				</view>
+				<view class="date-area box box-lr box-align-center box-pack-center">{{curYear || "--"}} 年 {{curMonth || "--"}} 月</view>
+				<view class="next box box-lr" catchtap="handleCalendar" data-handle="next">
+					<view class="next-handle box box-lr box-align-center box-pack-center">》</view>
+				</view>
+			</view>
+			<view wx:if="{{weeksCh}}" class="weeks box box-lr box-pack-center box-align-center">
+				<view class="flex week fs28" wx:for="{{weeksCh}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+			</view>
+			<view class="days box box-lr box-wrap" bindtouchstart="datepickerTouchstart" bindtouchmove="datepickerTouchmove">
+				<view wx:if="{{empytGrids}}" class="grid disable-day-color  box box-align-center box-pack-center"
+          wx:for="{{empytGrids}}"
+          wx:key="{{index}}"
+          data-idx="{{index}}">
+            <view class="day box box-align-center box-pack-center">{{item}}</view>
+        </view>
+				<view class="grid normal-day-color box box-align-center box-pack-center"
+          wx:for="{{days}}"
+          wx:key="{{index}}"
+          data-idx="{{index}}"
+          data-disable="{{item.disable}}"
+          catchtap="tapDayItem">
+					<view class="day border-radius {{item.choosed ? 'day-choosed-color pink-bg' : ''}} {{ item.disable ? 'disable-day-color disable-day-circle' : '' }} box box-align-center box-pack-center">{{item.day}}</view>
+				</view>
+				<view class="grid disable-day-color  box box-align-center box-pack-center"
+          wx:for="{{lastEmptyGrids}}"
+          wx:key="{{index}}"
+          data-idx="{{index}}">
+            <view class="day box box-align-center box-pack-center">{{item}}</view>
+        </view>
+			</view>
+		</view>
+	</view>
+</template>

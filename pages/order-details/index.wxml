@@ -6,7 +6,7 @@
                 <image wx:elif="{{orderDetail.orderInfo.status==0}}" class="icon" src="/images/order-details/icon-ddfk.png"></image>
                 <image wx:elif="{{orderDetail.orderInfo.status==1}}" class="icon" src="/images/order-details/icon-ddfh.png"></image>
                 <image wx:elif="{{orderDetail.orderInfo.status==2}}" class="icon" src="/images/order-details/icon-ddsh.png"></image>
-                <image wx:elif="{{orderDetail.orderInfo.status==4}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
+                <image wx:elif="{{orderDetail.orderInfo.status==3 || orderDetail.orderInfo.status==4}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
             </view>
             <view class="right-text">
                 <view class="status red">{{orderDetail.orderInfo.statusStr}}</view>
@@ -18,11 +18,11 @@
               <view class="icon-box">
                   <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
               </view>
-              <view class="right-text" bindtap="wuliuDetailsTap">
+              <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderDetail.orderInfo.id}}">
                   <view class="order-number">快递单号：{{orderDetail.logistics.trackingNumber}}</view>
-                  <block wx:if="{{orderDetail.logistics.traces}}">
-                  <view class="wuliu-text">快件离开 无锡中转部 已发往 杭州中部，操作员陈林娟杭州中部，操作员 陈林娟</view>
-                  <view class="wuliu-date">2017/01/09 15:32:33</view>
+                  <block wx:if="{{orderDetail.logisticsTraces}}">
+                  <view class="wuliu-text">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}</view>
+                  <view class="wuliu-date">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptTime}}</view>
                   </block>
               </view>
               <view class="arrow-right">
@@ -45,7 +45,10 @@
               <view class="right-box">
                   <view class="name-tel">{{orderDetail.logistics.linkMan}}  {{orderDetail.logistics.mobile}}</view>
                   <view class="text">
-                      {{orderDetail.logistics.address}}
+                    {{orderDetail.logistics.provinceStr}}
+                    {{orderDetail.logistics.cityStr}}
+                    {{orderDetail.logistics.areaStr}}
+                    {{orderDetail.logistics.address}}
                   </view>
               </view>
           </view>
@@ -53,7 +56,9 @@
     </view>
     <view class="goods-list">
             <view class="list-title">商品信息</view>
-            <view class="a-goods" wx:for-items="{{orderDetail.goods}}" wx:key="{{index}}">
+            <form bindsubmit="submitReputation" report-submit="true">
+            <block wx:for-items="{{orderDetail.goods}}" wx:key="{{index}}">
+            <view class="a-goods">
                 <view class="img-box">
                     <image src="{{item.pic}}" class="img" />
                 </view>
@@ -68,9 +73,33 @@
                     </view>
                 </view>
             </view>
-            <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==2}}">
-                <view class="confirm-btn" bindtap="confirmBtnTap" data-id="{{orderDetail.orderInfo.id}}">确认收货</view>
+            <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
+                
+                  <view class="section section_gap">
+                    <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
+                    <radio-group name="goodReputation{{index}}">
+                      <label style="margin-right:35rpx;"><radio value="2" checked/>好评</label>
+                      <label style="margin-right:35rpx;"><radio value="1"/>中评</label>
+                      <label style="margin-right:35rpx;"><radio value="0"/>差评</label>
+                    </radio-group>
+                  </view>
+                  <view class="row-box" style="margin-top:35rpx">
+                      <view class="row-label">备注</view>
+                      <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;"/>
+                      <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="非常愉快的一次购物！" />
+                  </view>
             </view>
+            </block>
+            <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">                
+                <navigator style="float:right;" class="confirm-btn" target="miniProgram" app-id="wx56c8f077de74b07c" path="/open/order-comment/order-comment?appid={{appid}}&order_id={{orderDetail.orderInfo.orderNumber}}">去购物单评价</navigator>
+                <button style="float:right;" class="confirm-btn" formType="submit">提交评价</button>
+            </view>
+            </form>
+            <form bindsubmit="confirmBtnTap" report-submit="true">
+            <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==2}}">
+                <button class="confirm-btn" formType="submit">确认收货</button>
+            </view>
+            </form>
         </view>
         <view class="peisong-way" hidden="true">
             <view class="row-box">
@@ -97,11 +126,5 @@
                 <view class="row-label">应付总额</view>
                 <view class="right-text">¥ {{orderDetail.orderInfo.amountReal}}</view>
             </view>
-        </view>
-        <view class="jiesuan-box" hidden="true">
-            <view class="left-price">
-                <view class="total">合计：¥ {{orderDetail.orderInfo.amountReal}}</view>
-            </view>
-            <button class="to-pay-btn" formType="submit">提交订单</button>
         </view>
 </view>

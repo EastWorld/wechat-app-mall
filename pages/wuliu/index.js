@@ -1,24 +1,26 @@
-//index.js
-//获取应用实例
-var app = getApp()
+const WXAPI = require('../../wxapi/main')
+const app = getApp()
 Page({
-  data: {
-    wuliu:[
-      {
-        date:'2016-12-25  15:00:22',
-        info:'配送员开始配送，请您准备收货，配送员，罗启春手机号，13819935555'
-      },
-      {
-        date:'2016-12-25  15:00:22',
-        info:'货物已分配，等待配送'
-      },
-      {
-        date:'2016-12-25  15:00:22',
-        info:'货物已到达 上海千阳站'
-      }
-    ]
+  data: {},
+  onLoad: function (e) {
+    var orderId = e.id;
+    this.data.orderId = orderId;
   },
-  onLoad: function () {
-    console.log('onLoad')
+  onShow: function () {
+    var that = this;
+    WXAPI.orderDetail(that.data.orderId, wx.getStorageSync('token')).then(function (res) {
+      if (res.code != 0) {
+        wx.showModal({
+          title: '错误',
+          content: res.msg,
+          showCancel: false
+        })
+        return;
+      }
+      that.setData({
+        orderDetail: res.data,
+        logisticsTraces: res.data.logisticsTraces.reverse()
+      });
+    })
   }
 })

@@ -1,0 +1,8 @@
+.canvas {
+  width:750rpx;
+}
+.button {
+  width: 700rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}

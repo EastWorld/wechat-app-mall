@@ -1,16 +1,7 @@
 <view class="container">
-     <form bindsubmit="createOrder">
-     <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
-        <view class="add-address" hidden="{{curAddressData}}">
-            <view class="title" bindtap="addAddress">新增收货地址</view>
-        </view>
-        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
-            <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
-            <view class="addr-text">{{curAddressData.address}}</view>
-        </view>
-     </view>
+     <form bindsubmit="createOrder" report-submit="true">     
      <view class="goods-list">
-        <view class="list-title">{{mallName}}</view>
+        <view class="list-title">商品列表</view>
         <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
             <view class="img-box">
                 <image src="{{item.pic}}" class="img" />
@@ -30,8 +21,23 @@
      <view class="peisong-way">
         <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">配送方式</view>
-            <view class="right-text" wx:if="{{yunPrice > 0}}">顺丰快递</view>
-            <view class="right-text" wx:if="{{yunPrice == 0}}">快递包邮</view>
+            <radio-group bindchange="radioChange">
+              <label class="radio">
+                <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
+              </label>
+              <label class="radio" wx:if='{{allowSelfCollection == "1"}}'>
+                <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
+              </label>
+            </radio-group>
+        </view>
+        <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
+          <view class="add-address" hidden="{{curAddressData}}">
+              <view class="title" bindtap="addAddress">新增收货地址</view>
+          </view>
+          <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
+              <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
+              <view class="addr-text">{{curAddressData.address}}</view>
+          </view>
         </view>
         <view class="row-box">
             <view class="row-label">备注</view>
@@ -40,7 +46,22 @@
             </view>
         </view>
      </view>
-     <view class="goods-info">
+     <view class="peisong-way" hidden="{{hasNoCoupons}}">
+        <view class="row-box" style="border-bottom:none;">
+            <view class="row-label">选择使用优惠券</view>
+        </view>
+        <view class="row-box" style="border-bottom:none;">
+          <picker-view indicator-style="height: 50rpx;" style="width: 100%; height: 150rpx;" value="0" bindchange="bindChangeCoupon">
+            <picker-view-column>
+              <view style="line-height: 50px">不使用优惠券</view>
+              <view wx:for="{{coupons}}" wx:key="id" style="line-height: 50px">{{item.money}}元 {{item.name}}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+     </view>
+
+
+     <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && yunPrice > 0) || (!hasNoCoupons)}}">
         <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
             <view class="row-label">商品金额</view>
             <view class="right-text">¥ {{allGoodsPrice}}</view>
@@ -49,14 +70,15 @@
             <view class="row-label">运费</view>
             <view class="right-text">+ ¥ {{yunPrice}}</view>
         </view>
-        <view class="row-box">
-            <view class="row-label">应付总额</view>
-            <view class="right-text">¥ {{allGoodsPrice+yunPrice}}</view>
+        <view class="row-box" wx:if="{{!hasNoCoupons}}">
+            <view class="row-label">优惠券</view>
+            <view class="right-text">- ¥ {{youhuijine}}</view>
         </view>
      </view>
+
      <view class="jiesuan-box">
         <view class="left-price">
-            <view class="total">合计：¥ {{allGoodsPrice+yunPrice}}</view>
+            <view class="total">合计：¥ {{allGoodsAndYunPrice - youhuijine}} + {{totalScoreToPay}} 积分</view>
         </view>
         <button class="to-pay-btn" formType="submit">提交订单</button>
     </view>

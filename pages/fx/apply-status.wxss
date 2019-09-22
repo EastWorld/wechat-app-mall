@@ -1,0 +1,24 @@
+.noApply {
+  margin-top: 150rpx;
+  text-align: center;
+}
+.noApply image {
+  width: 300rpx;
+}
+.profile {
+  text-align: center;
+  margin-top:30rpx;
+  font-size: 14px;
+  color:#888;
+}
+.mini-btn{
+  margin-top: 50rpx;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.qrcode-button {
+  padding:30rpx;
+}
+.canvas {
+  width:750rpx;
+}

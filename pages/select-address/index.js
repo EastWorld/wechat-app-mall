@@ -1,59 +1,71 @@
-//index.js
-//获取应用实例
-var app = getApp()
+const WXAPI = require('../../wxapi/main')
+const AUTH = require('../../utils/auth')
+
+const app = getApp()
 Page({
   data: {
-    addressList:[]
+    addressList: []
   },
 
-  selectTap: function (e) {
+  selectTap: function(e) {
     var id = e.currentTarget.dataset.id;
-    wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/update',
-      data: {
-        token:app.globalData.token,
-        id:id,
-        isDefault:'true'
-      },
-      success: (res) =>{
-        wx.navigateBack({})
-      }
+    WXAPI.updateAddress({
+      token: wx.getStorageSync('token'),
+      id: id,
+      isDefault: 'true'
+    }).then(function(res) {
+      wx.navigateBack({})
     })
   },
 
-  addAddess : function () {
+  addAddess: function() {
     wx.navigateTo({
-      url:"/pages/address-add/index"
+      url: "/pages/address-add/index"
     })
   },
-  
-  editAddess: function (e) {
+
+  editAddess: function(e) {
     wx.navigateTo({
       url: "/pages/address-add/index?id=" + e.currentTarget.dataset.id
     })
   },
-  
-  onLoad: function () {
-    console.log('onLoad')
 
-   
+  onLoad: function() {
   },
-  onShow : function () {
-    this.initShippingAddress();
+  onShow: function() {
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.initShippingAddress();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              wx.navigateBack()
+            }
+          }
+        })
+      }
+    })
   },
-  initShippingAddress: function () {
+  initShippingAddress: function() {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/list',
-      data: {
-        token:app.globalData.token
-      },
-      success: (res) =>{
-        if (res.data.code == 0) {
-          that.setData({
-            addressList:res.data.data
-          });
-        }
+    WXAPI.queryAddress(wx.getStorageSync('token')).then(function(res) {
+      if (res.code == 0) {
+        that.setData({
+          addressList: res.data
+        });
+      } else if (res.code == 700) {
+        that.setData({
+          addressList: null
+        });
       }
     })
   }

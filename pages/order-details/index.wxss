@@ -2,6 +2,11 @@ page{
   min-height: 100%;
   background-color: #F2f2f2;
 }
+.container{
+  min-height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+}
 .sec-wrap{
     background-color: #fff;
     margin-top: 20rpx;
@@ -168,7 +173,6 @@ page{
     width:164rpx;
     height:60rpx;
     line-height: 60rpx;
-    text-align: center;
     margin: 20rpx 30rpx 20rpx auto;
     font-size:26rpx;
     color:#e64340;

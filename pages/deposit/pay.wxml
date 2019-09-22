@@ -1,0 +1,13 @@
+<view class="container">
+  <form bindsubmit="bindSave" report-submit="true">
+    <view class="form-box">
+      <view class="row-wrap">
+        <view class="label">押金金额</view>
+        <view class="label-right">
+          <input name="amount" class="input" type="digit" value="{{amount}}" placeholder="请输入押金金额" />
+        </view>
+      </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">立即支付</button>
+  </form>
+</view>

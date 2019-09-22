@@ -45,6 +45,44 @@ swiper-item image {
   padding: 35rpx 0;
   margin-bottom: 24rpx;
   width: 100%;
+  position: relative;
+}
+
+.goods-info-fx {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  right: 0;
+  top: 0;
+}
+
+.goods-info-fx button {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+}
+
+.goods-info-fx image {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin: 10px 10px 0 5px;
+}
+
+.goods-info-fx text {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  z-index: 1;
+  font-size: 10px;
+  text-align: center;
 }
 .goods-info .goods-title{
   box-sizing: border-box;
@@ -53,13 +91,23 @@ swiper-item image {
   line-height: 1.4;
   color: #000;
   margin-bottom: 28rpx;
+  padding-right: 60px;
+}
+.goods-info .goods-share{
+  box-sizing: border-box;
+  padding: 0 35rpx;
+  font-size: 25rpx;
+  line-height: 1.4;
+  color: #CC0000;
+  margin-bottom: 28rpx;
 }
 .goods-info .goods-price{
    box-sizing:border-box;
-   padding: 0 35rpx;
    color:#e64340;
    font-size: 28rpx;
    font-weight: bold;
+   width: 30%;
+   float:left;
 }
 .row-arrow{
   width: 100%;
@@ -86,11 +134,14 @@ swiper-item image {
   padding: 30rpx;
 }
 .goods-text{
-  padding: 0 30rpx;
+  padding: 0 10rpx;
   font-size:28rpx;
   color:#666666;
   line-height: 56rpx;
   margin-bottom: 30rpx;
+}
+.goods-text image{
+  width: 100%;
 }
 .des-imgs{
   width:100%;
@@ -108,28 +159,45 @@ swiper-item image {
   display: flex;
   box-shadow:0 0 8rpx 0 ;
 }
-.footer-box .shop-cart-btn{
+.footer-box .contact {
   position: relative;
-  width: 150rpx;
+  width: 120rpx;
   height: 100%;
-  line-height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*line-height: 100rpx;
   text-align: center;
-  padding-top: 26rpx;
-  font-size:20rpx;
-  color:#acacb7;
+  padding-top: 26rpx;*/
+  font-size: 20rpx;
+  color: #008000;
   box-sizing: border-box;
-  background:url("https://cdn.it120.cc/images/weappshop/cart.png") no-repeat center 21rpx;
+  background: url("https://cdn.it120.cc/images/weappshop/kefu.png") no-repeat center 21rpx;
+  background-size: 55rpx auto;
+}
+.footer-box .shop-cart-btn {
+  position: relative;
+  width: 135rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 20rpx;
+  color: #acacb7;
+  box-sizing: border-box;
+  background: url("https://cdn.it120.cc/images/weappshop/cart.png") no-repeat center 21rpx; 
   background-size: 44rpx auto;
 }
 .footer-box .shop-cart-btn .shop-num{
   position: absolute;
   color:#e64340;
-  left: 80rpx;
-  top:-20rpx;
+  left: 85rpx;
+  top:10rpx;
 }
 .footer-box .join-shop-cart{
   text-align: center;
-  width: 300rpx;
+  width: 250rpx;
   height: 100%;
   line-height: 100rpx;
   background-color: #ff6850;
@@ -139,7 +207,7 @@ swiper-item image {
 .footer-box .now-buy{
   text-align: center;
   height: 100%;
-  width: 300rpx;
+  width: 250rpx;
   line-height: 100rpx;
   background-color: #e64340;
   color:#fff;
@@ -276,4 +344,88 @@ swiper-item image {
 }
 .buy-num-box .num-box .hui{
   background-color: #f5f5f9;
+}
+.goIndex {
+  position:fixed;
+  right:20rpx;
+  bottom:200rpx;
+  width:80rpx;
+  height:80rpx;
+  border-radius:15px;
+  background-color: #fff;
+  text-align: center;
+
+}
+.goIndex-icon {
+  width:50rpx;
+  height:50rpx;
+  margin-top: 15rpx;
+}
+.curKanjiaprogress {
+  width:750rpx;
+  background-color:#fff;
+  margin-top:20rpx;
+}
+.curKanjiaprogress .name {
+  font-size: 40rpx;
+  padding:20rpx;
+  text-align: center;
+}
+.curKanjiaprogress .weui-badge {
+  margin-left:250rpx;
+}
+.curKanjiaprogress .placeholder {
+  margin-left:30rpx;
+  margin-right:30rpx;
+  text-align: center;
+  font-size: 26rpx;
+  width:100rpx;
+  color:#999;
+}
+.curKanjiaprogress .kjbutton {
+  padding:30rpx;
+}
+.kjBuyButton {
+  width:700rpx;
+  margin-top:50rpx;
+}
+.shareFloatDiv1 {
+  position:fixed;
+  top: 0px;
+  left: 0px;
+  width:100vw;
+  height:100vh;
+  background-color:#555;filter:Alpha(Opacity=60);opacity:0.6;
+  z-index: 99998;
+}
+.shareFloatDiv2 {
+  position:fixed;
+  width:100%;
+  height:400rpx;
+  background-color: #ffffff;
+  bottom: 0rpx;
+  z-index: 99999;
+}
+.shareFloatDiv2 .p1 {
+  height:260rpx;
+}
+.shareFloatDiv2 .p2 {
+  height:20rpx;
+  background-color: #EEEEEE;
+}
+.shareFloatDiv2 .p3 {
+  height:120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  color:#555555;
+  font-size: 16px;
+}
+.qrcode-button {
+  padding:30rpx;
+  margin-top:50rpx;
+}
+.qrcode {
+  width:300rpx;
+  height:300rpx;
+  margin-top: 50rpx;
 }

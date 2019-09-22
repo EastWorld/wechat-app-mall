@@ -180,6 +180,7 @@ page{
     border-bottom:1px solid #eee; 
     border-top:1px solid #eee; 
     background-color: #fff;
+    z-index: 999;
 }
 .jiesuan-box .to-pay-btn{
     width:240rpx;

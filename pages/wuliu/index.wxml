@@ -2,24 +2,24 @@
     <view class="top-sec">
         <view class="a-row">
             <view class="label">物流单号</view>
-            <view class="text">234892374972342034</view>
+            <view class="text">{{orderDetail.logistics.trackingNumber}}</view>
         </view>
         <view class="a-row">
             <view class="label">物流公司</view>
-            <view class="text">顺丰快递</view>
+            <view class="text">{{orderDetail.logistics.shipperName}}</view>
         </view>
     </view>
     <view class="sec-wrap">
         <view class="details-info">
             <view class="line-box"></view>
-            <view class="a-row" wx:for-items="{{wuliu}}" wx:key="{{index}}">
+            <view class="a-row" wx:for-items="{{logisticsTraces}}" wx:key="{{index}}">
                 <view class="dot">
                     <view class="active-dot" hidden="{{index== 0 ? false : true}}"><view class="yuan-red"></view></view>
                     <view class="default-dot" hidden="{{index== 0 ? true : false}}"></view>
                 </view>
                 <view class="info">
-                    <view class="date-box">{{item.date}}</view>
-                    <view class="text">{{item.info}}</view>
+                    <view class="date-box">{{item.AcceptTime}}</view>
+                    <view class="text">{{item.AcceptStation}}</view>
                 </view>
             </view>
 

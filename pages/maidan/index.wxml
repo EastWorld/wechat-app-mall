@@ -1,0 +1,27 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__bd">
+    <form bindsubmit="bindSave" report-submit="true">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">消费金额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input name="amount" type="digit" class="weui-input" placeholder="请询问服务员后输入" />
+        </view>
+      </view>
+    </view>
+    <block wx:if='{{rechargeSendRules}}'>
+      <view class="charge-rule-wrap">
+        <view wx:for='{{rechargeSendRules}}' wx:key="index" wx:for-item="item" class="btn charge-detail">
+          <text>消费满 {{item.consume}} 元</text>
+          <text>减 {{item.discounts}} 元</text>
+        </view>
+      </view>
+    </block>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" formType="submit">确认支付</button>
+    </view>
+    </form>
+  </view>
+</view>

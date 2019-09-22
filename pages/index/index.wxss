@@ -1,23 +1,47 @@
-/**index.wxss**/
-
 .container {
-  background-color: #F2f2f2;
-  min-height: 100%
+  background-color: #fff;
+  min-height: 100%;
+  display: block;
 }
+.category-box {  
+  background-color: #fff;
+  clear: both;
+}
+.category-list{
+  width:150rpx;
+  margin-top:20rpx;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+}
+.category-column{
+  width:100%;
+  margin-top:20rpx;
+  overflow: hidden;
+}
+.category-imgbox{
+  width:60rpx;
+  height:60rpx;
+}
+.category-title{
+  font-size: 24rpx;
+  text-align:center;
+  margin-top:10rpx;
+}
+
+
 .swiper-container{
   width: 750rpx;
   position: relative;  
 }
 .swiper_box {
-  width: 100%;
-  height:562.5rpx;
+  width: 750rpx;
+  height:250rpx;
 }
 
 swiper-item image {
-  width: 100%;
-  display: inline-block;
-  overflow: hidden;
-  height:562.5rpx;
+  width: 750rpx;
+  height:250rpx;
 }
 .swiper-container .dots{  
   position: absolute;  
@@ -40,40 +64,25 @@ swiper-item image {
   width: 14rpx;  
   opacity: 1;
 }
-
-.type-navbar{
-  white-space: nowrap;
-  display: flex;
-  height: 88rpx;
-  background-color: #fff;
-}
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
 }
-.type-box{
-  width:160rpx;
-  box-sizing: content-box;
-  font-size: 24rpx;
-  line-height: 84rpx;
-  text-align: center;
-  display: inline-block;
-  overflow: hidden;
-}
-.type-navbar-item{
-  border-bottom: 4rpx solid #fff;
-}
 .type-item-on{
-  border-bottom: 4rpx solid #e64340;
+  color:#e64340;
+  border-bottom: 1rpx solid #e64340;
 }
-
+.weui-loadmore {
+  margin-bottom: 0px;
+}
 .goods-container{
   display: flex;
   justify-content: space-between;  
   flex-wrap:wrap;
   box-sizing: content-box;
   padding: 24rpx;
+  background-color: #F2f2f2;
 }
 .goods-box{
   width: 339rpx;
@@ -81,6 +90,7 @@ swiper-item image {
   background-color: #fff;
   overflow: hidden;
   margin-bottom: 24rpx;
+  border-radius:5px;
 }
 .goods-box .img-box{
   width: 339rpx;
@@ -115,14 +125,130 @@ swiper-item image {
   padding-bottom:48rpx; 
   color: #999;
 }
-.type-container{
-  width: 100%;
-  height: 88rpx;
+.notice{
+  display: flex;
+  justify-content: space-between;  
+  flex-wrap:wrap;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 750rpx;
+  margin-top: 10rpx;
   background-color: #fff;
+  border-bottom: 1rpx solid #efeff4;
+}
+.notice_icon {
+  margin-top: 25rpx;
+  margin-left:20rpx;
+  width:30rpx;
+  height:30rpx;
+}
+.notice_swiper{
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 680rpx;
+}
+.notice_itemr {
+  padding-left: 10rpx;
+  font-size: 24rpx;
   overflow: hidden;
+  color: #e64340;
+  width: 680rpx;
+  height: 80rpx;
+  line-height: 80rpx;
 }
 .pos-fiexd{
   position: fixed;
   top: 0;
   left: 0;
+}
+.coupons{
+  margin-top:10rpx;
+  width: 100%;
+  height: 180rpx;
+  overflow: hidden;
+}
+.coupons-scroll{
+  white-space: nowrap;
+  height: 180rpx;
+  width: 100%;
+  background-color: #fff;
+}
+.coupons-item{
+  width:300rpx;
+  height: 180rpx;
+  margin: 10rpx;
+  padding-top: 20rpx;
+  padding-left: 15rpx;
+  background-color: #f1a83b;
+  box-sizing: content-box;
+  font-size: 20rpx;
+  line-height: 35rpx;
+  overflow: hidden;
+  color: #fff;
+  display: inline-block;
+}
+.coupons-float {
+  position: fixed;
+  right:15rpx;
+  bottom:80rpx;
+  width:80rpx;
+  height:80rpx;
+  background-color: #fff;
+  text-align: center;
+  border-radius:50%;
+  border: 1rpx solid #ddd;
+}
+.coupons-float image {
+  width:60rpx;
+  height:60rpx;
+  margin-top: 10rpx;
+}
+.tuan {
+  width:750rpx;
+  background-color: #F2f2f2;
+  padding-top:10rpx;
+}
+.tuan-item {
+  width:720rpx;
+  margin: auto;
+  margin-top: 20rpx;
+  background-color: #FFF;
+  position: relative;
+}
+.tuan-goods-pic {
+  width:720rpx;
+  height: 250rpx;
+  overflow: hidden;
+}
+.tuan-goods-pic image {
+  width:720rpx;
+}
+.tuan-title {
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  font-size:30rpx;
+  font-weight: 400;
+}
+.tuan-profile {
+  margin-left: 20rpx;
+  font-size:28rpx;
+  color:#999;
+}
+.tuan-price {
+  margin-left: 20rpx;
+}
+.tuan-price .now {
+  font-size:36rpx;
+  color:#e64340;
+}
+.tuan-price .original {
+  margin-left: 20rpx;
+  font-size:26rpx;
+  color:#999;
+  text-decoration:line-through;
+}
+.tuan-btn {
+  position: absolute;
+  right:30rpx;
+  bottom: 10rpx;
 }

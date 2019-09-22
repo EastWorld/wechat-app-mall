@@ -53,10 +53,19 @@ function removeDOCTYPE(html) {
         .replace(/<.*!DOCTYPE.*\>\n/, '');
 }
 
+function trimHtml(html) {
+  return html
+        .replace(/\r?\n+/g, '')
+        .replace(/<!--.*?-->/ig, '')
+        .replace(/\/\*.*?\*\//ig, '')
+        .replace(/[ ]+</ig, '<')
+}
+
 
 function html2json(html, bindName) {
     //处理字符串
     html = removeDOCTYPE(html);
+    html = trimHtml(html);
     html = wxDiscode.strDiscode(html);
     //生成node节点
     var bufArray = [];
@@ -66,6 +75,7 @@ function html2json(html, bindName) {
         images:[],
         imageUrls:[]
     };
+    var index = 0;
     HTMLParser(html, {
         start: function (tag, attrs, unary) {
             //debug(tag, attrs, unary);
@@ -74,6 +84,17 @@ function html2json(html, bindName) {
                 node: 'element',
                 tag: tag,
             };
+
+            if (bufArray.length === 0) {
+                node.index = index.toString()
+                index += 1
+            } else {
+                var parent = bufArray[0];
+                if (parent.nodes === undefined) {
+                    parent.nodes = [];
+                }
+                node.index = parent.index + '.' + parent.nodes.length
+            }
 
             if (block[tag]) {
                 node.tagType = "block";
@@ -88,14 +109,14 @@ function html2json(html, bindName) {
                     var name = attr.name;
                     var value = attr.value;
                     if (name == 'class') {
-                        console.dir(value);
+                        // console.dir(value);
                         //  value = value.join("")
                         node.classStr = value;
                     }
                     // has multi attibutes
                     // make it array of attribute
                     if (name == 'style') {
-                        console.dir(value);
+                        // console.dir(value);
                         //  value = value.join("")
                         node.styleStr = value;
                     }
@@ -127,6 +148,9 @@ function html2json(html, bindName) {
             if (node.tag === 'img') {
                 node.imgIndex = results.images.length;
                 var imgUrl = node.attr.src;
+                if (imgUrl[0] == '') {
+                    imgUrl.splice(0, 1);
+                }
                 imgUrl = wxDiscode.urlToHttpUrl(imgUrl, __placeImgeUrlHttps);
                 node.attr.src = imgUrl;
                 node.from = bindName;
@@ -160,7 +184,7 @@ function html2json(html, bindName) {
             }
             
             if (unary) {
-                // if this tag dosen't have end tag
+                // if this tag doesn't have end tag
                 // like <img src="hoge.png"/>
                 // add to parents
                 var parent = bufArray[0] || results;
@@ -181,7 +205,7 @@ function html2json(html, bindName) {
             //当有缓存source资源时于于video补上src资源
             if(node.tag === 'video' && results.source){
                 node.attr.src = results.source;
-                delete result.source;
+                delete results.source;
             }
             
             if (bufArray.length === 0) {
@@ -203,12 +227,15 @@ function html2json(html, bindName) {
             };
             
             if (bufArray.length === 0) {
+                node.index = index.toString()
+                index += 1
                 results.nodes.push(node);
             } else {
                 var parent = bufArray[0];
                 if (parent.nodes === undefined) {
                     parent.nodes = [];
                 }
+                node.index = parent.index + '.' + parent.nodes.length
                 parent.nodes.push(node);
             }
         },

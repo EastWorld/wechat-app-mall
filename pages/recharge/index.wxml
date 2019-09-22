@@ -1,0 +1,56 @@
+<view class="container">
+    <form bindsubmit="bindSave" report-submit="true">
+    <view class="form-box">
+        <view class="row-wrap">
+            <view class="label">充值金额</view>
+            <view class="label-right">
+                <input name="amount" class="input" type="digit" value="{{amount}}" placeholder="至少充值 {{recharge_amount_min}} 元"/>
+            </view>
+        </view>
+    </view>
+    <view class="form-box">
+      <view class="row-wrap">
+        <radio-group name="type" class="radio-group">
+          <label class="radio">
+            <radio value="wx" checked /> 微信支付
+          </label>
+          <label class="radio" style='margin-left:20rpx;'>
+            <radio value="alipay" /> 支付宝
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    
+
+   <block wx:if='{{rechargeSendRules}}'>
+      <view class="charge-rule-wrap">
+            <block  wx:for='{{rechargeSendRules}}' wx:for-item="item">
+            
+                <!-- <button  class='font charge-detail' bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
+                  <text>充{{item.confine}}送{{item.send}}</text>
+                </button> -->
+                  <view class="btn charge-detail" bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
+                      <text>充{{item.confine}}</text>
+                      <text>送{{item.send}}</text>
+                  </view>
+            </block>
+             
+      </view>
+    </block>
+
+    <button type="warn" class="save-btn" formType="submit">立即支付</button>
+    </form>
+    <view wx:if="{{showalipay}}" style='width:100%;font-size: 30rpx;margin-top:30rpx;color:red;text-align:center;margin-bottom:30rpx;'>保存以下二维码，使用支付宝扫码付款</view>
+    <canvas wx:if="{{showalipay}}" style="width: 200px; height: 200px;text-align:center;" canvas-id="myQrcode"></canvas>
+    <button wx:if="{{showalipay}}" type="primary" class="save-btn" bindtap="saveToMobile">保存相册</button>
+  <view wx:if="{{rechargeSendRules}}" class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">充值满送活动：</view>
+      <view class="weui-panel__bd">
+          <view wx:for="{{rechargeSendRules}}" wx:key="id" class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">单笔充值每满 {{ item.confine }} 元, 送 {{ item.send }} 元</view>
+              <view class="weui-media-box__desc">单笔充值每满 {{ item.confine }} 元，即可获得奖励。</view>
+              <view wx-if="{{item.loop}}" class="weui-media-box__desc">充的多送的多，上不封顶。</view>
+          </view>
+      </view>
+  </view>
+</view>

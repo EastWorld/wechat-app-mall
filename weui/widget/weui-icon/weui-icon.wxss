@@ -3,4 +3,4 @@
  * Copyright 2019 Tencent, Inc.
  * Licensed under the MIT license
  */
-.weui-flex{display:-webkit-box;display:-webkit-flex;display:flex}.weui-flex__item{-webkit-box-flex:1;-webkit-flex:1;flex:1}
+icon[type=success]:after,icon[type=success]:before{color:#07c160!important}

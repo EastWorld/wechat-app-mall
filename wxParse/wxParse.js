@@ -3,6 +3,7 @@
  * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
  *               垂直微信小程序开发交流社区
  * 
+Latest commit 405d856 on 9 Nov 2017
  * github地址: https://github.com/icindy/wxParse
  * 
  * for: 微信小程序富文本解析

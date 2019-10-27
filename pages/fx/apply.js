@@ -1,5 +1,5 @@
 const app = getApp()
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 
 Page({
 
@@ -73,11 +73,7 @@ Page({
 
   },
   bindSave: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const name = e.detail.value.name
     const mobile = e.detail.value.mobile
     if (!name) {

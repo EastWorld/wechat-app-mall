@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const regeneratorRuntime = require('../../utils/runtime')
 //获取应用实例
 var app = getApp()
@@ -119,11 +119,7 @@ Page({
     })
   },
   bindSave: function(e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     var that = this;
     var linkMan = e.detail.value.linkMan;
     var address = e.detail.value.address;
@@ -215,14 +211,14 @@ Page({
     const _this = this
     _this.initRegionPicker() // 初始化省市区选择器
     if (e.id) { // 修改初始化数据库数据
-      WXAPI.addressDetail(e.id, wx.getStorageSync('token')).then(function (res) {
+      WXAPI.addressDetail(wx.getStorageSync('token'), e.id).then(function (res) {
         if (res.code === 0) {
           _this.setData({
             id: e.id,
-            addressData: res.data,
-            showRegionStr: res.data.provinceStr + res.data.cityStr + res.data.areaStr
+            addressData: res.data.info,
+            showRegionStr: res.data.info.provinceStr + res.data.info.cityStr + res.data.info.areaStr
           });
-          _this.initRegionDB(res.data.provinceStr, res.data.cityStr, res.data.areaStr)
+          _this.initRegionDB(res.data.info.provinceStr, res.data.info.cityStr, res.data.info.areaStr)
           return;
         } else {
           wx.showModal({
@@ -242,7 +238,7 @@ Page({
       content: '确定要删除该收货地址吗？',
       success: function (res) {
         if (res.confirm) {
-          WXAPI.deleteAddress(id, wx.getStorageSync('token')).then(function () {
+          WXAPI.deleteAddress(wx.getStorageSync('token'), id).then(function () {
             wx.navigateBack({})
           })
         } else {

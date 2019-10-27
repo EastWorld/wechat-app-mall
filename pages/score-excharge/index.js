@@ -1,5 +1,5 @@
 const app = getApp()
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 Page({
@@ -96,7 +96,7 @@ Page({
       })
       return
     }
-    WXAPI.scoreExchange(amount, wx.getStorageSync('token')).then(function(res) {
+    WXAPI.scoreExchange(wx.getStorageSync('token'), amount).then(function(res) {
       if (res.code == 700) {
         wx.showModal({
           title: '错误',

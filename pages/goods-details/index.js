@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const app = getApp();
 const WxParse = require('../../wxParse/wxParse.js');
 const CONFIG = require('../../config.js')
@@ -9,11 +9,7 @@ let videoAd = null; // 视频激励广告
 
 Page({
   data: {
-    autoplay: true,
-    interval: 3000,
-    duration: 1000,
     goodsDetail: {},
-    swiperCurrent: 0,
     hasMoreSelect: false,
     selectSize: SelectSizePrefix,
     selectSizePrice: 0,
@@ -32,14 +28,6 @@ Page({
     currentPages: undefined,
 
     openShare: false
-  },
-
-  //事件处理函数
-  swiperchange: function(e) {
-    //console.log(e.detail.current)
-    this.setData({
-      swiperCurrent: e.detail.current
-    })
   },
   async onLoad(e) {
     if (e && e.scene) {
@@ -127,7 +115,7 @@ Page({
           that.data.kjJoinUid = wx.getStorageSync('uid')
         }
         const curKanjiaprogress = await WXAPI.kanjiaDetail(goodsKanjiaSetRes.data.id, that.data.kjJoinUid)
-        const myHelpDetail = await WXAPI.kanjiaHelpDetail(goodsKanjiaSetRes.data.id, that.data.kjJoinUid, wx.getStorageSync('token'))
+        const myHelpDetail = await WXAPI.kanjiaHelpDetail(wx.getStorageSync('token'), goodsKanjiaSetRes.data.id, that.data.kjJoinUid)
         if (curKanjiaprogress.code == 0) {
           _data.curKanjiaprogress = curKanjiaprogress.data
         }
@@ -250,10 +238,7 @@ Page({
     }
     // 计算当前价格
     if (canSubmit) {
-      WXAPI.goodsPrice({
-        goodsId: that.data.goodsDetail.basicInfo.id,
-        propertyChildIds: propertyChildIds
-      }).then(function(res) {
+      WXAPI.goodsPrice(that.data.goodsDetail.basicInfo.id, propertyChildIds).then(function(res) {
         let _price = res.data.price
         if (that.data.shopType == 'toPingtuan') {
           _price = res.data.pingtuanPrice
@@ -366,7 +351,7 @@ Page({
           url: "/pages/to-pay-order/index?orderType=buyNow&pingtuanOpenId=" + this.data.pingtuanopenid
         })
       } else {
-        WXAPI.pingtuanOpen(that.data.goodsDetail.basicInfo.id, wx.getStorageSync('token')).then(function(res) {
+        WXAPI.pingtuanOpen(wx.getStorageSync('token'), that.data.goodsDetail.basicInfo.id).then(function(res) {
           if (res.code == 2000) {
             wx.showModal({
               title: '提示',
@@ -531,10 +516,13 @@ Page({
   },
   pingtuanList: function(goodsId) {
     var that = this;
-    WXAPI.pingtuanList(goodsId).then(function(res) {
+    WXAPI.pingtuanList({
+      goodsId: goodsId,
+      status: 0
+    }).then(function(res) {
       if (res.code == 0) {
         that.setData({
-          pingtuanList: res.data
+          pingtuanList: res.data.result
         });
       }
     })
@@ -579,7 +567,7 @@ Page({
       title: '加载中',
       mask: true
     })
-    WXAPI.kanjiaJoin(_this.data.curGoodsKanjia.id, wx.getStorageSync('token')).then(function(res) {
+    WXAPI.kanjiaJoin(wx.getStorageSync('token'), _this.data.curGoodsKanjia.id).then(function(res) {
       wx.hideLoading()
       if (res.code == 0) {
         _this.data.kjJoinUid = wx.getStorageSync('uid')
@@ -630,7 +618,7 @@ Page({
   },
   helpKanjiaDone(){
     const _this = this;
-    WXAPI.kanjiaHelp(_this.data.kjId, _this.data.kjJoinUid, wx.getStorageSync('token'), '').then(function (res) {
+    WXAPI.kanjiaHelp(wx.getStorageSync('token'), _this.data.kjId, _this.data.kjJoinUid, '').then(function (res) {
       if (res.code != 0) {
         wx.showToast({
           title: res.msg,

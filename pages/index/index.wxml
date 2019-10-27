@@ -40,7 +40,7 @@
     </view> -->
     <view wx:if="{{noticeList}}" class="notice">
       <image class="notice_icon" src="/images/notice.png"></image>
-      <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="3000">
+      <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical autoplay circular>
         <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/show?id={{item.id}}" open-type="navigate">
           <swiper-item>
             <view class="notice_itemr">{{item.title}}</view>
@@ -60,18 +60,11 @@
     </scroll-view>
   </view>
   <view class="swiper-container">
-    <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
-      <block wx:for="{{banners}}" wx:key="id">
-        <swiper-item>
-          <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="562.5rpx" />
-        </swiper-item>
-      </block>
+    <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
+      <swiper-item wx:for="{{banners}}" wx:key="id">
+        <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" class="slide-image" />
+      </swiper-item>
     </swiper>
-    <view class="dots">
-      <block wx:for="{{banners}}" wx:key="unique">
-        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
-      </block>
-    </view>
   </view>
   <view class="weui-loadmore weui-loadmore_line" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
@@ -92,16 +85,16 @@
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">
-      <view wx:for-items="{{kanjiaList}}" wx:key="*this" class="weui-media-box weui-media-box_appmsg">
+      <view wx:for-items="{{kanjiaList}}" wx:key="id" class="weui-media-box weui-media-box_appmsg">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-          <image class="weui-media-box__thumb" src="{{kanjiaGoodsMap[item.goodsId].pic}}_m" />
+          <image class="weui-media-box__thumb" src="{{item.pic}}" />
         </view>
         <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-          <view class="weui-media-box__title">{{kanjiaGoodsMap[item.goodsId].name}}</view>
-          <view class="weui-media-box__desc">{{kanjiaGoodsMap[item.goodsId].characteristic}}</view>
+          <view class="weui-media-box__title">{{item.name}}</view>
+          <view class="weui-media-box__desc">{{item.characteristic}}</view>
           <view class="weui-media-box__info" style='color:#333;line-height:2em;'>
             <view class="weui-media-box__info__meta">原价:{{item.originalPrice}}</view>
-            <view class="weui-media-box__info__meta" style='color:#e64340;'>底价:{{item.minPrice}}</view>
+            <view class="weui-media-box__info__meta" style='color:#e64340;'>底价:{{item.kanjiaPrice}}</view>
             <view class="weui-media-box__info__meta" style='float:right;'>
               <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.goodsId}}">砍价</button>
             </view>

@@ -1,6 +1,6 @@
 const app = getApp()
 const CONFIG = require('../../config.js')
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const regeneratorRuntime = require('../../utils/runtime')
 import imageUtil from '../../utils/image'
 

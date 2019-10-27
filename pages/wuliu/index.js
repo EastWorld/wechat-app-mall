@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const app = getApp()
 Page({
   data: {},
@@ -8,7 +8,7 @@ Page({
   },
   onShow: function () {
     var that = this;
-    WXAPI.orderDetail(that.data.orderId, wx.getStorageSync('token')).then(function (res) {
+    WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
       if (res.code != 0) {
         wx.showModal({
           title: '错误',

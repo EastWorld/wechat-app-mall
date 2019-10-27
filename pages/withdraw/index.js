@@ -1,5 +1,5 @@
 const app = getApp()
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 Page({
 
   /**
@@ -69,11 +69,7 @@ Page({
   },
   bindSave: function(e) {
     var that = this;
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     var amount = e.detail.value.amount;
 
     if (amount == "" || amount * 1 < 100) {
@@ -84,7 +80,7 @@ Page({
       })
       return
     }
-    WXAPI.withDrawApply(amount, wx.getStorageSync('token')).then(function(res) {
+    WXAPI.withDrawApply(wx.getStorageSync('token'), amount).then(function(res) {
       if (res.code == 0) {
         wx.showModal({
           title: '成功',

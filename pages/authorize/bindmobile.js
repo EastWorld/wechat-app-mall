@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 Page({
 
   /**
@@ -76,11 +76,7 @@ Page({
       return;
     }
     var that = this;
-    WXAPI.bindMobile({
-      token: wx.getStorageSync('token'),
-      encryptedData: e.detail.encryptedData,
-      iv: e.detail.iv
-    }).then(function (res) {
+    WXAPI.bindMobile(wx.getStorageSync('token'), e.detail.encryptedData, e.detail.iv).then(function (res) {
       if (res.code == 0) {
         wx.showToast({
           title: '绑定成功',

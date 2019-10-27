@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 var app = getApp();
 Page({
 
@@ -97,7 +97,7 @@ Page({
     }
     wx.login({
       success: function(res) {
-        WXAPI.login(res.code).then(function(res) {
+        WXAPI.login_wx(res.code).then(function(res) {
           if (res.code == 10000) {
             // 去注册
             that.registerUser();
@@ -137,7 +137,7 @@ Page({
               referrer = referrer_storge;
             }
             // 下面开始调用注册接口
-            WXAPI.register( {
+            WXAPI.register_complex( {
               code: code,
               encryptedData: encryptedData,
               iv: iv,

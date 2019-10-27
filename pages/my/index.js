@@ -1,6 +1,6 @@
 const app = getApp()
 const CONFIG = require('../../config.js')
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 Page({
@@ -79,11 +79,7 @@ Page({
       return;
     }
     var that = this;
-    WXAPI.bindMobile({
-      token: wx.getStorageSync('token'),
-      encryptedData: e.detail.encryptedData,
-      iv: e.detail.iv
-    }).then(function (res) {
+    WXAPI.bindMobileWxa(wx.getStorageSync('token'), e.detail.encryptedData, e.detail.iv).then(function (res) {
       if (res.code === 10002) {
         app.goLoginPageTimeOut()
         return

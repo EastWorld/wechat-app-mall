@@ -1,6 +1,6 @@
 const app = getApp()
 const CONFIG = require('../../config.js')
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 import imageUtil from '../../utils/image'
@@ -182,21 +182,13 @@ Page({
     }
   },
   bindSave: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/fx/apply"
     })
   },
   goShop: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.switchTab({
       url: '/pages/index/index',
     })

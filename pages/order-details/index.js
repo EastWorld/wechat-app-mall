@@ -1,6 +1,6 @@
 const app = getApp();
 const CONFIG = require('../../config.js')
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 Page({
     data:{
       orderId:0,
@@ -17,7 +17,7 @@ Page({
     },
     onShow : function () {
       var that = this;
-      WXAPI.orderDetail(that.data.orderId, wx.getStorageSync('token')).then(function (res) {
+      WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
         if (res.code != 0) {
           wx.showModal({
             title: '错误',
@@ -50,17 +50,13 @@ Page({
     confirmBtnTap:function(e){
       let that = this;
       let orderId = this.data.orderId;
-      WXAPI.addTempleMsgFormid({
-        token: wx.getStorageSync('token'),
-        type: 'form',
-        formId: e.detail.formId
-      })
+      WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
       wx.showModal({
           title: '确认您已收到商品？',
           content: '',
           success: function(res) {
             if (res.confirm) {
-              WXAPI.orderDelivery(orderId, wx.getStorageSync('token')).then(function (res) {
+              WXAPI.orderDelivery(wx.getStorageSync('token'), orderId).then(function (res) {
                 if (res.code == 0) {
                   that.onShow();
                   // 模板消息，提醒用户进行评价
@@ -87,11 +83,7 @@ Page({
     },
     submitReputation: function (e) {
       let that = this;
-      WXAPI.addTempleMsgFormid({
-        token: wx.getStorageSync('token'),
-        type: 'form',
-        formId: e.detail.formId
-      })
+      WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
       let postJsonString = {};
       postJsonString.token = wx.getStorageSync('token');
       postJsonString.orderId = this.data.orderId;

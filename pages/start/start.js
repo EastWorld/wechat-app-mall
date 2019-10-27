@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const CONFIG = require('../../config.js')
 //获取应用实例
 var app = getApp();
@@ -51,11 +51,7 @@ Page({
     })
   },
   goToIndex: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     if (app.globalData.isConnected) {
       wx.setStorage({
         key: 'app_show_pic_version',

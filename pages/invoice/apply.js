@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 Page({
@@ -89,11 +89,7 @@ Page({
   },
   async bindSave(e) {
     // 提交保存
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const _this = this;
     let comName = e.detail.value.comName;
     let tfn = e.detail.value.tfn;

@@ -1,4 +1,4 @@
-const WXAPI = require('../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 
 /**
  * type: order 支付订单 recharge 充值 paybill 优惠买单
@@ -44,11 +44,7 @@ function wxpay(type, money, orderId, redirectUrl, data) {
         },
         success: function () {
           // 保存 formid
-          WXAPI.addTempleMsgFormid({
-            token: wx.getStorageSync('token'),
-            type: 'pay',
-            formId: res.data.prepayId
-          })
+          WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'pay', res.data.prepayId)
           // 提示支付成功
           wx.showToast({
             title: '支付成功'

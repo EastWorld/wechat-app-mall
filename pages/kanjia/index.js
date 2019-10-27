@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const app = getApp();
 const WxParse = require('../../wxParse/wxParse.js');
 
@@ -81,7 +81,7 @@ Page({
   },
   getKanjiaInfoMyHelp: function(kjid, joiner) {
     var that = this;
-    WXAPI.kanjiaHelpDetail(kjid, joiner, wx.getStorageSync('token')).then(function(res) {
+    WXAPI.kanjiaHelpDetail(wx.getStorageSync('token'), kjid, joiner).then(function(res) {
       if (res.code == 0) {
         that.setData({
           kanjiaInfoMyHelp: res.data,
@@ -92,7 +92,7 @@ Page({
   },
   helpKanjia: function() {
     var that = this;
-    WXAPI.kanjiaHelp(that.data.kjId, that.data.joiner, wx.getStorageSync('token'), '').then(function(res) {
+    WXAPI.kanjiaHelp(wx.getStorageSync('token'), that.data.kjId, that.data.joiner, '').then(function(res) {
       if (res.code != 0) {
         wx.showModal({
           title: '错误',

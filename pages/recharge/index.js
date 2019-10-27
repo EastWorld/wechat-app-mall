@@ -1,5 +1,5 @@
 const wxpay = require('../../utils/pay.js')
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 import drawQrcode from '../../utils/weapp.qrcode.min.js'
 const app = getApp()
 Page({
@@ -97,11 +97,7 @@ Page({
 
   },
   bindSave: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const that = this;
     const amount = e.detail.value.amount;
 

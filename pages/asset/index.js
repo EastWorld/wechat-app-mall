@@ -1,5 +1,5 @@
 const app = getApp()
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
@@ -204,31 +204,19 @@ Page({
   },
 
   recharge: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/recharge/index"
     })
   },
   withdraw: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/withdraw/index"
     })
   },
   payDeposit: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/deposit/pay"
     })

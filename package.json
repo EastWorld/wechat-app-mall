@@ -1,0 +1,28 @@
+{
+  "name": "wechat-app-mall",
+  "version": "7.0.0",
+  "description": "微信小程序商城，微信小程序微店",
+  "main": "app.js",
+  "dependencies": {
+    "apifm-wxapi": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EastWorld/wechat-app-mall.git"
+  },
+  "keywords": [
+    "微店",
+    "小店",
+    "微商城"
+  ],
+  "author": "gooking",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EastWorld/wechat-app-mall/issues"
+  },
+  "homepage": "https://github.com/EastWorld/wechat-app-mall#readme"
+}

@@ -1,6 +1,6 @@
 const wxpay = require('../../utils/pay.js')
 const app = getApp()
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 Page({
@@ -26,7 +26,7 @@ Page({
       content: '',
       success: function(res) {
         if (res.confirm) {
-          WXAPI.orderClose(orderId, wx.getStorageSync('token')).then(function(res) {
+          WXAPI.orderClose(wx.getStorageSync('token'), orderId).then(function(res) {
             if (res.code == 0) {
               that.onShow();
             }
@@ -109,7 +109,7 @@ Page({
     const _this = this
     if (money <= 0) {
       // 直接使用余额支付
-      WXAPI.orderPay(orderId, wx.getStorageSync('token')).then(function (res) {
+      WXAPI.orderPay(wx.getStorageSync('token'), orderId).then(function (res) {
         _this.onShow();
       })
     } else {

@@ -1,5 +1,5 @@
 const app = getApp()
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 Page({
@@ -175,11 +175,7 @@ Page({
         that.getMyCoupons();
         return;
       }
-      WXAPI.addTempleMsgFormid({
-        token: wx.getStorageSync('token'),
-        type: 'form',
-        formId: e.detail.formId
-      })
+      WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
       // 配置模板消息推送
       var postJsonString = {};
       postJsonString.keyword1 = {
@@ -246,7 +242,7 @@ Page({
     WXAPI.defaultAddress(wx.getStorageSync('token')).then(function (res) {
       if (res.code == 0) {
         that.setData({
-          curAddressData: res.data
+          curAddressData: res.data.info
         });
       } else {
         that.setData({

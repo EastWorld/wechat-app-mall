@@ -1,4 +1,4 @@
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
@@ -88,11 +88,7 @@ Page({
     });
   },
   getCounponByPwd(e){ // 通过优惠码领取优惠券
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const _this = this;
     const pwd = e.detail.value.pwd;
     if(!pwd){

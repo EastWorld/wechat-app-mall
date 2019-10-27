@@ -1,5 +1,5 @@
 const regeneratorRuntime = require('../../utils/runtime')
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 Page({
   data: {
     orderId: 1,
@@ -121,11 +121,7 @@ Page({
   },
   async bindSave (e) {
     // 提交保存
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
+    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const _this = this;
     // _this.data.orderId
     // _this.data.type
@@ -142,15 +138,16 @@ Page({
     // 上传图片
     await _this.uploadPics()
     // _this.data.pics
-    WXAPI.refundApply(wx.getStorageSync('token'),
-      _this.data.orderId,
-      _this.data.type,
-      _this.data.logisticsStatus,
-      _this.data.reasons[_this.data.reasonIndex],
+    WXAPI.refundApply({
+      token: wx.getStorageSync('token'),
+      orderId: _this.data.orderId,
+      type: _this.data.type,
+      logisticsStatus: _this.data.logisticsStatus,
+      reason: _this.data.reasons[_this.data.reasonIndex],
       amount,
       remark,
-      _this.data.pics.join()
-    ).then(res => {
+      pic: _this.data.pics.join()
+    }).then(res => {
       if (res.code == 0) {
         wx.showModal({
           title: '成功',

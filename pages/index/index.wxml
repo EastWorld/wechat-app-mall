@@ -96,7 +96,7 @@
             <view class="weui-media-box__info__meta">原价:{{item.originalPrice}}</view>
             <view class="weui-media-box__info__meta" style='color:#e64340;'>底价:{{item.kanjiaPrice}}</view>
             <view class="weui-media-box__info__meta" style='float:right;'>
-              <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.goodsId}}">砍价</button>
+              <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}">砍价</button>
             </view>
           </view>
         </view>
@@ -143,7 +143,9 @@
       </view>
     </view>
   </view>
-  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="weui-loadmore weui-loadmore_line" style='margin-top:60rpx;margin-bottom:30rpx;'>
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多啦</view>
+  </view>
 </view>
 <view class='coupons-float' bindtap="goCoupons">
   <image src="/images/gift.png"></image>

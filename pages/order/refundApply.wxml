@@ -44,8 +44,10 @@
         <view class="weui-cell__hd">
           <view class="weui-label">退款金额</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input price" name='amount' value='{{amount}}' />
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input class="weui-input price" name='amount' value='{{amount}}' />
+          </view>
         </view>
       </view>
     </view>

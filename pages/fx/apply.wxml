@@ -6,8 +6,10 @@
       <view class="weui-cell__hd">
         <view class="weui-label">邀请人</view>
       </view>
-      <view class="weui-cell__bd">
-        <input class="weui-input" value="{{userDetail.referrer.nick}} (请确认)" disabled style='color:red;' />
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{userDetail.referrer.nick}} (请确认)" disabled style='color:red;' />
+        </view>
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -16,8 +18,10 @@
           <text style='color:red;'>*</text>
         </view>
       </view>
-      <view class="weui-cell__bd">
-        <input name="name" class="weui-input" placeholder="请输入真实姓名" />
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <input name="name" class="weui-input" placeholder="请输入真实姓名" />
+        </view>
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -26,8 +30,10 @@
           <text style='color:red;'>*</text>
         </view>
       </view>
-      <view class="weui-cell__bd">
-        <input name="mobile" class="weui-input" placeholder="请输入手机号码" />
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <input name="mobile" class="weui-input" placeholder="请输入手机号码" />
+        </view>
       </view>
     </view>
   </view>

@@ -7,40 +7,50 @@
         <view class="weui-cell__hd">
           <view class="weui-label">名称</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input price" placeholder='请填写公司名称' name='comName'/>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input class="weui-input price" placeholder='请填写公司名称' name='comName'/>
+          </view>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">税号</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input price" placeholder='请填写开票税号' name='tfn'/>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input class="weui-input price" placeholder='请填写开票税号' name='tfn'/>
+          </view>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">发票内容</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input price" name='consumption' value='服务费' />
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input class="weui-input price" name='consumption' value='服务费' />
+          </view>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">工厂账号</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input price" name='mobile' placeholder='工厂注册的手机号码' />
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input class="weui-input price" name='mobile' placeholder='工厂注册的手机号码' />
+          </view>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">开票金额</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input price" name='amount' placeholder='0.00' />
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input class="weui-input price" name='amount' placeholder='0.00' />
+          </view>
         </view>
       </view>
     </view>

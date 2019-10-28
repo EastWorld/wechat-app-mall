@@ -119,12 +119,6 @@ swiper-item image {
   color:#e64340;
   margin-left: 24rpx;
 }
-.no-more-goods{
-  text-align: center;
-  font-size: 24rpx;
-  padding-bottom:48rpx; 
-  color: #999;
-}
 .notice{
   display: flex;
   justify-content: space-between;  

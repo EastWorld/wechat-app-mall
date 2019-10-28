@@ -3,7 +3,7 @@
   <view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
     <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay circular bindchange="swiperchange">
       <swiper-item wx:for="{{goodsDetail.pics}}" wx:key="id">
-        <image src="{{item.pic}}_m" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true" />
+        <image src="{{item.pic}}_m" class="slide-image" mode="aspectFill" lazy-load="true" />
       </swiper-item>
     </swiper>
   </view>

@@ -6,8 +6,10 @@
         <view class="weui-cell__hd">
           <view class="weui-label">消费金额</view>
         </view>
-        <view class="weui-cell__bd">
-          <input name="amount" type="digit" class="weui-input" placeholder="请询问服务员后输入" />
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <input name="amount" type="digit" class="weui-input" placeholder="请询问服务员后输入" />
+          </view>
         </view>
       </view>
     </view>

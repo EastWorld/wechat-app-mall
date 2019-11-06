@@ -3,7 +3,6 @@
     "pages/start/start",
     "pages/index/index",
     "pages/goods-details/index",
-    "pages/goods-details/poster",
     "pages/shop-cart/index",
     "pages/to-pay-order/index",
     "pages/select-address/index",

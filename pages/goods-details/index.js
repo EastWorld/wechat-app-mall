@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const app = getApp();
 const WxParse = require('../../wxParse/wxParse.js');
+import ApifmShare from '../../template/share/index.js';
 const CONFIG = require('../../config.js')
 const AUTH = require('../../utils/auth')
 const SelectSizePrefix = "选择："
@@ -25,11 +26,9 @@ Page({
     canSubmit: false, //  选中规格尺寸时候是否允许加入购物车
     shopCarInfo: {},
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
-    currentPages: undefined,
-
-    openShare: false
   },
   async onLoad(e) {
+    ApifmShare.init(this)
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
       if (scene) {
@@ -104,8 +103,7 @@ Page({
         selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
         totalScoreToPay: goodsDetailRes.data.basicInfo.minScore,
         buyNumMax: goodsDetailRes.data.basicInfo.stores,
-        buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0,
-        currentPages: getCurrentPages()
+        buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0
       }
       if (goodsKanjiaSetRes.code == 0) {
         _data.curGoodsKanjia = goodsKanjiaSetRes.data
@@ -635,21 +633,6 @@ Page({
         showCancel: false
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
-    })
-  },
-  openShareDiv () {
-    this.setData({
-      openShare: true
-    })
-  },
-  closeShareDiv() {
-    this.setData({
-      openShare: false
-    })
-  },
-  toPoster: function (e) { // 千万生成海报界面
-    wx.navigateTo({
-      url: "/pages/goods-details/poster?goodsid=" + e.currentTarget.dataset.goodsid
     })
   }
 })

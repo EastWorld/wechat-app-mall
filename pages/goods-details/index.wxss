@@ -1,4 +1,5 @@
 @import "/wxParse/wxParse.wxss";
+@import "/template/share/index.wxss";
 
 .container {
   background-color: #F2f2f2;
@@ -47,42 +48,10 @@ swiper-item image {
   width: 100%;
   position: relative;
 }
-
 .goods-info-fx {
   position: absolute;
-  width: 50px;
-  height: 60px;
-  right: 0;
-  top: 0;
-}
-
-.goods-info-fx button {
-  position: absolute;
-  width: 50px;
-  height: 60px;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  opacity: 0;
-}
-
-.goods-info-fx image {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  margin: 10px 10px 0 5px;
-}
-
-.goods-info-fx text {
-  position: absolute;
-  bottom: 3px;
-  left: 0;
-  z-index: 1;
-  font-size: 10px;
-  text-align: center;
+  right: 35rpx;
+  bottom: 60rpx;
 }
 .goods-info .goods-title{
   box-sizing: border-box;
@@ -91,7 +60,6 @@ swiper-item image {
   line-height: 1.4;
   color: #000;
   margin-bottom: 28rpx;
-  padding-right: 60px;
 }
 .goods-info .goods-share{
   box-sizing: border-box;
@@ -101,13 +69,22 @@ swiper-item image {
   color: #CC0000;
   margin-bottom: 28rpx;
 }
-.goods-info .goods-price{
-   box-sizing:border-box;
+.goods-profile {
+  display: flex;
+  align-items:center;
+}
+.goods-profile .p{
    color:#e64340;
-   font-size: 28rpx;
-   font-weight: bold;
-   width: 30%;
-   float:left;
+   font-size: 20pt;
+   margin-left: 30rpx;
+}
+.goods-profile .p text{
+   font-size: 12pt;
+}
+.goods-profile .r{
+   color:#ccc;
+   font-size: 10pt;
+   margin-left: 30rpx;
 }
 .row-arrow{
   width: 100%;
@@ -344,22 +321,6 @@ swiper-item image {
 }
 .buy-num-box .num-box .hui{
   background-color: #f5f5f9;
-}
-.goIndex {
-  position:fixed;
-  right:20rpx;
-  bottom:200rpx;
-  width:80rpx;
-  height:80rpx;
-  border-radius:15px;
-  background-color: #fff;
-  text-align: center;
-
-}
-.goIndex-icon {
-  width:50rpx;
-  height:50rpx;
-  margin-top: 15rpx;
 }
 .curKanjiaprogress {
   width:750rpx;

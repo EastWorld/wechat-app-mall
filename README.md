@@ -25,7 +25,7 @@
 
 本项目为小程序商城纯前端项目，由于人力和精力所限，本项目并未有开发配套的后台系统，而是直接使用了 [api 工厂](https://www.it120.cc/) 提供的免费接口和后台，可以完全满足本项目的所有功能需求。
 
-- [接口 SDK](https://github.com/gooking/wxapi)
+- [接口 SDK](https://github.com/gooking/apifm-wxapi)
 
 - [免费后台](https://admin.it120.cc)
 
@@ -101,15 +101,15 @@ module.exports = {
 */
 ```
 
-4、[设置小程序合法服务器域名](https://www.it120.cc/info/faq/10469)
+4、[设置小程序合法服务器域名](https://www.yuque.com/apifm/doc/tvpou9)
 
 5、重启您的小程序开发工具，完成
 
 6、如何在后台管理小程序启动图和首页头部的轮播 banner 图片
 
-```javascript
+```
 这两个功能都是使用后台 “系统设置” --> “banner” 管理功能来实现的；
-后台发布banner的时候，自定义类型请分别填写  app  和  index；
+后台发布banner的时候，自定义类型请分别填写  app  和  new
 小程序会自动读取类型为 app 的banner图片作为启动展示图片；
 小程序会自动读取类型为 new 的banner图片作为首页分类下的轮播图；
 ```
@@ -146,7 +146,7 @@ module.exports = {
   
   **新注册用户是否自动成为分销商，如果不开启该参数，分销商需要自己申请，你进行审核**
   
-  [《api工厂三级分销插件使用教程》](https://www.jianshu.com/p/22d98c9bd77a)
+  [《api工厂三级分销插件使用教程》](https://www.yuque.com/apifm/doc/pgfwvu)
 
 ## 常见问题
 
@@ -163,7 +163,7 @@ module.exports = {
 
 - 登录后台发布您自己的商品
 
-- [如何给 Banner 增加链接，点击打开某个商品？](https://www.it120.cc/info/wechat-app-mall/10477)
+- [如何给 Banner 增加链接，点击打开某个商品？](https://www.yuque.com/apifm/doc/wv5p5l)
 
 - 工厂后台设置 appid、secret、微信支付商户号和秘钥时候的 token 怎么填？
 
@@ -235,7 +235,7 @@ module.exports = {
 
   <img src="https://dcdn.it120.cc/2019/09/05/31729239-dc73-47f6-938a-9ab2c9c0bfdd.png">
 
-- [更多问题？](https://www.it120.cc/info/all)
+- [更多问题？](https://www.yuque.com/apifm/doc)
 
 - 如何删除小程序源码中的广告位？
 

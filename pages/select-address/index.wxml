@@ -12,8 +12,9 @@
              <view class="right-edit" bindtap="editAddess" data-id="{{item.id}}"></view> 
         </view>
     </view>
-    <view class="bottom-box">
-        <view class="add-btn" bindtap="addAddess">新增收货地址</view>
+    <view class="bottom-box-container safeAreaOldPaddingBttom safeAreaNewPaddingBttom">
+      <view class="bottom-box">
+          <view class="add-btn" bindtap="addAddess">新增收货地址</view>
+      </view>
     </view>
-
 </view>

@@ -2,6 +2,7 @@ const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const TOOLS = require('../../utils/tools.js')
 
 Page({
 	data: {
@@ -37,6 +38,8 @@ Page({
         _this.getUserAmount();
       }
     })
+    // 获取购物车数据，显示TabBarBadge
+    TOOLS.showTabBarBadge();
   },
   onGotUserInfo(e){
     if (!e.detail.userInfo) {

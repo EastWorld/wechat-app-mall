@@ -37,6 +37,6 @@
         <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
       </view>
     </view>
-
   </view>
+  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>

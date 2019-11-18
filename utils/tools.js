@@ -5,12 +5,12 @@ function showTabBarBadge(){
     success: function (res) {
       if (res.data.shopNum > 0) {
         wx.setTabBarBadge({
-          index: 1,
+          index: 2,
           text: `${res.data.shopNum}`
         });
       } else {
         wx.removeTabBarBadge({
-          index: 1
+          index: 2
         });
       }
     }

@@ -21,26 +21,6 @@ swiper-item image {
   overflow: hidden;
   height:748rpx;
 }
-.swiper-container .dots{  
-  position: absolute;  
-  left: 0;  
-  right: 0;  
-  bottom: 20rpx;  
-  display: flex;  
-  justify-content: center;  
-}  
-.swiper-container .dots .dot{  
-  margin: 0 8rpx;  
-  width: 14rpx;  
-  height: 14rpx;  
-  background: #000;  
-  border-radius: 50%;  
-  transition: all .6s;  
-  opacity: .3;
-}  
-.swiper-container .dots .dot.active{  
-  opacity: .6;
-}
 .goods-info{
   background-color: #fff;
   padding: 35rpx 0;

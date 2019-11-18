@@ -14,8 +14,6 @@ export default {
     page._saveToMobile = this._saveToMobile;
   },
   _createPoster(e) {
-    goodsDetail = e.currentTarget.dataset.d;
-    console.log(goodsDetail);
     wx.showLoading({
       title: '正在生成海报',
     });

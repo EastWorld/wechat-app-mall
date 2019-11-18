@@ -15,3 +15,16 @@
   height:20rpx;
   background-color: #F2f2f2;
 }
+.safeAreaOldPaddingBttom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safeAreaNewPaddingBttom{
+  padding-bottom: constant(safe-area-inset-bottom);  
+}
+
+.safeAreaOldMarginBttom {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+.safeAreaNewMarginBttom{
+  margin-bottom: constant(safe-area-inset-bottom);  
+}

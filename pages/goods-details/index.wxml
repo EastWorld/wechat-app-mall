@@ -183,7 +183,7 @@
   <view class='kjBuyButton' wx:if="{{curGoodsKanjia}}">
     <button class="weui-btn" type="warn" bindtap="tobuy">用当前价购买</button>
   </view>
-  <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
+  <view wx:if="{{!curGoodsKanjia}}" class="footer-box safeAreaOldPaddingBttom safeAreaNewPaddingBttom">
     <view class="contact">
       <contact-button style="opacity:0;position:absolute;" type="default-dark" session-from="weapp" size="27"></contact-button>
       <view style='position:absolute;bottom:10rpx;'> 客服 </view>
@@ -231,14 +231,15 @@
           <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
         </view>
       </view>
-      <view class="popup-join-btn" wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar">
-        加入购物车
+      <view class="safeAreaOldPaddingBttom safeAreaNewPaddingBttom" wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar">
+        <view class="popup-join-btn">加入购物车</view>
       </view>
-      <view class="popup-join-btn" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindtap="buyNow">
-        立即购买
+      <view class="safeAreaOldPaddingBttom safeAreaNewPaddingBttom" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindtap="buyNow">
+        <view class="popup-join-btn">立即购买</view>
       </view>
     </view>
   </view>
+  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>
 
 <block wx:if="{{posterShow}}">

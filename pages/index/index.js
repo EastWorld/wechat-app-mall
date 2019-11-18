@@ -1,5 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('../../config.js')
+const TOOLS = require('../../utils/tools.js')
+
 //获取应用实例
 var app = getApp()
 Page({
@@ -133,6 +135,10 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
+  },
+  onShow: function(e){
+    // 获取购物车数据，显示TabBarBadge
+    TOOLS.showTabBarBadge();
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop

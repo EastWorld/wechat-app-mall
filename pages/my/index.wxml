@@ -1,9 +1,9 @@
 <import src="/template/login/index.wxml" />
 
 <view class="container">
-	<view wx:if="{{userInfo}}" class="userinfo">
-		<image wx:if="{{userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+	<view wx:if="{{apiUserInfoMap}}" class="userinfo">
+		<image wx:if="{{apiUserInfoMap.base.avatarUrl}}" class="userinfo-avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" background-size="cover"></image>
+		<text class="userinfo-nickname">{{ apiUserInfoMap.base.nick }}</text>
 	</view>
   <view wx:else class="userinfo" style="margin-bottom:50rpx;">
 		<image class="userinfo-avatar" src="/images/nologin.png" background-size="cover"></image>

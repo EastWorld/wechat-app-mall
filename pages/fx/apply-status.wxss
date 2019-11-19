@@ -1,3 +1,5 @@
+@import "/template/login/index.wxss";
+
 .noApply {
   margin-top: 150rpx;
   text-align: center;

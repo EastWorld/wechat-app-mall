@@ -1,5 +1,6 @@
 <import src="../../wxParse/wxParse.wxml" />
 <import src="/template/share/index.wxml" />
+<import src="/template/login/index.wxml" />
 <view class="container">
   <view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
     <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
@@ -251,3 +252,5 @@
     <button type="default" size="mini" bindtap='_saveToMobile'> 保存图片 </button>
   </view>
 </block>
+
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

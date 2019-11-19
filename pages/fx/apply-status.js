@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    wxlogin: true,
+
     applyStatus: -2, // -1 表示未申请，0 审核中 1 不通过 2 通过
     applyInfo: {},
     canvasHeight: 0,
@@ -38,30 +40,11 @@ Page({
   onShow() {
     const _this = this
     AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
       if (isLogined) {
         this.doneShow();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              if (getCurrentPages().length == 1) {
-                wx.switchTab({
-                  url: "/pages/index/index"
-                })
-              } else {
-                wx.navigateBack()
-              }
-            }
-          }
-        })
       }
     })
   },
@@ -71,7 +54,9 @@ Page({
     WXAPI.fxApplyProgress(wx.getStorageSync('token')).then(res => {
       let applyStatus = userDetail.data.base.isSeller ? 2 : -1
       if (res.code == 2000) {
-        app.goLoginPageTimeOut()
+        this.setData({
+          wxlogin: false
+        })
         return
       }
       if (res.code === 700) {
@@ -223,5 +208,20 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     });
-  }
+  },
+  cancelLogin() {
+    wx.switchTab({
+      url: '/pages/my/index'
+    })
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
 })

@@ -10,6 +10,8 @@ let videoAd = null; // 视频激励广告
 
 Page({
   data: {
+    wxlogin: true,
+
     goodsDetail: {},
     hasMoreSelect: false,
     selectSize: SelectSizePrefix,
@@ -592,6 +594,9 @@ Page({
   helpKanjia() {
     const _this = this;
     AUTH.checkHasLogined().then(isLogined => {
+      _this.setData({
+        wxlogin: isLogined
+      })
       if (isLogined) {
         if (CONFIG.kanjiaRequirePlayAd) {
           // 显示激励视频广告
@@ -609,8 +614,6 @@ Page({
         } else {
           _this.helpKanjiaDone()
         }
-      } else {
-        app.goLoginPageTimeOut()
       }
     })
   },
@@ -634,5 +637,20 @@ Page({
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
     })
-  }
+  },
+  cancelLogin() {
+    this.setData({
+      wxlogin: true
+    })
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
 })

@@ -1,3 +1,5 @@
+@import "/template/login/index.wxss";
+
 .asset {
   display: flex;
   padding-top:50rpx;

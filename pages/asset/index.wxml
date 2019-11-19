@@ -1,3 +1,5 @@
+<import src="/template/login/index.wxml" />
+
 <view wx:if="{{ rechargeOpen }}" class="asset">
   <view class='item'>
     <view>可用余额(元)</view>
@@ -75,3 +77,5 @@
     </view>
   </view>
 </view>
+
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

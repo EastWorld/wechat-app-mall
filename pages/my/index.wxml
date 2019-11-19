@@ -1,3 +1,5 @@
+<import src="/template/login/index.wxml" />
+
 <view class="container">
 	<view wx:if="{{userInfo}}" class="userinfo">
 		<image wx:if="{{userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
@@ -112,3 +114,5 @@
   <view class="version">Powered by EastWorld v {{version}}</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
 </view>
+
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

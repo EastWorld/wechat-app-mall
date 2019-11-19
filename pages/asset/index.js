@@ -1,6 +1,7 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+import ApifmLogin from '../../template/login/index.js';
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
@@ -10,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    wxlogin: true,
     balance: 0.00,
     freeze: 0,
     score: 0,
@@ -31,6 +33,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    ApifmLogin.init(this)
     const that = this;
     wx.getSystemInfo({
       success: function (res) {
@@ -63,24 +66,11 @@ Page({
    */
   onShow: function () {
     AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
       if (isLogined) {
         this.doneShow();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              wx.navigateBack()
-            }
-          }
-        })
       }
     })
   },
@@ -88,7 +78,9 @@ Page({
     const _this = this
     const token = wx.getStorageSync('token')
     if (!token) {
-      app.goLoginPageTimeOut()
+      this.setData({
+        wxlogin: false
+      })
       return
     }
     WXAPI.userAmount(token).then(function (res) {
@@ -100,7 +92,9 @@ Page({
         return
       }
       if (res.code == 2000) {
-        app.goLoginPageTimeOut()
+        this.setData({
+          wxlogin: false
+        })
         return
       }
       if (res.code == 0) {
@@ -227,5 +221,20 @@ Page({
       activeIndex: e.currentTarget.id
     });
     this.fetchTabData(e.currentTarget.id)
-  }
+  },
+  cancelLogin(){
+    wx.switchTab({
+      url: '/pages/my/index'
+    })
+  },
+  processLogin(e){
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
 })

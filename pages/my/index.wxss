@@ -1,3 +1,6 @@
+@import "/template/login/index.wxss";
+
+
 .container{
   min-height: 100%;
   overflow: hidden;

@@ -1,3 +1,4 @@
+@import "/template/login/index.wxss";
 .container{
     background-color:#F2f2f2;
     padding-bottom: 100rpx;

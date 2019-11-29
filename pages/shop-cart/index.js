@@ -339,10 +339,7 @@ Page({
           }
         })
       } else {
-        WXAPI.goodsPrice({
-          goodsId: carShopBean.goodsId,
-          propertyChildIds: carShopBean.propertyChildIds
-        }).then(function(res) {
+        WXAPI.goodsPrice(carShopBean.goodsId, carShopBean.propertyChildIds).then(function(res) {
           doneNumber++;
           if (res.data.stores < carShopBean.number) {
             wx.showModal({

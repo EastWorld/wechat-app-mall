@@ -4,6 +4,8 @@ const AUTH = require('../../utils/auth')
 
 Page({
   data: {
+    wxlogin: true,
+
     totalScoreToPay: 0,
     goodsList: [],
     isNeedLogistics: 0, // 是否需要物流信息
@@ -26,20 +28,8 @@ Page({
       if (isLogined) {
         this.doneShow()
       } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              wx.navigateBack()
-            }
-          }
+        this.setData({
+          wxlogin: isLogined
         })
       }
     })
@@ -338,5 +328,18 @@ Page({
     this.setData({
       peisongType: e.detail.value
     })
-  }
+  },
+  cancelLogin() {
+    wx.navigateBack()
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
 })

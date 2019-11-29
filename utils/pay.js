@@ -36,7 +36,7 @@ function wxpay(type, money, orderId, redirectUrl, data) {
         timeStamp: res.data.timeStamp,
         nonceStr: res.data.nonceStr,
         package: 'prepay_id=' + res.data.prepayId,
-        signType: 'MD5',
+        signType: res.data.signType,
         paySign: res.data.sign,
         fail: function (aaa) {
           wx.showToast({

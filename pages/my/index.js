@@ -36,9 +36,6 @@ Page({
         wxlogin: isLogined
       })
       if (isLogined) {
-        _this.setData({
-          userInfo: wx.getStorageSync('userInfo')
-        })
         _this.getUserApiInfo();
         _this.getUserAmount();
       }
@@ -55,7 +52,6 @@ Page({
       return;
     }
     if (app.globalData.isConnected) {
-      wx.setStorageSync('userInfo', e.detail.userInfo)
       AUTH.register(this);
     } else {
       wx.showToast({

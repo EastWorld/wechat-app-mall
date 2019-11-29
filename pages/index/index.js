@@ -14,7 +14,6 @@ Page({
     pingtuanList: [], //拼团商品列表
 
     loadingHidden: false, // loading
-    userInfo: {},
     selectCurrent: 0,
     categories: [],
     activeCategoryId: 0,

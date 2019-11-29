@@ -102,7 +102,7 @@
   <view class="my-item" bindtap="aboutUs">
     关于我们
   </view>
-  <view wx:if="{{userInfo}}" class="my-item" bindtap="loginOut" style="color:red;font-weight:bold;">
+  <view wx:if="{{apiUserInfoMap}}" class="my-item" bindtap="loginOut" style="color:red;font-weight:bold;">
     退出登录
   </view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>

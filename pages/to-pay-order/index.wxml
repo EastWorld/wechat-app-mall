@@ -1,3 +1,4 @@
+<import src="/template/login/index.wxml" />
 <view class="container">
      <form bindsubmit="createOrder" report-submit="true">     
      <view class="goods-list">
@@ -84,3 +85,5 @@
     </view>
     </form>
 </view>
+
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

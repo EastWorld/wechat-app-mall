@@ -80,7 +80,6 @@ async function register(page) {
 function loginOut(){
   wx.removeStorageSync('token')
   wx.removeStorageSync('uid')
-  wx.removeStorageSync('userInfo')
 }
 
 module.exports = {

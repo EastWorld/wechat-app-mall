@@ -20,8 +20,8 @@
   overflow: hidden;
 }
 .category-imgbox{
-  width:60rpx;
-  height:60rpx;
+  width:80rpx;
+  height:80rpx;
 }
 .category-title{
   font-size: 24rpx;

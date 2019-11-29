@@ -53,25 +53,30 @@ Page({
       }
     })
     this.reputation(e.id);
-    // 视频激励广告信息
-    if (wx.createRewardedVideoAd) {
-      videoAd = wx.createRewardedVideoAd({
-        adUnitId: 'adunit-12c4520ad7c062eb'
-      })
-      videoAd.onLoad(() => { console.log('-----------onLoad') })
-      videoAd.onError((err) => { })
-      videoAd.onClose((res) => { 
-        if (res && res.isEnded) {
-          that.helpKanjiaDone();
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '完整观看完视频才能砍价',
-            showCancel: false
-          })
-        }
-      })
-    }
+    this.initAd();
+  },
+  initAd(){
+    setTimeout(()=>{
+      // 视频激励广告信息
+      if (wx.createRewardedVideoAd) {
+        videoAd = wx.createRewardedVideoAd({
+          adUnitId: 'adunit-12c4520ad7c062eb'
+        })
+        videoAd.onLoad(() => { })
+        videoAd.onError((err) => { })
+        videoAd.onClose((res) => {
+          if (res && res.isEnded) {
+            that.helpKanjiaDone();
+          } else {
+            wx.showModal({
+              title: '提示',
+              content: '完整观看完视频才能砍价',
+              showCancel: false
+            })
+          }
+        })
+      }
+    }, 500)
   },
   onShow (){
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
@@ -353,18 +358,8 @@ Page({
       } else {
         WXAPI.pingtuanOpen(wx.getStorageSync('token'), that.data.goodsDetail.basicInfo.id).then(function(res) {
           if (res.code == 2000) {
-            wx.showModal({
-              title: '提示',
-              content: '本次操作需要您的登录授权',
-              cancelText: '暂不登录',
-              confirmText: '前往登录',
-              success(res) {
-                if (res.confirm) {
-                  wx.switchTab({
-                    url: "/pages/my/index"
-                  })
-                }
-              }
+            that.setData({
+              wxlogin: false
             })
             return
           }
@@ -542,18 +537,8 @@ Page({
       if (isLogined) {
         this.doneJoinKanjia();
       } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            }
-          }
+        this.setData({
+          wxlogin: false
         })
       }
     })

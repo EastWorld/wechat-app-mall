@@ -1,4 +1,3 @@
-const regeneratorRuntime = require('../../utils/runtime')
 const WXAPI = require('apifm-wxapi')
 Page({
   data: {

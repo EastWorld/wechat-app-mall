@@ -4,6 +4,12 @@
 
 使用说明和常见问题，可参阅下面的说明，如还有疑问，可访问工厂官网 [https://www.it120.cc/](https://www.it120.cc/) 寻求帮助！
 
+# 今日头条/抖音小程序版本
+
+本项目的今日头条/抖音小程序版本，请移步至下面的地址：
+
+[https://github.com/EastWorld/tt-app-mall](https://github.com/EastWorld/tt-app-mall)
+
 ## 扫码体验
 
 <img src="https://cdn.it120.cc/apifactory/2019/06/28/a8304003-3218-4a47-95cf-84d82ebdc07b.jpg" width="200px">
@@ -40,25 +46,6 @@
 点击 “立即克隆” ，然后退出后台重新登录
 
 你将立即享有初始化测试数据，方便你进行测试
-
-## 关于分类页面
-
-感谢 @yrx0910 编写并提交了分类页面；
-
-不过新增的分类页面视觉美观度上稍欠缺，所以，项目模块并未开启分类页面；
-
-期待后面可以有朋友协助美化~
-
-如果您先体验分类页面，可以在 app.json 中放开分类底部菜单的入口:
-
-```java
-{
-  "pagePath": "pages/category/category",
-  "iconPath": "images/nav/ic_catefory_normal.png",
-  "selectedIconPath": "images/nav/ic_catefory_pressed.png",
-  "text": "分类"
-}
-```
 
 ## 编译说明
 

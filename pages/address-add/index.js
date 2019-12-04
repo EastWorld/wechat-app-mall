@@ -1,5 +1,4 @@
 const WXAPI = require('apifm-wxapi')
-const regeneratorRuntime = require('../../utils/runtime')
 //获取应用实例
 var app = getApp()
 Page({

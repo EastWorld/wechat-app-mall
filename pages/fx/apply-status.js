@@ -167,13 +167,11 @@ Page({
     }
   },
   bindSave: function (e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/fx/apply"
     })
   },
   goShop: function (e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.switchTab({
       url: '/pages/index/index',
     })

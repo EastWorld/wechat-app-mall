@@ -94,7 +94,6 @@ Page({
   },
   async bindSave(e) {
     const _this = this    
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const amount = e.detail.value.amount;
     if (amount == "" || amount * 1 < 0) {
       wx.showToast({

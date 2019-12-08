@@ -44,8 +44,6 @@ function wxpay(type, money, orderId, redirectUrl, data) {
           })
         },
         success: function () {
-          // 保存 formid
-          WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'pay', res.data.prepayId)
           // 提示支付成功
           wx.showToast({
             title: '支付成功'

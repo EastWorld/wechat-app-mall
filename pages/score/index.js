@@ -123,13 +123,11 @@ Page({
   },
 
   recharge: function (e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/recharge/index"
     })
   },
   withdraw: function (e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     wx.navigateTo({
       url: "/pages/withdraw/index"
     })

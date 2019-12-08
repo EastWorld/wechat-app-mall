@@ -73,7 +73,6 @@ Page({
     if (!minWidthAmount) {
       minWidthAmount = 0
     }
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     var amount = e.detail.value.amount;
 
     if (!amount) {

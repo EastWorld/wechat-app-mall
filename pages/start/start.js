@@ -51,7 +51,6 @@ Page({
     })
   },
   goToIndex: function (e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     if (app.globalData.isConnected) {
       wx.setStorage({
         key: 'app_show_pic_version',

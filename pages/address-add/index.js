@@ -118,7 +118,6 @@ Page({
     })
   },
   bindSave: function(e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     var that = this;
     var linkMan = e.detail.value.linkMan;
     var address = e.detail.value.address;

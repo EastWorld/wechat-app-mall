@@ -65,7 +65,6 @@ Page({
 
   },
   bindSave: function (e) {
-    WXAPI.addTempleMsgFormid(wx.getStorageSync('token'), 'form', e.detail.formId)
     const that = this;
     const amount = e.detail.value.amount;
 

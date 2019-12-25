@@ -6,8 +6,7 @@ Page({
   data: {
     banners:[],
     swiperMaxNumber: 0,
-    swiperCurrent: 0,
-    height: wx.getSystemInfoSync().windowHeight
+    swiperCurrent: 0
   },
   onLoad:function(){
     const _this = this
@@ -62,6 +61,14 @@ Page({
     } else {
       wx.showToast({
         title: '当前无网络',
+        icon: 'none',
+      })
+    }
+  },
+  imgClick(){
+    if (this.data.swiperCurrent + 1 != this.data.swiperMaxNumber) {
+      wx.showToast({
+        title: '左滑进入',
         icon: 'none',
       })
     }

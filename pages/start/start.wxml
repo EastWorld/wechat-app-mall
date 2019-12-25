@@ -1,17 +1,8 @@
-<view class="container">
-  <view class="swiper-container">
-        <swiper class="swiper_box" bindchange="swiperchange">
-          <swiper-item wx:for="{{banners}}" wx:key="id">
-            <image bindtap="tapBanner" src="{{item.picUrl}}"/>
-          </swiper-item>
-        </swiper>
-        <view class="dots" wx:if="{{swiperCurrent + 1 < swiperMaxNumber}}">  
-          <view wx:for="{{banners}}" wx:key="id" class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
-        </view>  
-        <view class="dots" wx:if="{{swiperCurrent + 1 == swiperMaxNumber}}">
-          <form bindsubmit="goToIndex" report-submit="true">
-            <button type="primary" size="mini" form-type="submit" class="weui-btn mini-btn">进入店铺</button>
-          </form>
-        </view>
-   </view>
+<swiper class="swiper_box" bindchange="swiperchange" indicator-dots="true" indicator-active-color="#fff">
+  <swiper-item wx:for="{{banners}}" wx:key="id">
+    <image mode="aspectFill" bindtap="imgClick" src="{{item.picUrl}}" />
+  </swiper-item>
+</swiper>
+<view class="btn">
+  <button wx:if="{{swiperCurrent + 1 == swiperMaxNumber}}" type="primary" size="mini" bindtap="goToIndex" class="weui-btn mini-btn">进入店铺</button>
 </view>

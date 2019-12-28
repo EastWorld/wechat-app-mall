@@ -151,6 +151,11 @@ Page({
       wxlogin: true
     })
   },
+  goLogin() {
+    this.setData({
+      wxlogin: false
+    })
+  },
   processLogin(e) {
     if (!e.detail.userInfo) {
       wx.showToast({

@@ -23,10 +23,14 @@
       <view>积分</view>
     </view>
   </view>
-  <view style="height:10rpx;background: #eee;width:100%;"></view>
-  <view class="my-item">
-    <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
-  </view>
+  <view class="space"></view>
+  <navigator url="/pages/order-list/index">
+    <view class="menu-item">
+      <view class="l">我的订单</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
   <view class='order-shortcut'>
     <view class='item' bindtap='goOrder' data-type="0">
       <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
@@ -49,70 +53,146 @@
       <view class='text'>退款/售后</view>
     </view>
   </view>
-  <ad unit-id="adunit-588264b3e2362e1e"></ad>
-  <block wx:if="{{vipLevel > 0}}">
-  <view style="height:10rpx;background: #eee;width:100%;"></view>
-  <view class="my-item" wx:if="{{!apiUserInfoMap.base.isSeller}}">
-    <navigator url="/pages/fx/apply-status" hover-class="navigator-hover">成为分销商</navigator>
+  <ad unit-id="adunit-588264b3e2362e1e"></ad> 
+
+  <!-- flex布局的新菜单 -->
+  <!-- <view class="menu-item">
+    <view class="l">我的订单</view>
+    <image class="next" src="/images/icon/next.png"></image>
   </view>
-  <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">
-    <navigator url="/pages/fx/apply-status" hover-class="navigator-hover">分销中心</navigator>
+  <view class="space"></view>
+  <view class="line"></view>
+  <view class="menu-item">
+    <view class="l">我的订单</view>
+    <view class="r">内容</view>
   </view>
-  <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">
-    <navigator url="/pages/fx/members" hover-class="navigator-hover">我的团队</navigator>
-  </view>
-  <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">
-    <navigator url="/pages/fx/commisionLog" hover-class="navigator-hover">返佣明细</navigator>
-  </view>
-  </block>
+  <view class="line"></view>
+  <view class="menu-item">
+    <view class="l">我的订单</view>
+    <view class="r">内容</view>
+  </view> -->
 
   <block wx:if="{{vipLevel > 0}}">
-    <view style="height:10rpx;background: #eee;width:100%;"></view>
-    <view class="my-item">
-      <navigator url="/pages/invoice/apply" hover-class="navigator-hover">申请开票</navigator>
-    </view>
-    <view class="my-item">
-      <navigator url="/pages/invoice/list" hover-class="navigator-hover">开票记录</navigator>
-    </view>
+    <view class="space"></view>
+    <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
+      <view class="menu-item">
+        <view class="l">成为分销商</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </navigator>
+    <navigator wx:else url="/pages/fx/apply-status">
+      <view class="menu-item">
+        <view class="l">分销中心</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </navigator>
+    <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
+    <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/members">
+      <view class="menu-item">
+        <view class="l">我的团队</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </navigator>
+    <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
+    <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/commisionLog">
+      <view class="menu-item">
+        <view class="l">返佣明细</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </navigator>
   </block>
 
-  <view style="height:10rpx;background: #eee;width:100%;"></view>
-  <view class="my-item" wx:if="{{vipLevel > 0}}">
-    <navigator url="/pages/maidan/index" hover-class="navigator-hover">优惠买单</navigator>
+  <view class="space"></view>
+  <navigator url="/pages/invoice/apply">
+    <view class="menu-item">
+      <view class="l">申请开票</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/invoice/list">
+    <view class="menu-item">
+      <view class="l">开票记录</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+
+  <view class="space"></view>
+  <navigator url="/pages/maidan/index">
+    <view class="menu-item">
+      <view class="l">优惠买单</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/asset/index">
+    <view class="menu-item">
+      <view class="l">资金明细</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/sign/index">
+    <view class="menu-item">
+      <view class="l">每日签到</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/score-excharge/index">
+    <view class="menu-item">
+      <view class="l">积分兑换</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/select-address/index">
+    <view class="menu-item">
+      <view class="l">收货地址</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/coupons/index">
+    <view class="menu-item">
+      <view class="l">领券中心</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+
+  <view class="space"></view>
+  <view class="menu-item" bindtap="aboutUs">
+    <view class="l">关于我们</view>
+    <image class="next" src="/images/icon/next.png"></image>
   </view>
-  <view class="my-item">
-    <navigator url="/pages/asset/index" hover-class="navigator-hover">资金明细</navigator>
+  <view class="line"></view>
+  <view wx:if="{{userMobile}}" class="menu-item">
+    <view class="l">绑定手机</view>
+    <view class="r">{{ userMobile }}</view>
   </view>
-  <view class="my-item">
-    <navigator url="/pages/sign/index" hover-class="navigator-hover">每日签到</navigator>
+  <view  wx:else class="menu-item">
+    <view class="l">绑定手机</view>
+    <button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即绑定</button>
   </view>
-  <view class="my-item">
-    <navigator url="/pages/score-excharge/index" hover-class="navigator-hover">积分兑换</navigator>
-  </view>  
-  <view class="my-item">
-    <navigator url="/pages/select-address/index" hover-class="navigator-hover">收货地址</navigator>
+  <view class="line"></view>
+  <view wx:if="{{apiUserInfoMap}}" class="menu-item" bindtap="loginOut">
+    <view class="l">退出登录</view>
+    <image class="next" src="/images/icon/next.png"></image>
   </view>
-  <view class="my-item">
-    <navigator url="/pages/coupons/index" hover-class="navigator-hover">领券中心</navigator>
+  <view wx:else class="menu-item" bindtap="goLogin">
+    <view class="l">授权登录</view>
+    <image class="next" src="/images/icon/next.png"></image>
   </view>
-  <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
-    {{userMobile}}
-  </view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="my-item" bindtap="aboutUs">
-    关于我们
-  </view>
-  <view wx:if="{{apiUserInfoMap}}" class="my-item" bindtap="loginOut" style="color:red;font-weight:bold;">
-    退出登录
-  </view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view wx:if="{{!userMobile}}" class="bind-phone-number">
-    <button style="width:700rpx;" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
-  </view>
+
+  <!-- <view class="line"></view>
+  <view class="menu-item">
+    <view class="l">绑定官网账号</view>
+    <image class="next" src="/images/icon/next.png"></image>
+  </view> -->
   
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="space"></view>
   <view class="version">Powered by EastWorld v {{version}}</view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="space"></view>
 </view>
 
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

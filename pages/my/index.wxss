@@ -1,5 +1,9 @@
 @import "/template/login/index.wxss";
 
+page,view,image,input {
+  display: block;
+  box-sizing: border-box;
+}
 
 .container{
   min-height: 100%;
@@ -43,22 +47,20 @@
 }
 
 .version {
-  width:100%;
-  height: 40rpx;
-	line-height: 40rpx;
+  width:100vw;
 	font-size: 24rpx;
 	text-align: center;  
-  padding: 40rpx;
+  padding: 32rpx;
 }
 
 .my-item{
     width: 100%;
-    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
-    background-size: 16rpx auto,750rpx auto;
+    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 700rpx center;
+    background-size: 16rpx auto,700rpx auto;
     border-bottom: 1px solid #eee;
     height: 80rpx;
     line-height: 80rpx;
-    padding-left: 100rpx;
+    padding-left: 32rpx;
     font-size:14px;
 }
 
@@ -92,7 +94,6 @@
   font-size: 12px;
 }
 .to-authorize{
-  border: none;
   padding: 0rpx;
   margin: 0rpx;
   background: none;
@@ -104,4 +105,42 @@
 .bind-phone-number{
   margin: 20rpx;
   width: 100%;
+}
+/* flex重新构建菜单 */
+.menu-item {
+  width: 100vw;
+  height: 104rpx;
+  padding: 0 32rpx;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menu-item .l {
+  font-size:34rpx;
+  color:#333;
+  line-height:104rpx;
+}
+.menu-item .r {
+  font-size:32rpx;
+  color:#999;
+  line-height:104rpx;
+}
+.menu-item .next {
+  width: 40rpx;
+  height: 40rpx;
+}
+.menu-item button {
+  margin: 0;
+}
+.space {
+  width: 100vw;
+  height: 16rpx;
+  background: #F4F5F9;
+}
+.line {
+  width:718px;
+  height:1px;
+  background:#EEEEEE;
+  margin-left: 32rpx;
 }

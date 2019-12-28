@@ -1,0 +1,52 @@
+.float-menu-cover {
+  position: fixed;
+  right: 0;
+  bottom: 200rpx;
+  display: flex;
+  align-items: center;
+  padding: 16rpx;
+  background:rgba(0,0,0,0.7);
+  border-radius: 16rpx 0 0 16rpx;
+}
+.float-menu-cover-open {
+  right: 420rpx;
+}
+.float-menu-cover .arrows {
+  width: 34rpx;
+  height: 34rpx;
+}
+.float-menu-cover .r {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 10pt;
+  margin-left: 16rpx;
+}
+.float-menu-items {
+  width: 420rpx;
+  background: #fff;
+  position: fixed;
+  right: 0;
+  bottom: 180rpx;
+  border-radius: 16rpx 0 0 16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 32rpx;
+}
+.float-menu-items .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 32rpx;
+  margin-right: 16rpx;
+  margin-top: 32rpx;
+}
+.float-menu-items .item image {
+  width: 43rpx;
+  height: 43rpx;
+}
+.float-menu-items .item text {
+  margin-top: 8rpx;
+  color: #333;
+  font-size: 10pt;
+}

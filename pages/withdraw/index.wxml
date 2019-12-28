@@ -12,3 +12,4 @@
     <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
     </form>
 </view>
+<float-menu /> 

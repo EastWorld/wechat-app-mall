@@ -1,0 +1,40 @@
+<view wx:if="{{isClose}}" class="float-menu-cover" bindtap="open">
+  <image class="arrows" src="/images/icon/go-l.svg"></image>
+  <view class="r">
+    <text>快速</text>
+    <text>导航</text>
+  </view>
+</view>
+<view wx:else class="float-menu-cover float-menu-cover-open" bindtap="close">
+  <image class="arrows" src="/images/icon/go-r.svg"></image>
+  <view class="r">
+    <text>快速</text>
+    <text>导航</text>
+  </view>
+</view>
+<view wx:if="{{!isClose}}" class="float-menu-items">
+  <navigator url="/pages/index/index" open-type="switchTab">
+    <view class="item">
+      <image src="/images/nav/home-off.png"></image>
+      <text>首页</text>
+    </view>
+  </navigator>
+  <navigator url="/pages/category/category" open-type="switchTab">
+    <view class="item">
+      <image src="/images/nav/ic_catefory_normal.png"></image>
+      <text>分类</text>
+    </view>
+  </navigator>
+  <navigator url="/pages/shop-cart/index" open-type="switchTab">
+    <view class="item">
+      <image src="/images/nav/cart-off.png"></image>
+      <text>购物车</text>
+    </view>
+  </navigator>
+  <navigator url="/pages/my/index" open-type="switchTab">
+    <view class="item">
+      <image src="/images/nav/my-off.png"></image>
+      <text>我的</text>
+    </view>
+  </navigator>
+</view>

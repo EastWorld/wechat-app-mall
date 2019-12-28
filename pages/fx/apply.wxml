@@ -40,3 +40,5 @@
 <view class="weui-btn-area">
   <button class="weui-btn" type="primary" bindtap="bindSave">申请成为分销商</button>
 </view>
+
+<float-menu /> 

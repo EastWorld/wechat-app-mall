@@ -70,3 +70,5 @@
   </view>
   </form>
 </view>
+
+<float-menu /> 

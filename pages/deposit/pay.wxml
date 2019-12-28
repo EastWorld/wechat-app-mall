@@ -11,3 +11,5 @@
     <button type="warn" class="save-btn" formType="submit">立即支付</button>
   </form>
 </view>
+
+<float-menu /> 

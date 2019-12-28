@@ -73,5 +73,8 @@
   "navigateToMiniProgramAppIdList": [
     "wx56c8f077de74b07c"
   ],
+  "usingComponents": {
+    "float-menu": "/components/float-menu/index"
+  },
   "sitemapLocation": "sitemap.json"
 }

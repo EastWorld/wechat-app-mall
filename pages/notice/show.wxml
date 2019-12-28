@@ -7,3 +7,4 @@
       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
     </view>
 </view>
+<float-menu /> 

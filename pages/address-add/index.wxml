@@ -37,3 +37,5 @@
     <button type="default" class="save-btn" bindtap="deleteAddress" data-id="{{addressData.id}}" wx:if="{{addressData}}">删除该地址</button>
     </form>
 </view>
+
+<float-menu /> 

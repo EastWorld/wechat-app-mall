@@ -30,18 +30,9 @@ Page({
   },
 
   tabClick: function(e) {
-    let offset = e.currentTarget.offsetLeft;
-    if (offset > 150) {
-      offset = offset - 150
-    } else {
-      offset = 0;
-    }
-    this.setData({
-      activeCategoryId: e.currentTarget.id,
-      curPage: 1,
-      cateScrollTop: offset
-    });
-    this.getGoodsList(this.data.activeCategoryId);
+    wx.navigateTo({
+      url: '/pages/goods/list?categoryId=' + e.currentTarget.id,
+    })
   },
   toDetailsTap: function(e) {
     wx.navigateTo({
@@ -210,10 +201,9 @@ Page({
     })
   },
   toSearch: function() {
-    this.setData({
-      curPage: 1
-    });
-    this.getGoodsList(this.data.activeCategoryId);
+    wx.navigateTo({
+      url: '/pages/goods/list?name=' + this.data.inputVal,
+    })
   },
   onReachBottom: function() {
     this.setData({

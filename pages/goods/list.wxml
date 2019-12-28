@@ -1,0 +1,56 @@
+<view class="header">
+  <view class="search">
+    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+    <image src="/images/icon/search.svg"></image>
+  </view>
+  <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image>
+</view>
+<view class="line"></view>
+<view class="filters">
+  <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
+  <view class="item {{orderBy=='addedDown'?'active':''}}" data-val="addedDown" bindtap="filter">新品</view>
+  <view class="item {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">销量</view>
+  <view class="item {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">价格</view>
+</view>
+<navigator wx:if="{{listType == 1}}" wx:for="{{goods}}" wx:key="id" url="/pages/goods-details/index?id={{item.id}}">
+  <view class="list1">
+    <image class="img" src="{{item.pic}}"></image>
+    <view class="goods-info">
+      <view class="title">{{item.name}}</view>
+      <view class="price">¥ {{item.minPrice}}</view>
+      <view class="buy-info">
+        <view class="num">{{item.numberSells}}人已购买</view>
+        <image class="car" src="/images/icon/car.svg"></image>
+      </view>
+    </view>
+  </view>
+</navigator>
+<view wx:if="{{listType == 2}}" class="list2-box">
+  <navigator wx:for="{{goods}}" wx:key="id" url="/pages/goods-details/index?id={{item.id}}">
+    <view class="list2">
+      <image class="img" src="{{item.pic}}"></image>
+      <view class="goods-info">
+        <view class="title">{{item.name}}</view>
+        <view class="price">¥ {{item.minPrice}}</view>
+        <view class="buy-info">
+          <view class="num">{{item.numberSells}}人已购买</view>
+          <image class="car" src="/images/icon/car.svg"></image>
+        </view>
+      </view>
+    </view>
+  </navigator>  
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<float-menu /> 

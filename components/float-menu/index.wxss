@@ -7,9 +7,10 @@
   padding: 16rpx;
   background:rgba(0,0,0,0.7);
   border-radius: 16rpx 0 0 16rpx;
+  z-index: 99999;
 }
 .float-menu-cover-open {
-  right: 420rpx;
+  right: 440rpx;
 }
 .float-menu-cover .arrows {
   width: 34rpx;
@@ -23,7 +24,7 @@
   margin-left: 16rpx;
 }
 .float-menu-items {
-  width: 420rpx;
+  width: 440rpx;
   background: #fff;
   position: fixed;
   right: 0;
@@ -32,6 +33,7 @@
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 32rpx;
+  z-index: 99999;
 }
 .float-menu-items .item {
   display: flex;

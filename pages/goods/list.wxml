@@ -14,7 +14,7 @@
 </view>
 <navigator wx:if="{{listType == 1}}" wx:for="{{goods}}" wx:key="id" url="/pages/goods-details/index?id={{item.id}}">
   <view class="list1">
-    <image class="img" src="{{item.pic}}"></image>
+    <image class="img" mode="aspectFill" src="{{item.pic}}"></image>
     <view class="goods-info">
       <view class="title">{{item.name}}</view>
       <view class="price">¥ {{item.minPrice}}</view>
@@ -28,7 +28,7 @@
 <view wx:if="{{listType == 2}}" class="list2-box">
   <navigator wx:for="{{goods}}" wx:key="id" url="/pages/goods-details/index?id={{item.id}}">
     <view class="list2">
-      <image class="img" src="{{item.pic}}"></image>
+      <image class="img" mode="aspectFill" src="{{item.pic}}"></image>
       <view class="goods-info">
         <view class="title">{{item.name}}</view>
         <view class="price">¥ {{item.minPrice}}</view>

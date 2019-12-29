@@ -1,6 +1,8 @@
-<!--pages/category/category.wxml-->
-
 <view class="container">
+  <view class="search">
+    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+    <image src="/images/icon/search.svg"></image>
+  </view>
   <view class="content-container">
     <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true">
       <view class="category {{categorySelected.id==category.id?'active':''}}" wx:for="{{categories}}" wx:for-item="category" wx:key="id" data-id="{{category.id}}" bindtap="onCategoryClick">
@@ -8,25 +10,43 @@
       </view>
     </scroll-view>
     <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}'>
-      <view>
-        <view class="title ellipsis">{{categorySelected.name}}</view>
-        <view>
-          <view class="goods" wx:for="{{currentGoods}}" wx:key="id" wx:for-item="item" data-id='{{item.id}}' bindtap="toDetailsTap">
-            <image class="pic" src="{{item.pic}}">
-              <!-- <image class='fresh-tag' src="/images/goods-description/fresh.png"></image> -->
-            </image>
-            <view class="name ellipsis">{{item.name}}</view>
-            <view class='soldInfo'>
-              <view class='good-price-box'>
-                <text class="price">¥{{item.minPrice}}</text>
-              </view>
+      <view wx:if="{{!currentGoods}}" class="no-data">
+        <view class="line"></view>
+        <view class="txt">暂无商品</view>
+        <view class="line"></view>
+      </view>
+      <block wx:for="{{categories}}" wx:key="id" wx:if="{{item.pid == categorySelected.id}}">
+        <navigator url="/pages/goods/list?categoryId={{item.id}}">
+          <view class="no-data medium-category">
+            <view class="line"></view>
+            <view class="txt">{{item.name}}</view>
+            <view class="line"></view>
+          </view>
+        </navigator>
+        <view class="small-category-box">
+          <navigator wx:for="{{categories}}" wx:for-item="small" wx:key="id" wx:if="{{small.pid == item.id}}" url="/pages/goods/list?categoryId={{small.id}}">
+            <view class="small-category">
+              <image mode="aspectFill" src="{{small.icon}}"></image>
+              <view>{{small.name}}</view>
             </view>
-            <view class='soldInfo'>
-              <view class='good-sales-box'>
-                <text class="number">已售{{item.numberOrders}}件</text>
-                <text>评价{{item.gotScore}}分</text>
-              </view>
-            </view>
+          </navigator>
+        </view>
+      </block>
+      
+      <view class="goods" wx:for="{{currentGoods}}" wx:key="id" wx:for-item="item" data-id='{{item.id}}' bindtap="toDetailsTap">
+        <image mode="aspectFill" class="pic" src="{{item.pic}}">
+          <!-- <image class='fresh-tag' src="/images/goods-description/fresh.png"></image> -->
+        </image>
+        <view class="name ellipsis">{{item.name}}</view>
+        <view class='soldInfo'>
+          <view class='good-price-box'>
+            <text class="price">¥{{item.minPrice}}</text>
+          </view>
+        </view>
+        <view class='soldInfo'>
+          <view class='good-sales-box'>
+            <text class="number">已售{{item.numberOrders}}件</text>
+            <text>评价{{item.gotScore}}分</text>
           </view>
         </view>
       </view>

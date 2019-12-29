@@ -28,3 +28,20 @@
 .safeAreaNewMarginBttom{
   margin-bottom: constant(safe-area-inset-bottom);  
 }
+
+.no-data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no-data .line {
+  width:132rpx;
+  height:2rpx;
+  background: #999;
+}
+.no-data .txt {
+  font-size:26rpx;
+  color:rgba(153,153,153,1);
+  margin: 0 16rpx;
+}

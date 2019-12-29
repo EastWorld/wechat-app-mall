@@ -20,55 +20,54 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.initData();
+    this.categories();
   },
-  initData() {
-    let that = this;
-    wx.showNavigationBarLoading();
-    WXAPI.goodsCategory().then(function(res) {
-      var categories = [];
-      var categoryName = '';
-      var categoryId = '';
-      if (res.code == 0) {
-        for (var i = 0; i < res.data.length; i++) {
-          let item = res.data[i];
-          categories.push(item);
-          if (i == 0) {
-            categoryName = item.name;
-            categoryId = item.id;
-          }
+  async categories() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    const res = await WXAPI.goodsCategory()
+    wx.hideLoading()
+    let categories = [];
+    let categoryName = '';
+    let categoryId = '';
+    if (res.code == 0) {
+      for (let i = 0; i < res.data.length; i++) {
+        let item = res.data[i];
+        categories.push(item);
+        if (i == 0) {
+          categoryName = item.name;
+          categoryId = item.id;
         }
       }
-      that.setData({
-        categories: categories,
-        categorySelected: {
-          name: categoryName,
-          id: categoryId
-        }
-      });
-      // console.log(categories);
-      that.getGoodsList();
-    }).catch((e) => {
-      wx.hideNavigationBarLoading();
+    }
+    this.setData({
+      categories: categories,
+      categorySelected: {
+        name: categoryName,
+        id: categoryId
+      }
     });
+    this.getGoodsList();
   },
-  getGoodsList: function() {
-    let that = this;
-    WXAPI.goods({
-      categoryId: that.data.categorySelected.id,
+  async getGoodsList() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    const res = await WXAPI.goods({
+      categoryId: this.data.categorySelected.id,
       page: 1,
       pageSize: 100000
-    }).then(function(res) {
-      if (res.code == 404 || res.code == 700) {
-        return
-      }
-      that.setData({
-        currentGoods: res.data
+    })
+    wx.hideLoading()
+    if (res.code == 700) {
+      this.setData({
+        currentGoods: null
       });
-      console.log(res.data);
-      wx.hideNavigationBarLoading();
-    }).catch((e) => {
-      wx.hideNavigationBarLoading();
+      return
+    }
+    this.setData({
+      currentGoods: res.data
     });
   },
   toDetailsTap: function(e) {
@@ -101,5 +100,18 @@ Page({
       });
       that.getGoodsList();
     }
-  }
+  },
+  bindinput(e) {
+    this.setData({
+      inputVal: e.detail.value
+    })
+  },
+  bindconfirm(e) {
+    this.setData({
+      inputVal: e.detail.value
+    })
+    wx.navigateTo({
+      url: '/pages/goods/list?name=' + this.data.inputVal,
+    })
+  },
 })

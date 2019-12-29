@@ -236,6 +236,10 @@ swiper-item image {
   align-self: flex-start;
   margin-top: -10rpx;
 }
+.size-label-box2 {
+  width: 100vw;
+  background: #fff;
+}
 .size-label-box  .label{
   font-size:26rpx;
   color:#000;

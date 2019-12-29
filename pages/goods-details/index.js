@@ -52,6 +52,9 @@ Page({
         });
       }
     })
+    this.setData({
+      goodsDetailSkuShowType: CONFIG.goodsDetailSkuShowType
+    })
     this.reputation(e.id);
     this.initAd();
   },

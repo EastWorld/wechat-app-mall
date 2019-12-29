@@ -142,8 +142,32 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
+  <view wx:if="{{hasMoreSelect && goodsDetailSkuShowType==0}}" class="row-arrow" bindtap="bindGuiGeTap">
     {{selectSize}}
+  </view>
+  <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
+    <view class="label-title">选择商品规格</view>
+    <view class="size-label-box">
+      <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+        <view class="label">{{property.name}}</view>
+        <view class="label-item-box">
+          <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}" data-propertychildindex="{{index}}"
+            data-propertychildid="{{item.id}}" data-propertychildname="{{item.name}}">
+            {{item.name}}
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="buy-num-box">
+      <view class="num-label">购买数量</view>
+      <view class="num-box">
+        <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
+        <view class="num-input">
+          <input type="number" value="{{buyNumber}}" disabled/>
+        </view>
+        <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
+      </view>
+    </view>
   </view>
   <view class="goods-des-info">
     <view class="label-title">商品介绍</view>
@@ -193,8 +217,8 @@
       <view class="shop-num">({{shopNum}})</view>
       <view style='position:absolute;bottom:10rpx;'> 购物车 </view>
     </view>
-    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
-    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="tobuy">立即购买</view>
+    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}">加入购物车</view>
+    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy"  data-shopType="{{shopType}}" bindtap="{{goodsDetailSkuShowType==0?'tobuy':'buyNow'}}">立即购买</view>
     <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="tobuy">单独购买</view>
     <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="toPingtuan">发起拼团</view>
   </view>

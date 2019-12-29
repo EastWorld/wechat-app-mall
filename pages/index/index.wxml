@@ -1,71 +1,54 @@
-<view class="container">
-  <view class="page__bd">
-    <view class="weui-search-bar">
-      <view class="weui-search-bar__form">
-        <view class="weui-search-bar__box">
-          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-          <input type="text " class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" confirm-type="search" bindconfirm='toSearch' />
-          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
-            <icon type="clear" size="14"></icon>
-          </view>
-        </view>
-        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
-          <icon class="weui-icon-search" type="search" size="14"></icon>
-          <view class="weui-search-bar__text">搜索</view>
-        </label>
-      </view>
-      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
-    </view>
-    <!-- <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-          <view>实时搜索文本</view>
-        </view>
-      </navigator>
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-          <view>实时搜索文本</view>
-        </view>
-      </navigator>
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-          <view>实时搜索文本</view>
-        </view>
-      </navigator>
-      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-          <view>实时搜索文本</view>
-        </view>
-      </navigator>
-    </view> -->
-    <view wx:if="{{noticeList}}" class="notice">
-      <image class="notice_icon" src="/images/notice.png"></image>
-      <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical autoplay circular>
-        <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/show?id={{item.id}}" open-type="navigate">
-          <swiper-item>
-            <view class="notice_itemr">{{item.title}}</view>
-          </swiper-item>
-        </navigator>
-      </swiper>
-    </view>
-    <scroll-view scroll-x>
-      <view class="category-box" style='width:{{category_box_width}}rpx;'>
-        <view class="category-list" wx:for="{{categories}}" wx:key="id">
-          <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{item.id}}">
-            <image class="category-imgbox" src="{{item.icon}}"></image>
-            <view class="category-title">{{item.name}}</view>
-          </view>          
-        </view>
-      </view>
-    </scroll-view>
+<view class="swiper-container">
+  <swiper indicator-dots="true" indicator-active-color="#fff" autoplay circular>
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <image  mode="aspectFill" bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" />
+    </swiper-item>
+  </swiper>
+  <view class="search">
+    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+    <image src="/images/icon/search.svg"></image>
   </view>
-  <view class="swiper-container">
-    <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
-      <swiper-item wx:for="{{banners}}" wx:key="id">
-        <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" class="slide-image" />
-      </swiper-item>
+</view>
+<view class="notice-box" wx:if="{{noticeList}}">
+  <view class="notice">
+    <image class="notice_icon" src="/images/notice.png"></image>
+    <swiper class="notice_swiper" vertical autoplay circular>
+      <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/show?id={{item.id}}">
+        <swiper-item>
+          <view class="notice_itemr">{{item.title}}</view>
+        </swiper-item>
+      </navigator>
     </swiper>
   </view>
+  <view class="more"><navigator url="/pages/notice/index">更多 ></navigator></view>
+</view>
+<view class="category-box">
+  <view class="category-list" wx:for="{{categories}}" wx:key="id">
+    <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{item.id}}">
+      <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
+      <view class="category-title">{{item.name}}</view>
+    </view>          
+  </view>
+</view>
+<view class="container">
+  <block wx:for="{{categories}}" wx:key="id" wx:if="{{item.goods}}">
+    <view class="category-goods-title">
+      <view class="weui-panel__hd">{{item.name}}</view>
+      <view class="more"><navigator url="/pages/goods/list?categoryId={{item.id}}">更多 ></navigator></view>
+    </view>
+    <view class="goods-container">
+      <view class="goods-box" wx:for-items="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+        <view class="img-box">
+          <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
+        </view>
+        <view class="goods-title">{{item.name}}</view>
+        <view style='display:flex;'>
+          <view class="goods-price">¥ {{item.minPrice}}</view>
+          <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
   <view class="weui-loadmore weui-loadmore_line" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
   </view>

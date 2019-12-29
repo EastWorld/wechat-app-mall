@@ -6,9 +6,7 @@ const TOOLS = require('../../utils/tools.js')
 var app = getApp()
 Page({
   data: {
-    inputShowed: false, // 是否显示搜索框
     inputVal: "", // 搜索框内容
-    category_box_width: 750, //分类总宽度
     goodsRecommend: [], // 推荐商品
     kanjiaList: [], //砍价商品列表
     pingtuanList: [], //拼团商品列表
@@ -73,12 +71,12 @@ Page({
      * 调用接口封装方法
      */
     WXAPI.banners({
-      type: 'new'
+      type: 'index'
     }).then(function(res) {
       if (res.code == 700) {
         wx.showModal({
           title: '提示',
-          content: '请在后台添加 banner 轮播图片，自定义类型填写 new',
+          content: '请在后台添加 banner 轮播图片，自定义类型填写 index',
           showCancel: false
         })
       } else {
@@ -120,11 +118,8 @@ Page({
       })
       categories = categories.concat(_categories)
     }
-    const _n = Math.ceil(categories.length / 2)
-    // const _n = Math.ceil(categories.length)
     this.setData({
       categories: categories,
-      category_box_width: 150 * _n,
       activeCategoryId: 0,
       curPage: 1
     });
@@ -200,11 +195,6 @@ Page({
       }
     })
   },
-  toSearch: function() {
-    wx.navigateTo({
-      url: '/pages/goods/list?name=' + this.data.inputVal,
-    })
-  },
   onReachBottom: function() {
     this.setData({
       curPage: this.data.curPage + 1
@@ -217,28 +207,6 @@ Page({
     });
     this.getGoodsList(this.data.activeCategoryId)
     wx.stopPullDownRefresh()
-  },
-  // 以下为搜索框事件
-  showInput: function () {
-    this.setData({
-      inputShowed: true
-    });
-  },
-  hideInput: function () {
-    this.setData({
-      inputVal: "",
-      inputShowed: false
-    });
-  },
-  clearInput: function () {
-    this.setData({
-      inputVal: ""
-    });
-  },
-  inputTyping: function (e) {
-    this.setData({
-      inputVal: e.detail.value
-    });
   },
   // 获取砍价商品
   async kanjiaGoods(){
@@ -267,5 +235,18 @@ Page({
         })
       }
     })
-  }
+  },
+  bindinput(e) {
+    this.setData({
+      inputVal: e.detail.value
+    })
+  },
+  bindconfirm(e) {
+    this.setData({
+      inputVal: e.detail.value
+    })
+    wx.navigateTo({
+      url: '/pages/goods/list?name=' + this.data.inputVal,
+    })
+  },
 })

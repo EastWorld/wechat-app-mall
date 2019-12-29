@@ -273,7 +273,8 @@
     <canvas class="canvas" style="{{canvasstyle}}" canvas-id="firstCanvas"></canvas>
   </view>
   <view class="poster-btn">
-    <button type="default" size="mini" bindtap='_saveToMobile'> 保存图片 </button>
+    <button type="primary" size="mini" bindtap='_saveToMobile'> 保存图片 </button>
+    <button type="warn" size="mini" bindtap='closePop'> 关闭 </button>
   </view>
 </block>
 

@@ -37,6 +37,10 @@
 
 - [WeUI](https://github.com/Tencent/weui-wxss/)
 
+底部ICON图标使用：
+https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=13163
+
+
 ## 初始化测试数据
 
 登录后台，左侧菜单 “工厂设置” --> “数据克隆” --> “将别人的数据克隆给我”

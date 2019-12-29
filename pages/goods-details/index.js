@@ -641,4 +641,9 @@ Page({
     }
     AUTH.register(this);
   },
+  closePop(){
+    this.setData({
+      posterShow: false
+    })
+  }
 })

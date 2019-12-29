@@ -1,6 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 let goodsDetail;
-const ctx = wx.createCanvasContext('firstCanvas');
+var ctx;
 const clientWidth = wx.getSystemInfoSync().screenWidth;
 
 function px(number) {
@@ -14,6 +14,7 @@ export default {
     page._saveToMobile = this._saveToMobile;
   },
   _createPoster(e) {
+    ctx = wx.createCanvasContext('firstCanvas');
     wx.showLoading({
       title: '正在生成海报',
     });

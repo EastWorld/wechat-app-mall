@@ -57,10 +57,9 @@
 .poster-btn {
   position: fixed;
   top: 1080rpx;
-  left: 290rpx;
+  left: 75rpx;
+  width: 600rpx;
   z-index: 999;
-}
-.poster-btn button {
-  background-color: #4896e0;
-  color:#fff;
+  display: flex;
+  justify-content: center;
 }

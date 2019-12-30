@@ -1,10 +1,10 @@
 {
   "name": "wechat-app-mall",
-  "version": "7.0.0",
+  "version": "7.4.1",
   "description": "微信小程序商城，微信小程序微店",
   "main": "app.js",
   "dependencies": {
-    "apifm-wxapi": "^2.0.0"
+    "apifm-wxapi": "^2.5.0"
   },
   "devDependencies": {},
   "scripts": {

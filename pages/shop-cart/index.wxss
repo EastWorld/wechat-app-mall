@@ -1,5 +1,5 @@
-/**index.wxss**/
 @import "../template-cart/template-cart.wxss";
+@import "/template/login/index.wxss";
 page{
   min-height: 100%;
   background-color: #F2f2f2;

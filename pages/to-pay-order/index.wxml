@@ -12,7 +12,12 @@
           <view class="goods-price">¥ {{item.price}}</view>
         </view>
         <view class="arow">
-          <view class="goods-label">{{item.label}}</view>
+          <view class="goods-label">
+            {{item.label}}
+            <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+              {{option.optionName}}:{{option.optionValueName}}
+            </block>
+          </view>
           <view class="goods-num">x {{item.number}}</view>
         </view>
       </view>

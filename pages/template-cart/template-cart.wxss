@@ -58,18 +58,11 @@ page{
     width: 870rpx;
     box-sizing: border-box;
     transition: margin-left 0.2s ease-in-out;
-    background: url(https://cdn.it120.cc/images/weappshop/gou.png) no-repeat 30rpx center;
-    background-size: 40rpx auto; 
-}
-.a-goods-conts.active{
-    background: url(https://cdn.it120.cc/images/weappshop/gou-red.png) no-repeat 30rpx center;
-    background-size: 40rpx auto; 
 }
 .goods-info{
     border-bottom: 1px solid #eee;
     display: flex;
-    justify-content:space-between;
-    padding: 30rpx 0 30rpx 70rpx; 
+    padding: 30rpx 0 30rpx 0; 
     width: 720rpx;
     box-sizing: border-box;
 }
@@ -79,9 +72,10 @@ page{
     overflow: hidden;
     margin-right: 20rpx;
     background-color: #d8d8d8;
+    flex-shrink: 0;
 }
 .goods-info .text-box{
-    width: 440rpx;
+    width: 100%;
     position: relative;
 }
 .goods-info .text-box .goods-title{
@@ -199,7 +193,7 @@ page{
     width: 510rpx;
     justify-content: space-between;
     line-height: 100rpx;
-    padding: 0 30rpx 0 0;
+    padding: 0 30rpx 0 32rpx;
     font-size:28rpx;
     box-sizing: border-box;
 }

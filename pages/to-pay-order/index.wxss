@@ -1,192 +1,221 @@
 @import "/template/login/index.wxss";
-.container{
-    background-color:#F2f2f2;
-    padding-bottom: 100rpx;
+
+.container {
+  background-color: #f2f2f2;
+  padding-bottom: 100rpx;
 }
-.address-box{
-    width: 100%;
-    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center ,
+
+.address-box {
+  width: 100%;
+  background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center,
                 url(https://cdn.it120.cc/images/weappshop/addr-line.png) no-repeat center bottom;
-    background-size: 16rpx auto,750rpx auto;
-    background-color: #fff;
-    margin: 20rpx 0; 
-}
-.add-addres{
-    width: 100%;
-}
-.add-address .title{
-    font-size: 28rpx;
-    color: #000;
-    margin-left: 30rpx;
-    background: url(https://cdn.it120.cc/images/weappshop/ico-add-addr.png) no-repeat left center;
-    background-size: 60rpx auto;
-    padding: 40rpx 0 40rpx 90rpx; 
-}
-.show-address{
-    width: 664rpx;
-    box-sizing: border-box;
-    padding-left: 100rpx;
-    background: url(https://cdn.it120.cc/images/weappshop/ico-addr.png) no-repeat 30rpx 35rpx;
-    background-size: 30rpx auto;
-}
-.show-address .name-tel{
-    font-size: 28rpx;
-    color: #000;
-    padding: 30rpx 0 20rpx 0;
-}
-.show-address .addr-text{
-    font-size: 24rpx;
-    color: #888;
-    padding-bottom: 34rpx;
-    line-height: 36rpx;
-}
-form{
-    width: 100%;
-}
-.goods-list{
-    width:100%;
-    background-color: #fff;
-    margin-bottom: 20rpx;
-}
-.goods-list .list-title{
-    font-size: 28rpx;
-    color: #000;
-    padding: 30rpx 0 25rpx 30rpx;
-}
-.goods-list  .a-goods{
-    width: 720rpx;
-    margin-left: 30rpx;
-    display: flex;
-    /*justify-content: space-between;*/
-    border-top: 1px solid #eee;
-    padding: 30rpx 30rpx 30rpx 0;
-}
-.goods-list  .a-goods .img-box{
-    width: 160rpx;
-    height:160rpx;
-    overflow: hidden;
-    margin-right: 20rpx;
-    background-color: #d8d8d8;
+  background-size: 16rpx auto, 750rpx auto;
+  background-color: #fff;
+  margin: 20rpx 0;
 }
 
-.goods-list .img-box .img{
-    width: 160rpx;
-    height:160rpx;
-}
-.goods-list  .a-goods .text-box{
-    width: 510rpx;
-    box-sizing: border-box;
-    padding-top: 10rpx;
-}
-.a-goods .text-box .arow{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
- }
-.a-goods .text-box .arow .goods-name{
-     width: 360rpx;
-     font-size:26rpx;
-     height: 74rpx;
-     color:#000000;
-     line-height: 1.6;
-     overflow: hidden;
- }
-.a-goods .text-box .arow01{
-    margin-bottom: 30rpx;
-}
-.a-goods .text-box .arow .goods-price{
-    font-size:26rpx;
-    color:#000000;
-    align-self: flex-start;
-}
-.a-goods .text-box .arow .goods-label{
-    font-size: 26rpx;
-    color: #999;
-}
-.a-goods .text-box .arow .goods-num{
-    font-size: 26rpx;
-    color: #999;
-}
-.peisong-way{
-    width: 100%;
-    background-color: #fff;
-    margin-bottom: 20rpx;
-}
-.peisong-way .row-box{
-    width: 720rpx;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 24rpx 0 24rpx 30rpx;
-    border-bottom: 1rpx solid #eee;
-}
-.peisong-way .row-label{
-    font-size: 28rpx;
-    color: #000;
-}
-.peisong-way .right-text{
-    font-size: 28rpx;
-    color: #666;
-    padding-right: 30rpx;
-}
-.peisong-way .liuyan{
-    width: 510rpx;
-    font-size: 28rpx;
-}
-.goods-info{
-    width: 100%;
-    background-color: #fff;
-    margin-bottom: 120rpx;
-    padding-bottom: 24rpx;
-}
-.goods-info .row-box{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 24rpx 30rpx 12rpx 30rpx;
-    font-size: 28rpx;
-    color: #000;
-}
-.goods-info .row-box .right-text{
-    text-align: right;
-}
-.jiesuan-box{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100rpx;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    border-top:1px solid #eee; 
-    background-color: #fff;
-    z-index: 999;
-}
-.jiesuan-box .to-pay-btn{
-    width:250rpx;
-    text-align: center;
-    height: 100%;
-    line-height: 100rpx;
-    background-color: #e64340;
-    font-size:32rpx;
-    color:#ffffff;
-    border-radius: 0;
+.add-addres {
+  width: 100%;
 }
 
-.jiesuan-box  .left-price{
-    display: flex;
-    width: 500rpx;
-    justify-content:flex-end;
-    line-height: 100rpx;
-    padding: 0 30rpx 0 0;
-    font-size:28rpx;
-    box-sizing: border-box;
+.add-address .title {
+  font-size: 28rpx;
+  color: #000;
+  margin-left: 30rpx;
+  background: url(https://cdn.it120.cc/images/weappshop/ico-add-addr.png) no-repeat left center;
+  background-size: 60rpx auto;
+  padding: 40rpx 0 40rpx 90rpx;
 }
 
-.jiesuan-box .total{
-    color: #e64340;
-    text-align: right;
+.show-address {
+  width: 664rpx;
+  box-sizing: border-box;
+  padding-left: 100rpx;
+  background: url(https://cdn.it120.cc/images/weappshop/ico-addr.png) no-repeat 30rpx 35rpx;
+  background-size: 30rpx auto;
+}
+
+.show-address .name-tel {
+  font-size: 28rpx;
+  color: #000;
+  padding: 30rpx 0 20rpx 0;
+}
+
+.show-address .addr-text {
+  font-size: 24rpx;
+  color: #888;
+  padding-bottom: 34rpx;
+  line-height: 36rpx;
+}
+
+form {
+  width: 100%;
+}
+
+.goods-list {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.goods-list .list-title {
+  font-size: 28rpx;
+  color: #000;
+  padding: 30rpx 0 25rpx 30rpx;
+}
+
+.goods-list  .a-goods {
+  width: 720rpx;
+  margin-left: 30rpx;
+  display: flex;
+  /*justify-content: space-between;*/
+  border-top: 1px solid #eee;
+  padding: 30rpx 30rpx 30rpx 0;
+}
+
+.goods-list  .a-goods .img-box {
+  width: 160rpx;
+  height: 160rpx;
+  overflow: hidden;
+  margin-right: 20rpx;
+  background-color: #d8d8d8;
+}
+
+.goods-list .img-box .img {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.goods-list  .a-goods .text-box {
+  width: 510rpx;
+  box-sizing: border-box;
+  padding-top: 10rpx;
+}
+
+.a-goods .text-box .arow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.a-goods .text-box .arow .goods-name {
+  width: 360rpx;
+  font-size: 26rpx;
+  height: 74rpx;
+  color: #000;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.a-goods .text-box .arow01 {
+  margin-bottom: 30rpx;
+}
+
+.a-goods .text-box .arow .goods-price {
+  font-size: 26rpx;
+  color: #000;
+  align-self: flex-start;
+}
+
+.a-goods .text-box .arow .goods-label {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.a-goods .text-box .arow .goods-num {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.peisong-way {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.peisong-way .row-box {
+  width: 720rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 24rpx 0 24rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.peisong-way .row-label {
+  font-size: 28rpx;
+  color: #000;
+}
+
+.peisong-way .right-text {
+  font-size: 28rpx;
+  color: #666;
+  padding-right: 30rpx;
+}
+
+.peisong-way .liuyan {
+  width: 510rpx;
+  font-size: 28rpx;
+}
+
+.goods-info {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 120rpx;
+  padding-bottom: 24rpx;
+}
+
+.goods-info .row-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 24rpx 30rpx 12rpx 30rpx;
+  font-size: 28rpx;
+  color: #000;
+}
+
+.goods-info .row-box .right-text {
+  text-align: right;
+}
+
+.jiesuan-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+  z-index: 999;
+}
+
+.jiesuan-box .to-pay-btn {
+  width: 250rpx;
+  text-align: center;
+  height: 100%;
+  line-height: 100rpx;
+  background-color: #e64340;
+  font-size: 32rpx;
+  color: #fff;
+  border-radius: 0;
+}
+
+.jiesuan-box  .left-price {
+  display: flex;
+  width: 500rpx;
+  justify-content: flex-end;
+  line-height: 100rpx;
+  padding: 0 30rpx 0 0;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.jiesuan-box .total {
+  color: #e64340;
+  text-align: right;
 }

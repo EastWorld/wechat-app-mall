@@ -315,6 +315,9 @@ module.exports = {
   goodsCategory: function goodsCategory() {
     return request('/shop/goods/category/all', true, 'get');
   },
+  goodsCategoryDetail: function goodsCategoryDetail(id) {
+    return request('/shop/goods/category/info', true, 'get', { id: id });
+  },
   goods: function goods(data) {
     return request('/shop/goods/list', true, 'post', data);
   },
@@ -346,7 +349,7 @@ module.exports = {
     return request('/shop/goods/price/freight', true, 'get', data);
   },
   goodsRebate: function goodsRebate(token, goodsId) {
-    return request('/shop/goods/rebate', true, 'get', {
+    return request('/shop/goods/rebate/v2', true, 'get', {
       token: token, goodsId: goodsId
     });
   },
@@ -677,7 +680,7 @@ module.exports = {
     return request('/cms/category/list', true, 'get', {});
   },
   cmsCategoryDetail: function cmsCategoryDetail(id) {
-    return request('/cms/category/detail', true, 'get', { id: id });
+    return request('/cms/category/info', true, 'get', { id: id });
   },
   cmsArticles: function cmsArticles(data) {
     return request('/cms/news/list', true, 'post', data);
@@ -730,8 +733,14 @@ module.exports = {
   fetchShops: function fetchShops(data) {
     return request('/shop/subshop/list', true, 'post', data);
   },
+  fetchMyShops: function fetchMyShops(token) {
+    return request('/shop/subshop/my', true, 'get', { token: token });
+  },
   shopSubdetail: function shopSubdetail(id) {
     return request('/shop/subshop/detail/v2', true, 'get', { id: id });
+  },
+  shopSubApply: function shopSubApply(data) {
+    return request('/shop/subshop/apply', true, 'post', data);
   },
   addComment: function addComment(data) {
     return request('/comment/add', true, 'post', data);
@@ -971,6 +980,49 @@ module.exports = {
 
     return request('/user/email/bindUsername', true, 'post', {
       token: token, email: email, code: code, pwd: pwd
+    });
+  },
+  siteStatistics: function siteStatistics() {
+    return request('/site/statistics', true, 'get');
+  },
+  cmsArticleFavPut: function cmsArticleFavPut(token, newsId) {
+    return request('/cms/news/fav/add', true, 'post', { token: token, newsId: newsId });
+  },
+  cmsArticleFavCheck: function cmsArticleFavCheck(token, newsId) {
+    return request('/cms/news/fav/check', true, 'get', { token: token, newsId: newsId });
+  },
+  cmsArticleFavList: function cmsArticleFavList(data) {
+    return request('/cms/news/fav/list', true, 'post', data);
+  },
+  cmsArticleFavDeleteById: function cmsArticleFavDeleteById(token, id) {
+    return request('/cms/news/fav/delete', true, 'post', { token: token, id: id });
+  },
+  cmsArticleFavDeleteByNewsId: function cmsArticleFavDeleteByNewsId(token, newsId) {
+    return request('/cms/news/fav/delete', true, 'post', { token: token, newsId: newsId });
+  },
+  shippingCarInfo: function shippingCarInfo(token) {
+    return request('/shopping-cart/info', true, 'get', {
+      token: token
+    });
+  },
+  shippingCarInfoAddItem: function shippingCarInfoAddItem(token, goodsId, number, sku) {
+    return request('/shopping-cart/add', true, 'post', {
+      token: token, goodsId: goodsId, number: number, sku: JSON.stringify(sku)
+    });
+  },
+  shippingCarInfoModifyNumber: function shippingCarInfoModifyNumber(token, key, number) {
+    return request('/shopping-cart/modifyNumber', true, 'post', {
+      token: token, key: key, number: number
+    });
+  },
+  shippingCarInfoRemoveItem: function shippingCarInfoRemoveItem(token, key) {
+    return request('/shopping-cart/remove', true, 'post', {
+      token: token, key: key
+    });
+  },
+  shippingCarInfoRemoveAll: function shippingCarInfoRemoveAll(token) {
+    return request('/shopping-cart/empty', true, 'post', {
+      token: token
     });
   }
 };

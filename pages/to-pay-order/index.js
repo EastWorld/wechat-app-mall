@@ -35,41 +35,37 @@ Page({
       }
     })
   },
-  doneShow: function () {
+  async doneShow() {
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
     if (!allowSelfCollection || allowSelfCollection != '1') {
       allowSelfCollection = '0'
       this.data.peisongType = 'kd'
     }
-    const that = this;
     let shopList = [];
+    const token = wx.getStorageSync('token')
     //立即购买下单
-    if ("buyNow" == that.data.orderType) {
+    if ("buyNow" == this.data.orderType) {
       var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
-      that.data.kjId = buyNowInfoMem.kjId;
+      this.data.kjId = buyNowInfoMem.kjId;
       if (buyNowInfoMem && buyNowInfoMem.shopList) {
         shopList = buyNowInfoMem.shopList
       }
     } else {
       //购物车下单
-      var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
-      that.data.kjId = shopCarInfoMem.kjId;
-      if (shopCarInfoMem && shopCarInfoMem.shopList) {
-        // shopList = shopCarInfoMem.shopList
-        shopList = shopCarInfoMem.shopList.filter(entity => {
-          return entity.active;
-        });
+      const res = await WXAPI.shippingCarInfo(token)
+      if (res.code == 0) {
+        shopList = res.data.items
       }
     }
-    that.setData({
+    this.setData({
       goodsList: shopList,
       allowSelfCollection: allowSelfCollection,
-      peisongType: that.data.peisongType
+      peisongType: this.data.peisongType
     });
-    that.initShippingAddress();
+    this.initShippingAddress()
   },
 
-  onLoad: function (e) {
+  onLoad(e) {
     let _data = {
       isNeedLogistics: 1
     }
@@ -167,7 +163,7 @@ Page({
 
       if (e && "buyNow" != that.data.orderType) {
         // 清空购物车数据
-        wx.removeStorageSync('shopCarInfo');
+        WXAPI.shippingCarInfoRemoveAll(loginToken)
       }
       if (!e) {
         that.setData({
@@ -186,23 +182,20 @@ Page({
       });
     })
   },
-  initShippingAddress: function () {
-    var that = this;
-    WXAPI.defaultAddress(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        that.setData({
-          curAddressData: res.data.info
-        });
-      } else {
-        that.setData({
-          curAddressData: null
-        });
-      }
-      that.processYunfei();
-    })
+  async initShippingAddress() {
+    const res = await WXAPI.defaultAddress(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      this.setData({
+        curAddressData: res.data.info
+      });
+    } else {
+      this.setData({
+        curAddressData: null
+      });
+    }
+    this.processYunfei();
   },
-  processYunfei: function () {
-    var that = this;
+  processYunfei() {
     var goodsList = this.data.goodsList;
     var goodsJsonStr = "[";
     var isNeedLogistics = 0;
@@ -216,7 +209,7 @@ Page({
     }
     for (let i = 0; i < goodsList.length; i++) {
       let carShopBean = goodsList[i];
-      if (carShopBean.logistics) {
+      if (carShopBean.logistics || carShopBean.logisticsId) {
         isNeedLogistics = 1;
       }
       allGoodsPrice += carShopBean.price * carShopBean.number;
@@ -225,19 +218,24 @@ Page({
       if (i > 0) {
         goodsJsonStrTmp = ",";
       }
-
+      if (carShopBean.sku && carShopBean.sku.length > 0) {
+        let propertyChildIds = ''
+        carShopBean.sku.forEach(option => {
+          propertyChildIds = propertyChildIds + ',' + option.optionId + ':' + option.optionValueId
+        })
+        carShopBean.propertyChildIds = propertyChildIds
+      }
       goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
       goodsJsonStr += goodsJsonStrTmp;
 
 
     }
     goodsJsonStr += "]";
-    //console.log(goodsJsonStr);
-    that.setData({
+    this.setData({
       isNeedLogistics: isNeedLogistics,
       goodsJsonStr: goodsJsonStr
     });
-    that.createOrder();
+    this.createOrder();
   },
   addAddress: function () {
     wx.navigateTo({

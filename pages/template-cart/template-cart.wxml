@@ -1,52 +1,51 @@
 <template name="no-goods">
-    <view class="title-box">
-        购物车空空如也～
-    </view>
-    <view class="to-index-btn" bindtap="toIndexPage">
-            去逛逛
-    </view>
-    <view style="position:absolute;bottom:10rpx;width:750rpx;">
-      <ad unit-id="adunit-588264b3e2362e1e"></ad>
-    </view>
+  <view class="title-box">
+    购物车空空如也～
+  </view>
+  <view class="to-index-btn" bindtap="toIndexPage">
+    去逛逛
+  </view>
+  <view style="position:absolute;bottom:10rpx;width:750rpx;">
+    <ad unit-id="adunit-588264b3e2362e1e"></ad>
+  </view>
 </template>
 
 <template name="cart-goods-list">
-    <view class="list-top">
-        <view class="label">微商城</view>
-        <view class="edit-btn" hidden="{{!saveHidden}}" bindtap="editTap">编辑</view>
-        <view class="edit-btn" hidden="{{saveHidden}}" bindtap="saveTap">完成</view>
-    </view>
-    <view class="goodsList">
-        <view class="a-gooods" wx:for="{{list}}"  wx:key="{{index}}" >
-            <view class="a-goods-conts {{item.active? 'active':''}}" bindtap="selectTap" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}"    style="{{item.left}}">
-                <view class="goods-info">
-                    <view class="img-box">
-                        <image src="{{item.pic}}" class="img"/>
-                    </view>
-                    <view class="text-box">
-                        <view class="goods-title">{{item.name}}</view>
-                        <view class="goods-label">{{item.label}}</view>
-                        <view class="goods-price">¥ {{item.price}}</view>
-                        <view class="buy-num">
-                            <view class="jian-btn {{item.number==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}">-</view>
-                            <input  type="number" value="{{item.number}}" disabled/>
-                            <view class="jia-btn {{item.number==curTouchGoodStore? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}">+</view>
-                        </view>
-                    </view>
-                </view>
-                <view class="delete-btn" data-index="{{index}}" catchtap="delItem">
-                  删除
-                </view>
+  <view class="goodsList">
+    <view class="a-gooods" wx:for="{{items}}" wx:key="key">
+      <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
+        <view class="goods-info">
+          <view class="img-box">
+            <image mode="aspectFill" src="{{item.pic}}" class="img" />
+          </view>
+          <view class="text-box">
+            <view class="goods-title">{{item.name}}</view>
+            <view wx:if="{{item.sku}}" class="goods-label">
+              <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+                {{option.optionName}}:{{option.optionValueName}}
+              </block>
             </view>
+            <view class="goods-price">¥ {{item.price}}</view>
+            <view class="buy-num">
+              <view class="jian-btn {{item.number==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}">-</view>
+              <input type="number" value="{{item.number}}" disabled/>
+              <view class="jia-btn {{item.number==curTouchGoodStore? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}">+</view>
+            </view>
+          </view>
         </view>
-    </view>
-    <ad unit-id="adunit-588264b3e2362e1e"></ad>
-    <view class="jiesuan-box">
-        <view class="left-price">
-            <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">全选</view>
-            <view class="total" hidden="{{noSelect}}">合计：¥ {{totalPrice}} + {{totalScoreToPay}} 积分</view>
+        <view class="delete-btn" data-key="{{item.key}}" catchtap="delItem">
+          删除
         </view>
-        <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">去结算</view>
-        <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">删除</view>
+      </view>
     </view>
+  </view>
+  <ad unit-id="adunit-588264b3e2362e1e"></ad>
+  <view class="jiesuan-box">
+    <view class="left-price">
+      <view class="total" hidden="{{noSelect}}">合计：¥ {{price}} + {{score}} 积分</view>
+    </view>
+    <view class="to-pay-btn">
+      <navigator url="/pages/to-pay-order/index">去结算</navigator>
+    </view>
+  </view>
 </template>

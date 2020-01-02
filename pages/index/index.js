@@ -131,43 +131,41 @@ Page({
       scrollTop: e.scrollTop
     })
   },
-  getGoodsList: function(categoryId, append) {
+  async getGoodsList(categoryId, append) {
     if (categoryId == 0) {
       categoryId = "";
     }
-    var that = this;
     wx.showLoading({
       "mask": true
     })
-    WXAPI.goods({
+    const res = await WXAPI.goods({
       categoryId: categoryId,
-      nameLike: that.data.inputVal,
+      nameLike: this.data.inputVal,
       page: this.data.curPage,
       pageSize: this.data.pageSize
-    }).then(function(res) {
-      wx.hideLoading()
-      if (res.code == 404 || res.code == 700) {
-        let newData = {
-          loadingMoreHidden: false
-        }
-        if (!append) {
-          newData.goods = []
-        }
-        that.setData(newData);
-        return
-      }
-      let goods = [];
-      if (append) {
-        goods = that.data.goods
-      }
-      for (var i = 0; i < res.data.length; i++) {
-        goods.push(res.data[i]);
-      }
-      that.setData({
-        loadingMoreHidden: true,
-        goods: goods,
-      });
     })
+    wx.hideLoading()
+    if (res.code == 404 || res.code == 700) {
+      let newData = {
+        loadingMoreHidden: false
+      }
+      if (!append) {
+        newData.goods = []
+      }
+      this.setData(newData);
+      return
+    }
+    let goods = [];
+    if (append) {
+      goods = this.data.goods
+    }
+    for (var i = 0; i < res.data.length; i++) {
+      goods.push(res.data[i]);
+    }
+    this.setData({
+      loadingMoreHidden: true,
+      goods: goods,
+    });
   },
   getCoupons: function() {
     var that = this;

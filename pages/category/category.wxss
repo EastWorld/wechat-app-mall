@@ -35,6 +35,7 @@ page,view,image,input {
 
 .content-container {
   width: 100vw;
+  height: 100%;
   margin-top: 32rpx;
   display: flex;
 }

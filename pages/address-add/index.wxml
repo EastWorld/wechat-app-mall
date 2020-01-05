@@ -14,22 +14,14 @@
                 <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}{{wxaddress.telNumber}}"/>
             </view>
         </view>
-        <view class="row-wrap" bindtap="selectCity">
+        <view class="row-wrap">
             <view class="label">选择地区</view>
-            <picker mode="multiSelector" range="{{pickerRegionRange}}" range-key="name" value="{{pickerSelect}}" bindchange="bindchange" bindcolumnchange="bindcolumnchange">
-              {{showRegionStr}}
-            </picker>
+            <view class="showRegionSelect" bindtap="showRegionSelect">{{showRegionStr}}</view>
         </view>
         <view class="addr-details">
             <view class="label">详细地址</view>
             <view class="label-right">
                 <textarea name="address" auto-height placeholder="街道门牌信息"  value="{{addressData.address}}{{wxaddress.detailInfo}}"/>
-            </view>
-        </view>
-        <view class="row-wrap">
-            <view class="label">邮政编号</view>
-            <view class="label-right">
-                <input name="code" class="input" type="text" value="{{addressData.code}}{{wxaddress.postalCode}}"/>
             </view>
         </view>
     </view>
@@ -38,4 +30,5 @@
     </form>
 </view>
 
-<float-menu /> 
+<float-menu />
+<region-picker wx:if="{{ showRegionSelect }}" bind:closeAddress="closeAddress" bind:selectAddress="selectAddress" />

@@ -85,3 +85,9 @@ picker {
 .hui{
     color: #777;
 }
+.showRegionSelect {
+  margin-left: 32rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

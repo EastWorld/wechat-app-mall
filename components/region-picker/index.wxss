@@ -1,0 +1,70 @@
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9998;  
+}
+.container-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 70vh;
+  background: #fff;
+  z-index: 9999;
+  border-radius: 32rpx 32rpx 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.container-box .h {
+  position: relative;
+  margin-top: 32rpx;
+  text-align: center;
+}
+.container-box .h text {
+  font-size: 26rpx;
+  color: #666;
+}
+.container-box .h image {
+  width: 32rpx;
+  height: 32rpx;
+  position: absolute;
+  top: 8rpx;
+  right: 32rpx;
+}
+.tabs {
+  width: 100vw;
+  display: flex;
+  height: 88rpx;
+  margin-top: 32rpx;
+}
+.tabs .tab {
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #f0f0f0;
+  color: #999;
+  text-align: center;
+  flex-grow: 1;
+}
+.tabs .tab.active {
+  background: #fff;
+  color: #4a4a4a;
+  border-bottom: 1rpx solid #f0f0f0;
+  font-weight: 700;
+}
+.data {
+  margin: 32rpx;
+  line-height: 80rpx;
+  flex: 1;
+  height: 0;
+}
+.data scroll-view {
+  height: 100%;
+}
+.data .active {
+  color: #e64340;
+  font-weight: 700;
+}

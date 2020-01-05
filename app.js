@@ -66,7 +66,7 @@ App({
         res.data.forEach(config => {
           wx.setStorageSync(config.key, config.value);
           if (config.key === 'recharge_amount_min') {
-            that.globalData.recharge_amount_min = res.data.value;
+            that.globalData.recharge_amount_min = config.value;
           }
         })
         

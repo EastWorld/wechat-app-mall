@@ -1,0 +1,17 @@
+<view class="bg"></view>
+<view class="container-box">
+  <view class="h">
+    <text>请选择</text>
+    <image src="/images/icon/close.svg" bindtap="close"></image>
+  </view>
+  <view class="tabs">
+    <view wx:if="{{index <= tabIndex}}" wx:for="{{tabs}}" wx:key="*this" class="tab {{tabIndex == index?'active':''}}" data-index="{{index}}" bindtap="tabClick">{{ item }}</view>
+  </view>
+  <view class="data">
+    <scroll-view scroll-y scroll-with-animation>
+      <view class="inner-box">
+        <view class="{{item.active?'active':''}}" wx:for="{{redionData}}" wx:key="id" data-index="{{index}}" bindtap="_click">{{ item.name }}</view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

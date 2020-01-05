@@ -7,7 +7,7 @@
   padding: 16rpx;
   background:rgba(0,0,0,0.7);
   border-radius: 16rpx 0 0 16rpx;
-  z-index: 99999;
+  z-index: 999;
 }
 .float-menu-cover-open {
   right: 440rpx;
@@ -33,7 +33,7 @@
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 32rpx;
-  z-index: 99999;
+  z-index: 999;
 }
 .float-menu-items .item {
   display: flex;

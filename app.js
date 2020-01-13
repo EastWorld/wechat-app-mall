@@ -72,11 +72,20 @@ App({
         
       }
     })
+    // 读取评价赠送多少积分
     WXAPI.scoreRules({
       code: 'goodReputation'
     }).then(function(res) {
       if (res.code == 0) {        
         that.globalData.order_reputation_score = res.data[0].score;
+      }
+    })
+    // 拉取站点信息
+    WXAPI.siteStatistics().then(res => {
+      if (res.code == 0) {
+        if (res.data.wxAppid) {
+          wx.setStorageSync('wxAppid', res.data.wxAppid);
+        }
       }
     })
   },

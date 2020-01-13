@@ -5,14 +5,14 @@ Page({
     data:{
       orderId:0,
       goodsList:[],
-      yunPrice:"0.00",
-      appid: CONFIG.appid
+      yunPrice:"0.00"
     },
     onLoad:function(e){
       var orderId = e.id;
       this.data.orderId = orderId;
       this.setData({
-        orderId: orderId
+        orderId: orderId,
+        appid: wx.getStorageSync('wxAppid')
       });
     },
     onShow : function () {

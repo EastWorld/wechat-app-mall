@@ -24,7 +24,6 @@
       <template is="apifmShare" />
     </view>    
   </view>
-  <ad unit-id="adunit-b28576e058668589"></ad>
   <view class="page__bd" wx:if="{{curGoodsKanjia}}" style='width:750rpx;'>
     <view class="weui-cells__title">商品砍价设置</view>
     <view class="weui-cells weui-cells_after-title">

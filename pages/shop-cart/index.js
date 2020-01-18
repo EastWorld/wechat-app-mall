@@ -19,8 +19,8 @@ Page({
   getEleWidth: function(w) {
     var real = 0;
     try {
-      var res = wx.getSystemInfoSync().windowWidth;
-      var scale = (750 / 2) / (w / 2); //以宽度750px设计稿做宽度的自适应
+      var res = wx.getSystemInfoSync().windowWidth
+      var scale = (750 / 2) / (w / 2)
       // console.log(scale);
       real = Math.floor(res / scale);
       return real;

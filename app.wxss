@@ -45,3 +45,6 @@
   color:rgba(153,153,153,1);
   margin: 0 16rpx;
 }
+.ad-img {
+  width: 100vw;
+}

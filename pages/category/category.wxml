@@ -5,7 +5,7 @@
   </view>
   <view class="content-container">
     <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true">
-      <view class="category {{categorySelected.id==category.id?'active':''}}" wx:for="{{categories}}" wx:for-item="category" wx:key="id" data-id="{{category.id}}" bindtap="onCategoryClick">
+      <view wx:if="{{category.level == 1}}" class="category {{categorySelected.id==category.id?'active':''}}" wx:for="{{categories}}" wx:for-item="category" wx:key="id" data-id="{{category.id}}" bindtap="onCategoryClick">
         <view class="name {{categorySelected.id==category.id?'active':''}}">{{category.name}}</view>
       </view>
     </scroll-view>

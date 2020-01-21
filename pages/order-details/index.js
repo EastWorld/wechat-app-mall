@@ -4,8 +4,7 @@ const WXAPI = require('apifm-wxapi')
 Page({
     data:{
       orderId:0,
-      goodsList:[],
-      yunPrice:"0.00"
+      goodsList:[]
     },
     onLoad:function(e){
       var orderId = e.id;
@@ -30,16 +29,6 @@ Page({
           orderDetail: res.data
         });
       })
-      var yunPrice = parseFloat(this.data.yunPrice);
-      var allprice = 0;
-      var goodsList = this.data.goodsList;
-      for (var i = 0; i < goodsList.length; i++) {
-        allprice += parseFloat(goodsList[0].price) * goodsList[0].number;
-      }
-      this.setData({
-        allGoodsPrice: allprice,
-        yunPrice: yunPrice
-      });
     },
     wuliuDetailsTap:function(e){
       var orderId = e.currentTarget.dataset.id;

@@ -1,31 +1,59 @@
+<view class="tabs">
+  <view class="item {{activeIndex == index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" data-id="{{index}}" bindtap="tabClick">{{item}}</view>
+</view>
+<view wx:if="{{ !coupons || coupons.length == 0 }}" class="empty">
+  <image src="/images/icon/coupons-empty.svg"></image>
+  <view>暂无优惠券</view>
+</view>
+<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 0}}">
+  <image class="icon" src="/images/icon/coupons-active.svg"></image>
+  <view class="profile">
+    <view class="name">
+      <view class="t">代金券</view>
+      <view class="n">{{item.name}}</view>
+    </view>
+    <view class="price">
+      <view class="tj">满{{item.moneyHreshold}}</view>
+      <view class="amount"><text>￥</text>{{item.moneyMin}}</view>
+    </view>
+    <view class="btn" bindtap="getCounpon" data-id="{{item.id}}">立即领取</view>
+  </view>
+</view>
+<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 1}}">
+  <image class="icon" src="/images/icon/coupons-active.svg"></image>
+  <view class="profile">
+    <view class="name">
+      <view class="t">代金券</view>
+      <view class="n">{{item.name}}</view>
+    </view>
+    <view class="price">
+      <view class="tj">满{{item.moneyHreshold}}</view>
+      <view class="amount"><text>￥</text>{{item.money}}</view>
+    </view>
+    <view class="btn" bindtap="toIndexPage">立即使用</view>
+  </view>
+</view>
+<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 2}}">
+  <image class="icon" src="/images/icon/coupons-off.svg"></image>
+  <view class="profile">
+    <view class="name">
+      <view class="t disabled1">代金券</view>
+      <view class="n disabled2">{{item.name}}</view>
+    </view>
+    <view class="price">
+      <view class="tj disabled2">满{{item.moneyHreshold}}</view>
+      <view class="amount disabled2"><text class="disabled2">￥</text>{{item.money}}</view>
+    </view>
+    <view class="btn">{{ item.statusStr }}</view>
+  </view>
+</view>
+<view class="bottom"></view>
+
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class="weui-cells weui-cells_after-title">
-            <form bindsubmit="getCounponByPwd" report-submit="true">
-              <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__bd">
-                  <input name="pwd" class="weui-input" placeholder="请输入优惠码" value='{{couponInput}}' />
-                </view>
-                <view class="weui-cell__ft">
-                  <button class="weui-btn duihuang-btn" type="default" plain="true" formType="submit">兑换优惠券</button>
-                </view>
-              </view>
-            </form>
-          </view>
-          <view wx:if="{{sysCoupons.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无可领取优惠券</view>
-          </view>
           <view class="weui-panel" wx:for="{{sysCoupons}}" wx:key="*key" wx:if="{{!item.pwd}}">
             <view class="weui-panel__hd">{{item.name}}</view>
             <view class="weui-panel__bd">
@@ -49,9 +77,6 @@
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view wx:if="{{myCoupons.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无可用优惠券</view>
-          </view>
           <view class="weui-panel" wx:for="{{myCoupons}}" wx:key="*key">
             <view class="weui-panel__hd">{{item.name}}</view>
             <view class="weui-panel__bd">
@@ -70,9 +95,6 @@
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view wx:if="{{invalidCoupons.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
-          </view>
           <view class="weui-panel" wx:for="{{invalidCoupons}}" wx:key="*key">
             <view class="weui-panel__hd">{{item.name}}</view>
             <view class="weui-panel__bd">
@@ -94,5 +116,3 @@
     </view>
   </view>
 </view>
-
-<float-menu /> 

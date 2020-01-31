@@ -1,74 +1,41 @@
-<view class="page">
-  <form bindsubmit="bindSave" report-submit="true">
-  <view class="page__bd">    
-    <view class="weui-cells__title">开票信息</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">名称</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <input class="weui-input price" placeholder='请填写公司名称' name='comName'/>
-          </view>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">税号</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <input class="weui-input price" placeholder='请填写开票税号' name='tfn'/>
-          </view>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">发票内容</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <input class="weui-input price" name='consumption' value='服务费' />
-          </view>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">工厂账号</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <input class="weui-input price" name='mobile' placeholder='工厂注册的手机号码' />
-          </view>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">开票金额</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <input class="weui-input price" name='amount' placeholder='0.00' />
-          </view>
-        </view>
-      </view>
+<view class="form">
+  <form bindsubmit="bindSave">
+    <view class="title">发票填写</view>
+    <view class="input">
+      <view>工厂账号</view>
+      <input name='mobile' type="text" placeholder="api工厂注册的手机号码" placeholder-class="placeholder" />
     </view>
-
-    <view class="weui-cells__title">快递地址</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <textarea name='remark' class="weui-textarea" placeholder="请填写快递地址" style="height: 5em" />
-        </view>
-      </view>
+    <view class="input">
+      <view>发票抬头</view>
+      <input name='comName' type="text" placeholder="公司名称" placeholder-class="placeholder" />
     </view>
-
-    <view class="weui-btn-area">      
-      <button class="weui-btn" type="warn" formType="submit">申请开票</button>
+    <view class="input">
+      <view>税号</view>
+      <input name='tfn' type="text" placeholder="填写税号" placeholder-class="placeholder" />
     </view>
-  </view>
+    <view class="input">
+      <view>发票内容</view>
+      <input name='consumption' value="服务费" type="text" placeholder="开票项目说明" placeholder-class="placeholder" />
+    </view>
+    <view class="input">
+      <view>发票金额</view>
+      <input name='amount' type="digit" placeholder="申请开票金额" placeholder-class="placeholder" />
+    </view>
+    <view class="input">
+      <view>地址与电话</view>
+      <input name='address' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" />
+    </view>
+    <view class="input">
+      <view>开户行与账号</view>
+      <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" />
+    </view>
+    <view class="input">
+      <view>备注</view>
+      <input name='remark' type="text" placeholder="如有特殊说明，请告诉我们" placeholder-class="placeholder" />
+    </view>
+    <button class="save-btn" formType="submit">申请发票</button>
   </form>
 </view>
 
-<float-menu /> 
+<import src="/template/login/index.wxml" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

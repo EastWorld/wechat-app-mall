@@ -1,17 +1,148 @@
-page,
-.page,
-.page__bd{
-    height: 100%;
+page {
+  background-color: #f7f8fa;
 }
-.page__bd{
-    padding-bottom: 0;
+.tabs {
+  display: flex;
+  text-align: center;
+  height: 98rpx;
+  line-height: 98rpx;
 }
-.weui-tab__content{
-    padding-top: 10px;
+.tabs .item {
+  width: 250rpx;
+  background-color: #EEEEEE;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #333333;
+  letter-spacing: 0;
 }
-.duihuang-btn {
-  border-color:#ccc !important ;
+.tabs .active {
+  background-color: #ffffff;
+  color: #FEB21C;
 }
-.price {
-  color:#e64340;
+
+.empty {
+  width: 750rpx;
+  margin-top: 100rpx;
+  text-align: center;
+}
+.empty image {
+  margin-left: 274rpx;
+  width: 202rpx;
+  height: 156rpx;
+  display: block;
+}
+.empty view {
+  margin-top: 48rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 30rpx;
+  color: #333333;
+  letter-spacing: 0;
+}
+
+.coupons {
+  display:flex;
+  justify-content:space-between;
+  margin-top: 24rpx;
+  margin-left: 24rpx;
+  width: 702rpx;
+  height: 258rpx;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 16rpx 0 rgba(36,44,69,0.20);
+  border-radius: 8rpx;
+}
+.coupons .icon {
+  margin-left: 64rpx;
+  margin-top: 44rpx;
+  width: 160rpx;
+  height: 144rpx;
+}
+.coupons .profile {
+  display: flex;
+  flex-direction:column;
+  align-items:flex-end;
+}
+.coupons .profile .name {
+  display: flex;
+  margin-top: 32rpx;
+}
+.coupons .profile .name .t {
+  width: 80rpx;
+  height: 30rpx;
+  background: #FEB21C;
+  border-radius: 4rpx;
+
+  font-family: PingFangSC-Medium;
+  font-size: 20rpx;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  line-height: 30rpx;
+  text-align: center;
+}
+.coupons .profile .name .n {
+  margin-left: 16rpx;
+  margin-right: 24rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 30rpx;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 30rpx;
+}
+.coupons .profile .price {
+  display: flex;
+  align-items:baseline;
+  margin-top: 24rpx;
+}
+.coupons .profile .price .tj {
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #999999;
+  letter-spacing: 0;
+  line-height: 20rpx;
+}
+.coupons .profile .price .amount {
+  font-family: PingFangSC-Medium;
+  font-size: 56rpx;
+  color: #FEB21C;
+  letter-spacing: 0;
+  line-height: 56rpx;
+  margin-right: 24rpx;
+}
+.coupons .profile .price .amount text {
+  margin-left: 16rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #FEB21C;
+  letter-spacing: 0;
+  line-height: 20rpx;  
+}
+.disabled1 {
+  background: #999999 !important;
+  color: #FFFFFF !important;
+}
+.disabled2 {
+  color: #999999 !important;
+}
+.coupons .profile .btn {
+  margin-top: 24rpx;
+  width: 182rpx;
+  height: 60rpx;
+  text-align: center;
+
+  background: #FFFFFF;
+  border: 2rpx solid #979797;
+  border-right: none;
+  border-radius: 200rpx 2rpx 2rpx 200rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #999999;
+  letter-spacing: 0;
+  line-height: 60rpx;
+}
+
+
+
+.bottom {
+  width: 100vw;
+  height: 24rpx;
 }

@@ -907,7 +907,9 @@ module.exports = {
     });
   },
   scoreDeductionRules: function scoreDeductionRules() {
-    return request('/score/deduction/rules', true, 'get', {});
+    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+    return request('/score/deduction/rules', true, 'get', { type: type });
   },
   voteItems: function voteItems(data) {
     return request('/vote/items', true, 'post', data);
@@ -1023,6 +1025,14 @@ module.exports = {
   shippingCarInfoRemoveAll: function shippingCarInfoRemoveAll(token) {
     return request('/shopping-cart/empty', true, 'post', {
       token: token
+    });
+  },
+  growthLogs: function growthLogs(data) {
+    return request('/growth/logs', true, 'post', data);
+  },
+  exchangeScoreToGrowth: function exchangeScoreToGrowth(token, deductionScore) {
+    return request('/growth/exchange', true, 'post', {
+      token: token, deductionScore: deductionScore
     });
   }
 };

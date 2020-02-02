@@ -1,0 +1,31 @@
+<view class="score">
+  <view>当前可用积分</view>
+  <view>{{score}}</view>
+</view>
+<view class="container">
+  <form bindsubmit="bindSave">
+    <view class="form-box">
+      <view class="row-wrap">
+        <view class="label">兑换积分</view>
+        <view class="label-right">
+          <input name="score" class="input" type="text" placeholder="你希望用多少积分来兑换成长值" />
+        </view>
+      </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">立即兑换</button>
+  </form>
+  <view wx:if="{{deductionRules}}" class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd">兑换规则：</view>
+    <view class="weui-panel__bd">
+      <view wx:for="{{deductionRules}}" wx:key="id" class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">获得 {{ item.money }} 成长值</view>
+        <view class="weui-media-box__desc">{{ item.loop? '每满': '满' }} {{ item.score }} 积分即可兑换</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+<import src="/template/login/index.wxml" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

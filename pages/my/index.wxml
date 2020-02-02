@@ -22,6 +22,12 @@
       <view>{{score}}</view>
       <view>积分</view>
     </view>
+    <navigator url="/pages/score/growth">
+      <view class='item right'>
+        <view>{{growth}}</view>
+        <view>成长值</view>
+      </view>
+    </navigator>
   </view>
   <view class="space"></view>
   <navigator url="/pages/order-list/index">
@@ -140,7 +146,14 @@
   <view class="line"></view>
   <navigator url="/pages/score-excharge/index">
     <view class="menu-item">
-      <view class="l">积分兑换</view>
+      <view class="l">积分卷兑换积分</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
+  <navigator url="/pages/score-excharge/growth">
+    <view class="menu-item">
+      <view class="l">积分兑换成长值</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>

@@ -36,7 +36,7 @@ page,view,image,input {
 .asset .item {
   display: flex;
   flex-direction: column;
-  width:250rpx;
+  width:187rpx;
   text-align: center;
   font-size: 13px;
   line-height: 20px;

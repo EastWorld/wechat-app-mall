@@ -1,4 +1,5 @@
 <template name="no-goods">
+  <image class="no-goods-icon" src="/images/nav/cart-off.png"></image>
   <view class="title-box">
     购物车空空如也～
   </view>

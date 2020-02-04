@@ -53,27 +53,6 @@ page,view,image,input {
   padding: 32rpx;
 }
 
-.my-item{
-    width: 100%;
-    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 700rpx center;
-    background-size: 16rpx auto,700rpx auto;
-    border-bottom: 1px solid #eee;
-    height: 80rpx;
-    line-height: 80rpx;
-    padding-left: 32rpx;
-    font-size:14px;
-}
-
-.about{
-    width: 100%;
-    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
-    background-size: 16rpx auto,750rpx auto;
-    margin: 20rpx 0; 
-    height: 80rpx;
-    line-height: 80rpx;
-    padding-left: 100rpx;
-}
-
 .order-shortcut {
   display: flex;
   padding-top: 20rpx;

@@ -1,61 +1,75 @@
 .container {
-    background-color:#F2f2f2;
+  background-color: #f2f2f2;
 }
-.address-list{
-    width: 100%;
-    background-color: #fff;
-    margin-top: 20rpx;
-    padding-bottom: 100rpx;
+
+.address-list {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding-bottom: 100rpx;
 }
-.address-list .a-address{
-    width: 720rpx;
-    margin-left: 30rpx;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30rpx 0;
-    border-bottom: 1rpx solid #eee;
+
+.address-list .a-address {
+  width: 720rpx;
+  margin-left: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #eee;
 }
-.a-address .left-text{
-    width: 610rpx;
-    box-sizing: border-box;
-    padding-left: 58rpx;
+
+.a-address .left-text {
+  width: 610rpx;
+  box-sizing: border-box;
 }
-.a-address .left-text.active{
-    background: url(https://cdn.it120.cc/images/weappshop/addr-active.png) no-repeat left center;
-    background-size: 28rpx auto;
+
+.a-address .left-text .name-tel {
+  margin-bottom: 20rpx;
 }
-.a-address .left-text .name-tel{
-    margin-bottom: 20rpx;
+
+.a-address .left-text .address-box {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 36rpx;
 }
-.a-address .left-text .address-box{
-    font-size:24rpx;
-    color:#888888;
-    line-height:36rpx;
+
+.a-address .right-edit {
+  width: 72rpx;
 }
-.a-address .right-edit{
-    width: 109rpx;
-    height: 100%;
-    padding: 50rpx 0 50rpx 58rpx;
-    box-sizing: border-box;
-    background: url(https://cdn.it120.cc/images/weappshop/addr-edit.png) no-repeat 43rpx center;
-    background-size: 35rpx auto;
+.a-address .right-edit image {
+  width: 40rpx;
+  height: 40rpx;
 }
-.bottom-box{
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    font-size:28rpx;
-    color:#000000;
-    border-top: 1rpx solid #eee;
-    height:100rpx;
-    line-height: 100rpx;
-    background: #fff url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center;
-    background-size: 15rpx auto;
+
+.bottom-box {
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
+  font-size: 28rpx;
+  color: #333;
+  border-top: 1rpx solid #eee;
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.bottom-box .add-btn{
-    margin-left: 30rpx;
-    padding-left: 70rpx;
-    background: url(https://cdn.it120.cc/images/weappshop/add-addr.png) no-repeat left center;
-    background-size: 40rpx auto;
+.bottom-box .next {
+  margin-right: 32rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.bottom-box .add-btn {
+  display: flex;
+  align-items: center;
+  margin-left: 32rpx;
+}
+.bottom-box .add-btn image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.bottom-box .add-btn view {
+  margin-left: 16rpx;
 }

@@ -1,5 +1,3 @@
-@import "/wxParse/wxParse.wxss";
-
 .notice {
   padding: 32rpx;
   font-size: 26rpx;

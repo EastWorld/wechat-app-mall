@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "每日签到"
+  "navigationBarTitleText": "每日签到",
+  "usingComponents": {
+    "calendar": "/components/calendar/index"
+  }
 }

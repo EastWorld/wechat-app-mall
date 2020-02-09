@@ -1,9 +1,5 @@
-import initCalendar from '../../template/calendar/index';
-import { setTodoLabels } from '../../template/calendar/index';
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-
-let interstitialAd = null
 
 Page({
 
@@ -11,101 +7,47 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    wxlogin: true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    if (wx.createInterstitialAd) {
-      interstitialAd = wx.createInterstitialAd({
-        adUnitId: 'adunit-b5abb25cb93c2769'
-      })
-      interstitialAd.onLoad(() => { })
-      interstitialAd.onError((err) => { })
-      interstitialAd.onClose(() => { })
-    }
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
       if (isLogined) {
         this.doneShow();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              wx.navigateBack()
-            }
-          }
-        })
       }
     })
   },
-  doneShow: function () {
-    initCalendar({
-      afterTapDay: (currentSelect, allSelectedDays) => {
-        // 不是今天，直接 return 
-        const myDate = new Date();
-        // console.log('y:', myDate.getFullYear())
-        // console.log('m:', myDate.getMonth() + 1)
-        // console.log('d:', myDate.getDate())
-        if (myDate.getFullYear() != currentSelect.year ||
-          (myDate.getMonth() + 1) != currentSelect.month ||
-          myDate.getDate() != currentSelect.day) {
-          return
-        }
-        if (currentSelect.hasTodo) {
-          wx.showToast({
-            title: '今天已签到',
-            icon: 'none'
-          })
-          return
-        }
-        WXAPI.scoreSign(wx.getStorageSync('token')).then(r => {
-          wx.showToast({
-            title: '签到成功',
-            icon: 'none'
-          })
-          setTodoLabels({
-            pos: 'bottom',
-            dotColor: '#40',
-            days: [{
-              year: currentSelect.year,
-              month: currentSelect.month,
-              day: currentSelect.day,
-              todoText: '已签到'
-            }],
-          });
-        })
-      }
-    });
+  doneShow: function() {
+    setTimeout(() => {
+      this.calendar.jump()
+    }, 1000)
     WXAPI.scoreSignLogs({
       token: wx.getStorageSync('token')
     }).then(res => {
       if (res.code == 0) {
         res.data.result.forEach(ele => {
           const _data = ele.dateAdd.split(" ")[0]
-          setTodoLabels({
+          this.calendar.setTodoLabels({
             pos: 'bottom',
             dotColor: '#40',
             days: [{
@@ -117,47 +59,44 @@ Page({
           });
         })
       }
-    })    
-    // 显示广告
-    if (interstitialAd) {
-      interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
+    })
+  },
+  afterTapDay(e) {
+    // 不是今天，直接 return 
+    const myDate = new Date();
+    // console.log('y:', myDate.getFullYear())
+    // console.log('m:', myDate.getMonth() + 1)
+    // console.log('d:', myDate.getDate())
+    if (myDate.getFullYear() != e.detail.year ||
+      (myDate.getMonth() + 1) != e.detail.month ||
+      myDate.getDate() != e.detail.day) {
+      return
     }
+    if (e.detail.showTodoLabel) {
+      wx.showToast({
+        title: '今天已签到',
+        icon: 'none'
+      })
+      return
+    }
+    WXAPI.scoreSign(wx.getStorageSync('token')).then(r => {
+      wx.showToast({
+        title: '签到成功',
+        icon: 'none'
+      })
+      this.calendar.setTodoLabels({
+        pos: 'bottom',
+        dotColor: '#40',
+        days: [{
+          year: e.detail.year,
+          month: e.detail.month,
+          day: e.detail.day,
+          todoText: '已签到'
+        }],
+      });
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

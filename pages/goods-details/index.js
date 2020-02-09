@@ -1,7 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const app = getApp();
-const WxParse = require('../../wxParse/wxParse.js');
-import ApifmShare from '../../template/share/index.js';
+const ApifmShare = require('../../template/share/index.js');
 const CONFIG = require('../../config.js')
 const AUTH = require('../../utils/auth')
 const SelectSizePrefix = "选择："
@@ -116,7 +115,6 @@ Page({
         }        
       }
       that.setData(_data);
-      WxParse.wxParse('article', 'html', goodsDetailRes.data.content, that, 5);
     }
   },
   goShopCar: function() {

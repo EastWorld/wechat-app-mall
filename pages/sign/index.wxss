@@ -1,1 +1,1 @@
-@import '../../template/calendar/index.wxss';
+@import "/template/login/index.wxss";

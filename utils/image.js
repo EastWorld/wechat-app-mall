@@ -19,4 +19,6 @@ function imageUtil (originalWidth, originalHeight) {
   return imageSize
 }
 
-export default imageUtil
+module.exports = {
+  imageUtil: imageUtil
+}

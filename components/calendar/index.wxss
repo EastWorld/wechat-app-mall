@@ -1,0 +1,214 @@
+@import './theme/iconfont.wxss';
+@import './theme/theme-default.wxss';
+@import './theme/theme-elegant.wxss';
+
+.b {
+    display: flex;
+}
+
+.lr {
+    flex-direction: row;
+}
+
+.tb {
+    flex-direction: column;
+}
+
+.pc {
+    justify-content: center;
+}
+
+.ac {
+    align-items: center;
+}
+
+.cc {
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.flex {
+    flex-grow: 1;
+}
+
+.bg {
+    background-image: linear-gradient(to bottom, #faefe7, #ffcbd7);
+    overflow: hidden;
+}
+
+.white-color {
+    color: #fff;
+}
+
+.fs24 {
+    font-size: 24rpx;
+}
+
+.fs28 {
+    font-size: 28rpx;
+}
+
+.fs32 {
+    font-size: 32rpx;
+}
+
+.fs36 {
+    font-size: 36rpx;
+}
+
+.calendar {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 日历操作栏 */
+
+.handle {
+    height: 80rpx;
+}
+
+.prev-handle,
+.next-handle {
+    padding: 20rpx;
+}
+
+.date-in-handle {
+    height: 80rpx;
+}
+
+/* 星期栏 */
+
+.weeks {
+    height: 50rpx;
+    line-height: 50rpx;
+    opacity: 0.5;
+}
+
+.week {
+    text-align: center;
+}
+
+.grid,
+.week {
+    width: 14.286014285714286%;
+}
+
+.date-wrap {
+    width: 100%;
+    height: 80rpx;
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.date {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 55rpx;
+    height: 55rpx;
+    text-align: center;
+    line-height: 55rpx;
+    font-size: 26rpx;
+    font-weight: 200;
+    border-radius: 50%;
+    transition: all 0.3s;
+    animation-name: choosed;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.date-area-mode {
+    width: 100%;
+    border-radius: 0;
+}
+
+.date-desc {
+    width: 150%;
+    height: 32rpx;
+    font-size: 20rpx;
+    line-height: 32rpx;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-line-clamp: 1;
+    text-align: center;
+}
+
+@keyframes choosed {
+    from {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* 日期圆圈标记 */
+.todo-circle {
+    border-width: 1rpx;
+    border-style: solid;
+    box-sizing: border-box;
+}
+
+/* 待办点标记相关样式 */
+.todo-dot {
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.todo-dot-top {
+    top: 3rpx;
+}
+
+.todo-dot.todo-dot-top-always {
+    top: -8rpx;
+}
+
+.todo-dot.todo-dot-bottom {
+    bottom: 0;
+}
+
+.todo-dot.todo-dot-bottom-always {
+    bottom: -10rpx;
+}
+
+/* 日期描述文字（待办文字/农历）相关样式 */
+
+.date-desc.date-desc-top {
+    top: -6rpx;
+}
+
+.date-desc.date-desc-top-always {
+    top: -20rpx;
+}
+
+.date-desc.date-desc-bottom {
+    bottom: -14rpx;
+}
+
+.todo-circle .date-desc.date-desc-bottom {
+    bottom: -30rpx;
+}
+
+.date-desc.date-desc-bottom-always {
+    bottom: -28rpx;
+}

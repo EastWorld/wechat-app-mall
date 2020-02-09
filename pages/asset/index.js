@@ -1,7 +1,6 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-import ApifmLogin from '../../template/login/index.js';
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
@@ -33,7 +32,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    ApifmLogin.init(this)
     const that = this;
     wx.getSystemInfo({
       success: function (res) {

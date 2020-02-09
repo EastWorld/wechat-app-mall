@@ -1,5 +1,6 @@
-<import src="../../template/calendar/index.wxml"/>
 <view class="calendar-wrap">
-   <template is="calendar" data="{{...calendar}}" />
+   <calendar bind:afterTapDay="afterTapDay"></calendar>
 </view>
-<float-menu /> 
+
+<import src="/template/login/index.wxml" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

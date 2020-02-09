@@ -37,6 +37,8 @@
 
 - [WeUI](https://github.com/Tencent/weui-wxss/)
 
+- [每日签到日历控件 wx_calendar](https://github.com/treadpit/wx_calendar)
+
 底部ICON图标使用：
 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=13163
 
@@ -68,40 +70,9 @@ thirdScriptError
 
 ## 使用说明
 
-1、申请后台账号/获取专属域名
+请点开这个链接，按照上面的步骤操作即可：
 
-2、开通商城模块
-
-<img src="https://cdn.it120.cc/apifactory/2018/11/14/b61fe6ffb2460f7e4554758b394814f5.png">
-
-3、修改根目录下 config.js 文件
-
-```javascript
-module.exports = {
-  version: "7.4.0",
-  note: '内页增加快速浮动导航、我的页面UI优化', // 版本说明，无需修改
-  subDomain: "tz", // 根据教程 https://www.yuque.com/apifm/doc/qr6l4m 查看你自己的 subDomain
-  shareProfile: '百款精品商品，总有一款适合您', // 首页转发的时候话术
-  goodsDetailSkuShowType: 0, // 0 为点击立即购买按钮后出现规格尺寸、数量的选择； 1为直接在商品详情页面显示规格尺寸、数量的选择，而不弹框
-}
-```
-
-4、[设置小程序合法服务器域名](https://www.yuque.com/apifm/doc/tvpou9)
-
-5、重启您的小程序开发工具，完成
-
-6、如何在后台管理小程序启动图和首页头部的轮播 banner 图片
-
-```
-这两个功能都是使用后台 “系统设置” --> “banner” 管理功能来实现的；
-后台发布banner的时候，自定义类型请分别填写  app  和  index
-小程序会自动读取类型为 app 的banner图片作为启动展示图片；
-小程序会自动读取类型为 index 的banner图片作为首页的轮播图；
-```
-
-7、订阅消息(以前的模板消息)如何使用？请查阅 “api工厂” 的教程：
-
-[https://www.yuque.com/apifm/doc/sw1dg9](https://www.yuque.com/apifm/doc/sw1dg9)
+[https://www.it120.cc/help/sv06xh.html](https://www.it120.cc/help/sv06xh.html)
 
 ## 系统参数设置
 
@@ -142,6 +113,15 @@ module.exports = {
 - 如何修改小程序商城的标题？
 
   请查看上面的系统设置中的 **mallName**
+
+- 如何在后台管理小程序启动图和首页头部的轮播 banner 图片？
+
+```
+这两个功能都是使用后台 “系统设置” --> “banner” 管理功能来实现的；
+后台发布banner的时候，自定义类型请分别填写  app  和  index
+小程序会自动读取类型为 app 的banner图片作为启动展示图片；
+小程序会自动读取类型为 index 的banner图片作为首页的轮播图；
+```
 
 - “无法登录” / Token 无效 ？
 

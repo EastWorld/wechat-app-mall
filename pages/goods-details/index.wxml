@@ -1,4 +1,3 @@
-<import src="../../wxParse/wxParse.wxml" />
 <import src="/template/share/index.wxml" />
 <import src="/template/login/index.wxml" />
 <view class="container">
@@ -171,7 +170,7 @@
   <view class="goods-des-info">
     <view class="label-title">商品介绍</view>
     <view class="goods-text">
-      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      <wxparse data="{{ goodsDetail.content }}"></wxparse>
     </view>
   </view>
   <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{!curGoodsKanjia && reputation}}">
@@ -209,7 +208,7 @@
   </view>
   <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
     <view class="contact">
-      <button class="btn" type="primary" open-type="contact" style="top:{{btbTop}}rpx">{{btn_txt}}</button>
+      <button type="primary" open-type="contact" />
       <image src="/images/icon/kf.svg"></image>
     </view>
     <view class="shop-cart-btn" bindtap="goShopCar">

@@ -76,6 +76,12 @@
   "navigateToMiniProgramAppIdList": [
     "wx56c8f077de74b07c"
   ],
+  "plugins": {
+    "wxparse": {
+      "version": "1.0.10",
+      "provider": "wx5d60c080635009b1"
+    }
+  },
   "usingComponents": {
     "float-menu": "/components/float-menu/index"
   },

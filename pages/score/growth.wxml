@@ -3,7 +3,7 @@
   <view>{{growth}}</view>
 </view>
 <view class='no-data' wx:if="{{!cashlogs}}">暂无成长值明细~</view>
-<view class='cashlogs' wx:if="{{cashlogs}}" wx:for-items="{{cashlogs}}" wx:key="{{index}}">
+<view class='cashlogs' wx:if="{{cashlogs}}" wx:for="{{cashlogs}}" wx:key="{{index}}">
   <view class='profile'>
     <view class='typeStr'>{{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}</view>
     <view class='dateAdd'>{{ item.dateAdd }}</view>

@@ -1,5 +1,4 @@
 const app = getApp();
-const WxParse = require('../../wxParse/wxParse.js');
 const WXAPI = require('apifm-wxapi')
 Page({
 
@@ -20,7 +19,6 @@ Page({
         that.setData({
           notice: res.data
         });
-        WxParse.wxParse('article', 'html', res.data.content, that, 5);
       }
     })
   },

@@ -1,6 +1,5 @@
 const wxpay = require('../../utils/pay.js')
 const WXAPI = require('apifm-wxapi')
-import drawQrcode from '../../utils/weapp.qrcode.min.js'
 const app = getApp()
 Page({
 
@@ -9,7 +8,6 @@ Page({
    */
   data: {
     uid: undefined,
-    showalipay: false,
     rechargeSendRules: undefined
   },
 
@@ -116,60 +114,6 @@ Page({
       })
       return
     }
-    that.setData({
-      showalipay: e.detail.value.type == 'alipay'
-    })
-    if (e.detail.value.type == 'wx') {
-      // 微信充值
-      wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
-    } else {
-      // 支付宝充值
-      WXAPI.alipay({
-        token: wx.getStorageSync('token'),
-        money: amount
-      }, 'post').then(res => {
-        if (res.code != 0) {
-          wx.showModal({
-            title: '错误',
-            content: res.msg,
-            showCancel: false
-          })
-          return
-        }
-        drawQrcode({
-          width: 200,
-          height: 200,
-          canvasId: 'myQrcode',
-          text: res.data,
-          _this: that
-        })
-      })
-    }
-  },
-  saveToMobile: function () {
-    wx.canvasToTempFilePath({
-      canvasId: 'myQrcode',
-      success: function (res) {
-        let tempFilePath = res.tempFilePath
-        wx.saveImageToPhotosAlbum({
-          filePath: tempFilePath,
-          success: (res) => {
-            wx.showModal({
-              content: '已保存到手机相册',
-              showCancel: false,
-              confirmText: '知道了',
-              confirmColor: '#333'
-            })
-          },
-          fail: (res) => {
-            wx.showToast({
-              title: res.errMsg,
-              icon: 'none',
-              duration: 2000
-            })
-          }
-        })
-      }
-    })
+    wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
   }
 })

@@ -2,8 +2,7 @@ const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-
-import imageUtil from '../../utils/image'
+const ImageUtil = require('../../utils/image')
 
 Page({
 
@@ -107,7 +106,7 @@ Page({
     wx.getImageInfo({
       src: qrcode,
       success: (res) => {
-        const imageSize = imageUtil(res.width, res.height)
+        const imageSize = ImageUtil.imageUtil(res.width, res.height)
         const qrcodeWidth = imageSize.windowWidth / 2
         _this.setData({
           canvasHeight: qrcodeWidth

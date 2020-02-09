@@ -13,7 +13,7 @@
   <view class="notice">
     <image class="notice_icon" src="/images/notice.png"></image>
     <swiper class="notice_swiper" vertical autoplay circular>
-      <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/show?id={{item.id}}">
+      <navigator wx:for="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/show?id={{item.id}}">
         <swiper-item>
           <view class="notice_itemr">{{item.title}}</view>
         </swiper-item>
@@ -37,7 +37,7 @@
       <view class="more"><navigator url="/pages/goods/list?categoryId={{item.id}}">更多 ></navigator></view>
     </view>
     <view class="goods-container">
-      <view class="goods-box" wx:for-items="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
         <view class="img-box">
           <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
         </view>
@@ -53,7 +53,7 @@
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
   </view>
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
-    <view class="goods-box" wx:for-items="{{goodsRecommend}}" wx:key="*this" bindtap="toDetailsTap" data-id="{{item.id}}">
+    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="*this" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
         <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
       </view>
@@ -68,7 +68,7 @@
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">
-      <view wx:for-items="{{kanjiaList}}" wx:key="id" class="weui-media-box weui-media-box_appmsg">
+      <view wx:for="{{kanjiaList}}" wx:key="id" class="weui-media-box weui-media-box_appmsg">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
           <image class="weui-media-box__thumb" src="{{item.pic}}" />
         </view>
@@ -92,7 +92,7 @@
       <view class="weui-loadmore__tips weui-loadmore__tips_in-line">全民拼团</view>
     </view>
     <view class='tuan'>
-      <view class='tuan-item' wx:for-items="{{pingtuanList}}" wx:key="*this">
+      <view class='tuan-item' wx:for="{{pingtuanList}}" wx:key="*this">
         <view class='tuan-goods-pic'>
           <image src="{{item.pic}}" mode="aspectFill" lazy-load='{{true}}' />
         </view>
@@ -115,7 +115,7 @@
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">商品列表</view>
   </view>
   <view class="goods-container">
-    <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
+    <view class="goods-box" wx:for="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
         <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
       </view>

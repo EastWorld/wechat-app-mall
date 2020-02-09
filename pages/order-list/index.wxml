@@ -1,6 +1,6 @@
 <view class="container">
   <view wx:if='{{!hasRefund}}' class="status-box">
-    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
       {{item}}
       <view class="{{tabClass[index]}}"></view>
     </view>
@@ -10,13 +10,13 @@
     <view class="text">暂无订单</view>
   </view>
   <view class="order-list" hidden="{{orderList ? false : true}}">
-    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+    <view class="a-order" wx:for="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/order-details/index?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">{{item.orderNumber}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">{{item.statusStr}}</view>
       </navigator>
       <scroll-view class="goods-img-container" scroll-x="true">
-        <view class="img-box" wx:for-items="{{goodsMap[item.id]}}" wx:key="{{index}}">
+        <view class="img-box" wx:for="{{goodsMap[item.id]}}" wx:key="{{index}}">
           <image src="{{item.pic}}" class="goods-img"></image>
         </view>
       </scroll-view>

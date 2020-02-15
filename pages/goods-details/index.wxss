@@ -151,9 +151,17 @@ swiper-item image {
 }
 .footer-box .shop-cart-btn .shop-num{
   position: absolute;
-  color:#e64340;
-  left: 90rpx;
-  top:0rpx;
+  color:#fff;
+  left: 80rpx;
+  top:10rpx;
+
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: #e64340;
+  font-size: 24rpx;
 }
 .footer-box .join-shop-cart{
   text-align: center;

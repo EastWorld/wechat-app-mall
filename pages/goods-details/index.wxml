@@ -212,7 +212,7 @@
       <image src="/images/icon/kf.svg"></image>
     </view>
     <view class="shop-cart-btn" bindtap="goShopCar">
-      <view class="shop-num">({{shopNum}})</view>
+      <view class="shop-num">{{shopNum}}</view>
       <image src="/images/nav/cart-off.png"></image>
     </view>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}">加入购物车</view>

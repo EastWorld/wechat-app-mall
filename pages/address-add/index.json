@@ -1,6 +1,3 @@
 {
-   "navigationBarTitleText": "新增地址",
-   "usingComponents": {
-    "region-picker": "/components/region-picker/index"
-  }
+  "navigationBarTitleText": "维护收货地址"
 }

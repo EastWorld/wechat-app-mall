@@ -54,6 +54,9 @@ async function _drawQrcode() {
       ctx.setFillStyle('#333333')
       ctx.setTextAlign('center')
       let name = _this.data.goodsDetail.basicInfo.name
+      if (name.length > 16) {
+        name = name.substring(0, 16) + '...'
+      }
       ctx.fillText(name, x, y)
 
       x = px(300);

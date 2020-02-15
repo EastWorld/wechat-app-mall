@@ -4,43 +4,151 @@ const AUTH = require('../../utils/auth')
 var app = getApp()
 Page({
   data: {
-    showRegionStr: '请选择'
-  },  
+    provinces: undefined,// 省份数据数组
+    pIndex: 0,//选择的省下标
+    cities: undefined,// 城市数据数组
+    cIndex: 0,//选择的市下标
+    areas: undefined,// 区县数数组
+    aIndex: 0,//选择的区下标
+  },
+  async provinces(provinceId, cityId, districtId) {
+    const res = await WXAPI.province()
+    if (res.code == 0) {
+      const provinces = [{
+        id: 0,
+        name: '请选择'
+      }].concat(res.data)
+      let pIndex = 0
+      if (provinceId) {
+        pIndex = provinces.findIndex(ele => {
+          return ele.id == provinceId
+        })
+      }
+      this.setData({
+        pIndex,
+        provinces: provinces
+      })
+      if (provinceId) {
+        const e = { detail: { value: pIndex}}
+        this.provinceChange(e, cityId, districtId)
+      }
+    }
+  },
+  async provinceChange(e, cityId, districtId) {
+    const index = e.detail.value
+    this.setData({
+      pIndex: index
+    })
+    const pid = this.data.provinces[index].id
+    if (pid == 0) {
+      this.setData({
+        cities: null,
+        cIndex: 0,
+        areas: null,
+        aIndex: 0
+      })
+      return
+    }
+    const res = await WXAPI.nextRegion(pid);
+    if (res.code == 0) {
+      const cities = [{
+        id: 0,
+        name: '请选择'
+      }].concat(res.data)
+      let cIndex = 0
+      if (cityId) {
+        cIndex = cities.findIndex(ele => {
+          return ele.id == cityId
+        })
+      }
+      this.setData({
+        cIndex,
+        cities: cities
+      })
+      if (cityId) {
+        const e = { detail: { value: cIndex } }
+        this.cityChange(e, districtId)
+      }
+    }
+  },
+  async cityChange(e, districtId) {
+    const index = e.detail.value
+    this.setData({
+      cIndex: index
+    })
+    const pid = this.data.cities[index].id
+    if (pid == 0) {
+      this.setData({
+        areas: null,
+        aIndex: 0
+      })
+      return
+    }
+    const res = await WXAPI.nextRegion(pid);
+    if (res.code == 0) {
+      const areas = [{
+        id: 0,
+        name: '请选择'
+      }].concat(res.data)
+      let aIndex = 0
+      if (districtId) {
+        aIndex = areas.findIndex(ele => {
+          return ele.id == districtId
+        })
+      }
+      this.setData({
+        aIndex,
+        areas: areas
+      })
+      if (districtId) {
+        const e = { detail: { value: aIndex } }
+        this.areaChange(e)
+      }
+    }
+  },
+  async areaChange(e) {
+    const index = e.detail.value
+    this.setData({
+      aIndex: index
+    })  
+  },
   async bindSave(e) {
-    var that = this;
-    var linkMan = e.detail.value.linkMan;
-    var address = e.detail.value.address;
-    var mobile = e.detail.value.mobile;
+    if (this.data.pIndex == 0 ) {
+      wx.showToast({
+        title: '请选择省份',
+        icon: 'none'
+      })
+      return
+    }
+    if (this.data.cIndex == 0 ) {
+      wx.showToast({
+        title: '请选择城市',
+        icon: 'none'
+      })
+      return
+    }
+    const linkMan = e.detail.value.linkMan;
+    const address = e.detail.value.address;
+    const mobile = e.detail.value.mobile;
     const code = '322000';
     if (linkMan == ""){
-      wx.showModal({
-        title: '提示',
-        content: '请填写联系人姓名',
-        showCancel:false
+      wx.showToast({
+        title: '请填写联系人姓名',
+        icon: 'none'
       })
       return
     }
     if (mobile == ""){
-      wx.showModal({
-        title: '提示',
-        content: '请填写手机号码',
-        showCancel:false
-      })
-      return
-    }
-    if (!this.data.id && (!this.data.pObject || !this.data.cObject)){
-      wx.showModal({
-        title: '提示',
-        content: '请选择地区',
-        showCancel:false
+      wx.showToast({
+        title: '请填写手机号码',
+        icon: 'none'
       })
       return
     }
     if (address == ""){
-      wx.showModal({
-        title: '提示',
-        content: '请填写详细地址',
-        showCancel:false
+      wx.showToast({
+        title: '请填写详细地址',
+        icon: 'none'
       })
       return
     }    
@@ -52,26 +160,17 @@ Page({
       code: code,
       isDefault: 'true',
     }
-    if (this.data.pObject) {
-      postData.provinceId = this.data.pObject.id
+    if (this.data.pIndex > 0) {
+      postData.provinceId = this.data.provinces[this.data.pIndex].id
     }
-    if (this.data.cObject) {
-      postData.cityId = this.data.cObject.id
+    if (this.data.cIndex > 0) {
+      postData.cityId = this.data.cities[this.data.cIndex].id
     }
-    if (this.data.dObject) {
-      postData.districtId = this.data.dObject.id
+    if (this.data.aIndex > 0) {
+      postData.districtId = this.data.areas[this.data.aIndex].id
     }    
-    if (this.data.selectRegion && this.data.selectRegion.length > 3) {
-      const extJsonStr = {}
-      let _address = ''
-      for (let i = 3; i < this.data.selectRegion.length; i++) {
-        _address += this.data.selectRegion[i].name
-      }
-      extJsonStr['街道/社区'] = _address
-      postData.extJsonStr = JSON.stringify(extJsonStr)
-    }
     let apiResult
-    if (that.data.id) {
+    if (this.data.id) {
       postData.id = this.data.id
       apiResult = await WXAPI.updateAddress(postData)
     } else {
@@ -89,34 +188,28 @@ Page({
       wx.navigateBack()
     }
   },
-  onLoad: function (e) {
-    const _this = this
+  async onLoad(e) {
     if (e.id) { // 修改初始化数据库数据
-      WXAPI.addressDetail(wx.getStorageSync('token'), e.id).then(function (res) {
-        if (res.code == 0) {
-          let showRegionStr = res.data.info.provinceStr + res.data.info.cityStr + res.data.info.areaStr
-          if (res.data.extJson && res.data.extJson['街道/社区']) {
-            showRegionStr += res.data.extJson['街道/社区']
-          }
-          _this.setData({
-            id: e.id,
-            addressData: res.data.info,
-            showRegionStr
-          });
-          return;
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '无法获取快递地址数据',
-            showCancel: false
-          })
-        }
-      })
+      const res = await WXAPI.addressDetail(wx.getStorageSync('token'), e.id)
+      if (res.code == 0) {
+        this.setData({
+          id: e.id,
+          addressData: res.data.info
+        })
+        this.provinces(res.data.info.provinceId, res.data.info.cityId, res.data.info.districtId)
+      } else {
+        wx.showModal({
+          title: '错误',
+          content: '无法获取快递地址数据',
+          showCancel: false
+        })
+      }
+    } else {
+      this.provinces()
     }
   },
   deleteAddress: function (e) {
-    var that = this;
-    var id = e.currentTarget.dataset.id;
+    const id = e.currentTarget.dataset.id;
     wx.showModal({
       title: '提示',
       content: '确定要删除该收货地址吗？',
@@ -129,44 +222,6 @@ Page({
           console.log('用户点击取消')
         }
       }
-    })
-  },
-  readFromWx() {
-    AUTH.checkAndAuthorize('scope.address').then(() => {
-      wx.chooseAddress({
-        success: (res) => {
-          this.setData({
-            wxaddress: res
-          });
-        }
-      })
-    })
-  },
-  showRegionSelect(){
-    this.setData({
-      showRegionSelect: true
-    })
-  },
-  closeAddress(){
-    this.setData({
-      showRegionSelect: false
-    })
-  },
-  selectAddress(e){
-    console.log(123, e.detail)
-    const pObject = e.detail.selectRegion[0]
-    const cObject = e.detail.selectRegion[1]
-    const dObject = e.detail.selectRegion[2]
-    let showRegionStr = ''
-    e.detail.selectRegion.forEach(ele => {
-      showRegionStr += ele.name
-    })
-    this.setData({
-      pObject: pObject,
-      cObject: cObject,
-      dObject: dObject,
-      showRegionStr: showRegionStr,
-      selectRegion: e.detail.selectRegion
     })
   },
 })

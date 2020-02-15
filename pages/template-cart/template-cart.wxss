@@ -90,6 +90,7 @@
 }
 
 .goods-info .text-box .goods-title {
+  width: 500rpx;
   font-size: 28rpx;
   color: #000;
   text-overflow: ellipsis;

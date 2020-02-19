@@ -1,7 +1,7 @@
 <view class="swiper-container">
   <swiper indicator-dots="true" indicator-active-color="#fff" autoplay circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">
-      <image  mode="aspectFill" bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}" />
+      <image  mode="aspectFill" bindtap="tapBanner" data-url="{{item.linkUrl}}" src="{{item.picUrl}}" />
     </swiper-item>
   </swiper>
   <view class="search">
@@ -64,7 +64,7 @@
       </view>
     </view>
   </view>
-  <image class="ad-img" mode="widthFix" src="https://dcdn.it120.cc/2020/01/17/87dd26c3-eae8-43c2-b21b-a7776b0144f0.png"></image>
+  <image wx:if="{{adInfo}}" class="ad-img" mode="widthFix" src="{{adInfo.picUrl}}" bindtap="adClick" data-url="{{adInfo.linkUrl}}"></image>
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">

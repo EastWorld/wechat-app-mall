@@ -187,8 +187,9 @@ module.exports = {
   scoreLogs: function scoreLogs(data) {
     return request('/score/logs', true, 'post', data);
   },
-  shareGroupGetScore: function shareGroupGetScore(referrer, encryptedData, iv) {
+  shareGroupGetScore: function shareGroupGetScore(code, referrer, encryptedData, iv) {
     return request('/score/share/wxa/group', true, 'post', {
+      code: code,
       referrer: referrer,
       encryptedData: encryptedData,
       iv: iv

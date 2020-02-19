@@ -1,7 +1,5 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-//获取应用实例
-var app = getApp()
 Page({
   data: {
     provinces: undefined,// 省份数据数组

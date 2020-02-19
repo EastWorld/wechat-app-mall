@@ -50,6 +50,7 @@
   color: #333;
   border-top: 1rpx solid #eee;
   height: 100rpx;
+  background: #fff;
   line-height: 100rpx;
   display: flex;
   justify-content: space-between;

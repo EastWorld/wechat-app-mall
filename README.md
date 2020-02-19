@@ -132,8 +132,6 @@ thirdScriptError
 
 - 登录后台发布您自己的商品
 
-- [如何给 Banner 增加链接，点击打开某个商品？](https://www.yuque.com/apifm/doc/wv5p5l)
-
 - 工厂后台设置 appid、secret、微信支付商户号和秘钥时候的 token 怎么填？
 
   **不要填！**
@@ -190,11 +188,6 @@ thirdScriptError
 
   1. 创建订单接口增加 expireMinutes 参数；
   2. 代表多少分钟未支付自动关闭本订单，传 0 不自动关闭订单；
-
-- 如何删除小程序源码中的广告位？
-
-  1. 在小程序开发工具中全局搜索关键词: <ad
-  2. 找到以后，将这一行广告位的代码删除即可
 
 - android看得到图片，ios手机看不到图片
   

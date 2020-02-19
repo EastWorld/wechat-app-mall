@@ -21,12 +21,12 @@
     </button>
   </form>
   <form bindsubmit="payDeposit" report-submit="true">
-    <button class='btn bth-right' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
+    <button class='btn' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
       押金
     </button>
   </form>
   <form bindsubmit="withdraw" report-submit="true">
-    <button class='btn bth-right' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
+    <button class='btn' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
       提现
     </button>
   </form>

@@ -38,9 +38,18 @@ Page({
     })
   },
   tapBanner: function(e) {
-    if (e.currentTarget.dataset.id != 0) {
+    const url = e.currentTarget.dataset.url
+    if (url) {
       wx.navigateTo({
-        url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
+        url
+      })
+    }
+  },
+  adClick: function(e) {
+    const url = e.currentTarget.dataset.url
+    if (url) {
+      wx.navigateTo({
+        url
       })
     }
   },
@@ -66,30 +75,7 @@ Page({
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
-    /**
-     * 示例：
-     * 调用接口封装方法
-     */
-    WXAPI.banners({
-      type: 'index'
-    }).then(function(res) {
-      if (res.code == 700) {
-        wx.showModal({
-          title: '提示',
-          content: '请在后台添加 banner 轮播图片，自定义类型填写 index',
-          showCancel: false
-        })
-      } else {
-        that.setData({
-          banners: res.data
-        });
-      }
-    }).catch(function(e) {
-      wx.showToast({
-        title: res.msg,
-        icon: 'none'
-      })
-    })
+    this.initBanners()
     this.categories()
     WXAPI.goods({
       recommendStatus: 1
@@ -104,6 +90,30 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
+  },
+  async initBanners(){
+    const _data = {}
+    // 读取头部轮播图
+    const res1 = await WXAPI.banners({
+      type: 'index'
+    })
+    if (res1.code == 700) {
+      wx.showModal({
+        title: '提示',
+        content: '请在后台添加 banner 轮播图片，自定义类型填写 index',
+        showCancel: false
+      })
+    } else {
+      _data.banners = res1.data
+    }
+    // 读取首页广告位
+    const res2 = await WXAPI.banners({
+      type: 'indexAD'
+    })
+    if (res2.code == 0) {
+      _data.adInfo = res2.data[0]
+    }
+    this.setData(_data)
   },
   onShow: function(e){
     // 获取购物车数据，显示TabBarBadge

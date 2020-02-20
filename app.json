@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/shop/select",
     "pages/start/start",
+    "pages/shop/select",
     "pages/index/index",
     "pages/notice/index",
     "pages/notice/show",

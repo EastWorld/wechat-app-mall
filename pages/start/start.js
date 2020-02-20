@@ -15,8 +15,8 @@ Page({
     })
     const app_show_pic_version = wx.getStorageSync('app_show_pic_version')
     if (app_show_pic_version && app_show_pic_version == CONFIG.version) {
-      wx.switchTab({
-        url: '/pages/index/index',
+      wx.redirectTo({
+        url: '/pages/shop/select',
       });
     } else {
       // 展示启动页
@@ -24,8 +24,8 @@ Page({
         type: 'app'
       }).then(function (res) {
         if (res.code == 700) {
-          wx.switchTab({
-            url: '/pages/index/index',
+          wx.redirectTo({
+            url: '/pages/shop/select',
           });
         } else {
           _this.setData({
@@ -34,8 +34,8 @@ Page({
           });
         }
       }).catch(function (e) {
-        wx.switchTab({
-          url: '/pages/index/index',
+        wx.redirectTo({
+          url: '/pages/shop/select',
         });
       })
     }
@@ -55,8 +55,8 @@ Page({
         key: 'app_show_pic_version',
         data: CONFIG.version
       })
-      wx.switchTab({
-        url: '/pages/index/index',
+      wx.redirectTo({
+        url: '/pages/shop/select',
       });
     } else {
       wx.showToast({

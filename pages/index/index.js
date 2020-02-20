@@ -61,7 +61,7 @@ Page({
   onLoad: function(e) {   
     wx.showShareMenu({
       withShareTicket: true
-    }) 
+    })    
     const that = this
     // if (e && e.query && e.query.inviter_id) { 
     //   wx.setStorageSync('referrer', e.query.inviter_id)
@@ -116,6 +116,9 @@ Page({
     this.setData(_data)
   },
   onShow: function(e){
+    this.setData({
+      shopInfo: wx.getStorageSync('shopInfo')
+    })
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge();
   },

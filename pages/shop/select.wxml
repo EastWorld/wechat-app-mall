@@ -1,0 +1,31 @@
+<view class="search">
+  <image class="icon" src="/images/icon/search.svg"></image>
+  <input placeholder="搜索门店" bindinput="searchChange" bindconfirm="search"/>
+</view>
+<view class="shops" wx:for-items="{{shops}}" wx:key="id">
+  <view class="t">
+    <view class="name">
+      <image src="/images/icon/{{ index == 0?'shop-on':'shop' }}.svg"></image>
+      <text style="color:{{ index == 0?'#FEB21C':'#333333' }}">{{ item.name }}</text>
+    </view>
+    <view wx:if="{{index == 0}}" class="distance">{{ item.distance }}<text>km</text></view>
+  </view>
+  <view class="p">
+    <image src="/images/icon/pos-gray.svg"></image>
+    <text>{{ item.address }}</text>
+  </view>
+  <view class="p">
+    <image src="/images/icon/time-gray.svg"></image>
+    <text>{{ item.openingHours }}</text>
+  </view>
+  <view class="p">
+    <image src="/images/icon/tel-gray.svg"></image>
+    <text>{{ item.linkPhone }}</text>
+  </view>
+  <view wx:if="{{index > 0}}" class="distance-black" bindtap="goShop" data-idx="{{ index }}">
+    <text class="d">{{ item.distance }}</text>
+    <text class="u">km</text>
+    <image src="/images/icon/next.svg"></image>
+  </view>
+  <button wx:if="{{index == 0}}" class="goHotel" type="default" bindtap="goShop" data-idx="{{ index }}"> 进入门店 </button>
+</view>

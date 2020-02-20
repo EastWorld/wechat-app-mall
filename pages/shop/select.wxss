@@ -1,0 +1,116 @@
+.search {
+  background: #eee;
+  padding: 14rpx 24rpx;
+  position: relative;
+}
+.search input {
+  background: #FFFFFF;
+  border-radius: 10rpx;
+  height: 72rpx;
+  padding-left: 56rpx;
+}
+.search .icon {
+  position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  top: 36rpx;
+  left: 40rpx;
+}
+.shops {
+  position: relative;
+  display: flex;
+  flex-direction:column;
+  padding: 28rpx 24rpx 24rpx 24rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+.shops .t {
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.shops .t .name image {
+  width: 26rpx;
+  height: 32rpx;
+}
+.shops .t .name text {
+  margin-left: 12rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  letter-spacing: 0.34rpx;
+  text-align: center;
+  line-height: 28rpx;
+}
+.shops .t .distance {
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #FEB21C;
+  letter-spacing: 0.38rpx;
+  text-align: right;
+  line-height: 28rpx;
+}
+.shops .t .distance text {
+  margin-left: 10rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #FEB21C;
+  letter-spacing: 0.28rpx;
+  text-align: right;
+  line-height: 24rpx;
+}
+.shops .p {
+  margin-top: 24rpx;
+}
+.shops .p {
+  display: flex;
+  align-items:center;
+}
+.shops .p image {
+  width: 20rpx;
+  height: 24rpx;
+}
+.shops .p text {
+  margin-left: 14rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #999999;
+  letter-spacing: 0.28rpx;
+  text-align: center;
+  line-height: 24rpx;
+}
+.goHotel {
+  margin-top: 28rpx;
+  width: 700rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  background: #FEB21C !important;
+  color:#FFFFFF !important;
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+}
+.distance-black {
+  position: absolute;
+  top: 100rpx;
+  right: 24rpx;
+}
+.distance-black .d {
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  color: #333333;
+  letter-spacing: 0.38rpx;
+  text-align: right;
+  line-height: 28rpx;
+}
+.distance-black .u {
+  margin-left: 10rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #333333;
+  letter-spacing: 0.28rpx;
+  text-align: right;
+  line-height: 24rpx;
+}
+.distance-black image {
+  margin-left: 12rpx;
+  width: 14rpx;
+  height: 24rpx;
+}

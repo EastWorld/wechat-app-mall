@@ -1,3 +1,15 @@
+<navigator url="/pages/shop/select">
+  <view wx:if="{{shopInfo}}" class="shops-container">
+    <view class="l">
+      <image src="/images/order-details/icon-address.png"></image>
+      <text>{{shopInfo.name}}</text>
+    </view>
+    <view class="r">
+      <text>切换门店</text>
+      <image src="/images/icon/next.png"></image>
+    </view>
+  </view>
+</navigator>
 <view class="swiper-container">
   <swiper indicator-dots="true" indicator-active-color="#fff" autoplay circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">

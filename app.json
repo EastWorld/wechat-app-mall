@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/shop/select",
     "pages/start/start",
     "pages/index/index",
     "pages/notice/index",
@@ -72,6 +73,11 @@
         "text": "我的"
       }
     ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取离你最近的门店"
+    }
   },
   "navigateToMiniProgramAppIdList": [
     "wx56c8f077de74b07c"

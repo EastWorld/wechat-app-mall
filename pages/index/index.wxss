@@ -1,3 +1,33 @@
+.shops-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16rpx;
+}
+.shops-container .l {
+  display: flex;
+  align-items: center;
+}
+.shops-container .l text {
+  color: #666;
+  margin-left: 16rpx;
+}
+.shops-container .l image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.shops-container .r {
+  display: flex;
+  align-items: center;
+}
+.shops-container .r text {
+  color: #666;
+}
+.shops-container .r image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
 .search {
   position: absolute;
   top: 32rpx;

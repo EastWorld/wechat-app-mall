@@ -93,14 +93,14 @@ Page({
         buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0
       }
       if (goodsKanjiaSetRes.code == 0) {
-        _data.curGoodsKanjia = goodsKanjiaSetRes.data
-        that.data.kjId = goodsKanjiaSetRes.data.id
+        _data.curGoodsKanjia = goodsKanjiaSetRes.data[0]
+        that.data.kjId = _data.curGoodsKanjia.id
         // 获取当前砍价进度
         if (!that.data.kjJoinUid) {
           that.data.kjJoinUid = wx.getStorageSync('uid')
         }
-        const curKanjiaprogress = await WXAPI.kanjiaDetail(goodsKanjiaSetRes.data.id, that.data.kjJoinUid)
-        const myHelpDetail = await WXAPI.kanjiaHelpDetail(wx.getStorageSync('token'), goodsKanjiaSetRes.data.id, that.data.kjJoinUid)
+        const curKanjiaprogress = await WXAPI.kanjiaDetail(_data.curGoodsKanjia.id, that.data.kjJoinUid)
+        const myHelpDetail = await WXAPI.kanjiaHelpDetail(wx.getStorageSync('token'), _data.curGoodsKanjia.id, that.data.kjJoinUid)
         if (curKanjiaprogress.code == 0) {
           _data.curKanjiaprogress = curKanjiaprogress.data
         }

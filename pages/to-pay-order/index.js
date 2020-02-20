@@ -26,12 +26,11 @@ Page({
   },
   onShow(){
     AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
       if (isLogined) {
         this.doneShow()
-      } else {
-        this.setData({
-          wxlogin: isLogined
-        })
       }
     })
   },

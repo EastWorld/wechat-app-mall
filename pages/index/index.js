@@ -225,9 +225,27 @@ Page({
       kanjia: true
     });
     if (res.code == 0) {
-      this.setData({
-        kanjiaList: res.data
+      const kanjiaGoodsIds = []
+      res.data.forEach(ele => {
+        kanjiaGoodsIds.push(ele.id)
       })
+      const goodsKanjiaSetRes = await WXAPI.kanjiaSet(kanjiaGoodsIds.join())
+      if (goodsKanjiaSetRes.code == 0) {
+        res.data.forEach(ele => {
+          const _process = goodsKanjiaSetRes.data.find(_set => {
+            console.log(_set)
+            return _set.goodsId == ele.id
+          })
+          console.log(ele)
+          console.log(_process)
+          if (_process) {
+            ele.process = 100 * _process.numberBuy / _process.number
+          }
+        })
+        this.setData({
+          kanjiaList: res.data
+        })
+      }
     }
   },
   goCoupons: function (e) {

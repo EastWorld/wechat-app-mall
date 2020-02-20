@@ -196,7 +196,7 @@ module.exports = {
     });
   },
   kanjiaSet: function kanjiaSet(goodsId) {
-    return request('/shop/goods/kanjia/set', true, 'get', { goodsId: goodsId });
+    return request('/shop/goods/kanjia/set/v2', true, 'get', { goodsId: goodsId });
   },
   kanjiaJoin: function kanjiaJoin(token, kjid) {
     return request('/shop/goods/kanjia/join', true, 'post', {
@@ -254,6 +254,12 @@ module.exports = {
   },
   wxpay: function wxpay(data) {
     return request('/pay/wx/wxapp', true, 'post', data);
+  },
+  ttpay: function ttpay(data) {
+    return request('/pay/tt/microapp', true, 'post', data);
+  },
+  payQuery: function payQuery(token, outTradeId) {
+    return request('/pay/query', true, 'get', { token: token, outTradeId: outTradeId });
   },
   wxpaySaobei: function wxpaySaobei(data) {
     return request('/pay/lcsw/wxapp', true, 'post', data);
@@ -763,7 +769,7 @@ module.exports = {
     return request('/barcode/info', true, 'get', { barcode: barcode });
   },
   luckyInfo: function luckyInfo(id) {
-    return request('/luckyInfo/info', true, 'get', { id: id });
+    return request('/luckyInfo/info/v2', true, 'get', { id: id });
   },
   luckyInfoJoin: function luckyInfoJoin(id, token) {
     return request('/luckyInfo/join', true, 'post', { id: id, token: token });

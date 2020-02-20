@@ -302,3 +302,13 @@
   font-size: 24rpx;
   margin-right: 32rpx;
 }
+
+.weui-media-box {
+  padding-bottom: 0rpx;
+}
+.progress {
+  width: 686rpx;
+  padding: 0 32rpx;
+  margin-bottom: 16rpx;
+
+}

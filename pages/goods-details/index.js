@@ -582,5 +582,12 @@ Page({
     this.setData({
       posterShow: false
     })
+  },
+  previewImage(e){
+    const url = e.currentTarget.dataset.url
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: [url] // 需要预览的图片http链接列表
+    })
   }
 })

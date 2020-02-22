@@ -59,6 +59,13 @@ Page({
     }
   },
   onShow (){
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.setData({
+          wxlogin: isLogined
+        })
+      }
+    })
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
@@ -131,7 +138,8 @@ Page({
   tobuy: function() {
     this.setData({
       shopType: "tobuy",
-      selectSizePrice: this.data.goodsDetail.basicInfo.minPrice
+      selectSizePrice: this.data.goodsDetail.basicInfo.minPrice,
+      skuGoodsPic: this.data.goodsDetail.basicInfo.pic
     });
     this.bindGuiGeTap();
   },
@@ -235,9 +243,19 @@ Page({
         });
       }
     }
+    let skuGoodsPic = this.data.skuGoodsPic
+    if (this.data.goodsDetail.subPics && this.data.goodsDetail.subPics.length > 0) {
+      const _subPic = this.data.goodsDetail.subPics.find(ele => {
+        return ele.optionValueId == child.id
+      })
+      if (_subPic) {
+        skuGoodsPic = _subPic.pic
+      }
+    }
     this.setData({
       goodsDetail: this.data.goodsDetail,
-      canSubmit: canSubmit
+      canSubmit: canSubmit,
+      skuGoodsPic
     })
   },
   /**

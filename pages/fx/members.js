@@ -47,7 +47,8 @@ Page({
   onShow: function () {
     const _this = this
     WXAPI.fxMembers({
-      token: wx.getStorageSync('token')
+      token: wx.getStorageSync('token'),
+      pageSize: 100000
     }).then(res => {
       if (res.code == 700) {
         _this.setData({

@@ -102,21 +102,33 @@ App({
     if (e && e.query && e.query.inviter_id) {
       wx.setStorageSync('referrer', e.query.inviter_id)
       if (e.shareTicket) {
-        // 通过分享链接进来
         wx.getShareInfo({
           shareTicket: e.shareTicket,
           success: res => {
-            // console.error(res)
-            // console.error({
-            //   referrer: e.query.inviter_id,
-            //   encryptedData: res.encryptedData,
-            //   iv: res.iv
-            // })
-            WXAPI.shareGroupGetScore(
-              e.query.inviter_id,
-              res.encryptedData,
-              res.iv
-            )
+            console.log(res)
+            console.log({
+              referrer: e.query.inviter_id,
+              encryptedData: res.encryptedData,
+              iv: res.iv
+            })
+            wx.login({
+              success(loginRes) {
+                if (loginRes.code) {
+                  WXAPI.shareGroupGetScore(
+                    loginRes.code,
+                    e.query.inviter_id,
+                    res.encryptedData,
+                    res.iv
+                  ).then(_res => {
+                    console.log(_res)
+                  }).catch(err => {
+                    console.error(err)
+                  })
+                } else {
+                  console.error('登录失败！' + loginRes.errMsg)
+                }
+              }
+            })
           }
         })
       }

@@ -58,7 +58,7 @@ Page({
       selectCurrent: e.index
     })
   },
-  onLoad: function(e) {   
+  onLoad: function(e) {
     wx.showShareMenu({
       withShareTicket: true
     })    
@@ -90,6 +90,15 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
+    this.wxaMpLiveRooms()
+  },
+  async wxaMpLiveRooms(){
+    const res = await WXAPI.wxaMpLiveRooms()
+    if (res.code == 0 && res.data.length > 0) {
+      this.setData({
+        aliveRooms: res.data
+      })
+    }
   },
   async initBanners(){
     const _data = {}

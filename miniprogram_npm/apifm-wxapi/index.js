@@ -1047,6 +1047,14 @@ module.exports = {
     return request('/growth/exchange', true, 'post', {
       token: token, deductionScore: deductionScore
     });
+  },
+  wxaMpLiveRooms: function wxaMpLiveRooms() {
+    return request('/wx/live/rooms', true, 'get');
+  },
+  wxaMpLiveRoomHisVedios: function wxaMpLiveRoomHisVedios(roomId) {
+    return request('/wx/live/his', true, 'get', {
+      roomId: roomId
+    });
   }
 };
 

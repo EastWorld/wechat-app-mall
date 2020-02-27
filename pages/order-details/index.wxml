@@ -113,6 +113,13 @@
                 </view>
             </view>
         </view>
+        <view wx:if="{{orderDetail.goodsCoupons}}" class="goods-info" style="margin-bottom:32rpx;">
+          <view wx:for="{{orderDetail.goodsCoupons}}" wx:key="{{item.id}}" class="row-box">
+            <view wx:if="{{item.type == 0}}" class="row-label">优惠券</view>
+            <view wx:if="{{item.type == 0}}" class="right-text">{{item.coupon}}</view>
+            <image mode="widthFix" wx:if="{{item.type == 1}}" src="{{item.coupon}}" style="max-width:100%;"></image>
+          </view>
+        </view>
         <view class="goods-info">
             <view class="row-box">
                 <view class="row-label">商品金额</view>

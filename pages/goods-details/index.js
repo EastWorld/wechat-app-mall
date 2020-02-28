@@ -409,12 +409,9 @@ Page({
     shopCarMap.weight = this.data.goodsDetail.basicInfo.weight;
 
     var buyNowInfo = {};
-    if (!buyNowInfo.shopNum) {
-      buyNowInfo.shopNum = 0;
-    }
-    if (!buyNowInfo.shopList) {
-      buyNowInfo.shopList = [];
-    }
+    buyNowInfo.shopNum = 0;
+    buyNowInfo.shopList = [];
+    
     /*    var hasSameGoodsIndex = -1;
         for (var i = 0; i < toBuyInfo.shopList.length; i++) {
           var tmpShopCarMap = toBuyInfo.shopList[i];

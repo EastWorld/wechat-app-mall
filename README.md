@@ -4,6 +4,8 @@
 
 使用说明和常见问题，可参阅下面的说明，如还有疑问，可访问工厂官网 [https://www.it120.cc/](https://www.it120.cc/) 寻求帮助！
 
+新增直播带货支持，具体详见使用说明
+
 # 今日头条/抖音小程序版本
 
 本项目的今日头条/抖音小程序版本，请移步至下面的地址：
@@ -13,6 +15,10 @@
 ## 扫码体验
 
 <img src="https://cdn.it120.cc/apifactory/2019/06/28/a8304003-3218-4a47-95cf-84d82ebdc07b.jpg" width="200px">
+
+## 详细配置/使用教程
+
+[https://www.it120.cc/help/sv06xh.html](https://www.it120.cc/help/sv06xh.html)
 
 ## 其他开源模板
 
@@ -67,12 +73,6 @@ thirdScriptError
 <img src="https://dcdn.it120.cc/2019/08/28/c5169c15-abda-4e5f-91d5-6dfcfe382fb2.png">
 
 **如果你的开发工具没用看到“增强编译”的选项，请升级开发工具到最新版**
-
-## 使用说明
-
-请点开这个链接，按照上面的步骤操作即可：
-
-[https://www.it120.cc/help/sv06xh.html](https://www.it120.cc/help/sv06xh.html)
 
 ## 系统参数设置
 

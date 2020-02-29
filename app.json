@@ -86,10 +86,6 @@
     "wxparse": {
       "version": "1.0.10",
       "provider": "wx5d60c080635009b1"      
-    },
-    "live-player-plugin": {
-      "version": "1.0.1",
-      "provider": "wx2b03c6e691cd7370"
     }
   },
   "usingComponents": {

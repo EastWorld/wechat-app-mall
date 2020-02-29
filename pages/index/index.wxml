@@ -51,7 +51,7 @@
     <view class="goods-container">
       <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
         <view class="img-box">
-          <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
+          <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
         </view>
         <view class="goods-title">{{item.name}}</view>
         <view style='display:flex;'>
@@ -67,7 +67,7 @@
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
     <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="*this" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
-        <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
+        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title">{{item.name}}</view>
       <view style='display:flex;'>
@@ -134,7 +134,7 @@
   <view class="goods-container">
     <view class="goods-box" wx:for="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
-        <image src="{{item.pic}}_m" class="image" mode="aspectFill" lazy-load="true" />
+        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title">{{item.name}}</view>
       <view style='display:flex;'>

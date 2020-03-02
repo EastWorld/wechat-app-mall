@@ -16,7 +16,7 @@
       <view class="tj">满{{item.moneyHreshold}}</view>
       <view class="amount"><text>￥</text>{{item.moneyMin}}</view>
     </view>
-    <view class="btn" bindtap="getCounpon" data-id="{{item.id}}">立即领取</view>
+    <view class="btn" bindtap="getCounpon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">立即领取</view>
   </view>
 </view>
 <view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 1}}">
@@ -69,7 +69,7 @@
                     <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
                   </view>
                   <view class="weui-media-box__info__meta" style='float:right;'>
-                    <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="getCounpon" data-id="{{item.id}}">立即领取</button>
+                    <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="getCounpon" data-id="{{item.id}}"  data-pwd="{{item.pwd}}">立即领取</button>
                   </view>
                 </view>
               </view>
@@ -116,3 +116,13 @@
     </view>
   </view>
 </view>
+
+
+<block wx:if="{{showPwdPop}}">
+  <view class="pwd-coupons-mask"></view>
+  <view class="pwd-coupons">
+    <view class="t">请输入口令</view>
+    <input bindinput="pwdCouponChange" class="input" value="{{couponPwd}}" auto-focus/>
+    <button type="primary" plain bindtap="getCounpon2"> 领取 </button>
+  </view>
+</block>

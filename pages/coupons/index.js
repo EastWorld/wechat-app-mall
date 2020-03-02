@@ -10,6 +10,8 @@ Page({
   data: {
     tabs: ["可领券", "已领券", "已失效"],
     activeIndex: 0,
+
+    showPwdPop: false
   },
 
   /**
@@ -99,18 +101,44 @@ Page({
       }
     })
   },
-  getCounpon: function (e) {
-    const that = this
-    if (e.currentTarget.dataset.pwd) {
+  getCounpon2(){
+    if (!this.data.couponPwd) {
       wx.showToast({
-        title: '请通过优惠券码兑换',
+        title: '请输入口令',
         icon: 'none'
       })
       return
     }
+    const e = {
+      kl: true,
+      currentTarget: {
+        dataset: {
+          id: this.data.pwdCounponId
+        }
+      }
+    }
+    this.getCounpon(e)
+  },
+  getCounpon: function (e) {
+    const that = this
+    if (e.currentTarget.dataset.pwd) {
+      this.setData({
+        pwdCounponId: e.currentTarget.dataset.id,
+        showPwdPop: true
+      })
+      return
+    } else {
+      if (!e.kl) {
+        this.data.couponPwd = ''
+      }
+    }
+    this.setData({
+      showPwdPop: false
+    })
     WXAPI.fetchCoupons({
       id: e.currentTarget.dataset.id,
-      token: wx.getStorageSync('token')
+      token: wx.getStorageSync('token'),
+      pwd: this.data.couponPwd
     }).then(function (res) {
       if (res.code == 20001 || res.code == 20002) {
         wx.showModal({
@@ -196,5 +224,10 @@ Page({
     wx.switchTab({
       url: "/pages/index/index"
     });
+  },
+  pwdCouponChange(e){
+    this.setData({
+      couponPwd: e.detail.value
+    })
   },
 })

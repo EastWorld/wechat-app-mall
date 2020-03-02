@@ -146,3 +146,37 @@ page {
   width: 100vw;
   height: 24rpx;
 }
+
+
+.pwd-coupons-mask {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+}
+.pwd-coupons {
+  position: fixed;
+  top: 300rpx;
+  left: 100rpx;
+  width: 550rpx;
+  background: #fff;
+  border-radius: 12rpx;
+}
+.pwd-coupons .t {
+  margin-top: 32rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.pwd-coupons .input {
+  margin: 32rpx;
+  border: 1rpx solid #666;
+  border-radius: 8rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+.pwd-coupons button {
+  margin: 32rpx;
+}

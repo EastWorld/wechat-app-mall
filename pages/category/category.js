@@ -1,5 +1,4 @@
-// pages/category/category.js
-
+const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 
 Page({
@@ -20,6 +19,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showShareMenu({
+      withShareTicket: true
+    }) 
     this.categories();
   },
   async categories() {
@@ -113,5 +115,11 @@ Page({
     wx.navigateTo({
       url: '/pages/goods/list?name=' + this.data.inputVal,
     })
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
+      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
+    }
   },
 })

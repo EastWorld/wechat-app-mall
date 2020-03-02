@@ -124,10 +124,9 @@ Page({
     if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
-        wx.showModal({
-          title: '错误',
-          content: '请先设置您的收货地址！',
-          showCancel: false
+        wx.showToast({
+          title: '请设置收货地址',
+          icon: 'none'
         })
         return;
       }

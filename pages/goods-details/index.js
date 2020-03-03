@@ -507,7 +507,10 @@ Page({
     WXAPI.kanjiaJoin(wx.getStorageSync('token'), _this.data.curGoodsKanjia.id).then(function(res) {
       wx.hideLoading()
       if (res.code == 0) {
-        _this.data.kjJoinUid = wx.getStorageSync('uid')
+        _this.setData({
+          kjJoinUid: wx.getStorageSync('uid'),
+          myHelpDetail: null
+        })
         _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
       } else {
         wx.showToast({

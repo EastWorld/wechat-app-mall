@@ -38,6 +38,7 @@
   </navigator>
   <view class="line"></view>
   <view class='order-shortcut'>
+    <!-- https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=2767 -->
     <view class='item' bindtap='goOrder' data-type="0">
       <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
       <view class='text'>待付款</view>
@@ -56,7 +57,7 @@
     </view>
     <view class='item' bindtap='goOrder' data-type="99">
       <image class="icon" src="/images/order/shouhou.png" background-size="cover"></image>
-      <view class='text'>退款/售后</view>
+      <view class='text'>售后</view>
     </view>
   </view>
   <image class="ad-img" mode="widthFix" src="https://dcdn.it120.cc/2020/01/17/1b73c7dc-1633-463c-8ef1-3079fddc011e.png"></image>
@@ -203,7 +204,7 @@
   </view> -->
   
   <view class="space"></view>
-  <view class="version">Powered by EastWorld v {{version}}</view>
+  <view class="version">EastWorld v {{version}}</view>
   <view class="space"></view>
 </view>
 

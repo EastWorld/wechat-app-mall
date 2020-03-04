@@ -70,7 +70,9 @@ page,view,image,input {
   margin-left: 45rpx;
 }
 .order-shortcut .item .text {
-  font-size: 12px;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #666;
 }
 .to-authorize{
   padding: 0rpx;

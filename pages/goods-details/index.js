@@ -15,6 +15,7 @@ Page({
     hasMoreSelect: false,
     selectSize: SelectSizePrefix,
     selectSizePrice: 0,
+    selectSizeOPrice: 0,
     totalScoreToPay: 0,
     shopNum: 0,
     hideShopPopup: true,
@@ -82,6 +83,7 @@ Page({
           hasMoreSelect: true,
           selectSize: selectSizeTemp,
           selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
+          selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
           totalScoreToPay: goodsDetailRes.data.basicInfo.minScore
         });
       }
@@ -95,6 +97,7 @@ Page({
       let _data = {
         goodsDetail: goodsDetailRes.data,
         selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
+        selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
         totalScoreToPay: goodsDetailRes.data.basicInfo.minScore,
         buyNumMax: goodsDetailRes.data.basicInfo.stores,
         buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0
@@ -139,6 +142,7 @@ Page({
     this.setData({
       shopType: "tobuy",
       selectSizePrice: this.data.goodsDetail.basicInfo.minPrice,
+      selectSizeOPrice: this.data.goodsDetail.basicInfo.originalPrice
       skuGoodsPic: this.data.goodsDetail.basicInfo.pic
     });
     this.bindGuiGeTap();
@@ -151,6 +155,7 @@ Page({
     this.setData({
       shopType: "toPingtuan",
       selectSizePrice: this.data.goodsDetail.basicInfo.pingtuanPrice,
+      selectSizeOPrice: this.data.goodsDetail.basicInfo.originalPrice,
       pingtuanopenid: pingtuanopenid
     });
     this.bindGuiGeTap();
@@ -235,6 +240,7 @@ Page({
         }
         this.setData({
           selectSizePrice: _price,
+          selectSizeOPrice: res.data.originalPrice,
           totalScoreToPay: res.data.score,
           propertyChildIds: propertyChildIds,
           propertyChildNames: propertyChildNames,

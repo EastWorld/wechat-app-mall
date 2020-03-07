@@ -75,6 +75,14 @@ page,view,image,input {
   color: #333;
   font-size: 30rpx;
 }
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
 .list1 .goods-info .price {
   color: #FF3B30;
   font-size: 34rpx;

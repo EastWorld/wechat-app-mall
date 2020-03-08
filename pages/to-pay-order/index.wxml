@@ -1,4 +1,3 @@
-<import src="/template/login/index.wxml" />
 <view class="container">
   <view class="goods-list">
     <view class="list-title">商品列表</view>
@@ -54,25 +53,23 @@
   </view>
   <view class="peisong-way" hidden="{{hasNoCoupons}}">
     <view class="row-box" style="border-bottom:none;">
-      <view class="row-label">选择使用优惠券</view>
+      <view class="row-label t">使用优惠券</view>
     </view>
-    <view class="row-box" style="border-bottom:none;">
-      <picker-view indicator-style="height: 50rpx;" style="width: 100%; height: 150rpx;" value="0" bindchange="bindChangeCoupon">
-        <picker-view-column>
-          <view style="line-height: 50px">不使用优惠券</view>
-          <view wx:for="{{coupons}}" wx:key="id" style="line-height: 50px">{{item.money}}元 {{item.name}}</view>
-        </picker-view-column>
-      </picker-view>
-    </view>
+    <picker bindchange="bindChangeCoupon" range="{{coupons}}" range-key="nameExt">
+      <view class="row-box" style="border-bottom:none;">      
+        <view class="row-label">{{curCouponShowText}}</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </picker>
   </view>
 
 
-  <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && yunPrice > 0) || (!hasNoCoupons)}}">
-    <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
+  <view class="goods-info">
+    <view class="row-box">
       <view class="row-label">商品金额</view>
       <view class="right-text">¥ {{allGoodsPrice}}</view>
     </view>
-    <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
+    <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
       <view class="row-label">运费</view>
       <view class="right-text">+ ¥ {{yunPrice}}</view>
     </view>
@@ -90,5 +87,5 @@
   </view>
 </view>
 
+<import src="/template/login/index.wxml" />
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
-<float-menu /> 

@@ -142,9 +142,12 @@ form {
   border-bottom: 1rpx solid #eee;
 }
 
+.peisong-way .row-label.t {
+  color: #333;
+}
 .peisong-way .row-label {
   font-size: 28rpx;
-  color: #000;
+  color: #666;
 }
 
 .peisong-way .right-text {
@@ -178,6 +181,10 @@ form {
 
 .goods-info .row-box .right-text {
   text-align: right;
+}
+.row-box .next {
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .jiesuan-box {
@@ -218,3 +225,4 @@ form {
   color: #e64340;
   text-align: right;
 }
+

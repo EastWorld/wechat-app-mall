@@ -20,6 +20,7 @@ Page({
     coupons: [],
     youhuijine: 0, //优惠券金额
     curCoupon: null, // 当前选择使用的优惠券
+    curCouponShowText: '请选择使用优惠券', // 当前选择使用的优惠券
     allowSelfCollection: '0', // 是否允许到店自提
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
     remark: ''
@@ -245,38 +246,32 @@ Page({
       url: "/pages/select-address/index"
     })
   },
-  getMyCoupons: function () {
-    var that = this;
-    WXAPI.myCoupons({
+  async getMyCoupons() {
+    const res = await WXAPI.myCoupons({
       token: wx.getStorageSync('token'),
       status: 0
-    }).then(function (res) {
-      if (res.code == 0) {
-        var coupons = res.data.filter(entity => {
-          return entity.moneyHreshold <= that.data.allGoodsAndYunPrice;
-        });
-        if (coupons.length > 0) {
-          that.setData({
-            hasNoCoupons: false,
-            coupons: coupons
-          });
-        }
-      }
     })
+    if (res.code == 0) {
+      var coupons = res.data.filter(entity => {
+        return entity.moneyHreshold <= this.data.allGoodsAndYunPrice;
+      })
+      if (coupons.length > 0) {
+        coupons.forEach(ele => {
+          ele.nameExt = ele.name + ' [满' + ele.moneyHreshold + '元可减' + ele.money + '元]'
+        })
+        this.setData({
+          hasNoCoupons: false,
+          coupons: coupons
+        });
+      }
+    }
   },
   bindChangeCoupon: function (e) {
-    const selIndex = e.detail.value[0] - 1;
-    if (selIndex == -1) {
-      this.setData({
-        youhuijine: 0,
-        curCoupon: null
-      });
-      return;
-    }
-    //console.log("selIndex:" + selIndex);
+    const selIndex = e.detail.value;
     this.setData({
       youhuijine: this.data.coupons[selIndex].money,
-      curCoupon: this.data.coupons[selIndex]
+      curCoupon: this.data.coupons[selIndex],
+      curCouponShowText: this.data.coupons[selIndex].nameExt
     });
   },
   radioChange (e) {

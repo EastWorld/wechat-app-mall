@@ -158,19 +158,10 @@ Page({
     WXAPI.orderStatistics(wx.getStorageSync('token')).then(res => {
       if (res.code == 0) {
         const badges = this.data.badges;
-        if (res.data.count_id_no_pay > 0) {
-          badges[1] = res.data.count_id_no_pay
-        }
-        if (res.data.count_id_no_transfer > 0) {
-          badges[2] = res.data.count_id_no_transfer
-        }
-        if (res.data.count_id_no_confirm > 0) {
-          badges[3] = res.data.count_id_no_confirm
-        }
-        if (res.data.count_id_no_reputation > 0) {
-          badges[4] = res.data.count_id_no_reputation
-        }
-
+        badges[1] = res.data.count_id_no_pay
+        badges[2] = res.data.count_id_no_transfer
+        badges[3] = res.data.count_id_no_confirm
+        badges[4] = res.data.count_id_no_reputation
         this.setData({
           badges
         })

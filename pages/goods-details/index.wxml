@@ -17,6 +17,7 @@
     <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
     <view class="goods-profile">
       <view class="p"><text>¥</text> {{selectSizePrice}}</view>
+      <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
       <view class="r">{{goodsDetail.basicInfo.numberSells}}人已买</view>
     </view>
     <view class="goods-info-fx">
@@ -229,6 +230,7 @@
         </view>
         <view class="pop-goods-des">
           <view class="pop-goods-title">{{goodsDetail.basicInfo.name}}</view>
+          <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="pop-goods-price-original"><text>¥</text> {{selectSizeOPrice}}</view>
           <view class="pop-goods-price">¥ {{selectSizePrice}}</view>
         </view>
         <image class="pop-goods-close" src="/images/icon/close0.svg" bindtap="closePopupTap"></image>

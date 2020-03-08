@@ -238,6 +238,15 @@ swiper-item image {
   color:#e64340;
   margin-top:20rpx; 
 }
+.pop-goods-prices{
+  display: flex;
+}
+.pop-goods-price-original{
+  font-size:26rpx;
+  color: #aaa;
+  text-decoration: line-through;
+  margin: 20rpx 15rpx 0 0;
+}
 .pop-goods-close{
   width: 36rpx;
   height: 36rpx;

@@ -16,10 +16,10 @@
   <view class="list1">
     <image class="img" mode="aspectFill" src="{{item.pic}}"></image>
     <view class="goods-info">
-      <view class="title">{{item.name}}</view>
+      <view class="title ellipsis">{{item.name}}</view>
       <view class="price">¥ {{item.minPrice}}</view>
       <view class="buy-info">
-        <view class="num">{{item.numberSells}}人已购买</view>
+        <view class="num">已售出{{item.numberSells}}件</view>
         <image class="car" src="/images/icon/car.svg"></image>
       </view>
     </view>
@@ -33,24 +33,11 @@
         <view class="title">{{item.name}}</view>
         <view class="price">¥ {{item.minPrice}}</view>
         <view class="buy-info">
-          <view class="num">{{item.numberSells}}人已购买</view>
+          <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
           <image class="car" src="/images/icon/car.svg"></image>
         </view>
       </view>
     </view>
   </navigator>  
 </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <float-menu /> 

@@ -45,8 +45,8 @@
         </view>
         <view class='soldInfo'>
           <view class='good-sales-box'>
-            <text class="number">已售{{item.numberOrders}}件</text>
-            <text>评价{{item.gotScore}}分</text>
+            <text class="number">已售 {{item.numberSells}}件</text>
+            <text>评价 +{{item.gotScore}}积分</text>
           </view>
         </view>
       </view>

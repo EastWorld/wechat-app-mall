@@ -142,7 +142,7 @@ Page({
     this.setData({
       shopType: "tobuy",
       selectSizePrice: this.data.goodsDetail.basicInfo.minPrice,
-      selectSizeOPrice: this.data.goodsDetail.basicInfo.originalPrice
+      selectSizeOPrice: this.data.goodsDetail.basicInfo.originalPrice,
       skuGoodsPic: this.data.goodsDetail.basicInfo.pic
     });
     this.bindGuiGeTap();

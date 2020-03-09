@@ -7,6 +7,7 @@
     "pages/notice/show",
     "pages/category/category",
     "pages/goods/list",
+    "pages/goods/fav",
     "pages/goods-details/index",
     "pages/shop-cart/index",
     "pages/to-pay-order/index",

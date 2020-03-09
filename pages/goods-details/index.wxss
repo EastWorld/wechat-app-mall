@@ -116,15 +116,16 @@ swiper-item image {
   bottom: 0;
   left: 0;
   display: flex;
-  box-shadow:0 0 8rpx 0 ;
+  box-shadow:0 0 1rpx 0 ;
+  align-items: center;
 }
 .footer-box .contact {
   position: relative;
-  width: 120rpx;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 32rpx;
 }
 .footer-box .contact button {
   position: absolute;
@@ -139,20 +140,26 @@ swiper-item image {
 }
 .footer-box .shop-cart-btn {
   position: relative;
-  width: 135rpx;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 32rpx;
 }
 .footer-box .shop-cart-btn image {
   width: 55rpx;
   height: 55rpx;
 }
+.fav-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 32rpx;
+  /*707070*/
+}
 .footer-box .shop-cart-btn .shop-num{
   position: absolute;
   color:#fff;
-  left: 80rpx;
+  left: 32rpx;
   top:10rpx;
 
   width: 40rpx;
@@ -165,12 +172,13 @@ swiper-item image {
 }
 .footer-box .join-shop-cart{
   text-align: center;
-  width: 250rpx;
   height: 100%;
   line-height: 100rpx;
   background-color: #ff6850;
   color:#fff;
   font-size: 34rpx;
+  flex: 1;
+  margin-left: 32rpx;
 }
 .footer-box .now-buy{
   text-align: center;
@@ -180,6 +188,7 @@ swiper-item image {
   background-color: #e64340;
   color:#fff;
   font-size: 34rpx;
+  flex: 1;
 }
 .show-popup{
   position: fixed;

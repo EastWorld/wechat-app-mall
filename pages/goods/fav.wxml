@@ -1,0 +1,12 @@
+<view class="list2-box">
+    <view class="list2" wx:for="{{goods}}" wx:key="id">
+      <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+      <view class="goods-info">
+        <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><view class="title ellipsis">{{item.goodsName}}</view></navigator>
+        <image class="delete-btn" src="/images/icon/delete.svg" data-id="{{item.goodsId}}" bindtap="removeFav"></image>
+      </view>
+    </view>
+</view>
+<view wx:if="{{!goods || goods.length == 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
+  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无收藏</view>
+</view>

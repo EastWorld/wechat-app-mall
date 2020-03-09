@@ -1,0 +1,50 @@
+page {
+  background: #f5f5f5;
+}
+page,view,image,input {
+  display: block;
+  box-sizing: border-box;
+}
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.list2-box {
+  margin: 16rpx;
+  width: 718rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.list2 {
+  margin: 16rpx 0;
+  width: 350rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  overflow: hidden;
+}
+.list2 .img {
+  width: 350rpx;
+  height: 350rpx;
+}
+.list2 .goods-info {
+  padding: 16rpx;
+}
+.list2 .goods-info .title {
+  color: #333;
+  font-size: 26rpx;
+}
+.list2 .goods-info .price {
+  color: #FF3B30;
+  font-size: 34rpx;
+}
+.delete-btn {
+  width: 55rpx;
+  height: 55rpx;
+  margin: auto;
+  margin-top: 32rpx;
+}

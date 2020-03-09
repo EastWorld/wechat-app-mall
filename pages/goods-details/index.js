@@ -27,6 +27,7 @@ Page({
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
   },
   async onLoad(e) {
+    // e.id = 235853
     ApifmShare.init(this)
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
@@ -44,7 +45,7 @@ Page({
     })
     this.reputation(e.id)
     this.shippingCartInfo()
-  },
+  },  
   async shippingCartInfo(){
     const token = wx.getStorageSync('token')
     if (!token) {
@@ -63,9 +64,45 @@ Page({
         this.setData({
           wxlogin: isLogined
         })
+        this.goodsFavCheck()
       }
     })
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
+  },
+  async goodsFavCheck() {
+    WXAPI.goodsFavList({
+      token: wx.getStorageSync('token')
+    })
+    const res = await WXAPI.goodsFavCheck(wx.getStorageSync('token'), this.data.goodsId)
+    if (res.code == 0) {
+      this.setData({
+        faved: true
+      })
+    } else {
+      this.setData({
+        faved: false
+      })
+    }
+  },
+  async addFav(){
+    AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
+      if (isLogined) {
+        if (this.data.faved) {
+          // 取消收藏
+          WXAPI.goodsFavDelete(wx.getStorageSync('token'), '', this.data.goodsId).then(res => {
+            this.goodsFavCheck()
+          })
+        } else {
+          // 加入收藏
+          WXAPI.goodsFavPut(wx.getStorageSync('token'), this.data.goodsId).then(res => {
+            this.goodsFavCheck()
+          })
+        }
+      }
+    })
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const that = this;

@@ -216,6 +216,7 @@
       <view class="shop-num">{{shopNum}}</view>
       <image src="/images/nav/cart-off.png"></image>
     </view>
+    <image bindtap="addFav" class="fav-icon" src="/images/icon/fav{{faved?'1':'0'}}.svg"></image>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}">加入购物车</view>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy"  data-shopType="{{shopType}}" bindtap="{{goodsDetailSkuShowType==0?'tobuy':'buyNow'}}">立即购买</view>
     <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="tobuy">单独购买</view>

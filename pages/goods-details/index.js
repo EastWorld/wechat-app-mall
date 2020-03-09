@@ -5,8 +5,6 @@ const CONFIG = require('../../config.js')
 const AUTH = require('../../utils/auth')
 const SelectSizePrefix = "选择："
 
-let videoAd = null; // 视频激励广告
-
 Page({
   data: {
     wxlogin: true,

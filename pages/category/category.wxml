@@ -33,11 +33,11 @@
         </view>
       </block>
       
-      <view class="goods" wx:for="{{currentGoods}}" wx:key="id" wx:for-item="item" data-id='{{item.id}}' bindtap="toDetailsTap">
-        <image mode="aspectFill" class="pic" src="{{item.pic}}">
+      <view class="goods" wx:for="{{currentGoods}}" wx:key="id">
+        <image mode="aspectFill" class="pic" src="{{item.pic}}" data-id='{{item.id}}' bindtap="toDetailsTap">
           <!-- <image class='fresh-tag' src="/images/goods-description/fresh.png"></image> -->
         </image>
-        <view class="name ellipsis">{{item.name}}</view>
+        <view class="name ellipsis" data-id='{{item.id}}' bindtap="toDetailsTap">{{item.name}}</view>
         <view class='soldInfo'>
           <view class='good-price-box'>
             <text class="price">¥{{item.minPrice}}</text>
@@ -49,7 +49,31 @@
             <text>评价 +{{item.gotScore}}积分</text>
           </view>
         </view>
+        <image data-id="{{item.id}}" bindtap="addShopCar" class="car" src="/images/icon/car.svg"></image>
       </view>
     </scroll-view>
   </view>
 </view>
+
+
+<block wx:if="{{skuCurGoods}}">
+  <view class="sku-mask"></view>
+  <view class="sku-container">
+    <image class="close" src="/images/icon/close.svg" bindtap="closeSku"></image>
+    <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id">
+      <view class="t">{{item.name}}</view>
+      <view class="items">
+        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.childsCurGoods}}" wx:for-item="small" wx:key="id" data-pid="{{small.propertyId}}" data-id="{{small.id}}" bindtap="skuSelect">{{small.name}}</text>
+      </view>
+    </view>
+    <view class="num">
+      <view class="t">购买数量</view>
+      <view class="num-box">
+        <text class="a" bindtap="storesJian">-</text>
+        <text class="b">{{skuCurGoods.basicInfo.storesBuy}}</text>
+        <text class="a" bindtap="storesJia">+</text>
+      </view>
+    </view>
+  </view>
+  <view class="sku-btn" bindtap="addCarSku">加入购物车</view>
+</block>

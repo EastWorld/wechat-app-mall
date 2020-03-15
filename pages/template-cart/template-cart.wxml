@@ -6,9 +6,6 @@
   <view class="to-index-btn" bindtap="toIndexPage">
     去逛逛
   </view>
-  <view style="position:absolute;bottom:10rpx;width:750rpx;">
-    <image class="ad-img" mode="widthFix" src="https://dcdn.it120.cc/2020/01/17/1b73c7dc-1633-463c-8ef1-3079fddc011e.png"></image>
-  </view>
 </template>
 
 <template name="cart-goods-list">
@@ -40,7 +37,6 @@
       </view>
     </view>
   </view>
-  <image class="ad-img" mode="widthFix" src="https://dcdn.it120.cc/2020/01/17/1b73c7dc-1633-463c-8ef1-3079fddc011e.png"></image>
   <view class="jiesuan-box">
     <view class="left-price">
       <view class="total" hidden="{{noSelect}}">合计：¥ {{price}} + {{score}} 积分</view>

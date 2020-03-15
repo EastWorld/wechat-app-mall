@@ -1,0 +1,4 @@
+<view bindtap='onCreate'>
+    <slot/>
+</view>
+<we-canvas id="poster" bind:success="onCreateSuccess" bind:fail="onCreateFail"/>

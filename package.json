@@ -4,7 +4,8 @@
   "description": "微信小程序商城，微信小程序微店",
   "main": "app.js",
   "dependencies": {
-    "apifm-wxapi": "^3.2.0"
+    "apifm-wxapi": "^3.2.0",
+    "wxa-plugin-canvas": "^1.1.12"
   },
   "devDependencies": {},
   "scripts": {

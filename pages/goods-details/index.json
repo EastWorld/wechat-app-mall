@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "商品详情",
   "usingComponents": {
-    "wxparse": "plugin://wxparse/wxparse"
+    "wxparse": "plugin://wxparse/wxparse",
+    "poster": "wxa-plugin-canvas/poster"
   }
 }

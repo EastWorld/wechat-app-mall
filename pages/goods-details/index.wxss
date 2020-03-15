@@ -1,4 +1,3 @@
-@import "/template/share/index.wxss";
 @import "/template/login/index.wxss";
 
 .container {
@@ -32,6 +31,34 @@ swiper-item image {
   position: absolute;
   right: 35rpx;
   bottom: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 130rpx;
+}
+.goods-info-fx .item {
+  width: 50rpx;
+  height: 50rpx;
+  right: 130rpx;
+  top: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  background: #fff;
+  z-index: 20;
+} 
+.goods-info-fx .item image {
+  width: 50rpx;
+  height: 50rpx;
+}
+.goods-info-fx .item button {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  z-index: 99;
 }
 .goods-info .goods-title{
   box-sizing: border-box;
@@ -242,19 +269,19 @@ swiper-item image {
   font-size:26rpx;
   color:#000000;
 }
-.pop-goods-price{
+.pop-goods-price {
   font-size:26rpx;
   color:#e64340;
   margin-top:20rpx; 
 }
-.pop-goods-prices{
-  display: flex;
+.pop-goods-price .t1 {
+  font-size:50rpx;
 }
 .pop-goods-price-original{
   font-size:26rpx;
   color: #aaa;
   text-decoration: line-through;
-  margin: 20rpx 15rpx 0 0;
+  margin-left: 16rpx;
 }
 .pop-goods-close{
   width: 36rpx;
@@ -398,4 +425,28 @@ swiper-item image {
   width:300rpx;
   height:300rpx;
   margin-top: 50rpx;
+}
+
+
+
+.posterImg-box {
+  position: absolute;
+  top: 64rpx;
+  left: 32rpx;
+  width: 686rpx;
+  margin-bottom: 100rpx;
+  z-index: 999999;
+}
+.posterImg {  
+  width: 100%;
+}
+.btn-create {
+  margin: 32rpx;
+  margin-bottom: 0;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #e64340;
+  color: #fff;
+  text-align: center;
+  border-radius: 8rpx;
 }

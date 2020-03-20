@@ -15,6 +15,7 @@
     "pages/address-add/index",
     "pages/order-list/index",
     "pages/order-details/index",
+    "pages/order-details/scan-result",
     "pages/order/refundApply",
     "pages/wuliu/index",
     "pages/my/index",

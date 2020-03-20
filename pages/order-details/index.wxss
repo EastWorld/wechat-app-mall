@@ -291,3 +291,12 @@ page{
     color: #e64340;
     text-align: right;
 }
+
+.hx-title {
+  text-align: center;
+}
+.hx-canvas {
+  width: 650rpx;
+  height: 650rpx;
+  margin-left: 50rpx;
+}

@@ -1,12 +1,15 @@
 const app = getApp();
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
+import wxbarcode from 'wxbarcode'
+
 Page({
     data:{
       orderId:0,
       goodsList:[]
     },
     onLoad:function(e){
+      // e.id = 478785
       var orderId = e.id;
       this.data.orderId = orderId;
       this.setData({
@@ -25,6 +28,10 @@ Page({
           })
           return;
         }
+        // 绘制核销码
+        if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0) {
+          wxbarcode.qrcode('qrcode', res.data.orderInfo.hxNumber, 650, 650);
+        }        
         that.setData({
           orderDetail: res.data
         });

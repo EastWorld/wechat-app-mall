@@ -32,6 +32,23 @@ async function checkHasLogined() {
   return true
 }
 
+async function wxaCode(){
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success(res) {
+        return resolve(res.code)
+      },
+      fail() {
+        wx.showToast({
+          title: '获取code失败',
+          icon: 'none'
+        })
+        return resolve('获取code失败')
+      }
+    })
+  })
+}
+
 async function login(page){
   const _this = this
   wx.login({
@@ -144,6 +161,7 @@ async function checkAndAuthorize (scope) {
 
 module.exports = {
   checkHasLogined: checkHasLogined,
+  wxaCode: wxaCode,
   login: login,
   register: register,
   loginOut: loginOut,

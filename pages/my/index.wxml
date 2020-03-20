@@ -60,6 +60,11 @@
       <view class='text'>售后</view>
     </view>
   </view>
+  <view wx:if="{{canHX}}" class="line"></view>
+  <view wx:if="{{canHX}}" class="menu-item" bindtap="scanOrderCode">
+    <view class="l">扫码核销</view>
+    <image class="next" src="/images/icon/next.png"></image>
+  </view>
   <view class="line"></view>
   <navigator url="/pages/maidan/index">
     <view class="menu-item">

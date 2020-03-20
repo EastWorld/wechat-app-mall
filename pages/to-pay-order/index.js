@@ -115,7 +115,8 @@ Page({
       token: loginToken,
       goodsJsonStr: that.data.goodsJsonStr,
       remark: remark,
-      peisongType: that.data.peisongType
+      peisongType: that.data.peisongType,
+      isCanHx: true
     };
     if (that.data.kjId) {
       postData.kjid = that.data.kjId

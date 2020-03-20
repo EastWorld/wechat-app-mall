@@ -282,6 +282,13 @@ module.exports = {
       type: 2
     });
   },
+  loginWxaMobile: function loginWxaMobile(code, encryptedData, iv) {
+    return request('/user/wxapp/login/mobile', true, 'post', {
+      code: code,
+      encryptedData: encryptedData,
+      iv: iv
+    });
+  },
   login_username: function login_username(data) {
     return request('/user/username/login', true, 'post', data);
   },
@@ -537,9 +544,12 @@ module.exports = {
     return request('/order/list', true, 'post', data);
   },
   orderDetail: function orderDetail(token, id) {
+    var hxNumber = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
     return request('/order/detail', true, 'get', {
       id: id,
-      token: token
+      token: token,
+      hxNumber: hxNumber
     });
   },
   orderDelivery: function orderDelivery(token, orderId) {

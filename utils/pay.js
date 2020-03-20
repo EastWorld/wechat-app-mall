@@ -35,10 +35,11 @@ function wxpay(type, money, orderId, redirectUrl, data) {
       wx.requestPayment({
         timeStamp: res.data.timeStamp,
         nonceStr: res.data.nonceStr,
-        package: 'prepay_id=' + res.data.prepayId,
+        package: res.data.package,
         signType: res.data.signType,
-        paySign: res.data.sign,
+        paySign: res.data.paySign,
         fail: function (aaa) {
+          console.error(aaa)
           wx.showToast({
             title: '支付失败:' + aaa
           })

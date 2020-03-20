@@ -1,7 +1,15 @@
 <view class="page">
   <view class="page__bd">
     <form bindsubmit="bindSave">
-    <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cells weui-cells_after-title">      
+      <view wx:if="{{!id && provinces}}" class="weui-cell weui-cell_select" bindtap="readFromWx">
+        <view class="weui-cell__bd">
+          <view class="weui-select weui-select_in-select-after read-wx">
+            获取微信收货地址
+          </view>
+        </view>
+      </view>
+      <view class="space"></view>
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">省份</view>
@@ -82,7 +90,7 @@
     </view>
     <view class="weui-btn-area">
       <button type="primary" class="save-btn" formType="submit">保存</button>
-      <button type="danger" class="save-btn" bindtap="deleteAddress" data-id="{{addressData.id}}" wx:if="{{addressData}}">删除该地址</button>
+      <button type="danger" class="save-btn" bindtap="deleteAddress" data-id="{{addressData.id}}" wx:if="{{id}}">删除该地址</button>
     </view>
     </form>
   </view>

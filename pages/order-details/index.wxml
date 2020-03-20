@@ -58,9 +58,9 @@
             <view class="list-title">商品信息</view>
             <form bindsubmit="submitReputation" report-submit="true">
             <block wx:for="{{orderDetail.goods}}" wx:key="{{index}}">
-            <view class="a-goods">
+            <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><view class="a-goods">
                 <view class="img-box">
-                    <image src="{{item.pic}}" class="img" />
+                  <image src="{{item.pic}}" class="img" />
                 </view>
                 <view class="text-box">
                     <view class="arow arow01">
@@ -88,7 +88,7 @@
                       <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;"/>
                       <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="非常愉快的一次购物！" />
                   </view>
-            </view>
+            </view></navigator>
             </block>
             <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">                
                 <navigator style="float:right;" class="confirm-btn" target="miniProgram" app-id="wx56c8f077de74b07c" path="/open/order-comment/order-comment?appid={{appid}}&order_id={{orderDetail.orderInfo.orderNumber}}">去购物单评价</navigator>

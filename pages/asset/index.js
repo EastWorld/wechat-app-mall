@@ -41,15 +41,6 @@ Page({
         });
       }
     });
-    let rechargeOpen = wx.getStorageSync('RECHARGE_OPEN')
-    if (rechargeOpen && rechargeOpen == "1") {
-      rechargeOpen = true
-    } else {
-      rechargeOpen = false
-    }
-    this.setData({
-      rechargeOpen: rechargeOpen
-    })
   },
 
   /**

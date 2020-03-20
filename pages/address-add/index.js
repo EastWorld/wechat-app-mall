@@ -222,4 +222,60 @@ Page({
       }
     })
   },
+  async readFromWx() {
+    let that = this;
+    wx.chooseAddress({
+      success: function (res) {
+        console.log(res)
+        const provinceName = res.provinceName;
+        const cityName = res.cityName;
+        const diatrictName = res.countyName;
+        // 读取省
+        const pIndex = that.data.provinces.findIndex(ele => {
+          return ele.name == provinceName
+        })
+        if (pIndex != -1) {
+          const e = {
+            detail: {
+              value: pIndex
+            }
+          }
+          that.provinceChange(e, 0, 0).then(() => {
+            // 读取市
+            const cIndex = that.data.cities.findIndex(ele => {
+              return ele.name == cityName
+            })
+            if (cIndex != -1) {
+              const e = {
+                detail: {
+                  value: cIndex
+                }
+              }
+              that.cityChange(e, 0).then(() => {
+                // 读取区县
+                const aIndex = that.data.areas.findIndex(ele => {
+                  return ele.name == diatrictName
+                })
+                if (aIndex != -1) {
+                  const e = {
+                    detail: {
+                      value: aIndex
+                    }
+                  }
+                  that.areaChange(e)
+                }
+              })
+            }
+          })
+        }
+        const addressData = {}
+        addressData.linkMan = res.userName
+        addressData.mobile = res.telNumber
+        addressData.address = res.detailInfo
+        that.setData({
+          addressData
+        });
+      }
+    })
+  },
 })

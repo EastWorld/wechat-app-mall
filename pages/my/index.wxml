@@ -9,7 +9,7 @@
 		<image class="userinfo-avatar" src="/images/nologin.png" background-size="cover"></image>
 		<button class="weui-btn mini-btn" plain="true" size="mini" bindtap="goLogin">立即登录</button>
 	</view>
-  <view wx:if="{{ rechargeOpen }}" class="asset">
+  <view class="asset">
     <view class='item' bindtap='goAsset'>
       <view>{{balance}}</view>
       <view>余额</view>

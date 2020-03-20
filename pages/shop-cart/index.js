@@ -161,7 +161,14 @@ Page({
     }
     AUTH.register(this);
   },
-
+  changeCarNumber(e){
+    const key = e.currentTarget.dataset.key
+    const num = e.detail.value
+    const token = wx.getStorageSync('token')
+    WXAPI.shippingCarInfoModifyNumber(token, key, num).then(res => {
+      this.shippingCarInfo()
+    })    
+  },
 
 
 })

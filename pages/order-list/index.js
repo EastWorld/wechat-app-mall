@@ -99,7 +99,7 @@ Page({
           }          
         }
         if (needScore > 0) {
-          _msg += ',并扣除 ' + money + ' 积分'
+          _msg += ',并扣除 ' + needScore + ' 积分'
         }
         money = money - res.data.balance
         wx.showModal({

@@ -49,6 +49,20 @@ async function wxaCode(){
   })
 }
 
+async function getUserInfo() {
+  return new Promise((resolve, reject) => {
+    wx.getUserInfo({
+      success: res => {
+        return resolve(res)
+      },
+      fail: err => {
+        console.error(err)
+        return resolve()
+      }
+    })
+  })
+}
+
 async function login(page){
   const _this = this
   wx.login({
@@ -162,6 +176,7 @@ async function checkAndAuthorize (scope) {
 module.exports = {
   checkHasLogined: checkHasLogined,
   wxaCode: wxaCode,
+  getUserInfo: getUserInfo,
   login: login,
   register: register,
   loginOut: loginOut,

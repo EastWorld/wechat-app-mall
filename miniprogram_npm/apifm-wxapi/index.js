@@ -250,6 +250,11 @@ module.exports = {
       token: token
     });
   },
+  checkReferrer: function checkReferrer(referrer) {
+    return request('/user/check-referrer', true, 'get', {
+      referrer: referrer
+    });
+  },
   addTempleMsgFormid: function addTempleMsgFormid(token, type, formId) {
     return request('/template-msg/wxa/formId', true, 'post', {
       token: token, type: type, formId: formId
@@ -620,6 +625,9 @@ module.exports = {
   },
   cashLogs: function cashLogs(data) {
     return request('/user/cashLog', true, 'post', data);
+  },
+  cashLogsV2: function cashLogsV2(data) {
+    return request('/user/cashLog/v2', true, 'post', data);
   },
   payLogs: function payLogs(data) {
     return request('/user/payLogs', true, 'post', data);

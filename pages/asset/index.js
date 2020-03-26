@@ -110,14 +110,14 @@ Page({
   },
   cashLogs() {
     const _this = this
-    WXAPI.cashLogs({
+    WXAPI.cashLogsV2({
       token: wx.getStorageSync('token'),
       page:1,
       pageSize:50
     }).then(res => {
       if (res.code == 0) {
         _this.setData({
-          cashlogs: res.data
+          cashlogs: res.data.result
         })
       }
     })

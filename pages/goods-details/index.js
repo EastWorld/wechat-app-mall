@@ -157,6 +157,8 @@ Page({
         const pingtuanSetRes = await WXAPI.pingtuanSet(goodsId)
         if (pingtuanSetRes.code == 0) {
           _data.pingtuanSet = pingtuanSetRes.data
+          // 如果是拼团商品， 默认显示拼团价格
+          _data.selectSizePrice = goodsDetailRes.data.basicInfo.pingtuanPrice
         }        
       }
       that.setData(_data);
@@ -188,9 +190,12 @@ Page({
       shopType: "toPingtuan",
       selectSizePrice: this.data.goodsDetail.basicInfo.pingtuanPrice,
       selectSizeOPrice: this.data.goodsDetail.basicInfo.originalPrice,
-      pingtuanopenid: pingtuanopenid
+      pingtuanopenid: pingtuanopenid,
+      
+      hideShopPopup: false,
+      skuGoodsPic: this.data.goodsDetail.basicInfo.pic
     });
-    this.bindGuiGeTap();
+    
   },
   /**
    * 规格选择弹出框
@@ -700,7 +705,7 @@ Page({
           {
             x: 375,
             y: _baseHeight + 80,
-            width: 750,
+            width: 650,
             lineNum:2,
             text: _this.data.goodsDetail.basicInfo.name,
             textAlign: 'center',

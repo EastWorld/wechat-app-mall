@@ -65,7 +65,7 @@
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
   </view>
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
-    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="*this" bindtap="toDetailsTap" data-id="{{item.id}}">
+    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
@@ -109,7 +109,7 @@
       <view class="weui-loadmore__tips weui-loadmore__tips_in-line">全民拼团</view>
     </view>
     <view class='tuan'>
-      <view class='tuan-item' wx:for="{{pingtuanList}}" wx:key="*this">
+      <view class='tuan-item' wx:for="{{pingtuanList}}" wx:key="id">
         <view class='tuan-goods-pic'>
           <image src="{{item.pic}}" mode="aspectFill" lazy-load='{{true}}' />
         </view>
@@ -132,7 +132,7 @@
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">商品列表</view>
   </view>
   <view class="goods-container">
-    <view class="goods-box" wx:for="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
+    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>

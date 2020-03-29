@@ -450,3 +450,10 @@ swiper-item image {
   text-align: center;
   border-radius: 8rpx;
 }
+.clearfix:after{/*伪元素是行内元素 正常浏览器清除浮动方法*/
+    content: "";
+    display: block;
+    height: 0;
+    clear:both;
+    visibility: hidden;
+}

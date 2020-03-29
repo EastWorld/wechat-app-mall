@@ -183,7 +183,7 @@
     <view class="label-title" style="border-bottom:1px solid #eee;">大家评价
       <text style="color:red">（{{reputation.length}}）</text>
     </view>
-    <view class="goods-text" style="margin-top:15rpx;" wx:for="{{reputation}}" wx:key="id">
+    <view class="goods-text clearfix"  style="margin-top:15rpx;" wx:for="{{reputation}}" wx:key="id">
       <view style="width:100rpx;float:left;">
         <image style="width: 100rpx; height: 100rpx;" src="{{item.user.avatarUrl}}"></image>
         <view style="text-align:center;width:100rpx;">{{item.goods.goodReputationStr}}</view>

@@ -12,32 +12,52 @@
   <view class="item {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">销量</view>
   <view class="item {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">价格</view>
 </view>
-<navigator wx:if="{{listType == 1}}" wx:for="{{goods}}" wx:key="id" url="/pages/goods-details/index?id={{item.id}}">
-  <view class="list1">
-    <image class="img" mode="aspectFill" src="{{item.pic}}"></image>
+<block wx:if="{{listType == 1}}">
+  <view class="list1" wx:for="{{goods}}" wx:key="id">
+    <navigator url="/pages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
-      <view class="title ellipsis">{{item.name}}</view>
+      <view class="title ellipsis"><navigator url="/pages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
       <view class="price">¥ {{item.minPrice}}</view>
       <view class="buy-info">
         <view class="num">已售出{{item.numberSells}}件</view>
-        <image class="car" src="/images/icon/car.svg"></image>
+        <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
       </view>
     </view>
   </view>
-</navigator>
+</block>
 <view wx:if="{{listType == 2}}" class="list2-box">
-  <navigator wx:for="{{goods}}" wx:key="id" url="/pages/goods-details/index?id={{item.id}}">
-    <view class="list2">
-      <image class="img" mode="aspectFill" src="{{item.pic}}"></image>
-      <view class="goods-info">
-        <view class="title">{{item.name}}</view>
-        <view class="price">¥ {{item.minPrice}}</view>
-        <view class="buy-info">
-          <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
-          <image class="car" src="/images/icon/car.svg"></image>
-        </view>
+  <view class="list2" wx:for="{{goods}}" wx:key="id">
+    <navigator url="/pages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <view class="goods-info">
+      <view class="title"><navigator url="/pages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
+      <view class="price">¥ {{item.minPrice}}</view>
+      <view class="buy-info">
+        <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
+        <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
       </view>
     </view>
-  </navigator>  
+  </view>
 </view>
-<float-menu /> 
+
+
+<block wx:if="{{skuCurGoods}}">
+  <view class="sku-mask"></view>
+  <view class="sku-container">
+    <image class="close" src="/images/icon/close.svg" bindtap="closeSku"></image>
+    <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id">
+      <view class="t">{{item.name}}</view>
+      <view class="items">
+        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.childsCurGoods}}" wx:for-item="small" wx:key="id" data-pid="{{small.propertyId}}" data-id="{{small.id}}" bindtap="skuSelect">{{small.name}}</text>
+      </view>
+    </view>
+    <view class="num">
+      <view class="t">购买数量</view>
+      <view class="num-box">
+        <text class="a" bindtap="storesJian">-</text>
+        <text class="b">{{skuCurGoods.basicInfo.storesBuy}}</text>
+        <text class="a" bindtap="storesJia">+</text>
+      </view>
+    </view>
+  </view>
+  <view class="sku-btn" bindtap="addCarSku">加入购物车</view>
+</block>

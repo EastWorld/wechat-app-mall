@@ -15,7 +15,7 @@
   width: 100vw;
   display: flex;
   align-items: center;
-  margin-left: 32rpx;
+  padding-left: 32rpx;
 }
 .add-address image {
   width: 40rpx;

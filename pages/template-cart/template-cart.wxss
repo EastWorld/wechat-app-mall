@@ -223,3 +223,10 @@
 .jiesuan-box .total {
   color: #e64340;
 }
+.trip {
+  background: #e64340;
+  padding: 8rpx 32rpx;
+  color: #fff;
+  width: 686rpx;
+  font-size: 24rpx;
+}

@@ -1,5 +1,10 @@
 @import "/template/login/index.wxss";
 
+page,view,image,input,textarea {
+  display: block;
+  box-sizing: border-box;
+}
+
 .container {
   background-color: #f2f2f2;
   padding-bottom: 100rpx;
@@ -29,9 +34,12 @@
 }
 
 .show-address {
-  width: 664rpx;
+  width: 750rpx;
   box-sizing: border-box;
-  padding-left: 32rpx;
+  padding: 0 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .show-address .name-tel {
@@ -45,6 +53,10 @@
   color: #888;
   padding-bottom: 34rpx;
   line-height: 36rpx;
+}
+.show-address .next {
+  width: 40rpx;
+  height: 40rpx;
 }
 
 form {

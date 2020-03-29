@@ -40,8 +40,13 @@
         <view>新增收货地址</view>
       </view>
       <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
-        <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>
-        <view class="addr-text">{{curAddressData.address}}</view>
+        <view class="l">
+          <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>
+          <view class="addr-text">{{curAddressData.address}}</view>
+        </view>
+        <view class="r">
+          <image class="next" src="/images/icon/next.png"></image>
+        </view>
       </view>
     </view>
     <view class="row-box">

@@ -214,8 +214,11 @@ Page({
     }
     this.processYunfei();
   },
-  processYunfei() {
-    var goodsList = this.data.goodsList;
+  processYunfei() {    
+    var goodsList = this.data.goodsList
+    if (goodsList.length == 0) {
+      return
+    }
     var goodsJsonStr = "[";
     var isNeedLogistics = 0;
     var allGoodsPrice = 0;

@@ -66,11 +66,11 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage() {    
     return {
       title: '申请开票',
       imageUrl: 'https://cdn.it120.cc/apifactory/2019/06/13/13f5f43c-4819-414d-88f5-968e32facd79.png',
-      path: '/pages/invoice/apply?inviter_id=' + wx.getStorageSync('uid')
+      path: '/pages/start/loading?inviter_id=' + wx.getStorageSync('uid') + '&route=/pages/invoice/apply'
     }
   },
   async bindSave(e) {

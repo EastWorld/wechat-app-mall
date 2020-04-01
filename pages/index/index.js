@@ -67,15 +67,6 @@ Page({
       withShareTicket: true
     })    
     const that = this
-    // if (e && e.query && e.query.inviter_id) { 
-    //   wx.setStorageSync('referrer', e.query.inviter_id)
-    // }
-    if (e && e.scene) {
-      const scene = decodeURIComponent(e.scene)
-      if (scene) {        
-        wx.setStorageSync('referrer', scene.substring(11))
-      }
-    }
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
@@ -206,7 +197,7 @@ Page({
   onShareAppMessage: function() {    
     return {
       title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
+      path: '/pages/start/loading?inviter_id=' + wx.getStorageSync('uid') + '&route=/pages/index/index'
     }
   },
   getNotice: function() {

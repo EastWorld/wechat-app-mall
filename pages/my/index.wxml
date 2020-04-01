@@ -202,6 +202,11 @@
     <button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即绑定</button>
   </view>
   <view class="line"></view>
+  <view class="menu-item" bindtap="clearStorage">
+    <view class="l">清除缓存</view>
+    <image class="next" src="/images/icon/next.png"></image>
+  </view>
+  <view class="line"></view>
   <view wx:if="{{apiUserInfoMap}}" class="menu-item" bindtap="loginOut">
     <view class="l">退出登录</view>
     <image class="next" src="/images/icon/next.png"></image>

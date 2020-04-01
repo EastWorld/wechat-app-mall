@@ -40,7 +40,7 @@
 .search input {
   display: block;
   box-sizing: border-box;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
   border: 1rpx solid #e3e3e3;
   width: 700rpx;
   height: 66rpx;

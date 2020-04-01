@@ -126,10 +126,10 @@ Page({
       url: '/pages/goods/list?name=' + this.data.inputVal,
     })
   },
-  onShareAppMessage: function () {
+  onShareAppMessage() {    
     return {
       title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
+      path: '/pages/start/loading?inviter_id=' + wx.getStorageSync('uid') + '&route=/pages/category/category'
     }
   },
   onShow() {

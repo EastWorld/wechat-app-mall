@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/start/loading",
     "pages/start/start",
     "pages/shop/select",
     "pages/index/index",

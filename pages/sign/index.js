@@ -95,8 +95,5 @@ Page({
         }],
       });
     })
-  },
-  onShareAppMessage: function() {
-
   }
 })

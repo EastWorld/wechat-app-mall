@@ -163,4 +163,11 @@ Page({
       }
     })
   },
+  clearStorage(){
+    wx.clearStorageSync()
+    wx.showToast({
+      title: '已清除',
+      icon: 'success'
+    })
+  },
 })

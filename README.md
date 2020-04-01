@@ -6,6 +6,60 @@
 
 新增直播带货支持，具体详见使用说明
 
+# 版本说明
+
+master 主线版本（8.x）为主力开发版本，激进的朋友可以选择使用该版本，可体验最新的尝鲜功能；
+
+7.x 分支为目前稳定版本，保守的用户可使用非主线分支：
+
+[https://github.com/EastWorld/wechat-app-mall/tree/7.x](https://github.com/EastWorld/wechat-app-mall/tree/7.x)
+
+# 8.x 版本新功能介绍
+
+## 简化配置
+
+8.x 版本，移除了 config.js 中 subDomain 的配置，小程序会自动根据您导入开发工具时候填写的 appID 自动加载该 appID 在 [「api工厂」](https://www.it120.cc/)  上的专属域名；
+
+所以你要先在 [「api工厂」](https://www.it120.cc/)  上配置好 小程序的appID 和 secret 以后，再导入开发工具
+
+## 小程序入口链接地址跳转
+
+8.x 版本，增加了中间加载页面，所以必须要从入口地址进入，继而跳转到业务地址：
+
+### 分享转发链接
+
+/pages/start/loading?inviter_id={邀请人id}&route={分享页面url}
+
+route 参数到值，如果带参数，参数部分必须使用 urlencoding 编码，比如：
+
+**进入小程序首页：**
+
+/pages/start/loading?route=/pages/index/index
+
+**进入id为 123 的商品详情页：**
+
+/pages/start/loading?route=/pages/goods-details/index%3fid%3d123
+
+### 自定义二维码
+
+page 参数请传 pages/start/loading
+
+scene 参数：
+
+**商品详情海报：**
+
+qrcode-goods,?id=123,邀请人id
+
+**三级分销码二维码：**
+
+qrcode-index,,邀请人id
+
+### 直播带货商品链接
+
+**商品id为6761的商品：**
+
+pages/start/loading?route=/pages/goods-details/index%3fid%3d6761
+
 # 今日头条/抖音小程序版本
 
 本项目的今日头条/抖音小程序版本，请移步至下面的地址：

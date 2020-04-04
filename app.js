@@ -1,7 +1,7 @@
 App({
   onLaunch: function() {
     const that = this;
-    // 检测新版本
+    // 检测lakjsdflajsdf asldfkjasldf新版本
     const updateManager = wx.getUpdateManager()
     updateManager.onUpdateReady(function () {
       wx.showModal({

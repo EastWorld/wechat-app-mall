@@ -61,3 +61,12 @@ page {
   letter-spacing: 0;
   line-height: 98rpx;
 }
+.hasRight {
+  display: flex;
+  justify-content: space-between;
+}
+.hasRight .import {
+  margin-right: 32rpx;
+  font-size:26rpx;
+  color: #e64340;
+}

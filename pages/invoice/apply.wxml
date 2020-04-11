@@ -1,17 +1,20 @@
 <view class="form">
   <form bindsubmit="bindSave">
-    <view class="title">发票填写</view>
+    <view class="title hasRight">
+      <view>发票填写</view>
+      <view class="import" bindtap="chooseInvoiceTitle">读取微信开票信息</view>
+    </view>
     <view class="input">
       <view>工厂账号</view>
       <input name='mobile' type="text" placeholder="api工厂注册的手机号码" placeholder-class="placeholder" />
     </view>
     <view class="input">
       <view>发票抬头</view>
-      <input name='comName' type="text" placeholder="公司名称" placeholder-class="placeholder" />
+      <input name='comName' type="text" placeholder="公司名称" placeholder-class="placeholder" value="{{wxInvoiceInfo.title}}" />
     </view>
     <view class="input">
       <view>税号</view>
-      <input name='tfn' type="text" placeholder="填写税号" placeholder-class="placeholder" />
+      <input name='tfn' type="text" placeholder="填写税号" placeholder-class="placeholder" value="{{wxInvoiceInfo.taxNumber}}" />
     </view>
     <view class="input">
       <view>发票内容</view>
@@ -23,11 +26,11 @@
     </view>
     <view class="input">
       <view>地址与电话</view>
-      <input name='address' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" />
+      <input name='address' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" value="{{wxInvoiceInfo.companyAddress}}{{wxInvoiceInfo.telephone}}" />
     </view>
     <view class="input">
       <view>开户行与账号</view>
-      <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" />
+      <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" />
     </view>
     <view class="input">
       <view>备注</view>

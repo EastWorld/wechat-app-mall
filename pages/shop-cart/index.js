@@ -116,6 +116,9 @@ Page({
   },
   async delItem(e) {
     const key = e.currentTarget.dataset.key
+    this.delItemDone(key)
+  },
+  async delItemDone(key){
     const token = wx.getStorageSync('token')
     const res = await WXAPI.shippingCarInfoRemoveItem(token, key)
     if (res.code != 0) {
@@ -140,6 +143,15 @@ Page({
     const item = this.data.shippingCarInfo.items[index]
     const number = item.number-1
     if (number <= 0) {
+      // 弹出删除确认
+      wx.showModal({
+        content: '确定要删除该商品吗？',
+        success: (res) => {
+          if (res.confirm) {
+            this.delItemDone(item.key)
+          }
+        }
+      })
       return
     }
     const token = wx.getStorageSync('token')

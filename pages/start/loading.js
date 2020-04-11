@@ -18,7 +18,7 @@ Page({
       const scene = decodeURIComponent(options.scene) // 处理扫码进来的业务逻辑,格式为：   qrcode-*,queryString,referrer
       const _const = scene.split(',')
       if (_const[0] == 'qrcode-index') {
-        this.data.route = '/pages/index/index' + _const[1]
+        this.data.route = '/pages/start/start' + _const[1]
         if (_const.length > 2) {
           wx.setStorageSync('referrer', _const[2])
         }
@@ -66,7 +66,7 @@ Page({
     if (vipRes.code == 0) {
       APP.globalData.vipLevel = vipRes.data
     }
-    const configRes = await WXAPI.queryConfigBatch('mallName,recharge_amount_min,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids')
+    const configRes = await WXAPI.queryConfigBatch('mallName,recharge_amount_min,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids')
     if (configRes.code == 0) {
       configRes.data.forEach(config => {
         wx.setStorageSync(config.key, config.value);
@@ -124,7 +124,7 @@ Page({
       return
     }
     // 页面跳转,  参数请用 url 编码
-    let pageUrl = this.data.route ? this.data.route : '/pages/index/index'
+    let pageUrl = this.data.route ? this.data.route : '/pages/start/start'
     wx.reLaunch({
       url: decodeURIComponent(pageUrl)
     })    

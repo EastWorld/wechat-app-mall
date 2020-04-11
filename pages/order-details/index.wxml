@@ -75,26 +75,25 @@
               </view>
             </view>
           </view>
-          <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
-
-            <view class="section section_gap">
-              <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
-              <radio-group name="goodReputation{{index}}">
-                <label style="margin-right:35rpx;">
-                  <radio value="2" checked/>好评</label>
-                <label style="margin-right:35rpx;">
-                  <radio value="1" />中评</label>
-                <label style="margin-right:35rpx;">
-                  <radio value="0" />差评</label>
-              </radio-group>
-            </view>
-            <view class="row-box" style="margin-top:35rpx">
-              <view class="row-label">备注</view>
-              <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
-              <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="非常愉快的一次购物！" />
-            </view>
-          </view>
         </navigator>
+        <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
+          <view class="section section_gap">
+            <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
+            <radio-group name="goodReputation{{index}}">
+              <label style="margin-right:35rpx;">
+                <radio value="2" checked/>好评</label>
+              <label style="margin-right:35rpx;">
+                <radio value="1" />中评</label>
+              <label style="margin-right:35rpx;">
+                <radio value="0" />差评</label>
+            </radio-group>
+          </view>
+          <view class="row-box" style="margin-top:35rpx">
+            <view class="row-label">备注</view>
+            <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
+            <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="非常愉快的一次购物！" />
+          </view>
+        </view>
       </block>
       <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
         <navigator style="float:right;" class="confirm-btn" target="miniProgram" app-id="wx56c8f077de74b07c" path="/open/order-comment/order-comment?appid={{appid}}&order_id={{orderDetail.orderInfo.orderNumber}}">去购物单评价</navigator>

@@ -92,19 +92,23 @@ Page({
     this.data.remark = e.detail.value
   },
   goCreateOrder(){
-    wx.requestSubscribeMessage({
-      tmplIds: ['ITVuuD_cwYN-5BjXne8cSktDo43xetj0u-lpvFZEQQs',
-        'dw9Tzh9r0sw7Gjab0ovQJx3bP3gdXmF_FZvpnxPd6hc'],
-      success(res) {
-        
-      },
-      fail(e) {
-        console.error(e)
-      },
-      complete: (e) => {
-        this.createOrder(true)
-      },
-    })
+    const subscribe_ids = wx.getStorageSync('subscribe_ids')
+    if (subscribe_ids) {
+      wx.requestSubscribeMessage({
+        tmplIds: subscribe_ids.split(','),
+        success(res) {
+          
+        },
+        fail(e) {
+          console.error(e)
+        },
+        complete: (e) => {
+          this.createOrder(true)
+        },
+      })
+    } else {
+      this.createOrder(true)
+    }    
   },
   createOrder: function (e) {
     var that = this;

@@ -1,0 +1,50 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<view
+  class="{{ utils.bem('search', { withaction: showAction || useActionSlot }) }} custom-class"
+  style="background: {{ background }}"
+>
+  <view class="{{ utils.bem('search__content', [shape]) }}">
+    <view class="van-search__label" wx:if="{{ label }}">{{ label }}</view>
+    <slot wx:else name="label" />
+
+    <van-field
+      type="search"
+      left-icon="{{ !useLeftIconSlot ? leftIcon : '' }}"
+      right-icon="{{ !useRightIconSlot ? rightIcon : '' }}"
+      focus="{{ focus }}"
+      error="{{ error }}"
+      border="{{ false }}"
+      confirm-type="search"
+      class="van-search__field field-class"
+      value="{{ value }}"
+      disabled="{{ disabled }}"
+      readonly="{{ readonly }}"
+      clearable="{{ clearable }}"
+      maxlength="{{ maxlength }}"
+      input-align="{{ inputAlign }}"
+      input-class="input-class"
+      placeholder="{{ placeholder }}"
+      placeholder-style="{{ placeholderStyle }}"
+      custom-style="padding: 5px 10px 5px 0; background-color: transparent;"
+      bind:blur="onBlur"
+      bind:focus="onFocus"
+      bind:change="onChange"
+      bind:confirm="onSearch"
+      bind:clear="onClear"
+    >
+      <slot wx:if="{{ useLeftIconSlot }}" name="left-icon" slot="left-icon" />
+      <slot wx:if="{{ useRightIconSlot }}" name="right-icon" slot="right-icon" />
+    </van-field>
+  </view>
+
+  <view
+    wx:if="{{ showAction || useActionSlot }}"
+    class="van-search__action"
+    hover-class="van-search__action--hover"
+    hover-stay-time="70"
+  >
+    <slot wx:if="{{ useActionSlot }}" name="action" />
+    <view wx:else bind:tap="onCancel" class="cancel-class">{{ actionText }}</view>
+  </view>
+</view>

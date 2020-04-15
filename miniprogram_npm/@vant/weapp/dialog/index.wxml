@@ -1,0 +1,71 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<van-popup
+  show="{{ show }}"
+  z-index="{{ zIndex }}"
+  overlay="{{ overlay }}"
+  transition="{{ transition }}"
+  custom-class="van-dialog {{ className }}"
+  custom-style="width: {{ utils.addUnit(width) }};{{ customStyle }}"
+  overlay-style="{{ overlayStyle }}"
+  close-on-click-overlay="{{ closeOnClickOverlay }}"
+  bind:close="onClickOverlay"
+>
+  <view
+    wx:if="{{ title || useTitleSlot  }}"
+    class="van-dialog__header {{ message || useSlot ? '' : 'van-dialog--isolated' }}"
+  >
+    <slot wx:if="{{ useTitleSlot }}" name="title" />
+    <block wx:elif="{{ title }}"> {{ title }}</block>
+  </view>
+
+  <slot wx:if="{{ useSlot }}" />
+  <view
+    wx:elif="{{ message }}"
+    class="van-dialog__message {{ title ? 'van-dialog__message--has-title' : '' }} {{ messageAlign ? 'van-dialog__message--' + messageAlign : '' }}"
+  >
+    <text class="van-dialog__message-text">{{ message }}</text>
+  </view>
+
+  <view class="van-hairline--top van-dialog__footer">
+    <van-button
+      wx:if="{{ showCancelButton }}"
+      size="large"
+      loading="{{ loading.cancel }}"
+      class="van-dialog__button van-hairline--right"
+      custom-class="van-dialog__cancel"
+      custom-style="color: {{ cancelButtonColor }}"
+      bind:click="onCancel"
+    >
+      {{ cancelButtonText }}
+    </van-button>
+    <van-button
+      wx:if="{{ showConfirmButton }}"
+      size="large"
+      class="van-dialog__button"
+      loading="{{ loading.confirm }}"
+      custom-class="van-dialog__confirm"
+      custom-style="color: {{ confirmButtonColor }}"
+
+      open-type="{{ confirmButtonOpenType }}"
+      lang="{{ lang }}"
+      business-id="{{ businessId }}"
+      session-from="{{ sessionFrom }}"
+      send-message-title="{{ sendMessageTitle }}"
+      send-message-path="{{ sendMessagePath }}"
+      send-message-img="{{ sendMessageImg }}"
+      show-message-card="{{ showMessageCard }}"
+      app-parameter="{{ appParameter }}"
+
+      bind:click="onConfirm"
+      bindgetuserinfo="bindGetUserInfo"
+      bindcontact="bindContact"
+      bindgetphonenumber="bindGetPhoneNumber"
+      binderror="bindError"
+      bindlaunchapp="bindLaunchApp"
+      bindopensetting="bindOpenSetting"
+    >
+      {{ confirmButtonText }}
+    </van-button>
+  </view>
+</van-popup>

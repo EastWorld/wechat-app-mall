@@ -1,0 +1,1 @@
+@import '../common/index.wxss';.van-tabbar{display:-webkit-flex;display:flex;width:100%;height:50px;height:var(--tabbar-height,50px);background-color:#fff;background-color:var(--tabbar-background-color,#fff)}.van-tabbar--fixed{position:fixed;bottom:0;left:0}.van-tabbar--safe{padding-bottom:env(safe-area-inset-bottom)}

@@ -1,0 +1,104 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<van-cell
+  size="{{ size }}"
+  icon="{{ leftIcon }}"
+  title="{{ label }}"
+  center="{{ center }}"
+  border="{{ border }}"
+  is-link="{{ isLink }}"
+  required="{{ required }}"
+  clickable="{{ clickable }}"
+  title-width="{{ titleWidth }}"
+  custom-style="{{ customStyle }}"
+  arrow-direction="{{ arrowDirection }}"
+  custom-class="van-field"
+>
+  <slot name="left-icon" slot="icon" />
+  <slot name="label" slot="title" />
+  <view class="{{ utils.bem('field__body', [type]) }}">
+    <textarea
+      wx:if="{{ type === 'textarea' }}"
+      class="input-class {{ utils.bem('field__input', [inputAlign, type, { disabled, error }]) }}"
+      fixed="{{ fixed }}"
+      focus="{{ focus }}"
+      cursor="{{ cursor }}"
+      value="{{ innerValue }}"
+      auto-focus="{{ autoFocus }}"
+      disabled="{{ disabled || readonly }}"
+      maxlength="{{ maxlength }}"
+      placeholder="{{ placeholder }}"
+      placeholder-style="{{ placeholderStyle }}"
+      placeholder-class="{{ utils.bem('field__placeholder', { error }) }}"
+      auto-height="{{ !!autosize }}"
+      style="{{ computed.inputStyle(autosize) }}"
+      cursor-spacing="{{ cursorSpacing }}"
+      adjust-position="{{ adjustPosition }}"
+      show-confirm-bar="{{ showConfirmBar }}"
+      hold-keyboard="{{ holdKeyboard }}"
+      selection-end="{{ selectionEnd }}"
+      selection-start="{{ selectionStart }}"
+      disable-default-padding="{{ disableDefaultPadding }}"
+      bindinput="onInput"
+      bindblur="onBlur"
+      bindfocus="onFocus"
+      bindconfirm="onConfirm"
+      bindlinechange="onLineChange"
+      bindkeyboardheightchange="onKeyboardHeightChange"
+    >
+    </textarea>
+    <input
+      wx:else
+      class="input-class {{ utils.bem('field__input', [inputAlign, { disabled, error }]) }}"
+      type="{{ type }}"
+      focus="{{ focus }}"
+      cursor="{{ cursor }}"
+      value="{{ innerValue }}"
+      auto-focus="{{ autoFocus }}"
+      disabled="{{ disabled || readonly }}"
+      maxlength="{{ maxlength }}"
+      placeholder="{{ placeholder }}"
+      placeholder-style="{{ placeholderStyle }}"
+      placeholder-class="{{ utils.bem('field__placeholder', { error }) }}"
+      confirm-type="{{ confirmType }}"
+      confirm-hold="{{ confirmHold }}"
+      hold-keyboard="{{ holdKeyboard }}"
+      cursor-spacing="{{ cursorSpacing }}"
+      adjust-position="{{ adjustPosition }}"
+      selection-end="{{ selectionEnd }}"
+      selection-start="{{ selectionStart }}"
+      password="{{ password || type === 'password' }}"
+      bindinput="onInput"
+      bindblur="onBlur"
+      bindfocus="onFocus"
+      bindconfirm="onConfirm"
+      bindkeyboardheightchange="onKeyboardHeightChange"
+    />
+    <van-icon
+      wx:if="{{ showClear }}"
+      name="clear"
+      class="van-field__clear-root van-field__icon-root"
+      catch:touchstart="onClear"
+    />
+    <view class="van-field__icon-container" bind:tap="onClickIcon">
+      <van-icon
+        wx:if="{{ rightIcon || icon }}"
+        name="{{ rightIcon || icon }}"
+        class="van-field__icon-root {{ iconClass }}"
+        custom-class="right-icon-class"
+      />
+      <slot name="right-icon" />
+      <slot name="icon" />
+    </view>
+    <view class="van-field__button">
+      <slot name="button" />
+    </view>
+  </view>
+  <view wx:if="{{ showWordLimit && maxlength }}" class="van-field__word-limit">
+    <view class="{{ utils.bem('field__word-num', { full: value.length >= maxlength }) }}">{{ value.length }}</view>/{{ maxlength }}
+  </view>
+  <view wx:if="{{ errorMessage }}" class="van-field__error-message {{ utils.bem('field__error', [errorMessageAlign, { disabled, error }]) }}">
+    {{ errorMessage }}
+  </view>
+</van-cell>

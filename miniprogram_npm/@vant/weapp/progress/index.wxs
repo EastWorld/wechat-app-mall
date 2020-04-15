@@ -1,0 +1,5 @@
+module.exports = {
+  text: function(pivotText, percentage) {
+    return pivotText || percentage + '%';
+  }
+};

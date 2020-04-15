@@ -1,0 +1,29 @@
+<wxs src="./index.wxs" module="computed" />
+
+<import src="./calendar.wxml" />
+
+<van-popup
+  wx:if="{{ poppable }}"
+  custom-class="van-calendar__popup--{{ position }}"
+  close-icon-class="van-calendar__close-icon"
+  show="{{ show }}"
+  round="{{ round }}"
+  position="{{ position }}"
+  closeable="{{ showTitle || showSubtitle }}"
+  close-on-click-overlay="{{ closeOnClickOverlay }}"
+  bind:enter="onOpen"
+  bind:close="onClose"
+  bind:after-enter="onOpened"
+  bind:after-leave="onClosed"
+>
+  <template
+    is="calendar"
+    data="{{ title, subtitle, showTitle, showSubtitle, minDate, maxDate, type, color, showMark, formatter, rowHeight, currentDate, safeAreaInsetBottom, showConfirm, confirmDisabledText, confirmText, scrollIntoView, allowSameDay }}"
+  />
+</van-popup>
+
+<template
+  wx:else
+  is="calendar"
+  data="{{ title, subtitle, showTitle, showSubtitle, minDate, maxDate, type, color, showMark, formatter, rowHeight, currentDate, safeAreaInsetBottom, showConfirm, confirmDisabledText, confirmText, scrollIntoView, allowSameDay }}"
+/>

@@ -1,0 +1,20 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="getters" />
+
+<view
+  class="van-progress custom-class"
+  style="height: {{ utils.addUnit(strokeWidth) }}; {{ trackColor ? 'background: ' + trackColor : '' }}"
+>
+  <view
+    class="van-progress__portion"
+    style="width: {{ percentage }}%; background: {{ inactive ? '#cacaca' : color }}"
+  >
+    <view
+      wx:if="{{ showPivot && getters.text(pivotText, percentage) }}"
+      style="color: {{ textColor }}; background: {{ pivotColor ? pivotColor : inactive ? '#cacaca' : color }}"
+      class="van-progress__pivot"
+    >
+      {{ getters.text(pivotText, percentage) }}
+    </view>
+  </view>
+</view>

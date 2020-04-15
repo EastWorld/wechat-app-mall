@@ -1,0 +1,16 @@
+<van-picker
+  class="van-datetime-picker"
+  active-class="active-class"
+  toolbar-class="toolbar-class"
+  column-class="column-class"
+  title="{{ title }}"
+  columns="{{ columns }}"
+  item-height="{{ itemHeight }}"
+  show-toolbar="{{ showToolbar }}"
+  visible-item-count="{{ visibleItemCount }}"
+  confirm-button-text="{{ confirmButtonText }}"
+  cancel-button-text="{{ cancelButtonText }}"
+  bind:change="onChange"
+  bind:confirm="onConfirm"
+  bind:cancel="onCancel"
+/>

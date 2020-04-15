@@ -1,0 +1,30 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<van-button
+  id="{{ id }}"
+  lang="{{ lang }}"
+  type="{{ type }}"
+  color="{{ color }}"
+  plain="{{ plain }}"
+  loading="{{ loading }}"
+  disabled="{{ disabled }}"
+  open-type="{{ openType }}"
+  class="{{ utils.bem('goods-action-button', [type, { first: isFirst, last: isLast, plain: plain }])}}"
+  custom-class="van-goods-action-button__inner"
+  business-id="{{ businessId }}"
+  session-from="{{ sessionFrom }}"
+  app-parameter="{{ appParameter }}"
+  send-message-img="{{ sendMessageImg }}"
+  send-message-path="{{ sendMessagePath }}"
+  show-message-card="{{ showMessageCard }}"
+  send-message-title="{{ sendMessageTitle }}"
+  bind:click="onClick"
+  binderror="bindError"
+  bindcontact="bindContact"
+  bindopensetting="bindOpenSetting"
+  bindgetuserinfo="bindGetUserInfo"
+  bindgetphonenumber="bindGetPhoneNumber"
+  bindlaunchapp="bindLaunchApp"
+>
+  {{ text }}
+  <slot></slot>
+</van-button>

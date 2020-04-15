@@ -117,7 +117,16 @@ Page({
       shopInfo: wx.getStorageSync('shopInfo')
     })
     // 获取购物车数据，显示TabBarBadge
-    TOOLS.showTabBarBadge();
+    TOOLS.showTabBarBadge()
+    this.goodsDynamic()
+  },
+  async goodsDynamic(){
+    const res = await WXAPI.goodsDynamic(0)
+    if (res.code == 0) {
+      this.setData({
+        goodsDynamic: res.data
+      })
+    }
   },
   async categories(){
     const res = await WXAPI.goodsCategory()

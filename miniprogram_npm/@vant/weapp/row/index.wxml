@@ -1,0 +1,3 @@
+<view class="custom-class van-row" style="{{ viewStyle }}">
+  <slot />
+</view>

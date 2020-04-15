@@ -54,6 +54,38 @@
   top: 16rpx;
   right: 32rpx;
 }
+.goodsDynamic {
+  position: absolute;
+  top: 110rpx;
+  left: 25rpx;
+  width: 650rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;  
+  padding: 8rpx 16rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;  
+}
+.goodsDynamic .swiper2 {
+  width: 100%;
+  height: 32rpx;
+}
+.goodsDynamic-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.goodsDynamic-item image {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.goodsDynamic-item text {
+  margin-left: 8rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 .notice-box {
   display: flex;
   box-sizing: border-box;
@@ -129,11 +161,11 @@
   height: 375rpx;
   position: relative;  
 }
-.swiper-container swiper {
+.swiper-container .swiper1 {
   width: 750rpx;
   height: 375rpx;
 }
-.swiper-container swiper image {
+.swiper-container .swiper1 image {
   width: 750rpx;
   height: 375rpx;
 }

@@ -1,0 +1,41 @@
+<import src="./toolbar.wxml" />
+
+<view class="van-picker custom-class">
+  <template is="toolbar" wx:if="{{ toolbarPosition === 'top' }}" data="{{ showToolbar, cancelButtonText, title, confirmButtonText }}"></template>
+  <view wx:if="{{ loading }}" class="van-picker__loading">
+    <loading color="#1989fa"/>
+  </view>
+  <view
+    class="van-picker__columns"
+    style="height: {{ itemHeight * visibleItemCount }}px"
+    catch:touchmove="noop"
+  >
+    <picker-column
+      class="van-picker__column"
+      wx:for="{{ isSimple(columns) ? [columns] : columns }}"
+      wx:key="index"
+      data-index="{{ index }}"
+      custom-class="column-class"
+      value-key="{{ valueKey }}"
+      initial-options="{{ isSimple(columns) ? item : item.values }}"
+      default-index="{{ item.defaultIndex || defaultIndex }}"
+      item-height="{{ itemHeight }}"
+      visible-item-count="{{ visibleItemCount }}"
+      active-class="active-class"
+      bind:change="onChange"
+    />
+    <view class="van-picker__mask" style="background-size: 100% {{ (itemHeight * visibleItemCount - itemHeight) / 2 }}px" />
+    <view
+      class="van-picker__frame van-hairline--top-bottom"
+      style="height: {{ itemHeight }}px"
+    />
+  </view>
+  <template is="toolbar" wx:if="{{ toolbarPosition === 'bottom' }}" data="{{ showToolbar, cancelButtonText, title, confirmButtonText }}"></template>
+</view>
+
+<wxs module="isSimple">
+  function isSimple(columns) {
+    return columns.length && !columns[0].values;
+  }
+  module.exports = isSimple;
+</wxs>

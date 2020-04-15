@@ -1,0 +1,63 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="getters" />
+
+<view class="custom-class {{ utils.bem('tabs', [type]) }}">
+  <van-sticky
+    disabled="{{ !sticky }}"
+    z-index="{{ zIndex }}"
+    offset-top="{{ offsetTop }}"
+    container="{{ container }}"
+    bind:scroll="onTouchScroll"
+  >
+    <view class="{{ utils.bem('tabs__wrap', { scrollable }) }} {{ type === 'line' && border ? 'van-hairline--top-bottom' : '' }}">
+      <slot name="nav-left" />
+
+      <scroll-view
+        scroll-x="{{ scrollable }}"
+        scroll-with-animation
+        scroll-left="{{ scrollLeft }}"
+        class="{{ utils.bem('tabs__scroll', [type]) }}"
+        style="{{ color ? 'border-color: ' + color : '' }}"
+      >
+        <view class="{{ utils.bem('tabs__nav', [type]) }} nav-class" style="{{ getters.tabCardTypeBorderStyle(color, type) }}">
+          <view wx:if="{{ type === 'line' }}" class="van-tabs__line" style="{{ lineStyle }}" />
+          <view
+            wx:for="{{ tabs }}"
+            wx:key="index"
+            data-index="{{ index }}"
+            class="{{ getters.tabClass(index === currentIndex, ellipsis) }} {{ utils.bem('tab', { active: index === currentIndex, disabled: item.disabled, complete: !ellipsis }) }}"
+            style="{{ getters.tabStyle(index === currentIndex, ellipsis, color, type, item.disabled, titleActiveColor, titleInactiveColor, swipeThreshold, scrollable) }}"
+            bind:tap="onTap"
+          >
+            <view class="{{ ellipsis ? 'van-ellipsis' : '' }}" style="{{ item.titleStyle }}">
+              {{ item.title }}
+              <van-info
+                wx:if="{{ item.info !== null || item.dot }}"
+                info="{{ item.info }}"
+                dot="{{ item.dot }}"
+                custom-class="van-tab__title__info"
+              />
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <slot name="nav-right" />
+    </view>
+  </van-sticky>
+
+  <view
+    class="van-tabs__content"
+    bind:touchstart="onTouchStart"
+    bind:touchmove="onTouchMove"
+    bind:touchend="onTouchEnd"
+    bind:touchcancel="onTouchEnd"
+  >
+    <view
+      class="{{ utils.bem('tabs__track', [{ animated }]) }} van-tabs__track"
+      style="{{ getters.trackStyle({ duration, currentIndex, animated }) }}"
+    >
+      <slot />
+    </view>
+  </view>
+</view>

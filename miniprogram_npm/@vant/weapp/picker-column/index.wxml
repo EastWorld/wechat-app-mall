@@ -1,0 +1,22 @@
+<wxs src="./index.wxs" module="getOptionText" />
+
+<view
+  class="van-picker-column custom-class"
+  style="height: {{ itemHeight * visibleItemCount }}px"
+  bind:touchstart="onTouchStart"
+  catch:touchmove="onTouchMove"
+  bind:touchend="onTouchEnd"
+  bind:touchcancel="onTouchEnd"
+>
+  <view style="transition: transform {{ duration }}ms; line-height: {{ itemHeight }}px; transform: translate3d(0, {{ offset + (itemHeight * (visibleItemCount - 1)) / 2 }}px, 0)">
+    <view
+      wx:for="{{ options }}"
+      wx:for-item="option"
+      wx:key="index"
+      data-index="{{ index }}"
+      style="height: {{ itemHeight }}px"
+      class="van-ellipsis van-picker-column__item {{ option && option.disabled ? 'van-picker-column__item--disabled' : '' }} {{ index === currentIndex ? 'van-picker-column__item--selected active-class' : '' }}"
+      bindtap="onClickItem"
+    >{{ getOptionText(option, valueKey) }}</view>
+  </view>
+</view>

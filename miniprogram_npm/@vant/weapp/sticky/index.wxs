@@ -1,0 +1,37 @@
+/* eslint-disable */
+function wrapStyle(data) {
+  var style = '';
+
+  if (data.transform) {
+    style += 'transform: translate3d(0, ' + data.transform + 'px, 0);';
+  }
+
+  if (data.fixed) {
+    style += 'top: ' + data.offsetTop + 'px;';
+  }
+
+  if (data.zIndex) {
+    style += 'z-index: ' + data.zIndex + ';';
+  }
+
+  return style;
+}
+
+function containerStyle(data) {
+  var style = '';
+
+  if (data.fixed) {
+    style += 'height: ' + data.height + 'px;';
+  }
+
+  if (data.zIndex) {
+    style += 'z-index: ' + data.zIndex + ';';
+  }
+
+  return style;
+}
+
+module.exports = {
+  wrapStyle: wrapStyle,
+  containerStyle: containerStyle
+};

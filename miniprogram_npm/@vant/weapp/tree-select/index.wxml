@@ -1,0 +1,39 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="wxs" />
+
+<view
+  class="van-tree-select"
+  style="height: {{ utils.addUnit(height) }}"
+>
+  <scroll-view scroll-y class="van-tree-select__nav">
+    <van-sidebar active-key="{{ mainActiveIndex }}" bind:change="onClickNav" custom-class="van-tree-select__nav__inner">
+      <van-sidebar-item
+        wx:for="{{ items }}"
+        wx:key="index"
+        custom-class="main-item-class"
+        active-class="main-active-class"
+        disabled-class="main-disabled-class"
+        title="{{ item.text }}"
+        disabled="{{ item.disabled }}"
+      />
+    </van-sidebar>
+  </scroll-view>
+  <scroll-view scroll-y class="van-tree-select__content">
+    <slot name="content" />
+    <view
+      wx:for="{{ subItems }}"
+      wx:key="id"
+      class="van-ellipsis content-item-class {{ utils.bem('tree-select__item', { active: wxs.isActive(activeId, item.id), disabled: item.disabled }) }} {{ wxs.isActive(activeId, item.id) ? 'content-active-class' : '' }} {{ item.disabled ? 'content-disabled-class' : '' }}"
+      data-item="{{ item }}"
+      bind:tap="onSelectItem"
+    >
+      {{ item.text }}
+      <van-icon
+        wx:if="{{ wxs.isActive(activeId, item.id) }}"
+        name="checked"
+        size="16px"
+        class="van-tree-select__selected"
+      />
+    </view>
+  </scroll-view>
+</view>

@@ -785,6 +785,9 @@ module.exports = {
   modifyUserInfo: function modifyUserInfo(data) {
     return request('/user/modify', true, 'post', data);
   },
+  modifyUserPassword: function modifyUserPassword(token, pwdOld, pwdNew) {
+    return request('/user/modify/password', true, 'post', { token: token, pwdOld: pwdOld, pwdNew: pwdNew });
+  },
   uniqueId: function uniqueId() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
@@ -1020,6 +1023,9 @@ module.exports = {
   },
   siteStatistics: function siteStatistics() {
     return request('/site/statistics', true, 'get');
+  },
+  goodsDynamic: function goodsDynamic(type) {
+    return request('/site/goods/dynamic', true, 'get', { type: type });
   },
   fetchSubDomainByWxappAppid: function fetchSubDomainByWxappAppid(appid) {
     return request('/subdomain/appid/wxapp', false, 'get', { appid: appid });

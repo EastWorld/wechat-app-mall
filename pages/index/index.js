@@ -110,13 +110,6 @@ Page({
     } else {
       _data.banners = res1.data
     }
-    // 读取首页广告位
-    const res2 = await WXAPI.banners({
-      type: 'indexAD'
-    })
-    if (res2.code == 0) {
-      _data.adInfo = res2.data[0]
-    }
     this.setData(_data)
   },
   onShow: function(e){

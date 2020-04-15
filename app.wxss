@@ -7,9 +7,6 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-} 
-.wxParse-img {
-  display: block !important;
 }
 .space {
   height:20rpx;

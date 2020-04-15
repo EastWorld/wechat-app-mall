@@ -87,15 +87,17 @@ pages/start/loading?route=/pages/goods-details/index%3fid%3d6761
 | :------: | :------: |
 | <img src="https://cdn.it120.cc/apifactory/2019/07/03/a86f7e46-1dbc-42fe-9495-65403659671e.jpeg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2019/07/03/fda59aeb-4943-4379-93bb-92856740bd6a.jpeg" width="200px"> |
 
-## 接口 & 后台声明
-
-本项目为小程序商城纯前端项目，由于人力和精力所限，本项目并未有开发配套的后台系统，而是直接使用了 [api 工厂](https://www.it120.cc/) 提供的免费接口和后台，可以完全满足本项目的所有功能需求。
+## 本项目使用了下面的组件，在此鸣谢
 
 - [接口 SDK](https://github.com/gooking/apifm-wxapi)
 
-- [免费后台](https://admin.it120.cc)
+- [api工厂](https://admin.it120.cc)
 
 - [WeUI](https://github.com/Tencent/weui-wxss/)
+
+- [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/Parser)
+
+- [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
 
 - [每日签到日历控件 wx_calendar](https://github.com/treadpit/wx_calendar)
 
@@ -226,12 +228,6 @@ thirdScriptError
 
   1. 创建订单接口增加 expireMinutes 参数；
   2. 代表多少分钟未支付自动关闭本订单，传 0 不自动关闭订单；
-
-- android看得到图片，ios手机看不到图片
-  
-  这是wxparse解析器的问题 很多人都中枪~
-
-  全局搜索并注释掉 console.dir 就好了
 
 - [更多问题？](https://www.yuque.com/apifm/doc)
   

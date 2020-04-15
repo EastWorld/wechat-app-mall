@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "公告详情",
-  "usingComponents": {
-    "wxparse": "plugin://wxparse/wxparse"
-  }
+  "navigationBarTitleText": "公告详情"
 }

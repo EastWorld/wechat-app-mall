@@ -40,7 +40,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black",
     "onReachBottomDistance": 50
   },
@@ -84,14 +84,9 @@
   "navigateToMiniProgramAppIdList": [
     "wx56c8f077de74b07c"
   ],
-  "plugins": {
-    "wxparse": {
-      "version": "1.0.10",
-      "provider": "wx5d60c080635009b1"      
-    }
-  },
   "usingComponents": {
-    "float-menu": "/components/float-menu/index"
+    "float-menu": "/components/float-menu/index",
+    "parser":"/components/parser.20200414.min/parser"
   },
   "sitemapLocation": "sitemap.json"
 }

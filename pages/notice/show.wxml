@@ -1,6 +1,6 @@
 <view class="notice">
   <view class="title">{{notice.title}}</view>
   <view class="text">
-    <wxparse data="{{ notice.content }}"></wxparse>
+    <parser html="{{notice.content}}" />
   </view>
 </view>

@@ -183,7 +183,7 @@
   <view class="goods-des-info">
     <view class="label-title">商品介绍</view>
     <view class="goods-text">
-      <wxparse data="{{ goodsDetail.content }}"></wxparse>
+      <parser html="{{goodsDetail.content}}" />
     </view>
   </view>
   <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{!curGoodsKanjia && reputation}}">

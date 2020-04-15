@@ -76,7 +76,6 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{adInfo}}" class="ad-img" mode="widthFix" src="{{adInfo.picUrl}}" bindtap="adClick" data-url="{{adInfo.linkUrl}}"></image>
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">

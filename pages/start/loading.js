@@ -44,9 +44,19 @@ Page({
   async getSubDomain(appid){
     const _this = this
     const res = await WXAPI.fetchSubDomainByWxappAppid(appid)
-    if (res.code != 0) {
+    if (res.code == 700) {
       wx.showModal({
-        title: '出错了',
+        title: '无法连接后台',
+        content: '①请先在后台左侧菜单微信设置->小程序设置配置appid②修改配置有5分钟的延迟',
+        showCancel: false,
+        confirmText: '重新连接',
+        success (res) {
+          _this.getSubDomain(appid)
+        }
+      })
+    } else if (res.code != 0) {
+      wx.showModal({
+        title: '错误',
         content: res.msg,
         showCancel: false,
         confirmText: '重试',

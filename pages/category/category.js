@@ -25,7 +25,8 @@ Page({
   onLoad: function(options) {
     wx.showShareMenu({
       withShareTicket: true
-    })     
+    })
+    this.categories();
   },
   async categories() {
     wx.showLoading({

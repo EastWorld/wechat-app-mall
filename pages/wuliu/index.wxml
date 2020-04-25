@@ -23,16 +23,6 @@
                 </view>
             </view>
 
-            <!--<view class="a-row">
-                <view class="dot">
-                    <view class="default-dot"></view>
-                </view>
-                <view class="info">
-                    <view class="date-box">2016-12-25  15:00:22</view>
-                    <view class="text">货物已到达 上海千阳站</view>
-                </view>
-            </view>-->
-
         </view>
     </view>
 </view>

@@ -97,35 +97,33 @@
     <view class="r">内容</view>
   </view> -->
 
-  <block wx:if="{{vipLevel > 0}}">
-    <view class="space"></view>
-    <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
-      <view class="menu-item">
-        <view class="l">成为分销商</view>
-        <image class="next" src="/images/icon/next.png"></image>
-      </view>
-    </navigator>
-    <navigator wx:else url="/pages/fx/apply-status">
-      <view class="menu-item">
-        <view class="l">分销中心</view>
-        <image class="next" src="/images/icon/next.png"></image>
-      </view>
-    </navigator>
-    <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
-    <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/members">
-      <view class="menu-item">
-        <view class="l">销售团队</view>
-        <image class="next" src="/images/icon/next.png"></image>
-      </view>
-    </navigator>
-    <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
-    <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/commisionLog">
-      <view class="menu-item">
-        <view class="l">佣金明细</view>
-        <image class="next" src="/images/icon/next.png"></image>
-      </view>
-    </navigator>
-  </block>
+  <view class="space"></view>
+  <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
+    <view class="menu-item">
+      <view class="l">成为分销商</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <navigator wx:else url="/pages/fx/apply-status">
+    <view class="menu-item">
+      <view class="l">分销中心</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
+  <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/members">
+    <view class="menu-item">
+      <view class="l">销售团队</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
+  <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/commisionLog">
+    <view class="menu-item">
+      <view class="l">佣金明细</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
 
   <view class="space"></view>
   <navigator url="/pages/invoice/apply">

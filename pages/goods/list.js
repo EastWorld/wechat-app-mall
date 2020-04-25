@@ -46,7 +46,7 @@ Page({
       pageSize: 500,
     }
     if (this.data.name) {
-      _data.nameLike = this.data.name
+      _data.k = this.data.name
     }
     if (this.data.categoryId) {
       _data.categoryId = this.data.categoryId
@@ -56,6 +56,10 @@ Page({
     if (res.code == 0) {
       this.setData({
         goods: res.data,
+      })
+    } else {
+      this.setData({
+        goods: null,
       })
     }
   },

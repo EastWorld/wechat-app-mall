@@ -413,6 +413,12 @@ module.exports = {
   myCoupons: function myCoupons(data) {
     return request('/discounts/my', true, 'get', data);
   },
+  mergeCouponsRules: function mergeCouponsRules() {
+    return request('/discounts/merge/list', true, 'get');
+  },
+  mergeCoupons: function mergeCoupons(data) {
+    return request('/discounts/merge', true, 'post', data);
+  },
   fetchCoupons: function fetchCoupons(data) {
     return request('/discounts/fetch', true, 'post', data);
   },

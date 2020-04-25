@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/start/loading",
     "pages/start/start",
     "pages/shop/select",
     "pages/index/index",
@@ -87,7 +86,8 @@
   "usingComponents": {
     "float-menu": "/components/float-menu/index",
     "parser":"/components/parser.20200414.min/parser",
-    "van-notice-bar": "@vant/weapp/notice-bar/index"
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-search": "@vant/weapp/search/index"
   },
   "sitemapLocation": "sitemap.json"
 }

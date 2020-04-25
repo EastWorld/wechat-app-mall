@@ -53,6 +53,7 @@
   position: absolute;
   top: 16rpx;
   right: 32rpx;
+  z-index: 99;
 }
 .goodsDynamic {
   position: absolute;

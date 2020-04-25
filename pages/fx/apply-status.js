@@ -89,9 +89,10 @@ Page({
       mask: true
     })
     WXAPI.wxaQrcode({
-      scene: 'qrcode-index,,' + wx.getStorageSync('uid'),
-      page: 'pages/start/loading',
+      scene: 'inviter_id=' + wx.getStorageSync('uid'),
+      page: 'pages/index/index',
       is_hyaline: true,
+      autoColor: true,
       expireHours: 1
     }).then(res => {
       wx.hideLoading()
@@ -125,7 +126,13 @@ Page({
   onShareAppMessage() {    
     return {
       title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-      path: '/pages/start/loading?inviter_id=' + wx.getStorageSync('uid') + '&route=/pages/index/index'
+      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid'),
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
     }
   },
   bindSave: function (e) {

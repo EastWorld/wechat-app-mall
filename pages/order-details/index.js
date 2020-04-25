@@ -10,11 +10,12 @@ Page({
     },
     onLoad:function(e){
       // e.id = 478785
+      const accountInfo = wx.getAccountInfoSync()
       var orderId = e.id;
       this.data.orderId = orderId;
       this.setData({
         orderId: orderId,
-        appid: wx.getStorageSync('wxAppid')
+        appid: accountInfo.miniProgram.appId
       });
     },
     onShow : function () {

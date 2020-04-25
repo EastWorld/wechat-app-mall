@@ -28,6 +28,13 @@ Page({
   },
   async onLoad(e) {
     // e.id = 235853
+    if (e && e.scene) {
+      const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
+      if (scene && scene.split(',').length >= 2) {
+        e.id = scene.split(',')[0]
+        wx.setStorageSync('referrer', scene.split(',')[1])
+      }
+    }
     this.data.goodsId = e.id
     const that = this
     this.data.kjJoinUid = e.kjJoinUid    
@@ -482,16 +489,21 @@ Page({
     return buyNowInfo;
   },
   onShareAppMessage() {
-    let title = this.data.goodsDetail.basicInfo.name
-    let path = '/pages/start/loading?inviter_id=' + wx.getStorageSync('uid') + '&route=/pages/goods-details/index%3fid%3d' + this.data.goodsDetail.basicInfo.id
+    let _data = {
+      title: this.data.goodsDetail.basicInfo.name,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid'),
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
     if (this.data.kjJoinUid) {
-      title = this.data.curKanjiaprogress.joiner.nick + '邀请您帮TA砍价'
-      path += '%26kjJoinUid%3d' + this.data.kjJoinUid
+      _data.title = this.data.curKanjiaprogress.joiner.nick + '邀请您帮TA砍价'
+      _data.path += '&kjJoinUid=' + this.data.kjJoinUid
     }
-    return {
-      title: title,
-      path: path
-    }
+    return _data
   },
   reputation: function(goodsId) {
     var that = this;
@@ -637,8 +649,8 @@ Page({
   async drawSharePic() {
     const _this = this
     const qrcodeRes = await WXAPI.wxaQrcode({
-      scene: 'qrcode-goods,?id=' +  _this.data.goodsDetail.basicInfo.id + ',' + wx.getStorageSync('uid'),
-      page: 'pages/start/loading',
+      scene: _this.data.goodsDetail.basicInfo.id + ',' + wx.getStorageSync('uid'),
+      page: 'pages/goods-details/index',
       is_hyaline: true,
       autoColor: true,
       expireHours: 1

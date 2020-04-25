@@ -22,7 +22,6 @@ Page({
     const order_hx_uids = wx.getStorageSync('order_hx_uids')
     this.setData({
       version: CONFIG.version,
-      vipLevel: app.globalData.vipLevel,
       order_hx_uids
     })
     AUTH.checkHasLogined().then(isLogined => {

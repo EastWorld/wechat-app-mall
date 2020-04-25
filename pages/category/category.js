@@ -129,7 +129,7 @@ Page({
   onShareAppMessage() {    
     return {
       title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-      path: '/pages/start/loading?inviter_id=' + wx.getStorageSync('uid') + '&route=/pages/category/category'
+      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
     }
   },
   onShow() {
@@ -145,10 +145,10 @@ Page({
     wx.removeStorageSync('_categoryId')
     if (_categoryId) {
       this.data.categorySelected.id = _categoryId
+      this.categories();
     } else {
       this.data.categorySelected.id = null
     }
-    this.categories();
   },
   async addShopCar(e) {
     const curGood = this.data.currentGoods.find(ele => {

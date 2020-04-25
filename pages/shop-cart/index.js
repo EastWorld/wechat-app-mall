@@ -128,6 +128,7 @@ Page({
       })
     } else {
       this.shippingCarInfo()
+      TOOLS.showTabBarBadge()
     }
   },
   async jiaBtnTap(e) {

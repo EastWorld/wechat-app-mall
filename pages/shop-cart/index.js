@@ -121,7 +121,7 @@ Page({
   async delItemDone(key){
     const token = wx.getStorageSync('token')
     const res = await WXAPI.shippingCarInfoRemoveItem(token, key)
-    if (res.code != 0) {
+    if (res.code != 0 && res.code != 700) {
       wx.showToast({
         title: res.msg,
         icon:'none'

@@ -86,7 +86,7 @@
 
   <view class="jiesuan-box safeAreaOldPaddingBttom safeAreaNewPaddingBttom">
     <view class="left-price">
-      <view class="total">合计：¥ {{allGoodsAndYunPrice - youhuijine}} + {{totalScoreToPay}} 积分</view>
+      <view class="total">合计：¥ {{(allGoodsAndYunPrice*100 - youhuijine*100)/100}} + {{totalScoreToPay}} 积分</view>
     </view>
     <button class="to-pay-btn" bindtap="goCreateOrder">提交订单</button>
   </view>

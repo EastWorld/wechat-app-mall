@@ -1,5 +1,4 @@
 const WXAPI = require('apifm-wxapi')
-const CONFIG = require('../../config.js')
 const TOOLS = require('../../utils/tools.js')
 
 const APP = getApp()
@@ -209,7 +208,7 @@ Page({
   },
   onShareAppMessage: function() {    
     return {
-      title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
+      title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),
       path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
     }
   },

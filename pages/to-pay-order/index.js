@@ -22,7 +22,6 @@ Page({
     youhuijine: 0, //优惠券金额
     curCoupon: null, // 当前选择使用的优惠券
     curCouponShowText: '请选择使用优惠券', // 当前选择使用的优惠券
-    allowSelfCollection: '0', // 是否允许到店自提
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
     remark: ''
   },
@@ -37,11 +36,6 @@ Page({
     })
   },
   async doneShow() {
-    let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
-    if (!allowSelfCollection || allowSelfCollection != '1') {
-      allowSelfCollection = '0'
-      this.data.peisongType = 'kd'
-    }
     let shopList = [];
     const token = wx.getStorageSync('token')
     //立即购买下单
@@ -60,7 +54,6 @@ Page({
     }
     this.setData({
       goodsList: shopList,
-      allowSelfCollection: allowSelfCollection,
       peisongType: this.data.peisongType
     });
     this.initShippingAddress()

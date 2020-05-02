@@ -27,7 +27,7 @@
       <view class="n">{{item.name}}</view>
     </view>
     <view class="price">
-      <view class="tj">满{{item.moneyHreshold}}</view>
+      <view class="tj">({{item.dateEnd}}到期)  满{{item.moneyHreshold}}</view>
       <view class="amount"><text>￥</text>{{item.money}}</view>
     </view>
     <view class="btn" bindtap="toIndexPage">立即使用</view>

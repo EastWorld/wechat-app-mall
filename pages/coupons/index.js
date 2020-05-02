@@ -193,6 +193,11 @@ Page({
       status: 0
     }).then(function (res) {
       if (res.code == 0) {
+        res.data.forEach(ele => {
+          if (ele.dateEnd) {
+            ele.dateEnd = ele.dateEnd.split(" ")[0]
+          }
+        })
         _this.setData({
           coupons: res.data
         })

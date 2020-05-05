@@ -343,5 +343,62 @@
   width: 686rpx;
   padding: 0 32rpx;
   margin-bottom: 16rpx;
-
+}
+/*秒杀*/
+.miaosha-container {
+  padding: 0;
+}
+.miaosha-goods-list {
+  margin: 20rpx;
+  background: #f6f6f6;
+  border-radius: 16rpx;
+  display: flex;
+  padding: 20rpx;
+}
+.miaosha-goods-list .image {
+  width: 260rpx;
+  height: 260rpx;
+  flex-shrink: 0;
+  border-radius: 16rpx;
+}
+.miaosha-goods-list .r {
+  margin-left: 32rpx;  
+}
+.miaosha-goods-list .r .goods-title {
+  color: #333;
+  font-size: 28rpx;
+}
+.miaosha-goods-list .r .label {
+  color: #e64340;
+  font-size: 24rpx;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 8rpx;
+}
+.miaosha-goods-list .r .label text {
+  margin-left: 8rpx;
+}
+.miaosha-goods-list .count-down {
+  background: #e64340;
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  margin-top: 12rpx;
+}
+.van-count-down {
+  color: #fff !important;
+}
+.miaosha-price-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.miaosha-price-btn .price {
+  color: #e64340;
+  font-size: 40rpx;
+  margin-top: 12rpx;
+}
+.miaosha-price-btn .price text {
+  color: #666;
+  font-size: 26rpx;
+  text-decoration:line-through
 }

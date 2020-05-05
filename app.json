@@ -87,7 +87,11 @@
     "float-menu": "/components/float-menu/index",
     "parser":"/components/parser.20200414.min/parser",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
-    "van-search": "@vant/weapp/search/index"
+    "van-search": "@vant/weapp/search/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-count-down": "@vant/weapp/count-down/index",
+    "van-button": "@vant/weapp/button/index"
   },
   "sitemapLocation": "sitemap.json"
 }

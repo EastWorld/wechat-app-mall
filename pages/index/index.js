@@ -96,7 +96,26 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
-    this.wxaMpLiveRooms()
+    this.wxaMpLiveRooms()    
+  },
+  async miaoshaGoods(){
+    const res = await WXAPI.goods({
+      miaosha: true
+    })
+    if (res.code == 0) {
+      res.data.forEach(ele => {
+        const _now = new Date().getTime()
+        if (ele.dateStart) {
+          ele.dateStartInt = new Date(ele.dateStart).getTime() - _now
+        }
+        if (ele.dateEnd) {
+          ele.dateEndInt = new Date(ele.dateEnd).getTime() -_now
+        }
+      })
+      this.setData({
+        miaoshaGoods: res.data.concat(res.data).concat(res.data).concat(res.data)
+      })
+    }
   },
   async wxaMpLiveRooms(){
     const res = await WXAPI.wxaMpLiveRooms()
@@ -130,6 +149,7 @@ Page({
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge()
     this.goodsDynamic()
+    this.miaoshaGoods()
   },
   async goodsDynamic(){
     const res = await WXAPI.goodsDynamic(0)

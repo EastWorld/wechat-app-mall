@@ -73,9 +73,40 @@
       </view>
     </view>
   </block>
-  <view class="weui-loadmore weui-loadmore_line" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">爆品推荐</view>
-  </view>
+  <!-- 秒杀开始 -->
+  <block wx:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
+    <van-divider contentPosition="center">限时秒杀</van-divider>
+    <view class="miaosha-container">
+      <view class="miaosha-goods-list" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+        <view class="r">
+          <view class="goods-title">{{item.name}}</view>
+          <!-- <view class="label"><van-icon size="30rpx" name="underway" /><text>限时秒杀</text></view> -->
+          <view class="count-down">
+            <van-count-down
+              wx:if="{{item.dateStartInt > 0}}"
+              time="{{ item.dateStartInt }}"
+              format="距离开始: HH 时 mm 分 ss 秒"
+            />
+            <van-count-down
+              wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0}}"
+              time="{{ item.dateEndInt }}"
+              format="剩余: HH 时 mm 分 ss 秒"
+            />
+          </view>
+          <view class="miaosha-price-btn">
+            <view class="price">￥{{item.minPrice}} <text>￥{{item.originalPrice}}</text></view>
+            <van-button wx:if="{{item.dateStartInt > 0}}" type="danger" size="small" round plain disabled>未开始</van-button>
+            <van-button wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" round>已结束</van-button>
+            <van-button wx:if="{{item.stores <= 0}}" type="danger" size="small" round>已抢完</van-button>
+            <van-button wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}" type="danger" size="small" round>立即抢购</van-button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 秒杀结束 -->
+  <van-divider wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}" contentPosition="center">爆品推荐</van-divider> 
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
     <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">

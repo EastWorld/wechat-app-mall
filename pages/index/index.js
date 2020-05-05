@@ -113,7 +113,7 @@ Page({
         }
       })
       this.setData({
-        miaoshaGoods: res.data.concat(res.data).concat(res.data).concat(res.data)
+        miaoshaGoods: res.data
       })
     }
   },

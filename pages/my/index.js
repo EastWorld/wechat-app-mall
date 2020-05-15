@@ -13,10 +13,16 @@ Page({
     score:0,
     growth:0,
     score_sign_continuous:0,
-    rechargeOpen: false // 是否开启充值[预存]功能
+    rechargeOpen: false, // 是否开启充值[预存]功能
+
+    // 用户订单统计数据
+    count_id_no_confirm: 0,
+    count_id_no_pay: 0,
+    count_id_no_reputation: 0,
+    count_id_no_transfer: 0,
   },
 	onLoad() {
-	},	
+	},
   onShow() {
     const _this = this
     const order_hx_uids = wx.getStorageSync('order_hx_uids')
@@ -28,9 +34,10 @@ Page({
       this.setData({
         wxlogin: isLogined
       })
-      if (isLogined) {        
+      if (isLogined) {
         _this.getUserApiInfo();
         _this.getUserAmount();
+        _this.orderStatistics();
       }
     })
     // 获取购物车数据，显示TabBarBadge
@@ -107,6 +114,27 @@ Page({
           score: res.data.score,
           growth: res.data.growth
         });
+      }
+    })
+  },
+  handleOrderCount: function (count) {
+    return count > 99 ? '99+' : count;
+  },
+  orderStatistics: function () {
+    WXAPI.orderStatistics(wx.getStorageSync('token')).then((res) => {
+      if (res.code == 0) {
+        const {
+          count_id_no_confirm,
+          count_id_no_pay,
+          count_id_no_reputation,
+          count_id_no_transfer,
+        } = res.data || {}
+        this.setData({
+          count_id_no_confirm: this.handleOrderCount(count_id_no_confirm),
+          count_id_no_pay: this.handleOrderCount(count_id_no_pay),
+          count_id_no_reputation: this.handleOrderCount(count_id_no_reputation),
+          count_id_no_transfer: this.handleOrderCount(count_id_no_transfer),
+        })
       }
     })
   },

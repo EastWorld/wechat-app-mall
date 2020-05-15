@@ -40,18 +40,22 @@
   <view class='order-shortcut'>
     <!-- https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=2767 -->
     <view class='item' bindtap='goOrder' data-type="0">
+      <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>
       <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
       <view class='text'>待付款</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="1">
+      <view wx:if="{{count_id_no_transfer !== 0}}" class='dot'>{{count_id_no_transfer}}</view>
       <image class="icon" src="/images/order/fahuo.png" background-size="cover"></image>
       <view class='text'>待发货</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="2">
+      <view wx:if="{{count_id_no_confirm !== 0}}" class='dot'>{{count_id_no_confirm}}</view>
       <image class="icon" src="/images/order/shouhuo.png" background-size="cover"></image>
       <view class='text'>待收货</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="3">
+      <view wx:if="{{count_id_no_reputation !== 0}}" class='dot'>{{count_id_no_reputation}}</view>
       <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
       <view class='text'>待评价</view>
     </view>
@@ -72,14 +76,14 @@
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
-  <view class="line"></view> 
+  <view class="line"></view>
   <navigator url="/pages/asset/index">
     <view class="menu-item">
       <view class="l">资金明细</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
-  <view class="line"></view>  
+  <view class="line"></view>
   <!-- flex布局的新菜单 -->
   <!-- <view class="menu-item">
     <view class="l">我的订单</view>
@@ -140,7 +144,7 @@
     </view>
   </navigator>
 
-  <view class="space"></view>  
+  <view class="space"></view>
   <navigator url="/pages/select-address/index">
     <view class="menu-item">
       <view class="l">收货地址</view>
@@ -219,7 +223,7 @@
     <view class="l">绑定官网账号</view>
     <image class="next" src="/images/icon/next.png"></image>
   </view> -->
-  
+
   <view class="space"></view>
   <view class="version">EastWorld v {{version}}</view>
   <view class="space"></view>

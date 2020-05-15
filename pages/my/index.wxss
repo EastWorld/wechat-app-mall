@@ -51,7 +51,7 @@ page,view,image,input {
 .version {
   width:100vw;
 	font-size: 24rpx;
-	text-align: center;  
+	text-align: center;
   padding: 32rpx;
 }
 
@@ -61,9 +61,24 @@ page,view,image,input {
   padding-bottom: 20rpx;
 }
 .order-shortcut .item {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 150rpx;
+  text-align: center;
+}
+.order-shortcut .item .dot {
+  position: absolute;
+  right: 20rpx;
+  top: -8rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  padding: 0 7rpx;
+  line-height: 32rpx;
+  font-size: 18rpx;
+  border-radius: 32rpx;
+  background: #FF4949;
+  color: #fff;
   text-align: center;
 }
 .order-shortcut .item .icon {

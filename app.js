@@ -66,7 +66,6 @@ App({
   },
     
   onShow (e) {
-    this.globalData.launchOption = e
     // 保存邀请人
     if (e && e.query && e.query.inviter_id) {
       wx.setStorageSync('referrer', e.query.inviter_id)

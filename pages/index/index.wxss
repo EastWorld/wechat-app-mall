@@ -398,7 +398,7 @@
   margin-top: 12rpx;
 }
 .miaosha-price-btn .price text {
-  color: #666;
+  color: #666666;
   font-size: 26rpx;
-  text-decoration:line-through
+  text-decoration:line-through;
 }

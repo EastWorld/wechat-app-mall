@@ -196,7 +196,9 @@ Page({
     var postData = {
       token: wx.getStorageSync('token')
     };
-    postData.hasRefund = that.data.hasRefund;
+    if (this.data.hasRefund) {
+      postData.hasRefund = true
+    }
     if (!postData.hasRefund) {
       postData.status = that.data.status;
     }

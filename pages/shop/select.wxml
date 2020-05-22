@@ -2,7 +2,7 @@
   <image class="icon" src="/images/icon/search.svg"></image>
   <input placeholder="搜索门店" bindinput="searchChange" bindconfirm="search"/>
 </view>
-<view class="shops" wx:for-items="{{shops}}" wx:key="id">
+<view class="shops" wx:for="{{shops}}" wx:key="id">
   <view class="t">
     <view class="name">
       <image src="/images/icon/{{ index == 0?'shop-on':'shop' }}.svg"></image>

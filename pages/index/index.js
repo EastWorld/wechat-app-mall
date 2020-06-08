@@ -106,10 +106,10 @@ Page({
       res.data.forEach(ele => {
         const _now = new Date().getTime()
         if (ele.dateStart) {
-          ele.dateStartInt = new Date(ele.dateStart).getTime() - _now
+          ele.dateStartInt = new Date(ele.dateStart.replace(/-/g, '/')).getTime() - _now
         }
         if (ele.dateEnd) {
-          ele.dateEndInt = new Date(ele.dateEnd).getTime() -_now
+          ele.dateEndInt = new Date(ele.dateEnd.replace(/-/g, '/')).getTime() -_now
         }
       })
       this.setData({

@@ -176,7 +176,7 @@
   <view class="line"></view>
   <navigator url="/pages/score-excharge/index">
     <view class="menu-item">
-      <view class="l">积分卷兑换积分</view>
+      <view class="l">积分券兑换积分</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>

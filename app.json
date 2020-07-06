@@ -91,7 +91,10 @@
     "van-divider": "@vant/weapp/divider/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-count-down": "@vant/weapp/count-down/index",
-    "van-button": "@vant/weapp/button/index"
+    "van-button": "@vant/weapp/button/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-tag": "@vant/weapp/tag/index"
   },
   "sitemapLocation": "sitemap.json"
 }

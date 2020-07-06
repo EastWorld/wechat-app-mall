@@ -34,6 +34,11 @@
         </label>
       </radio-group>
     </view>
+    <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
+      <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" is-link />
+    </picker>
+    <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
+    <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
     <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
       <view class="add-address" hidden="{{curAddressData}}" bindtap="addAddress">
         <image src="/images/add-addr.png"></image>

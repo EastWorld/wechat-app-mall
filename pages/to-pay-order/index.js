@@ -23,7 +23,8 @@ Page({
     curCoupon: null, // 当前选择使用的优惠券
     curCouponShowText: '请选择使用优惠券', // 当前选择使用的优惠券
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
-    remark: ''
+    remark: '',
+    shopIndex: -1
   },
   onShow(){
     AUTH.checkHasLogined().then(isLogined => {
@@ -146,6 +147,18 @@ Page({
     }
     if (!e) {
       postData.calculate = "true";
+    } else {
+      if(postData.peisongType == 'zq' && this.data.shops && this.data.shopIndex == -1) {
+        wx.showToast({
+          title: '请选择自提门店',
+          icon: 'none'
+        })
+        return;
+      }
+      if(postData.peisongType == 'zq' && this.data.shops) {
+        postData.shopIdZt = this.data.shops[this.data.shopIndex].id
+        postData.shopNameZt = this.data.shops[this.data.shopIndex].name
+      }
     }
 
     WXAPI.orderCreate(postData).then(function (res) {
@@ -299,6 +312,9 @@ Page({
       peisongType: e.detail.value
     })
     this.processYunfei()
+    if (e.detail.value == 'zq') {
+      this.fetchShops()
+    }
   },
   cancelLogin() {
     wx.navigateBack()
@@ -312,5 +328,35 @@ Page({
       return;
     }
     AUTH.register(this);
+  },
+  async fetchShops(){
+    const res = await WXAPI.fetchShops()
+    if (res.code == 0) {
+      this.setData({
+        shops: res.data
+      })
+    }
+  },
+  shopSelect(e) {
+    this.setData({
+      shopIndex: e.detail.value
+    })
+  },
+  goMap() {
+    const _this = this
+    const shop = this.data.shops[this.data.shopIndex]
+    const latitude = shop.latitude
+    const longitude = shop.longitude
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 18
+    })
+  },
+  callMobile() {
+    const shop = this.data.shops[this.data.shopIndex]
+    wx.makePhoneCall({
+      phoneNumber: shop.linkPhone,
+    })
   },
 })

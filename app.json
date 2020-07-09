@@ -34,7 +34,8 @@
     "pages/coupons/index",
     "pages/invoice/list",
     "pages/invoice/apply",
-    "pages/deposit/pay"
+    "pages/deposit/pay",
+    "pages/live/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

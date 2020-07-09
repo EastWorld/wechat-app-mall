@@ -402,3 +402,7 @@
   font-size: 26rpx;
   text-decoration:line-through;
 }
+.live-banner {
+  width: 100vw;
+  margin-top: 32rpx;
+}

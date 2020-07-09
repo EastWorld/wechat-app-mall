@@ -1,0 +1,21 @@
+<view class="container">  
+  <block wx:if="{{aliveRooms}}">
+    <view class="miaosha-container">
+      <view class="miaosha-goods-list" wx:for="{{aliveRooms}}" wx:key="id" bindtap="goLiveRoom" data-id="{{item.roomid}}" data-status="{{item.live_status}}">
+        <image src="{{item.share_img}}" class="image" mode="aspectFill" lazy-load="true" />
+        <view class="r">
+          <view class="goods-title">{{item.name}}</view>
+          <view class="label"><van-icon size="30rpx" name="user-o" /><text>{{item.anchor_name}}</text></view>
+          <view class="label"><van-icon size="30rpx" name="underway" /><text>{{item.start_time_str}}</text></view>
+          
+          <view class="miaosha-price-btn">
+            <van-button wx:if="{{item.live_status == 107 || item.live_status == 106 || item.live_status == 104}}" type="default" size="small" block round plain>已过期</van-button>
+            <van-button wx:elif="{{item.live_status == 102}}" type="danger" size="small" block round>即将开播</van-button>
+            <van-button wx:elif="{{item.live_status == 103}}" type="warning" size="small" block round>直播结束</van-button>
+            <van-button wx:else type="primary" size="small" block round>正在直播</van-button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

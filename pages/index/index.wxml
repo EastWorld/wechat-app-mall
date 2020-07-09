@@ -73,6 +73,9 @@
       </view>
     </view>
   </block>
+  <navigator wx:if="{{aliveRooms}}" url="/pages/live/index">
+    <image class="live-banner" src="/images/live.jpg" mode="widthFix"></image>
+  </navigator>
   <!-- 秒杀开始 -->
   <block wx:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
     <van-divider contentPosition="center">限时秒杀</van-divider>
@@ -192,9 +195,3 @@
 <view class='coupons-float' bindtap="goCoupons">
   <image src="/images/gift.png"></image>
 </view>
-
-<navigator wx:if="{{aliveRooms}}" url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id={{aliveRooms[0].roomid}}">
-  <view style="bottom:200rpx;" class='coupons-float'>
-    <image src="/images/live.png"></image>
-  </view>
-</navigator>

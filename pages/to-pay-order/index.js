@@ -121,7 +121,7 @@ Page({
     if (that.data.pingtuanOpenId) {
       postData.pingtuanOpenId = that.data.pingtuanOpenId
     }
-    if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
+    if (e && that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
         wx.showToast({
@@ -176,14 +176,25 @@ Page({
         WXAPI.shippingCarInfoRemoveAll(loginToken)
       }
       if (!e) {
+        let hasNoCoupons = true
+        let coupons = null
+        if (res.data.couponUserList) {
+          hasNoCoupons = false
+          res.data.couponUserList.forEach(ele => {
+            ele.nameExt = ele.name + ' [满' + ele.moneyHreshold + '元可减' + ele.money + '元]'
+          })
+          coupons = res.data.couponUserList
+        }
+        
         that.setData({
           totalScoreToPay: res.data.score,
           isNeedLogistics: res.data.isNeedLogistics,
           allGoodsPrice: res.data.amountTotle,
           allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
-          yunPrice: res.data.amountLogistics
+          yunPrice: res.data.amountLogistics,
+          hasNoCoupons,
+          coupons
         });
-        that.getMyCoupons();
         return;
       }
       that.processAfterCreateOrder(res)
@@ -279,26 +290,6 @@ Page({
       url: "/pages/select-address/index"
     })
   },
-  async getMyCoupons() {
-    const res = await WXAPI.myCoupons({
-      token: wx.getStorageSync('token'),
-      status: 0
-    })
-    if (res.code == 0) {
-      var coupons = res.data.filter(entity => {
-        return entity.moneyHreshold <= this.data.allGoodsAndYunPrice;
-      })
-      if (coupons.length > 0) {
-        coupons.forEach(ele => {
-          ele.nameExt = ele.name + ' [满' + ele.moneyHreshold + '元可减' + ele.money + '元]'
-        })
-        this.setData({
-          hasNoCoupons: false,
-          coupons: coupons
-        });
-      }
-    }
-  },
   bindChangeCoupon: function (e) {
     const selIndex = e.detail.value;
     this.setData({
@@ -332,8 +323,16 @@ Page({
   async fetchShops(){
     const res = await WXAPI.fetchShops()
     if (res.code == 0) {
+      let shopIndex = this.data.shopIndex
+      const shopInfo = wx.getStorageSync('shopInfo')
+      if (shopInfo) {
+        shopIndex = res.data.findIndex(ele => {
+          return ele.id == shopInfo.id
+        })
+      }
       this.setData({
-        shops: res.data
+        shops: res.data,
+        shopIndex
       })
     }
   },

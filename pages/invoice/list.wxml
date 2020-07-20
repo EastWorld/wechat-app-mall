@@ -13,8 +13,11 @@
         <text wx:if="{{item.status == 3}}" style='color:green;margin-left:10px;font-size:14px;'>已开票</text>
       </view>
       <view class="weui-media-box__desc">{{ item.comName }}</view>
-      <view class="weui-media-box__desc" style='margin-top:10rpx;'>{{ item.dateAdd }}</view>
+      <view class="date-btn">
+        <view class="weui-media-box__desc" style='margin-top:10rpx;'>{{ item.dateAdd }}</view>
+        <van-button wx:if="{{item.file}}" type="primary" size="small" bind:click="download" data-file="{{item.file}}">打开电子发票</van-button>
+      </view>
     </view>
   </view>
 </view>
-<float-menu /> 
+<!-- <float-menu />  -->

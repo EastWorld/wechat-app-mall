@@ -52,4 +52,22 @@ Page({
       }
     })
   },
+  download(e) {
+    const _this = this
+    const file = e.currentTarget.dataset.file
+    wx.downloadFile({
+      url: file,
+      success (res) {
+        const tempFilePath = res.tempFilePath
+        console.log(tempFilePath);
+        wx.openDocument({
+          filePath: tempFilePath,
+          showMenu: true,
+          success: function (res) {
+            console.log('打开文档成功')
+          }
+        })
+      }
+    })
+  },
 })

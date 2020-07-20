@@ -1,1 +1,4 @@
-/* pages/invoice/list.wxss */
+.date-btn {
+  display: flex;
+  justify-content: space-between;
+}

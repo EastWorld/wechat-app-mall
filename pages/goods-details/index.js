@@ -69,9 +69,6 @@ Page({
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
   },
   async goodsFavCheck() {
-    WXAPI.goodsFavList({
-      token: wx.getStorageSync('token')
-    })
     const res = await WXAPI.goodsFavCheck(wx.getStorageSync('token'), this.data.goodsId)
     if (res.code == 0) {
       this.setData({

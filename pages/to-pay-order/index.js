@@ -24,9 +24,13 @@ Page({
     curCouponShowText: '请选择使用优惠券', // 当前选择使用的优惠券
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
     remark: '',
-    shopIndex: -1
+    shopIndex: -1,
+    pageIsEnd: false
   },
   onShow(){
+    if (this.data.pageIsEnd) {
+      return
+    }
     AUTH.checkHasLogined().then(isLogined => {
       this.setData({
         wxlogin: isLogined
@@ -162,7 +166,9 @@ Page({
     }
 
     WXAPI.orderCreate(postData).then(function (res) {
+      that.data.pageIsEnd = true
       if (res.code != 0) {
+        that.data.pageIsEnd = false
         wx.showModal({
           title: '错误',
           content: res.msg,
@@ -195,6 +201,7 @@ Page({
           hasNoCoupons,
           coupons
         });
+        that.data.pageIsEnd = false
         return;
       }
       that.processAfterCreateOrder(res)
@@ -211,6 +218,7 @@ Page({
       wx.redirectTo({
         url: "/pages/order-list/index"
       });
+      this.data.pageIsEnd = false
       return
     }
     const money = res.data.amountReal * 1 - res1.data.balance*1
@@ -235,7 +243,7 @@ Page({
     }
     this.processYunfei();
   },
-  processYunfei() {    
+  processYunfei() {
     var goodsList = this.data.goodsList
     if (goodsList.length == 0) {
       return

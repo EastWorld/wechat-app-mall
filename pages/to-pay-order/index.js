@@ -223,9 +223,34 @@ Page({
     }
     const money = res.data.amountReal * 1 - res1.data.balance*1
     if (money <= 0) {
-      wx.redirectTo({
-        url: "/pages/order-list/index"
-      })
+      // 直接用余额支付
+      wx.showModal({
+        title: '请确认支付',
+        content: `您当前可用余额¥${res1.data.balance}，使用余额支付¥${res.data.amountReal}？`,
+        confirmText: "确认支付",
+        cancelText: "暂不付款",
+        success: res2 => {
+          if (res2.confirm) {
+            // 使用余额支付
+            WXAPI.orderPay(wx.getStorageSync('token'), res.data.id).then(res3 => {
+              if (res3.code != 0) {
+                wx.showToast({
+                  title: res3.msg,
+                  icon: 'none'
+                })
+                return
+              }
+              wx.redirectTo({
+                url: "/pages/order-list/index"
+              })
+            })
+          } else {
+            wx.redirectTo({
+              url: "/pages/order-list/index"
+            })
+          }
+        }
+      })      
     } else {
       wxpay.wxpay('order', money, res.data.id, "/pages/order-list/index");
     }

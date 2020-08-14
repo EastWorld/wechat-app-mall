@@ -4,13 +4,13 @@
   bottom: 200rpx;
   display: flex;
   align-items: center;
-  padding: 16rpx;
+  padding: 16rpx 10rpx 16rpx 10rpx;
   background:rgba(0,0,0,0.7);
   border-radius: 16rpx 0 0 16rpx;
   z-index: 999;
 }
 .float-menu-cover-open {
-  right: 440rpx;
+  right: 380rpx;
 }
 .float-menu-cover .arrows {
   width: 34rpx;
@@ -24,24 +24,22 @@
   margin-left: 16rpx;
 }
 .float-menu-items {
-  width: 440rpx;
-  background: #fff;
+  width: 380rpx;
+  background: rgba(250,250,250,0.7);
   position: fixed;
   right: 0;
-  bottom: 180rpx;
+  bottom: 192rpx;
   border-radius: 16rpx 0 0 16rpx;
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 32rpx;
+  /* padding-bottom: 32rpx; */
   z-index: 999;
 }
 .float-menu-items .item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 32rpx;
-  margin-right: 16rpx;
-  margin-top: 32rpx;
+  margin: 20rpx 16rpx 20rpx 32rpx;
 }
 .float-menu-items .item image {
   width: 43rpx;

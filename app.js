@@ -105,18 +105,6 @@ App({
     AUTH.checkHasLogined().then(async isLogined => {
       if (!isLogined) {
         AUTH.login()
-      } else {
-        AUTH.getUserInfo().then((res) => {
-          const { userInfo } = res
-          // 更新用户信息
-          WXAPI.modifyUserInfo({
-            avatarUrl: userInfo.avatarUrl,
-            city: userInfo.city,
-            nick: userInfo.nickName,
-            province: userInfo.province,
-            token: wx.getStorageSync('token')
-          })
-        })
       }
     })
   },

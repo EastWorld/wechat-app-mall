@@ -1,0 +1,46 @@
+<wxs src="./index.wxs" module="computed" />
+
+<van-popup
+  round
+  class="van-share-sheet"
+  show="{{ show }}"
+  position="bottom"
+  overlay="{{ overlay }}"
+  duration="{{ duration }}"
+  z-index="{{ zIndex }}"
+  overlay-style="{{ overlayStyle }}"
+  close-on-click-overlay="{{ closeOnClickOverlay }}"
+  safe-area-inset-bottom="{{ safeAreaInsetBottom }}"
+  bind:close="onClose"
+  bind:click-overlay="onClickOverlay"
+>
+  <view class="van-share-sheet__header">
+    <view class="van-share-sheet__title">
+      <slot name="title" />
+    </view>
+    <view wx:if="{{ title }}" class="van-share-sheet__title">{{ title }}</view>
+
+    <view class="van-share-sheet__description">
+      <slot name="description" />
+    </view>
+    <view wx:if="{{ description }}" class="van-share-sheet__description">
+      {{ description }}
+    </view>
+  </view>
+
+  <block wx:if="{{ computed.isMulti(options) }}">
+    <options
+      wx:for="{{ options }}"
+      show-border="{{ index !== 0 }}"
+      wx:key="index"
+      options="{{ item }}"
+      bind:select="onSelect"
+    />
+  </block>
+
+  <options wx:else options="{{ options }}" bind:select="onSelect" />
+
+  <button type="button" class="van-share-sheet__cancel" bindtap="onCancel">
+    {{ cancelText }}
+  </button>
+</van-popup>

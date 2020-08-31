@@ -16,7 +16,7 @@
   <slot wx:else name="icon" />
 
   <view
-    style="{{ titleWidth ? 'max-width:' + titleWidth + ';min-width:' + titleWidth : '' }}"
+    style="{{ (titleWidth ? 'max-width:' + titleWidth + ';min-width:' + titleWidth + ';' : '') + titleStyle }}"
     class="van-cell__title title-class"
   >
     <block wx:if="{{ title }}">{{ title }}</block>

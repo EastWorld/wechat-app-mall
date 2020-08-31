@@ -27,3 +27,5 @@
   is="calendar"
   data="{{ title, subtitle, showTitle, showSubtitle, minDate, maxDate, type, color, showMark, formatter, rowHeight, currentDate, safeAreaInsetBottom, showConfirm, confirmDisabledText, confirmText, scrollIntoView, allowSameDay }}"
 />
+
+<van-toast id="van-toast" />

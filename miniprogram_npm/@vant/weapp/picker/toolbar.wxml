@@ -1,7 +1,7 @@
 <template name="toolbar">
   <view
     wx:if="{{ showToolbar }}"
-    class="van-picker__toolbar van-hairline--top-bottom toolbar-class"
+    class="van-picker__toolbar toolbar-class"
   >
     <view
       class="van-picker__cancel"

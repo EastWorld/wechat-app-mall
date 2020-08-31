@@ -1,23 +1,23 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var component_1 = require("../common/component");
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var component_1 = require('../common/component');
 component_1.VantComponent({
-    props: {
-        size: String,
-        mark: Boolean,
-        color: String,
-        plain: Boolean,
-        round: Boolean,
-        textColor: String,
-        type: {
-            type: String,
-            value: 'default'
-        },
-        closeable: Boolean
+  props: {
+    size: String,
+    mark: Boolean,
+    color: String,
+    plain: Boolean,
+    round: Boolean,
+    textColor: String,
+    type: {
+      type: String,
+      value: 'default',
     },
-    methods: {
-        onClose: function () {
-            this.$emit('close');
-        }
-    }
+    closeable: Boolean,
+  },
+  methods: {
+    onClose: function () {
+      this.$emit('close');
+    },
+  },
 });

@@ -1,0 +1,20 @@
+/* eslint-disable */
+var utils = require('../wxs/utils.wxs');
+
+function barStyle(barHeight, activeColor) {
+  var styles = [['height', utils.addUnit(barHeight)]];
+
+  if (activeColor) {
+    styles.push(['background', activeColor]);
+  }
+
+  return styles
+    .map(function (item) {
+      return item.join(':');
+    })
+    .join(';');
+}
+
+module.exports = {
+  barStyle: barStyle,
+};

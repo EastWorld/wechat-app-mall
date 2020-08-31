@@ -5,9 +5,11 @@
     <!-- 预览样式 -->
     <view
       wx:if="{{ previewImage }}"
-      wx:for="{{ lists  }}"
+      wx:for="{{ lists }}"
       wx:key="index"
       class="van-uploader__preview"
+      data-index="{{ index }}"
+      bindtap="onClickPreview"
     >
       <image
         wx:if="{{ item.isImage }}"
@@ -31,17 +33,18 @@
         wx:if="{{ item.status === 'uploading' || item.status === 'failed' }}"
         class="van-uploader__mask"
       >
-       <van-icon wx:if="{{ item.status === 'failed' }}" name="warning-o" class="van-uploader__mask-icon" />
-       <van-loading wx:else class="van-uploader__loading"  />
-       <text wx:if="{{ item.message }}" class="van-uploader__upload-text">{{ item.message }}</text>
+       <van-icon wx:if="{{ item.status === 'failed' }}" name="close" class="van-uploader__mask-icon" />
+       <van-loading wx:else custom-class="van-uploader__loading" />
+       <text wx:if="{{ item.message }}" class="van-uploader__mask-message">{{ item.message }}</text>
       </view>
-      <van-icon
-        wx:if="{{ deletable }}"
-        name="clear"
-        class="van-uploader__preview-delete"
+      <view
+        wx:if="{{ deletable && item.deletable }}"
         data-index="{{ index }}"
-        bind:tap="deleteItem"
-      />
+        class="van-uploader__preview-delete"
+        catch:tap="deleteItem"
+      >
+        <van-icon name="cross" class="van-uploader__preview-delete-icon" />
+      </view>
     </view>
 
     <!-- 上传样式 -->
@@ -55,7 +58,7 @@
         wx:if="{{ showUpload }}"
         class="van-uploader__upload {{ disabled ? 'van-uploader__upload--disabled': ''}}"
         style="width: {{ utils.addUnit(previewSize) }}; height: {{ utils.addUnit(previewSize) }};"
-        bind:tap="startUpload"
+        bindtap="startUpload"
       >
         <van-icon name="{{ uploadIcon }}" class="van-uploader__upload-icon" />
         <text wx:if="{{ uploadText }}" class="van-uploader__upload-text">{{ uploadText }}</text>

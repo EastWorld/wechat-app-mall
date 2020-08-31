@@ -8,10 +8,9 @@
 >
   <view class="van-sidebar-item__text">
     <van-info
-      wx:if="{{ info !== null || dot }}"
+      wx:if="{{ badge != null || info !== null || dot }}"
       dot="{{ dot }}"
-      info="{{ info }}"
-      custom-style="right: 4px"
+      info="{{ badge != null ? badge : info }}"
     />
     <view wx:if="{{ title }}">{{ title }}</view>
     <slot wx:else name="title" />

@@ -3,7 +3,7 @@
 <view
   wx:if="{{ show }}"
   class="custom-class {{ utils.bem('notice-bar', { withicon: mode, wrapable }) }}"
-  style="color: {{ color }}; background-color: {{ backgroundColor }};"
+  style="color: {{ color }}; background-color: {{ backgroundColor }}; background: {{ background }}"
   bind:tap="onClick"
 >
   <van-icon

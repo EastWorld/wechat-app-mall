@@ -17,9 +17,9 @@
       <view class="van-step__circle-container">
         <block wx:if="{{ index !== active }}">
           <van-icon
-            wx:if="{{ inactiveIcon }}"
+            wx:if="{{ item.inactiveIcon || inactiveIcon }}"
             color="{{ status(index, active) === 'inactive' ? inactiveColor: activeColor }}"
-            name="{{ inactiveIcon }}"
+            name="{{ item.inactiveIcon || inactiveIcon }}"
             custom-class="van-step__icon"
           />
           <view
@@ -29,7 +29,7 @@
           />
         </block>
 
-        <van-icon wx:else name="{{ activeIcon }}" color="{{ activeColor }}" custom-class="van-step__icon" />
+        <van-icon wx:else name="{{ item.activeIcon || activeIcon }}" color="{{ activeColor }}" custom-class="van-step__icon" />
       </view>
       <view
         wx:if="{{ index !== steps.length - 1 }}"

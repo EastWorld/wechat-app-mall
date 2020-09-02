@@ -388,8 +388,14 @@ swiper-item image {
   padding:30rpx;
 }
 .kjBuyButton {
-  width:700rpx;
-  margin-top:50rpx;
+  position: fixed;
+  left: 0;
+  bottom: calc(env(safe-area-inset-bottom) / 2);
+  width:750rpx;
+  display: flex;
+}
+.kjBuyButton .item {
+  flex: 1;
 }
 .shareFloatDiv1 {
   position:fixed;

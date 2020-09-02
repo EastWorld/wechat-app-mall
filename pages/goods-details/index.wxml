@@ -216,8 +216,13 @@
       </view>
     </view>
   </view>
-  <view class='kjBuyButton' wx:if="{{curGoodsKanjia}}">
-    <button class="weui-btn" type="warn" bindtap="tobuy">用当前价购买</button>
+  <view class='kjBuyButton' wx:if="{{curGoodsKanjia && curKanjiaprogress}}">
+    <view class="item" wx:if="{{curKanjiaprogress.kanjiaInfo.uid != curuid}}">
+      <van-button type="primary" block bind:click="helpKanjia" disabled="{{myHelpDetail}}">{{myHelpDetail?"您已砍过":"帮TA砍"}}</van-button>
+    </view>
+    <view class="item" wx:else>
+      <van-button type="danger" block bind:click="tobuy">用当前价购买</van-button>
+    </view>
   </view>
   <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
     <view class="contact">

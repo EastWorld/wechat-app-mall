@@ -873,6 +873,9 @@ module.exports = (_module$exports = {
   shopSubApply: function shopSubApply(data) {
     return request('/shop/subshop/apply', true, 'post', data);
   },
+  pickPoints: function pickPoints(data) {
+    return request('/shop/subshop/pickPoints', true, 'post', data);
+  },
   addComment: function addComment(data) {
     return request('/comment/add', true, 'post', data);
   },

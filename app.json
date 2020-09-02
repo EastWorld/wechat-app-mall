@@ -81,9 +81,6 @@
       "desc": "获取离你最近的门店"
     }
   },
-  "navigateToMiniProgramAppIdList": [
-    "wx56c8f077de74b07c"
-  ],
   "usingComponents": {
     "float-menu": "/components/float-menu/index",
     "parser":"/components/parser.20200414.min/parser",

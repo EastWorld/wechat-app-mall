@@ -64,7 +64,7 @@
       <view class='text'>售后</view>
     </view>
   </view>
-  <view wx:if="{{canHX}}" class="line"></view>
+  <!-- <view wx:if="{{canHX}}" class="line"></view>
   <view wx:if="{{canHX}}" class="menu-item" bindtap="scanOrderCode">
     <view class="l">扫码核销</view>
     <image class="next" src="/images/icon/next.png"></image>
@@ -82,7 +82,7 @@
       <view class="l">资金明细</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
-  </navigator>
+  </navigator> -->
   <view class="line"></view>
   <!-- flex布局的新菜单 -->
   <!-- <view class="menu-item">
@@ -104,7 +104,7 @@
   <view class="space"></view>
   <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
     <view class="menu-item">
-      <view class="l">成为分销商</view>
+      <view class="l">成为店长</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
@@ -129,7 +129,7 @@
     </view>
   </navigator>
 
-  <view class="space"></view>
+  <!-- <view class="space"></view>
   <navigator url="/pages/invoice/apply">
     <view class="menu-item">
       <view class="l">申请发票</view>
@@ -142,7 +142,7 @@
       <view class="l">发票记录</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
-  </navigator>
+  </navigator> -->
 
   <view class="space"></view>
   <navigator url="/pages/select-address/index">
@@ -166,7 +166,7 @@
     </view>
   </navigator>
 
-  <view class="space"></view>
+  <!-- <view class="space"></view>
   <navigator url="/pages/sign/index">
     <view class="menu-item">
       <view class="l">每日签到</view>
@@ -187,7 +187,7 @@
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
-  <view class="line"></view>
+  <view class="line"></view> -->
 
   <view class="space"></view>
   <view class="menu-item" bindtap="aboutUs">
@@ -217,16 +217,6 @@
     <view class="l">授权登录</view>
     <image class="next" src="/images/icon/next.png"></image>
   </view>
-
-  <!-- <view class="line"></view>
-  <view class="menu-item">
-    <view class="l">绑定官网账号</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view> -->
-
-  <view class="space"></view>
-  <view class="version">EastWorld v {{version}}</view>
-  <view class="space"></view>
 </view>
 
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

@@ -17,7 +17,7 @@
     </swiper-item>
   </swiper>
   <view class="search">
-    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+    <input type="text" placeholder="搜索商品" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
     <image src="/images/icon/search.svg" bindtap="goSearch"></image>
   </view>
   <view wx:if="{{goodsDynamic}}" class="goodsDynamic">
@@ -50,7 +50,7 @@
   <view class="category-list" wx:for="{{categories}}" wx:key="id">
     <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{item.id}}">
       <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
-      <view class="category-title">{{item.name}}</view>
+      <!-- <view class="category-title">{{item.name}}</view> -->
     </view>          
   </view>
 </view>

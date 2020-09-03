@@ -135,7 +135,7 @@
   flex-wrap: wrap;
 }
 .category-list{
-  width:150rpx;
+  width:750rpx;
   margin-top:20rpx;
   text-align: center;
   display: inline-block;
@@ -147,8 +147,8 @@
   overflow: hidden;
 }
 .category-imgbox{
-  width:80rpx;
-  height:80rpx;
+  width:100%;
+  height:320rpx;
 }
 .category-title{
   font-size: 24rpx;
@@ -159,16 +159,16 @@
 
 .swiper-container{
   width: 750rpx;
-  height: 375rpx;
+  height: 720rpx;
   position: relative;  
 }
 .swiper-container .swiper1 {
   width: 750rpx;
-  height: 375rpx;
+  height: 720rpx;
 }
 .swiper-container .swiper1 image {
   width: 750rpx;
-  height: 375rpx;
+  height: 720rpx;
 }
 ::-webkit-scrollbar {
   width: 0;

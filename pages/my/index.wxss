@@ -19,7 +19,8 @@ page,view,image,input {
 }
 .userinfo-avatar {
 	width: 160rpx;
-	height: 160rpx;
+  height: 160rpx;
+  margin-bottom: 10rpx;
   border: 1rpx solid #eee;
   border-radius: 50%;
 }

@@ -22,12 +22,12 @@
       <view>{{score}}</view>
       <view>积分</view>
     </view>
-    <navigator url="/pages/score/growth">
+    <!-- <navigator url="/pages/score/growth">
       <view class='item right'>
         <view>{{growth}}</view>
         <view>成长值</view>
       </view>
-    </navigator>
+    </navigator> -->
   </view>
   <view class="space"></view>
   <navigator url="/pages/order-list/index">

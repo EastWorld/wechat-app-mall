@@ -125,6 +125,15 @@ Page({
     if (that.data.pingtuanOpenId) {
       postData.pingtuanOpenId = that.data.pingtuanOpenId
     }
+    if (postData.peisongType == 'kd' && that.data.curAddressData && that.data.curAddressData.provinceId) {
+      postData.provinceId = that.data.curAddressData.provinceId;
+    }
+    if (postData.peisongType == 'kd' && that.data.curAddressData && that.data.curAddressData.cityId) {
+      postData.cityId = that.data.curAddressData.cityId;
+    }
+    if (postData.peisongType == 'kd' && that.data.curAddressData && that.data.curAddressData.districtId) {
+      postData.districtId = that.data.curAddressData.districtId;
+    }
     if (e && that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
@@ -135,11 +144,6 @@ Page({
         return;
       }
       if (postData.peisongType == 'kd') {
-        postData.provinceId = that.data.curAddressData.provinceId;
-        postData.cityId = that.data.curAddressData.cityId;
-        if (that.data.curAddressData.districtId) {
-          postData.districtId = that.data.curAddressData.districtId;
-        }
         postData.address = that.data.curAddressData.address;
         postData.linkMan = that.data.curAddressData.linkMan;
         postData.mobile = that.data.curAddressData.mobile;

@@ -16,7 +16,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
     "useApiHook": false,
     "babelSetting": {

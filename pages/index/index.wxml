@@ -125,27 +125,21 @@
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
     <view class="weui-panel__hd">疯狂砍价</view>
     <view class="weui-panel__bd">
-      <block wx:for="{{kanjiaList}}" wx:key="id">
-        <view class="weui-media-box weui-media-box_appmsg">
-          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" src="{{item.pic}}" />
-          </view>
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg" bindtap="toDetailsTap" data-id="{{item.id}}">
-            <view class="weui-media-box__title">{{item.name}}</view>
-            <view class="weui-media-box__desc">{{item.characteristic}}</view>
-            <view class="weui-media-box__info" style='color:#333;line-height:2em;'>
-              <view class="weui-media-box__info__meta">原价:{{item.originalPrice}}</view>
-              <view class="weui-media-box__info__meta" style='color:#e64340;'>底价:{{item.kanjiaPrice}}</view>
-              <view class="weui-media-box__info__meta" style='float:right;'>
-                <button class="weui-btn mini-btn" type="warn" size="mini">砍价</button>
-              </view>
-            </view>
-          </view>
+      <van-card
+        wx:for="{{kanjiaList}}" wx:key="id"
+        price="{{item.kanjiaPrice}}"
+        origin-price="{{item.originalPrice}}"
+        desc="{{item.characteristic}}"
+        title="{{item.name}}"
+        thumb="{{item.pic}}"
+      >
+        <view slot="footer">
+          <van-button type="danger" size="small" data-id="{{item.id}}" bind:click="toDetailsTap">砍价</van-button>
         </view>
-        <view class="progress">
-          <progress percent="{{item.process}}" border-radius="8" show-info="{{false}}" font-size="20rpx" stroke-width="6" activeColor="#e64340" />
+        <view slot="price-top">
+          <van-progress percentage="{{item.process}}" color="#1aad19" />
         </view>
-      </block>
+      </van-card>
     </view>
   </view>
   <block wx:if="{{pingtuanList.length > 0 && activeCategoryId == 0}}">

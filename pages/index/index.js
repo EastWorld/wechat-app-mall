@@ -276,6 +276,7 @@ Page({
           console.log(_process)
           if (_process) {
             ele.process = 100 * _process.numberBuy / _process.number
+            ele.process = ele.process.toFixed(0)
           }
         })
         this.setData({

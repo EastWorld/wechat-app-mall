@@ -92,7 +92,9 @@
     "van-button": "@vant/weapp/button/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
-    "van-tag": "@vant/weapp/tag/index"
+    "van-tag": "@vant/weapp/tag/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-progress": "@vant/weapp/progress/index"
   },
   "sitemapLocation": "sitemap.json"
 }

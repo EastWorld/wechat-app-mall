@@ -45,3 +45,18 @@
 .ad-img {
   width: 100vw;
 }
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 6rpx;
+  color: #fff;
+  font-size: 18rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e64340;
+  border: 1rpx solid #fff;
+  border-radius: 50%;
+}

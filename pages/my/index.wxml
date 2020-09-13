@@ -224,9 +224,13 @@
     <image class="next" src="/images/icon/next.png"></image>
   </view> -->
 
+  
+
   <view class="space"></view>
   <view class="version">EastWorld v {{version}}</view>
   <view class="space"></view>
 </view>
+
+<van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
 
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

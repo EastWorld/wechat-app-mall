@@ -100,6 +100,10 @@ Page({
         if (that.data.order_hx_uids && that.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
           _data.canHX = true // 具有扫码核销的权限
         }
+        const gooking_test = wx.getStorageSync('gooking_test')
+        if (gooking_test && gooking_test == res.data.base.id) {
+          _data.isAdmin = true
+        }
         that.setData(_data);
       }
     })
@@ -197,4 +201,17 @@ Page({
       icon: 'success'
     })
   },
+  goadmin() {
+    // develop trial release
+    // path 可携带参数
+    // 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。
+    wx.navigateToMiniProgram({
+      appId: 'wx5e5b0066c8d3f33d',
+      path: 'page/index/index',
+      extraData: {
+        token: 'bar123456'
+      },
+      envVersion: 'trial'
+    })
+  }
 })

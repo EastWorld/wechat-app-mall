@@ -5,9 +5,8 @@ page,view,image,input,textarea {
   box-sizing: border-box;
 }
 
-.container {
+page {
   background-color: #f2f2f2;
-  padding-bottom: 100rpx;
 }
 
 .address-box {
@@ -238,3 +237,12 @@ form {
   text-align: right;
 }
 
+.box-v2 {
+  width: 100vw;
+}
+.bottom-box {
+  height: 120rpx;
+}
+.cell-group {
+  margin-top: 16rpx;
+}

@@ -62,6 +62,7 @@ Page({
       peisongType: this.data.peisongType
     });
     this.initShippingAddress()
+    this.userAmount()
   },
 
   onLoad(e) {
@@ -76,7 +77,14 @@ Page({
     }
     this.setData(_data);
   },
-
+  async userAmount() {
+    const res = await WXAPI.userAmount(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      this.setData({
+        balance: res.data.balance
+      })
+    }
+  },
   getDistrictId: function (obj, aaa) {
     if (!obj) {
       return "";
@@ -200,7 +208,7 @@ Page({
           totalScoreToPay: res.data.score,
           isNeedLogistics: res.data.isNeedLogistics,
           allGoodsPrice: res.data.amountTotle,
-          allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
+          allGoodsAndYunPrice: res.data.amountReal,
           yunPrice: res.data.amountLogistics,
           hasNoCoupons,
           coupons
@@ -213,50 +221,61 @@ Page({
   },
   async processAfterCreateOrder(res) {
     // 直接弹出支付，取消支付的话，去订单列表
-    const res1 = await WXAPI.userAmount(wx.getStorageSync('token'))
-    if (res1.code != 0) {
-      wx.showToast({
-        title: '无法获取用户资金信息',
-        icon: 'none'
-      })
-      wx.redirectTo({
-        url: "/pages/order-list/index"
-      });
-      this.data.pageIsEnd = false
-      return
-    }
-    const money = res.data.amountReal * 1 - res1.data.balance*1
-    if (money <= 0) {
-      // 直接用余额支付
-      wx.showModal({
-        title: '请确认支付',
-        content: `您当前可用余额¥${res1.data.balance}，使用余额支付¥${res.data.amountReal}？`,
-        confirmText: "确认支付",
-        cancelText: "暂不付款",
-        success: res2 => {
-          if (res2.confirm) {
-            // 使用余额支付
-            WXAPI.orderPay(wx.getStorageSync('token'), res.data.id).then(res3 => {
-              if (res3.code != 0) {
-                wx.showToast({
-                  title: res3.msg,
-                  icon: 'none'
+    const balance = this.data.balance
+    if (balance) {
+      // 有余额
+      const money = res.data.amountReal * 1 - balance*1
+      if (money <= 0) {
+        // 余额足够
+        wx.showModal({
+          title: '请确认支付',
+          content: `您当前可用余额¥${balance}，使用余额支付¥${res.data.amountReal}？`,
+          confirmText: "确认支付",
+          cancelText: "暂不付款",
+          success: res2 => {
+            if (res2.confirm) {
+              // 使用余额支付
+              WXAPI.orderPay(wx.getStorageSync('token'), res.data.id).then(res3 => {
+                if (res3.code != 0) {
+                  wx.showToast({
+                    title: res3.msg,
+                    icon: 'none'
+                  })
+                  return
+                }
+                wx.redirectTo({
+                  url: "/pages/order-list/index"
                 })
-                return
-              }
+              })
+            } else {
               wx.redirectTo({
                 url: "/pages/order-list/index"
               })
-            })
-          } else {
-            wx.redirectTo({
-              url: "/pages/order-list/index"
-            })
+            }
           }
-        }
-      })      
+        })
+      } else {
+        // 余额不够
+        wx.showModal({
+          title: '请确认支付',
+          content: `您当前可用余额¥${balance}，仍需支付¥${money}`,
+          confirmText: "确认支付",
+          cancelText: "暂不付款",
+          success: res2 => {
+            if (res2.confirm) {
+              // 使用余额支付
+              wxpay.wxpay('order', money, res.data.id, "/pages/order-list/index");
+            } else {
+              wx.redirectTo({
+                url: "/pages/order-list/index"
+              })
+            }
+          }
+        })
+      }
     } else {
-      wxpay.wxpay('order', money, res.data.id, "/pages/order-list/index");
+      // 没余额
+      wxpay.wxpay('order', res.data.amountReal, res.data.id, "/pages/order-list/index");
     }
   },
   async initShippingAddress() {
@@ -279,8 +298,6 @@ Page({
     }
     var goodsJsonStr = "[";
     var isNeedLogistics = 0;
-    var allGoodsPrice = 0;
-
 
     let inviter_id = 0;
     let inviter_id_storge = wx.getStorageSync('referrer');
@@ -292,7 +309,6 @@ Page({
       if (carShopBean.logistics || carShopBean.logisticsId) {
         isNeedLogistics = 1;
       }
-      allGoodsPrice += carShopBean.price * carShopBean.number;
 
       var goodsJsonStrTmp = '';
       if (i > 0) {

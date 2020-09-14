@@ -23,6 +23,9 @@
               <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
                 {{option.optionName}}:{{option.optionValueName}}
               </block>
+              <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+                {{option.pname}}:{{option.name}}
+              </block>
             </view>
             <view class="goods-price">¥ {{item.price}}</view>
             <view class="buy-num">

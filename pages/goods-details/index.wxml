@@ -146,10 +146,13 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{hasMoreSelect && goodsDetailSkuShowType==0}}" class="row-arrow" bindtap="bindGuiGeTap">
-    <view>{{selectSize}}</view>
-    <image src="/images/icon/next.png"></image>
-  </view>
+  <van-cell wx:if="{{hasMoreSelect && goodsDetailSkuShowType==0}}" custom-class="vw100" is-link bind:click="bindGuiGeTap">
+    <view slot="title">
+      请选择:
+      <block wx:for="{{goodsDetail.properties}}" wx:key="id"> {{item.name}}</block>
+      <block wx:for="{{goodsAddition}}" wx:key="id"> {{item.name}}</block>
+    </view>
+  </van-cell>
   <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
     <view class="label-title">选择商品规格</view>
     <view class="size-label-box">
@@ -260,6 +263,14 @@
           <view class="label">{{property.name}}</view>
           <view class="label-item-box">
             <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
+              {{item.name}}
+            </view>
+          </view>
+        </block>
+        <block wx:for="{{goodsAddition}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+          <view class="label">{{property.name}}</view>
+          <view class="label-item-box">
+            <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.items}}" wx:key="id" bindtap="labelItemTap2" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
               {{item.name}}
             </view>
           </view>

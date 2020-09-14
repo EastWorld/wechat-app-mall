@@ -59,3 +59,6 @@
   border: 1rpx solid #fff;
   border-radius: 50%;
 }
+.vw100 {
+  width: 100vw !important;
+}

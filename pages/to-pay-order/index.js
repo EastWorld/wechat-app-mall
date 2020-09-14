@@ -41,24 +41,24 @@ Page({
     })
   },
   async doneShow() {
-    let shopList = [];
+    let goodsList = [];
     const token = wx.getStorageSync('token')
     //立即购买下单
     if ("buyNow" == this.data.orderType) {
       var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
       this.data.kjId = buyNowInfoMem.kjId;
       if (buyNowInfoMem && buyNowInfoMem.shopList) {
-        shopList = buyNowInfoMem.shopList
+        goodsList = buyNowInfoMem.shopList
       }
     } else {
       //购物车下单
       const res = await WXAPI.shippingCarInfo(token)
       if (res.code == 0) {
-        shopList = res.data.items
+        goodsList = res.data.items
       }
     }
     this.setData({
-      goodsList: shopList,
+      goodsList,
       peisongType: this.data.peisongType
     });
     this.initShippingAddress()
@@ -296,7 +296,7 @@ Page({
     if (goodsList.length == 0) {
       return
     }
-    var goodsJsonStr = "[";
+    const goodsJsonStr = []
     var isNeedLogistics = 0;
 
     let inviter_id = 0;
@@ -310,26 +310,36 @@ Page({
         isNeedLogistics = 1;
       }
 
-      var goodsJsonStrTmp = '';
-      if (i > 0) {
-        goodsJsonStrTmp = ",";
+      const _goodsJsonStr = {
+        propertyChildIds: carShopBean.propertyChildIds
       }
       if (carShopBean.sku && carShopBean.sku.length > 0) {
         let propertyChildIds = ''
         carShopBean.sku.forEach(option => {
           propertyChildIds = propertyChildIds + ',' + option.optionId + ':' + option.optionValueId
         })
-        carShopBean.propertyChildIds = propertyChildIds
+        _goodsJsonStr.propertyChildIds = propertyChildIds
       }
-      goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
-      goodsJsonStr += goodsJsonStrTmp;
-
+      if (carShopBean.additions && carShopBean.additions.length > 0) {
+        let goodsAdditionList = []
+        carShopBean.additions.forEach(option => {
+          goodsAdditionList.push({
+            pid: option.pid,
+            id: option.id
+          })
+        })
+        _goodsJsonStr.goodsAdditionList = goodsAdditionList
+      }
+      _goodsJsonStr.goodsId = carShopBean.goodsId
+      _goodsJsonStr.number = carShopBean.number
+      _goodsJsonStr.logisticsType = 0
+      _goodsJsonStr.inviter_id = inviter_id
+      goodsJsonStr.push(_goodsJsonStr)
 
     }
-    goodsJsonStr += "]";
     this.setData({
       isNeedLogistics: isNeedLogistics,
-      goodsJsonStr: goodsJsonStr
+      goodsJsonStr: JSON.stringify(goodsJsonStr)
     });
     this.createOrder();
   },

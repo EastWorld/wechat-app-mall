@@ -126,18 +126,25 @@ var request = function request(url, needSubDomain, method, data) {
 /**
  * 小程序的promise没有finally方法，自己扩展下
  */
-Promise.prototype.finally = function (callback) {
-  var Promise = this.constructor;
-  return this.then(function (value) {
-    Promise.resolve(callback()).then(function () {
-      return value;
-    });
-  }, function (reason) {
-    Promise.resolve(callback()).then(function () {
-      throw reason;
-    });
-  });
-};
+// Promise.prototype.finally = function (callback) {
+//   var Promise = this.constructor;
+//   return this.then(
+//     function (value) {
+//       Promise.resolve(callback()).then(
+//         function () {
+//           return value;
+//         }
+//       );
+//     },
+//     function (reason) {
+//       Promise.resolve(callback()).then(
+//         function () {
+//           throw reason;
+//         }
+//       );
+//     }
+//   );
+// }
 
 module.exports = (_module$exports = {
   init2: function init2(a, b) {
@@ -372,6 +379,11 @@ module.exports = (_module$exports = {
 
     return request('/shop/goods/limitation', true, 'get', {
       goodsId: goodsId, priceId: priceId
+    });
+  },
+  goodsAddition: function goodsAddition(goodsId) {
+    return request('/shop/goods/goodsAddition', true, 'get', {
+      goodsId: goodsId
     });
   },
   goodsPrice: function goodsPrice(goodsId, propertyChildIds) {
@@ -1148,9 +1160,13 @@ module.exports = (_module$exports = {
       token: token
     });
   },
-  shippingCarInfoAddItem: function shippingCarInfoAddItem(token, goodsId, number, sku) {
+  shippingCarInfoAddItem: function shippingCarInfoAddItem(token, goodsId, number, sku, addition) {
     return request('/shopping-cart/add', true, 'post', {
-      token: token, goodsId: goodsId, number: number, sku: JSON.stringify(sku)
+      token: token,
+      goodsId: goodsId,
+      number: number,
+      sku: sku && sku.length > 0 ? JSON.stringify(sku) : '',
+      addition: addition && addition.length > 0 ? JSON.stringify(addition) : ''
     });
   },
   shippingCarInfoModifyNumber: function shippingCarInfoModifyNumber(token, key, number) {

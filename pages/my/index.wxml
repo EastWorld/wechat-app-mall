@@ -195,6 +195,13 @@
     <image class="next" src="/images/icon/next.png"></image>
   </view>
   <view class="line"></view>
+  <navigator url="/pages/help/index">
+    <view class="menu-item">
+      <view class="l">帮助中心</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+  <view class="line"></view>
   <view wx:if="{{userMobile}}" class="menu-item">
     <view class="l">绑定手机</view>
     <view class="r">{{ userMobile }}</view>

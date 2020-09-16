@@ -35,7 +35,9 @@
     "pages/invoice/list",
     "pages/invoice/apply",
     "pages/deposit/pay",
-    "pages/live/index"
+    "pages/live/index",
+    "pages/help/detail",
+    "pages/help/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -98,7 +100,10 @@
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-field": "@vant/weapp/field/index",
     "van-radio": "@vant/weapp/radio/index",
-    "van-radio-group": "@vant/weapp/radio-group/index"
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-sidebar": "@vant/weapp/sidebar/index",
+    "van-sidebar-item": "@vant/weapp/sidebar-item/index",
+    "van-empty": "@vant/weapp/empty/index"
   },
   "sitemapLocation": "sitemap.json"
 }

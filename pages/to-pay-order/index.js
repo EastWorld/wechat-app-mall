@@ -222,7 +222,7 @@ Page({
   async processAfterCreateOrder(res) {
     // 直接弹出支付，取消支付的话，去订单列表
     const balance = this.data.balance
-    if (balance) {
+    if (balance || res.data.amountReal*1 == 0) {
       // 有余额
       const money = res.data.amountReal * 1 - balance*1
       if (money <= 0) {

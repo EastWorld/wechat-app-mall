@@ -1,0 +1,9 @@
+<scroll-view class="category" scroll-y="true" scroll-with-animation="true">
+  <van-sidebar bind:change="categoryChange">
+    <van-sidebar-item wx:for="{{category}}" wx:key="id" title="{{item.name}}" />
+  </van-sidebar>
+</scroll-view>
+<scroll-view class="articles" scroll-y="true" scroll-top="{{scrolltop}}">
+  <van-empty wx:if="{{!cmsArticles}}" description="暂无记录" />
+  <van-cell wx:for="{{cmsArticles}}" wx:key="id" title="{{item.title}}" is-link url="/pages/help/detail?id={{item.id}}" />
+</scroll-view>

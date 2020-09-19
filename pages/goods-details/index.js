@@ -322,13 +322,15 @@ Page({
       }
     }
     // 计算配件价格
-    this.data.goodsAddition.forEach(big => {
-      big.items.forEach(small => {
-        if (small.active) {
-          price = (price*100 + small.price*100) / 100
-        }
+    if (this.data.goodsAddition) {
+      this.data.goodsAddition.forEach(big => {
+        big.items.forEach(small => {
+          if (small.active) {
+            price = (price*100 + small.price*100) / 100
+          }
+        })
       })
-    })
+    }
     this.setData({
       selectSizePrice: price,
       selectSizeOPrice: originalPrice,

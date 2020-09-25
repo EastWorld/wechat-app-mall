@@ -190,18 +190,6 @@
   <view class="line"></view>
 
   <view class="space"></view>
-  <view class="menu-item" bindtap="aboutUs">
-    <view class="l">关于我们</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view>
-  <view class="line"></view>
-  <navigator url="/pages/help/index">
-    <view class="menu-item">
-      <view class="l">帮助中心</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
   <view wx:if="{{userMobile}}" class="menu-item">
     <view class="l">绑定手机</view>
     <view class="r">{{ userMobile }}</view>
@@ -209,20 +197,6 @@
   <view  wx:else class="menu-item">
     <view class="l">绑定手机</view>
     <button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即绑定</button>
-  </view>
-  <view class="line"></view>
-  <view class="menu-item" bindtap="clearStorage">
-    <view class="l">清除缓存</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view>
-  <view class="line"></view>
-  <view wx:if="{{apiUserInfoMap}}" class="menu-item" bindtap="loginOut">
-    <view class="l">退出登录</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view>
-  <view wx:else class="menu-item" bindtap="goLogin">
-    <view class="l">授权登录</view>
-    <image class="next" src="/images/icon/next.png"></image>
   </view>
 
   <!-- <view class="line"></view>
@@ -234,10 +208,14 @@
   
 
   <view class="space"></view>
-  <view class="version">EastWorld v {{version}}</view>
-  <view class="space"></view>
 </view>
 
+<van-cell title="关于我们" is-link url="/pages/about/index" />
+<van-cell title="帮助中心" is-link url="/pages/help/index" />
+<van-cell title="清除缓存" is-link bind:click="clearStorage" />
+<van-cell wx:if="{{apiUserInfoMap}}" title="退出登录" is-link bind:click="loginOut" />
+<van-cell wx:else title="立即登陆" is-link bind:click="goLogin" />
 <van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
+<van-cell title="当前版本" value="{{version}}" />
 
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

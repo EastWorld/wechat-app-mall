@@ -37,7 +37,8 @@
     "pages/deposit/pay",
     "pages/live/index",
     "pages/help/detail",
-    "pages/help/index"
+    "pages/help/index",
+    "pages/about/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,4 @@
+<van-empty wx:if="{{!cmsPageDetail}}" description="请在后台添加内容" />
+<view wx:else class="content">
+  <parser html="{{cmsPageDetail.info.content}}" />
+</view>

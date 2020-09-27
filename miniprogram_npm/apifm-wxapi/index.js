@@ -102,14 +102,15 @@ var subDomain = '-';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+  const header = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
   return new Promise(function (resolve, reject) {
     wx.request({
       url: _url,
       method: method,
       data: data,
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      header,
       success: function success(request) {
         resolve(request.data);
       },

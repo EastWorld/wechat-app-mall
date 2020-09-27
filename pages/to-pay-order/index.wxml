@@ -77,7 +77,7 @@
 </van-cell-group>
 <view class="bottom-box"></view>
 <van-submit-bar
-  price="{{ allGoodsAndYunPrice*100 - youhuijine*100 }}"
+  price="{{ allGoodsAndYunPrice*100 }}"
   suffix-label="+{{totalScoreToPay}} 积分"
   button-text="提交订单"
   bind:submit="goCreateOrder"

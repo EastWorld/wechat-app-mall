@@ -360,6 +360,7 @@ Page({
       curCoupon: this.data.coupons[selIndex],
       curCouponShowText: this.data.coupons[selIndex].nameExt
     });
+    this.processYunfei()
   },
   radioChange (e) {
     this.setData({

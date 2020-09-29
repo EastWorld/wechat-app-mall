@@ -1,5 +1,25 @@
 @import "/template/login/index.wxss";
 
+.header-box {
+  background: #e64340;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+}
+.header-box .avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+.header-box .btn {
+  margin-left: 32rpx;
+}
+.header-box .r {
+  margin-left: 32rpx;
+  color: #EEEEEE;
+  font-size: 28rpx;
+}
+
 page,view,image,input {
   display: block;
   box-sizing: border-box;

@@ -1,8 +1,13 @@
-const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
+
+const APP = getApp()
+// fixed首次打开不显示标题的bug
+APP.configLoadOK = () => {
+  
+}
 
 Page({
 	data: {

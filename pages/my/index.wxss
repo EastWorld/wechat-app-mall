@@ -31,24 +31,6 @@ page,view,image,input {
   overflow-y: hidden;
 }
 
-.userinfo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-  width: 750rpx;
-}
-.userinfo-avatar {
-	width: 160rpx;
-	height: 160rpx;
-  border: 1rpx solid #eee;
-  border-radius: 50%;
-}
-.userinfo-nickname {
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  font-size: 14px;
-}
-
 .asset {
   display: flex;
   border-top: 1px solid #eee;

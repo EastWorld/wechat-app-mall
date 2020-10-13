@@ -1,6 +1,6 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = exports.isNumber = exports.isObj = exports.isDef = void 0;
+exports.getAllRect = exports.getRect = exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = exports.isNumber = exports.isObj = exports.isDef = void 0;
 function isDef(value) {
   return value !== undefined && value !== null;
 }
@@ -24,7 +24,7 @@ function nextTick(fn) {
   }, 1000 / 30);
 }
 exports.nextTick = nextTick;
-var systemInfo = null;
+var systemInfo;
 function getSystemInfoSync() {
   if (systemInfo == null) {
     systemInfo = wx.getSystemInfoSync();
@@ -54,3 +54,35 @@ function requestAnimationFrame(cb) {
     });
 }
 exports.requestAnimationFrame = requestAnimationFrame;
+function getRect(selector) {
+  var _this = this;
+  return new Promise(function (resolve) {
+    wx.createSelectorQuery()
+      .in(_this)
+      .select(selector)
+      .boundingClientRect()
+      .exec(function (rect) {
+        if (rect === void 0) {
+          rect = [];
+        }
+        return resolve(rect[0]);
+      });
+  });
+}
+exports.getRect = getRect;
+function getAllRect(selector) {
+  var _this = this;
+  return new Promise(function (resolve) {
+    wx.createSelectorQuery()
+      .in(_this)
+      .selectAll(selector)
+      .boundingClientRect()
+      .exec(function (rect) {
+        if (rect === void 0) {
+          rect = [];
+        }
+        return resolve(rect[0]);
+      });
+  });
+}
+exports.getAllRect = getAllRect;

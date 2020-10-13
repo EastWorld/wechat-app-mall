@@ -10,7 +10,7 @@
         lazy-load="{{ lazyLoad }}"
         class="van-card__img thumb-class"
       />
-      <slot name="thumb" />
+      <slot wx:else name="thumb" />
       <van-tag
         wx:if="{{ tag }}"
         mark
@@ -19,6 +19,7 @@
       >
         {{ tag }}
       </van-tag>
+      <slot wx:else name="tag" />
     </view>
 
     <view class="van-card__content {{ utils.bem('card__content', { center: centered }) }}">
@@ -34,9 +35,14 @@
 
       <view class="van-card__bottom">
         <slot name="price-top" />
-        <view wx:if="{{ price || price === 0 }}" class="van-card__price price-class">{{ currency }}<text class="van-card__price-integer">{{ integerStr }}</text><text class="van-card__price-decimal">{{ decimalStr }}</text></view>
+        <view wx:if="{{ price || price === 0 }}" class="van-card__price price-class">
+          <text>{{ currency }}</text>
+          <text class="van-card__price-integer">{{ integerStr }}</text>
+          <text class="van-card__price-decimal">{{ decimalStr }}</text>
+        </view>
         <slot wx:else name="price" />
         <view wx:if="{{ originPrice || originPrice === 0 }}" class="van-card__origin-price origin-price-class">{{ currency }} {{ originPrice }}</view>
+        <slot wx:else name="origin-price" />
         <view wx:if="{{ num }}" class="van-card__num num-class">x {{ num }}</view>
         <slot wx:else  name="num" />
         <slot name="bottom" />

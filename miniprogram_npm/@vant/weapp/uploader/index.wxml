@@ -21,6 +21,16 @@
         data-index="{{ index }}"
         bind:tap="onPreviewImage"
       />
+      <video
+        wx:elif="{{ item.isVideo }}"
+        src="{{item.url || item.path}}"
+        autoplay="{{item.autoplay}}"
+        class="van-uploader__preview-image"
+        style="width: {{ utils.addUnit(previewSize) }}; height: {{ utils.addUnit(previewSize) }};"
+        data-index="{{ index }}"
+        bind:tap="onPreviewVideo"
+      >
+      </video>      
       <view
         wx:else
         class="van-uploader__file"

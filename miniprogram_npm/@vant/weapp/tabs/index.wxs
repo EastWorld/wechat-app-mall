@@ -1,4 +1,6 @@
 /* eslint-disable */
+var utils = require('../wxs/utils.wxs');
+
 function tabClass(active, ellipsis) {
   var classes = ['tab-class'];
 
@@ -68,11 +70,42 @@ function trackStyle(data) {
   return [
     'transform: translate3d(' + -100 * data.currentIndex + '%, 0, 0)',
     '-webkit-transition-duration: ' + data.duration + 's',
-    'transition-duration: ' + data.duration + 's'
+    'transition-duration: ' + data.duration + 's',
   ].join(';');
 }
 
-module.exports.tabClass = tabClass;
-module.exports.tabStyle = tabStyle;
-module.exports.trackStyle = trackStyle;
-module.exports.tabCardTypeBorderStyle = tabCardTypeBorderStyle;
+function lineStyle(data) {
+  var styles = [
+    ['width', utils.addUnit(data.lineWidth)],
+    ['transform', 'translateX(' + data.lineOffsetLeft + 'px)'],
+    ['-webkit-transform', 'translateX(' + data.lineOffsetLeft + 'px)'],
+  ];
+
+  if (data.color) {
+    styles.push(['background-color', data.color]);
+  }
+
+  if (data.lineHeight !== -1) {
+    styles.push(['height', utils.addUnit(data.lineHeight)]);
+    styles.push(['border-radius', utils.addUnit(data.lineHeight)]);
+  }
+
+  if (!data.skipTransition) {
+    styles.push(['transition-duration', data.duration + 's']);
+    styles.push(['-webkit-transition-duration', data.duration + 's']);
+  }
+
+  return styles
+    .map(function (item) {
+      return item.join(':');
+    })
+    .join(';');
+}
+
+module.exports = {
+  tabClass: tabClass,
+  tabStyle: tabStyle,
+  trackStyle: trackStyle,
+  lineStyle: lineStyle,
+  tabCardTypeBorderStyle: tabCardTypeBorderStyle,
+};

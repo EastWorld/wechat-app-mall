@@ -16,33 +16,7 @@ var __assign =
   };
 Object.defineProperty(exports, '__esModule', { value: true });
 var queue = [];
-function getContext() {
-  var pages = getCurrentPages();
-  return pages[pages.length - 1];
-}
-var Dialog = function (options) {
-  options = __assign(__assign({}, Dialog.currentOptions), options);
-  return new Promise(function (resolve, reject) {
-    var context = options.context || getContext();
-    var dialog = context.selectComponent(options.selector);
-    delete options.context;
-    delete options.selector;
-    if (dialog) {
-      dialog.setData(
-        __assign({ onCancel: reject, onConfirm: resolve }, options)
-      );
-      wx.nextTick(function () {
-        dialog.setData({ show: true });
-      });
-      queue.push(dialog);
-    } else {
-      console.warn(
-        '未找到 van-dialog 节点，请确认 selector 及 context 是否正确'
-      );
-    }
-  });
-};
-Dialog.defaultOptions = {
+var defaultOptions = {
   show: false,
   title: '',
   width: null,
@@ -64,7 +38,36 @@ Dialog.defaultOptions = {
   closeOnClickOverlay: false,
   confirmButtonOpenType: '',
 };
-Dialog.alert = Dialog;
+var currentOptions = __assign({}, defaultOptions);
+function getContext() {
+  var pages = getCurrentPages();
+  return pages[pages.length - 1];
+}
+var Dialog = function (options) {
+  options = __assign(__assign({}, currentOptions), options);
+  return new Promise(function (resolve, reject) {
+    var context = options.context || getContext();
+    var dialog = context.selectComponent(options.selector);
+    delete options.context;
+    delete options.selector;
+    if (dialog) {
+      dialog.setData(
+        __assign({ onCancel: reject, onConfirm: resolve }, options)
+      );
+      wx.nextTick(function () {
+        dialog.setData({ show: true });
+      });
+      queue.push(dialog);
+    } else {
+      console.warn(
+        '未找到 van-dialog 节点，请确认 selector 及 context 是否正确'
+      );
+    }
+  });
+};
+Dialog.alert = function (options) {
+  return Dialog(options);
+};
 Dialog.confirm = function (options) {
   return Dialog(__assign({ showCancelButton: true }, options));
 };
@@ -79,11 +82,15 @@ Dialog.stopLoading = function () {
     dialog.stopLoading();
   });
 };
+Dialog.currentOptions = currentOptions;
+Dialog.defaultOptions = defaultOptions;
 Dialog.setDefaultOptions = function (options) {
-  Object.assign(Dialog.currentOptions, options);
+  currentOptions = __assign(__assign({}, currentOptions), options);
+  Dialog.currentOptions = currentOptions;
 };
 Dialog.resetDefaultOptions = function () {
-  Dialog.currentOptions = __assign({}, Dialog.defaultOptions);
+  currentOptions = __assign({}, defaultOptions);
+  Dialog.currentOptions = currentOptions;
 };
 Dialog.resetDefaultOptions();
 exports.default = Dialog;

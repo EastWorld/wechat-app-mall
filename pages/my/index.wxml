@@ -9,7 +9,7 @@
 </view>
 <view wx:else class="header-box">
   <image class="avatar" src="/images/nologin2.png"></image>
-	<van-button plain custom-class="btn" size="small" open-type="getUserInfo" bind:getuserinfo="processLogin">立即登录</van-button>
+	<van-button plain custom-class="btn" size="small" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="processLogin">立即登录</van-button>
 </view>
 
 <view class="container">

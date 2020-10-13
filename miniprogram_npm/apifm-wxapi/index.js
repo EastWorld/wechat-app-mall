@@ -97,20 +97,18 @@ var _module$exports;
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
-  const header = {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
   return new Promise(function (resolve, reject) {
     wx.request({
       url: _url,
       method: method,
       data: data,
-      header,
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       success: function success(request) {
         resolve(request.data);
       },

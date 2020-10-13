@@ -1,10 +1,11 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 
 <view wx:if="{{ fixed && placeholder }}" style="height: {{ height }}px;" />
 
 <view
   class="{{ utils.bem('nav-bar', { fixed }) }} custom-class {{ border ? 'van-hairline--bottom' : '' }}"
-  style="{{ baseStyle }}; {{ customStyle }}"
+  style="{{ computed.barStyle({ zIndex, statusBarHeight, safeAreaInsetTop }) }}; {{ customStyle }}"
 >
   <view class="van-nav-bar__content">
     <view class="van-nav-bar__left" bind:tap="onClickLeft">

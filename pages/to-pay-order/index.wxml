@@ -33,7 +33,7 @@
       <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" is-link />
     </picker>
     <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
-    <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
+    <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
     <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
       <view class="add-address" hidden="{{curAddressData}}" bindtap="addAddress">
         <image src="/images/add-addr.png"></image>
@@ -49,6 +49,19 @@
         </view>
       </view>
     </view>
+    <van-field
+      wx:if="{{peisongType == 'zq'}}"
+      size="large"
+      model:value="{{ mobile }}"
+      label="联系电话"
+      type="number"
+      focus
+      clearable
+      required
+      border="{{false}}"
+      placeholder="请输入手机号码">
+      <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">重新获取</van-button>
+    </van-field>
     <view class="row-box">
       <view class="row-label">备注</view>
       <view class="right-text">

@@ -75,7 +75,8 @@ Page({
     if (e.pingtuanOpenId) {
       _data.pingtuanOpenId = e.pingtuanOpenId
     }
-    this.setData(_data);
+    this.setData(_data)
+    this.getUserApiInfo()
   },
   async userAmount() {
     const res = await WXAPI.userAmount(wx.getStorageSync('token'))
@@ -167,6 +168,13 @@ Page({
       if(postData.peisongType == 'zq' && this.data.shops && this.data.shopIndex == -1) {
         wx.showToast({
           title: '请选择自提门店',
+          icon: 'none'
+        })
+        return;
+      }
+      if(postData.peisongType == 'zq' && !this.data.mobile) {
+        wx.showToast({
+          title: '请填写手机号码',
           icon: 'none'
         })
         return;
@@ -421,5 +429,47 @@ Page({
     wx.makePhoneCall({
       phoneNumber: shop.linkPhone,
     })
+  },
+  async getUserApiInfo() {
+    const res = await WXAPI.userDetail(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      this.setData({
+        mobile: res.data.base.mobile
+      })
+    }
+  },
+  async getPhoneNumber(e) {
+    if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
+      wx.showToast({
+        title: e.detail.errMsg,
+        icon: 'none'
+      })
+      return;
+    }
+    const res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+    AUTH.wxaCode().then(code => {
+      this.data.code = code
+    })
+    if (res.code === 10002) {
+      wx.showToast({
+        title: '请先登陆',
+        icon: 'none'
+      })
+      return
+    }
+    if (res.code == 0) {
+      wx.showToast({
+        title: '读取成功',
+        icon: 'success'
+      })
+      this.setData({
+        mobile: res.data
+      })
+    } else {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+    }
   },
 })

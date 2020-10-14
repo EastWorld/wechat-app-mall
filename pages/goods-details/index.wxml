@@ -165,16 +165,11 @@
         </view>
       </block>
     </view>
-    <view class="buy-num-box">
-      <view class="num-label">购买数量</view>
-      <view class="num-box">
-        <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
-        <view class="num-input">
-          <input type="number" value="{{buyNumber}}" disabled/>
-        </view>
-        <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
-      </view>
-    </view>
+    <van-cell title="购买数量">
+      <view>
+        <van-stepper value="{{ buyNumber }}" min="{{ buyNumMin }}" max="{{ buyNumMax }}" bind:change="stepChange" />
+      </view> 
+    </van-cell>
   </view>
   <view wx:if="{{shopSubdetail}}" class="shop-container">
     <image mode="aspectFill" src="{{shopSubdetail.info.pic}}"></image>
@@ -255,59 +250,6 @@
       bind:click="toPingtuan"
     />
   </van-goods-action>
-  <view class="show-popup" hidden="{{hideShopPopup}}" catchtouchmove="true">
-    <view class="popup-mask" bindtap="closePopupTap"></view>
-    <view class="popup-contents">
-      <view class="pop-goods-info">
-        <view class="pop-img-box">
-          <image src="{{skuGoodsPic}}" class="goods-thumbnail" bindtap="previewImage" data-url="{{skuGoodsPic}}" />
-        </view>
-        <view class="pop-goods-des">
-          <view class="pop-goods-title">{{goodsDetail.basicInfo.name}}</view>
-          <view class="pop-goods-price">
-            ¥ <text class="t1">{{selectSizePrice}}</text>
-            <text wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="pop-goods-price-original"><text>¥</text> {{selectSizeOPrice}}</text>
-          </view>
-        </view>
-        <image class="pop-goods-close" src="/images/icon/close0.svg" bindtap="closePopupTap"></image>
-      </view>
-      <view class="size-label-box">
-        <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
-          <view class="label">{{property.name}}</view>
-          <view class="label-item-box">
-            <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
-              {{item.name}}
-            </view>
-          </view>
-        </block>
-        <block wx:for="{{goodsAddition}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
-          <view class="label">{{property.name}}</view>
-          <view class="label-item-box">
-            <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.items}}" wx:key="id" bindtap="labelItemTap2" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
-              {{item.name}}
-            </view>
-          </view>
-        </block>
-      </view>
-      <view class="buy-num-box">
-        <view class="num-label">购买数量</view>
-        <view class="num-box">
-          <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
-          <view class="num-input">
-            <input type="number" value="{{buyNumber}}" disabled/>
-          </view>
-          <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
-        </view>
-      </view>
-      <view class="safeAreaOldPaddingBttom safeAreaNewPaddingBttom" wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar">
-        <view class="popup-join-btn">加入购物车</view>
-      </view>
-      <view class="safeAreaOldPaddingBttom safeAreaNewPaddingBttom" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindtap="buyNow">
-        <view class="popup-join-btn">立即购买</view>
-      </view>
-    </view>
-  </view>
-  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>
 
 <block wx:if="{{posterShow}}">
@@ -331,3 +273,44 @@
   <image mode="widthFix" class="posterImg" src="{{posterImg}}"></image>
   <view class="btn-create" bindtap="savePosterPic">保存到相册</view>
 </view>
+
+<van-popup
+  show="{{ !hideShopPopup }}"
+  round
+  closeable
+  position="bottom"
+  custom-style="padding-top:48rpx;max-height: 80%;"
+  bind:close="closePopupTap">
+  <van-card
+    centered
+    price="{{ selectSizePrice }}"
+    origin-price="{{ selectSizePrice != selectSizePrice ? selectSizeOPrice : '' }}"
+    title="{{ goodsDetail.basicInfo.name }}"
+    thumb="{{ skuGoodsPic }}"
+  />
+  <view class="size-label-box">
+    <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+      <view class="label">{{property.name}}</view>
+      <view class="label-item-box">
+        <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
+          {{item.name}}
+        </view>
+      </view>
+    </block>
+    <block wx:for="{{goodsAddition}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+      <view class="label">{{property.name}}</view>
+      <view class="label-item-box">
+        <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.items}}" wx:key="id" bindtap="labelItemTap2" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
+          {{item.name}}
+        </view>
+      </view>
+    </block>
+  </view>
+  <van-cell title="购买数量">
+    <view>
+      <van-stepper value="{{ buyNumber }}" min="{{ buyNumMin }}" max="{{ buyNumMax }}" bind:change="stepChange" />
+    </view> 
+  </van-cell>
+  <van-button wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar" type="danger" block>加入购物车</van-button>
+  <van-button wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" data-shopType="{{shopType}}" bindtap="buyNow" type="danger" block>立即购买</van-button>
+</van-popup>

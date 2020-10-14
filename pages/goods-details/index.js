@@ -26,7 +26,7 @@ Page({
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
   },
   async onLoad(e) {
-    // e.id = 235853
+    // e.id = 588724
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
       if (scene && scene.split(',').length >= 2) {
@@ -227,23 +227,10 @@ Page({
       hideShopPopup: true
     })
   },
-  numJianTap: function() {
-    if (this.data.buyNumber > this.data.buyNumMin) {
-      var currentNum = this.data.buyNumber;
-      currentNum--;
-      this.setData({
-        buyNumber: currentNum
-      })
-    }
-  },
-  numJiaTap: function() {
-    if (this.data.buyNumber < this.data.buyNumMax) {
-      var currentNum = this.data.buyNumber;
-      currentNum++;
-      this.setData({
-        buyNumber: currentNum
-      })
-    }
+  stepChange(event) {
+    this.setData({
+      buyNumber: event.detail
+    })
   },
   /**
    * 选择商品规格
@@ -735,13 +722,6 @@ Page({
   closePop(){
     this.setData({
       posterShow: false
-    })
-  },
-  previewImage(e){
-    const url = e.currentTarget.dataset.url
-    wx.previewImage({
-      current: url, // 当前显示图片的http链接
-      urls: [url] // 需要预览的图片http链接列表
     })
   },
   async drawSharePic() {

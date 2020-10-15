@@ -39,6 +39,9 @@ Page({
         this.doneShow()
       }
     })
+    AUTH.wxaCode().then(code => {
+      this.data.code = code
+    })
   },
   async doneShow() {
     let goodsList = [];

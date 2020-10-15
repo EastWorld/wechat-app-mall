@@ -45,6 +45,9 @@ Page({
         _this.orderStatistics();
       }
     })
+    AUTH.wxaCode().then(code => {
+      this.data.code = code
+    })
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge();
   },
@@ -63,7 +66,10 @@ Page({
       })
       return;
     }
-    WXAPI.bindMobileWxa(wx.getStorageSync('token'), e.detail.encryptedData, e.detail.iv).then(res => {
+    WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv).then(res => {
+      AUTH.wxaCode().then(code => {
+        this.data.code = code
+      })
       if (res.code === 10002) {
         this.setData({
           wxlogin: false

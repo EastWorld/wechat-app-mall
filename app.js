@@ -3,7 +3,13 @@ const CONFIG = require('config.js')
 const AUTH = require('utils/auth')
 App({
   onLaunch: function() {
-    WXAPI.init(CONFIG.subDomain)
+    const subDomain = wx.getExtConfigSync().subDomain
+    if (subDomain) {
+      WXAPI.init(subDomain)
+    } else {
+      WXAPI.init(CONFIG.subDomain)
+    }
+    
     const that = this;
     // 检测新版本
     const updateManager = wx.getUpdateManager()

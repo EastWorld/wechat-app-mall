@@ -1,6 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.getAllRect = exports.getRect = exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = exports.isNumber = exports.isObj = exports.isDef = void 0;
+exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = exports.isObj = exports.isDef = void 0;
+var validator_1 = require('./validator');
 function isDef(value) {
   return value !== undefined && value !== null;
 }
@@ -10,10 +11,6 @@ function isObj(x) {
   return x !== null && (type === 'object' || type === 'function');
 }
 exports.isObj = isObj;
-function isNumber(value) {
-  return /^\d+(\.\d+)?$/.test(value);
-}
-exports.isNumber = isNumber;
 function range(num, min, max) {
   return Math.min(Math.max(num, min), max);
 }
@@ -37,7 +34,7 @@ function addUnit(value) {
     return undefined;
   }
   value = String(value);
-  return isNumber(value) ? value + 'px' : value;
+  return validator_1.isNumber(value) ? value + 'px' : value;
 }
 exports.addUnit = addUnit;
 function requestAnimationFrame(cb) {
@@ -54,6 +51,18 @@ function requestAnimationFrame(cb) {
     });
 }
 exports.requestAnimationFrame = requestAnimationFrame;
+function pickExclude(obj, keys) {
+  if (!validator_1.isPlainObject(obj)) {
+    return {};
+  }
+  return Object.keys(obj).reduce(function (prev, key) {
+    if (!keys.includes(key)) {
+      prev[key] = obj[key];
+    }
+    return prev;
+  }, {});
+}
+exports.pickExclude = pickExclude;
 function getRect(selector) {
   var _this = this;
   return new Promise(function (resolve) {

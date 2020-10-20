@@ -68,10 +68,14 @@ function trackStyle(data) {
   }
 
   return [
-    'transform: translate3d(' + -100 * data.currentIndex + '%, 0, 0)',
-    '-webkit-transition-duration: ' + data.duration + 's',
-    'transition-duration: ' + data.duration + 's',
-  ].join(';');
+    ['left', -100 * data.currentIndex + '%'],
+    ['-webkit-transition-duration', data.duration + 's'],
+    ['transition-duration: ', data.duration + 's'],
+  ]
+    .map(function (item) {
+      return item.join(':');
+    })
+    .join(';');
 }
 
 function lineStyle(data) {

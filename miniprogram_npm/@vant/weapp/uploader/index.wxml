@@ -14,7 +14,7 @@
       <image
         wx:if="{{ item.isImage }}"
         mode="{{ imageFit }}"
-        src="{{ item.url || item.path }}"
+        src="{{ item.thumb || item.url }}"
         alt="{{ item.name || ('图片' + index) }}"
         class="van-uploader__preview-image"
         style="width: {{ utils.addUnit(previewSize) }}; height: {{ utils.addUnit(previewSize) }};"
@@ -23,21 +23,23 @@
       />
       <video
         wx:elif="{{ item.isVideo }}"
-        src="{{item.url || item.path}}"
-        autoplay="{{item.autoplay}}"
+        src="{{ item.url }}"
+        title="{{ item.name || ('视频' + index) }}"
+        poster="{{ item.thumb }}"
+        autoplay="{{ item.autoplay }}"
         class="van-uploader__preview-image"
         style="width: {{ utils.addUnit(previewSize) }}; height: {{ utils.addUnit(previewSize) }};"
         data-index="{{ index }}"
         bind:tap="onPreviewVideo"
       >
-      </video>      
+      </video>
       <view
         wx:else
         class="van-uploader__file"
         style="width: {{ utils.addUnit(previewSize) }}; height: {{ utils.addUnit(previewSize) }};"
       >
         <van-icon name="description" class="van-uploader__file-icon" />
-        <view class="van-uploader__file-name van-ellipsis">{{ item.name || item.url || item.path }}</view>
+        <view class="van-uploader__file-name van-ellipsis">{{ item.name || item.url }}</view>
       </view>
       <view
         wx:if="{{ item.status === 'uploading' || item.status === 'failed' }}"
@@ -59,7 +61,7 @@
 
     <!-- 上传样式 -->
     <block wx:if="{{ isInCount }}">
-      <view class="van-uploader__slot" bind:tap="startUpload">
+      <view class="van-uploader__slot" bindtap="startUpload">
         <slot />
       </view>
 

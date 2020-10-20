@@ -101,14 +101,15 @@ var subDomain = '-';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+  var header = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
   return new Promise(function (resolve, reject) {
     wx.request({
       url: _url,
       method: method,
       data: data,
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      header: header,
       success: function success(request) {
         resolve(request.data);
       },
@@ -350,6 +351,9 @@ module.exports = (_module$exports = {
   register_simple: function register_simple(data) {
     return request('/user/wxapp/register/simple', true, 'post', data);
   },
+  authorize: function authorize(data) {
+    return request('/user/wxapp/authorize', true, 'post', data);
+  },
   register_username: function register_username(data) {
     return request('/user/username/register', true, 'post', data);
   },
@@ -384,6 +388,9 @@ module.exports = (_module$exports = {
     return request('/shop/goods/goodsAddition', true, 'get', {
       goodsId: goodsId
     });
+  },
+  pushNewGoods: function pushNewGoods(data) {
+    return request('/shop/goods/putOrUpdate', true, 'post', data);
   },
   goodsPrice: function goodsPrice(goodsId, propertyChildIds) {
     return request('/shop/goods/price', true, 'post', {
@@ -1260,11 +1267,20 @@ module.exports = (_module$exports = {
   mtjAsset: function mtjAsset(token) {
     return request('/mtj/asset', true, 'get', { token: token });
   },
+  mtjSetting: function mtjSetting() {
+    return request('/mtj/setting', true, 'get');
+  },
   mtjLogs: function mtjLogs(data) {
     return request('/mtj/logs', true, 'post', data);
   },
   mtjStatistics: function mtjStatistics() {
     return request('/site/statistics/mjt', true, 'get');
+  },
+  mtjTransfer: function mtjTransfer(data) {
+    return request('/mtj/transfer', true, 'post', data);
+  },
+  mtjTransferLogs: function mtjTransferLogs(data) {
+    return request('/mtj/transfer/logs', true, 'post', data);
   },
   register_tt: function register_tt(data) {
     return request('/user/tt/microapp/register', true, 'post', data);
@@ -1304,6 +1320,15 @@ module.exports = (_module$exports = {
   return request('/user/attention/statistics', true, 'get', {
     token: token
   });
+}, _module$exports.cyTableToken = function cyTableToken(tableId, key) {
+  return request('/cyTable/token', true, 'post', {
+    id: tableId,
+    k: key
+  });
+}, _module$exports.cyTableAddOrder = function cyTableAddOrder(data) {
+  return request('/cyTable/add-order', true, 'post', data);
+}, _module$exports.cyTablePayOrder = function cyTablePayOrder(data) {
+  return request('/cyTable/pay-order', true, 'post', data);
 }, _module$exports);
 
 /***/ })

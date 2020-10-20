@@ -1329,6 +1329,30 @@ module.exports = (_module$exports = {
   return request('/cyTable/add-order', true, 'post', data);
 }, _module$exports.cyTablePayOrder = function cyTablePayOrder(data) {
   return request('/cyTable/pay-order', true, 'post', data);
+}, _module$exports.goodsTimesDays = function goodsTimesDays(goodsId) {
+  var propertyChildIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+  return request('/shop/goods/times/days', true, 'post', { goodsId: goodsId, propertyChildIds: propertyChildIds });
+}, _module$exports.goodsTimesDayItems = function goodsTimesDayItems(day, goodsId) {
+  var propertyChildIds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+  return request('/shop/goods/times/items', true, 'post', { day: day, goodsId: goodsId, propertyChildIds: propertyChildIds });
+}, _module$exports.wxappServiceLogin = function wxappServiceLogin(data) {
+  return request('/user/wxappService/login', true, 'post', data);
+}, _module$exports.wxappServiceLoginWxaMobile = function wxappServiceLoginWxaMobile(data) {
+  return request('/user/wxappService/login/mobile', true, 'post', data);
+}, _module$exports.wxappServiceRegisterComplex = function wxappServiceRegisterComplex(data) {
+  return request('/user/wxappService/register/complex', true, 'post', data);
+}, _module$exports.wxappServiceRegisterSimple = function wxappServiceRegisterSimple(data) {
+  return request('/user/wxappService/register/simple', true, 'post', data);
+}, _module$exports.wxappServiceAuthorize = function wxappServiceAuthorize(data) {
+  return request('/user/wxappService/authorize', true, 'post', data);
+}, _module$exports.wxappServiceBindMobile = function wxappServiceBindMobile(data) {
+  return request('/user/wxappService/bindMobile', true, 'post', data);
+}, _module$exports.wxappServiceBindOpenid = function wxappServiceBindOpenid(data) {
+  return request('/user/wxappService/bindOpenid', true, 'post', data);
+}, _module$exports.wxappServiceEncryptedData = function wxappServiceEncryptedData(data) {
+  return request('/user/wxappService/decode/encryptedData', true, 'post', data);
 }, _module$exports);
 
 /***/ })

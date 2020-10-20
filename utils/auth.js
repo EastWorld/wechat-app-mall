@@ -67,27 +67,56 @@ async function login(page){
   const _this = this
   wx.login({
     success: function (res) {
-      WXAPI.login_wx(res.code).then(function (res) {        
-        if (res.code == 10000) {
-          // 去注册
-          //_this.register(page)
-          return;
-        }
-        if (res.code != 0) {
-          // 登录错误
-          wx.showModal({
-            title: '无法登录',
-            content: res.msg,
-            showCancel: false
-          })
-          return;
-        }
-        wx.setStorageSync('token', res.data.token)
-        wx.setStorageSync('uid', res.data.uid)
-        if ( page ) {
-          page.onShow()
-        }
-      })
+      const componentAppid = wx.getStorageSync('componentAppid')
+      if (componentAppid) {
+        WXAPI.wxappServiceLogin({
+          componentAppid,
+          appid: wx.getStorageSync('appid'),
+          code: res.code
+        }).then(function (res) {        
+          if (res.code == 10000) {
+            // 去注册
+            //_this.register(page)
+            return;
+          }
+          if (res.code != 0) {
+            // 登录错误
+            wx.showModal({
+              title: '无法登录',
+              content: res.msg,
+              showCancel: false
+            })
+            return;
+          }
+          wx.setStorageSync('token', res.data.token)
+          wx.setStorageSync('uid', res.data.uid)
+          if ( page ) {
+            page.onShow()
+          }
+        })
+      } else {
+        WXAPI.login_wx(res.code).then(function (res) {        
+          if (res.code == 10000) {
+            // 去注册
+            //_this.register(page)
+            return;
+          }
+          if (res.code != 0) {
+            // 登录错误
+            wx.showModal({
+              title: '无法登录',
+              content: res.msg,
+              showCancel: false
+            })
+            return;
+          }
+          wx.setStorageSync('token', res.data.token)
+          wx.setStorageSync('uid', res.data.uid)
+          if ( page ) {
+            page.onShow()
+          }
+        })
+      }
     }
   })
 }
@@ -107,14 +136,28 @@ async function register(page) {
             referrer = referrer_storge;
           }
           // 下面开始调用注册接口
-          WXAPI.register_complex({
-            code: code,
-            encryptedData: encryptedData,
-            iv: iv,
-            referrer: referrer
-          }).then(function (res) {
-            _this.login(page);
-          })
+          const componentAppid = wx.getStorageSync('componentAppid')
+          if (componentAppid) {
+            WXAPI.wxappServiceRegisterComplex({
+              componentAppid,
+              appid: wx.getStorageSync('appid'),
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }).then(function (res) {
+              _this.login(page);
+            })
+          } else {
+            WXAPI.register_complex({
+              code: code,
+              encryptedData: encryptedData,
+              iv: iv,
+              referrer: referrer
+            }).then(function (res) {
+              _this.login(page);
+            })
+          }
         }
       })
     }

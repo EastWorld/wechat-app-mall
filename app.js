@@ -4,6 +4,11 @@ const AUTH = require('utils/auth')
 App({
   onLaunch: function() {
     const subDomain = wx.getExtConfigSync().subDomain
+    const componentAppid = wx.getExtConfigSync().componentAppid
+    if (componentAppid) {
+      wx.setStorageSync('appid', wx.getAccountInfoSync().miniProgram.appId)
+      wx.setStorageSync('componentAppid', componentAppid)
+    }
     if (subDomain) {
       WXAPI.init(subDomain)
     } else {

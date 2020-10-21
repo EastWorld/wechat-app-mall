@@ -27,8 +27,10 @@
       <view class='item' bindtap="drawSharePic">
         <image src='/images/share/share2.png'></image>
       </view>
-    </view>    
+    </view>
   </view>
+  <van-cell custom-class="vw100" title="推荐好物" is-link bind:click="ugcPublish" />
+
   <view class="page__bd" wx:if="{{curGoodsKanjia}}" style='width:750rpx;'>
     <view class="weui-cells__title">商品砍价设置</view>
     <view class="weui-cells weui-cells_after-title">

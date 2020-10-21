@@ -857,4 +857,19 @@ Page({
       }
     })
   },
+  ugcPublish() {
+    if(wx.navigateToMiniProgram) {
+      wx.navigateToMiniProgram({
+        appId: 'wxb036cafe2994d7d0',
+        path: '/publish/ugc-publish/ugc-publish',
+        extraData: {
+          productInfo:{ 
+            title: this.data.goodsDetail.basicInfo.name,
+            path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id,
+            thumbUrl: this.data.goodsDetail.basicInfo.pic
+          }
+        },
+      })
+    }
+  },
 })

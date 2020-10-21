@@ -27,8 +27,7 @@ swiper-item image {
 }
 .goods-info{
   background-color: #fff;
-  padding: 35rpx 0;
-  margin-bottom: 24rpx;
+  padding-top: 35rpx;
   width: 100%;
   position: relative;
 }

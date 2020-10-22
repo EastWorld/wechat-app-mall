@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "领券中心"
+  "navigationBarTitleText": "领券中心",
+  "enablePullDownRefresh": true
 }

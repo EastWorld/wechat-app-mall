@@ -10,7 +10,6 @@ Page({
     totalScoreToPay: 0,
     goodsList: [],
     isNeedLogistics: 0, // 是否需要物流信息
-    allGoodsPrice: 0,
     yunPrice: 0,
     allGoodsAndYunPrice: 0,
     goodsJsonStr: "",
@@ -19,7 +18,7 @@ Page({
 
     hasNoCoupons: true,
     coupons: [],
-    youhuijine: 0, //优惠券金额
+    couponAmount: 0, //优惠券金额
     curCoupon: null, // 当前选择使用的优惠券
     curCouponShowText: '请选择使用优惠券', // 当前选择使用的优惠券
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
@@ -210,7 +209,15 @@ Page({
         if (res.data.couponUserList) {
           hasNoCoupons = false
           res.data.couponUserList.forEach(ele => {
-            ele.nameExt = ele.name + ' [满' + ele.moneyHreshold + '元可减' + ele.money + '元]'
+            let moneyUnit = '元'
+            if (ele.moneyType == 1) {
+              moneyUnit = '%'
+            }
+            if (ele.moneyHreshold) {
+              ele.nameExt = ele.name + ' [消费满' + ele.moneyHreshold + '元可减' + ele.money + moneyUnit +']'
+            } else {
+              ele.nameExt = ele.name + ' [减' + ele.money + moneyUnit + ']'
+            }
           })
           coupons = res.data.couponUserList
         }
@@ -218,11 +225,11 @@ Page({
         that.setData({
           totalScoreToPay: res.data.score,
           isNeedLogistics: res.data.isNeedLogistics,
-          allGoodsPrice: res.data.amountTotle,
           allGoodsAndYunPrice: res.data.amountReal,
           yunPrice: res.data.amountLogistics,
           hasNoCoupons,
-          coupons
+          coupons,
+          couponAmount: res.data.couponAmount
         });
         that.data.pageIsEnd = false
         return;
@@ -367,7 +374,6 @@ Page({
   bindChangeCoupon: function (e) {
     const selIndex = e.detail.value;
     this.setData({
-      youhuijine: this.data.coupons[selIndex].money,
       curCoupon: this.data.coupons[selIndex],
       curCouponShowText: this.data.coupons[selIndex].nameExt
     });

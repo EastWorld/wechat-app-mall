@@ -83,9 +83,8 @@
 </view>
 
 <van-cell-group custom-class="box-v2">
-  <van-cell title="商品小计" value="{{allGoodsPrice}}" />
-  <van-cell title="运费" value="{{yunPrice}}" />
-  <van-cell wx:if="{{!hasNoCoupons}}" title="优惠金额" value="-{{youhuijine}}" />
+  <van-cell wx:if="{{ yunPrice }}" title="运费" value="{{yunPrice}}" />
+  <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-{{couponAmount}}" />
   <van-cell wx:if="{{balance}}" title="账户余额" value="{{balance}}" />
 </van-cell-group>
 <view class="bottom-box"></view>

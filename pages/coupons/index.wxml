@@ -14,7 +14,8 @@
     </view>
     <view class="price">
       <view class="tj">满{{item.moneyHreshold}}</view>
-      <view class="amount"><text>￥</text>{{item.moneyMin}}</view>
+      <view wx:if="{{ item.moneyType == 0 }}" class="amount"><text>￥</text>{{item.moneyMin}}</view>
+      <view wx:if="{{ item.moneyType == 1 }}" class="amount"><text></text>{{item.moneyMin}}<text>%</text></view>
     </view>
     <view class="btn" bindtap="getCounpon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">立即领取</view>
   </view>
@@ -28,7 +29,8 @@
     </view>
     <view class="price">
       <view class="tj">({{item.dateEnd}}到期)  满{{item.moneyHreshold}}</view>
-      <view class="amount"><text>￥</text>{{item.money}}</view>
+      <view wx:if="{{ item.moneyType == 0 }}" class="amount"><text>￥</text>{{item.money}}</view>
+      <view wx:if="{{ item.moneyType == 1 }}" class="amount"><text></text>{{item.money}}<text>%</text></view>
     </view>
     <view class="btn" bindtap="toIndexPage">立即使用</view>
   </view>
@@ -42,84 +44,16 @@
     </view>
     <view class="price">
       <view class="tj disabled2">满{{item.moneyHreshold}}</view>
-      <view class="amount disabled2"><text class="disabled2">￥</text>{{item.money}}</view>
+      <view wx:if="{{ item.moneyType == 0 }}" class="amount disabled2"><text class="disabled2">￥</text>{{item.money}}</view>
+      <view wx:if="{{ item.moneyType == 1 }}" class="amount disabled2"><text class="disabled2"></text>{{item.money}}<text class="disabled2">%</text></view>
     </view>
     <view class="btn">{{ item.statusStr }}</view>
   </view>
 </view>
 <view class="bottom"></view>
 
-<view class="page">
-  <view class="page__bd">
-    <view class="weui-tab">
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class="weui-panel" wx:for="{{sysCoupons}}" wx:key="*key" wx:if="{{!item.pwd}}">
-            <view class="weui-panel__hd">{{item.name}}</view>
-            <view class="weui-panel__bd">
-              <view class="weui-media-box weui-media-box_text">
-                <view class="weui-media-box__title weui-media-box__title_in-text">
-                  <text class='price' wx:if="{{item.moneyMin == item.moneyMax}}">￥ {{item.moneyMax}}</text>
-                  <text class='price' wx:else>￥ {{item.moneyMin}} - {{item.moneyMax}}</text>
-                </view>
-                <view class="weui-media-box__desc">满 {{item.moneyHreshold}} 元使用</view>
-                <view class="weui-media-box__info">
-                  <view class="weui-media-box__info__meta">
-                    <view wx:if="{{item.dateEndType == 0}}"> {{item.dateEnd}} 前有效 </view>
-                    <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
-                  </view>
-                  <view class="weui-media-box__info__meta" style='float:right;'>
-                    <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="getCounpon" data-id="{{item.id}}"  data-pwd="{{item.pwd}}">立即领取</button>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class="weui-panel" wx:for="{{myCoupons}}" wx:key="*key">
-            <view class="weui-panel__hd">{{item.name}}</view>
-            <view class="weui-panel__bd">
-              <view class="weui-media-box weui-media-box_text">
-                <view class="weui-media-box__title weui-media-box__title_in-text">
-                  <text class='price'>￥ {{item.money}}</text>
-                </view>
-                <view class="weui-media-box__desc">满 {{item.moneyHreshold}} 元使用</view>
-                <view class="weui-media-box__info">
-                  <view class="weui-media-box__info__meta">
-                    <view> {{item.dateEnd}} 到期 </view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view class="weui-panel" wx:for="{{invalidCoupons}}" wx:key="*key">
-            <view class="weui-panel__hd">{{item.name}}</view>
-            <view class="weui-panel__bd">
-              <view class="weui-media-box weui-media-box_text">
-                <view class="weui-media-box__title weui-media-box__title_in-text">
-                  <text class='price'>￥ {{item.money}}</text>
-                </view>
-                <view class="weui-media-box__desc">满 {{item.moneyHreshold}} 元使用</view>
-                <view class="weui-media-box__info">
-                  <view class="weui-media-box__info__meta">
-                    <view> {{item.statusStr}} </view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-</view>
-
-
 <block wx:if="{{showPwdPop}}">
-  <view class="pwd-coupons-mask"></view>
+  <view class="pwd-coupons-mask" bindtap="closePwd"></view>
   <view class="pwd-coupons">
     <view class="t">请输入口令</view>
     <input bindinput="pwdCouponChange" class="input" value="{{couponPwd}}" auto-focus/>

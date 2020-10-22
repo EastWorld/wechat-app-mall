@@ -46,32 +46,8 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
-
+    
   },
   tabClick: function (e) {
     this.setData({
@@ -87,7 +63,7 @@ Page({
       this.invalidCoupons()
     }
   },
-  sysCoupons: function () { // 读取可领取券列表
+  sysCoupons() { // 读取可领取券列表
     var _this = this;
     WXAPI.coupons().then(function (res) {
       if (res.code == 0) {
@@ -233,6 +209,23 @@ Page({
   pwdCouponChange(e){
     this.setData({
       couponPwd: e.detail.value
+    })
+  },
+  onPullDownRefresh() {
+    if (this.data.activeIndex == 0) {
+      this.sysCoupons()
+    }
+    if (this.data.activeIndex == 1) {
+      this.getMyCoupons()
+    }
+    if (this.data.activeIndex == 2) {
+      this.invalidCoupons()
+    }
+    wx.stopPullDownRefresh()
+  },
+  closePwd() {
+    this.setData({
+      showPwdPop: false
     })
   },
 })

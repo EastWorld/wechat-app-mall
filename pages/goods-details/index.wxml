@@ -29,8 +29,10 @@
       </view>
     </view>
   </view>
-  <van-cell custom-class="vw100" title="推荐好物" is-link bind:click="ugcPublish" />
-
+  <van-cell wx:if="{{ shareQuanziProduct }}" custom-class="vw100" center title="微信圈子 好物圈">
+    <share-button type="1" fore-color="#e64340" product="{{ shareQuanziProduct }}" bind:error="on_share_quanzi_error" />
+  </van-cell>
+  
   <view class="page__bd" wx:if="{{curGoodsKanjia}}" style='width:750rpx;'>
     <view class="weui-cells__title">商品砍价设置</view>
     <view class="weui-cells weui-cells_after-title">

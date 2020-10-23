@@ -164,7 +164,8 @@ Page({
           _data.selectSizePrice = goodsDetailRes.data.basicInfo.pingtuanPrice
         }        
       }
-      that.setData(_data);
+      that.setData(_data)
+      this.initShareQuanziProduct()
     }
   },
   async shopSubdetail(shopId){
@@ -857,19 +858,26 @@ Page({
       }
     })
   },
-  ugcPublish() {
-    if(wx.navigateToMiniProgram) {
-      wx.navigateToMiniProgram({
-        appId: 'wxb036cafe2994d7d0',
-        path: '/publish/ugc-publish/ugc-publish',
-        extraData: {
-          productInfo:{ 
-            title: this.data.goodsDetail.basicInfo.name,
-            path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id,
-            thumbUrl: this.data.goodsDetail.basicInfo.pic
-          }
-        },
-      })
-    }
+  initShareQuanziProduct() {
+    this.setData({
+      shareQuanziProduct: {
+        "item_code": this.data.goodsDetail.basicInfo.id + '',
+        "title": this.data.goodsDetail.basicInfo.name,
+        "category_list":[
+          this.data.goodsDetail.category.name
+        ],
+        "image_list":[
+          this.data.goodsDetail.basicInfo.pic
+        ],
+        "src_mini_program_path": '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id
+      }
+    })
   },
+  on_share_quanzi_error(e) {
+    wx.showToast({
+      title: '暂时无法推荐',
+      icon: 'none'
+    })
+    console.error(e)
+  }
 })

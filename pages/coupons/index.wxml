@@ -1,6 +1,7 @@
 <view class="tabs">
   <view class="item {{activeIndex == index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" data-id="{{index}}" bindtap="tabClick">{{item}}</view>
 </view>
+<van-cell title="动态口令兑换优惠券" is-link bind:click="exchangeCouponsShow" />
 <view wx:if="{{ !coupons || coupons.length == 0 }}" class="empty">
   <image src="/images/icon/coupons-empty.svg"></image>
   <view>暂无优惠券</view>
@@ -60,3 +61,30 @@
     <button type="primary" plain bindtap="getCounpon2"> 领取 </button>
   </view>
 </block>
+
+<van-popup
+  show="{{ exchangeCouponsShow }}"
+  position="bottom"
+  round
+  custom-style="padding-top:32rpx;"
+  bind:close="exchangeCouponsHide"
+>
+  <van-field
+    label="券号"
+    model:value="{{ number }}"
+    clearable
+    size="large"
+    placeholder="请输入券号"
+    bind:change="onChange"
+  />
+  <van-field
+    label="密码"
+    model:value="{{ pwd }}"
+    clearable
+    size="large"
+    placeholder="请输入密码"
+    bind:change="onChange"
+  />
+  <van-button wx:if="{{ isLogined }}" block type="primary" loading="{{ exchangeCouponsLoading }}" bind:click="exchangeCoupons">立即兑换</van-button>
+  <van-button wx:else block type="primary" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="processLogin">登陆后兑换</van-button>
+</van-popup>

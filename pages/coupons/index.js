@@ -36,6 +36,9 @@ Page({
       this.sysCoupons()
     }
     AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        isLogined
+      })
       if (isLogined) {
         if (this.data.activeIndex == 1) {
           this.getMyCoupons()
@@ -65,7 +68,13 @@ Page({
   },
   sysCoupons() { // 读取可领取券列表
     var _this = this;
+    wx.showLoading({
+      title: '',
+    })
     WXAPI.coupons().then(function (res) {
+      wx.hideLoading({
+        success: (res) => {},
+      })
       if (res.code == 0) {
         _this.setData({
           coupons: res.data
@@ -164,10 +173,16 @@ Page({
   },
   getMyCoupons: function () {
     var _this = this;
+    wx.showLoading({
+      title: '',
+    })
     WXAPI.myCoupons({
       token: wx.getStorageSync('token'),
       status: 0
     }).then(function (res) {
+      wx.hideLoading({
+        success: (res) => {},
+      })
       if (res.code == 0) {
         res.data.forEach(ele => {
           if (ele.dateEnd) {
@@ -186,10 +201,16 @@ Page({
   },
   invalidCoupons: function () {
     var _this = this;
+    wx.showLoading({
+      title: '',
+    })
     WXAPI.myCoupons({
       token: wx.getStorageSync('token'),
       status: '1,2,3'
     }).then(function (res) {
+      wx.hideLoading({
+        success: (res) => {},
+      })
       if (res.code == 0) {
         _this.setData({
           coupons: res.data
@@ -227,5 +248,65 @@ Page({
     this.setData({
       showPwdPop: false
     })
+  },
+  exchangeCouponsShow() {
+    this.setData({
+      exchangeCouponsShow: true
+    })
+  },
+  exchangeCouponsHide() {
+    this.setData({
+      exchangeCouponsShow: false
+    })
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
+  async exchangeCoupons() {
+    if (!this.data.number) {
+      wx.showToast({
+        title: '请输入券号',
+        icon: 'none'
+      })
+      return
+    }
+    if (!this.data.pwd) {
+      wx.showToast({
+        title: '请输入密码',
+        icon: 'none'
+      })
+      return
+    }
+    this.setData({
+      exchangeCouponsLoading: true
+    })
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.exchangeCoupons(wx.getStorageSync('token'), this.data.number, this.data.pwd)
+    wx.hideLoading({
+      success: (res) => {},
+    })
+    this.setData({
+      exchangeCouponsLoading: false
+    })
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+    } else {
+      wx.showToast({
+        title: '兑换成功'
+      })
+      this.exchangeCouponsHide()
+    }
   },
 })

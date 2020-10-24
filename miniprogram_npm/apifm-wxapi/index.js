@@ -289,6 +289,9 @@ module.exports = (_module$exports = {
   wxpay: function wxpay(data) {
     return request('/pay/wx/wxapp', true, 'post', data);
   },
+  wxpayFWS: function wxpayFWS(data) {
+    return request('/pay/wxfws/wxapp', true, 'post', data);
+  },
   ttpay: function ttpay(data) {
     return request('/pay/tt/microapp', true, 'post', data);
   },

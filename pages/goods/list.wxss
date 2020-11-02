@@ -29,6 +29,7 @@ page,view,image,input {
   position: absolute;
   top: 16rpx;
   right: 40rpx;
+  z-index: 9999;
 }
 .header .show-type {
   width: 40rpx;

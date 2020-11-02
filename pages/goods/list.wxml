@@ -1,17 +1,19 @@
-<view class="header">
-  <view class="search">
-    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
-    <image src="/images/icon/search.svg"></image>
+<van-sticky>
+  <view class="header">
+    <view class="search">
+      <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+      <image src="/images/icon/search.svg" bindtap="search"></image>
+    </view>
+    <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image>
   </view>
-  <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image>
-</view>
-<view class="line"></view>
-<view class="filters">
-  <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
-  <view class="item {{orderBy=='addedDown'?'active':''}}" data-val="addedDown" bindtap="filter">新品</view>
-  <view class="item {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">销量</view>
-  <view class="item {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">价格</view>
-</view>
+  <view class="filters">
+    <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
+    <view class="item {{orderBy=='addedDown'?'active':''}}" data-val="addedDown" bindtap="filter">新品</view>
+    <view class="item {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">销量</view>
+    <view class="item {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">价格</view>
+  </view>
+</van-sticky>
+<van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
 <block wx:if="{{listType == 1}}">
   <view class="list1" wx:for="{{goods}}" wx:key="id">
     <navigator url="/pages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>

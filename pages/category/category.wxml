@@ -10,11 +10,7 @@
       </view>
     </scroll-view>
     <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}'>
-      <view wx:if="{{!currentGoods}}" class="no-data">
-        <view class="line"></view>
-        <view class="txt">暂无商品</view>
-        <view class="line"></view>
-      </view>
+      <van-empty wx:if="{{!currentGoods}}" description="暂无商品" />
       <block wx:for="{{categories}}" wx:key="id" wx:if="{{item.pid == categorySelected.id}}">
         <navigator url="/pages/goods/list?categoryId={{item.id}}">
           <view class="no-data medium-category">
@@ -34,9 +30,7 @@
       </block>
       
       <view class="goods" wx:for="{{currentGoods}}" wx:key="id">
-        <image mode="aspectFill" class="pic" src="{{item.pic}}" data-id='{{item.id}}' bindtap="toDetailsTap">
-          <!-- <image class='fresh-tag' src="/images/goods-description/fresh.png"></image> -->
-        </image>
+        <image mode="aspectFill" class="pic" src="{{item.pic}}" data-id='{{item.id}}' bindtap="toDetailsTap"></image>
         <view class="name ellipsis" data-id='{{item.id}}' bindtap="toDetailsTap">{{item.name}}</view>
         <view class='soldInfo'>
           <view class='good-price-box'>
@@ -46,7 +40,7 @@
         <view class='soldInfo'>
           <view class='good-sales-box'>
             <text class="number">已售 {{item.numberSells}}件</text>
-            <text>评价 +{{item.gotScore}}积分</text>
+            <text wx:if="{{item.gotScore}}">好评送{{item.gotScore}}积分</text>
           </view>
         </view>
         <image data-id="{{item.id}}" bindtap="addShopCar" class="car" src="/images/icon/car.svg"></image>
@@ -55,11 +49,21 @@
   </view>
 </view>
 
-
-<block wx:if="{{skuCurGoods}}">
-  <view class="sku-mask"></view>
+<van-popup
+  show="{{ skuCurGoodsShow }}"
+  position="bottom"
+  round
+  custom-style="padding-top:32rpx;max-height: 80%;"
+  bind:close="closeSku"
+>
+  <van-card
+    centered
+    price="{{ selectSizePrice }}"
+    origin-price="{{ selectSizePrice != selectSizePrice ? selectSizeOPrice : '' }}"
+    title="{{ skuCurGoods.basicInfo.name }}"
+    thumb="{{ skuGoodsPic }}"
+  />
   <view class="sku-container">
-    <image class="close" src="/images/icon/close.svg" bindtap="closeSku"></image>
     <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id">
       <view class="t">{{item.name}}</view>
       <view class="items">
@@ -68,12 +72,10 @@
     </view>
     <view class="num">
       <view class="t">购买数量</view>
-      <view class="num-box">
-        <text class="a" bindtap="storesJian">-</text>
-        <text class="b">{{skuCurGoods.basicInfo.storesBuy}}</text>
-        <text class="a" bindtap="storesJia">+</text>
-      </view>
+      <van-stepper value="{{ skuCurGoods.basicInfo.storesBuy }}" bind:plus="storesJia" bind:minus="storesJian" />
     </view>
   </view>
-  <view class="sku-btn" bindtap="addCarSku">加入购物车</view>
-</block>
+  <van-button type="danger" block bind:click="addCarSku">加入购物车</van-button>
+</van-popup>
+
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

@@ -1,4 +1,5 @@
 const WXAPI = require('apifm-wxapi')
+import Dialog from '@vant/weapp/dialog/dialog'
 
 async function checkSession(){
   return new Promise((resolve, reject) => {
@@ -215,6 +216,20 @@ async function checkAndAuthorize (scope) {
   })  
 }
 
+function openLoginDialog() {
+  Dialog.confirm({
+    selector: '#van-dialog-auth-login',
+    message: '需要登陆后才能继续操作',
+    confirmButtonText: '立即登陆',
+    cancelButtonText: '暂不登陆',
+    confirmButtonOpenType: 'getUserInfo',
+    lang: 'zh_CN'
+  }).then(() => {
+    // Dialog.close()
+  }).catch(() => {
+    // Dialog.close()
+  })
+}
 
 module.exports = {
   checkHasLogined: checkHasLogined,
@@ -223,5 +238,6 @@ module.exports = {
   login: login,
   register: register,
   loginOut: loginOut,
-  checkAndAuthorize: checkAndAuthorize
+  checkAndAuthorize: checkAndAuthorize,
+  openLoginDialog: openLoginDialog
 }

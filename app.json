@@ -110,7 +110,8 @@
     "van-goods-action-button": "@vant/weapp/goods-action-button/index",
     "van-popup": "@vant/weapp/popup/index",
     "van-stepper": "@vant/weapp/stepper/index",
-    "van-sticky": "@vant/weapp/sticky/index"
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -1,0 +1,18 @@
+<van-field
+  label="姓名"
+  size="large"
+  model:value="{{ name }}"
+  placeholder="请输入姓名"
+  required
+/>
+<van-field
+  label="身份证号码"
+  type="idcard"
+  size="large"
+  model:value="{{ idcard }}"
+  placeholder="请输入身份证号码"
+  required
+/>
+<view class="btn">
+  <van-button type="primary" block loading="{{loading}}" bind:click="submit">立即认证</van-button>
+</view>

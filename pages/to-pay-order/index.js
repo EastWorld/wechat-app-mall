@@ -1,4 +1,5 @@
 const app = getApp()
+const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const wxpay = require('../../utils/pay.js')
@@ -100,7 +101,17 @@ Page({
   remarkChange(e){
     this.data.remark = e.detail.value
   },
-  goCreateOrder(){
+  async goCreateOrder(){
+    // 检测实名认证状态
+    if (CONFIG.needIdCheck) {
+      const res = await WXAPI.userDetail(wx.getStorageSync('token'))
+      if (res.code == 0 && !res.data.base.isIdcardCheck) {
+        wx.navigateTo({
+          url: '/pages/idCheck/index',
+        })
+        return
+      }
+    }
     const subscribe_ids = wx.getStorageSync('subscribe_ids')
     if (subscribe_ids) {
       wx.requestSubscribeMessage({

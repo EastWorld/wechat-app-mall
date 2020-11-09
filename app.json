@@ -38,7 +38,8 @@
     "pages/live/index",
     "pages/help/detail",
     "pages/help/index",
-    "pages/about/index"
+    "pages/about/index",
+    "pages/idCheck/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -226,7 +226,17 @@ Page({
     let that = this;
     wx.chooseAddress({
       success: function (res) {
-        console.log(res)
+        // res = {
+        //   cityName: '上海市',
+        //   countyName: '嘉定区',
+        //   detailInfo: '惠民路123号',
+        //   errMsg: 'chooseAddress.ok',
+        //   nationalCode: '310114',
+        //   postalCode: '201800',
+        //   provinceName: '上海市',
+        //   telNumber: '13500000000',
+        //   userName: '测试',
+        // }
         const provinceName = res.provinceName;
         const cityName = res.cityName;
         const diatrictName = res.countyName;
@@ -242,9 +252,12 @@ Page({
           }
           that.provinceChange(e, 0, 0).then(() => {
             // 读取市
-            const cIndex = that.data.cities.findIndex(ele => {
+            let cIndex = that.data.cities.findIndex(ele => {
               return ele.name == cityName
             })
+            if (cIndex == -1) {
+              cIndex = 1 // 兼容直辖市
+            }
             if (cIndex != -1) {
               const e = {
                 detail: {

@@ -26,7 +26,7 @@ Page({
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
   },
   async onLoad(e) {
-    // e.id = 588724
+    // e.id = 122843
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
       if (scene && scene.split(',').length >= 2) {
@@ -37,8 +37,12 @@ Page({
     this.data.goodsId = e.id
     const that = this
     this.data.kjJoinUid = e.kjJoinUid    
+    let goodsDetailSkuShowType = wx.getStorageSync('goodsDetailSkuShowType')
+    if (!goodsDetailSkuShowType) {
+      goodsDetailSkuShowType = 0
+    }
     this.setData({
-      goodsDetailSkuShowType: CONFIG.goodsDetailSkuShowType,
+      goodsDetailSkuShowType,
       curuid: wx.getStorageSync('uid')
     })
     this.reputation(e.id)

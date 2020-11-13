@@ -104,8 +104,8 @@ Page({
         if (that.data.order_hx_uids && that.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
           _data.canHX = true // 具有扫码核销的权限
         }
-        const gooking_test = wx.getStorageSync('gooking_test')
-        if (gooking_test && gooking_test == res.data.base.id) {
+        const adminUserIds = wx.getStorageSync('adminUserIds')
+        if (adminUserIds && adminUserIds.indexOf(res.data.base.id) != -1) {
           _data.isAdmin = true
         }
         that.setData(_data);

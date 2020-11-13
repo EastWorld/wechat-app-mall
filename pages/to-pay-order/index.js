@@ -103,7 +103,9 @@ Page({
   },
   async goCreateOrder(){
     // 检测实名认证状态
-    if (CONFIG.needIdCheck) {
+    if (wx.getStorageSync('needIdCheck') == 1) {
+      console.log(123);
+      
       const res = await WXAPI.userDetail(wx.getStorageSync('token'))
       if (res.code == 0 && !res.data.base.isIdcardCheck) {
         wx.navigateTo({

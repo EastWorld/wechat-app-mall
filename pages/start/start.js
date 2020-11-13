@@ -13,9 +13,13 @@ Page({
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
+    let shopMod = wx.getStorageSync('shopMod')
+    if (!shopMod) {
+      shopMod = 0
+    }
     const app_show_pic_version = wx.getStorageSync('app_show_pic_version')
     if (app_show_pic_version && app_show_pic_version == CONFIG.version) {
-      if (CONFIG.shopMod) {
+      if (shopMod==1) {
         wx.redirectTo({
           url: '/pages/shop/select',
         });
@@ -30,7 +34,7 @@ Page({
         type: 'app'
       }).then(function (res) {
         if (res.code == 700) {
-          if (CONFIG.shopMod) {
+          if (shopMod==1) {
             wx.redirectTo({
               url: '/pages/shop/select',
             });
@@ -46,7 +50,7 @@ Page({
           });
         }
       }).catch(function (e) {
-        if (CONFIG.shopMod) {
+        if (shopMod==1) {
           wx.redirectTo({
             url: '/pages/shop/select',
           });
@@ -68,12 +72,16 @@ Page({
     })
   },
   goToIndex: function (e) {
+    let shopMod = wx.getStorageSync('shopMod')
+    if (!shopMod) {
+      shopMod = 0
+    }
     if (app.globalData.isConnected) {
       wx.setStorage({
         key: 'app_show_pic_version',
         data: CONFIG.version
       })
-      if (CONFIG.shopMod) {
+      if (shopMod == 1) {
         wx.redirectTo({
           url: '/pages/shop/select',
         });

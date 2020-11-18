@@ -1,76 +1,7 @@
-.container {
-  background-color: #f2f2f2;
-}
-
-.address-list {
-  width: 100%;
-  background-color: #fff;
-  margin-top: 20rpx;
-  padding-bottom: 100rpx;
-}
-
-.address-list .a-address {
-  width: 720rpx;
-  margin-left: 30rpx;
+.list {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30rpx 0;
-  border-bottom: 1rpx solid #eee;
-}
-
-.a-address .left-text {
-  width: 610rpx;
-  box-sizing: border-box;
-}
-
-.a-address .left-text .name-tel {
-  margin-bottom: 20rpx;
-}
-
-.a-address .left-text .address-box {
-  font-size: 24rpx;
-  color: #888;
-  line-height: 36rpx;
-}
-
-.a-address .right-edit {
-  width: 72rpx;
-}
-.a-address .right-edit image {
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.bottom-box {
-  position: fixed;
-  width: 100vw;
-  bottom: 0;
-  font-size: 28rpx;
-  color: #333;
-  border-top: 1rpx solid #eee;
-  height: 100rpx;
-  background: #fff;
-  line-height: 100rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.bottom-box .next {
-  margin-right: 32rpx;
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.bottom-box .add-btn {
-  display: flex;
-  align-items: center;
-  margin-left: 32rpx;
-}
-.bottom-box .add-btn image {
-  width: 40rpx;
-  height: 40rpx;
-}
-.bottom-box .add-btn view {
-  margin-left: 16rpx;
+  padding-right: 32rpx;
+  border-bottom: solid 2rpx #eeeeee;
 }

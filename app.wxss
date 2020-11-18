@@ -62,3 +62,19 @@
 .vw100 {
   width: 100vw !important;
 }
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+}
+.block-btn {
+  padding: 0 32rpx;
+}
+
+.safe-bottom-box {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) / 2);
+  left: 0;
+  width: 100vw;
+}

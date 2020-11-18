@@ -4,10 +4,10 @@ const AUTH = require('../../utils/auth')
 const app = getApp()
 Page({
   data: {
-    addressList: []
-  },
 
+  },
   selectTap: function(e) {
+    console.log(e);
     var id = e.currentTarget.dataset.id;
     WXAPI.updateAddress({
       token: wx.getStorageSync('token'),
@@ -25,6 +25,8 @@ Page({
   },
 
   editAddess: function(e) {
+    console.log(e);
+    
     wx.navigateTo({
       url: "/pages/address-add/index?id=" + e.currentTarget.dataset.id
     })
@@ -37,37 +39,45 @@ Page({
       if (isLogined) {
         this.initShippingAddress();
       } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              wx.navigateBack()
-            }
-          }
-        })
+        AUTH.openLoginDialog()
       }
     })
   },
-  initShippingAddress: function() {
-    var that = this;
-    WXAPI.queryAddress(wx.getStorageSync('token')).then(function(res) {
-      if (res.code == 0) {
-        that.setData({
-          addressList: res.data
-        });
-      } else if (res.code == 700) {
-        that.setData({
-          addressList: null
-        });
-      }
+  async initShippingAddress() {
+    wx.showLoading({
+      title: '',
     })
-  }
-
+    const res = await WXAPI.queryAddress(wx.getStorageSync('token'))
+    wx.hideLoading({
+      success: (res) => {},
+    })
+    if (res.code == 0) {
+      this.setData({
+        addressList: res.data
+      });
+    } else if (res.code == 700) {
+      this.setData({
+        addressList: null
+      });
+    } else {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+    }
+  },
+  onPullDownRefresh() {
+    this.initShippingAddress()
+    wx.stopPullDownRefresh()
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
 })

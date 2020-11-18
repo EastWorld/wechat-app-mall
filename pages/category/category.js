@@ -8,6 +8,7 @@ Page({
    */
   data: {
     categories: [],
+    activeCategory: 0,
     categorySelected: {
       name: '',
       id: ''
@@ -82,45 +83,24 @@ Page({
       currentGoods: res.data
     });
   },
-  toDetailsTap: function(e) {
-    wx.navigateTo({
-      url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
-    })
-  },
-  onCategoryClick: function(e) {
-    var that = this;
-    var id = e.target.dataset.id;
-    if (id === that.data.categorySelected.id) {
-      that.setData({
+  onCategoryClick(e) {
+    const idx = e.target.dataset.idx
+    if (idx == this.data.activeCategory) {
+      this.setData({
         scrolltop: 0,
       })
-    } else {
-      var categoryName = '';
-      for (var i = 0; i < that.data.categories.length; i++) {
-        let item = that.data.categories[i];
-        if (item.id == id) {
-          categoryName = item.name;
-          break;
-        }
-      }
-      that.setData({
-        categorySelected: {
-          name: categoryName,
-          id: id
-        },
-        scrolltop: 0
-      });
-      that.getGoodsList();
+      return
     }
-  },
-  bindinput(e) {
     this.setData({
-      inputVal: e.detail.value
-    })
+      activeCategory: idx,
+      categorySelected: this.data.categories[idx],
+      scrolltop: 0
+    });
+    this.getGoodsList();
   },
   bindconfirm(e) {
     this.setData({
-      inputVal: e.detail.value
+      inputVal: e.detail
     })
     wx.navigateTo({
       url: '/pages/goods/list?name=' + this.data.inputVal,
@@ -361,5 +341,8 @@ Page({
       return;
     }
     AUTH.register(this);
+  },
+  onReachBottom: function() {
+    
   },
 })

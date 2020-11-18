@@ -18,6 +18,7 @@ page {
 }
 .goods-container {
   flex: 1;
+  height: 100%;
 }
 
 .medium-category {

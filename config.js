@@ -1,5 +1,5 @@
 module.exports = {
-  version: '9.3.0',
-  note: '美化商品分类页面', // 这个为版本描述，无需修改
+  version: '9.3.1',
+  note: '分类滚动bug', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
 }

@@ -1,1 +1,18 @@
-@import "/template/login/index.wxss";
+.todo-dot-bottom {
+  color: red !important;
+}
+.zwqd-box {
+  text-align: center;
+  margin: auto;
+  margin-top: 32rpx;
+}
+.zwqd-box image {
+  width: 140rpx;
+  height: 140rpx;
+  margin: auto;
+}
+.zwqd-box view {
+  margin-top: 16rpx;
+  color: #999;
+  font-size: 26rpx;
+}

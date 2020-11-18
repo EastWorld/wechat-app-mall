@@ -1,6 +1,14 @@
-<view class="calendar-wrap">
-   <calendar bind:afterTapDay="afterTapDay"></calendar>
+<van-calendar
+  show-title="{{ false }}"
+  poppable="{{ false }}"
+  min-date="{{ minDate }}"
+  max-date="{{ maxDate }}"
+  show-confirm="{{ false }}"
+  formatter="{{ formatter }}"
+/>
+<view class="zwqd-box">
+   <image src="/images/zw.png" bindtap="sign"></image>
+   <view>点击签到</view>
 </view>
 
-<import src="/template/login/index.wxml" />
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

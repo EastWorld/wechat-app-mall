@@ -53,11 +53,11 @@ master 主线版本（8.x）为主力开发版本，激进的朋友可以选择�
 
 - [WeUI](https://github.com/Tencent/weui-wxss/)
 
+- [vant-weapp](https://youzan.github.io/vant-weapp)
+
 - [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/Parser)
 
 - [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
-
-- [每日签到日历控件 wx_calendar](https://github.com/treadpit/wx_calendar)
 
 底部ICON图标使用：
 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=13163

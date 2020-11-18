@@ -2,98 +2,83 @@ const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    wxlogin: true,
+    minDate: new Date().getTime(),
+    maxDate: new Date().getTime(),
+    formatter(day) {
+      return day;
+    },
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
-
+    this.scoreSignLogs()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function() {
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
-      if (isLogined) {
-        this.doneShow();
+      if (!isLogined) {
+        AUTH.openLoginDialog()
       }
     })
   },
-  doneShow: function() {
-    setTimeout(() => {
-      this.calendar.jump()
-    }, 1000)
-    WXAPI.scoreSignLogs({
+  async scoreSignLogs() {
+    const res = await WXAPI.scoreSignLogs({
       token: wx.getStorageSync('token')
-    }).then(res => {
-      if (res.code == 0) {
-        res.data.result.forEach(ele => {
-          const _data = ele.dateAdd.split(" ")[0]
-          this.calendar.setTodoLabels({
-            pos: 'bottom',
-            dotColor: '#40',
-            days: [{
-              year: parseInt(_data.split("-")[0]),
-              month: parseInt(_data.split("-")[1]),
-              day: parseInt(_data.split("-")[2]),
-              todoText: '已签到'
-            }],
-          });
-        })
-      }
     })
-  },
-  afterTapDay(e) {
-    // 不是今天，直接 return 
-    const myDate = new Date();
-    // console.log('y:', myDate.getFullYear())
-    // console.log('m:', myDate.getMonth() + 1)
-    // console.log('d:', myDate.getDate())
-    if (myDate.getFullYear() != e.detail.year ||
-      (myDate.getMonth() + 1) != e.detail.month ||
-      myDate.getDate() != e.detail.day) {
-      return
-    }
-    if (e.detail.showTodoLabel) {
-      wx.showToast({
-        title: '今天已签到',
-        icon: 'none'
+    if (res.code == 0) {
+      this.setData({
+        scoreSignLogs: res.data.result,
+        formatter(day) {
+          const _log = res.data.result.find(ele => {
+            const year = day.date.getYear() + 1900
+            let month = day.date.getMonth() + 1
+            month = month + ''
+            if (month.length == 1) {
+              month = '0' + month
+            }
+            let date = day.date.getDate() + ''
+            if (date.length == 1) {
+              date = '0' + date
+            }
+            return ele.dateAdd.indexOf(`${year}-${month}-${date}`) == 0
+          })
+          if (_log) {
+            day.bottomInfo = '已签到'
+          }
+          return day;
+        }
       })
-      return
     }
-    WXAPI.scoreSign(wx.getStorageSync('token')).then(r => {
+  },
+  async sign() {
+    const res = await WXAPI.scoreSign(wx.getStorageSync('token'))
+    if (res.code == 10000) {
       wx.showToast({
         title: '签到成功',
+        icon: 'success'
+      })
+      this.scoreSignLogs()
+      return
+    }
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
         icon: 'none'
       })
-      this.calendar.setTodoLabels({
-        pos: 'bottom',
-        dotColor: '#40',
-        days: [{
-          year: e.detail.year,
-          month: e.detail.month,
-          day: e.detail.day,
-          todoText: '已签到'
-        }],
-      });
-    })
-  }
+    } else {
+      wx.showToast({
+        title: '签到成功',
+        icon: 'success'
+      })
+      this.scoreSignLogs()
+    }
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
+      })
+      return;
+    }
+    AUTH.register(this);
+  },
 })

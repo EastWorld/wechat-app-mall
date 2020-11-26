@@ -1,6 +1,4 @@
-<view wx:if="{{invoiceList.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
-</view>
+<van-empty wx:if="{{invoiceList.length <= 0}}" description="暂无开票信息" />
 <view wx:else class="weui-panel weui-panel_access">
   <view class="weui-panel__bd">
     <view wx:for="{{invoiceList}}" wx:key="*this" class="weui-media-box weui-media-box_text">

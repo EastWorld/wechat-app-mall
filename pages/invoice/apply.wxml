@@ -1,44 +1,47 @@
-<view class="form">
-  <form bindsubmit="bindSave">
-    <view class="title hasRight">
-      <view>发票填写</view>
-      <view class="import" bindtap="chooseInvoiceTitle">读取微信开票信息</view>
-    </view>
-    <view class="input">
-      <view>工厂账号</view>
-      <input name='mobile' type="text" placeholder="api工厂注册的手机号码" placeholder-class="placeholder" />
-    </view>
-    <view class="input">
-      <view>发票抬头</view>
-      <input name='comName' type="text" placeholder="公司名称" placeholder-class="placeholder" value="{{wxInvoiceInfo.title}}" />
-    </view>
-    <view class="input">
-      <view>税号</view>
-      <input name='tfn' type="text" placeholder="填写税号" placeholder-class="placeholder" value="{{wxInvoiceInfo.taxNumber}}" />
-    </view>
-    <view class="input">
-      <view>发票内容</view>
-      <input name='consumption' value="服务费" type="text" placeholder="开票项目说明" placeholder-class="placeholder" />
-    </view>
-    <view class="input">
-      <view>发票金额</view>
-      <input name='amount' type="digit" placeholder="申请开票金额" placeholder-class="placeholder" />
-    </view>
-    <view class="input">
-      <view>地址与电话</view>
-      <input name='address' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" value="{{wxInvoiceInfo.companyAddress}}{{wxInvoiceInfo.telephone}}" />
-    </view>
-    <view class="input">
-      <view>开户行与账号</view>
-      <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" />
-    </view>
-    <view class="input">
-      <view>备注</view>
-      <input name='remark' type="text" placeholder="如有特殊说明，请告诉我们" placeholder-class="placeholder" />
-    </view>
-    <button class="save-btn" formType="submit">申请发票</button>
-  </form>
-</view>
-
+<form bindsubmit="bindSave">
+  <view class="form">
+      <view class="title hasRight">
+        <view>发票填写</view>
+        <view class="import" bindtap="chooseInvoiceTitle">读取微信开票信息</view>
+      </view>
+      <view class="input">
+        <view>工厂账号</view>
+        <input name='mobile' type="text" placeholder="api工厂注册的手机号码" placeholder-class="placeholder" />
+      </view>
+      <view class="input">
+        <view>发票抬头</view>
+        <input name='comName' type="text" placeholder="公司名称" placeholder-class="placeholder" value="{{wxInvoiceInfo.title}}" />
+      </view>
+      <view class="input">
+        <view>税号</view>
+        <input name='tfn' type="text" placeholder="填写税号" placeholder-class="placeholder" value="{{wxInvoiceInfo.taxNumber}}" />
+      </view>
+      <view class="input">
+        <view>发票内容</view>
+        <input name='consumption' value="服务费" type="text" placeholder="开票项目说明" placeholder-class="placeholder" />
+      </view>
+      <view class="input">
+        <view>发票金额</view>
+        <input name='amount' type="digit" placeholder="申请开票金额" placeholder-class="placeholder" />
+      </view>
+      <view class="input">
+        <view>地址与电话</view>
+        <input name='address' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" value="{{wxInvoiceInfo.companyAddress}}{{wxInvoiceInfo.telephone}}" />
+      </view>
+      <view class="input">
+        <view>开户行与账号</view>
+        <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" />
+      </view>
+      <view class="input">
+        <view>备注</view>
+        <input name='remark' type="text" placeholder="如有特殊说明，请告诉我们" placeholder-class="placeholder" />
+      </view>
+  </view>
+  <view class="block-btn">
+    <van-button type="primary" block form-type="submit">申请发票</van-button>
+    <van-cell custom-class="go-list" title="申请开票记录" value="查询" is-link url="/pages/invoice/list" />
+  </view>
+  
+</form>
 <import src="/template/login/index.wxml" />
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

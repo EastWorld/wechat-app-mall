@@ -47,19 +47,7 @@ page {
   line-height: 90rpx;
 }
 .save-btn {
-  position: fixed;
-  left: 24rpx;
-  bottom: 32rpx;
-  width: 702rpx;
-  height: 98rpx;
-  background: #FEB21C;
-  border-radius: 49rpx;
-  text-align: center;
-  font-family: PingFangSC-Medium;
-  font-size: 32rpx;
-  color: #FFFFFF;
-  letter-spacing: 0;
-  line-height: 98rpx;
+  margin: 164rpx 32rpx;
 }
 .hasRight {
   display: flex;
@@ -69,4 +57,7 @@ page {
   margin-right: 32rpx;
   font-size:26rpx;
   color: #e64340;
+}
+.go-list {
+  margin-top: 24rpx;
 }

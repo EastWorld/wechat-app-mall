@@ -30,7 +30,7 @@
       </radio-group>
     </view>
     <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
-      <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" is-link />
+      <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
     </picker>
     <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
     <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
@@ -52,13 +52,21 @@
     <van-field
       wx:if="{{peisongType == 'zq'}}"
       size="large"
-      model:value="{{ mobile }}"
-      label="联系电话"
-      type="number"
+      model:value="{{ name }}"
+      label="联系人"
       focus
       clearable
       required
-      border="{{false}}"
+      placeholder="请输入联系人"
+    />
+    <van-field
+      wx:if="{{peisongType == 'zq'}}"
+      size="large"
+      model:value="{{ mobile }}"
+      label="联系电话"
+      type="number"
+      clearable
+      required
       placeholder="请输入手机号码">
       <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">重新获取</van-button>
     </van-field>

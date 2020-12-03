@@ -187,17 +187,30 @@ Page({
         })
         return;
       }
-      if(postData.peisongType == 'zq' && !this.data.mobile) {
-        wx.showToast({
-          title: '请填写手机号码',
-          icon: 'none'
-        })
-        return;
+      const extJsonStr = {}
+      if(postData.peisongType == 'zq') {
+        if(!this.data.name) {
+          wx.showToast({
+            title: '请填写联系人',
+            icon: 'none'
+          })
+          return;
+        }
+        if(!this.data.mobile) {
+          wx.showToast({
+            title: '请填写联系电话',
+            icon: 'none'
+          })
+          return;
+        }
+        extJsonStr['联系人'] = this.data.name
+        extJsonStr['联系电话'] = this.data.mobile
       }
       if(postData.peisongType == 'zq' && this.data.shops) {
         postData.shopIdZt = this.data.shops[this.data.shopIndex].id
         postData.shopNameZt = this.data.shops[this.data.shopIndex].name
       }
+      postData.extJsonStr = JSON.stringify(extJsonStr)
     }
 
     WXAPI.orderCreate(postData).then(function (res) {

@@ -268,7 +268,7 @@ Page({
     const balance = this.data.balance
     if (balance || res.data.amountReal*1 == 0) {
       // 有余额
-      const money = res.data.amountReal * 1 - balance*1
+      const money = (res.data.amountReal * 1 - balance*1).toFixed(2)
       if (money <= 0) {
         // 余额足够
         wx.showModal({

@@ -1,0 +1,49 @@
+<view class="container">
+  <TRTCCalling wx:if="{{ config }}" id="TRTCCalling-component" class="trtc-calling {{callingFlag ? '' : 'hidden'}}" config="{{config}}" pusherAvatar="{{pusherAvatar}}" remoteAvatar="{{inviter.avatar}}"></TRTCCalling>
+  <view wx:if="{{incomingCallFlag}}" class="incoming-call">
+    <image src="/images/trtc/avatar1_100.png" />
+    <view class="tips">{{invitation.inviter}}</view>
+    <view class="tips" >{{'邀请你' + (invitation.type === 1 ? '语音' : '视频') + '通话'}}</view>
+    <view class="btn-operate">
+      <view class="call-operate" style="background-color: red" bindtap="handleOnReject">
+        <image src="/images/trtc/hangup.png" />
+      </view>
+      <view class="call-operate" style="background-color: #07c160" bindtap="handleOnAccept">
+        <image src="/images/trtc/hangup.png" style="transform: rotate(-135deg); "/>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{inviteCallFlag}}" class="invite-call">
+    <image src="/images/trtc/avatar1_100.png" />
+    <view class="tips" >{{'等待' + uid + '接受邀请'}}</view>
+    <view class="btn-operate">
+      <view class="call-operate" style="background-color: red" bindtap="handleOnCancel">
+        <image src="/images/trtc/hangup.png" />
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{!incomingCallFlag}}" class="trtc-calling-index">
+    <view class="trtc-calling-index-title">
+      <van-icon custom-class="btn-goback" name="arrow-left" bind:click="onBack" />
+      <view class="trtc-calling-index-title title">视频客服</view>
+    </view>
+    <view class="input">
+      <van-cell-group>
+        <van-field
+          label="用户编号"
+          model:value="{{ uid }}"
+          placeholder="请输入用户编号"
+          type="number"
+          clearable
+        />
+      </van-cell-group>
+      <view class="btn">
+        <van-button type="primary" block bind:click="call">立即呼叫</van-button>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

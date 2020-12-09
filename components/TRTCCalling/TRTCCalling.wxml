@@ -1,0 +1,17 @@
+<import src="./template/audio-template/audio-template"></import>
+<import src="./template/video-template/video-template"></import>
+
+<view class="TRTCCaling-container">
+  <view wx:if="{{config.type === 1 && active}}" class="TRTCCalling-call-audio">
+    <!-- 语音通话 以下为语音通话模版 您可以根据您业务需求进行扩展，此处仅进行基础能力的展示 -->
+    <view style="width: 100%; height: 100%">
+      <template is='audio-template' data="{{streamList, pusherConfig, soundMode, _pusherStateChangeHandler, _pusherAudioVolumeNotify, _playerStateChange, _playerAudioVolumeNotify, _toggleAudio, _hangUp, _toggleSoundMode}}"></template>
+    </view>
+  </view>
+  <view wx:if="{{config.type === 2 && pusherConfig.pushUrl !== '' && active}}" class="TRTCCalling-call">
+    <!-- 视频通话 以下为视频通话模版 您可以根据您业务需求进行扩展，此处仅进行基础能力的展示-->
+    <view style="width: 100%; height: 100%">
+      <template is='video-template' data="{{streamList, pusherConfig, soundMode, _pusherStateChangeHandler, _pusherAudioVolumeNotify, _playerStateChange, _playerAudioVolumeNotify, _toggleAudio, _hangUp, _toggleSoundMode}}"></template>
+    </view>
+  </view>
+</view>

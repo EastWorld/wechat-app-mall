@@ -1222,6 +1222,9 @@ module.exports = (_module$exports = {
       token: token
     });
   },
+  trtcUserSig: function trtcUserSig(token) {
+    return request('/trtc/userSig', true, 'get', { token: token });
+  },
   peisongOrdersGrabbing: function peisongOrdersGrabbing(token) {
     return request('/peisong/order/grabbing', true, 'get', { token: token });
   },

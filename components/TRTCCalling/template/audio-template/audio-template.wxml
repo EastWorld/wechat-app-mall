@@ -1,0 +1,64 @@
+<!-- 语音通话模版占位样式 您应根据自己的业务需要进行调整 -->
+<template name="audio-template">
+    <view  class="audio-place-holder">
+        <view class="{{'TRTCCalling-call-audio-img' + streamList.length}}">
+            <image src="./static/avatar1_100.png" class="img-place-holder">
+                <view class="audio-volume">
+                <image wx:if="{{pusherConfig.volume>10}}" class="image" src="./static/micro-open.png"></image>
+                </view>
+            </image>
+        </view>
+        <view class="{{'TRTCCalling-call-audio-img' + streamList.length}}" wx:for="{{streamList}}" wx:key="userID">
+            <image src="./static/avatar2_100.png" class="img-place-holder">
+                <view class="audio-volume">
+                <image wx:if="{{item.volume>10}}" class="image" src="./static/micro-open.png"></image>
+                </view>
+            </image>
+        </view>
+        <live-pusher
+        class="pusher-audio"
+        id="pusher"
+        mode="RTC"
+        autopush="{{true}}"
+        url="{{pusherConfig.pushUrl}}"
+        audio-volume-type="voicecall"
+        enable-camera="{{false}}"
+        enable-mic="{{true}}"
+        bindstatechange="_pusherStateChangeHandler"
+        bindaudiovolumenotify="_pusherAudioVolumeNotify"
+        />
+        <view wx:for="{{streamList}}" wx:key="streamID" class="view-container player-container player-audio">
+        <live-player
+            class="player-audio" 
+            id="{{item.streamID}}"
+            data-userid="{{item.userID}}"
+            data-streamid="{{item.streamID}}"
+            data-streamtype="{{item.streamType}}"
+            src= "{{item.src}}"
+            mode= "RTC"
+            object-fit="fillCrop"
+            autoplay= "{{true}}"
+            mute-video="{{true}}"
+            mute-audio="{{item.muteAudio}}"
+            min-cache= "0.2"
+            max-cache= "0.8"
+            sound-mode= "{{soundMode}}"
+            auto-pause-if-navigate= "{{item.autoPauseIfNavigate}}"
+            auto-pause-if-open-native= "{{item.autoPauseIfOpenNative}}"
+            bindstatechange="_playerStateChange"
+            bindaudiovolumenotify="_playerAudioVolumeNotify"
+        />
+        </view>
+    </view>
+    <view class="handle-btns">
+        <view class="btn-normal" bindtap="_toggleAudio">
+            <image class="btn-image" src="{{pusherConfig.enableMic ? './static/audio-true.png': './static/audio-false.png'}} "></image>
+        </view>
+        <view class="btn-hangup" bindtap="_hangUp">
+            <image class="btn-image" src="./static/hangup.png"></image>
+        </view>
+        <view class="btn-normal" bindtap="_toggleSoundMode">
+            <image class="btn-image" src="{{soundMode === 'ear' ? './static/phone.png': './static/speaker-true.png'}} "></image>
+        </view>
+    </view>
+</template>

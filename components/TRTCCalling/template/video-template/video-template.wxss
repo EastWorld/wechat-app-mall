@@ -1,0 +1,69 @@
+.pusher-video {
+  position: absolute;
+  right: 2vw;
+  top: 2vw;
+  width: 160px;
+  height: 200px;
+  z-index: 3;
+}
+
+.player1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f75c45;
+  z-index: 1;
+}
+
+.player2 {
+  width: 40vw;
+  height: 40vw;
+  background-color: #f75c45;
+  z-index: 1;
+}
+
+.handle-btns {
+  position: absolute;
+  z-index: 3;
+  bottom: 3vh;
+  width: 100vw;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.btn-normal {
+  width: 8vh;
+  height: 8vh;
+  box-sizing: border-box;
+  display: flex;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.btn-image{
+  width: 4vh;
+  height: 4vh;
+}
+.btn-hangup  {
+  width: 8vh;
+  height: 8vh;
+  background: #f75c45;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.TRTCCalling-call-audio {
+  width: 100%;
+  height: 100%;
+}
+
+image {
+  width: 100%;
+  height: 100%;
+}

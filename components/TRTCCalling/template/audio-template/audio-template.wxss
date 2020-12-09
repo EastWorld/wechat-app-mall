@@ -1,0 +1,92 @@
+.audio-place-holder {
+    width: 100%;
+    height: 100%;
+}
+
+.audio-place-holder .TRTCCalling-call-audio-img0 {
+  margin: 30vw 30vw;
+  width: 40vw;
+  height: 40vw;
+}
+.audio-place-holder  .TRTCCalling-call-audio-img1 {
+  display: inline-block;
+  width: 40vw;
+  height: 40vw;
+  margin-left: 6.5vw;
+  margin-top: 40vw;
+}
+
+.audio-place-holder .pusher-audio {
+  width: 0;
+  height: 0;
+}
+
+.audio-place-holder .player-audio{
+  width: 0;
+  height: 0;
+}
+
+.audio-place-holder .audio-volume {
+  position: absolute;
+  bottom: 20rpx;
+  left: 20rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.audio-place-holder .audio-active {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+}
+
+.audio-place-holder .audio-active .image{
+  position: absolute;
+  bottom: 0;
+}
+
+.audio-place-holder .img-place-holder {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+}
+
+.audio-place-holder .handle-btns {
+    position: absolute;
+    z-index: 3;
+    bottom: 3vh;
+    width: 100vw;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .audio-place-holder .btn-normal {
+    width: 8vh;
+    height: 8vh;
+    box-sizing: border-box;
+    display: flex;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  .audio-place-holder .btn-image{
+    width: 4vh;
+    height: 4vh;
+  }
+  .audio-place-holder .btn-hangup  {
+    width: 8vh;
+    height: 8vh;
+    background: #f75c45;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  

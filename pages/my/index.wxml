@@ -215,6 +215,7 @@
 </view>
 
 <van-cell title="关于我们" is-link url="/pages/about/index" />
+<van-cell title="视频客服" is-link url="/pages/videoCall/videoCall" />
 <van-cell title="帮助中心" is-link url="/pages/help/index" />
 <van-cell title="清除缓存" is-link bind:click="clearStorage" />
 <van-cell wx:if="{{apiUserInfoMap}}" title="退出登录" is-link bind:click="loginOut" />

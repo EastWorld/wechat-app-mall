@@ -39,7 +39,8 @@
     "pages/help/detail",
     "pages/help/index",
     "pages/about/index",
-    "pages/idCheck/index"
+    "pages/idCheck/index",
+    "pages/videoCall/videoCall"
   ],
   "window": {
     "backgroundTextStyle": "light",

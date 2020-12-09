@@ -1,0 +1,206 @@
+.container {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-image: url(https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png);
+	margin: 0;
+}
+  
+.trtc-calling-index {
+  width: 100vw;
+  height: 100vh;
+  color: white;
+}
+  
+.trtc-calling-index-title {
+	position: relative;
+	display: flex;
+	width: 100%;
+	margin-top: 3.8vh;
+	justify-content: center;
+}
+
+.trtc-calling-index-title .title {
+	margin: 0;
+	font-family: PingFangSC-Regular;
+	font-size: 16px;
+	color: #FFFFFF;
+	letter-spacing: 0;
+	line-height: 36px;
+	padding: 1.2vh;
+}
+
+.btn-goback{
+	position: absolute;
+	left: 2vw;
+	top: 1.2vh;
+	width: 8vw;
+	height: 8vw;
+	z-index: 9;
+}
+
+.trtc-calling-index-search {
+	margin: 0;
+}
+
+.trtc-calling-index-search > .search {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.btn-search {
+	text-align: center;
+	width: 60px;
+	height: 40px;
+	margin-right: 5%;
+	z-index: 999;
+	line-height: 40px;
+	border-left: 1px solid rgba(255, 255, 255, 0.11);
+	background-image: linear-gradient(155deg, #0D2C5B 7%, #122755 93%);
+	font-size: 14px;
+}
+
+.search-result {
+	width: 90%;
+	height: 40px;
+	margin-left: 5%;
+}
+
+.input-search-user {
+	margin-left: 5%;
+	width: 90%;
+	height: 40px;
+	background-image: linear-gradient(155deg, #0D2C5B 7%, #122755 93%);
+	border: 0 solid #0062E3;
+	border-radius: 3px;
+	border-radius: 3px;
+}
+
+.user-to-call {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 50px;
+	margin: 0;
+}
+
+.user-to-call > .userinfo-avatar {
+	height: 50px;
+	width: 50px;
+}
+
+.userinfo-userid {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+
+.btn-userinfo-call {
+	height: 30px;
+	line-height: 30px;
+	margin: 10px 0;
+	background-color: #0062E3;
+	color: rgba(255, 255, 255);
+	width: 15%;
+	text-align: center;
+	border-radius: 10%;
+}
+
+.hidden {
+	display: none;
+}
+
+.trtc-calling {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-image: url(https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png);
+	margin: 0;
+	z-index: 99;
+}
+
+.user-to-call > image {
+	height: 50px;
+	line-height: 50px;
+	border-radius:50px
+}
+
+.title-number {
+	height: 20px;
+	margin-top: 3%;
+	padding: 5px 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.11);
+	font-size: 12px;
+}
+
+
+.incoming-call {
+	width: 100vw;
+	height: 100vh;
+}
+
+.btn-operate {
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	bottom: 5vh;
+	width: 100%;
+}
+
+.call-operate {
+	width: 15vw;
+	height: 15vw;
+	border-radius: 15vw;
+	padding: 5px;
+	margin: 0 15vw;
+}
+
+.tips {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: seashell;
+}
+
+.invite-call {
+	background-image: url(https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png);
+	position: absolute;
+	top: 0;
+	z-index: 100;
+	width: 100vw;
+	height: 100vh;
+}
+
+.invite-call > .btn-operate{
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	bottom: 5vh;
+	width: 100%;
+}
+
+.incoming-call > image {
+	width: 40vw;
+	height: 40vw;
+	display: block;
+	margin: 20vw 30vw;
+	margin-top: 40vw;
+}
+
+.invite-call > image {
+	width: 40vw;
+	height: 40vw;
+	display: block;
+	margin: 20vw 30vw;
+	margin-top: 40vw;
+}
+.input {
+	width: 100vw;
+	margin-top: 88rpx;
+}
+.btn {
+	padding: 32rpx 0;
+}

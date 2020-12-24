@@ -68,6 +68,30 @@
       <view class='text'>售后</view>
     </view>
   </view>
+  <block wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}">
+    <view class="space"></view>
+    <view class="menu-item">
+      <view class="l">工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})</view>
+      <van-switch checked="{{ memberChecked }}" bind:change="memberCheckedChange" />
+    </view>
+    <view class="line"></view>
+    <navigator url="/pages/peisong/orders">
+      <view class="menu-item">
+        <view class="l hongdian-box">配送订单<view wx:if="{{peisongOrderNumber}}" class="hongdian">{{peisongOrderNumber}}</view></view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </navigator>
+    <block wx:if="{{apiUserInfoMap.peisongMember.type == 2}}">
+      <view class="line"></view>
+      <navigator url="/pages/peisong/orders?status=1">
+        <view class="menu-item">
+          <view class="l hongdian-box">待分配订单<view wx:if="{{peisongOrderNumber2}}" class="hongdian">{{peisongOrderNumber2}}</view></view>
+          <image class="next" src="/images/icon/next.png"></image>
+        </view>
+      </navigator>
+    </block>
+    <view class="space"></view>
+  </block>
   <view wx:if="{{canHX}}" class="line"></view>
   <view wx:if="{{canHX}}" class="menu-item" bindtap="scanOrderCode">
     <view class="l">扫码核销</view>

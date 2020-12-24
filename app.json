@@ -40,7 +40,9 @@
     "pages/help/index",
     "pages/about/index",
     "pages/idCheck/index",
-    "pages/videoCall/videoCall"
+    "pages/videoCall/videoCall",
+    "pages/peisong/detail",
+    "pages/peisong/orders"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -115,7 +117,8 @@
     "van-sticky": "@vant/weapp/sticky/index",
     "van-dialog": "@vant/weapp/dialog/index",
     "van-swipe-cell": "@vant/weapp/swipe-cell/index",
-    "van-calendar": "@vant/weapp/calendar/index"
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-switch": "@vant/weapp/switch/index"
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -76,6 +76,16 @@
           <input name="mobile" class="weui-input" type="number" placeholder="填写手机号码" value="{{addressData.mobile}}" />
         </view>
       </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">选择定位</view>
+        </view>
+        <view class="weui-cell__bd" bindtap="chooseLocation">
+          <view class="weui-select weui-select_in-select-after">
+            {{ addressData.latitude ? (addressData.latitude + ',' + addressData.longitude) : '请选择' }}
+          </view>
+        </view>
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <view class="weui-label">详细地址</view>

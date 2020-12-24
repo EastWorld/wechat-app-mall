@@ -1,0 +1,6 @@
+<van-empty wx:if="{{ !orderList }}" description="暂无订单" />
+<van-cell title-width="520rpx;" wx:for="{{orderList}}" wx:key="index" title="{{item.orderNumber}}" label="下单时间: {{item.dateAdd}}" value="{{item.statusStr}}" is-link	url="/pages/peisong/detail?peisongOrderId={{item.id}}" />
+
+
+<!-- <view class="remark" style="color:#333">{{item.address}} {{item.r1}}</view>
+<view class="remark" wx:if="{{item.remark && item.remark != ''}}">{{item.remark}}</view> -->

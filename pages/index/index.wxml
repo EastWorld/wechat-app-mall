@@ -1,5 +1,5 @@
-<navigator url="/pages/shop/select">
-  <view wx:if="{{shopInfo}}" class="shops-container">
+<navigator wx:if="{{shopInfo}}" url="/pages/shop/select">
+  <view class="shops-container">
     <view class="l">
       <image src="/images/order-details/icon-address.png"></image>
       <text>{{shopInfo.name}}</text>

@@ -1,0 +1,160 @@
+<view class="container">
+  <view class="sec-wrap">    
+    <block wx:if="{{orderDetail.logistics}}">      
+      <view class="wuliu-box">
+        <view class="icon-box">
+          <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
+        </view>
+        <view class="right-text">
+          <view class="order-number">配送订单：{{orderDetail.logistics.trackingNumber}}</view>
+          <!-- <view class="wuliu-text">服务地址</view> -->
+        </view>
+      </view>
+      <view class="address-sec" bindtap="goMap">
+        <view class="icon-box">
+          <image class="icon" src="/images/order-details/icon-address.png"></image>
+        </view>
+        <view class="right-box">
+          <view class="text">
+            {{orderDetail.logistics.address}}
+            <view class="item" wx:for="{{orderDetail.extJson}}" wx:for-index='key' wx:key="index">
+              <text class="n" style="font-weight:bold;">{{ key }}: </text>
+              <text class="v">{{ item }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="vant-contaner">
+    <van-cell-group title="顾客信息">
+      <van-cell title="姓名" value="{{orderDetail.logistics.linkMan}}" />      
+      <van-cell title="手机" value="{{orderDetail.logistics.mobile}}" bindtap="callMobile2" />      
+    </van-cell-group>
+  </view>
+  <view wx:if="{{orderDetail.peisongMember}}" class="vant-contaner">
+    <van-cell-group title="服务人员">
+      <van-cell title="姓名" value="{{orderDetail.peisongMember.name}}" />      
+      <van-cell title="手机" value="{{orderDetail.peisongMember.mobile}}" bindtap="callMobile" />         
+      <van-cell wx:if="{{orderDetail.peisongOrderInfo.estimatedCompletionTime}}" title="预计完成时间" value="{{orderDetail.peisongOrderInfo.estimatedCompletionTime}}" /> 
+    </van-cell-group>
+  </view>
+  <view class="goods-list">
+    <view class="list-title">服务内容</view>
+    <form bindsubmit="submitReputation" report-submit="true">
+      <block wx:for="{{orderDetail.goods}}" wx:key="id">
+        <navigator url="/pages/goods-details/index?id={{item.goodsId}}">
+          <view class="a-goods">
+            <view class="img-box">
+              <image src="{{item.pic}}" class="img" />
+            </view>
+            <view class="text-box">
+              <view class="arow arow01">
+                <view class="goods-name">{{item.goodsName}}</view>
+                <view class="goods-price">¥ {{item.amount}}</view>
+              </view>
+              <view class="arow">
+                <view class="goods-label">{{item.property}}</view>
+                <view class="goods-num">x {{item.number}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>        
+      </block>      
+    </form>
+    <block wx:if="{{orderDetail.orderInfo.refundStatus == 1}}">
+      <view class="btn-row">
+        <van-button type="danger" block disabled>客户已申请退款</van-button>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="btn-row" wx:if="{{!peisongOrderDetail}}">
+        <van-field
+          type="text"
+          clearable
+          required
+          placeholder="填写预计完成时间，如: 12:30"
+          bind:change="estimatedCompletionTimeChange"
+        />
+        <van-button type="primary" block bind:click="peisongOrderGrab">抢单</van-button>
+      </view>
+      <view class="btn-row" wx:if="{{peisongOrderDetail.orderInfo.status==1}}">
+        <picker bindchange="bindPickerChange" value="{{membersSelectIndex}}" range="{{peisongMembers}}" range-key="showStr">
+          <van-cell title="配送员" is-link value="{{membersSelectStr}}" custom-class="select-peisong-member" />
+        </picker>
+        <van-button type="danger" block bind:click="paidan">派单</van-button>
+      </view>
+      <view class="btn-row" wx:if="{{peisongOrderDetail.orderInfo.status==2 && peisongOrderDetail.orderInfo.uid == peisongMemberInfo.id && !peisongOrderDetail.orderInfo.estimatedCompletionTime}}">
+        <van-field
+          type="text"
+          clearable
+          required
+          placeholder="填写预计完成时间，如: 12:30"
+          bind:change="estimatedCompletionTimeChange"
+        />
+        <van-button type="primary" block bind:click="estimatedCompletionTime">设置预计完成时间</van-button>
+      </view>
+      <view class="btn-row" wx:if="{{peisongOrderDetail.orderInfo.status==2 && peisongOrderDetail.orderInfo.uid == peisongMemberInfo.id && peisongOrderDetail.orderInfo.estimatedCompletionTime}}">
+        <!-- <van-uploader multiple file-list="{{ fileList }}" bind:after-read="afterRead" bind:delete="deletePic" /> -->
+        <van-button type="primary" block bind:click="startService">开始配送</van-button>
+      </view>
+      <view class="btn-row" wx:if="{{peisongOrderDetail.orderInfo.status==3 && peisongOrderDetail.orderInfo.uid == peisongMemberInfo.id}}">
+        <van-uploader multiple file-list="{{ fileList }}" bind:after-read="afterRead" bind:delete="deletePic" />
+        <van-button type="danger" block bind:click="endService">配送完成</van-button>
+      </view>
+    </block>
+  </view>
+  <view class="peisong-way" hidden="true">
+    <view class="row-box">
+      <view class="row-label">配送方式</view>
+      <view class="right-text">顺丰快递</view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">留言</view>
+      <view class="right-text">
+        <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{orderDetail.goodsCoupons}}" class="goods-info" style="margin-bottom:32rpx;">
+    <view wx:for="{{orderDetail.goodsCoupons}}" wx:key="{{item.id}}" class="row-box">
+      <view wx:if="{{item.type == 0}}" class="row-label">优惠券</view>
+      <view wx:if="{{item.type == 0}}" class="right-text">{{item.coupon}}</view>
+      <image mode="widthFix" wx:if="{{item.type == 1}}" src="{{item.coupon}}" style="max-width:100%;"></image>
+    </view>
+  </view>
+  <view class="goods-info">
+    <view class="row-box">
+      <view class="row-label">商品金额</view>
+      <view class="right-text">¥ {{orderDetail.orderInfo.amount}}</view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">配送费</view>
+      <!-- 运费 -->
+      <view class="right-text">+ ¥ {{orderDetail.orderInfo.amountLogistics}}</view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">应付总额</view>
+      <view class="right-text">¥ {{orderDetail.orderInfo.amountReal}}</view>
+    </view>
+  </view>
+  <view class="vant-contaner">
+    <van-cell-group title="服务记录">
+      <block wx:for="{{peisongOrderDetail.logs}}" wx:key="id">
+        <van-cell title="{{item.typeStr}}" value="{{item.dateAdd}}" />
+        <van-grid wx:if="{{item.type == 3 || item.type == 4}}">
+          <van-grid-item wx:for="{{item.extJson}}" wx:for-item="picpic" wx:for-index='key' wx:key="*this" use-slot>
+            <image
+              style="width: 100%; height: 90px;"
+              src="{{picpic}}"
+              mode="aspectFill"
+              bindtap="previewImage"
+              data-logid="{{item.id}}"
+              data-current="{{picpic}}"
+            />
+          </van-grid-item>
+        </van-grid>
+      </block>
+    </van-cell-group>
+  </view>
+</view>

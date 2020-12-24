@@ -108,9 +108,25 @@ Page({
         if (adminUserIds && adminUserIds.indexOf(res.data.base.id) != -1) {
           _data.isAdmin = true
         }
+        if (res.data.peisongMember && res.data.peisongMember.status == 1) {
+          _data.memberChecked = false
+        } else {
+          _data.memberChecked = true
+        }
         that.setData(_data);
       }
     })
+  },
+  async memberCheckedChange() {
+    const res = await WXAPI.peisongMemberChangeWorkStatus(wx.getStorageSync('token'))
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+    } else {
+      this.getUserApiInfo()
+    }
   },
   getUserAmount: function () {
     var that = this;

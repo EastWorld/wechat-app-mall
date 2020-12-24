@@ -97,6 +97,7 @@ var _module$exports;
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
+// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 
 var request = function request(url, needSubDomain, method, data) {
@@ -373,6 +374,13 @@ module.exports = (_module$exports = {
     return request('/shop/goods/category/info', true, 'get', { id: id });
   },
   goods: function goods(data) {
+    if (!data) {
+      data = {}
+    }
+    const shopIds = wx.getStorageSync('shopIds')
+    if (shopIds) {
+      data.shopId = shopIds
+    }
     return request('/shop/goods/list', true, 'post', data);
   },
   goodsDetail: function goodsDetail(id) {
@@ -979,6 +987,9 @@ module.exports = (_module$exports = {
   mapDistance: function mapDistance(lat1, lng1, lat2, lng2) {
     return request('/common/map/distance', false, 'get', { lat1: lat1, lng1: lng1, lat2: lat2, lng2: lng2 });
   },
+  mapDistanceNavigation: function mapDistanceNavigation(key, mode, from, to) {
+    return request('/common/map/qq/distance', false, 'post', { key: key, mode: mode, from: from, to: to });
+  },
   mapQQAddress: function mapQQAddress() {
     var location = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
     var coord_type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '5';
@@ -1208,6 +1219,9 @@ module.exports = (_module$exports = {
     return request('/wx/live/his', true, 'get', {
       roomId: roomId
     });
+  },
+  peisonFeeList: function peisonFeeList() {
+    return request('/fee/peisong/list', true, 'get');
   },
   peisongMembers: function peisongMembers(data) {
     return request('/peisong/member/list', true, 'post', data);

@@ -94,9 +94,15 @@ Page({
       }
       return
     }
-    this.setData({
-      currentGoods: res.data
-    });
+    if (this.data.page == 1) {
+      this.setData({
+        currentGoods: res.data
+      })
+    } else {
+      this.setData({
+        currentGoods: this.data.currentGoods.concat(res.data)
+      })
+    }
   },
   onCategoryClick(e) {
     const idx = e.target.dataset.idx

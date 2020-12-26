@@ -127,7 +127,7 @@ Page({
       }
     })
     const _categoryId = wx.getStorageSync('_categoryId')
-    // wx.removeStorageSync('_categoryId')
+    wx.removeStorageSync('_categoryId')
     if (_categoryId) {
       this.data.categorySelected.id = _categoryId
       this.categories();

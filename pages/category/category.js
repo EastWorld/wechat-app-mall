@@ -37,8 +37,12 @@ Page({
     let categories = [];
     let categoryName = '';
     let categoryId = '';
+    let activeCategory = 0
     if (res.code == 0) {
       if (this.data.categorySelected.id) {
+        activeCategory = res.data.findIndex(ele => {
+          return ele.id == this.data.categorySelected.id
+        })
         const _curCategory = res.data.find(ele => {
           return ele.id == this.data.categorySelected.id
         })
@@ -55,6 +59,7 @@ Page({
       }
     }
     this.setData({
+      activeCategory,
       categories: categories,
       categorySelected: {
         name: categoryName,
@@ -122,7 +127,7 @@ Page({
       }
     })
     const _categoryId = wx.getStorageSync('_categoryId')
-    wx.removeStorageSync('_categoryId')
+    // wx.removeStorageSync('_categoryId')
     if (_categoryId) {
       this.data.categorySelected.id = _categoryId
       this.categories();

@@ -33,7 +33,7 @@ Page({
   },
 
   tabClick: function(e) {
-    wx.setStorageSync("_categoryId", e.currentTarget.id)
+    wx.setStorageSync("_categoryId", e.currentTarget.dataset.id)
     wx.switchTab({
       url: '/pages/category/category',
     })

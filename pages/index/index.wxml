@@ -48,7 +48,7 @@
 </view>
 <view class="category-box">
   <view class="category-list" wx:for="{{categories}}" wx:key="id">
-    <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{item.id}}">
+    <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" data-id="{{item.id}}">
       <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
       <view class="category-title">{{item.name}}</view>
     </view>          

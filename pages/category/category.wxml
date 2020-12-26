@@ -5,7 +5,7 @@
       <van-sidebar-item wx:if="{{item.level == 1}}" id="category{{item.id}}" wx:for="{{categories}}" wx:key="id" data-idx="{{index}}" bindtap="onCategoryClick" title="{{ item.name }}" />
     </van-sidebar>
   </scroll-view>
-  <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}'>
+  <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
     <van-empty wx:if="{{!currentGoods}}" description="暂无商品" />
     <!-- 二级分类展示 -->
     <view wx:for="{{categories}}" wx:key="id" wx:if="{{item.pid == categorySelected.id}}">

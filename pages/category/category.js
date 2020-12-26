@@ -17,7 +17,9 @@ Page({
     onLoadStatus: true,
     scrolltop: 0,
 
-    skuCurGoods: undefined
+    skuCurGoods: undefined,
+    page: 1,
+    pageSize: 20
   },
   /**
    * 生命周期函数--监听页面加载
@@ -59,6 +61,7 @@ Page({
       }
     }
     this.setData({
+      page: 1,
       activeCategory,
       categories: categories,
       categorySelected: {
@@ -74,14 +77,21 @@ Page({
     })
     const res = await WXAPI.goods({
       categoryId: this.data.categorySelected.id,
-      page: 1,
-      pageSize: 100000
+      page: this.data.page,
+      pageSize: this.data.pageSize
     })
     wx.hideLoading()
     if (res.code == 700) {
-      this.setData({
-        currentGoods: null
-      });
+      if (this.data.page == 1) {
+        this.setData({
+          currentGoods: null
+        });
+      } else {
+        wx.showToast({
+          title: '没有更多了',
+          icon: 'none'
+        })
+      }
       return
     }
     this.setData({
@@ -97,6 +107,7 @@ Page({
       return
     }
     this.setData({
+      page: 1,
       activeCategory: idx,
       categorySelected: this.data.categories[idx],
       scrolltop: 0
@@ -347,7 +358,8 @@ Page({
     }
     AUTH.register(this);
   },
-  onReachBottom: function() {
-    
+  goodsGoBottom() {
+    this.data.page++
+    this.getGoodsList()
   },
 })

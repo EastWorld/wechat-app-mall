@@ -68,7 +68,7 @@
       clearable
       required
       placeholder="请输入手机号码">
-      <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">重新获取</van-button>
+      <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">自动获取</van-button>
     </van-field>
     <view class="row-box">
       <view class="row-label">备注</view>

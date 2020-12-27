@@ -57,46 +57,45 @@
   </view>
   <view class="goods-list">
     <view class="list-title">商品信息</view>
-    <form bindsubmit="submitReputation" report-submit="true">
-      <block wx:for="{{orderDetail.goods}}" wx:key="{{index}}">
-        <navigator url="/pages/goods-details/index?id={{item.goodsId}}">
-          <view class="a-goods">
-            <view class="img-box">
-              <image src="{{item.pic}}" class="img" />
-            </view>
-            <view class="text-box">
-              <view class="arow arow01">
-                <view class="goods-name">{{item.goodsName}}</view>
-                <view class="goods-price">¥ {{item.amount}}</view>
-              </view>
-              <view class="arow">
-                <view class="goods-label">{{item.property}}</view>
-                <view class="goods-num">x {{item.number}}</view>
-              </view>
-            </view>
+    <form bindsubmit="submitReputation">
+      <block wx:for="{{orderDetail.goods}}" wx:key="id">
+        <van-card
+          num="{{item.number}}"
+          price="{{item.amount}}"
+          desc="{{item.property}}"
+          title="{{item.goodsName}}"
+          thumb="{{item.pic}}"
+          thumb-link="/pages/goods-details/index?id={{item.goodsId}}"
+          centered
+          lazy-load
+        />
+        <van-cell-group wx:if="{{orderDetail.orderInfo.status==3}}" title="评价">
+          <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
+          <van-cell title="满意度">
+            <van-rate name="goodReputation{{index}}" value="{{ 5 }}" />
+          </van-cell>
+          <van-field
+            name="goodReputationRemark{{index}}"
+            value="{{ message }}"
+            type="textarea"
+            placeholder="从多个角度评价宝贝，可以帮助更多想买对人"
+            autosize
+          />
+          <view style="margin-top:16rpx;padding-left:16rpx;">
+            <van-uploader
+              accept="image"
+              multiple
+              upload-text="买家秀"
+              image-fit="aspectFill"
+              file-list="{{ picsList[index] }}"
+              data-idx="{{ index }}"
+              bind:after-read="afterPicRead"
+              bind:delete="afterPicDel"
+            />
           </view>
-        </navigator>
-        <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
-          <view class="section section_gap">
-            <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
-            <radio-group name="goodReputation{{index}}">
-              <label style="margin-right:35rpx;">
-                <radio value="2" checked/>好评</label>
-              <label style="margin-right:35rpx;">
-                <radio value="1" />中评</label>
-              <label style="margin-right:35rpx;">
-                <radio value="0" />差评</label>
-            </radio-group>
-          </view>
-          <view class="row-box" style="margin-top:35rpx">
-            <view class="row-label">备注</view>
-            <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
-            <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="非常愉快的一次购物！" />
-          </view>
-        </view>
+        </van-cell-group>
       </block>
       <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
-        <navigator style="float:right;" class="confirm-btn" target="miniProgram" app-id="wx56c8f077de74b07c" path="/open/order-comment/order-comment?appid={{appid}}&order_id={{orderDetail.orderInfo.orderNumber}}">去购物单评价</navigator>
         <button style="float:right;" class="confirm-btn" formType="submit">提交评价</button>
       </view>
     </form>

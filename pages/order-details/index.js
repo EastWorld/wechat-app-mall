@@ -61,7 +61,7 @@ Page({
           }
       })
     },
-    submitReputation: function (e) {
+    async submitReputation(e) {
       let that = this;
       let postJsonString = {};
       postJsonString.token = wx.getStorageSync('token');
@@ -73,11 +73,30 @@ Page({
         let goodReputation = e.detail.value["goodReputation" + i];
         let goodReputationRemark = e.detail.value["goodReputationRemark" + i];
 
+        if (!goodReputation) {
+          goodReputation = 0
+        } else if(goodReputation <= 1) {
+          goodReputation = 0
+        } else if(goodReputation <= 4) {
+          goodReputation = 1
+        } else {
+          goodReputation = 2
+        }
+
         let reputations_json = {};
         reputations_json.id = orderGoodsId;
         reputations_json.reputation = goodReputation;
         reputations_json.remark = goodReputationRemark;
-
+        if (this.data.picsList && this.data.picsList[i] && this.data.picsList[i].length > 0) {
+          reputations_json.pics = []
+          for (let index = 0; index < this.data.picsList[i].length; index++) {
+            const pic = this.data.picsList[i][index];
+            const res = await WXAPI.uploadFile(wx.getStorageSync('token'), pic.url)
+            if (res.code == 0) {
+              reputations_json.pics.push(res.data.url)
+            }
+          }
+        }
         reputations.push(reputations_json);
         i++;
       }
@@ -88,6 +107,28 @@ Page({
         if (res.code == 0) {
           that.onShow();
         }
+      })
+    },
+    afterPicRead(e) {
+      const idx = e.currentTarget.dataset.idx
+      let picsList = this.data.picsList
+      if (!picsList) {
+        picsList = []
+        for (let index = 0; index < this.data.orderDetail.goods.length; index++) {
+          picsList[index] = []
+        }
+      }
+      picsList[idx] = picsList[idx].concat(e.detail.file)
+      this.setData({
+        picsList
+      })
+    },
+    afterPicDel(e) {
+      const idx = e.currentTarget.dataset.idx
+      let picsList = this.data.picsList
+      picsList[idx].splice(e.detail.index, 1)
+      this.setData({
+        picsList
       })
     }
 })

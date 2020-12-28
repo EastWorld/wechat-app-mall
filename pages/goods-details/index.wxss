@@ -490,3 +490,25 @@ swiper-item image {
   font-size: 26rpx;
   color: #666;
 }
+.reputation-cell {
+  padding-bottom: 0rpx !important;
+  --cell-icon-size: 88rpx;
+}
+.reputation-cell .van-icon {
+  top: 16rpx !important;
+}
+.reputation-cell-reamrk {
+  padding-left: 96rpx;
+}
+.reputation-pics {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  background: #ffffff;
+}
+.reputation-pics image {
+  width: 207rpx;
+  height: 207rpx;
+  margin: 32rpx 0 0 32rpx;
+  border-radius: 16rpx;
+}

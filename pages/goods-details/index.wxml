@@ -188,21 +188,24 @@
       <parser html="{{goodsDetail.content}}" />
     </view>
   </view>
-  <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{!curGoodsKanjia && reputation}}">
-    <view class="label-title" style="border-bottom:1px solid #eee;">大家评价
-      <text style="color:red">（{{reputation.length}}）</text>
-    </view>
-    <view class="goods-text clearfix"  style="margin-top:15rpx;" wx:for="{{reputation}}" wx:key="id">
-      <view style="width:100rpx;float:left;">
-        <image style="width: 100rpx; height: 100rpx;" src="{{item.user.avatarUrl}}"></image>
-        <view style="text-align:center;width:100rpx;">{{item.goods.goodReputationStr}}</view>
+  <van-cell-group wx:if="{{!curGoodsKanjia && reputation}}" custom-class="vw100" title="宝贝评价">
+    <block wx:for="{{reputation}}" wx:key="id">
+      <van-cell
+        custom-class="reputation-cell"
+        icon="{{item.user.avatarUrl}}"
+        title="{{item.user.nick}}"
+        label="{{item.goods.dateReputation}}"
+        border="{{ false }}"
+      >
+        <van-rate value="{{ item.goods.goodReputation }}" color="#e64340" readonly />
+      </van-cell>
+      <van-cell wx:if="{{ item.goods.goodReputationRemark }}" title-class="reputation-cell-reamrk" title="{{item.goods.goodReputationRemark}}" />
+      <view wx:if="{{ item.reputationPics }}" class="reputation-pics">
+        <image wx:for="{{item.reputationPics}}" wx:for-item="picItem" src="{{ picItem.pic }}" mode="aspectFill" bindtap="previewImage" data-url="{{ picItem.pic }}"></image>
       </view>
-      <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
-        <view>{{item.goods.goodReputationRemark}}</view>
-        <view style="color: #B0B0B0;font-size:24rpx;">{{item.goods.dateReputation}} {{item.goods.property}}</view>
-      </view>
-    </view>
-  </view>
+      <van-cell wx:if="{{ item.goods.goodReputationReply }}" title-class="reputation-cell-reamrk" title="掌柜回复:{{item.goods.goodReputationReply}}" />
+    </block>
+  </van-cell-group>
   <view wx:if="{{curKanjiaprogress && curKanjiaprogress.helps && curKanjiaprogress.helps.length>0}}" class="weui-panel weui-panel_access" style="width:750rpx;">
     <view class="weui-panel__hd">砍价记录</view>
     <view class="weui-panel__bd">

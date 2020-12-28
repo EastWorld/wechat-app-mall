@@ -120,7 +120,9 @@
     "van-calendar": "@vant/weapp/calendar/index",
     "van-switch": "@vant/weapp/switch/index",
     "van-rate": "@vant/weapp/rate/index",
-    "van-uploader": "@vant/weapp/uploader/index"
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index"
   },
   "sitemapLocation": "sitemap.json"
 }

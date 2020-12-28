@@ -613,6 +613,15 @@ Page({
       goodsId: goodsId
     }).then(function(res) {
       if (res.code == 0) {
+        res.data.forEach(ele => {
+          if (ele.goods.goodReputation == 0) {
+            ele.goods.goodReputation = 1
+          } else if (ele.goods.goodReputation == 1) {
+            ele.goods.goodReputation = 3
+          } else if (ele.goods.goodReputation == 2) {
+            ele.goods.goodReputation = 5
+          }
+        })
         that.setData({
           reputation: res.data
         });
@@ -895,5 +904,12 @@ Page({
       icon: 'none'
     })
     console.error(e)
+  },
+  previewImage(e) {
+    const url = e.currentTarget.dataset.url
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: [url] // 需要预览的图片http链接列表
+    })
   }
 })

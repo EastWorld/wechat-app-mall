@@ -1,7 +1,4 @@
-@import "/template/login/index.wxss";
-
 .header-box {
-  background: #e64340;
   padding: 32rpx;
   display: flex;
   align-items: center;
@@ -16,7 +13,7 @@
 }
 .header-box .r {
   margin-left: 32rpx;
-  color: #EEEEEE;
+  color: #333;
   font-size: 28rpx;
 }
 
@@ -91,7 +88,7 @@ page,view,image,input {
 .order-shortcut .item .text {
   margin-top: 8rpx;
   font-size: 24rpx;
-  color: #666;
+  color: #323233;
 }
 .to-authorize{
   padding: 0rpx;
@@ -135,7 +132,7 @@ page,view,image,input {
 }
 .space {
   width: 100vw;
-  height: 16rpx;
+  height: 8rpx;
   background: #F4F5F9;
 }
 .line {

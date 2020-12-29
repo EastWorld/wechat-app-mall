@@ -45,7 +45,8 @@
     "pages/peisong/orders",
     "pages/pwd-pay/reset",
     "pages/pwd-pay/modify",
-    "pages/pwd-pay/set"
+    "pages/pwd-pay/set",
+    "pages/my/feedback"
   ],
   "window": {
     "backgroundTextStyle": "light",

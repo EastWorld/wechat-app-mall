@@ -1,0 +1,28 @@
+<van-field
+  label="姓名"
+  model:value="{{ name }}"
+  placeholder="如何称呼您"
+  clearable
+/>
+<van-field
+  label="联系电话"
+  type="number"
+  model:value="{{ mobile }}"
+  placeholder="方便我们与您联系"
+  clearable
+/>
+<van-field
+  label="微信号"
+  model:value="{{ wx }}"
+  placeholder="填写您的微信号"
+  clearable
+/>
+<van-field
+  model:value="{{ content }}"
+  placeholder="请留下您的宝贵建议或意见～"
+  type="textarea"
+  autosize="{{ autosize }}"
+/>
+<view class="block-btn btn">
+  <van-button type="primary" block bind:click="bindSave">提交反馈</van-button>
+</view>

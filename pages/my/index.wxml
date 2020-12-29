@@ -32,13 +32,7 @@
     </navigator>
   </view>
   <view class="space"></view>
-  <navigator url="/pages/order-list/index">
-    <view class="menu-item">
-      <view class="l">我的订单</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
+  <van-cell custom-class="vw100" title="我的订单" is-link url="/pages/order-list/index" />
   <view class='order-shortcut'>
     <!-- https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=2767 -->
     <view class='item' bindtap='goOrder' data-type="0">
@@ -90,144 +84,41 @@
     </block>
     <view class="space"></view>
   </block>
-  <view wx:if="{{canHX}}" class="line"></view>
-  <view wx:if="{{canHX}}" class="menu-item" bindtap="scanOrderCode">
-    <view class="l">扫码核销</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view>
-  <view class="line"></view>
-  <navigator url="/pages/maidan/index">
-    <view class="menu-item">
-      <view class="l">优惠买单</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <navigator url="/pages/asset/index">
-    <view class="menu-item">
-      <view class="l">资金明细</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <!-- flex布局的新菜单 -->
-  <!-- <view class="menu-item">
-    <view class="l">我的订单</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view>
-  <view class="space"></view>
-  <view class="line"></view>
-  <view class="menu-item">
-    <view class="l">我的订单</view>
-    <view class="r">内容</view>
-  </view>
-  <view class="line"></view>
-  <view class="menu-item">
-    <view class="l">我的订单</view>
-    <view class="r">内容</view>
-  </view> -->
-
-  <view class="space"></view>
-  <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
-    <view class="menu-item">
-      <view class="l">成为分销商</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <navigator wx:else url="/pages/fx/apply-status">
-    <view class="menu-item">
-      <view class="l">分销中心</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
-  <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/members">
-    <view class="menu-item">
-      <view class="l">销售团队</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view wx:if="{{apiUserInfoMap.base.isSeller}}" class="line"></view>
-  <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/pages/fx/commisionLog">
-    <view class="menu-item">
-      <view class="l">佣金明细</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-
-  <view class="space"></view>
-  <navigator url="/pages/invoice/apply">
-    <view class="menu-item">
-      <view class="l">申请发票</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <navigator url="/pages/invoice/list">
-    <view class="menu-item">
-      <view class="l">发票记录</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-
-  <view class="space"></view>
-  <navigator url="/pages/select-address/index">
-    <view class="menu-item">
-      <view class="l">收货地址</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <navigator url="/pages/coupons/index">
-    <view class="menu-item">
-      <view class="l">领券中心</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <navigator url="/pages/goods/fav">
-    <view class="menu-item">
-      <view class="l">我的收藏</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-
-  <view class="space"></view>
-  <navigator url="/pages/sign/index">
-    <view class="menu-item">
-      <view class="l">每日签到</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <navigator url="/pages/score-excharge/index">
-    <view class="menu-item">
-      <view class="l">积分券兑换积分</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-  <view class="line"></view>
-  <navigator url="/pages/score-excharge/growth">
-    <view class="menu-item">
-      <view class="l">积分兑换成长值</view>
-      <image class="next" src="/images/icon/next.png"></image>
-    </view>
-  </navigator>
-
-  <view class="space"></view>
 </view>
+<van-cell-group title="常用功能">
+  <van-cell wx:if="{{!canHX}}" title="扫码核销" is-link bind:click="scanOrderCode" />
+  <van-cell title="优惠买单" is-link url="/pages/maidan/index" />  
+  <van-cell title="资金明细" is-link url="/pages/asset/index" />
+  <van-cell title="申请发票" is-link url="/pages/invoice/apply" />
+  <van-cell title="发票记录" is-link url="/pages/invoice/list" />
+  <van-cell title="领券中心" is-link url="/pages/coupons/index" />
+</van-cell-group>
+<van-cell-group title="三级分销">
+  <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/pages/fx/apply-status" />
+  <van-cell wx:else title="分销中心" is-link url="/pages/fx/apply-status" />
+  <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="销售团队" is-link url="/pages/fx/members" />
+  <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="佣金明细" is-link url="/pages/fx/commisionLog" />
+</van-cell-group>
+<van-cell-group title="我的积分">
+  <van-cell title="每日签到" is-link url="/pages/sign/index" />
+  <van-cell title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
+  <van-cell title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
+</van-cell-group>
 <van-cell-group title="基本信息">
   <van-cell wx:if="{{userMobile}}" title="绑定手机" value="{{ userMobile }}" />
   <van-cell wx:else title="绑定手机" center>
     <van-button type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
   </van-cell>
+  <van-cell title="收货地址" is-link url="/pages/select-address/index" />
   <van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwd-pay/modify" />
   <van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
+  <van-cell title="我的收藏" value="设置交易密码" is-link url="/pages/goods/fav" />
 </van-cell-group>
 <van-cell-group title="客户服务">
   <van-cell title="关于我们" is-link url="/pages/about/index" />
   <van-cell title="视频客服" is-link url="/pages/videoCall/videoCall" />
   <van-cell title="帮助中心" is-link url="/pages/help/index" />
+  <van-cell title="意见反馈" is-link url="/pages/my/feedback" />
 </van-cell-group>
 <van-cell-group title="系统设置">
   <van-cell title="清除缓存" is-link bind:click="clearStorage" />

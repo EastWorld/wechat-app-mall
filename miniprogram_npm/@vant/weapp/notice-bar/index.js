@@ -69,8 +69,8 @@ component_1.VantComponent({
     init: function () {
       var _this = this;
       Promise.all([
-        this.getRect('.van-notice-bar__content'),
-        this.getRect('.van-notice-bar__wrap'),
+        utils_1.getRect(this, '.van-notice-bar__content'),
+        utils_1.getRect(this, '.van-notice-bar__wrap'),
       ]).then(function (rects) {
         var contentRect = rects[0],
           wrapRect = rects[1];
@@ -86,7 +86,7 @@ component_1.VantComponent({
           speed = _a.speed,
           scrollable = _a.scrollable,
           delay = _a.delay;
-        if (scrollable && wrapRect.width < contentRect.width) {
+        if (scrollable || wrapRect.width < contentRect.width) {
           var duration = (contentRect.width / speed) * 1000;
           _this.wrapWidth = wrapRect.width;
           _this.contentWidth = contentRect.width;

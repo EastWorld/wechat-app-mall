@@ -2,7 +2,6 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 var link_1 = require('../mixins/link');
 var component_1 = require('../common/component');
-var utils_1 = require('../common/utils');
 component_1.VantComponent({
   relation: {
     name: 'grid',
@@ -42,33 +41,7 @@ component_1.VantComponent({
         center = data.center,
         direction = data.direction,
         iconSize = data.iconSize;
-      var width = 100 / columnNum + '%';
-      var styleWrapper = [];
-      styleWrapper.push('width: ' + width);
-      if (square) {
-        styleWrapper.push('padding-top: ' + width);
-      }
-      if (gutter) {
-        var gutterValue = utils_1.addUnit(gutter);
-        styleWrapper.push('padding-right: ' + gutterValue);
-        var index = children.indexOf(this);
-        if (index >= columnNum && !square) {
-          styleWrapper.push('margin-top: ' + gutterValue);
-        }
-      }
-      var contentStyle = '';
-      if (square && gutter) {
-        var gutterValue = utils_1.addUnit(gutter);
-        contentStyle =
-          '\n          right: ' +
-          gutterValue +
-          ';\n          bottom: ' +
-          gutterValue +
-          ';\n          height: auto;\n        ';
-      }
       this.setData({
-        viewStyle: styleWrapper.join('; '),
-        contentStyle: contentStyle,
         center: center,
         border: border,
         square: square,
@@ -76,6 +49,8 @@ component_1.VantComponent({
         clickable: clickable,
         direction: direction,
         iconSize: iconSize,
+        index: children.indexOf(this),
+        columnNum: columnNum,
       });
     },
     onClick: function () {

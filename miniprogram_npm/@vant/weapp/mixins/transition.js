@@ -1,7 +1,9 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.transition = void 0;
+// @ts-nocheck
 var utils_1 = require('../common/utils');
+var validator_1 = require('../common/validator');
 var getClassNames = function (name) {
   return {
     enter:
@@ -30,7 +32,7 @@ var getClassNames = function (name) {
       '-leave-active leave-to-class leave-active-class',
   };
 };
-exports.transition = function (showDefaultValue) {
+function transition(showDefaultValue) {
   return Behavior({
     properties: {
       customStyle: String,
@@ -69,7 +71,7 @@ exports.transition = function (showDefaultValue) {
           duration = _a.duration,
           name = _a.name;
         var classNames = getClassNames(name);
-        var currentDuration = utils_1.isObj(duration)
+        var currentDuration = validator_1.isObj(duration)
           ? duration.enter
           : duration;
         this.status = 'enter';
@@ -99,7 +101,7 @@ exports.transition = function (showDefaultValue) {
           duration = _a.duration,
           name = _a.name;
         var classNames = getClassNames(name);
-        var currentDuration = utils_1.isObj(duration)
+        var currentDuration = validator_1.isObj(duration)
           ? duration.leave
           : duration;
         this.status = 'leave';
@@ -141,4 +143,5 @@ exports.transition = function (showDefaultValue) {
       },
     },
   });
-};
+}
+exports.transition = transition;

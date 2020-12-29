@@ -1,4 +1,5 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 
 <button
   id="{{ id }}"
@@ -7,7 +8,7 @@
   hover-class="van-button--active hover-class"
   lang="{{ lang }}"
   form-type="{{ formType }}"
-  style="{{ baseStyle }} {{ customStyle }}"
+  style="{{ computed.rootStyle({ plain, color }) }} {{ customStyle }}"
   open-type="{{ disabled ? '' : openType }}"
   business-id="{{ businessId }}"
   session-from="{{ sessionFrom }}"
@@ -30,7 +31,7 @@
       custom-class="loading-class"
       size="{{ loadingSize }}"
       type="{{ loadingType }}"
-      color="{{ loadingColor(type,color,plain) }}"
+      color="{{ computed.loadingColor({ type, color, plain }) }}"
     />
     <view wx:if="{{ loadingText }}" class="van-button__loading-text">
       {{ loadingText }}
@@ -50,19 +51,3 @@
     </view>
   </block>
 </button>
-
-
-<wxs module="loadingColor">
-function get(type, color,plain) {
-  if(plain) {
-    return color ? color: '#c9c9c9';
-  }
-
-  if(type === 'default') {
-    return '#c9c9c9';
-  }
-  return 'white';
-}
-
-module.exports = get;
-</wxs>

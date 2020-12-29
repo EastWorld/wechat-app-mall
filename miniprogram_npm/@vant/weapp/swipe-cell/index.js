@@ -41,6 +41,7 @@ component_1.VantComponent({
   mixins: [touch_1.touch],
   data: {
     catchMove: false,
+    wrapperStyle: '',
   },
   created: function () {
     this.offset = 0;

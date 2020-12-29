@@ -1,6 +1,6 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.canIUseFormFieldButton = exports.canIUseModel = void 0;
+exports.canIUseNextTick = exports.canIUseGroupSetData = exports.canIUseAnimate = exports.canIUseFormFieldButton = exports.canIUseModel = void 0;
 var utils_1 = require('./utils');
 function compareVersion(v1, v2) {
   v1 = v1.split('.');
@@ -34,3 +34,17 @@ function canIUseFormFieldButton() {
   return compareVersion(system.SDKVersion, '2.10.3') >= 0;
 }
 exports.canIUseFormFieldButton = canIUseFormFieldButton;
+function canIUseAnimate() {
+  var system = utils_1.getSystemInfoSync();
+  return compareVersion(system.SDKVersion, '2.9.0') >= 0;
+}
+exports.canIUseAnimate = canIUseAnimate;
+function canIUseGroupSetData() {
+  var system = utils_1.getSystemInfoSync();
+  return compareVersion(system.SDKVersion, '2.4.0') >= 0;
+}
+exports.canIUseGroupSetData = canIUseGroupSetData;
+function canIUseNextTick() {
+  return wx.canIUse('nextTick');
+}
+exports.canIUseNextTick = canIUseNextTick;

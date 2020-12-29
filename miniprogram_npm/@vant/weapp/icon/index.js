@@ -12,14 +12,7 @@ component_1.VantComponent({
       type: String,
       value: 'van-icon',
     },
-    name: {
-      type: String,
-      observer: function (val) {
-        this.setData({
-          isImageName: val.indexOf('/') !== -1,
-        });
-      },
-    },
+    name: String,
   },
   methods: {
     onClick: function () {

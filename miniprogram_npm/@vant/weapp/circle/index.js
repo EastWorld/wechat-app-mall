@@ -1,9 +1,10 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
-var utils_1 = require('../common/utils');
 var color_1 = require('../common/color');
 var canvas_1 = require('./canvas');
+var validator_1 = require('../common/validator');
+var utils_1 = require('../common/utils');
 function format(rate) {
   return Math.min(Math.max(rate, 0), 100);
 }
@@ -74,7 +75,7 @@ component_1.VantComponent({
         var ctx = wx.createCanvasContext('van-circle', this);
         return Promise.resolve(ctx);
       }
-      var dpr = wx.getSystemInfoSync().pixelRatio;
+      var dpr = utils_1.getSystemInfoSync().pixelRatio;
       return new Promise(function (resolve) {
         wx.createSelectorQuery()
           .in(_this)
@@ -98,7 +99,7 @@ component_1.VantComponent({
       var _a = this.data,
         color = _a.color,
         size = _a.size;
-      if (utils_1.isObj(color)) {
+      if (validator_1.isObj(color)) {
         return this.getContext().then(function (context) {
           var LinearColor = context.createLinearGradient(size, 0, 0, 0);
           Object.keys(color)

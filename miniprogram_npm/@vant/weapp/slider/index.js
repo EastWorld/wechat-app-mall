@@ -3,6 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
 var touch_1 = require('../mixins/touch');
 var version_1 = require('../common/version');
+var utils_1 = require('../common/utils');
 component_1.VantComponent({
   mixins: [touch_1.touch],
   props: {
@@ -54,8 +55,8 @@ component_1.VantComponent({
       }
       this.touchMove(event);
       this.dragStatus = 'draging';
-      this.getRect('.van-slider').then(function (rect) {
-        var diff = (_this.deltaX / rect.width) * 100;
+      utils_1.getRect(this, '.van-slider').then(function (rect) {
+        var diff = (_this.deltaX / rect.width) * _this.getRange();
         _this.newValue = _this.startValue + diff;
         _this.updateValue(_this.newValue, false, true);
       });
@@ -71,7 +72,7 @@ component_1.VantComponent({
       var _this = this;
       if (this.data.disabled) return;
       var min = this.data.min;
-      this.getRect('.van-slider').then(function (rect) {
+      utils_1.getRect(this, '.van-slider').then(function (rect) {
         var value =
           ((event.detail.x - rect.left) / rect.width) * _this.getRange() + min;
         _this.updateValue(value, true);

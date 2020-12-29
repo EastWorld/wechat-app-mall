@@ -102,7 +102,6 @@ component_1.VantComponent({
             : true,
         });
       });
-      console.log(lists);
       this.setData({ lists: lists, isInCount: lists.length < maxCount });
     },
     getDetail: function (index) {
@@ -116,7 +115,6 @@ component_1.VantComponent({
       var _a = this.data,
         maxCount = _a.maxCount,
         multiple = _a.multiple,
-        accept = _a.accept,
         lists = _a.lists,
         disabled = _a.disabled;
       if (disabled) return;
@@ -127,7 +125,6 @@ component_1.VantComponent({
           })
         )
         .then(function (res) {
-          console.log(res);
           _this.onBeforeRead(multiple ? res : res[0]);
         })
         .catch(function (error) {

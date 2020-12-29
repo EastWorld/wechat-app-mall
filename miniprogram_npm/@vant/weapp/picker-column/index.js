@@ -2,6 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
 var utils_1 = require('../common/utils');
+var validator_1 = require('../common/validator');
 var DEFAULT_DURATION = 200;
 component_1.VantComponent({
   classes: ['active-class'],
@@ -92,11 +93,11 @@ component_1.VantComponent({
       }
     },
     isDisabled: function (option) {
-      return utils_1.isObj(option) && option.disabled;
+      return validator_1.isObj(option) && option.disabled;
     },
     getOptionText: function (option) {
       var data = this.data;
-      return utils_1.isObj(option) && data.valueKey in option
+      return validator_1.isObj(option) && data.valueKey in option
         ? option[data.valueKey]
         : option;
     },

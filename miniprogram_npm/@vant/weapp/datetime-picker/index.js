@@ -26,11 +26,11 @@ var __spreadArrays =
   };
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
-var utils_1 = require('../common/utils');
+var validator_1 = require('../common/validator');
 var shared_1 = require('../picker/shared');
 var currentYear = new Date().getFullYear();
 function isValidDate(date) {
-  return utils_1.isDef(date) && !isNaN(new Date(date).getTime());
+  return validator_1.isDef(date) && !isNaN(new Date(date).getTime());
 }
 function range(num, min, max) {
   return Math.min(Math.max(num, min), max);
@@ -47,7 +47,9 @@ function times(n, iteratee) {
   return result;
 }
 function getTrueValue(formattedValue) {
-  if (!formattedValue) return;
+  if (formattedValue === undefined) {
+    formattedValue = '1';
+  }
   while (isNaN(parseInt(formattedValue, 10))) {
     formattedValue = formattedValue.slice(1);
   }
@@ -56,7 +58,7 @@ function getTrueValue(formattedValue) {
 function getMonthEndDay(year, month) {
   return 32 - new Date(year, month - 1, 32).getDate();
 }
-var defaultFormatter = function (_, value) {
+var defaultFormatter = function (type, value) {
   return value;
 };
 component_1.VantComponent({

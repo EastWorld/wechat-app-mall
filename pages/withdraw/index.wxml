@@ -1,15 +1,21 @@
-<view class="container">
-    <form bindsubmit="bindSave" report-submit="true">
-    <view class="form-box">
-        <view class="row-wrap">
-            <view class="label">申请提现金额</view>
-            <view class="label-right">
-                <input name="amount" class="input" type="digit" placeholder="填写提现金额"/>
-            </view>
-        </view>
-    </view>
-    <button type="warn" class="save-btn" formType="submit">申请提现</button>
-    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
-    </form>
+<van-cell title="可用余额" value="{{ balance }}" />
+<van-field
+  label="提现金额"
+  type="digit"
+  model:value="{{ amount }}"
+  placeholder="请输入本次提现金额"
+  clearable
+/>
+<van-field
+  wx:if="{{ balance_pay_pwd }}"
+  label="交易密码"
+  password
+  model:value="{{ pwd }}"
+  placeholder="请输入交易密码"
+  clearable
+/>
+<view class="block-btn btn">
+  <van-button type="primary" block bind:click="bindSave">申请提现</van-button>
 </view>
-<float-menu /> 
+
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

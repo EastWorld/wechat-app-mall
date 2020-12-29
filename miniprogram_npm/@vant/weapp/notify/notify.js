@@ -31,6 +31,9 @@ var defaultOptions = {
   onClose: function () {},
 };
 function parseOptions(message) {
+  if (message == null) {
+    return {};
+  }
   return typeof message === 'string' ? { message: message } : message;
 }
 function getContext() {

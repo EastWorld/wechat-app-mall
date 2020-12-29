@@ -1,5 +1,5 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
-<wxs src="./index.wxs" module="getters" />
+<wxs src="./index.wxs" module="computed" />
 
 <view class="custom-class {{ utils.bem('tabs', [type]) }}">
   <van-sticky
@@ -19,14 +19,14 @@
         class="{{ utils.bem('tabs__scroll', [type]) }}"
         style="{{ color ? 'border-color: ' + color : '' }}"
       >
-        <view class="{{ utils.bem('tabs__nav', [type, { complete: !ellipsis }]) }} nav-class" style="{{ getters.tabCardTypeBorderStyle(color, type) }}">
-          <view wx:if="{{ type === 'line' }}" class="van-tabs__line" style="{{ getters.lineStyle({ color, lineOffsetLeft, lineHeight, skipTransition, duration, lineWidth }) }}" />
+        <view class="{{ utils.bem('tabs__nav', [type, { complete: !ellipsis }]) }} nav-class" style="{{ computed.navStyle(color, type) }}">
+          <view wx:if="{{ type === 'line' }}" class="van-tabs__line" style="{{ computed.lineStyle({ color, lineOffsetLeft, lineHeight, skipTransition, duration, lineWidth }) }}" />
           <view
             wx:for="{{ tabs }}"
             wx:key="index"
             data-index="{{ index }}"
-            class="{{ getters.tabClass(index === currentIndex, ellipsis) }} {{ utils.bem('tab', { active: index === currentIndex, disabled: item.disabled, complete: !ellipsis }) }}"
-            style="{{ getters.tabStyle(index === currentIndex, ellipsis, color, type, item.disabled, titleActiveColor, titleInactiveColor, swipeThreshold, scrollable) }}"
+            class="{{ computed.tabClass(index === currentIndex, ellipsis) }} {{ utils.bem('tab', { active: index === currentIndex, disabled: item.disabled, complete: !ellipsis }) }}"
+            style="{{ computed.tabStyle({ active: index === currentIndex, ellipsis, color, type, disabled: item.disabled, titleActiveColor, titleInactiveColor, swipeThreshold, scrollable }) }}"
             bind:tap="onTap"
           >
             <view class="{{ ellipsis ? 'van-ellipsis' : '' }}" style="{{ item.titleStyle }}">
@@ -55,7 +55,7 @@
   >
     <view
       class="{{ utils.bem('tabs__track', [{ animated }]) }} van-tabs__track"
-      style="{{ getters.trackStyle({ duration, currentIndex, animated }) }}"
+      style="{{ computed.trackStyle({ duration, currentIndex, animated }) }}"
     >
       <slot />
     </view>

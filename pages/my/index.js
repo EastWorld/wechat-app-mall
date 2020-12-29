@@ -11,8 +11,6 @@ APP.configLoadOK = () => {
 
 Page({
 	data: {
-    wxlogin: true,
-
     balance:0.00,
     freeze:0,
     score:0,
@@ -36,13 +34,12 @@ Page({
       order_hx_uids
     })
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         _this.getUserApiInfo();
         _this.getUserAmount();
         _this.orderStatistics();
+      } else {
+        AUTH.openLoginDialog()
       }
     })
     AUTH.wxaCode().then(code => {
@@ -71,9 +68,7 @@ Page({
         this.data.code = code
       })
       if (res.code === 10002) {
-        this.setData({
-          wxlogin: false
-        })
+        AUTH.openLoginDialog()
         return
       }
       if (res.code == 0) {
@@ -177,15 +172,8 @@ Page({
       url: "/pages/order-list/index?type=" + e.currentTarget.dataset.type
     })
   },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
-    })
-  },
   goLogin() {
-    this.setData({
-      wxlogin: false
-    })
+    AUTH.openLoginDialog()
   },
   processLogin(e) {
     if (!e.detail.userInfo) {

@@ -1,6 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var animate_1 = require('./animate');
 component_1.VantComponent({
   classes: ['title-class', 'content-class'],
   relation: {
@@ -28,20 +29,14 @@ component_1.VantComponent({
   data: {
     expanded: false,
   },
-  created: function () {
-    this.animation = wx.createAnimation({
-      duration: 0,
-      timingFunction: 'ease-in-out',
-    });
-  },
   mounted: function () {
     this.updateExpanded();
-    this.inited = true;
+    this.mounted = true;
   },
   methods: {
     updateExpanded: function () {
       if (!this.parent) {
-        return Promise.resolve();
+        return;
       }
       var _a = this.parent.data,
         value = _a.value,
@@ -57,44 +52,9 @@ component_1.VantComponent({
             return name === currentName;
           });
       if (expanded !== this.data.expanded) {
-        this.updateStyle(expanded);
+        animate_1.setContentAnimate(this, expanded, this.mounted);
       }
       this.setData({ index: index, expanded: expanded });
-    },
-    updateStyle: function (expanded) {
-      var _this = this;
-      var inited = this.inited;
-      this.getRect('.van-collapse-item__content')
-        .then(function (rect) {
-          return rect.height;
-        })
-        .then(function (height) {
-          var animation = _this.animation;
-          if (expanded) {
-            if (height === 0) {
-              animation.height('auto').top(1).step();
-            } else {
-              animation
-                .height(height)
-                .top(1)
-                .step({
-                  duration: inited ? 300 : 1,
-                })
-                .height('auto')
-                .step();
-            }
-            _this.setData({
-              animation: animation.export(),
-            });
-            return;
-          }
-          animation.height(height).top(0).step({ duration: 1 }).height(0).step({
-            duration: 300,
-          });
-          _this.setData({
-            animation: animation.export(),
-          });
-        });
     },
     onClick: function () {
       if (this.data.disabled) {

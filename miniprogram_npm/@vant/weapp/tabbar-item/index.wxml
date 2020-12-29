@@ -3,19 +3,17 @@
 <view
   class="{{ utils.bem('tabbar-item', { active }) }} custom-class"
   style="color: {{ active ? activeColor : inactiveColor }}"
-  bind:tap="onClick"
+  bindtap="onClick"
 >
   <view class="van-tabbar-item__icon">
     <van-icon
       wx:if="{{ icon }}"
       name="{{ icon }}"
+      class-prefix="{{ iconPrefix }}"
       custom-class="van-tabbar-item__icon__inner"
     />
     <block wx:else>
-      <slot
-        wx:if="{{ active }}"
-        name="icon-active"
-      />
+      <slot wx:if="{{ active }}" name="icon-active" />
       <slot wx:else name="icon" />
     </block>
     <van-info

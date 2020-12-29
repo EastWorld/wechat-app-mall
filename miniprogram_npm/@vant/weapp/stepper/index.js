@@ -16,7 +16,7 @@ var __assign =
   };
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
-var utils_1 = require('../common/utils');
+var validator_1 = require('../common/validator');
 var LONG_PRESS_START_TIME = 600;
 var LONG_PRESS_INTERVAL = 200;
 // add num and avoid float number
@@ -137,7 +137,7 @@ component_1.VantComponent({
       value = value === '' ? 0 : +value;
       value = Math.max(Math.min(this.data.max, value), this.data.min);
       // format decimal
-      if (utils_1.isDef(this.data.decimalLength)) {
+      if (validator_1.isDef(this.data.decimalLength)) {
         value = value.toFixed(this.data.decimalLength);
       }
       return value;
@@ -152,7 +152,7 @@ component_1.VantComponent({
       var formatted = this.filter(value);
       // limit max decimal length
       if (
-        utils_1.isDef(this.data.decimalLength) &&
+        validator_1.isDef(this.data.decimalLength) &&
         formatted.indexOf('.') !== -1
       ) {
         var pair = formatted.split('.');

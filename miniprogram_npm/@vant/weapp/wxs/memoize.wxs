@@ -2,6 +2,7 @@
  * Simple memoize
  * wxs doesn't support fn.apply, so this memoize only support up to 2 args
  */
+/* eslint-disable */
 
 function isPrimitive(value) {
   var type = typeof value;
@@ -51,4 +52,4 @@ function memoize(fn) {
   };
 }
 
-module.exports.memoize = memoize;
+module.exports = memoize;

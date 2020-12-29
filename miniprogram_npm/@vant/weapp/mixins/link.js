@@ -16,7 +16,14 @@ exports.link = Behavior({
       }
       var url = this.data[urlKey];
       if (url) {
-        wx[this.data.linkType]({ url: url });
+        if (
+          this.data.linkType === 'navigateTo' &&
+          getCurrentPages().length > 9
+        ) {
+          wx.redirectTo({ url: url });
+        } else {
+          wx[this.data.linkType]({ url: url });
+        }
       }
     },
   },

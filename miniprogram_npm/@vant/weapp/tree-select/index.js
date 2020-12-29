@@ -67,7 +67,7 @@ component_1.VantComponent({
         mainActiveIndex = _a.mainActiveIndex;
       var _b = (items[mainActiveIndex] || {}).children,
         children = _b === void 0 ? [] : _b;
-      return this.set({ subItems: children });
+      this.setData({ subItems: children });
     },
   },
 });

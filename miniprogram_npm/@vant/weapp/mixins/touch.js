@@ -1,6 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.touch = void 0;
+// @ts-nocheck
 var MIN_DISTANCE = 10;
 function getDirection(x, y) {
   if (x > y && x > MIN_DISTANCE) {

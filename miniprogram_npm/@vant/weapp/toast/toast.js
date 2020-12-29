@@ -15,7 +15,7 @@ var __assign =
     return __assign.apply(this, arguments);
   };
 Object.defineProperty(exports, '__esModule', { value: true });
-var utils_1 = require('../common/utils');
+var validator_1 = require('../common/validator');
 var defaultOptions = {
   type: 'text',
   mask: false,
@@ -31,7 +31,7 @@ var defaultOptions = {
 var queue = [];
 var currentOptions = __assign({}, defaultOptions);
 function parseOptions(message) {
-  return utils_1.isObj(message) ? message : { message: message };
+  return validator_1.isObj(message) ? message : { message: message };
 }
 function getContext() {
   var pages = getCurrentPages();
@@ -59,7 +59,7 @@ function Toast(toastOptions) {
   queue.push(toast);
   toast.setData(options);
   clearTimeout(toast.timer);
-  if (options.duration > 0) {
+  if (options.duration != null && options.duration > 0) {
     toast.timer = setTimeout(function () {
       toast.clear();
       queue = queue.filter(function (item) {

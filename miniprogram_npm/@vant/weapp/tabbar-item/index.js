@@ -7,6 +7,10 @@ component_1.VantComponent({
     name: null,
     icon: String,
     dot: Boolean,
+    iconPrefix: {
+      type: String,
+      value: 'van-icon',
+    },
   },
   relation: {
     name: 'tabbar',
@@ -18,8 +22,13 @@ component_1.VantComponent({
   },
   methods: {
     onClick: function () {
-      if (this.parent) {
-        this.parent.onChange(this);
+      var parent = this.parent;
+      if (parent) {
+        var index = parent.children.indexOf(this);
+        var active = this.data.name || index;
+        if (active !== this.data.active) {
+          parent.$emit('change', active);
+        }
       }
       this.$emit('click');
     },
@@ -42,9 +51,9 @@ component_1.VantComponent({
       if (parentData.inactiveColor !== data.inactiveColor) {
         patch.inactiveColor = parentData.inactiveColor;
       }
-      return Object.keys(patch).length > 0
-        ? this.set(patch)
-        : Promise.resolve();
+      if (Object.keys(patch).length > 0) {
+        this.setData(patch);
+      }
     },
   },
 });

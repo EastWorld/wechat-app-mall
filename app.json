@@ -42,7 +42,10 @@
     "pages/idCheck/index",
     "pages/videoCall/videoCall",
     "pages/peisong/detail",
-    "pages/peisong/orders"
+    "pages/peisong/orders",
+    "pages/pwd-pay/reset",
+    "pages/pwd-pay/modify",
+    "pages/pwd-pay/set"
   ],
   "window": {
     "backgroundTextStyle": "light",

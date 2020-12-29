@@ -1,4 +1,5 @@
 'use strict';
+// @ts-nocheck
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.openType = void 0;
 exports.openType = Behavior({

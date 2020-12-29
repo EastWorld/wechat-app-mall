@@ -1,30 +1,33 @@
-<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
-  <view class="page__bd">
-    <form bindsubmit="bindSave" report-submit="true">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">消费金额</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <input name="amount" type="digit" class="weui-input" placeholder="请询问服务员后输入" />
-          </view>
-        </view>
-      </view>
-    </view>
-    <block wx:if='{{rechargeSendRules}}'>
-      <view class="charge-rule-wrap">
-        <view wx:for='{{rechargeSendRules}}' wx:key="index" wx:for-item="item" class="btn charge-detail">
-          <text>消费满 {{item.consume}} 元</text>
-          <text>减 {{item.discounts}} 元</text>
-        </view>
-      </view>
-    </block>
-    <view class="weui-btn-area">
-      <button class="weui-btn" type="primary" formType="submit">确认支付</button>
-    </view>
-    </form>
-  </view>
+<van-field
+  label="消费金额"
+  type="digit"
+  model:value="{{ amount }}"
+  placeholder="询问服务员本次消费金额"
+  clearable
+/>
+<van-field
+  wx:if="{{ balance_pay_pwd && payType =='balance' }}"
+  label="交易密码"
+  password
+  model:value="{{ pwd }}"
+  placeholder="请输入交易密码"
+  clearable
+/>
+<van-cell-group wx:if='{{rechargeSendRules}}' title="优惠规则">
+  <van-cell wx:for='{{rechargeSendRules}}' wx:key="index" title="减 {{item.discounts}} 元" value="消费满 {{item.consume}} 元" />
+</van-cell-group>
+<van-radio-group value="{{ payType }}" bind:change="payTypeChange">
+  <van-cell-group title="付款方式">
+    <van-cell title="余额支付" label="{{ balance }}" clickable data-name="balance" bind:click="payTypeClick">
+      <van-radio slot="right-icon" name="balance" />
+    </van-cell>
+    <van-cell title="在线支付" clickable data-name="wxpay" bind:click="payTypeClick">
+      <van-radio slot="right-icon" name="wxpay" />
+    </van-cell>
+  </van-cell-group>
+</van-radio-group>
+<view class="block-btn btn">
+  <van-button type="primary" block bind:click="bindSave">确认支付</van-button>
 </view>
-<float-menu /> 
+
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

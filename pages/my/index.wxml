@@ -1,5 +1,3 @@
-<import src="/template/login/index.wxml" />
-
 <view wx:if="{{apiUserInfoMap}}" class="header-box">
   <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
 	<view class="r">
@@ -215,36 +213,28 @@
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
-  <view class="line"></view>
-
-  <view class="space"></view>
-  <view wx:if="{{userMobile}}" class="menu-item">
-    <view class="l">绑定手机</view>
-    <view class="r">{{ userMobile }}</view>
-  </view>
-  <view  wx:else class="menu-item">
-    <view class="l">绑定手机</view>
-    <button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即绑定</button>
-  </view>
-
-  <!-- <view class="line"></view>
-  <view class="menu-item">
-    <view class="l">绑定官网账号</view>
-    <image class="next" src="/images/icon/next.png"></image>
-  </view> -->
-
-  
 
   <view class="space"></view>
 </view>
+<van-cell-group title="基本信息">
+  <van-cell wx:if="{{userMobile}}" title="绑定手机" value="{{ userMobile }}" />
+  <van-cell wx:else title="绑定手机" center>
+    <van-button type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
+  </van-cell>
+  <van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwd-pay/modify" />
+  <van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
+</van-cell-group>
+<van-cell-group title="客户服务">
+  <van-cell title="关于我们" is-link url="/pages/about/index" />
+  <van-cell title="视频客服" is-link url="/pages/videoCall/videoCall" />
+  <van-cell title="帮助中心" is-link url="/pages/help/index" />
+</van-cell-group>
+<van-cell-group title="系统设置">
+  <van-cell title="清除缓存" is-link bind:click="clearStorage" />
+  <van-cell wx:if="{{apiUserInfoMap}}" title="退出登录" is-link bind:click="loginOut" />
+  <van-cell wx:else title="立即登陆" is-link bind:click="goLogin" />
+  <van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
+  <van-cell title="当前版本" value="{{version}}" />
+</van-cell-group>
 
-<van-cell title="关于我们" is-link url="/pages/about/index" />
-<van-cell title="视频客服" is-link url="/pages/videoCall/videoCall" />
-<van-cell title="帮助中心" is-link url="/pages/help/index" />
-<van-cell title="清除缓存" is-link bind:click="clearStorage" />
-<van-cell wx:if="{{apiUserInfoMap}}" title="退出登录" is-link bind:click="loginOut" />
-<van-cell wx:else title="立即登陆" is-link bind:click="goLogin" />
-<van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
-<van-cell title="当前版本" value="{{version}}" />
-
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

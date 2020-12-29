@@ -9,6 +9,4 @@ function addUnit(value) {
   return REGEXP.test('' + value) ? value + 'px' : value;
 }
 
-module.exports = {
-  addUnit: addUnit
-};
+module.exports = addUnit;

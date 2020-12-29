@@ -54,7 +54,7 @@ component_1.VantComponent({
     itemListData: [],
   },
   beforeCreate: function () {
-    var windowHeight = wx.getSystemInfoSync().windowHeight;
+    var windowHeight = utils_1.getSystemInfoSync().windowHeight;
     this.windowHeight = windowHeight;
     ARRAY.push(this);
   },
@@ -97,7 +97,7 @@ component_1.VantComponent({
       var _a = this.data,
         zIndex = _a.zIndex,
         direction = _a.direction;
-      return this.getRect('.van-dropdown-menu').then(function (rect) {
+      return utils_1.getRect(this, '.van-dropdown-menu').then(function (rect) {
         var _a = rect.top,
           top = _a === void 0 ? 0 : _a,
           _b = rect.bottom,

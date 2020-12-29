@@ -1,3 +1,5 @@
+<wxs src="./index.wxs" module="computed" />
+
 <van-picker
   class="van-area__picker"
   active-class="active-class"
@@ -7,7 +9,7 @@
   value-key="name"
   title="{{ title }}"
   loading="{{ loading }}"
-  columns="{{ displayColumns }}"
+  columns="{{ computed.displayColumns(columns, columnsNum) }}"
   item-height="{{ itemHeight }}"
   visible-item-count="{{ visibleItemCount }}"
   cancel-button-text="{{ cancelButtonText }}"

@@ -10,6 +10,7 @@ function onPageScroll(event) {
     vanPageScroller = _a === void 0 ? [] : _a;
   vanPageScroller.forEach(function (scroller) {
     if (typeof scroller === 'function') {
+      // @ts-ignore
       scroller(event);
     }
   });

@@ -5,18 +5,23 @@ var basic_1 = require('../mixins/basic');
 var relationFunctions = {
   ancestor: {
     linked: function (parent) {
+      // @ts-ignore
       this.parent = parent;
     },
     unlinked: function () {
+      // @ts-ignore
       this.parent = null;
     },
   },
   descendant: {
     linked: function (child) {
+      // @ts-ignore
       this.children = this.children || [];
+      // @ts-ignore
       this.children.push(child);
     },
     unlinked: function (child) {
+      // @ts-ignore
       this.children = (this.children || []).filter(function (it) {
         return it !== child;
       });

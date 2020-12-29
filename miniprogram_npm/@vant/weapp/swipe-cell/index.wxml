@@ -1,5 +1,5 @@
 <view
-  class="van-swipe-cell"
+  class="van-swipe-cell custom-class"
   data-key="cell"
   catchtap="onClick"
   bindtouchstart="startDrag"

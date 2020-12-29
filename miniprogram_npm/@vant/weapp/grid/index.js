@@ -1,7 +1,6 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
-var utils_1 = require('../common/utils');
 component_1.VantComponent({
   relation: {
     name: 'grid-item',
@@ -45,17 +44,6 @@ component_1.VantComponent({
       type: String,
       observer: 'updateChildren',
     },
-  },
-  data: {
-    viewStyle: '',
-  },
-  created: function () {
-    var gutter = this.data.gutter;
-    if (gutter) {
-      this.setData({
-        viewStyle: 'padding-left: ' + utils_1.addUnit(gutter),
-      });
-    }
   },
   methods: {
     updateChildren: function () {

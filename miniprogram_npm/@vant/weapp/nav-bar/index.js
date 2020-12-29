@@ -57,8 +57,10 @@ component_1.VantComponent({
         return;
       }
       wx.nextTick(function () {
-        utils_1.getRect.call(_this, '.van-nav-bar').then(function (res) {
-          _this.setData({ height: res.height });
+        utils_1.getRect(_this, '.van-nav-bar').then(function (res) {
+          if (res && 'height' in res) {
+            _this.setData({ height: res.height });
+          }
         });
       });
     },

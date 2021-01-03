@@ -76,7 +76,7 @@ Page({
       title: '加载中',
     })
     const res = await WXAPI.goods({
-      categoryId: this.data.categorySelected.id,
+      categoryId: this.data.categorySelected.id ? this.data.categorySelected.id : '',
       page: this.data.page,
       pageSize: this.data.pageSize
     })
@@ -92,6 +92,13 @@ Page({
           icon: 'none'
         })
       }
+      return
+    }
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
       return
     }
     if (this.data.page == 1) {

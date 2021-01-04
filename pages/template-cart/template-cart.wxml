@@ -9,11 +9,14 @@
 </template>
 
 <template name="cart-goods-list">
-  <!-- <view class="trip">左滑可删除不需要的商品哦～</view> -->
+  <van-notice-bar custom-class="vw100" left-icon="volume-o" scrollable="{{ false }}" text="左滑删除商品～" />
   <view class="goodsList">
     <view class="a-gooods" wx:for="{{items}}" wx:key="key">
       <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
         <view class="goods-info">
+          <view class="radio-box">
+            <radio checked="{{ item.selected }}" bindtap="radioClick" data-index="{{index}}" />
+          </view>
           <view class="img-box">
             <image mode="aspectFill" src="{{item.pic}}" class="img" />
           </view>

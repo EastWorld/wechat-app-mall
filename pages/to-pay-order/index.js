@@ -57,7 +57,7 @@ Page({
       //购物车下单
       const res = await WXAPI.shippingCarInfo(token)
       if (res.code == 0) {
-        goodsList = res.data.items
+        goodsList = res.data.items.filter(ele => { return ele.selected })
       }
     }
     this.setData({
@@ -227,7 +227,11 @@ Page({
 
       if (e && "buyNow" != that.data.orderType) {
         // 清空购物车数据
-        WXAPI.shippingCarInfoRemoveAll(loginToken)
+        const keyArrays = []
+        that.data.goodsList.forEach(ele => {
+          keyArrays.push(ele.key)
+        })
+        WXAPI.shippingCarInfoRemoveItem(loginToken, keyArrays.join())
       }
       if (!e) {
         let hasNoCoupons = true

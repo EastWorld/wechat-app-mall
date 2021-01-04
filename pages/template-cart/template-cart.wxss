@@ -83,11 +83,13 @@
   margin-right: 20rpx;
   background-color: #d8d8d8;
   flex-shrink: 0;
+  border-radius: 16rpx;
 }
 
 .goods-info .text-box {
   width: 100%;
   position: relative;
+  padding-bottom: 32rpx;
 }
 
 .goods-info .text-box .goods-title {
@@ -174,6 +176,7 @@
 .goods-info .img-box .img {
   width: 160rpx;
   height: 160rpx;
+  border-radius: 16rpx;
 }
 
 .a-goods-conts .delete-btn {
@@ -238,4 +241,14 @@
   top: 32rpx;
   width: 50rpx;
   height: 50rpx;
+}
+.vw100 {
+  width: 700rpx !important;
+  font-size: 24rpx !important;
+}
+.radio-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8rpx;
 }

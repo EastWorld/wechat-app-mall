@@ -1222,6 +1222,11 @@ module.exports = {
       token: token, key: key
     });
   },
+  shippingCartSelected: function shippingCartSelected(token, key, selected) {
+    return request('/shopping-cart/select', true, 'post', {
+      token: token, key: key, selected: selected
+    });
+  },
   shippingCarInfoRemoveAll: function shippingCarInfoRemoveAll(token) {
     return request('/shopping-cart/empty', true, 'post', {
       token: token

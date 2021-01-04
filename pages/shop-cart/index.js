@@ -182,6 +182,12 @@ Page({
       this.shippingCarInfo()
     })    
   },
-
+  async radioClick(e) {
+    const index = e.currentTarget.dataset.index;
+    const item = this.data.shippingCarInfo.items[index]
+    const token = wx.getStorageSync('token')
+    const res = await WXAPI.shippingCartSelected(token, item.key, !item.selected)
+    this.shippingCarInfo()
+  },
 
 })

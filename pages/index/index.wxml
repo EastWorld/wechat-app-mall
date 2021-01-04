@@ -16,9 +16,9 @@
       <image  mode="aspectFill" bindtap="tapBanner" data-url="{{item.linkUrl}}" src="{{item.picUrl}}" />
     </swiper-item>
   </swiper>
-  <view class="search">
-    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
-    <image src="/images/icon/search.svg" bindtap="goSearch"></image>
+  <view class="search" bindtap="goSearch">
+    <input type="text" placeholder="输入搜索关键词" disabled></input>
+    <image src="/images/icon/search.svg"></image>
   </view>
   <view wx:if="{{goodsDynamic}}" class="goodsDynamic">
     <swiper class="swiper2" autoplay circular vertical>

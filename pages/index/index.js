@@ -302,22 +302,9 @@ Page({
       }
     })
   },
-  bindinput(e) {
-    this.setData({
-      inputVal: e.detail.value
-    })
-  },
-  bindconfirm(e) {
-    this.setData({
-      inputVal: e.detail.value
-    })
-    wx.navigateTo({
-      url: '/pages/goods/list?name=' + this.data.inputVal,
-    })
-  },
   goSearch(){
     wx.navigateTo({
-      url: '/pages/goods/list?name=' + this.data.inputVal,
+      url: '/pages/search/index'
     })
   }
 })

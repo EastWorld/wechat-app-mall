@@ -46,7 +46,8 @@
     "pages/pwd-pay/reset",
     "pages/pwd-pay/modify",
     "pages/pwd-pay/set",
-    "pages/my/feedback"
+    "pages/my/feedback",
+    "pages/search/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

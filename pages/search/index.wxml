@@ -1,0 +1,19 @@
+<van-search placeholder="请输入搜索关键词" focus bind:search="search" />
+<van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无历史搜索" />
+<van-cell-group wx:if="{{ list && list.length > 0 }}" title="历史搜索">
+  <van-cell wx:for="{{list}}" wx:key="*this">
+    <view slot="title">
+      <view data-idx="{{ index }}" bindtap="go">{{ item }}</view>
+    </view>
+    <van-tag
+      closeable
+      size="medium"
+      type="primary"
+      id="primary"
+      data-idx="{{ index }}"
+      bind:close="onClose"
+    >
+      删除
+    </van-tag>
+  </van-cell>
+</van-cell-group>

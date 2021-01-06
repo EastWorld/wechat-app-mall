@@ -25,6 +25,12 @@ function wxpay(type, money, orderId, redirectUrl, data) {
       money: data.money
     };
   }
+  if (type === 'fxsBuy') {
+    postData.remark = "购买分销资格";
+    postData.nextAction = {
+      type: 13
+    };
+  }
   postData.payName = postData.remark;
   if (postData.nextAction) {
     postData.nextAction = JSON.stringify(postData.nextAction);  

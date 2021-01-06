@@ -1,12 +1,9 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const ImageUtil = require('../../utils/image')
+const wxpay = require('../../utils/pay.js')
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     wxlogin: true,
 
@@ -16,24 +13,9 @@ Page({
 
     currentPages: undefined,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    this.setting()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow() {
     const _this = this
     AUTH.checkHasLogined().then(isLogined => {
@@ -189,4 +171,44 @@ Page({
     }
     AUTH.register(this);
   },
+  async setting() {
+    const res = await WXAPI.fxSetting()
+    if (res.code == 0) {
+      this.setData({
+        setting: res.data
+      })
+    }
+  },
+  async buy() {
+    const token = wx.getStorageSync('token')
+    let res = await WXAPI.userAmount(token)
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    if (res.data.balance >= this.data.setting.price) {
+      // 余额足够
+      res = await WXAPI.fxBuy(token)
+      if (res.code != 0) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+        return
+      }
+      wx.showToast({
+        title: '升级成功',
+      })
+      setTimeout(() => {
+        this.doneShow();
+      }, 1000);
+    } else {
+      let price = this.data.setting.price - res.data.balance
+      price = price.toFixed(2)
+      wxpay.wxpay('fxsBuy', price, 0, "/pages/fx/apply-status");
+    }
+  }
 })

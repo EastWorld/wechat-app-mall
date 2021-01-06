@@ -1,8 +1,12 @@
 <view class='noApply' wx:if="{{applyStatus == -1}}">
   <form bindsubmit="bindSave" report-submit="true">
-    <image class="logo" src="/images/fx.png" mode="widthFix" />
-    <view class="profile">您还不是分销商，无法使用分销功能</view>
-    <button type="primary" class="mini-btn" formType="submit">申请开通</button>
+    <van-empty description="您还不是分销商" />
+    <view class="block-btn">
+      <van-button type="primary" block bind:click="bindSave">免费申请 等待管理员审核</van-button>
+    </view>
+    <view wx:if="{{ setting.canBuy }}" class="block-btn">
+      <van-button type="warning" block bind:click="buy">直接支付{{ setting.price }}元，立即免审开通</van-button>
+    </view>
   </form>
 </view>
 
@@ -41,4 +45,4 @@
 <import src="/template/login/index.wxml" />
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
 
-<float-menu /> 
+<!-- <float-menu />  -->

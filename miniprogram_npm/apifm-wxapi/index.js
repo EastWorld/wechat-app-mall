@@ -762,8 +762,14 @@ module.exports = {
   vipLevel: function vipLevel() {
     return request('/config/vipLevel', true, 'get');
   },
+  fxSetting: function fxSetting() {
+    return request('/saleDistribution/setting', true, 'get');
+  },
   fxApply: function fxApply(token, name, mobile) {
     return request('/saleDistribution/apply', true, 'post', { token: token, name: name, mobile: mobile });
+  },
+  fxBuy: function fxBuy(token) {
+    return request('/saleDistribution/buy', true, 'post', { token: token });
   },
   fxApplyProgress: function fxApplyProgress(token) {
     return request('/saleDistribution/apply/progress', true, 'get', { token: token });

@@ -24,3 +24,6 @@
 .canvas {
   width:750rpx;
 }
+.block-btn {
+  padding: 8rpx 32rpx;
+}

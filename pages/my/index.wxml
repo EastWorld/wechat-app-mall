@@ -113,6 +113,7 @@
   <van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwd-pay/modify" />
   <van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
   <van-cell title="我的收藏" value="设置交易密码" is-link url="/pages/goods/fav" />
+  <van-cell title="修改资料" is-link url="/pages/my/info" />
 </van-cell-group>
 <van-cell-group title="客户服务">
   <van-cell title="关于我们" is-link url="/pages/about/index" />

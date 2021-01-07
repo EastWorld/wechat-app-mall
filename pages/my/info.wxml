@@ -1,0 +1,40 @@
+<form catchsubmit="formSubmit">
+  <van-cell title="头像" is-link center bind:click="chooseImage">
+    <van-image
+      round
+      width="64rpx"
+      height="64rpx"
+      src="{{ avatarUrl }}"
+    />
+  </van-cell>  
+  <van-field
+    label="昵称"
+    model:value="{{ nick }}"
+    placeholder="请输入昵称"
+    clearable
+  />
+  <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
+    <van-cell title="性别" value="{{ gender }}" is-link />
+  </picker>
+  <van-field
+    model:value="{{ apiUserInfoMap.base.mobile }}"
+    center
+    readonly
+    clearable
+    label="手机号码"
+    use-button-slot
+  >
+    <van-button slot="button" type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">重新绑定</van-button>
+  </van-field>
+  <van-field
+    wx:for="{{apiUserInfoMap.ext}}" wx:for-index='k' wx:key="index"
+    label="{{ k }}"
+    name="{{ k}}"
+    value="{{ item }}"
+    placeholder="请输入职位"
+    clearable
+  />
+  <view class="btn">
+    <van-button type="primary" block form-type="submit">保存</van-button>
+  </view>
+</form>

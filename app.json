@@ -47,7 +47,8 @@
     "pages/pwd-pay/modify",
     "pages/pwd-pay/set",
     "pages/my/feedback",
-    "pages/search/index"
+    "pages/search/index",
+    "pages/my/info"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -127,7 +128,8 @@
     "van-rate": "@vant/weapp/rate/index",
     "van-uploader": "@vant/weapp/uploader/index",
     "van-grid": "@vant/weapp/grid/index",
-    "van-grid-item": "@vant/weapp/grid-item/index"
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-image": "@vant/weapp/image/index"
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -394,8 +394,10 @@ module.exports = {
     return request('/shop/goods/list', true, 'post', data);
   },
   goodsDetail: function goodsDetail(id) {
+    var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
     return request('/shop/goods/detail', true, 'get', {
-      id: id
+      id: id, token: token
     });
   },
   goodsLimitations: function goodsLimitations(goodsId) {

@@ -114,8 +114,9 @@ Page({
     })
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
+    const token = wx.getStorageSync('token')
     const that = this;
-    const goodsDetailRes = await WXAPI.goodsDetail(goodsId)
+    const goodsDetailRes = await WXAPI.goodsDetail(goodsId, token ? token : '')
     const goodsKanjiaSetRes = await WXAPI.kanjiaSet(goodsId)
     if (goodsDetailRes.code == 0) {
       if (goodsDetailRes.data.properties) {

@@ -12,7 +12,9 @@ Page({
     this.getUserApiInfo()
   },
   onShow: function () {
-
+    AUTH.wxaCode().then(code => {
+      this.data.code = code
+    })
   },
   getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {

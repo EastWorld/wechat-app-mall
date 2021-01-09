@@ -91,7 +91,8 @@
   <van-cell title="资金明细" is-link url="/pages/asset/index" />
   <van-cell title="申请发票" is-link url="/pages/invoice/apply" />
   <van-cell title="发票记录" is-link url="/pages/invoice/list" />
-  <van-cell title="领券中心" is-link url="/pages/coupons/index" />
+  <van-cell title="领取优惠券" is-link url="/pages/coupons/index" />
+  <van-cell title="合成优惠券" is-link url="/pages/coupons/merge" />
 </van-cell-group>
 <van-cell-group title="三级分销">
   <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/pages/fx/apply-status" />

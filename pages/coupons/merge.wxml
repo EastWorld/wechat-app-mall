@@ -1,0 +1,15 @@
+<van-empty wx:if="{{ !mergeCouponsRules }}" description="暂无合成规则" />
+<van-cell-group wx:for="{{mergeCouponsRules}}" wx:key="id" title="{{ item.name }}">
+  <van-cell
+    wx:for="{{item.rules}}"
+    wx:for-item="rule"
+    wx:key="id"
+    icon="{{ rule.type == 0 ? 'delete' : 'share-o' }}"
+    title="{{ rule.typeStr }}"
+    label="优惠券:{{ rule.couponName }}"
+    value="{{rule.number}} 张"
+  />
+  <view class="block-btn">
+    <van-button type="primary" block data-idx="{{ index }}" loading="{{ loading }}" bind:click="merge">立即合成</van-button>
+  </view>
+</van-cell-group>

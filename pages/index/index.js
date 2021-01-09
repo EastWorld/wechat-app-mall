@@ -306,5 +306,11 @@ Page({
     wx.navigateTo({
       url: '/pages/search/index'
     })
+  },
+  goNotice(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/notice/show?id=' + id,
+    })
   }
 })

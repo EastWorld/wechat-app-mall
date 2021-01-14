@@ -120,6 +120,7 @@ Page({
     }
     this.setData({
       page: 1,
+      secondCategoryId: '',
       activeCategory: idx,
       categorySelected: this.data.categories[idx],
       scrolltop: 0

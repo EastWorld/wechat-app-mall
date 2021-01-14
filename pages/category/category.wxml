@@ -1,4 +1,4 @@
-<van-search value="{{ name }}" placeholder="请输入搜索关键词" bind:search="bindconfirm" />
+<van-search value="{{ name }}" placeholder="请输入搜索关键词" shape="round" bind:search="bindconfirm" />
 <view class="main">
   <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
     <van-sidebar active-key="{{ activeCategory }}">
@@ -6,9 +6,13 @@
     </van-sidebar>
   </scroll-view>
   <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
+    <van-tabs wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" bind:change="onSecondCategoryClick">
+      <van-tab title="全部"></van-tab>
+      <van-tab wx:for="{{categorySelected.childs}}" wx:key="id" title="{{ item.name }}"></van-tab>
+    </van-tabs>
     <van-empty wx:if="{{!currentGoods}}" description="暂无商品" />
-    <!-- 二级分类展示 -->
-    <view wx:for="{{categories}}" wx:key="id" wx:if="{{item.pid == categorySelected.id}}">
+    <!-- 三级级分类展示 -->
+    <!-- <view wx:for="{{categories}}" wx:key="id" wx:if="{{item.pid == categorySelected.id}}">
       <navigator url="/pages/goods/list?categoryId={{item.id}}">
         <view class="no-data medium-category">
           <view class="line"></view>
@@ -24,7 +28,7 @@
           </view>
         </navigator>
       </view>
-    </view>
+    </view> -->
     <!-- 显示右侧商品 -->
     <van-card
       wx:for="{{currentGoods}}" wx:key="id"

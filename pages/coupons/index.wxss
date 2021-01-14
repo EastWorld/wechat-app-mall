@@ -1,44 +1,6 @@
 page {
   background-color: #f7f8fa;
 }
-.tabs {
-  display: flex;
-  text-align: center;
-  height: 98rpx;
-  line-height: 98rpx;
-}
-.tabs .item {
-  width: 250rpx;
-  background-color: #EEEEEE;
-  font-family: PingFangSC-Regular;
-  font-size: 28rpx;
-  color: #333333;
-  letter-spacing: 0;
-}
-.tabs .active {
-  background-color: #ffffff;
-  color: #FEB21C;
-}
-
-.empty {
-  width: 750rpx;
-  margin-top: 100rpx;
-  text-align: center;
-}
-.empty image {
-  margin-left: 274rpx;
-  width: 202rpx;
-  height: 156rpx;
-  display: block;
-}
-.empty view {
-  margin-top: 48rpx;
-  font-family: PingFangSC-Medium;
-  font-size: 30rpx;
-  color: #333333;
-  letter-spacing: 0;
-}
-
 .coupons {
   display:flex;
   justify-content:space-between;
@@ -179,4 +141,13 @@ page {
 }
 .pwd-coupons button {
   margin: 32rpx;
+}
+.koulingcoupon {
+  margin-top: 32rpx;
+}
+.block-btn {
+  margin: 32rpx 0;
+}
+.hecheng {
+  margin-top: 16rpx;
 }

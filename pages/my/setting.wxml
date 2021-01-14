@@ -1,0 +1,7 @@
+<van-cell title="关于我们" is-link url="/pages/about/index" />
+<van-cell title="视频客服" is-link url="/pages/videoCall/videoCall" />
+<van-cell title="意见反馈" is-link url="/pages/my/feedback" />
+<van-cell title="清除缓存" is-link bind:click="clearStorage" />
+<van-cell title="退出登录" is-link bind:click="loginOut" />
+<van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
+<van-cell title="当前版本" value="{{version}}" />

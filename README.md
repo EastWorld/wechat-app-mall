@@ -52,7 +52,7 @@
 - [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
 
 底部ICON图标使用：
-https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=13163
+https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=18904
 
   
 ## 如何升级到最新版

@@ -9,57 +9,47 @@
   <image class="avatar" src="/images/nologin2.png"></image>
 	<van-button plain custom-class="btn" size="small" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="processLogin">立即登录</van-button>
 </view>
-
+<view class="asset">
+  <view class='item' bindtap='goAsset'>
+    <view class="amount">{{balance}}</view>
+    <view>余额</view>
+  </view>
+  <view class='item right' bindtap='goAsset'>
+    <view class="amount">{{freeze}}</view>
+    <view>冻结</view>
+  </view>
+  <view class='item right' bindtap='goScore'>
+    <view class="amount">{{score}}</view>
+    <view>积分</view>
+  </view>
+  <navigator url="/pages/score/growth">
+    <view class='item right'>
+      <view class="amount">{{growth}}</view>
+      <view>成长值</view>
+    </view>
+  </navigator>
+</view>
+<view class="space van-hairline--bottom"></view>
+<van-cell title="我的订单" value="更多" is-link url="/pages/order-list/index" />
+<van-grid clickable column-num="5">
+  <van-grid-item icon="balance-list-o" text="待付款" badge="{{count_id_no_pay}}" bindtap='goOrder' data-type="0" />
+  <van-grid-item icon="logistics" text="待发货" badge="{{count_id_no_transfer}}" bindtap='goOrder' data-type="1" />
+  <van-grid-item icon="certificate" text="待收货" badge="{{count_id_no_confirm}}" bindtap='goOrder' data-type="2" />
+  <van-grid-item icon="flower-o" text="待评价" badge="{{count_id_no_reputation}}" bindtap='goOrder' data-type="3" />
+  <van-grid-item icon="after-sale" text="售后" bindtap='goOrder' data-type="99" />
+</van-grid>
+<van-cell title="常用功能" />
+<van-grid clickable>
+  <van-grid-item wx:if="{{!canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />
+  <van-grid-item icon="paid" text="优惠买单" url="/pages/maidan/index" />
+  <van-grid-item icon="balance-list-o" text="资金明细" url="/pages/asset/index" />
+  <van-grid-item icon="bill-o" text="申请发票" url="/pages/invoice/apply" />
+  <van-grid-item icon="bill-o" text="开票记录" url="/pages/invoice/list" />
+  <van-grid-item icon="coupon-o" text="优惠券" url="/pages/coupons/index" link-type="switchTab" />
+  <van-grid-item icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
+</van-grid>
+<!-- 老样式 -->
 <view class="container">
-  <view class="asset">
-    <view class='item' bindtap='goAsset'>
-      <view>{{balance}}</view>
-      <view>余额</view>
-    </view>
-    <view class='item right' bindtap='goAsset'>
-      <view>{{freeze}}</view>
-      <view>冻结</view>
-    </view>
-    <view class='item right' bindtap='goScore'>
-      <view>{{score}}</view>
-      <view>积分</view>
-    </view>
-    <navigator url="/pages/score/growth">
-      <view class='item right'>
-        <view>{{growth}}</view>
-        <view>成长值</view>
-      </view>
-    </navigator>
-  </view>
-  <view class="space"></view>
-  <van-cell custom-class="vw100" title="我的订单" is-link url="/pages/order-list/index" />
-  <view class='order-shortcut'>
-    <!-- https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=2767 -->
-    <view class='item' bindtap='goOrder' data-type="0">
-      <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>
-      <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
-      <view class='text'>待付款</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="1">
-      <view wx:if="{{count_id_no_transfer !== 0}}" class='dot'>{{count_id_no_transfer}}</view>
-      <image class="icon" src="/images/order/fahuo.png" background-size="cover"></image>
-      <view class='text'>待发货</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="2">
-      <view wx:if="{{count_id_no_confirm !== 0}}" class='dot'>{{count_id_no_confirm}}</view>
-      <image class="icon" src="/images/order/shouhuo.png" background-size="cover"></image>
-      <view class='text'>待收货</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="3">
-      <view wx:if="{{count_id_no_reputation !== 0}}" class='dot'>{{count_id_no_reputation}}</view>
-      <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
-      <view class='text'>待评价</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="99">
-      <image class="icon" src="/images/order/shouhou.png" background-size="cover"></image>
-      <view class='text'>售后</view>
-    </view>
-  </view>
   <block wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}">
     <view class="space"></view>
     <view class="menu-item">
@@ -85,49 +75,19 @@
     <view class="space"></view>
   </block>
 </view>
-<van-cell-group title="常用功能">
-  <van-cell wx:if="{{!canHX}}" title="扫码核销" is-link bind:click="scanOrderCode" />
-  <van-cell title="优惠买单" is-link url="/pages/maidan/index" />  
-  <van-cell title="资金明细" is-link url="/pages/asset/index" />
-  <van-cell title="申请发票" is-link url="/pages/invoice/apply" />
-  <van-cell title="发票记录" is-link url="/pages/invoice/list" />
-  <van-cell title="领取优惠券" is-link url="/pages/coupons/index" />
-  <van-cell title="合成优惠券" is-link url="/pages/coupons/merge" />
-</van-cell-group>
+
 <van-cell-group title="三级分销">
   <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/pages/fx/apply-status" />
   <van-cell wx:else title="分销中心" is-link url="/pages/fx/apply-status" />
   <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="销售团队" is-link url="/pages/fx/members" />
   <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="佣金明细" is-link url="/pages/fx/commisionLog" />
 </van-cell-group>
-<van-cell-group title="我的积分">
-  <van-cell title="每日签到" is-link url="/pages/sign/index" />
+<van-cell-group title="其他功能">
   <van-cell title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
   <van-cell title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
-</van-cell-group>
-<van-cell-group title="基本信息">
-  <van-cell wx:if="{{userMobile}}" title="绑定手机" value="{{ userMobile }}" />
-  <van-cell wx:else title="绑定手机" center>
-    <van-button type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
-  </van-cell>
-  <van-cell title="收货地址" is-link url="/pages/select-address/index" />
-  <van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwd-pay/modify" />
-  <van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
-  <van-cell title="我的收藏" is-link url="/pages/goods/fav" />
-  <van-cell title="修改资料" is-link url="/pages/my/info" />
-</van-cell-group>
-<van-cell-group title="客户服务">
-  <van-cell title="关于我们" is-link url="/pages/about/index" />
-  <van-cell title="视频客服" is-link url="/pages/videoCall/videoCall" />
   <van-cell title="帮助中心" is-link url="/pages/help/index" />
-  <van-cell title="意见反馈" is-link url="/pages/my/feedback" />
-</van-cell-group>
-<van-cell-group title="系统设置">
-  <van-cell title="清除缓存" is-link bind:click="clearStorage" />
-  <van-cell wx:if="{{apiUserInfoMap}}" title="退出登录" is-link bind:click="loginOut" />
-  <van-cell wx:else title="立即登陆" is-link bind:click="goLogin" />
-  <van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
-  <van-cell title="当前版本" value="{{version}}" />
+  <van-cell title="个人信息" is-link url="/pages/my/info-menu" />
+  <van-cell title="系统设置" is-link url="/pages/my/setting" />
 </van-cell-group>
 
 <van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

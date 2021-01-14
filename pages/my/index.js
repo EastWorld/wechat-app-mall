@@ -48,69 +48,28 @@ Page({
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge();
   },
-  loginOut(){
-    AUTH.loginOut()
-    wx.reLaunch({
-      url: '/pages/my/index'
-    })
-  },
-  getPhoneNumber: function(e) {
-    if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
-      wx.showModal({
-        title: '提示',
-        content: e.detail.errMsg,
-        showCancel: false
-      })
-      return;
-    }
-    WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv).then(res => {
-      AUTH.wxaCode().then(code => {
-        this.data.code = code
-      })
-      if (res.code === 10002) {
-        AUTH.openLoginDialog()
-        return
+  async getUserApiInfo() {
+    const res = await WXAPI.userDetail(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      let _data = {}
+      _data.apiUserInfoMap = res.data
+      if (res.data.base.mobile) {
+        _data.userMobile = res.data.base.mobile
       }
-      if (res.code == 0) {
-        wx.showToast({
-          title: '绑定成功',
-          icon: 'success',
-          duration: 2000
-        })
-        this.getUserApiInfo();
+      if (this.data.order_hx_uids && this.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
+        _data.canHX = true // 具有扫码核销的权限
+      }
+      const adminUserIds = wx.getStorageSync('adminUserIds')
+      if (adminUserIds && adminUserIds.indexOf(res.data.base.id) != -1) {
+        _data.isAdmin = true
+      }
+      if (res.data.peisongMember && res.data.peisongMember.status == 1) {
+        _data.memberChecked = false
       } else {
-        wx.showModal({
-          title: '提示',
-          content: res.msg,
-          showCancel: false
-        })
+        _data.memberChecked = true
       }
-    })
-  },
-  getUserApiInfo: function () {
-    var that = this;
-    WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        let _data = {}
-        _data.apiUserInfoMap = res.data
-        if (res.data.base.mobile) {
-          _data.userMobile = res.data.base.mobile
-        }
-        if (that.data.order_hx_uids && that.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
-          _data.canHX = true // 具有扫码核销的权限
-        }
-        const adminUserIds = wx.getStorageSync('adminUserIds')
-        if (adminUserIds && adminUserIds.indexOf(res.data.base.id) != -1) {
-          _data.isAdmin = true
-        }
-        if (res.data.peisongMember && res.data.peisongMember.status == 1) {
-          _data.memberChecked = false
-        } else {
-          _data.memberChecked = true
-        }
-        that.setData(_data);
-      }
-    })
+      this.setData(_data);
+    }
   },
   async memberCheckedChange() {
     const res = await WXAPI.peisongMemberChangeWorkStatus(wx.getStorageSync('token'))
@@ -202,13 +161,7 @@ Page({
       }
     })
   },
-  clearStorage(){
-    wx.clearStorageSync()
-    wx.showToast({
-      title: '已清除',
-      icon: 'success'
-    })
-  },
+  
   goadmin() {
     wx.navigateToMiniProgram({
       appId: 'wx5e5b0066c8d3f33d',

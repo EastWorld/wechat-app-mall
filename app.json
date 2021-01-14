@@ -49,7 +49,9 @@
     "pages/pwd-pay/set",
     "pages/my/feedback",
     "pages/search/index",
-    "pages/my/info"
+    "pages/my/info",
+    "pages/my/setting",
+    "pages/my/info-menu"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -72,9 +74,15 @@
       },
       {
         "pagePath": "pages/category/category",
-        "iconPath": "images/nav/ic_catefory_normal.png",
-        "selectedIconPath": "images/nav/ic_catefory_pressed.png",
+        "iconPath": "images/nav/fl-off.png",
+        "selectedIconPath": "images/nav/fl-on.png",
         "text": "分类"
+      },
+      {
+        "pagePath": "pages/coupons/index",
+        "iconPath": "images/nav/coupon-off.png",
+        "selectedIconPath": "images/nav/coupon-on.png",
+        "text": "优惠券"
       },
       {
         "pagePath": "pages/shop-cart/index",
@@ -130,7 +138,9 @@
     "van-uploader": "@vant/weapp/uploader/index",
     "van-grid": "@vant/weapp/grid/index",
     "van-grid-item": "@vant/weapp/grid-item/index",
-    "van-image": "@vant/weapp/image/index"
+    "van-image": "@vant/weapp/image/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
   },
   "sitemapLocation": "sitemap.json"
 }

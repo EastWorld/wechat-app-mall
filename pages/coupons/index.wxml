@@ -1,11 +1,8 @@
-<view class="tabs">
-  <view class="item {{activeIndex == index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" data-id="{{index}}" bindtap="tabClick">{{item}}</view>
-</view>
-<van-cell title="动态口令兑换优惠券" is-link bind:click="exchangeCouponsShow" />
-<view wx:if="{{ !coupons || coupons.length == 0 }}" class="empty">
-  <image src="/images/icon/coupons-empty.svg"></image>
-  <view>暂无优惠券</view>
-</view>
+<van-tabs bind:change="tabClick">
+  <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+</van-tabs>
+<van-cell wx:if="{{ activeIndex == 1 && coupons && coupons.length == 0 }}" custom-class="hecheng" title="合成高品质优惠券" value="合成" is-link />
+<van-empty wx:if="{{ activeIndex != 3 && (!coupons || coupons.length == 0) }}" description="暂无优惠券" />
 <view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 0}}">
   <image class="icon" src="/images/icon/coupons-active.svg"></image>
   <view class="profile">
@@ -51,24 +48,7 @@
     <view class="btn">{{ item.statusStr }}</view>
   </view>
 </view>
-<view class="bottom"></view>
-
-<block wx:if="{{showPwdPop}}">
-  <view class="pwd-coupons-mask" bindtap="closePwd"></view>
-  <view class="pwd-coupons">
-    <view class="t">请输入口令</view>
-    <input bindinput="pwdCouponChange" class="input" value="{{couponPwd}}" auto-focus/>
-    <button type="primary" plain bindtap="getCounpon2"> 领取 </button>
-  </view>
-</block>
-
-<van-popup
-  show="{{ exchangeCouponsShow }}"
-  position="bottom"
-  round
-  custom-style="padding-top:32rpx;"
-  bind:close="exchangeCouponsHide"
->
+<view class="koulingcoupon" wx:if="{{activeIndex == 3}}">
   <van-field
     label="券号"
     model:value="{{ number }}"
@@ -85,6 +65,18 @@
     placeholder="请输入密码"
     bind:change="onChange"
   />
-  <van-button wx:if="{{ isLogined }}" block type="primary" loading="{{ exchangeCouponsLoading }}" bind:click="exchangeCoupons">立即兑换</van-button>
-  <van-button wx:else block type="primary" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="processLogin">登陆后兑换</van-button>
-</van-popup>
+  <view class="block-btn">
+    <van-button wx:if="{{ isLogined }}" block type="primary" loading="{{ exchangeCouponsLoading }}" bind:click="exchangeCoupons">立即兑换</van-button>
+    <van-button wx:else block type="primary" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="processLogin">登陆后兑换</van-button>
+  </view>
+</view>
+<view class="bottom"></view>
+
+<block wx:if="{{showPwdPop}}">
+  <view class="pwd-coupons-mask" bindtap="closePwd"></view>
+  <view class="pwd-coupons">
+    <view class="t">请输入口令</view>
+    <input bindinput="pwdCouponChange" class="input" value="{{couponPwd}}" auto-focus/>
+    <button type="primary" plain bindtap="getCounpon2"> 领取 </button>
+  </view>
+</block>

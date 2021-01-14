@@ -32,51 +32,50 @@ Page({
   },
   async categories() {
     wx.showLoading({
-      title: '加载中',
+      title: '',
     })
     const res = await WXAPI.goodsCategory()
     wx.hideLoading()
-    let categories = [];
-    let categoryName = '';
-    let categoryId = '';
     let activeCategory = 0
+    let categorySelected = this.data.categorySelected
     if (res.code == 0) {
       if (this.data.categorySelected.id) {
         activeCategory = res.data.findIndex(ele => {
           return ele.id == this.data.categorySelected.id
         })
-        const _curCategory = res.data.find(ele => {
-          return ele.id == this.data.categorySelected.id
+        categorySelected = res.data[activeCategory]
+      } else {
+        categorySelected = res.data[0]
+      }
+      const categories = res.data
+      categories.forEach(p => {
+        p.childs = categories.filter(ele => {
+          return p.id == ele.pid
         })
-        categoryName = _curCategory.name;
-        categoryId = _curCategory.id;
-      }
-      for (let i = 0; i < res.data.length; i++) {
-        let item = res.data[i];
-        categories.push(item);
-        if (i == 0 && !this.data.categorySelected.id) {
-          categoryName = item.name;
-          categoryId = item.id;
-        }
-      }
+        console.log(p.childs);
+      })
+      this.setData({
+        page: 1,
+        activeCategory,
+        categories,
+        categorySelected
+      })
+      this.getGoodsList()
     }
-    this.setData({
-      page: 1,
-      activeCategory,
-      categories: categories,
-      categorySelected: {
-        name: categoryName,
-        id: categoryId
-      }
-    });
-    this.getGoodsList();
   },
   async getGoodsList() {
     wx.showLoading({
-      title: '加载中',
+      title: '',
     })
+    // secondCategoryId
+    let categoryId = ''
+    if (this.data.secondCategoryId) {
+      categoryId = this.data.secondCategoryId
+    } else if(this.data.categorySelected.id) {
+      categoryId = this.data.categorySelected.id
+    }
     const res = await WXAPI.goods({
-      categoryId: this.data.categorySelected.id ? this.data.categorySelected.id : '',
+      categoryId,
       page: this.data.page,
       pageSize: this.data.pageSize
     })
@@ -124,6 +123,19 @@ Page({
       activeCategory: idx,
       categorySelected: this.data.categories[idx],
       scrolltop: 0
+    });
+    this.getGoodsList();
+  },
+  onSecondCategoryClick(e) {
+    const idx = e.detail.index
+    let secondCategoryId = ''
+    if (idx) {
+      // 点击了具体的分类
+      secondCategoryId = this.data.categorySelected.childs[idx-1].id
+    }
+    this.setData({
+      page: 1,
+      secondCategoryId
     });
     this.getGoodsList();
   },

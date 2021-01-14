@@ -1,7 +1,10 @@
 .header-box {
   padding: 32rpx;
+  padding-bottom: 64rpx;
   display: flex;
   align-items: center;
+  background-color: #FF4949;
+  color: #eee;
 }
 .header-box .avatar {
   width: 128rpx;
@@ -13,7 +16,6 @@
 }
 .header-box .r {
   margin-left: 32rpx;
-  color: #333;
   font-size: 28rpx;
 }
 
@@ -39,9 +41,14 @@ page,view,image,input {
   flex-direction: column;
   width:187rpx;
   text-align: center;
-  font-size: 13px;
+  font-size: 24rpx;
   line-height: 20px;
+  color:#666;
+}
+.asset .item .amount {
   color:#333;
+  font-size: 32rpx;
+  padding-bottom: 12rpx;
 }
 .asset .right {
   border-left: 1px solid #eee;
@@ -52,43 +59,6 @@ page,view,image,input {
 	font-size: 24rpx;
 	text-align: center;
   padding: 32rpx;
-}
-
-.order-shortcut {
-  display: flex;
-  padding-top: 20rpx;
-  padding-bottom: 20rpx;
-}
-.order-shortcut .item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 150rpx;
-  text-align: center;
-}
-.order-shortcut .item .dot {
-  position: absolute;
-  right: 20rpx;
-  top: -8rpx;
-  min-width: 32rpx;
-  height: 32rpx;
-  padding: 0 7rpx;
-  line-height: 32rpx;
-  font-size: 18rpx;
-  border-radius: 32rpx;
-  background: #FF4949;
-  color: #fff;
-  text-align: center;
-}
-.order-shortcut .item .icon {
-  width: 67rpx;
-  height: 67rpx;
-  margin-left: 45rpx;
-}
-.order-shortcut .item .text {
-  margin-top: 8rpx;
-  font-size: 24rpx;
-  color: #323233;
 }
 .to-authorize{
   padding: 0rpx;
@@ -132,7 +102,7 @@ page,view,image,input {
 }
 .space {
   width: 100vw;
-  height: 8rpx;
+  height: 2rpx;
   background: #F4F5F9;
 }
 .line {

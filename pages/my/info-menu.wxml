@@ -1,0 +1,12 @@
+<van-cell wx:if="{{userMobile}}" title="绑定手机" value="{{ userMobile }}" />
+<van-cell wx:else title="绑定手机" center>
+  <van-button type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
+</van-cell>
+<van-cell title="收货地址" is-link url="/pages/select-address/index" />
+<van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwd-pay/modify" />
+<van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
+<van-cell title="我的收藏" is-link url="/pages/goods/fav" />
+<van-cell title="修改资料" is-link url="/pages/my/info" />
+
+
+<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

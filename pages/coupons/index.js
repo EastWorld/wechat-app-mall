@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["可领券", "已领券", "已失效"],
+    tabs: ['可领', '已领', '失效', '口令'],
     activeIndex: 0,
 
     showPwdPop: false
@@ -54,7 +54,7 @@ Page({
   },
   tabClick: function (e) {
     this.setData({
-      activeIndex: e.currentTarget.dataset.id
+      activeIndex: e.detail.index
     });
     if (this.data.activeIndex == 0) {
       this.sysCoupons()
@@ -249,16 +249,6 @@ Page({
       showPwdPop: false
     })
   },
-  exchangeCouponsShow() {
-    this.setData({
-      exchangeCouponsShow: true
-    })
-  },
-  exchangeCouponsHide() {
-    this.setData({
-      exchangeCouponsShow: false
-    })
-  },
   processLogin(e) {
     if (!e.detail.userInfo) {
       wx.showToast({
@@ -306,7 +296,6 @@ Page({
       wx.showToast({
         title: '兑换成功'
       })
-      this.exchangeCouponsHide()
     }
   },
 })

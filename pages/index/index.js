@@ -286,7 +286,7 @@ Page({
     }
   },
   goCoupons: function (e) {
-    wx.navigateTo({
+    wx.switchTab({
       url: "/pages/coupons/index"
     })
   },

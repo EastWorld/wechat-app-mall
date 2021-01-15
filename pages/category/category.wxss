@@ -88,3 +88,6 @@ page {
 .sku-container .num .t {
   color: #333;
 }
+.llargada{
+  width: 590rpx!important;
+}

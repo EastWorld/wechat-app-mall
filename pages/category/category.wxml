@@ -6,7 +6,7 @@
     </van-sidebar>
   </scroll-view>
   <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
-    <van-tabs wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" bind:change="onSecondCategoryClick">
+    <van-tabs wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick">
       <van-tab title="全部"></van-tab>
       <van-tab wx:for="{{categorySelected.childs}}" wx:key="id" title="{{ item.name }}"></van-tab>
     </van-tabs>

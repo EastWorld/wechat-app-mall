@@ -415,10 +415,8 @@ module.exports = {
   pushNewGoods: function pushNewGoods(data) {
     return request('/shop/goods/putOrUpdate', true, 'post', data);
   },
-  goodsPrice: function goodsPrice(goodsId, propertyChildIds) {
-    return request('/shop/goods/price', true, 'post', {
-      goodsId: goodsId, propertyChildIds: propertyChildIds
-    });
+  goodsPriceV2: function goodsPriceV2(data) {
+    return request('/shop/goods/price', true, 'post', data);
   },
   goodsPriceDaily: function goodsPriceDaily(goodsId) {
     var priceId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';

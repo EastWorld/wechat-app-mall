@@ -168,8 +168,6 @@ Page({
     if (_categoryId) {
       this.data.categorySelected.id = _categoryId
       this.categories();
-    } else {
-      this.data.categorySelected.id = null
     }
   },
   async addShopCar(e) {

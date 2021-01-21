@@ -303,7 +303,12 @@ Page({
     }
     // 计算 sku 价格
     if (this.data.canSubmit) {
-      const res = await WXAPI.goodsPrice(this.data.goodsDetail.basicInfo.id, this.data.propertyChildIds)
+      const token = wx.getStorageSync('token')
+      const res = await WXAPI.goodsPriceV2({
+        token: token ? token : '',
+        goodsId: this.data.goodsDetail.basicInfo.id,
+        propertyChildIds: this.data.propertyChildIds
+      })
       if (res.code == 0) {
         price = res.data.price
         if (this.data.shopType == 'toPingtuan') {

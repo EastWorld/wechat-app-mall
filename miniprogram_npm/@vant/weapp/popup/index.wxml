@@ -12,7 +12,7 @@
 <view
   wx:if="{{ inited }}"
   class="custom-class {{ classes }} {{ utils.bem('popup', [position, { round, safe: safeAreaInsetBottom, safeTop: safeAreaInsetTop }]) }}"
-  style="{{ computed.popupClass({ zIndex, currentDuration, display, customStyle }) }}"
+  style="{{ computed.popupStyle({ zIndex, currentDuration, display, customStyle }) }}"
   bind:transitionend="onTransitionEnd"
 >
   <slot />

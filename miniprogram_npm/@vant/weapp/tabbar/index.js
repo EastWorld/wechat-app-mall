@@ -1,20 +1,12 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-var utils_1 = require('../common/utils');
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
+var utils_1 = require('../common/utils');
 component_1.VantComponent({
-  relation: {
-    name: 'tabbar-item',
-    type: 'descendant',
-    current: 'tabbar',
-    linked: function (target) {
-      target.parent = this;
-      target.updateFromParent();
-    },
-    unlinked: function () {
-      this.updateChildren();
-    },
-  },
+  relation: relation_1.useChildren('tabbar-item', function () {
+    this.updateChildren();
+  }),
   props: {
     active: {
       type: null,

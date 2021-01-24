@@ -1,6 +1,6 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = void 0;
+exports.getCurrentPage = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = void 0;
 var validator_1 = require('./validator');
 var version_1 = require('./version');
 function range(num, min, max) {
@@ -106,3 +106,8 @@ function toPromise(promiseLike) {
   return Promise.resolve(promiseLike);
 }
 exports.toPromise = toPromise;
+function getCurrentPage() {
+  var pages = getCurrentPages();
+  return pages[pages.length - 1];
+}
+exports.getCurrentPage = getCurrentPage;

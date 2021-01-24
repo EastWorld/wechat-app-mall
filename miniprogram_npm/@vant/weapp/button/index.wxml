@@ -8,7 +8,7 @@
   hover-class="van-button--active hover-class"
   lang="{{ lang }}"
   form-type="{{ formType }}"
-  style="{{ computed.rootStyle({ plain, color }) }} {{ customStyle }}"
+  style="{{ computed.rootStyle({ plain, color, customStyle }) }}"
   open-type="{{ disabled ? '' : openType }}"
   business-id="{{ businessId }}"
   session-from="{{ sessionFrom }}"

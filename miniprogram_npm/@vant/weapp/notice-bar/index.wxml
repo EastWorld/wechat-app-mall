@@ -1,9 +1,10 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 
 <view
   wx:if="{{ show }}"
   class="custom-class {{ utils.bem('notice-bar', { withicon: mode, wrapable }) }}"
-  style="color: {{ color }}; background-color: {{ backgroundColor }}; background: {{ background }}"
+  style="{{ computed.rootStyle({ color, backgroundColor, background }) }}"
   bind:tap="onClick"
 >
   <van-icon

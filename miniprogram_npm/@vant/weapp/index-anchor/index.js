@@ -2,12 +2,9 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 var utils_1 = require('../common/utils');
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
-  relation: {
-    name: 'index-bar',
-    type: 'ancestor',
-    current: 'index-anchor',
-  },
+  relation: relation_1.useParent('index-bar'),
   props: {
     useSlot: Boolean,
     index: null,

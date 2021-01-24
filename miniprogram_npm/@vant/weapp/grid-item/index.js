@@ -1,13 +1,10 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-var link_1 = require('../mixins/link');
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
+var link_1 = require('../mixins/link');
 component_1.VantComponent({
-  relation: {
-    name: 'grid',
-    type: 'ancestor',
-    current: 'grid-item',
-  },
+  relation: relation_1.useParent('grid'),
   classes: ['content-class', 'icon-class', 'text-class'],
   mixins: [link_1.link],
   props: {

@@ -1,13 +1,10 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
   classes: ['active-class', 'disabled-class'],
-  relation: {
-    type: 'ancestor',
-    name: 'sidebar',
-    current: 'sidebar-item',
-  },
+  relation: relation_1.useParent('sidebar'),
   props: {
     dot: Boolean,
     badge: null,

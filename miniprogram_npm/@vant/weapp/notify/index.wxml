@@ -1,15 +1,16 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 
 <van-transition
   name="slide-down"
   show="{{ show }}"
   custom-class="van-notify__container"
-  custom-style="z-index: {{ zIndex }}; top: {{ utils.addUnit(top) }}"
+  custom-style="{{ computed.rootStyle({ zIndex, top }) }}"
   bind:tap="onTap"
 >
   <view
     class="van-notify van-notify--{{ type }}"
-    style="background:{{ background }};color:{{ color }};"
+    style="{{ computed.notifyStyle({ background, color }) }}"
   >
     <view
       wx:if="{{ safeAreaInsetTop }}"

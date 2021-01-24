@@ -1,3 +1,5 @@
-<view class="custom-class van-row" style="{{ viewStyle }}">
+<wxs src="./index.wxs" module="computed" />
+
+<view class="van-row custom-class" style="{{ computed.rootStyle({ gutter }) }}">
   <slot />
 </view>

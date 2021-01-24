@@ -31,6 +31,9 @@ component_1.VantComponent({
   },
   data: {
     show: false,
+    onOpened: null,
+    onClose: null,
+    onClick: null,
   },
   created: function () {
     var statusBarHeight = utils_1.getSystemInfoSync().statusBarHeight;

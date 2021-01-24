@@ -1,22 +1,23 @@
-<wxs src="./index.wxs" module="getOptionText" />
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 
 <view
   class="van-picker-column custom-class"
-  style="height: {{ itemHeight * visibleItemCount }}px"
+  style="{{ computed.rootStyle({ itemHeight, visibleItemCount }) }}"
   bind:touchstart="onTouchStart"
   catch:touchmove="onTouchMove"
   bind:touchend="onTouchEnd"
   bind:touchcancel="onTouchEnd"
 >
-  <view style="transition: transform {{ duration }}ms; line-height: {{ itemHeight }}px; transform: translate3d(0, {{ offset + (itemHeight * (visibleItemCount - 1)) / 2 }}px, 0)">
+  <view style="{{ computed.wrapperStyle({ offset, itemHeight, visibleItemCount }) }}">
     <view
       wx:for="{{ options }}"
       wx:for-item="option"
       wx:key="index"
       data-index="{{ index }}"
       style="height: {{ itemHeight }}px"
-      class="van-ellipsis van-picker-column__item {{ option && option.disabled ? 'van-picker-column__item--disabled' : '' }} {{ index === currentIndex ? 'van-picker-column__item--selected active-class' : '' }}"
+      class="van-ellipsis {{ utils.bem('picker-column__item', { disabled: option && option.disabled, selected: index === currentIndex }) }} {{ index === currentIndex ? 'active-class' : '' }}"
       bindtap="onClickItem"
-    >{{ getOptionText(option, valueKey) }}</view>
+    >{{ computed.optionText(option, valueKey) }}</view>
   </view>
 </view>

@@ -95,7 +95,6 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 
 var request = function request(url, needSubDomain, method, data) {
@@ -312,6 +311,9 @@ module.exports = {
   wxpayWepayez: function wxpayWepayez(data) {
     return request('/pay/wepayez/wxapp', true, 'post', data);
   },
+  wxpayxpert: function wxpayxpert(data) {
+    return request('/pay/payxpert/wxapp', true, 'post', data);
+  },
   alipay: function alipay(data) {
     return request('/pay/alipay/semiAutomatic/payurl', true, 'post', data);
   },
@@ -327,6 +329,9 @@ module.exports = {
       encryptedData: encryptedData,
       iv: iv
     });
+  },
+  loginWxaMobileV2: function loginWxaMobileV2(data) {
+    return request('/user/wxapp/login/mobile', true, 'post', data);
   },
   login_username: function login_username(data) {
     return request('/user/username/login', true, 'post', data);
@@ -415,6 +420,14 @@ module.exports = {
   pushNewGoods: function pushNewGoods(data) {
     return request('/shop/goods/putOrUpdate', true, 'post', data);
   },
+  deleteMyGoods: function deleteMyGoods(token, id) {
+    return request('/shop/goods/del', true, 'post', { token: token, id: id });
+  },
+  goodsPrice: function goodsPrice(goodsId, propertyChildIds) {
+    return request('/shop/goods/price', true, 'post', {
+      goodsId: goodsId, propertyChildIds: propertyChildIds
+    });
+  },
   goodsPriceV2: function goodsPriceV2(data) {
     return request('/shop/goods/price', true, 'post', data);
   },
@@ -436,9 +449,6 @@ module.exports = {
   goodsReputation: function goodsReputation(data) {
     return request('/shop/goods/reputation', true, 'post', data);
   },
-  goodsFavList: function goodsFavList(data) {
-    return request('/shop/goods/fav/list', true, 'post', data);
-  },
   myBuyGoodsHis: function myBuyGoodsHis(data) {
     return request('/shop/goods/his/list', true, 'post', data);
   },
@@ -450,10 +460,16 @@ module.exports = {
       token: token, id: id, goodsId: goodsId
     });
   },
+  goodsFavList: function goodsFavList(data) {
+    return request('/shop/goods/fav/list', true, 'post', data);
+  },
   goodsFavPut: function goodsFavPut(token, goodsId) {
     return request('/shop/goods/fav/add', true, 'post', {
       token: token, goodsId: goodsId
     });
+  },
+  goodsFavAdd: function goodsFavAdd(data) {
+    return request('/shop/goods/fav/add', true, 'post', data);
   },
   goodsFavCheck: function goodsFavCheck(token, goodsId) {
     return request('/shop/goods/fav/check', true, 'get', {
@@ -467,6 +483,9 @@ module.exports = {
     return request('/shop/goods/fav/delete', true, 'post', {
       token: token, id: id, goodsId: goodsId
     });
+  },
+  goodsFavDeleteV2: function goodsFavDeleteV2(data) {
+    return request('/shop/goods/fav/delete', true, 'post', data);
   },
   coupons: function coupons(data) {
     return request('/discounts/coupons', true, 'get', data);
@@ -762,11 +781,11 @@ module.exports = {
   vipLevel: function vipLevel() {
     return request('/config/vipLevel', true, 'get');
   },
-  fxSetting: function fxSetting() {
-    return request('/saleDistribution/setting', true, 'get');
-  },
   fxApply: function fxApply(token, name, mobile) {
     return request('/saleDistribution/apply', true, 'post', { token: token, name: name, mobile: mobile });
+  },
+  fxSetting: function fxSetting() {
+    return request('/saleDistribution/setting', true, 'get');
   },
   fxBuy: function fxBuy(token) {
     return request('/saleDistribution/buy', true, 'post', { token: token });
@@ -791,16 +810,19 @@ module.exports = {
       page: page, pageSize: pageSize
     });
   },
+  fxSaleroomRankDaily: function fxSaleroomRankDaily(page, pageSize, day) {
+    return request('/saleDistribution/sale-room-rank/daily', true, 'get', {
+      page: page, pageSize: pageSize, day: day
+    });
+  },
+  fxMembersStatistics: function fxMembersStatistics(token) {
+    return request('/saleDistribution/members/statistics', true, 'get', { token: token });
+  },
   goodsSellNumberStatistics: function goodsSellNumberStatistics(page, pageSize) {
     var goodsId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
     return request('/site/goods/statistics', true, 'get', {
       page: page, pageSize: pageSize, goodsId: goodsId
-    });
-  },
-  fxSaleroomRankDaily: function fxSaleroomRankDaily(page, pageSize, day) {
-    return request('/saleDistribution/sale-room-rank/daily', true, 'get', {
-      page: page, pageSize: pageSize, day: day
     });
   },
   wxaQrcode: function wxaQrcode(data) {
@@ -878,6 +900,9 @@ module.exports = {
   cmsArticleDetail: function cmsArticleDetail(id) {
     return request('/cms/news/detail', true, 'get', { id: id });
   },
+  cmsArticleDetailV2: function cmsArticleDetailV2(id) {
+    return request('/cms/news/detail/v2', true, 'get', { id: id });
+  },
   cmsArticlePreNext: function cmsArticlePreNext(id) {
     return request('/cms/news/preNext', true, 'get', { id: id });
   },
@@ -940,6 +965,9 @@ module.exports = {
   },
   modifyUserInfo: function modifyUserInfo(data) {
     return request('/user/modify', true, 'post', data);
+  },
+  bindSaleman: function bindSaleman(token, uid) {
+    return request('/user/bindSaleman', true, 'post', data);
   },
   modifyUserPassword: function modifyUserPassword(token, pwdOld, pwdNew) {
     return request('/user/modify/password', true, 'post', { token: token, pwdOld: pwdOld, pwdNew: pwdNew });
@@ -1432,6 +1460,51 @@ module.exports = {
   },
   resetPayPassword: function resetPayPassword(mobile, code, pwd) {
     return request('/user/paypwd/reset', true, 'post', { mobile: mobile, code: code, pwd: pwd });
+  },
+  adPosition: function adPosition(key) {
+    return request('/site/adPosition/info', true, 'get', { key: key });
+  },
+  momentsCategory: function momentsCategory() {
+    return request('/momentsCategory/list', true, 'get');
+  },
+  momentsList: function momentsList(data) {
+    return request('/moments/list', true, 'post', data);
+  },
+  momentsdetail: function momentsdetail(id) {
+    return request('/moments/detail', true, 'get', { id: id });
+  },
+  goodsVisitLog: function goodsVisitLog(data) {
+    return request('/goods/visitLog', true, 'post', data);
+  },
+  goodsVisitLogAdd: function goodsVisitLogAdd(data) {
+    return request('/goods/visitLog/add', true, 'post', data);
+  },
+  goodsVisitLogDelete: function goodsVisitLogDelete(data) {
+    return request('/goods/visitLog/delete', true, 'post', data);
+  },
+  channelDataPush: function channelDataPush(key, content) {
+    return request('/channelData/push', true, 'post', { key: key, content: content });
+  },
+  channelDataPull: function channelDataPull(key) {
+    return request('/channelData/pull', true, 'get', { key: key });
+  },
+  bindPartner: function bindPartner(token, partnerId) {
+    return request('/user/bindPartner', true, 'post', { token: token, uid: partnerId });
+  },
+  partnerSetting: function partnerSetting() {
+    return request('/partner/setting', true, 'get');
+  },
+  partnerBindTeamLeader: function partnerBindTeamLeader(token, uid) {
+    return request('/partner/bindTeamLeader', true, 'post', { token: token, uid: uid });
+  },
+  partnerBuyTeamLeader: function partnerBuyTeamLeader(token) {
+    return request('/partner/buy', true, 'post', { token: token });
+  },
+  partnerMembersStatistics: function partnerMembersStatistics(token) {
+    return request('/partner/members/statistics', true, 'get', { token: token });
+  },
+  partnerMembers: function partnerMembers(data) {
+    return request('/partner/members', true, 'post', data);
   }
 };
 

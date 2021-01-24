@@ -22,7 +22,7 @@ component_1.VantComponent({
       observer: 'updateSubItems',
     },
     height: {
-      type: [Number, String],
+      type: null,
       value: 300,
     },
     max: {

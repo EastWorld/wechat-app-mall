@@ -1,6 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
   props: {
     info: null,
@@ -12,13 +13,11 @@ component_1.VantComponent({
       value: 'van-icon',
     },
   },
-  relation: {
-    name: 'tabbar',
-    type: 'ancestor',
-    current: 'tabbar-item',
-  },
+  relation: relation_1.useParent('tabbar'),
   data: {
     active: false,
+    activeColor: '',
+    inactiveColor: '',
   },
   methods: {
     onClick: function () {

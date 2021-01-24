@@ -1,12 +1,9 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
+var relation_1 = require('../common/relation');
 var component_1 = require('../common/component');
 component_1.VantComponent({
-  relation: {
-    name: 'tabs',
-    type: 'ancestor',
-    current: 'tab',
-  },
+  relation: relation_1.useParent('tabs'),
   props: {
     dot: {
       type: Boolean,
@@ -29,7 +26,7 @@ component_1.VantComponent({
       observer: 'update',
     },
     name: {
-      type: [Number, String],
+      type: null,
       value: '',
     },
   },

@@ -4,25 +4,13 @@ var component_1 = require('../common/component');
 var touch_1 = require('../mixins/touch');
 var utils_1 = require('../common/utils');
 var validator_1 = require('../common/validator');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
   mixins: [touch_1.touch],
   classes: ['nav-class', 'tab-class', 'tab-active-class', 'line-class'],
-  relation: {
-    name: 'tab',
-    type: 'descendant',
-    current: 'tabs',
-    linked: function (target) {
-      target.index = this.children.length - 1;
-      this.updateTabs();
-    },
-    unlinked: function () {
-      this.children = this.children.map(function (child, index) {
-        child.index = index;
-        return child;
-      });
-      this.updateTabs();
-    },
-  },
+  relation: relation_1.useChildren('tab', function () {
+    this.updateTabs();
+  }),
   props: {
     sticky: Boolean,
     border: Boolean,
@@ -40,16 +28,16 @@ component_1.VantComponent({
       },
     },
     lineWidth: {
-      type: [String, Number],
+      type: null,
       value: 40,
       observer: 'resize',
     },
     lineHeight: {
-      type: [String, Number],
+      type: null,
       value: -1,
     },
     active: {
-      type: [String, Number],
+      type: null,
       value: 0,
       observer: function (name) {
         if (name !== this.getCurrentName()) {

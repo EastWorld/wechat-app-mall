@@ -25,8 +25,13 @@ Page({
     canSubmit: false, //  选中规格尺寸时候是否允许加入购物车
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
   },
-  async onLoad(e) {
+  onLoad(e) {
     // e.id = 122843
+    // 读取分享链接中的邀请人编号
+    if (e && e.inviter_id) {
+      wx.setStorageSync('referrer', e.inviter_id)
+    }
+    // 读取小程序码中的邀请人编号
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
       if (scene && scene.split(',').length >= 2) {
@@ -34,6 +39,10 @@ Page({
         wx.setStorageSync('referrer', scene.split(',')[1])
       }
     }
+    // 静默式授权注册/登陆
+    AUTH.authorize().then(res => {
+      
+    })
     this.data.goodsId = e.id
     const that = this
     this.data.kjJoinUid = e.kjJoinUid    

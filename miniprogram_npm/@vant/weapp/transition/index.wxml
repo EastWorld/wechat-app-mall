@@ -1,7 +1,9 @@
+<wxs src="./index.wxs" module="computed" />
+
 <view
   wx:if="{{ inited }}"
   class="van-transition custom-class {{ classes }}"
-  style="-webkit-transition-duration:{{ currentDuration }}ms; transition-duration:{{ currentDuration }}ms; {{ display ? '' : 'display: none;' }} {{ customStyle }}"
+  style="{{ computed.rootStyle({ currentDuration, display, customStyle }) }}"
   bind:transitionend="onTransitionEnd"
 >
   <slot />

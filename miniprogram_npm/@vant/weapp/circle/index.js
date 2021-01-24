@@ -40,7 +40,7 @@ component_1.VantComponent({
       value: color_1.WHITE,
     },
     color: {
-      type: [String, Object],
+      type: null,
       value: color_1.BLUE,
       observer: function () {
         var _this = this;

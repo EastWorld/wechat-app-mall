@@ -34,7 +34,7 @@ component_1.VantComponent({
           value: 80,
         },
         name: {
-          type: [Number, String],
+          type: null,
           value: '',
         },
         accept: {
@@ -225,6 +225,13 @@ component_1.VantComponent({
         fail: function () {
           wx.showToast({ title: '预览视频失败', icon: 'none' });
         },
+      });
+    },
+    onPreviewFile: function (event) {
+      var index = event.currentTarget.dataset.index;
+      wx.openDocument({
+        filePath: this.data.lists[index].url,
+        showMenu: true,
       });
     },
     onClickPreview: function (event) {

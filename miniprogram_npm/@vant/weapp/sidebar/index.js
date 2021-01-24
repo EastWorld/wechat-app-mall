@@ -1,18 +1,11 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
-  relation: {
-    name: 'sidebar-item',
-    type: 'descendant',
-    current: 'sidebar',
-    linked: function () {
-      this.setActive(this.data.activeKey);
-    },
-    unlinked: function () {
-      this.setActive(this.data.activeKey);
-    },
-  },
+  relation: relation_1.useChildren('sidebar-item', function () {
+    this.setActive(this.data.activeKey);
+  }),
   props: {
     activeKey: {
       type: Number,

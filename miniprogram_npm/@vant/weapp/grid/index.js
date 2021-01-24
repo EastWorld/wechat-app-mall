@@ -1,19 +1,16 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
-  relation: {
-    name: 'grid-item',
-    type: 'descendant',
-    current: 'grid',
-  },
+  relation: relation_1.useChildren('grid-item'),
   props: {
     square: {
       type: Boolean,
       observer: 'updateChildren',
     },
     gutter: {
-      type: [Number, String],
+      type: null,
       value: 0,
       observer: 'updateChildren',
     },

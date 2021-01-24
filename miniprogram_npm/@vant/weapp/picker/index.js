@@ -40,7 +40,6 @@ component_1.VantComponent({
           columns = [];
         }
         this.simple = columns.length && !columns[0].values;
-        this.children = this.selectAllComponents('.van-picker__column');
         if (Array.isArray(this.children) && this.children.length) {
           this.setColumns().catch(function () {});
         }
@@ -48,7 +47,12 @@ component_1.VantComponent({
     },
   }),
   beforeCreate: function () {
-    this.children = [];
+    var _this = this;
+    Object.defineProperty(this, 'children', {
+      get: function () {
+        return _this.selectAllComponents('.van-picker__column') || [];
+      },
+    });
   },
   methods: {
     noop: function () {},

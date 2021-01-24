@@ -1,5 +1,3 @@
-@import "/template/login/index.wxss";
-
 page {
   background-color: #f0f2f6;
 }

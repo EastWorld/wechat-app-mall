@@ -1,8 +1,9 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 
 <view
   class="custom-class {{ utils.bem('tag', [type, size, { mark, plain, round }]) }}"
-  style="{{ color && !plain ? 'background-color: ' + color + ';' : '' }}{{ textColor || (color && plain) ? 'color: ' + (textColor || color) : '' }}"
+  style="{{ computed.rootStyle({ plain, color, textColor }) }}"
 >
   <slot />
   <van-icon

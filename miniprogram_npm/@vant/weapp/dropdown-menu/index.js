@@ -1,21 +1,14 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 var utils_1 = require('../common/utils');
 var ARRAY = [];
 component_1.VantComponent({
   field: true,
-  relation: {
-    name: 'dropdown-item',
-    type: 'descendant',
-    current: 'dropdown-menu',
-    linked: function () {
-      this.updateItemListData();
-    },
-    unlinked: function () {
-      this.updateItemListData();
-    },
-  },
+  relation: relation_1.useChildren('dropdown-item', function () {
+    this.updateItemListData();
+  }),
   props: {
     activeColor: {
       type: String,

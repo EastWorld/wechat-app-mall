@@ -2,7 +2,7 @@ const WXAPI = require('apifm-wxapi')
 const APP = getApp()
 // fixed首次打开不显示标题的bug
 APP.configLoadOK = () => {
-  console.log(1);
+  
 }
 var timer
 Page({

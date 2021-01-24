@@ -1,16 +1,12 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
   field: true,
-  relation: {
-    name: 'radio',
-    type: 'descendant',
-    current: 'radio-group',
-    linked: function (target) {
-      this.updateChild(target);
-    },
-  },
+  relation: relation_1.useChildren('radio', function (target) {
+    this.updateChild(target);
+  }),
   props: {
     value: {
       type: null,

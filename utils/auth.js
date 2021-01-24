@@ -165,6 +165,45 @@ async function register(page) {
   })
 }
 
+async function authorize() {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: function (res) {
+        const code = res.code
+        let referrer = '' // 推荐人
+        let referrer_storge = wx.getStorageSync('referrer');
+        if (referrer_storge) {
+          referrer = referrer_storge;
+        }
+        // 下面开始调用注册接口
+        const componentAppid = wx.getStorageSync('componentAppid')
+        if (componentAppid) {
+          WXAPI.wxappServiceAuthorize({
+            code: code,
+            referrer: referrer
+          }).then(function (res) {
+            wx.setStorageSync('token', res.data.token)
+            wx.setStorageSync('uid', res.data.uid)
+            resolve(res)
+          })
+        } else {
+          WXAPI.authorize({
+            code: code,
+            referrer: referrer
+          }).then(function (res) {
+            wx.setStorageSync('token', res.data.token)
+            wx.setStorageSync('uid', res.data.uid)
+            resolve(res)
+          })
+        }
+      },
+      fail: err => {
+        reject(err)
+      }
+    })
+  })
+}
+
 function loginOut(){
   wx.removeStorageSync('token')
   wx.removeStorageSync('uid')
@@ -239,5 +278,6 @@ module.exports = {
   register: register,
   loginOut: loginOut,
   checkAndAuthorize: checkAndAuthorize,
-  openLoginDialog: openLoginDialog
+  openLoginDialog: openLoginDialog,
+  authorize: authorize
 }

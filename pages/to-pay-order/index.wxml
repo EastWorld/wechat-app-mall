@@ -1,107 +1,117 @@
-<van-card
-  wx:for="{{goodsList}}" wx:key="index"
-  num="{{item.number}}"
-  price="{{item.price}}"
-  title="{{item.name}}"
-  thumb="{{ item.pic }}"
-  centered
-  >
-  <view slot="desc">
-    {{item.label}}
-    <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
-      {{option.optionName}}:{{option.optionValueName}}
-    </block>
-    <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
-      {{option.pname}}:{{option.name}}
-    </block>
-  </view>
-</van-card>
-<view class="container-box cell-group">
-  <view class="peisong-way">
-    <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
-      <view class="row-label">配送方式</view>
-      <radio-group bindchange="radioChange">
-        <label class="radio">
-          <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
-        </label>
-        <label class="radio">
-          <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
-        </label>
-      </radio-group>
+<block wx:if="{{ bindMobileStatus == 2 }}">
+  <view class="login-box">
+    <image class="logo" src="/images/wx.jpg" mode="widthFix"></image>
+    <view class="line"></view>
+    <view class="title">申请获取以下权限</view>
+    <view class="profile">授权绑定手机号码</view>
+    <view class="btn">
+      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">绑定手机号码</van-button>
     </view>
-    <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
-      <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
-    </picker>
-    <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
-    <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
-    <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
-      <view class="add-address" hidden="{{curAddressData}}" bindtap="addAddress">
-        <image src="/images/add-addr.png"></image>
-        <view>新增收货地址</view>
+  </view>
+</block>
+<block wx:if="{{ bindMobileStatus == 1 }}">
+  <van-card
+    wx:for="{{goodsList}}" wx:key="index"
+    num="{{item.number}}"
+    price="{{item.price}}"
+    title="{{item.name}}"
+    thumb="{{ item.pic }}"
+    centered
+    >
+    <view slot="desc">
+      {{item.label}}
+      <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+        {{option.optionName}}:{{option.optionValueName}}
+      </block>
+      <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+        {{option.pname}}:{{option.name}}
+      </block>
+    </view>
+  </van-card>
+  <view class="container-box cell-group">
+    <view class="peisong-way">
+      <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
+        <view class="row-label">配送方式</view>
+        <radio-group bindchange="radioChange">
+          <label class="radio">
+            <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
+          </label>
+          <label class="radio">
+            <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
+          </label>
+        </radio-group>
       </view>
-      <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
-        <view class="l">
-          <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>
-          <view class="addr-text">{{curAddressData.address}}</view>
+      <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
+        <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
+      </picker>
+      <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
+      <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
+      <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
+        <view class="add-address" hidden="{{curAddressData}}" bindtap="addAddress">
+          <image src="/images/add-addr.png"></image>
+          <view>新增收货地址</view>
         </view>
-        <view class="r">
+        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
+          <view class="l">
+            <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>
+            <view class="addr-text">{{curAddressData.address}}</view>
+          </view>
+          <view class="r">
+            <image class="next" src="/images/icon/next.png"></image>
+          </view>
+        </view>
+      </view>
+      <van-field
+        wx:if="{{peisongType == 'zq'}}"
+        size="large"
+        model:value="{{ name }}"
+        label="联系人"
+        focus
+        clearable
+        required
+        placeholder="请输入联系人"
+      />
+      <van-field
+        wx:if="{{peisongType == 'zq'}}"
+        size="large"
+        model:value="{{ mobile }}"
+        label="联系电话"
+        type="number"
+        clearable
+        required
+        placeholder="请输入手机号码">
+        <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">自动获取</van-button>
+      </van-field>
+      <view class="row-box">
+        <view class="row-label">备注</view>
+        <view class="right-text">
+          <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入" />
+        </view>
+      </view>
+    </view>
+    <view class="peisong-way" hidden="{{hasNoCoupons}}">
+      <view class="row-box" style="border-bottom:none;">
+        <view class="row-label t">使用优惠券</view>
+      </view>
+      <picker bindchange="bindChangeCoupon" range="{{coupons}}" range-key="nameExt">
+        <view class="row-box" style="border-bottom:none;">      
+          <view class="row-label">{{curCouponShowText}}</view>
           <image class="next" src="/images/icon/next.png"></image>
         </view>
-      </view>
-    </view>
-    <van-field
-      wx:if="{{peisongType == 'zq'}}"
-      size="large"
-      model:value="{{ name }}"
-      label="联系人"
-      focus
-      clearable
-      required
-      placeholder="请输入联系人"
-    />
-    <van-field
-      wx:if="{{peisongType == 'zq'}}"
-      size="large"
-      model:value="{{ mobile }}"
-      label="联系电话"
-      type="number"
-      clearable
-      required
-      placeholder="请输入手机号码">
-      <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">自动获取</van-button>
-    </van-field>
-    <view class="row-box">
-      <view class="row-label">备注</view>
-      <view class="right-text">
-        <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入" />
-      </view>
+      </picker>
     </view>
   </view>
-  <view class="peisong-way" hidden="{{hasNoCoupons}}">
-    <view class="row-box" style="border-bottom:none;">
-      <view class="row-label t">使用优惠券</view>
-    </view>
-    <picker bindchange="bindChangeCoupon" range="{{coupons}}" range-key="nameExt">
-      <view class="row-box" style="border-bottom:none;">      
-        <view class="row-label">{{curCouponShowText}}</view>
-        <image class="next" src="/images/icon/next.png"></image>
-      </view>
-    </picker>
-  </view>
-</view>
 
-<van-cell-group custom-class="box-v2">
-  <van-cell wx:if="{{ yunPrice }}" title="运费" value="{{yunPrice}}" />
-  <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-{{couponAmount}}" />
-  <van-cell wx:if="{{balance}}" title="账户余额" value="{{balance}}" />
-</van-cell-group>
-<view class="bottom-box"></view>
-<van-submit-bar
-  price="{{ allGoodsAndYunPrice*100 }}"
-  suffix-label="+{{totalScoreToPay}} 积分"
-  button-text="提交订单"
-  bind:submit="goCreateOrder"
-/>
-
-<import src="/template/login/index.wxml" />
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
+  <van-cell-group custom-class="box-v2">
+    <van-cell wx:if="{{ yunPrice }}" title="运费" value="{{yunPrice}}" />
+    <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-{{couponAmount}}" />
+    <van-cell wx:if="{{balance}}" title="账户余额" value="{{balance}}" />
+  </van-cell-group>
+  <view class="bottom-box"></view>
+  <van-submit-bar
+    price="{{ allGoodsAndYunPrice*100 }}"
+    suffix-label="+{{totalScoreToPay}} 积分"
+    button-text="提交订单"
+    bind:submit="goCreateOrder"
+  />
+</block>

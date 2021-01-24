@@ -84,12 +84,6 @@ App({
         wx.getShareInfo({
           shareTicket: e.shareTicket,
           success: res => {
-            console.log(res)
-            console.log({
-              referrer: e.query.inviter_id,
-              encryptedData: res.encryptedData,
-              iv: res.iv
-            })
             wx.login({
               success(loginRes) {
                 if (loginRes.code) {
@@ -113,7 +107,7 @@ App({
       }
     }
     // 自动登录
-    AUTH.checkHasLogined().then(async isLogined => {
+    AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
         AUTH.login()
       }

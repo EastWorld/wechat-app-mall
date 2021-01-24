@@ -3,7 +3,7 @@ var style = require('../wxs/style.wxs');
 
 function rootStyle(data) {
   if (!data.color) {
-    return '';
+    return data.customStyle;
   }
 
   var properties = {
@@ -18,7 +18,7 @@ function rootStyle(data) {
     properties['border-color'] = data.color;
   }
 
-  return style(properties);
+  return style([properties, data.customStyle]);
 }
 
 function loadingColor(data) {

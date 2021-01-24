@@ -1,16 +1,12 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
+var relation_1 = require('../common/relation');
 var component_1 = require('../common/component');
 component_1.VantComponent({
   field: true,
-  relation: {
-    name: 'dropdown-menu',
-    type: 'ancestor',
-    current: 'dropdown-item',
-    linked: function () {
-      this.updateDataFromParent();
-    },
-  },
+  relation: relation_1.useParent('dropdown-menu', function () {
+    this.updateDataFromParent();
+  }),
   props: {
     value: {
       type: null,
@@ -42,7 +38,10 @@ component_1.VantComponent({
     rerender: function () {
       var _this = this;
       wx.nextTick(function () {
-        _this.parent && _this.parent.updateItemListData();
+        var _a;
+        (_a = _this.parent) === null || _a === void 0
+          ? void 0
+          : _a.updateItemListData();
       });
     },
     updateDataFromParent: function () {
@@ -88,6 +87,7 @@ component_1.VantComponent({
     },
     toggle: function (show, options) {
       var _this = this;
+      var _a;
       if (options === void 0) {
         options = {};
       }
@@ -103,10 +103,12 @@ component_1.VantComponent({
         showPopup: show,
       });
       if (show) {
-        this.parent.getChildWrapperStyle().then(function (wrapperStyle) {
-          _this.setData({ wrapperStyle: wrapperStyle, showWrapper: true });
-          _this.rerender();
-        });
+        (_a = this.parent) === null || _a === void 0
+          ? void 0
+          : _a.getChildWrapperStyle().then(function (wrapperStyle) {
+              _this.setData({ wrapperStyle: wrapperStyle, showWrapper: true });
+              _this.rerender();
+            });
       } else {
         this.rerender();
       }

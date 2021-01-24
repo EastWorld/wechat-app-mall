@@ -1,5 +1,6 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
+var relation_1 = require('../common/relation');
 var component_1 = require('../common/component');
 function emit(target, value) {
   target.$emit('input', value);
@@ -7,11 +8,7 @@ function emit(target, value) {
 }
 component_1.VantComponent({
   field: true,
-  relation: {
-    name: 'checkbox-group',
-    type: 'ancestor',
-    current: 'checkbox',
-  },
+  relation: relation_1.useParent('checkbox-group'),
   classes: ['icon-class', 'label-class'],
   props: {
     value: Boolean,

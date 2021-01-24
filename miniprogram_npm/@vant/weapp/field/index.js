@@ -15,6 +15,7 @@ var __assign =
     return __assign.apply(this, arguments);
   };
 Object.defineProperty(exports, '__esModule', { value: true });
+var utils_1 = require('../common/utils');
 var component_1 = require('../common/component');
 var props_1 = require('./props');
 component_1.VantComponent({
@@ -34,7 +35,7 @@ component_1.VantComponent({
       isLink: Boolean,
       leftIcon: String,
       rightIcon: String,
-      autosize: [Boolean, Object],
+      autosize: null,
       required: Boolean,
       iconClass: String,
       clickable: Boolean,
@@ -92,12 +93,15 @@ component_1.VantComponent({
     onClickIcon: function () {
       this.$emit('click-icon');
     },
+    onClickInput: function (event) {
+      this.$emit('click-input', event.detail);
+    },
     onClear: function () {
       var _this = this;
       this.setData({ innerValue: '' });
       this.value = '';
       this.setShowClear();
-      wx.nextTick(function () {
+      utils_1.nextTick(function () {
         _this.emitChange();
         _this.$emit('clear', '');
       });
@@ -126,7 +130,7 @@ component_1.VantComponent({
     emitChange: function () {
       var _this = this;
       this.setData({ value: this.value });
-      wx.nextTick(function () {
+      utils_1.nextTick(function () {
         _this.$emit('input', _this.value);
         _this.$emit('change', _this.value);
       });

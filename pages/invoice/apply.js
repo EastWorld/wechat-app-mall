@@ -7,32 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    wxlogin: true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad(e) {
+    // 读取分享链接中的邀请人编号
+    if (e && e.inviter_id) {
+      wx.setStorageSync('referrer', e.inviter_id)
+    }
+    // 静默式授权注册/登陆
+    AUTH.authorize().then(res => {
+     
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
-    })    
+  onShow() {
   },
   chooseInvoiceTitle(){
     wx.chooseInvoiceTitle({
@@ -89,13 +79,6 @@ Page({
     }
   },
   async bindSave(e) {
-    const isLogined = await AUTH.checkHasLogined()
-    if (!isLogined) {
-      this.setData({
-        wxlogin: false
-      })
-      return
-    }
     // 提交保存
     let comName = e.detail.value.comName;
     let tfn = e.detail.value.tfn;
@@ -174,20 +157,5 @@ Page({
         })
       }
     })
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
-    })
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
 })

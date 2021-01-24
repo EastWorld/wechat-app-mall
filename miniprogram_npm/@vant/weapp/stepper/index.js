@@ -44,8 +44,8 @@ component_1.VantComponent({
       observer: 'check',
     },
     disabled: Boolean,
-    inputWidth: null,
-    buttonSize: null,
+    inputWidth: String,
+    buttonSize: String,
     asyncChange: Boolean,
     disableInput: Boolean,
     decimalLength: {

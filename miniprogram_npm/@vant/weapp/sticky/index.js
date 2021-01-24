@@ -104,7 +104,9 @@ component_1.VantComponent({
           }
           return prev;
         }, {});
-        _this.setData(diff);
+        if (Object.keys(diff).length > 0) {
+          _this.setData(diff);
+        }
         _this.$emit('scroll', {
           scrollTop: _this.scrollTop,
           isFixed: data.fixed || _this.data.fixed,

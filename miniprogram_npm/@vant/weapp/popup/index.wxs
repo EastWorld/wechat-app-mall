@@ -1,7 +1,7 @@
 /* eslint-disable */
 var style = require('../wxs/style.wxs');
 
-function popupClass(data) {
+function popupStyle(data) {
   return style([
     {
       'z-index': data.zIndex,
@@ -14,5 +14,5 @@ function popupClass(data) {
 }
 
 module.exports = {
-  popupClass: popupClass,
+  popupStyle: popupStyle,
 };

@@ -6,8 +6,6 @@ const wxpay = require('../../utils/pay.js')
 
 Page({
   data: {
-    wxlogin: true,
-
     totalScoreToPay: 0,
     goodsList: [],
     isNeedLogistics: 0, // 是否需要物流信息
@@ -25,18 +23,22 @@ Page({
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
     remark: '',
     shopIndex: -1,
-    pageIsEnd: false
+    pageIsEnd: false,
+
+
+    bindMobileStatus: 0 // 0 未判断 1 已绑定手机号码 2 未绑定手机号码
   },
   onShow(){
     if (this.data.pageIsEnd) {
       return
     }
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         this.doneShow()
+      } else {
+        AUTH.authorize().then(res => {
+          this.doneShow()
+        })
       }
     })
     AUTH.wxaCode().then(code => {
@@ -473,7 +475,8 @@ Page({
     const res = await WXAPI.userDetail(wx.getStorageSync('token'))
     if (res.code == 0) {
       this.setData({
-        mobile: res.data.base.mobile
+        bindMobileStatus: res.data.base.mobile ? 1: 2, // 账户绑定的手机号码状态
+        mobile: res.data.base.mobile,
       })
     }
   },
@@ -489,20 +492,14 @@ Page({
     AUTH.wxaCode().then(code => {
       this.data.code = code
     })
-    if (res.code === 10002) {
-      wx.showToast({
-        title: '请先登陆',
-        icon: 'none'
-      })
-      return
-    }
     if (res.code == 0) {
       wx.showToast({
         title: '读取成功',
         icon: 'success'
       })
       this.setData({
-        mobile: res.data
+        mobile: res.data,
+        bindMobileStatus: 1
       })
     } else {
       wx.showToast({

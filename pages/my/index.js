@@ -23,8 +23,12 @@ Page({
     count_id_no_pay: 0,
     count_id_no_reputation: 0,
     count_id_no_transfer: 0,
+
+    // 判断有没有用户详细资料
+    userInfoStatus: 0 // 0 未读取 1 没有详细信息 2 有详细信息
   },
 	onLoad() {
+
 	},
   onShow() {
     const _this = this
@@ -38,15 +42,19 @@ Page({
         _this.getUserApiInfo();
         _this.getUserAmount();
         _this.orderStatistics();
+        TOOLS.showTabBarBadge();
       } else {
-        AUTH.openLoginDialog()
+        AUTH.authorize().then(res => {
+          _this.getUserApiInfo();
+          _this.getUserAmount();
+          _this.orderStatistics();
+          TOOLS.showTabBarBadge();
+        })
       }
     })
     AUTH.wxaCode().then(code => {
       this.data.code = code
     })
-    // 获取购物车数据，显示TabBarBadge
-    TOOLS.showTabBarBadge();
   },
   async getUserApiInfo() {
     const res = await WXAPI.userDetail(wx.getStorageSync('token'))
@@ -55,6 +63,11 @@ Page({
       _data.apiUserInfoMap = res.data
       if (res.data.base.mobile) {
         _data.userMobile = res.data.base.mobile
+      }
+      if (res.data.base.nick && res.data.base.avatarUrl) {
+        _data.userInfoStatus = 2
+      } else {
+        _data.userInfoStatus = 1
       }
       if (this.data.order_hx_uids && this.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
         _data.canHX = true // 具有扫码核销的权限
@@ -131,19 +144,6 @@ Page({
       url: "/pages/order-list/index?type=" + e.currentTarget.dataset.type
     })
   },
-  goLogin() {
-    AUTH.openLoginDialog()
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
-  },
   scanOrderCode(){
     wx.scanCode({
       onlyFromCamera: true,
@@ -161,12 +161,49 @@ Page({
       }
     })
   },
-  
   goadmin() {
     wx.navigateToMiniProgram({
       appId: 'wx5e5b0066c8d3f33d',
       path: 'pages/login/auto?token=' + wx.getStorageSync('token'),
       envVersion: 'trial' // develop trial release
     })
-  }
+  },
+  async updateUserInfo(e) {
+    if (!e.detail.errMsg || e.detail.errMsg != "getUserInfo:ok") {
+      wx.showModal({
+        title: '提示',
+        content: e.detail.errMsg,
+        showCancel: false
+      })
+      return;
+    }
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.encryptedData(this.data.code, e.detail.encryptedData, e.detail.iv)
+    wx.hideLoading({
+      success: (res) => {},
+    })
+    AUTH.wxaCode().then(code => {
+      this.data.code = code
+    })
+    if (res.code == 0) {
+      // 更新用户资料
+      await WXAPI.modifyUserInfo({
+        token: wx.getStorageSync('token'),
+        avatarUrl: res.data.avatarUrl,
+        nick: res.data.nickName,
+        province: res.data.province,
+        city: res.data.city,
+        gender: res.data.gender,
+      })
+      this.getUserApiInfo();
+    } else {
+      wx.showModal({
+        title: '错误',
+        content: res.msg,
+        showCancel: false
+      })
+    }
+  },
 })

@@ -1,13 +1,10 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 component_1.VantComponent({
   field: true,
-  relation: {
-    name: 'radio-group',
-    type: 'ancestor',
-    current: 'radio',
-  },
+  relation: relation_1.useParent('radio-group'),
   classes: ['icon-class', 'label-class'],
   props: {
     name: null,

@@ -70,6 +70,7 @@ component_1.VantComponent({
       confirm: false,
       cancel: false,
     },
+    callback: function () {},
   },
   methods: {
     onConfirm: function () {
@@ -79,7 +80,7 @@ component_1.VantComponent({
       this.handleAction('cancel');
     },
     onClickOverlay: function () {
-      this.onClose('overlay');
+      this.close('overlay');
     },
     close: function (action) {
       var _this = this;

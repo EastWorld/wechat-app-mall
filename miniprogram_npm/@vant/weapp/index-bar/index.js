@@ -2,6 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 var color_1 = require('../common/color');
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 var utils_1 = require('../common/utils');
 var page_scroll_1 = require('../mixins/page-scroll');
 var indexList = function () {
@@ -13,17 +14,9 @@ var indexList = function () {
   return indexList;
 };
 component_1.VantComponent({
-  relation: {
-    name: 'index-anchor',
-    type: 'descendant',
-    current: 'index-bar',
-    linked: function () {
-      this.updateData();
-    },
-    unlinked: function () {
-      this.updateData();
-    },
-  },
+  relation: relation_1.useChildren('index-anchor', function () {
+    this.updateData();
+  }),
   props: {
     sticky: {
       type: Boolean,

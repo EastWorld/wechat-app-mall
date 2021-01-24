@@ -42,12 +42,6 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
     "plugin": {
       "list": []
     },
@@ -119,6 +113,13 @@
           "id": -1,
           "name": "notice",
           "pathName": "pages/notice/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "带参数进首页",
+          "pathName": "pages/index/index",
+          "query": "a=1&b=2&c=3",
           "scene": null
         }
       ]

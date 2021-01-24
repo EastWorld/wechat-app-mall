@@ -1,14 +1,11 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 var component_1 = require('../common/component');
+var relation_1 = require('../common/relation');
 var animate_1 = require('./animate');
 component_1.VantComponent({
   classes: ['title-class', 'content-class'],
-  relation: {
-    name: 'collapse',
-    type: 'ancestor',
-    current: 'collapse-item',
-  },
+  relation: relation_1.useParent('collapse'),
   props: {
     name: null,
     title: null,

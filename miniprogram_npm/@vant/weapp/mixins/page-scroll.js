@@ -1,12 +1,9 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.pageScrollMixin = void 0;
-function getCurrentPage() {
-  var pages = getCurrentPages();
-  return pages[pages.length - 1] || {};
-}
+var utils_1 = require('../common/utils');
 function onPageScroll(event) {
-  var _a = getCurrentPage().vanPageScroller,
+  var _a = utils_1.getCurrentPage().vanPageScroller,
     vanPageScroller = _a === void 0 ? [] : _a;
   vanPageScroller.forEach(function (scroller) {
     if (typeof scroller === 'function') {
@@ -18,7 +15,7 @@ function onPageScroll(event) {
 exports.pageScrollMixin = function (scroller) {
   return Behavior({
     attached: function () {
-      var page = getCurrentPage();
+      var page = utils_1.getCurrentPage();
       if (Array.isArray(page.vanPageScroller)) {
         page.vanPageScroller.push(scroller.bind(this));
       } else {
@@ -30,12 +27,14 @@ exports.pageScrollMixin = function (scroller) {
       page.onPageScroll = onPageScroll;
     },
     detached: function () {
-      var page = getCurrentPage();
-      page.vanPageScroller = (page.vanPageScroller || []).filter(function (
-        item
-      ) {
-        return item !== scroller;
-      });
+      var _a;
+      var page = utils_1.getCurrentPage();
+      page.vanPageScroller =
+        ((_a = page.vanPageScroller) === null || _a === void 0
+          ? void 0
+          : _a.filter(function (item) {
+              return item !== scroller;
+            })) || [];
     },
   });
 };

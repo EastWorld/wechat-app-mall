@@ -1,0 +1,22 @@
+/* eslint-disable */
+var style = require('../wxs/style.wxs');
+var addUnit = require('../wxs/add-unit.wxs');
+
+function rootStyle(data) {
+  return style({
+    'z-index': data.zIndex,
+    top: addUnit(data.top),
+  });
+}
+
+function notifyStyle(data) {
+  return style({
+    background: data.background,
+    color: data.color,
+  });
+}
+
+module.exports = {
+  rootStyle: rootStyle,
+  notifyStyle: notifyStyle,
+};

@@ -161,13 +161,6 @@ Page({
       }
     })
   },
-  goadmin() {
-    wx.navigateToMiniProgram({
-      appId: 'wx5e5b0066c8d3f33d',
-      path: 'pages/login/auto?token=' + wx.getStorageSync('token'),
-      envVersion: 'trial' // develop trial release
-    })
-  },
   async updateUserInfo(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getUserInfo:ok") {
       wx.showModal({

@@ -43,10 +43,11 @@ Page({
       icon: 'success'
     })
   },
-  loginOut(){
-    AUTH.loginOut()
-    wx.reLaunch({
-      url: '/pages/index/index'
+  goadmin() {
+    wx.navigateToMiniProgram({
+      appId: 'wx5e5b0066c8d3f33d',
+      path: 'pages/login/auto?token=' + wx.getStorageSync('token'),
+      envVersion: 'trial' // develop trial release
     })
   },
 })

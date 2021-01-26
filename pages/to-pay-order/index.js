@@ -26,7 +26,9 @@ Page({
     pageIsEnd: false,
 
 
-    bindMobileStatus: 0 // 0 未判断 1 已绑定手机号码 2 未绑定手机号码
+    bindMobileStatus: 0, // 0 未判断 1 已绑定手机号码 2 未绑定手机号码
+    userScore: 0, // 用户可用积分
+    deductionScore: '0' // 本次交易抵扣的积分数
   },
   onShow(){
     if (this.data.pageIsEnd) {
@@ -87,7 +89,8 @@ Page({
     const res = await WXAPI.userAmount(wx.getStorageSync('token'))
     if (res.code == 0) {
       this.setData({
-        balance: res.data.balance
+        balance: res.data.balance,
+        userScore: res.data.score
       })
     }
   },
@@ -143,7 +146,8 @@ Page({
       token: loginToken,
       goodsJsonStr: that.data.goodsJsonStr,
       remark: remark,
-      peisongType: that.data.peisongType
+      peisongType: that.data.peisongType,
+      deductionScore: this.data.deductionScore
     };
     if (that.data.kjId) {
       postData.kjid = that.data.kjId
@@ -253,6 +257,26 @@ Page({
           })
           coupons = res.data.couponUserList
         }
+        // 计算积分抵扣规则 userScore
+        let scoreDeductionRules = res.data.scoreDeductionRules
+        if (scoreDeductionRules) {
+          // 如果可叠加，计算可抵扣的最大积分数
+          scoreDeductionRules.forEach(ele => {
+            if (ele.loop) {
+              let loopTimes = Math.floor(that.data.userScore / ele.score) // 按剩余积分取最大
+              let loopTimesMax = Math.floor((res.data.amountTotle + res.data.deductionMoney) / ele.money) // 按金额取最大
+              if (loopTimes > loopTimesMax) {
+                loopTimes = loopTimesMax
+              }
+              ele.score = ele.score * loopTimes
+              ele.money = ele.money * loopTimes
+            }
+          })
+          // 剔除积分数为0的情况
+          scoreDeductionRules = scoreDeductionRules.filter(ele => {
+            return ele.score > 0
+          })
+        }
         
         that.setData({
           totalScoreToPay: res.data.score,
@@ -261,7 +285,9 @@ Page({
           yunPrice: res.data.amountLogistics,
           hasNoCoupons,
           coupons,
-          couponAmount: res.data.couponAmount
+          deductionMoney: res.data.deductionMoney,
+          couponAmount: res.data.couponAmount,
+          scoreDeductionRules
         });
         that.data.pageIsEnd = false
         return;
@@ -507,5 +533,18 @@ Page({
         icon: 'none'
       })
     }
+  },
+  deductionScoreChange(event) {
+    this.setData({
+      deductionScore: event.detail,
+    })
+    this.processYunfei()
+  },
+  deductionScoreClick(event) {
+    const { name } = event.currentTarget.dataset;
+    this.setData({
+      deductionScore: name,
+    })
+    this.processYunfei()
   },
 })

@@ -5,7 +5,7 @@
     <view class="title">申请获取以下权限</view>
     <view class="profile">授权绑定手机号码</view>
     <view class="btn">
-      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">绑定手机号码</van-button>
+      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumberd="getPhoneNumber">绑定手机号码</van-button>
     </view>
   </view>
 </block>
@@ -102,10 +102,23 @@
     </view>
   </view>
 
-  <van-cell-group custom-class="box-v2">
-    <van-cell wx:if="{{ yunPrice }}" title="运费" value="{{yunPrice}}" />
-    <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-{{couponAmount}}" />
-    <van-cell wx:if="{{balance}}" title="账户余额" value="{{balance}}" />
+  <!-- 选择积分抵扣 -->
+  <van-radio-group wx:if="{{ scoreDeductionRules && scoreDeductionRules.length > 0 }}" value="{{ deductionScore }}" bind:change="deductionScoreChange">
+    <van-cell-group title="积分抵扣">
+      <van-cell title="不使用积分" clickable data-name="0" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="0" />
+      </van-cell>
+      <van-cell wx:for="{{scoreDeductionRules}}" wx:key="id" title="使用{{ item.score }}积分抵扣¥{{ item.money }}" clickable data-name="{{ item.score }}" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="{{ item.score }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+
+  <van-cell-group title="小计">
+    <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
+    <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />
+    <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-¥{{couponAmount}}" />
+    <van-cell wx:if="{{balance}}" title="账户余额" value="¥{{balance}}" />
   </van-cell-group>
   <view class="bottom-box"></view>
   <van-submit-bar

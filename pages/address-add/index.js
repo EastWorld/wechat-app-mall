@@ -1,5 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+var address_parse = require("../../utils/address_parse")
 Page({
   data: {
     provinces: undefined,// 省份数据数组
@@ -203,6 +204,7 @@ Page({
     }
   },
   async onLoad(e) {
+    const _this = this
     if (e.id) { // 修改初始化数据库数据
       const res = await WXAPI.addressDetail(wx.getStorageSync('token'), e.id)
       if (res.code == 0) {
@@ -220,7 +222,32 @@ Page({
       }
     } else {
       this.provinces()
+      wx.getClipboardData({
+        success (res){
+          if (res.data) {
+            _this.initFromClipboard(res.data)
+          }
+        }
+      })
     }
+  },
+  async initFromClipboard (str) {
+    address_parse.smart(str).then(res => {
+      if (res.name && res.phone && res.address) {
+        // 检测到收货地址
+        this.setData({
+          addressData: {
+            provinceId: res.provinceCode,
+            cityId: res.cityCode,
+            districtId: res.countyCode,
+            linkMan: res.name,
+            mobile: res.phone,
+            address: res.address,
+          }
+        })
+        this.provinces(res.provinceCode, res.cityCode, res.countyCode)
+      }
+    })
   },
   deleteAddress: function (e) {
     const id = e.currentTarget.dataset.id;

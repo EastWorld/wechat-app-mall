@@ -751,6 +751,15 @@ module.exports = {
   province: function province() {
     return request('/common/region/v2/province', false, 'get');
   },
+  city: () => {
+    return request('/common/region/v2/city', false, 'get')
+  },
+  districts: () => {
+    return request('/common/region/v2/districts', false, 'get')
+  },
+  streets: () => {
+    return request('/common/region/v2/streets', false, 'get')
+  },
   nextRegion: function nextRegion(pid) {
     return request('/common/region/v2/child', false, 'get', {
       pid: pid

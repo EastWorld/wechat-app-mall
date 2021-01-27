@@ -143,6 +143,7 @@ async function smatrAddress(event) {
         matchCity.push({
           city: res.name,
           cityCode: res.id,
+          pid: res.pid,
           matchValue: matchAddress,
           province: smartObj.province,
           provinceCode: smartObj.provinceCode
@@ -206,10 +207,13 @@ async function smatrAddress(event) {
     smartObj.cityCode = city.cityCode;
     // smartObj.county = city.county;
     // smartObj.countyCode = city.countyCode;
-    // if (!smartObj.province) {
-    //   smartObj.province = city.province;
-    //   smartObj.provinceCode = city.provinceCode;
-    // }
+    if (!smartObj.province) {
+      const _province = provinceList.find(ele => {
+        return ele.id == city.pid
+      })
+      smartObj.province = _province.name;
+      smartObj.provinceCode = city.pid;
+    }
     address = address.replace(city.matchValue, "");
   }
 

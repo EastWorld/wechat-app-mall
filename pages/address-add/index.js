@@ -204,6 +204,7 @@ Page({
     }
   },
   async onLoad(e) {
+    // this.initFromClipboard('广州市天河区天河东路6号粤电广场北塔2302，徐小姐，18588998859')
     const _this = this
     if (e.id) { // 修改初始化数据库数据
       const res = await WXAPI.addressDetail(wx.getStorageSync('token'), e.id)

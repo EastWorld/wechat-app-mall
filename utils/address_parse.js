@@ -1,41 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 var addressList = []; //地址列表
 
-/**
- * 地址数据处理
- * @param addressList-各级数据对象
- * @param index-对应的省/市/县区/街道
- * @param province-只有直辖市会处理为  北京市北京市
- * @returns <array>
- */
-function formatAddresList(addressList, index, province) {
-  if (index === 1) {
-    //省
-    addressList.province = addressList.name;
-  }
-  if (index === 2) {
-    //市
-    if (addressList.name == "市辖区") {
-      addressList.name = province.name;
-    }
-    addressList.city = addressList.name;
-  }
-  if (index === 3) {
-    //区或者县
-    addressList.county = addressList.name;
-  }
-  if (index === 4) {
-    //街道
-    addressList.street = addressList.name;
-  }
-  if (addressList.children) {
-    index++;
-    addressList.children.forEach(res => {
-      formatAddresList(res, index, addressList);
-    });
-  }
-}
-
 var smartObj = {};
 /**
  * 解析邮编
@@ -43,9 +8,12 @@ var smartObj = {};
  * @returns <obj>
  */
 async function smart(event) {
+  console.log('event1', event);
   event = stripscript(event); //过滤特殊字符
+  console.log('event2', event);
   let obj = {};
   let copyaddress = JSON.parse(JSON.stringify(event));
+  console.log('copyaddress', copyaddress);
   copyaddress = copyaddress.split(" ");
   console.log('地址转为数组:', copyaddress);
   for (let index = 0; index < copyaddress.length; index++) {
@@ -336,6 +304,7 @@ async function smatrAddress(event) {
 }
 ////过滤特殊字符
 function stripscript(s) {
+  s = s.replace(/\t/g, " ")
   s = s.replace(/(\d{3})-(\d{4})-(\d{4})/g, "$1$2$3");
   s = s.replace(/(\d{3}) (\d{4}) (\d{4})/g, "$1$2$3");
   var pattern = new RegExp(

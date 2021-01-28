@@ -234,7 +234,9 @@ Page({
   },
   async initFromClipboard (str) {
     address_parse.smart(str).then(res => {
+      console.log('ggggggg', res);
       if (res.name && res.phone && res.address) {
+        
         // 检测到收货地址
         this.setData({
           addressData: {

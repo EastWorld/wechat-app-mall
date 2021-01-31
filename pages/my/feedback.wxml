@@ -1,28 +1,44 @@
-<van-field
-  label="姓名"
-  model:value="{{ name }}"
-  placeholder="如何称呼您"
-  clearable
-/>
-<van-field
-  label="联系电话"
-  type="number"
-  model:value="{{ mobile }}"
-  placeholder="方便我们与您联系"
-  clearable
-/>
-<van-field
-  label="微信号"
-  model:value="{{ wx }}"
-  placeholder="填写您的微信号"
-  clearable
-/>
-<van-field
-  model:value="{{ content }}"
-  placeholder="请留下您的宝贵建议或意见～"
-  type="textarea"
-  autosize="{{ autosize }}"
-/>
-<view class="block-btn btn">
-  <van-button type="primary" block bind:click="bindSave">提交反馈</van-button>
-</view>
+<block wx:if="{{feedbackTimes && feedbackTimes.refId > 5}}">
+  <van-empty image="error" description="今天你已经提交{{ feedbackTimes.refId }}次，明天再来吧" />
+</block>
+<block wx:else>
+  <van-field
+    label="姓名"
+    model:value="{{ name }}"
+    placeholder="如何称呼您"
+    clearable
+  />
+  <van-field
+    label="联系电话"
+    type="number"
+    model:value="{{ mobile }}"
+    placeholder="方便我们与您联系"
+    clearable
+  />
+  <van-field
+    label="微信号"
+    model:value="{{ wx }}"
+    placeholder="填写您的微信号"
+    clearable
+  />
+  <view style="margin-top:16rpx;padding-left:32rpx;">
+    <van-uploader
+      accept="media"
+      multiple
+      upload-text="图片/视频"
+      image-fit="aspectFill"
+      file-list="{{ picsList }}"
+      bind:after-read="afterPicRead"
+      bind:delete="afterPicDel"
+    />
+  </view>
+  <van-field
+    model:value="{{ content }}"
+    placeholder="请留下您的宝贵建议或意见～"
+    type="textarea"
+    autosize="{{ autosize }}"
+  />
+  <view class="block-btn btn">
+    <van-button type="primary" block bind:click="bindSave">提交反馈</van-button>
+  </view>
+</block>

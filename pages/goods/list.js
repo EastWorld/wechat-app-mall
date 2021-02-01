@@ -9,6 +9,7 @@ Page({
     listType: 1, // 1为1个商品一行，2为2个商品一行    
     name: '', // 搜索关键词
     orderBy: '', // 排序规则
+    page: 1 // 读取第几页
   },
 
   /**
@@ -36,14 +37,13 @@ Page({
 
   },
   async search(){
-    // 搜索商品
     wx.showLoading({
       title: '加载中',
     })
     const _data = {
       orderBy: this.data.orderBy,
-      page: 1,
-      pageSize: 500,
+      page: this.data.page,
+      pageSize: 20,
     }
     if (this.data.name) {
       _data.k = this.data.name
@@ -54,13 +54,26 @@ Page({
     const res = await WXAPI.goods(_data)
     wx.hideLoading()
     if (res.code == 0) {
-      this.setData({
-        goods: res.data,
-      })
+      if (this.data.page == 1) {
+        this.setData({
+          goods: res.data,
+        })
+      } else {
+        this.setData({
+          goods: this.data.goods.concat(res.data),
+        })
+      }
     } else {
-      this.setData({
-        goods: null,
-      })
+      if (this.data.page == 1) {
+        this.setData({
+          goods: null,
+        })
+      } else {
+        wx.showToast({
+          title: '没有更多了',
+          icon: 'none'
+        })
+      }
     }
   },
   /**
@@ -83,12 +96,11 @@ Page({
   onPullDownRefresh: function () {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  onReachBottom() {
+    this.setData({
+      page: this.data.page + 1
+    });
+    this.search()
   },
   changeShowType(){
     if (this.data.listType == 1) {
@@ -108,12 +120,14 @@ Page({
   },
   bindconfirm(e){
     this.setData({
+      page: 1,
       name: e.detail.value
     })
     this.search()
   },
   filter(e){
     this.setData({
+      page: 1,
       orderBy: e.currentTarget.dataset.val
     })
     this.search()

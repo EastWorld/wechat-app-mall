@@ -1,7 +1,7 @@
 {
   "name": "wechat-app-mall",
   "version": "7.0.0",
-  "description": "微信小程序商城，微信小程序微店",
+  "description": "啦啦啦",
   "main": "app.js",
   "dependencies": {
     "apifm-wxapi": "^2.0.0"

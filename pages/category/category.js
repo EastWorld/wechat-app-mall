@@ -39,25 +39,26 @@ Page({
     let activeCategory = 0
     let categorySelected = this.data.categorySelected
     if (res.code == 0) {
-      if (this.data.categorySelected.id) {
-        activeCategory = res.data.findIndex(ele => {
-          return ele.id == this.data.categorySelected.id
-        })
-        categorySelected = res.data[activeCategory]
-      } else {
-        categorySelected = res.data[0]
-      }
       const categories = res.data
       categories.forEach(p => {
         p.childs = categories.filter(ele => {
           return p.id == ele.pid
         })
-        console.log(p.childs);
       })
+      const firstCategories = categories.filter(ele => { return ele.level == 1 })
+      if (this.data.categorySelected.id) {
+        activeCategory = firstCategories.findIndex(ele => {
+          return ele.id == this.data.categorySelected.id
+        })
+        categorySelected = firstCategories[activeCategory]
+      } else {
+        categorySelected = firstCategories[0]
+      }
       this.setData({
         page: 1,
         activeCategory,
         categories,
+        firstCategories,
         categorySelected
       })
       this.getGoodsList()
@@ -122,7 +123,7 @@ Page({
       page: 1,
       secondCategoryId: '',
       activeCategory: idx,
-      categorySelected: this.data.categories[idx],
+      categorySelected: this.data.firstCategories[idx],
       scrolltop: 0
     });
     this.getGoodsList();

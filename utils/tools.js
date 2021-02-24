@@ -9,17 +9,17 @@ function showTabBarBadge(){
   WXAPI.shippingCarInfo(token).then(res => {
     if (res.code == 700) {
       wx.removeTabBarBadge({
-        index: 2
+        index: 3
       });
     }
     if (res.code == 0) {
       if (res.data.number == 0) {
         wx.removeTabBarBadge({
-          index: 2
+          index: 3
         });
       } else {
         wx.setTabBarBadge({
-          index: 2,
+          index: 3,
           text: `${res.data.number}`
         });
       }

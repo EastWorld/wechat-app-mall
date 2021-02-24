@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "我的团队"
+  "navigationBarTitleText": "我的团队",
+  "enablePullDownRefresh": true
 }

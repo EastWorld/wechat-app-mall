@@ -1,68 +1,91 @@
-const app = getApp()
 const WXAPI = require('apifm-wxapi')
 
-var sliderWidth = 96;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    number1: 0,
-    number2: 0,
-    activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
-    grids: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    number1: 0, // 直推用户数
+    number2: 0, // 间推用户数
+    activeIndex: 0, // tab点亮索引
+    page: 1 // 读取第几页
   },
 
   onLoad: function () {
-    var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / 2 - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / 2 * that.data.activeIndex
-        });
-      }
-    });
-  },
-  tabClick: function (e) {
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
-    });
+    this.fxMembersStatistics()
+    this.fxMembers()
   },
   onShow: function () {
-    const _this = this
-    WXAPI.fxMembers({
+
+  },
+  async fxMembersStatistics() {
+    const res = await WXAPI.fxMembersStatistics(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      this.setData({
+        number1: res.data.totleFansLevel1,
+        number2: res.data.totleFansLevel2
+      })
+    }
+  },
+  async fxMembers() {
+    const res = await WXAPI.fxMembers({
       token: wx.getStorageSync('token'),
-      pageSize: 100000
-    }).then(res => {
-      if (res.code == 700) {
-        _this.setData({
-          members: [],
-          number1: 0,
-          number2: 0
-        })
-      }
-      if (res.code == 0) {
-        let number1 = 0
-        let number2 = 0
-        res.data.result.forEach(ele => {
-          if (ele.level == 1) {
-            number1++
-          }
-          if (ele.level == 2) {
-            number2++
-          }
-        })
-        _this.setData({
-          members: res.data.result,
-          number1: number1,
-          number2: number2
-        })
-      }
+      page: this.data.page,
+      level: this.data.activeIndex == 0 ? 1 : 2
     })
+    if (res.code == 700) {
+      if (this.data.page == 1) {
+        this.setData({
+          members: []
+        })
+      } else {
+        wx.showToast({
+          title: '没有更多了',
+          icon: 'none'
+        })
+      }
+    }
+    if (res.code == 0) {
+      const statisticsCommisionMap = res.data.statisticsCommisionMap
+      res.data.result.forEach(ele => {
+        if (!ele.avatarUrls) {
+          ele.avatarUrls = '/images/face.png'
+        }
+        if (!ele.nicks) {
+          ele.nicks = '用户' + ele.uids
+        }
+        const _statisticsCommisionMap = statisticsCommisionMap[ele.uids]
+        if (_statisticsCommisionMap) {
+          ele.saleroom = _statisticsCommisionMap.saleroom
+        }
+      })
+      if (this.data.page == 1) {
+        this.setData({
+          members: res.data.result
+        })
+      } else {
+        this.setData({
+          members: this.data.members.concat(res.data.result)
+        })
+      }
+    }
+  },
+  tabChange(e) {
+    this.setData({
+      activeIndex: e.detail.index,
+      page: 1
+    })
+    this.fxMembers()
+  },
+  onReachBottom: function() {
+    this.data.page += 1
+    this.fxMembers()
+  },
+  onPullDownRefresh: function() {
+    this.data.page = 1
+    this.fxMembersStatistics()
+    this.fxMembers()
+    wx.stopPullDownRefresh()
   },
 })

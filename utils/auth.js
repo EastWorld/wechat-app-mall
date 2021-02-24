@@ -182,18 +182,34 @@ async function authorize() {
             code: code,
             referrer: referrer
           }).then(function (res) {
-            wx.setStorageSync('token', res.data.token)
-            wx.setStorageSync('uid', res.data.uid)
-            resolve(res)
+            if (res.code == 0) {
+              wx.setStorageSync('token', res.data.token)
+              wx.setStorageSync('uid', res.data.uid)
+              resolve(res)
+            } else {
+              wx.showToast({
+                title: res.msg,
+                icon: 'none'
+              })
+              reject(res.msg)
+            }
           })
         } else {
           WXAPI.authorize({
             code: code,
             referrer: referrer
           }).then(function (res) {
-            wx.setStorageSync('token', res.data.token)
-            wx.setStorageSync('uid', res.data.uid)
-            resolve(res)
+            if (res.code == 0) {
+              wx.setStorageSync('token', res.data.token)
+              wx.setStorageSync('uid', res.data.uid)
+              resolve(res)
+            } else {
+              wx.showToast({
+                title: res.msg,
+                icon: 'none'
+              })
+              reject(res.msg)
+            }
           })
         }
       },

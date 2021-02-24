@@ -26,7 +26,7 @@
           </block>
         </view>
         <view class="arrow-right">
-          <image class="arrow" src="/images/arrow-right.png"></image>
+          <van-icon name="arrow" />
         </view>
       </view>
       <view wx:else class="wuliu-box">

@@ -46,11 +46,9 @@
       </picker>
       <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
       <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
+      
       <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
-        <view class="add-address" hidden="{{curAddressData}}" bindtap="addAddress">
-          <image src="/images/add-addr.png"></image>
-          <view>新增收货地址</view>
-        </view>
+        <van-cell wx:if="{{!curAddressData}}" icon="add-o" title="新增收货地址" is-link bind:click="addAddress" />
         <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
           <view class="l">
             <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>

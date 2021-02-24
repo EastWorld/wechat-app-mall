@@ -237,8 +237,8 @@
 
 .del-icon {
   position: absolute;
-  right: 32rpx;
-  top: 32rpx;
+  right: 16rpx;
+  top: 48rpx;
   width: 50rpx;
   height: 50rpx;
 }

@@ -41,7 +41,9 @@
         <view class="delete-btn" data-key="{{item.key}}" catchtap="delItem">
           删除
         </view>
-        <image class="del-icon" src="/images/del.png" data-key="{{item.key}}" catchtap="delItem"></image>
+        <view class="del-icon">
+          <van-icon name="delete-o" size="32rpx" color="#e64340" data-key="{{item.key}}" catchtap="delItem" />
+        </view>
       </view>
     </view>
   </view>

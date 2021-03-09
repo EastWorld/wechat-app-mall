@@ -111,7 +111,8 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
-    this.wxaMpLiveRooms()    
+    this.wxaMpLiveRooms()
+    this.adPosition()
   },
   async miaoshaGoods(){
     const res = await WXAPI.goods({
@@ -332,6 +333,22 @@ Page({
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/notice/show?id=' + id,
+    })
+  },
+  async adPosition() {
+    const res = await WXAPI.adPosition('index-live-pic')
+    if (res.code == 0) {
+      this.setData({
+        adPositionIndexLivePic: res.data
+      })
+    }
+  },
+  clickAdPositionIndexLive() {
+    if (!this.data.adPositionIndexLivePic || !this.data.adPositionIndexLivePic.url) {
+      return
+    }
+    wx.navigateTo({
+      url: this.data.adPositionIndexLivePic.url,
     })
   }
 })

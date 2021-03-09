@@ -86,9 +86,7 @@
     </view>
   </block>
   <view class="space"></view>
-  <navigator wx:if="{{aliveRooms}}" url="/pages/live/index">
-    <image class="live-banner" src="/images/live.jpg" mode="widthFix"></image>
-  </navigator>
+  <image wx:if="{{ adPositionIndexLivePic }}" class="live-banner" src="{{ adPositionIndexLivePic.val }}" mode="widthFix" bindtap="clickAdPositionIndexLive"></image>
   <!-- 秒杀开始 -->
   <block wx:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
     <van-divider custom-class="table-text" contentPosition="center">

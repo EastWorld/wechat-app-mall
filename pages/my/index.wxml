@@ -30,12 +30,10 @@
       <view class="amount">{{score}}</view>
       <view>积分</view>
     </view>
-    <navigator url="/pages/score/growth">
-      <view class='item right'>
-        <view class="amount">{{growth}}</view>
-        <view>成长值</view>
-      </view>
-    </navigator>
+    <view class='item right' bindtap="gogrowth">
+      <view class="amount">{{growth}}</view>
+      <view>成长值</view>
+    </view>
   </view>
   <view class="space van-hairline--bottom"></view>
   <van-cell title="我的订单" value="更多" is-link url="/pages/order-list/index" />

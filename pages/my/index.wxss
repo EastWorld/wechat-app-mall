@@ -30,15 +30,16 @@ page,view,image,input {
 }
 
 .asset {
+  width: 100vw;
   display: flex;
   border-top: 1px solid #eee;
   padding-top:20rpx;
   padding-bottom:20rpx;
 }
 .asset .item {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width:187rpx;
   text-align: center;
   font-size: 24rpx;
   line-height: 20px;

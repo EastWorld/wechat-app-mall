@@ -76,7 +76,7 @@
           <input name="mobile" class="weui-input" type="number" placeholder="填写手机号码" value="{{addressData.mobile}}" />
         </view>
       </view>
-      <view class="weui-cell weui-cell_select">
+      <view wx:if="{{ shipping_address_gps == '1' }}" class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">选择定位</view>
         </view>

@@ -13,6 +13,7 @@ App({
       WXAPI.init(subDomain)
     } else {
       WXAPI.init(CONFIG.subDomain)
+      WXAPI.setMerchantId(CONFIG.merchantId)
     }
     
     const that = this;
@@ -64,7 +65,7 @@ App({
         wx.hideToast()
       }
     })
-    WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile,adminUserIds,goodsDetailSkuShowType,shopMod,needIdCheck,balance_pay_pwd').then(res => {
+    WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile,adminUserIds,goodsDetailSkuShowType,shopMod,needIdCheck,balance_pay_pwd,shipping_address_gps,shipping_address_region_level').then(res => {
       if (res.code == 0) {
         res.data.forEach(config => {
           wx.setStorageSync(config.key, config.value);
@@ -72,6 +73,24 @@ App({
         if (this.configLoadOK) {
           this.configLoadOK()
         }
+      }
+    })
+    // ---------------检测navbar高度
+    let menuButtonObject = wx.getMenuButtonBoundingClientRect();
+    console.log("小程序胶囊信息",menuButtonObject)
+    wx.getSystemInfo({
+      success: res => {
+        let statusBarHeight = res.statusBarHeight,
+          navTop = menuButtonObject.top,//胶囊按钮与顶部的距离
+          navHeight = statusBarHeight + menuButtonObject.height + (menuButtonObject.top - statusBarHeight)*2;//导航高度
+        this.globalData.navHeight = navHeight;
+        this.globalData.navTop = navTop;
+        this.globalData.windowHeight = res.windowHeight;
+        this.globalData.menuButtonObject = menuButtonObject;
+        console.log("navHeight",navHeight);
+      },
+      fail(err) {
+        console.log(err);
       }
     })
   },

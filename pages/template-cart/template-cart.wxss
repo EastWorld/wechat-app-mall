@@ -1,11 +1,13 @@
 .container {
   justify-content: initial;
 }
+
 .no-goods-icon {
-  width: 100rpx;
-  height: 100rpx;
-  margin-top: 300rpx;
+  width: 382rpx;
+  height: 323rpx;
+  margin-top: 109rpx;
 }
+
 .title-box {
   width: 100vw;
   margin-top: 30rpx;
@@ -16,14 +18,17 @@
 }
 
 .to-index-btn {
-  color: #fff;
-  background: #e64340;
-  border-radius: 6px;
-  width: 300rpx;
-  height: 70rpx;
-  line-height: 70rpx;
+
+  line-height: 60rpx;
   text-align: center;
   font-size: 28rpx;
+
+  width: 140rpx;
+  height: 60rpx;
+  background: #FFD43E;
+  border-radius: 30px;
+  border: 2px solid #393640;
+
 }
 
 .list-top {
@@ -49,27 +54,29 @@
 
 .goodsList {
   width: 100%;
-  background-color: #fff;
-  padding-bottom: 100rpx;
+  padding-bottom: 110rpx;
 }
 
 .a-gooods {
-  width: 100%;
+  width: 725rpx;
   overflow: hidden;
   position: relative;
+  margin-left: 18rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  margin-top: 10rpx;
 }
 
 .a-goods-conts {
   display: flex;
   justify-content: space-between;
   padding-left: 30rpx;
-  width: 870rpx;
+  width: 850rpx;
   box-sizing: border-box;
   transition: margin-left 0.2s ease-in-out;
 }
 
 .goods-info {
-  border-bottom: 1px solid #eee;
   display: flex;
   padding: 30rpx 0 30rpx 0;
   width: 720rpx;
@@ -87,9 +94,8 @@
 }
 
 .goods-info .text-box {
-  width: 100%;
+  width: 440rpx;
   position: relative;
-  padding-bottom: 32rpx;
 }
 
 .goods-info .text-box .goods-title {
@@ -108,6 +114,9 @@
   height: 38rpx;
   line-height: 38rpx;
   margin: 8rpx 0 25rpx 0;
+  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .goods-info .text-box .goods-price {
@@ -131,11 +140,11 @@
 .goods-info .text-box .buy-num .jian-btn {
   width: 48rpx;
   height: 100%;
-  border-left: 1rpx solid #ccc;
-  border-bottom: 1rpx solid #ccc;
-  border-top: 1rpx solid #ccc;
-  border-bottom-left-radius: 6rpx;
-  border-top-left-radius: 6rpx;
+  background-color: #F2F3F5;
+  border-radius: 6rpx;
+  line-height: 46rpx;
+  font-size: 18px;
+  color: #323233;
 }
 
 .goods-info .text-box .buy-num .jian-btn.disabled {
@@ -144,41 +153,41 @@
   border-bottom: 1rpx solid #eee;
   border-top: 1rpx solid #eee;
   color: #ccc;
+  border-radius: 6rpx;
+  line-height: 48rpx;
+  font-size: 16px;
+  color: #323233;
 }
 
 .goods-info .text-box .buy-num .jia-btn {
   width: 48rpx;
   height: 100%;
-  border-right: 1rpx solid #ccc;
-  border-bottom: 1rpx solid #ccc;
-  border-top: 1rpx solid #ccc;
-  border-bottom-right-radius: 6rpx;
-  border-top-right-radius: 6rpx;
+  border-radius: 6rpx;
+  background-color: #F2F3F5;
+  line-height: 48rpx;
+  font-size: 16px;
+  color: #323233;
 }
-
 .goods-info .text-box .buy-num .jia-btn.disabled {
   background-color: #f5f5f9;
-  border-right: 1rpx solid #eee;
-  border-bottom: 1rpx solid #eee;
-  border-top: 1rpx solid #eee;
   color: #ccc;
+  border-radius: 6rpx;
+  line-height: 48rpx;
+  font-size: 16px;
+  color: #323233;
 }
-
 .goods-info .text-box .buy-num input {
   width: 68rpx;
   height: 48rpx;
   min-height: 48rpx;
   text-align: center;
   font-size: 24rpx;
-  border: 1rpx solid #ccc;
 }
-
 .goods-info .img-box .img {
   width: 160rpx;
   height: 160rpx;
   border-radius: 16rpx;
 }
-
 .a-goods-conts .delete-btn {
   width: 120rpx;
   line-height: 220rpx;
@@ -187,7 +196,6 @@
   font-size: 24rpx;
   color: #fff;
 }
-
 .jiesuan-box {
   display: flex;
   justify-content: space-between;
@@ -196,26 +204,24 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  border-bottom: 1px solid #eee;
-  border-top: 1px solid #eee;
-  background-color: #fff;
+  background-color: #FAFAFA;
   z-index: 999;
 }
-
 .jiesuan-box .to-pay-btn {
-  width: 240rpx;
   text-align: center;
-  line-height: 100rpx;
-  background-color: #e64340;
-  font-size: 32rpx;
-  color: #fff;
+  line-height: 76rpx;
+  width: 200rpx;
+  height: 76rpx;
+  background: linear-gradient(270deg, #FF972A 0%, #FF444A 100%);
+  border-radius: 38rpx;
+  margin-top: 12rpx;
+  margin-right: 20rpx;
+  color: white;
 }
-
 .jiesuan-box .to-pay-btn.no-select {
   background-color: #ccc;
 }
-
-.jiesuan-box  .left-price {
+.jiesuan-box .left-price {
   display: flex;
   width: 510rpx;
   justify-content: space-between;
@@ -227,6 +233,7 @@
 .jiesuan-box .total {
   color: #e64340;
 }
+
 .trip {
   background: #e64340;
   padding: 8rpx 32rpx;
@@ -237,8 +244,8 @@
 
 .del-icon {
   position: absolute;
-  right: 16rpx;
-  top: 48rpx;
+  right: 0rpx;
+  top: 12rpx;
   width: 50rpx;
   height: 50rpx;
 }

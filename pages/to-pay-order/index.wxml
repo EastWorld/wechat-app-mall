@@ -30,7 +30,7 @@
   </van-card>
   <view class="container-box cell-group">
     <view class="peisong-way">
-      <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
+      <view class="row-box" wx:if="{{shopCarType == 0 && isNeedLogistics > 0}}">
         <view class="row-label">配送方式</view>
         <radio-group bindchange="radioChange">
           <label class="radio">
@@ -41,6 +41,7 @@
           </label>
         </radio-group>
       </view>
+      <van-cell wx:if="{{shopCarType == 1}}" title="配送地址" />
       <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
         <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
       </picker>
@@ -80,7 +81,7 @@
         placeholder="请输入手机号码">
         <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">自动获取</van-button>
       </van-field>
-      <view class="row-box">
+      <view wx:if="{{shopCarType == 0}}" class="row-box">
         <view class="row-label">备注</view>
         <view class="right-text">
           <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入" />
@@ -112,7 +113,7 @@
     </van-cell-group>
   </van-radio-group>
 
-  <van-cell-group title="小计">
+  <van-cell-group wx:if="{{ yunPrice || deductionMoney || couponAmount || balance }}" title="小计">
     <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
     <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />
     <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-¥{{couponAmount}}" />
@@ -121,7 +122,7 @@
   <view class="bottom-box"></view>
   <van-submit-bar
     price="{{ allGoodsAndYunPrice*100 }}"
-    suffix-label="+{{totalScoreToPay}} 积分"
+    suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
     button-text="提交订单"
     bind:submit="goCreateOrder"
   />

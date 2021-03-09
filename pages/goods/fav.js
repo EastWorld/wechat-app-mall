@@ -29,6 +29,11 @@ Page({
     const res = await WXAPI.goodsFavList(_data)
     wx.hideLoading()
     if (res.code == 0) {
+      res.data.forEach(ele => {
+        if (ele.type == 1 && ele.json) {
+          ele.json = JSON.parse(ele.json)
+        }
+      })
       this.setData({
         goods: res.data,
       })
@@ -39,8 +44,13 @@ Page({
     }
   },
   async removeFav(e){
-    const id = e.currentTarget.dataset.id
-    const res = await WXAPI.goodsFavDelete(wx.getStorageSync('token'), '', id)
+    const idx = e.currentTarget.dataset.idx
+    const fav = this.data.goods[idx]
+    const res = await WXAPI.goodsFavDeleteV2({
+      token: wx.getStorageSync('token'),
+      goodsId: fav.goodsId,
+      type: fav.type
+    })
     if (res.code == 0) {
       wx.showToast({
         title: '取消收藏',

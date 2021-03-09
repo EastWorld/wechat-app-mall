@@ -1,12 +1,19 @@
 <view class="list2-box">
-    <view class="list2" wx:for="{{goods}}" wx:key="id">
+  <block wx:for="{{goods}}" wx:key="id">
+    <view wx:if="{{ item.type == 0 }}" class="list2">
       <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
       <view class="goods-info">
         <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><view class="title ellipsis">{{item.goodsName}}</view></navigator>
-        <image class="delete-btn" src="/images/icon/delete.svg" data-id="{{item.goodsId}}" bindtap="removeFav"></image>
+        <image class="delete-btn" src="/images/icon/delete.svg" data-idx="{{ index }}" bindtap="removeFav"></image>
       </view>
     </view>
+    <view wx:else class="list2">
+      <navigator url="/pages/goods-details/vop?id={{item.json.skuId}}"><image class="img" mode="aspectFill" src="{{item.json.pic}}"></image></navigator>
+      <view class="goods-info">
+        <navigator url="/pages/goods-details/vop?id={{item.json.skuId}}"><view class="title ellipsis">{{item.json.name}}</view></navigator>
+        <image class="delete-btn" src="/images/icon/delete.svg" data-idx="{{ index }}" bindtap="removeFav"></image>
+      </view>
+    </view>
+  </block>
 </view>
-<view wx:if="{{!goods || goods.length == 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无收藏</view>
-</view>
+<van-empty wx:if="{{!goods || goods.length == 0}}" description="暂无收藏" />

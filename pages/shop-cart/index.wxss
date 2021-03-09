@@ -13,3 +13,6 @@ page{
   bottom: 0;
   left: 0;
 }
+.vtabs{
+  width: 100vw;
+}

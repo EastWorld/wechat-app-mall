@@ -1,8 +1,19 @@
 <!--index.wxml-->
 <import src="../template-cart/template-cart.wxml" />
 
-<view class="container">  
-  <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}" data="{{...shippingCarInfo, saveHidden, allSelect, noSelect}}"></template>
+<view class="container">
+  <van-tabs custom-class="vtabs" shopCarType="{{ shopCarType }}" bind:change="onChange">
+    <van-tab title="自营商品">
+      <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
+  data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
+    </van-tab>
+    <van-tab title="云货架">
+      <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
+  data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
+    </van-tab>
+  </van-tabs>
+
+  
 </view>
 
 <import src="/template/login/index.wxml" />

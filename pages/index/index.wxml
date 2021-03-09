@@ -1,3 +1,16 @@
+<van-sticky>
+<view class="search-contianer">
+  <view class="search" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
+    <view class="search-title" src="../../images/actLogo/ytlogo.png"
+      style="height:{{navHeight-navTop-5}}px;line-height:{{navHeight-navTop-5}}px;width:{{132/52*(navHeight-navTop-5)}}px;">
+      {{mallName}}
+    </view>
+    <input placeholder-class="search-placeholder"
+      style="width:{{menuButtonObject.left-18-((132/52)*(navHeight-navTop-5))}}px" type="text" placeholder="搜索活动名称" disabled
+      value="{{name}}" bindinput="bindinput" bindtap="goSearch"></input>
+  </view>
+</view>
+</van-sticky>
 <navigator wx:if="{{shopInfo}}" url="/pages/shop/select">
   <view class="shops-container">
     <view class="l">
@@ -10,7 +23,6 @@
     </view>
   </view>
 </navigator>
-<van-search value="{{ value }}" placeholder="请输入搜索关键词" readonly shape="round" bindtap="goSearch" />
 <view class="swiper-container">
   <swiper class="swiper1" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">
@@ -30,35 +42,34 @@
     </swiper>
   </view>
 </view>
+<view class="category-container">
+  <view class="category-box">
+    <view class="category-list" wx:for="{{categories}}" wx:key="id">
+      <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick"
+        data-id="{{item.id}}">
+        <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
+        <view class="category-title">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>
 <view class="notice-box" wx:if="{{noticeList}}">
   <swiper class="notice_swiper" vertical autoplay circular interval="8000">
     <swiper-item wx:for="{{noticeList.dataList}}" wx:key="id">
-      <van-notice-bar
-        wx:if="{{noticeList}}"
-        left-icon="volume-o"
-        mode="link"
-        text="{{ item.title }}"
-        background="#FFFFFF"
-        data-id="{{ item.id }}"
-        speed="30"
-        bind:click="goNotice"
-      />
+      <van-notice-bar wx:if="{{noticeList}}" mode="link" text="{{ item.title }}" background="#FFFFFF"
+        data-id="{{ item.id }}" speed="30" bind:click="goNotice">
+        <image slot="left-icon" class="notice-icon" src="../../images/home/notice.png"></image>
+      </van-notice-bar>
     </swiper-item>
   </swiper>
-</view>
-<view class="category-box">
-  <view class="category-list" wx:for="{{categories}}" wx:key="id">
-    <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" data-id="{{item.id}}">
-      <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
-      <view class="category-title">{{item.name}}</view>
-    </view>          
-  </view>
 </view>
 <view class="container">
   <block wx:for="{{categories}}" wx:key="id" wx:if="{{item.goods}}">
     <view class="category-goods-title">
       <view class="weui-panel__hd">{{item.name}}</view>
-      <view class="more"><navigator url="/pages/goods/list?categoryId={{item.id}}">更多 ></navigator></view>
+      <view class="more">
+        <navigator url="/pages/goods/list?categoryId={{item.id}}">更多 ></navigator>
+      </view>
     </view>
     <view class="goods-container">
       <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
@@ -68,48 +79,56 @@
         <view class="goods-title">{{item.name}}</view>
         <view style='display:flex;'>
           <view class="goods-price">¥ {{item.minPrice}}</view>
-          <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+          <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price"
+            style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
         </view>
       </view>
     </view>
   </block>
+  <view class="space"></view>
   <navigator wx:if="{{aliveRooms}}" url="/pages/live/index">
     <image class="live-banner" src="/images/live.jpg" mode="widthFix"></image>
   </navigator>
   <!-- 秒杀开始 -->
   <block wx:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
-    <van-divider contentPosition="center">限时秒杀</van-divider>
+    <van-divider custom-class="table-text" contentPosition="center">
+      <image class="table-icon-miaosha" src="../../images/home/miaosha.png"></image> 限时秒杀
+    </van-divider>
     <view class="miaosha-container">
-      <view class="miaosha-goods-list" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="miaosha-goods-list" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap"
+        data-id="{{item.id}}">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
         <view class="r">
           <view class="goods-title">{{item.name}}</view>
-          <!-- <view class="label"><van-icon size="30rpx" name="underway" /><text>限时秒杀</text></view> -->
           <view class="count-down">
-            <van-count-down
-              wx:if="{{item.dateStartInt > 0}}"
-              time="{{ item.dateStartInt }}"
-              format="距离开始: HH 时 mm 分 ss 秒"
-            />
-            <van-count-down
-              wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0}}"
-              time="{{ item.dateEndInt }}"
-              format="剩余: HH 时 mm 分 ss 秒"
-            />
+            <van-count-down wx:if="{{item.dateStartInt > 0}}" time="{{ item.dateStartInt }}"
+              format="距离开始: HH 时 mm 分 ss 秒" />
+            <van-count-down wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0}}" time="{{ item.dateEndInt }}"
+              format="剩余: HH 时 mm 分 ss 秒" />
           </view>
           <view class="miaosha-price-btn">
             <view class="price">￥{{item.minPrice}} <text>￥{{item.originalPrice}}</text></view>
-            <van-button wx:if="{{item.dateStartInt > 0}}" type="danger" size="small" round plain disabled>未开始</van-button>
-            <van-button wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" round>已结束</van-button>
-            <van-button wx:if="{{item.stores <= 0}}" type="danger" size="small" round>已抢完</van-button>
-            <van-button wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}" type="danger" size="small" round>立即抢购</van-button>
+            <van-button custom-class="msbtn" wx:if="{{item.dateStartInt > 0}}" type="danger" size="small" round plain
+              disabled>未开始</van-button>
+            <van-button custom-class="msbtn" wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" round>已结束
+            </van-button>
+            <van-button custom-class="msbtn" wx:if="{{item.stores <= 0}}" type="danger" size="small" round>已抢完
+            </van-button>
+            <van-button custom-class="msbtn"
+              wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}" type="danger" size="small"
+              round>立即抢购</van-button>
           </view>
         </view>
       </view>
     </view>
   </block>
   <!-- 秒杀结束 -->
-  <van-divider wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}" contentPosition="center">爆品推荐</van-divider> 
+
+  <view class="space"></view>
+  <van-divider custom-class="table-text" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}"
+    contentPosition="center">
+    <image class="table-icon-tuijian" src="../../images/home/recommend.png"></image> 爆品推荐
+  </van-divider>
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
     <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
@@ -118,35 +137,35 @@
       <view class="goods-title">{{item.name}}</view>
       <view style='display:flex;'>
         <view class="goods-price">¥ {{item.minPrice}}</view>
-        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price"
+          style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
       </view>
     </view>
   </view>
-  <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}" class="weui-panel weui-panel_access" style='margin-top:0px;'>
-    <view class="weui-panel__hd">疯狂砍价</view>
+  <view class="space"></view>
+  <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}"
+    class="weui-panel weui-panel_access kanjia-container">
+    <van-divider custom-class="table-text" contentPosition="center">
+      <image class="table-icon-kanjia" src="../../images/home/kanjia.png"></image> 疯狂砍价
+    </van-divider>
     <view class="weui-panel__bd">
-      <van-card
-        wx:for="{{kanjiaList}}" wx:key="id"
-        price="{{item.kanjiaPrice}}"
-        origin-price="{{item.originalPrice}}"
-        desc="{{item.characteristic}}"
-        title="{{item.name}}"
-        thumb="{{item.pic}}"
-      >
+      <van-card custom-class="kanjia-vcard" wx:for="{{kanjiaList}}" wx:key="id" price="{{item.kanjiaPrice}}"
+        origin-price="{{item.originalPrice}}" desc="{{item.characteristic}}" title="{{item.name}}" thumb="{{item.pic}}">
         <view slot="footer">
-          <van-button type="danger" size="small" data-id="{{item.id}}" bind:click="toDetailsTap">砍价</van-button>
+          <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" bind:click="toDetailsTap">砍价
+          </van-button>
         </view>
         <view slot="price-top">
-          <van-progress percentage="{{item.process}}" color="#1aad19" />
+          <van-progress custom-class="vprogress" percentage="{{item.process}}" color="#FDEDED;" />
         </view>
       </van-card>
     </view>
   </view>
   <block wx:if="{{pingtuanList.length > 0 && activeCategoryId == 0}}">
     <view class='space'></view>
-    <view class="weui-loadmore weui-loadmore_line">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">全民拼团</view>
-    </view>
+    <van-divider custom-class="table-text" contentPosition="center">
+      <image class="table-icon-pingtuan" src="../../images/home/pingtuan.png"></image> 全民拼团
+    </van-divider>
     <view class='tuan'>
       <view class='tuan-item' wx:for="{{pingtuanList}}" wx:key="id">
         <view class='tuan-goods-pic'>
@@ -160,29 +179,31 @@
           <text class='original'>￥ {{item.originalPrice}}</text>
         </view>
         <view class="tuan-btn">
-          <button type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}">拼团</button>
+          <button class="ptbtn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}">拼团</button>
         </view>
       </view>
     </view>
   </block>
 
   <view class='space'></view>
-  <view class="weui-loadmore weui-loadmore_line">
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">商品列表</view>
-  </view>
+  <van-divider custom-class="table-text" contentPosition="center">
+    <image class="table-icon-goodslist" src="../../images/home/goodslist.png"></image> 商品列表
+  </van-divider>
   <view class="goods-container">
     <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title">{{item.name}}</view>
-      <view style='display:flex;'>
+      <view class="goods-price-container">
         <view class="goods-price">¥ {{item.minPrice}}</view>
-        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
+        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price2">¥ {{item.originalPrice}}
+        </view>
       </view>
     </view>
   </view>
-  <view hidden="{{loadingMoreHidden ? true : false}}" class="weui-loadmore weui-loadmore_line" style='margin-top:60rpx;margin-bottom:30rpx;'>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="weui-loadmore weui-loadmore_line"
+    style='margin-top:60rpx;margin-bottom:30rpx;'>
     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多啦</view>
   </view>
 </view>

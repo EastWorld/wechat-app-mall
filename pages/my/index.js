@@ -199,4 +199,9 @@ Page({
       })
     }
   },
+  gogrowth() {
+    wx.navigateTo({
+      url: '/pages/score/growth',
+    })
+  },
 })

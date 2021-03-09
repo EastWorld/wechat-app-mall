@@ -1,18 +1,17 @@
 <template name="no-goods">
-  <image class="no-goods-icon" src="/images/nav/cart-off.png"></image>
-  <view class="title-box">
-    购物车空空如也～
-  </view>
-  <view class="to-index-btn" bindtap="toIndexPage">
-    去逛逛
-  </view>
+  <van-empty description="购物车空空如也～" image="https://dcdn.it120.cc/2021/03/02/11544ab7-38ca-4570-a876-cbfd39720367.png">
+    <van-button round type="danger" size="small" class="bottom-button" bind:click="toIndexPage">
+      去逛逛
+    </van-button>
+  </van-empty>
 </template>
 
 <template name="cart-goods-list">
-  <van-notice-bar custom-class="vw100" left-icon="volume-o" scrollable="{{ false }}" text="左滑删除商品～" />
+  <van-notice-bar left-icon="volume-o" scrollable="{{ false }}" text="左滑删除商品～" />
   <view class="goodsList">
     <view class="a-gooods" wx:for="{{items}}" wx:key="key">
-      <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
+      <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM"
+        bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
         <view class="goods-info">
           <view class="radio-box">
             <radio checked="{{ item.selected }}" bindtap="radioClick" data-index="{{index}}" />
@@ -22,7 +21,7 @@
           </view>
           <view class="text-box">
             <view class="goods-title">{{item.name}}</view>
-            <view wx:if="{{item.sku}}" class="goods-label">
+            <view wx:show="{{item.sku}}" class="goods-label">
               <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
                 {{option.optionName}}:{{option.optionValueName}}
               </block>
@@ -33,26 +32,28 @@
             <view class="goods-price">¥ {{item.price}}</view>
             <view class="buy-num">
               <view class="jian-btn" catchtap="jianBtnTap" data-index="{{index}}">-</view>
-              <input type="number" value="{{item.number}}" data-key="{{item.key}}" bindinput="changeCarNumber"/>
-              <view class="jia-btn {{item.number==curTouchGoodStore? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}">+</view>
+              <input type="number" value="{{item.number}}" data-key="{{item.key}}" bindinput="changeCarNumber" />
+              <view class="jia-btn {{item.number==curTouchGoodStore? 'disabled' : ''}}" catchtap="jiaBtnTap"
+                data-index="{{index}}">+</view>
             </view>
           </view>
         </view>
         <view class="delete-btn" data-key="{{item.key}}" catchtap="delItem">
           删除
         </view>
-        <view class="del-icon">
-          <van-icon name="delete-o" size="32rpx" color="#e64340" data-key="{{item.key}}" catchtap="delItem" />
-        </view>
+        <!-- <view class="del-icon">
+          <van-icon name="close" size="32rpx" color="#000" data-key="{{item.key}}" catchtap="delItem" />
+        </view> -->
       </view>
     </view>
   </view>
   <view class="jiesuan-box">
     <view class="left-price">
-      <view class="total" hidden="{{noSelect}}">合计：¥ {{price}} + {{score}} 积分</view>
+      <view wx:if="{{ score }}" class="total">合计：¥ {{price}} + {{score}} 积分</view>
+      <view wx:else class="total">合计：¥ {{price}}</view>
     </view>
     <view class="to-pay-btn">
-      <navigator url="/pages/to-pay-order/index">去结算</navigator>
+      <navigator url="/pages/to-pay-order/index?shopCarType={{shopCarType}}">去结算</navigator>
     </view>
   </view>
 </template>

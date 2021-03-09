@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "收货地址"
+  "navigationBarTitleText": "收货地址",
+  "usingComponents": {
+    "van-picker": "@vant/weapp/picker/index"
+  }
 }

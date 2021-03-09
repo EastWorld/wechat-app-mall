@@ -95,8 +95,8 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
+var merchantId = '0';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
@@ -152,6 +152,9 @@ module.exports = {
   },
   init: function init(b) {
     subDomain = b;
+  },
+  setMerchantId: function setMerchantId(mchid) {
+    merchantId = mchid;
   },
   init3: function init3(_ref) {
     var _ref$apiBaseUrl = _ref.apiBaseUrl,
@@ -450,6 +453,9 @@ module.exports = {
   goodsReputation: function goodsReputation(data) {
     return request('/shop/goods/reputation', true, 'post', data);
   },
+  goodsReputationV2: function goodsReputationV2(data) {
+    return request('/shop/goods/reputation/v2', true, 'post', data);
+  },
   myBuyGoodsHis: function myBuyGoodsHis(data) {
     return request('/shop/goods/his/list', true, 'post', data);
   },
@@ -653,6 +659,11 @@ module.exports = {
       token: token
     });
   },
+  userDetailSpreadUser: function userDetailSpreadUser(token, uid) {
+    return request('/user/detail/spreadUser', true, 'get', {
+      token: token, uid: uid
+    });
+  },
   userWxinfo: function userWxinfo(token) {
     return request('/user/wxinfo', true, 'get', {
       token: token
@@ -751,14 +762,14 @@ module.exports = {
   province: function province() {
     return request('/common/region/v2/province', false, 'get');
   },
-  city: () => {
-    return request('/common/region/v2/city', false, 'get')
+  city: function city() {
+    return request('/common/region/v2/city', false, 'get');
   },
-  districts: () => {
-    return request('/common/region/v2/districts', false, 'get')
+  districts: function districts() {
+    return request('/common/region/v2/districts', false, 'get');
   },
-  streets: () => {
-    return request('/common/region/v2/streets', false, 'get')
+  streets: function streets() {
+    return request('/common/region/v2/streets', false, 'get');
   },
   nextRegion: function nextRegion(pid) {
     return request('/common/region/v2/child', false, 'get', {
@@ -827,6 +838,18 @@ module.exports = {
   },
   fxMembersStatistics: function fxMembersStatistics(token) {
     return request('/saleDistribution/members/statistics', true, 'get', { token: token });
+  },
+  fxGoods: function fxGoods(data) {
+    return request('/saleDistribution/goods', true, 'post', data);
+  },
+  fxTeamReport: function fxTeamReport(data) {
+    return request('/saleDistribution/team/report', true, 'post', data);
+  },
+  fxCities: function fxCities(token) {
+    return request('/saleDistribution/city/list', true, 'get', { token: token });
+  },
+  fxCityReport: function fxCityReport(data) {
+    return request('/saleDistribution/city/report', true, 'post', data);
   },
   goodsSellNumberStatistics: function goodsSellNumberStatistics(page, pageSize) {
     var goodsId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
@@ -1163,6 +1186,11 @@ module.exports = {
   },
   myVote: function myVote(token, voteId) {
     return request('/vote/vote/info', true, 'get', {
+      token: token, voteId: voteId
+    });
+  },
+  myVoteV2: function myVoteV2(token, voteId) {
+    return request('/vote/vote/info/v2', true, 'get', {
       token: token, voteId: voteId
     });
   },
@@ -1515,6 +1543,52 @@ module.exports = {
   },
   partnerMembers: function partnerMembers(data) {
     return request('/partner/members', true, 'post', data);
+  },
+  // 京东VOP相关接口
+  jdvopGoodsList: function jdvopGoodsList(data) {
+    return request('/jdvop/' + merchantId + '/goods/list', false, 'post', data);
+  },
+  jdvopGoodsCheckCanBuy: function jdvopGoodsCheckCanBuy(data) {
+    return request('/jdvop/' + merchantId + '/goods/checkCanBuy', false, 'post', data);
+  },
+  jdvopGoodsDetail: function jdvopGoodsDetail(goodsId) {
+    return request('/jdvop/' + merchantId + '/goods/detail', false, 'get', {
+      skuId: goodsId,
+      queryExts: 'wxintroduction'
+    });
+  },
+  jdvopGoodsSkuImages: function jdvopGoodsSkuImages(goodsId) {
+    return request('/jdvop/' + merchantId + '/goods/skuImages', false, 'get', {
+      skuId: goodsId
+    });
+  },
+  jdvopCartInfo: function jdvopCartInfo(token) {
+    return request('/jdvop/' + merchantId + '/shopping-cart/info', false, 'get', {
+      token: token
+    });
+  },
+  jdvopCartAdd: function jdvopCartAdd(data) {
+    return request('/jdvop/' + merchantId + '/shopping-cart/add', false, 'post', data);
+  },
+  jdvopCartModifyNumber: function jdvopCartModifyNumber(token, key, number) {
+    return request('/jdvop/' + merchantId + '/shopping-cart/modifyNumber', false, 'post', {
+      token: token, key: key, number: number
+    });
+  },
+  jdvopCartSelect: function jdvopCartSelect(token, key, selected) {
+    return request('/jdvop/' + merchantId + '/shopping-cart/select', false, 'post', {
+      token: token, key: key, selected: selected
+    });
+  },
+  jdvopCartRemove: function jdvopCartRemove(token, key) {
+    return request('/jdvop/' + merchantId + '/shopping-cart/remove', false, 'post', {
+      token: token, key: key
+    });
+  },
+  jdvopCartEmpty: function jdvopCartEmpty(token) {
+    return request('/jdvop/' + merchantId + '/shopping-cart/empty', false, 'post', {
+      token: token
+    });
   }
 };
 

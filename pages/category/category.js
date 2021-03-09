@@ -39,7 +39,9 @@ Page({
     let activeCategory = 0
     let categorySelected = this.data.categorySelected
     if (res.code == 0) {
-      const categories = res.data
+      const categories = res.data.filter(ele => {
+        return !ele.vopCid1 && !ele.vopCid2
+      })
       categories.forEach(p => {
         p.childs = categories.filter(ele => {
           return p.id == ele.pid

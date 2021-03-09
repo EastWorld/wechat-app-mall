@@ -1,4 +1,4 @@
-<image class="logo" src="/images/fxad.jpeg" mode="widthFix" />
+<image wx:if="{{ adPositionFxTopPic }}" class="logo" src="{{ adPositionFxTopPic.val }}" mode="widthFix" />
 <view class="weui-cells__title title">请填写申请信息</view>
 <view class="weui-cells weui-cells_after-title">
   <view wx:if="{{ userDetail && userDetail.referrer }}" class="weui-cell weui-cell_input">

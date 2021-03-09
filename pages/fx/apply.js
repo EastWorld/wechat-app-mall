@@ -14,16 +14,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.adPosition()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -36,6 +28,14 @@ Page({
         })
       }
     })
+  },
+  async adPosition() {
+    const res = await WXAPI.adPosition('fx-top-pic')
+    if (res.code == 0) {
+      this.setData({
+        adPositionFxTopPic: res.data
+      })
+    }
   },
   nameChange(e){
     this.data.name = e.detail.value

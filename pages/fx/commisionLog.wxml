@@ -1,4 +1,4 @@
-<image class="logo" src="/images/fxad.jpeg" mode="widthFix" />
+<image wx:if="{{ adPositionFxTopPic }}" class="logo" src="{{ adPositionFxTopPic.val }}" mode="widthFix" />
 <view class="weui-cells__title title">返佣明细</view>
 <view wx:if="{{commisionLog.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
   <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>

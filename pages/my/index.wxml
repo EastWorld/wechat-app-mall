@@ -48,7 +48,7 @@
   </van-grid>
   <van-cell title="常用功能" />
   <van-grid clickable>
-    <van-grid-item wx:if="{{!canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />
+    <van-grid-item wx:if="{{canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />
     <van-grid-item icon="paid" text="优惠买单" url="/pages/maidan/index" />
     <van-grid-item icon="balance-list-o" text="资金明细" url="/pages/asset/index" />
     <van-grid-item icon="bill-o" text="申请发票" url="/pages/invoice/apply" />

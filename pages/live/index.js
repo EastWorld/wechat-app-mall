@@ -3,7 +3,7 @@ const APP = getApp()
 // fixed首次打开不显示标题的bug
 APP.configLoadOK = () => {
   wx.setNavigationBarTitle({
-    title: wx.getStorageSync('mallName')
+    
   })
 }
 

@@ -393,9 +393,6 @@
   text-align: center;
 }
 .miaosha-price-btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 32rpx;
 }
 .miaosha-price-btn .price {

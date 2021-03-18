@@ -91,3 +91,6 @@ page {
 .llargada{
   width: 590rpx!important;
 }
+.sidebar-l {
+  width: 190rpx !important;
+}

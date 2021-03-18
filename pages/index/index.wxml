@@ -6,7 +6,7 @@
       {{mallName}}
     </view>
     <input placeholder-class="search-placeholder"
-      style="width:{{menuButtonObject.left-18-((132/52)*(navHeight-navTop-5))}}px" type="text" placeholder="搜索活动名称" disabled
+      style="width:{{menuButtonObject.left-18-((132/52)*(navHeight-navTop-5))}}px" type="text" placeholder="输入关键词搜索" disabled
       value="{{name}}" bindinput="bindinput" bindtap="goSearch"></input>
   </view>
 </view>

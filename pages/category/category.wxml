@@ -1,12 +1,12 @@
 <van-search value="{{ name }}" placeholder="请输入搜索关键词" shape="round" bind:search="bindconfirm" />
 <view class="main">
   <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
-    <van-sidebar active-key="{{ activeCategory }}">
-      <van-sidebar-item wx:if="{{item.level == 1}}" id="category{{item.id}}" wx:for="{{firstCategories}}" wx:key="id" data-idx="{{index}}" bindtap="onCategoryClick" title="{{ item.name }}" />
+    <van-sidebar custom-class="sidebar-l" active-key="{{ activeCategory }}">
+      <van-sidebar-item wx:if="{{item.level == 1}}" id="category{{item.id}}" wx:for="{{firstCategories}}" wx:key="id" data-idx="{{index}}" bindtap="onCategoryClick" title="车{{ item.name }}" />
     </van-sidebar>
   </scroll-view>
   <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
-    <van-tabs wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick">
+    <van-tabs wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick" ellipsis="{{ false }}">
       <van-tab title="全部"></van-tab>
       <van-tab wx:for="{{categorySelected.childs}}" wx:key="id" title="{{ item.name }}"></van-tab>
     </van-tabs>

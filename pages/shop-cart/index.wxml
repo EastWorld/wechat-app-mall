@@ -2,7 +2,7 @@
 <import src="../template-cart/template-cart.wxml" />
 
 <view class="container">
-  <van-tabs custom-class="vtabs" shopCarType="{{ shopCarType }}" bind:change="onChange">
+  <van-tabs wx:if="{{ shopping_cart_vop_open == 1 }}" custom-class="vtabs" shopCarType="{{ shopCarType }}" bind:change="onChange">
     <van-tab title="自营商品">
       <template is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
   data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
@@ -12,6 +12,8 @@
   data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
     </van-tab>
   </van-tabs>
+  <template wx:else is="{{shippingCarInfo.items.length > 0 ? 'cart-goods-list' : 'no-goods'}}"
+  data="{{...shippingCarInfo, saveHidden, allSelect, noSelect,shopCarType}}"></template>
 
   
 </view>

@@ -1,0 +1,7 @@
+.coverImage {
+  width: 100vw;
+}
+.btn-group {
+  padding: 0 16rpx;
+  text-align: right;
+}

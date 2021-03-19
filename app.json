@@ -43,7 +43,6 @@
     "pages/help/index",
     "pages/about/index",
     "pages/idCheck/index",
-    "pages/videoCall/videoCall",
     "pages/peisong/detail",
     "pages/peisong/orders",
     "pages/pwd-pay/reset",
@@ -54,6 +53,17 @@
     "pages/my/info",
     "pages/my/setting",
     "pages/my/info-menu"
+  ],
+  "subpackages": [
+    {
+      "root": "packageStreamMedia",
+      "name": "packageStreamMedia",
+      "pages": [
+        "pages/videoCall/videoCall",
+        "pages/live-anchor/index",
+        "pages/live-anchor/list"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -7,7 +7,6 @@
 </template>
 
 <template name="cart-goods-list">
-  <van-notice-bar left-icon="volume-o" scrollable="{{ false }}" text="左滑删除商品～" />
   <view class="goodsList">
     <view class="a-gooods" wx:for="{{items}}" wx:key="key">
       <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM"

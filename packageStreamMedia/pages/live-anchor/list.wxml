@@ -1,0 +1,10 @@
+<van-empty wx:if="{{ !liveRooms || liveRooms.length == 0 }}" description="暂无直播间" />
+<view class="list" wx:for="{{ liveRooms }}" wx:key="id">
+  <van-cell wx:if="{{ item.status == 0 || item.status == 1 || item.status == 11 }}" title="{{ item.name }}" label="开播时间:{{ item.startTime }}" value="{{ item.statusStr }}" is-link center url="/packageStreamMedia/pages/live-anchor/index?id={{ item.id }}" />
+  <van-cell wx:else title="{{ item.name }}" label="开播时间:{{ item.startTime }}" value="{{ item.statusStr }}" center />
+  <image class="coverImage" src="{{ item.coverImage }}" mode="aspectFill"></image>
+  <view class="btn-group">
+    <van-button wx:if="{{ item.status == 1 || item.status == 11 }}" type="danger" size="small" round data-id="{{ item.id }}" bind:click="stop">结束本场直播</van-button>
+  </view>
+  <van-divider />
+</view>

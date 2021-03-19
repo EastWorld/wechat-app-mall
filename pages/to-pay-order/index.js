@@ -323,6 +323,20 @@ Page({
   async processAfterCreateOrder(res) {
     // 直接弹出支付，取消支付的话，去订单列表
     const balance = this.data.balance
+    const userScore = this.data.userScore
+    if (userScore < res.data.score) {
+      wx.showModal({
+        title: '提示',
+        content: '您当前可用积分不足，请稍后前往订单管理进行支付',
+        showCancel: false,
+        success: res2 => {
+          wx.redirectTo({
+            url: "/pages/order-list/index"
+          })
+        }
+      })
+      return
+    }
     if (balance || res.data.amountReal * 1 == 0) {
       // 有余额
       const money = (res.data.amountReal * 1 - balance * 1).toFixed(2)

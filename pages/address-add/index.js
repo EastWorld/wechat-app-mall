@@ -187,15 +187,15 @@ Page({
     const linkMan = e.detail.value.linkMan;
     const address = e.detail.value.address;
     const mobile = e.detail.value.mobile;
-    if (!this.data.addressData) {
+    if (this.data.shipping_address_gps == '1' && !this.data.addressData) {
       wx.showToast({
         title: '请选择定位',
         icon: 'none',       
       })
       return
     }
-    const latitude = this.data.addressData.latitude
-    const longitude = this.data.addressData.longitude
+    const latitude = this.data.addressData ? this.data.addressData.latitude : null
+    const longitude = this.data.addressData ? this.data.addressData.longitude : null
     if (linkMan == ""){
       wx.showToast({
         title: '请填写联系人姓名',

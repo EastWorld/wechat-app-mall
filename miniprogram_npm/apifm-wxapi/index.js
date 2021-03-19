@@ -95,6 +95,7 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
+// var API_BASE_URL = 'http://192.168.31.76:8081';
 var subDomain = '-';
 var merchantId = '0';
 
@@ -1543,6 +1544,15 @@ module.exports = {
   },
   partnerMembers: function partnerMembers(data) {
     return request('/partner/members', true, 'post', data);
+  },
+  myLiveRooms: function myLiveRooms(data) {
+    return request('/liveRooms/my', true, 'post', data);
+  },
+  myLiveRoomsInfo: function myLiveRoomsInfo(token, id) {
+    return request('/liveRooms/my/info', true, 'get', { token: token, id: id });
+  },
+  stopLiveRoom: function stopLiveRoom(token, id) {
+    return request('/liveRooms/my/stop', true, 'post', { token: token, id: id });
   },
   // 京东VOP相关接口
   jdvopGoodsList: function jdvopGoodsList(data) {

@@ -129,6 +129,8 @@ App({
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
         AUTH.login()
+      } else {
+        AUTH.bindSeller()
       }
     })
   },

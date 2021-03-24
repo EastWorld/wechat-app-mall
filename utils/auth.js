@@ -14,6 +14,21 @@ async function checkSession(){
   })
 }
 
+async function bindSeller() {
+  const token = wx.getStorageSync('token')
+  const referrer = wx.getStorageSync('referrer')
+  if (!token) {
+    return
+  }
+  if (!referrer) {
+    return
+  }
+  const res = await WXAPI.bindSeller({
+    token,
+    uid: referrer
+  })
+}
+
 // 检测登录状态，返回 true / false
 async function checkHasLogined() {
   const token = wx.getStorageSync('token')
@@ -295,5 +310,6 @@ module.exports = {
   loginOut: loginOut,
   checkAndAuthorize: checkAndAuthorize,
   openLoginDialog: openLoginDialog,
-  authorize: authorize
+  authorize: authorize,
+  bindSeller: bindSeller
 }

@@ -44,6 +44,7 @@ Page({
         TOOLS.showTabBarBadge();
       } else {
         AUTH.authorize().then(res => {
+          AUTH.bindSeller()
           _this.getUserApiInfo();
           _this.getUserAmount();
           _this.orderStatistics();

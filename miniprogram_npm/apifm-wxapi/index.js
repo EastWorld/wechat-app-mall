@@ -1121,6 +1121,9 @@ module.exports = {
   idcardCheck: function idcardCheck(token, name, idCardNo) {
     return request('/user/idcard', true, 'post', { token: token, name: name, idCardNo: idCardNo });
   },
+  bindSeller: function bindSeller(data) {
+    return request('/user/bindSeller', true, 'post', data);
+  },
   loginout: function loginout(token) {
     return request('/user/loginout', true, 'get', { token: token });
   },

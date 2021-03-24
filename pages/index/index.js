@@ -91,6 +91,7 @@ Page({
     }
     // 静默式授权注册/登陆
     AUTH.authorize().then(res => {
+      AUTH.bindSeller()
       TOOLS.showTabBarBadge()
     })
     wx.setNavigationBarTitle({

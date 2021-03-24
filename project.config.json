@@ -36,7 +36,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.14.3",
+  "libVersion": "2.16.0",
   "appid": "wxa46b09d413fbcaff",
   "projectname": "天使童装",
   "scripts": {},

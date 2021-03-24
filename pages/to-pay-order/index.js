@@ -40,6 +40,7 @@ Page({
         this.doneShow()
       } else {
         AUTH.authorize().then(res => {
+          AUTH.bindSeller()
           this.doneShow()
         })
       }

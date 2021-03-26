@@ -2,6 +2,10 @@ const app = getApp()
 const CONFIG = require('../../../config.js')
 const WXAPI = require('apifm-wxapi')
 
+// websocket 第一步
+let socketOpen = false
+let socketMsgQueue = []
+
 let that;
 Page({
 
@@ -10,6 +14,8 @@ Page({
    */
   data: {
     beauty: 0, // 美颜，取值范围 0-9 ，0 表示关闭
+    onlineNumber: 1, // 在线人数
+    barrageList: [], // 用户聊天记录
     focus: false,
     firstTap: false,
     goodsList: [],
@@ -19,83 +25,27 @@ Page({
     showGoodsInfo: false,
     showEmpty: false, // 是否展示缺省提示
     ids: '', // 已经选中的商品id
-    showTips: false, // 是否显示某个人加入进入直播间
     online_people: '', // 观看人数
     pusherUrl: "",
     roomId: undefined,
     showSetInfo: false,
   },
-  // 某人加入房间
-  showTips(opts) {
-    let nickname = opts.nickname;
-    let message = opts.message;
-    let avatarurl = opts.avatarurl;
-    let adj = app.getRandomString();
-    that.setData({
+  // 某人加入房间、离开房间
+  showTips(avatarurl, msg) {
+    this.setData({
       showTips: true,
-      avatar_url: avatarurl,
-      coming_tips: nickname + " " + adj + message
+      showTipsAvatarUrl: avatarurl,
+      showTipsMsg: msg
     })
-    if (!that.data.focus) {
-      that.setScrollTop();
+    if (!this.data.focus) {
+      this.setScrollTop();
     }
-    setTimeout(function () {
-      that.setData({
-        showTips: false,
+    setTimeout(() => {
+      this.setData({
+        showTips: false
       })
     }, 3000);
   },
-  closeOrOpenLiveRoom(roomid, status) { //停止直播
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-    })
-    wx.request({
-      url: CONFIG.HTTP_REQUEST_URL + "closeOrOpenLiveRoom",
-      data: {
-        roomId: roomid,
-        roomStatus: status
-      },
-      method: "GET",
-      header: {
-        'Content-Type': 'application/json;charset=utf-8 '
-      },
-      success: function (res2) {
-        // console.log("selectRoomDetailById",res2);
-        if (res2.data.code == 500) {
-          wx.showToast({
-            title: res2.data.message,
-            duration: 1500,
-            icon: 'none',
-            mask: true,
-          })
-          return
-        }
-      },
-      complete: function (c) {
-        wx.hideLoading()
-      }
-    })
-  },
-  // 发送或者显示弹幕
-  showBarrage(opts) {
-    let temp = {}
-    temp.nickname = opts.nickname
-    temp.words = opts.message
-    temp.color = app.getRandomFontColor()
-    let barrageList = [...that.data.barrageList, temp]
-    if (barrageList.length > 30) {
-      barrageList = barrageList.splice(10)
-    }
-    that.setData({
-      barrageList
-    });
-    if (that.data.focus) {
-      return
-    }
-    that.setScrollTop();
-  },
-
   setScrollTop() {
     var query = wx.createSelectorQuery(),
       e = that;
@@ -130,10 +80,10 @@ Page({
     })
     this.getUserInfo()
     this.myLiveRoomsInfo()
+    this.initWebSocket()
 
 
     this.getPushInfo(options.roomid) //获取直播信息
-    this.closeOrOpenLiveRoom(options.roomid, 1) //修改直播状态
     // wx.showLoading({
     //   title: '加载中...',
     // })
@@ -163,13 +113,12 @@ Page({
       // console.log(rect)
     }).exec();
   },
-
   // 主推商品详情
   toDetail(e) {
     let {
       id
     } = e.currentTarget.dataset
-    let url = `/pages/product-detail/index?id=${id}`
+    let url = `/pages/goods-details/index?id=${id}`
     wx.navigateTo({
       url,
     })
@@ -189,20 +138,15 @@ Page({
    * 发送弹幕问题
    */
   onComment() {
-    let {
-      inputVal
-    } = this.data
+    const inputVal = this.data.inputVal
     if (!inputVal) {
       wx.showToast({
-        title: '发送内容不能为空',
-        duration: 1500,
-        icon: 'none',
-        mask: true
+        title: '内容不能为空',
+        icon: 'none'
       })
       return;
     }
-
-    app.sendMessage(inputVal)
+    this.sendSocketMessage(inputVal)
     this.setData({
       inputVal: '',
       showInput: false
@@ -231,11 +175,14 @@ Page({
       url
     })
   },
-
-  // 前往商品详情
-  navPurchase(e) {
-    wx.navigateTo({
-      url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
+  // 设置为主推商品
+  async navPurchase(e) {
+    const mainlyGoods = this.data.liveRoomsInfo.goodsList[e.currentTarget.dataset.idx]
+    this.sendSocketMessage('act:mainlyGoods:' + mainlyGoods.id)
+    const res = await WXAPI.liveRoomGoodsMainly({
+      token: wx.getStorageSync('token'),
+      roomId: this.data.id,
+      goodsId: mainlyGoods.id
     })
   },
 
@@ -369,7 +316,6 @@ Page({
   showGoods() {
     let data = this.data
     if (!data.firstTap) {
-      this.getGoodsList()
       this.setData({
         firstTap: true
       })
@@ -378,22 +324,6 @@ Page({
       showGoodsInfo: true,
       showEmpty: true,
     })
-  },
-
-  async getGoodsList() {
-    wx.showLoading({
-      title: '加载中',
-    })
-    const res = await WXAPI.goods()
-    //    console.log(res.data);
-    wx.hideLoading()
-    if (res.code == 0) {
-      this.setData({
-        goodsList: res.data,
-        showEmpty: false
-      })
-    }
-
   },
 
   // 获取推流信息
@@ -519,7 +449,6 @@ Page({
               console.log('stop fail')
             }
           })
-          this.closeOrOpenLiveRoom(this.data.info.id, 0);
           wx.navigateBack({
             delta: 2
           })
@@ -529,11 +458,9 @@ Page({
     })
   },
   onUnload() {
-    //app.sendMessageLeave('livelogout');
-    this.closeOrOpenLiveRoom(this.data.info.id, 0);
-  },
-  onHide() { //隐藏页面断开
-    app.closeSocket();
+    wx.onSocketClose(res => {
+      console.log('WebSocket 已关闭！')
+    })
   },
   onShow() { //进入页面链接
     console.log("app.globalData.socketStatus", app.globalData.socketStatus);
@@ -544,19 +471,10 @@ Page({
   },
   // 主播分享自己的直播间
   onShareAppMessage: function () {
-    let {
-      number
-    } = this.data.info
     return {
-      title: '直播间分享啦！',
-      imageUrl: this.data.cover,
-      path: `/pages/index/index`,
-      success: function (res) {
-        console.log("转发成功:");
-      },
-      fail: function (res) {
-        console.log("转发失败:");
-      }
+      title: '快来我的直播间看看吧~',
+      imageUrl: this.data.liveRoomsInfo.roomInfo.coverImage,
+      path: `/packageStreamMedia/pages/live-anchor/index?id=${this.data.id}`
     }
   },
   async getUserInfo() {
@@ -589,11 +507,115 @@ Page({
       wx.navigateBack()
       return
     }
+    let mainlyGoods = null
+    console.log(res.data.goodsList);
+    if (res.data.mainlyGoodsId) {
+      mainlyGoods = res.data.goodsList.find(ele => {
+        return ele.id == res.data.mainlyGoodsId
+      })
+    }
     this.setData({
-      liveRoomsInfo: res.data
+      liveRoomsInfo: res.data,
+      mainlyGoods
     })
   },
   bindstatechange(e) {
     console.log(e);
-  }
+  },
+  // webscoket 第二步， 增加下面方法
+  connectSocket() {
+    wx.connectSocket({
+      url: 'wss://api.it120.cc/websocket/liveRoom/' + this.data.id + '/' + wx.getStorageSync('token')
+    })
+  },
+  initWebSocket() {
+    this.connectSocket()
+    wx.onSocketOpen(res => {
+      console.log(res);
+      socketOpen = true
+      for (let i = 0; i < socketMsgQueue.length; i++){
+        sendSocketMessage(socketMsgQueue[i])
+      }
+      socketMsgQueue = []
+    })
+    wx.onSocketClose(res => {
+      // 关闭，重连
+      socketOpen = false
+      wx.showToast({
+        title: res.code + ':' + res.reason,
+        icon: 'none'
+      })
+      setTimeout(() => {
+        this.connectSocket()
+      }, 3000);
+    })
+    wx.onSocketMessage(res => {
+      // 接收服务器推送的消息
+      const resJson = JSON.parse(res.data)
+      if (resJson.code != 0) {
+        wx.showToast({
+          title: resJson.msg,
+          icon: 'none'
+        })
+        return
+      }
+      this.processSocketMessage(resJson.data)
+    })
+  },
+  sendSocketMessage(msg) {
+    // 向 websocket 发送消息
+    if (socketOpen) {
+      wx.sendSocketMessage({
+        data: msg
+      })
+    } else {
+      socketMsgQueue.push(msg)
+    }  
+  },
+  processSocketMessage(res) {
+    // 接收到服务器推送到消息
+    console.log(res)
+    if (res.act == 'onlineNumber') {
+      this.setData({
+        onlineNumber: res.data
+      })
+    }
+    if (res.act == 'userComing') {
+      this.showTips(res.avatarUrl, `${res.nick}进入直播间`)
+    }
+    if (res.act == 'msg') {
+      if (res.msg.indexOf('act:mainlyGoods:') == 0) {
+        const goodsId = res.msg.replace('act:mainlyGoods:', '')
+        console.log(goodsId);
+        const mainlyGoods = this.data.liveRoomsInfo.goodsList.find(ele => {
+          return ele.id == goodsId
+        })
+        this.setData({
+          mainlyGoods
+        })
+        return
+      }
+      const barrageList = this.data.barrageList
+      barrageList.push({
+        nick: res.nick,
+        avatarUrl: res.avatarUrl,
+        msg: res.msg,
+        color: this.getRandomFontColor()
+      })
+      this.setData({
+        barrageList: barrageList.length > 100 ? barrageList.slice(50) : barrageList
+      })
+      if (this.data.focus) {
+        return
+      }
+      this.setScrollTop();
+    }
+  },
+  getRandomFontColor() {
+    // 随机颜色
+		let red = Math.floor(Math.random() * 266);
+		let green = Math.floor(Math.random() * 266);
+		let blue = Math.floor(Math.random() * 266);
+		return 'rgb(' + red + ',' + green + ' , ' + blue + ')'
+	},
 })

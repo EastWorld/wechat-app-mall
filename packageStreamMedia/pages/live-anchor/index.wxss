@@ -421,15 +421,10 @@ live-player {
   padding: 0 24rpx;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 32rpx;
   right: 0;
-  min-height: 100rpx;
+  min-height: 68rpx;
   border-bottom: 1rpx solid #ccc;
-}
-
-.goods-list .title .img {
-  width: 64rpx;
-  height: 64rpx;
 }
 
 .goods-list .item-list {

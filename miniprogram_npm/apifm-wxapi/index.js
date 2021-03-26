@@ -1554,6 +1554,9 @@ module.exports = {
   myLiveRoomsInfo: function myLiveRoomsInfo(token, id) {
     return request('/liveRooms/my/info', true, 'get', { token: token, id: id });
   },
+  liveRoomGoodsMainly: function liveRoomGoodsMainly(data) {
+    return request('/liveRooms/goods/mainly', true, 'post', data);
+  },
   stopLiveRoom: function stopLiveRoom(token, id) {
     return request('/liveRooms/my/stop', true, 'post', { token: token, id: id });
   },

@@ -1560,6 +1560,12 @@ module.exports = {
   stopLiveRoom: function stopLiveRoom(token, id) {
     return request('/liveRooms/my/stop', true, 'post', { token: token, id: id });
   },
+  liveRoomOnlineUsers: function liveRoomOnlineUsers(token, roomId) {
+    return request('/websocket/rest/liveRoom/onlines', false, 'get', { token: token, roomId: roomId });
+  },
+  liveRoomKickOutUser: function liveRoomKickOutUser(token, roomId, uid) {
+    return request('/websocket/rest/liveRoom/kickOut', false, 'post', { token: token, roomId: roomId, uid: uid });
+  },
   // 京东VOP相关接口
   jdvopGoodsList: function jdvopGoodsList(data) {
     return request('/jdvop/' + merchantId + '/goods/list', false, 'post', data);

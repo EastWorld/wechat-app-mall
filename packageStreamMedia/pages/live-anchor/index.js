@@ -204,66 +204,31 @@ Page({
       showSetInfo: false
     })
   },
-  showPeoples() { //显示直播间人员
-    var that = this
+  async showPeoples() { //显示直播间人员
     wx.showLoading({
-      title: '加载中',
+      title: '',
     })
-    wx.request({
-      url: CONFIG.HTTP_REQUEST_URL + "selectCurRoomUserByRid",
-      data: {
-        roomId: this.data.info.id,
-        status: 1
-      },
-      method: "GET",
-      header: {
-        'Content-Type': 'application/json;charset=utf-8 '
-      },
-      success: function (res) {
-        //console.log("live-author---selectCurRoomUserByRid",res);
-        if (res.data.code == 500) {
-          wx.showToast({
-            title: res.data.message,
-            duration: 1500,
-            icon: 'none',
-            mask: true,
-          })
-          return
-        }
-        let list = res.data.list;
-        if (list.length == 0) {
-          that.setData({
-            showEmpty: true,
-            online_people: ''
-          });
-        } else {
-          that.setData({
-            online_people: list.length + 1,
-          });
-        }
-        that.setData({
-          showPeopleInfo: true,
-          peoplelist: list,
-        });
-      },
-      complete: function (c) {
-        wx.hideLoading()
-      }
-    })
+    const res = await WXAPI.liveRoomOnlineUsers(wx.getStorageSync('token'), this.data.id)
+    wx.hideLoading()
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      this.setData({
+        showPeopleInfo: false,
+        peoplelist: null
+      })
+    } else {
+      this.setData({
+        showPeopleInfo: true,
+        peoplelist: res.data
+      })
+    }
   },
   lahei(e) { //拉黑用户 
-    let userid = e.currentTarget.dataset.userid;
-    let is_liver = e.currentTarget.dataset.is_liver;
-    userid = parseInt(userid);
-    if (is_liver) {
-      wx.showToast({
-        title: '权限不足，请联系客服处理！',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-    var that = this
+    let uid = e.currentTarget.dataset.uid
+    const that = this
     wx.showModal({
       title: '确认拉黑',
       content: '拉黑会强制该用户退出直播间',
@@ -273,45 +238,14 @@ Page({
           wx.showLoading({
             title: '加载中',
           })
-          wx.request({
-            url: CONFIG.HTTP_REQUEST_URL + "lahei",
-            data: {
-              userid: userid
-            },
-            method: "GET",
-            header: {
-              'Content-Type': 'application/json;charset=utf-8 '
-            },
-            success: function (res) {
-              //console.log("live-author---lahei",res);
-              if (res.data.code == 500) {
-                wx.showToast({
-                  title: res.data.message,
-                  duration: 1500,
-                  icon: 'none',
-                  mask: true,
-                })
-                return
-              }
-              wx.showToast({
-                title: '成功',
-                icon: 'success',
-                duration: 2000
-              })
-              that.showPeoples();
-            },
-            complete: function (c) {
-              wx.hideLoading()
-            }
+          WXAPI.liveRoomKickOutUser(wx.getStorageSync('token'), that.data.id, uid).then(res => {
+            that.showPeoples();
           })
         } else if (res.cancel) {
           //console.log('用户点击取消')
         }
       }
     })
-    //let openid = e.currentTarget.dataset.user_open_id;
-
-
   },
   showGoods() {
     let data = this.data
@@ -539,8 +473,15 @@ Page({
       socketMsgQueue = []
     })
     wx.onSocketClose(res => {
+      console.log(res);
       // 关闭，重连
       socketOpen = false
+      if (res.code == 1004 && res.reason == 'kickOut') {
+        wx.reLaunch({
+          url: '/pages/index/index'
+        })
+        return
+      }
       wx.showToast({
         title: res.code + ':' + res.reason,
         icon: 'none'

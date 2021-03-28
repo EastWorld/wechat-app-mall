@@ -122,22 +122,15 @@
   <cover-view class="item-list">
     <block wx:for='{{ peoplelist }}' wx:key='id'>
       <cover-view class="item flex">
-        <cover-image wx:if="{{item.user_avatar_url}}" src="{{ item.user_avatar_url }}" class="goods-img"></cover-image>
+        <cover-image wx:if="{{item.avatarUrl}}" src="{{ item.avatarUrl }}" class="goods-img"></cover-image>
         <cover-view class="info flex">
-          <cover-view class="goods-title">{{ item.user_nick_name }} </cover-view>
-          <cover-view class="price">{{ item.ip_login }} {{item.into_time_last}}</cover-view>
+          <cover-view>{{ item.nick }} </cover-view>
+          <cover-view>{{ item.ip }}</cover-view>
+          <cover-view>{{ item.ip }}</cover-view>
         </cover-view>
-        <button class="btn" catchtap="lahei" data-userid="{{ item.userid }}" data-is_liver="{{ item.is_liver }}">拉黑</button>
+        <button class="btn" catchtap="lahei" data-uid="{{ item.uid }}">踢出</button>
       </cover-view>
     </block>
-      <cover-view class="item flex">
-        <cover-image wx:if="{{info.user_avatar_url}}" src="{{ info.user_avatar_url }}" class="goods-img"></cover-image>
-        <cover-view class="info flex">
-          <cover-view class="goods-title">{{ info.user_nick_name }} </cover-view>
-          <cover-view class="price">{{ info.province}}{{ info.city}}</cover-view>
-        </cover-view>
-        <button class="btn" >主播</button>
-      </cover-view>
   </cover-view>
 </cover-view>
 

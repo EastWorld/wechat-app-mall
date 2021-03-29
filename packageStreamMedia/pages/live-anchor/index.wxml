@@ -108,9 +108,9 @@
   <!-- send barrage -->
   <input cursor-spacing='0' bindkeyboardheightchange="keyboardEvent"  wx:if='{{ showInput }}' focus="{{ focus }}" placeholder-class="holder-class" placeholder='说点什么吧...'  value="{{ inputVal }}" class="send-barrage" confirm-type='send' bindconfirm="onComment" bindinput="bindInput"></input>
 
-  <cover-view wx:if='{{ showInput }}' class="send-btn" catchtap="onComment">
+  <!-- <cover-view wx:if='{{ showInput }}' class="send-btn" catchtap="onComment">
     发送
-  </cover-view>
+  </cover-view> -->
 
 <!-- 点击人员列表 -->
 <cover-view class="goods-list {{ showPeopleInfo ? 'open' : 'close' }}"> 

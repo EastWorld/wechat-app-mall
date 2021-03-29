@@ -61,7 +61,9 @@
       "pages": [
         "pages/videoCall/videoCall",
         "pages/live-anchor/index",
-        "pages/live-anchor/list"
+        "pages/live-anchor/list",
+        "pages/live-client/list",
+        "pages/live-client/client"
       ]
     }
   ],

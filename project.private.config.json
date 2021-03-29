@@ -96,6 +96,24 @@
         {
           "name": "packageStreamMedia/pages/live-anchor/list",
           "pathName": "packageStreamMedia/pages/live-anchor/list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageStreamMedia/pages/live-client/list",
+          "pathName": "packageStreamMedia/pages/live-client/list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageStreamMedia/pages/live-client/client",
+          "pathName": "packageStreamMedia/pages/live-client/client",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/goods/list-vop",
+          "pathName": "pages/goods/list-vop",
           "scene": null
         }
       ]

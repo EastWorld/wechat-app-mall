@@ -95,7 +95,7 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://192.168.31.76:8081';
+// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 var merchantId = '0';
 
@@ -1551,11 +1551,20 @@ module.exports = {
   myLiveRooms: function myLiveRooms(data) {
     return request('/liveRooms/my', true, 'post', data);
   },
+  liveRooms: data => {
+    return request('/liveRooms/list', true, 'post', data)
+  },
   myLiveRoomsInfo: function myLiveRoomsInfo(token, id) {
     return request('/liveRooms/my/info', true, 'get', { token: token, id: id });
   },
+  liveRoomsInfo: (token, id) => {
+    return request('/liveRooms/info', true, 'get', { token, id })
+  },
   liveRoomGoodsMainly: function liveRoomGoodsMainly(data) {
     return request('/liveRooms/goods/mainly', true, 'post', data);
+  },
+  likeLiveRoom: (token, id) => {
+    return request('/liveRooms/like', true, 'post', { token, id })
   },
   stopLiveRoom: function stopLiveRoom(token, id) {
     return request('/liveRooms/my/stop', true, 'post', { token: token, id: id });

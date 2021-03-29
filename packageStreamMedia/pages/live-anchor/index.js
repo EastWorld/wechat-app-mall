@@ -81,13 +81,6 @@ Page({
     this.getUserInfo()
     this.myLiveRoomsInfo()
     this.initWebSocket()
-
-
-    this.getPushInfo(options.roomid) //获取直播信息
-    // wx.showLoading({
-    //   title: '加载中...',
-    // })
-    that = this;
     // 设置屏幕常亮 兼容ios
     wx.setKeepScreenOn({
       keepScreenOn: true
@@ -97,17 +90,6 @@ Page({
 
     this.ctx = wx.createLivePusherContext('pusher')
 
-    // if (options.object) { // 开启直播传递过来直播间的名称和封面图
-    //   let parse = JSON.parse(options.object)
-    //   let { name, cover, ids, category_id } = parse
-    //   this.setData({
-    //     live_name: name,
-    //     cover,
-    //     ids,
-    //     category_id
-    //   })
-    //   this.getPushInfo()
-    // }
     let query = wx.createSelectorQuery()
     query.select('.barrage').boundingClientRect(function (rect) {
       // console.log(rect)
@@ -259,96 +241,6 @@ Page({
       showEmpty: true,
     })
   },
-
-  // 获取推流信息
-  getPushInfo(roomid) {
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-    })
-    wx.request({
-      url: CONFIG.HTTP_REQUEST_URL + "selectRoomDetailById",
-      data: {
-        roomid: roomid,
-        userOpenId: wx.getStorageSync('openid')
-      },
-      method: "GET",
-      header: {
-        'Content-Type': 'application/json;charset=utf-8 '
-      },
-      success: function (res2) {
-        //console.log("live-author---selectRoomDetailById",res2);
-        if (res2.data.code == 500) {
-          wx.showToast({
-            title: res2.data.message,
-            duration: 1500,
-            icon: 'none',
-            mask: true,
-          })
-          return
-        }
-        let info = res2.data.map;
-        that.setData({
-          info: info,
-          roomId: info.id
-        });
-        if (app.globalData.socketStatus == 'closedinit') {
-          // websocket方式
-          app.openSocket(info.id, that, "author")
-        }
-
-      },
-      complete: function (c) {
-        wx.hideLoading()
-      }
-    })
-    // let data = this.data
-    // console.log(wx.getStorageSync('token'))
-    // console.log(data.live_name)
-    // console.log(data.ids)
-    // console.log(data.category_id)
-    // wx.uploadFile({
-    //   url: Config.HTTP_REQUEST_URL + '/wxsmall/Live/push',
-    //   filePath: data.cover,
-    //   name: 'cover', // 后端需要通过此字段来获取
-    //   header: {
-    //     "Content-Type": "multipart/form-data",
-    //     "Charset": "utf-8"
-    //   },
-    //   formData: {
-    //     token: wx.getStorageSync('token'),
-    //     title: data.live_name,
-    //     goods_ids: data.ids,
-    //     live_category_id: data.category_id,
-    //     v: 2, // 1 腾讯IM 2 websocket
-    //   },
-    //   success: function(res) {
-    //     res = JSON.parse(res.data)
-    //     if (res.code == 0) { // 推流信息
-    //       that.setData({
-    //         info: res.data,
-    //         main_goods: res.data.main_goods,
-    //         online: res.online
-    //       })
-    //       // websocket starts
-    //       app.openSocket(res.data.number, that)
-    //       // websocket ends
-    //     } else {
-    //       app.msg(res.message)
-    //       setTimeout(() => {
-    //         wx.navigateBack({ delta: 1 })
-    //       }, 2000)
-    //     }
-    //   },
-    //   fail: function(res) {
-    //     console.log(res)
-    //   },
-    //   complete: function() {
-    //     wx.hideLoading()
-    //   }
-    // })
-  },
-
   onReady(res) {
     this.ctx = wx.createLivePusherContext('pusher')
   },
@@ -408,7 +300,7 @@ Page({
     return {
       title: '快来我的直播间看看吧~',
       imageUrl: this.data.liveRoomsInfo.roomInfo.coverImage,
-      path: `/packageStreamMedia/pages/live-anchor/index?id=${this.data.id}`
+      path: `/packageStreamMedia/pages/live-client/client?id=${this.data.id}`
     }
   },
   async getUserInfo() {
@@ -442,7 +334,6 @@ Page({
       return
     }
     let mainlyGoods = null
-    console.log(res.data.goodsList);
     if (res.data.mainlyGoodsId) {
       mainlyGoods = res.data.goodsList.find(ele => {
         return ele.id == res.data.mainlyGoodsId

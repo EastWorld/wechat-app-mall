@@ -38,6 +38,9 @@ Page({
 
   },
   async search(){
+    if (!this.data.cid1 && !this.data.cid2) {
+      return
+    }
     wx.showLoading({
       title: '加载中',
     })

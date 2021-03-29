@@ -1,0 +1,1 @@
+<canvas canvas-id="bubble" style="width:{{width}}px;height:{{height}}px" class="like-fx" ></canvas>

@@ -9,5 +9,3 @@
 <view class="safe-bottom-box">
   <van-button type="primary" icon="add-o" block bind:click="addAddess">新增收货地址</van-button>
 </view>
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

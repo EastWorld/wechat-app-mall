@@ -11,6 +11,7 @@
     "pages/goods/fav",
     "pages/goods-details/index",
     "pages/goods-details/vop",
+    "pages/goods-details/cps-jd",
     "pages/shop-cart/index",
     "pages/to-pay-order/index",
     "pages/select-address/index",

@@ -186,8 +186,8 @@
 }
 
 .category-imgbox {
-  width: 80rpx;
-  height: 80rpx;
+  width: 88rpx;
+  height: 88rpx;
 }
 
 .category-title {
@@ -261,12 +261,8 @@
 
 .goods-box .goods-title {
   width: 280rpx;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
   font-size: 24rpx;
-  padding: 24rpx 0 10rpx 0;
-  color: #000;
+  color: #333;
   margin-left: 24rpx;
 }
 

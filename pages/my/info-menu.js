@@ -50,7 +50,7 @@ Page({
         this.data.code = code
       })
       if (res.code === 10002) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
         return
       }
       if (res.code == 0) {
@@ -68,15 +68,5 @@ Page({
         })
       }
     })
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
 })

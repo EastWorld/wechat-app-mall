@@ -8,9 +8,9 @@
       </view>
     </view>
     <view wx:else class="list2">
-      <navigator url="/pages/goods-details/vop?id={{item.json.skuId}}"><image class="img" mode="aspectFill" src="{{item.json.pic}}"></image></navigator>
+      <navigator url="{{item.json.wxaurl}}"><image class="img" mode="aspectFill" src="{{item.json.pic}}"></image></navigator>
       <view class="goods-info">
-        <navigator url="/pages/goods-details/vop?id={{item.json.skuId}}"><view class="title ellipsis">{{item.json.name}}</view></navigator>
+        <navigator url="{{item.json.wxaurl}}"><view class="title ellipsis">{{item.json.name}}</view></navigator>
         <image class="delete-btn" src="/images/icon/delete.svg" data-idx="{{ index }}" bindtap="removeFav"></image>
       </view>
     </view>

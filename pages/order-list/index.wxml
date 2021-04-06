@@ -15,9 +15,20 @@
         <view class="weui-cell__bd">{{item.orderNumber}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">{{item.statusStr}}</view>
       </navigator>
+      <wxs module="goodsDetailPage">
+      module.exports = {
+        url : function(item) {
+          if (item.supplyType == 'cps_jd') {
+            return '/pages/goods-details/cps-jd?id=' + item.goodsId
+          } else {
+            return '/pages/goods-details/index?id=' + item.goodsId
+          }
+        }
+      }
+      </wxs>
       <scroll-view class="goods-img-container" scroll-x="true">
         <view class="img-box" wx:for="{{goodsMap[item.id]}}" wx:key="index">
-          <navigator url="/pages/goods-details/{{ item.type == 3 ? 'vop' : 'index' }}?id={{item.goodsId}}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
+          <navigator url="{{ goodsDetailPage.url(item) }}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
         </view>
       </scroll-view>
       <view class="goods-price">

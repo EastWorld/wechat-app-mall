@@ -1,7 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 
 // 显示购物车tabBar的Badge
-async function showTabBarBadge(){
+async function showTabBarBadge(noTabBarPage){
   const token = wx.getStorageSync('token')
   if (!token) {
     return 0
@@ -17,17 +17,19 @@ async function showTabBarBadge(){
   if (res.code == 0) {
     number += res.data.number
   }
-  if (number == 0) {
-    // 删除红点点
-    wx.removeTabBarBadge({
-      index: 3
-    })
-  } else {
-    // 显示红点点
-    wx.setTabBarBadge({
-      index: 3,
-      text: number + ''
-    })
+  if (!noTabBarPage) {
+    if (number == 0) {
+      // 删除红点点
+      wx.removeTabBarBadge({
+        index: 3
+      })
+    } else {
+      // 显示红点点
+      wx.setTabBarBadge({
+        index: 3,
+        text: number + ''
+      })
+    }
   }
   return number
 }

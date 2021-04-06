@@ -15,7 +15,7 @@ Page({
   onShow () {
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
       } else {
         this.userAmount()
       }
@@ -47,7 +47,7 @@ Page({
       return
     }
     if (this.data.payType == 'balance') {
-      if (this.data.balance_pay_pwd && !this.data.pwd) {
+      if (this.data.balance_pay_pwd == '1' && !this.data.pwd) {
         wx.showToast({
           title: '请输入交易密码',
           icon: 'none'
@@ -104,16 +104,6 @@ Page({
     } else {
       wxpay.wxpay('paybill', wxpayAmount, 0, "/pages/asset/index", { money: amount});
     }
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
   payTypeChange(event) {
     this.setData({

@@ -15,7 +15,7 @@ Page({
   onShow: function() {
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
       }
     })
   },
@@ -70,15 +70,5 @@ Page({
       })
       this.scoreSignLogs()
     }
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
 })

@@ -5,7 +5,7 @@
     <view class="title">申请获取以下权限</view>
     <view class="profile">获得你的公开信息(昵称，头像等)</view>
     <view class="btn">
-      <van-button type="primary" block round open-type="getUserInfo" bindgetuserinfo="updateUserInfo">微信一键登录</van-button>
+      <van-button type="primary" block round bind:click="updateUserInfo">微信一键登录</van-button>
     </view>
   </view>
 </block>

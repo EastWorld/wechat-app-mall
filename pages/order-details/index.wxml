@@ -57,6 +57,17 @@
   </view>
   <view class="goods-list">
     <view class="list-title">商品信息</view>
+    <wxs module="goodsDetailPage">
+    module.exports = {
+      url : function(item) {
+        if (item.supplyType == 'cps_jd') {
+          return '/pages/goods-details/cps-jd?id=' + item.goodsId
+        } else {
+          return '/pages/goods-details/index?id=' + item.goodsId
+        }
+      }
+    }
+    </wxs>
     <form bindsubmit="submitReputation">
       <block wx:for="{{orderDetail.goods}}" wx:key="id">
         <van-card
@@ -65,7 +76,7 @@
           desc="{{item.property}}"
           title="{{item.goodsName}}"
           thumb="{{item.pic}}"
-          thumb-link="/pages/goods-details/index?id={{item.goodsId}}"
+          thumb-link="{{ goodsDetailPage.url(item) }}"
           centered
           lazy-load
         />

@@ -161,16 +161,6 @@ Page({
       url: '/pages/my/index'
     })
   },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
-  },
   async setting() {
     const res = await WXAPI.fxSetting()
     if (res.code == 0) {

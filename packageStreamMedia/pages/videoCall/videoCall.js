@@ -140,19 +140,9 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       this.data.isLogined = isLogined
       if (!isLogined) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
       }
     })
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
   async initTrtc () {
     const res = await WXAPI.trtcUserSig(wx.getStorageSync('token'))

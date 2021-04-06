@@ -75,13 +75,13 @@ Page({
       AUTH.bindSeller()
     })
     this.data.goodsId = e.id
-    const that = this
     this.data.kjJoinUid = e.kjJoinUid
     let goodsDetailSkuShowType = wx.getStorageSync('goodsDetailSkuShowType')
     if (!goodsDetailSkuShowType) {
       goodsDetailSkuShowType = 0
     }
     this.setData({
+      show_wx_quanzi: wx.getStorageSync('show_wx_quanzi'),
       goodsDetailSkuShowType,
       curuid: wx.getStorageSync('uid')
     })
@@ -99,7 +99,7 @@ Page({
     }
   },
   async shippingCartInfo() {
-    const number = await TOOLS.showTabBarBadge()
+    const number = await TOOLS.showTabBarBadge(true)
     this.setData({
       shopNum: number
     })
@@ -183,6 +183,11 @@ Page({
     const goodsDetailRes = await WXAPI.goodsDetail(goodsId, token ? token : '')
     const goodsKanjiaSetRes = await WXAPI.kanjiaSet(goodsId)
     if (goodsDetailRes.code == 0) {
+      if (!goodsDetailRes.data.pics || goodsDetailRes.data.pics.length == 0) {
+        goodsDetailRes.data.pics = [{
+          pic: goodsDetailRes.data.basicInfo.pic
+        }]
+      }
       if (goodsDetailRes.data.properties) {
         that.setData({
           hasMoreSelect: true,
@@ -819,16 +824,6 @@ Page({
     this.setData({
       wxlogin: true
     })
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
   closePop() {
     this.setData({

@@ -30,7 +30,7 @@ Page({
         this.data.code = code
       })
       if (res.code === 10002) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
         return
       }
       if (res.code == 0) {

@@ -493,16 +493,6 @@ Page({
   cancelLogin() {
     wx.navigateBack()
   },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
-  },
   async fetchShops() {
     const res = await WXAPI.fetchShops()
     if (res.code == 0) {

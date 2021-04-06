@@ -16,7 +16,7 @@ Page({
   async getUserApiInfo() {
     const res = await WXAPI.userDetail(wx.getStorageSync('token'))
     if (res.code == 2000) {
-      AUTH.openLoginDialog()
+      AUTH.login(this)
       return
     }
     if (res.code == 0) {
@@ -28,7 +28,7 @@ Page({
   async sendSms() {
     const res = await WXAPI.smsValidateCodeByToken(wx.getStorageSync('token'))
     if (res.code == 2000) {
-      AUTH.openLoginDialog()
+      AUTH.login(this)
       return
     }
     if (res.code == 0) {
@@ -100,7 +100,7 @@ Page({
     }
     const res = await WXAPI.resetPayPassword(this.data.mobile, this.data.code, this.data.pwd)
     if (res.code == 2000) {
-      AUTH.openLoginDialog()
+      AUTH.login(this)
       return
     }
     if (res.code != 0) {
@@ -119,16 +119,6 @@ Page({
       })
     }, 1000);
   },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
-  },
   getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
       wx.showModal({
@@ -143,7 +133,7 @@ Page({
         this.data.code = code
       })
       if (res.code === 10002) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
         return
       }
       if (res.code == 0) {

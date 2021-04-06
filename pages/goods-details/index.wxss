@@ -663,3 +663,8 @@ swiper-item image {
   margin: 32rpx 0 0 32rpx;
   border-radius: 16rpx;
 }
+.characteristic {
+  padding: 8rpx 32rpx;
+  color: #666;
+  font-size: 26rpx;
+}

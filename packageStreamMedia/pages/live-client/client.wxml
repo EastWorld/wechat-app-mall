@@ -123,7 +123,7 @@
             <cover-view class="goods-title">{{ item.name }}</cover-view>
             <cover-view class="price">￥{{ item.minPrice }}</cover-view>
           </cover-view>
-          <button class="btn" catchtap="navPurchase" data-id="{{ item.id }}">去购买</button>
+          <button class="btn" catchtap="toDetail" data-id="{{ item.id }}">去购买</button>
         </cover-view>
       </block>
     </cover-view>

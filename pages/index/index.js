@@ -45,9 +45,18 @@ Page({
     }
   },
   toDetailsTap: function(e) {
-    wx.navigateTo({
-      url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
-    })
+    console.log(e);
+    const id = e.currentTarget.dataset.id
+    const supplytype = e.currentTarget.dataset.supplytype
+    if (supplytype == 'cps_jd') {
+      wx.navigateTo({
+        url: `/pages/goods-details/cps-jd?id=${id}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/goods-details/index?id=${id}`,
+      })
+    }
   },
   tapBanner: function(e) {
     const url = e.currentTarget.dataset.url

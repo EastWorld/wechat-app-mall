@@ -159,8 +159,6 @@ Page({
       page: 1
     })
     this.queryLiveRoomInfo()
-    // 调用getUserInfo接口
-    //app.getUserInfo()
     wx.stopPullDownRefresh()
   },
 

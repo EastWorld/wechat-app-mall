@@ -40,12 +40,13 @@
         </view>
       </view>
       <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
+      <view class="characteristic">{{goodsDetail.basicInfo.characteristic}}</view>
       <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得
         {{goodsDetail.basicInfo.commission}} 积分奖励</view>
       <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得
         {{goodsDetail.basicInfo.commission}}元 现金奖励</view>     
     </view>
-    <van-cell wx:if="{{ shareQuanziProduct }}" custom-class="vw100 vcell" center title="微信圈子 好物圈" border="{{false}}">
+    <van-cell wx:if="{{ shareQuanziProduct && show_wx_quanzi == '1' }}" custom-class="vw100 vcell" center title="微信圈子 好物圈" border="{{false}}">
       <view class="r">{{goodsDetail.basicInfo.numberSells}}人已买</view>
       <share-button type="1" fore-color="#e64340" product="{{ shareQuanziProduct }}"
         bind:error="on_share_quanzi_error" />

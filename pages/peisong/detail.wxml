@@ -41,9 +41,20 @@
   </view>
   <view class="goods-list">
     <view class="list-title">服务内容</view>
+    <wxs module="goodsDetailPage">
+    module.exports = {
+      url : function(item) {
+        if (item.supplyType == 'cps_jd') {
+          return '/pages/goods-details/cps-jd?id=' + item.goodsId
+        } else {
+          return '/pages/goods-details/index?id=' + item.goodsId
+        }
+      }
+    }
+    </wxs>
     <form bindsubmit="submitReputation" report-submit="true">
       <block wx:for="{{orderDetail.goods}}" wx:key="id">
-        <navigator url="/pages/goods-details/index?id={{item.goodsId}}">
+        <navigator url="{{ goodsDetailPage.url(item) }}">
           <view class="a-goods">
             <view class="img-box">
               <image src="{{item.pic}}" class="img" />

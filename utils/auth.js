@@ -65,20 +65,6 @@ async function wxaCode(){
   })
 }
 
-async function getUserInfo() {
-  return new Promise((resolve, reject) => {
-    wx.getUserInfo({
-      success: res => {
-        return resolve(res)
-      },
-      fail: err => {
-        console.error(err)
-        return resolve()
-      }
-    })
-  })
-}
-
 async function login(page){
   const _this = this
   wx.login({
@@ -92,7 +78,6 @@ async function login(page){
         }).then(function (res) {        
           if (res.code == 10000) {
             // 去注册
-            //_this.register(page)
             return;
           }
           if (res.code != 0) {
@@ -115,7 +100,6 @@ async function login(page){
         WXAPI.login_wx(res.code).then(function (res) {        
           if (res.code == 10000) {
             // 去注册
-            //_this.register(page)
             return;
           }
           if (res.code != 0) {
@@ -135,49 +119,6 @@ async function login(page){
           }
         })
       }
-    }
-  })
-}
-
-async function register(page) {
-  let _this = this;
-  wx.login({
-    success: function (res) {
-      let code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
-      wx.getUserInfo({
-        success: function (res) {
-          let iv = res.iv;
-          let encryptedData = res.encryptedData;
-          let referrer = '' // 推荐人
-          let referrer_storge = wx.getStorageSync('referrer');
-          if (referrer_storge) {
-            referrer = referrer_storge;
-          }
-          // 下面开始调用注册接口
-          const componentAppid = wx.getStorageSync('componentAppid')
-          if (componentAppid) {
-            WXAPI.wxappServiceRegisterComplex({
-              componentAppid,
-              appid: wx.getStorageSync('appid'),
-              code: code,
-              encryptedData: encryptedData,
-              iv: iv,
-              referrer: referrer
-            }).then(function (res) {
-              _this.login(page);
-            })
-          } else {
-            WXAPI.register_complex({
-              code: code,
-              encryptedData: encryptedData,
-              iv: iv,
-              referrer: referrer
-            }).then(function (res) {
-              _this.login(page);
-            })
-          }
-        }
-      })
     }
   })
 }
@@ -288,30 +229,12 @@ async function checkAndAuthorize (scope) {
   })  
 }
 
-function openLoginDialog() {
-  Dialog.confirm({
-    selector: '#van-dialog-auth-login',
-    message: '需要登陆后才能继续操作',
-    confirmButtonText: '立即登陆',
-    cancelButtonText: '暂不登陆',
-    confirmButtonOpenType: 'getUserInfo',
-    lang: 'zh_CN'
-  }).then(() => {
-    // Dialog.close()
-  }).catch(() => {
-    // Dialog.close()
-  })
-}
-
 module.exports = {
   checkHasLogined: checkHasLogined,
   wxaCode: wxaCode,
-  getUserInfo: getUserInfo,
   login: login,
-  register: register,
   loginOut: loginOut,
   checkAndAuthorize: checkAndAuthorize,
-  openLoginDialog: openLoginDialog,
   authorize: authorize,
   bindSeller: bindSeller
 }

@@ -30,14 +30,25 @@
       </view>
     </view> -->
     <!-- 显示右侧商品 -->
+    <wxs module="goodsDetailPage">
+    module.exports = {
+      url : function(item) {
+        if (item.supplyType == 'cps_jd') {
+          return '/pages/goods-details/cps-jd?id=' + item.id
+        } else {
+          return '/pages/goods-details/index?id=' + item.id
+        }
+      }
+    }
+    </wxs>
     <van-card
       wx:for="{{currentGoods}}" wx:key="id"
       price="{{item.minPrice}}"
       desc="{{item.numberSells ? '已售' + item.numberSells : ''}}"
       tag="{{item.gotScore ? item.gotScore + '积分' : ''}}"
       title="{{item.name}}"
-      thumb="{{item.pic}}_m"
-      thumb-link="/pages/goods-details/index?id={{item.id}}"
+      thumb="{{item.pic}}"
+      thumb-link="{{ goodsDetailPage.url(item) }}"
     >
       <view class="goods-btn" slot="footer">
         <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
@@ -75,5 +86,3 @@
   </view>
   <van-button type="danger" block bind:click="addCarSku">加入购物车</van-button>
 </van-popup>
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

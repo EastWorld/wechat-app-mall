@@ -17,5 +17,3 @@
 <view class="block-btn btn">
   <van-button type="primary" block bind:click="bindSave">申请提现</van-button>
 </view>
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

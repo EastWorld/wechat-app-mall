@@ -161,43 +161,44 @@ Page({
       }
     })
   },
-  async updateUserInfo(e) {
-    if (!e.detail.errMsg || e.detail.errMsg != "getUserInfo:ok") {
-      wx.showModal({
-        title: '提示',
-        content: e.detail.errMsg,
-        showCancel: false
-      })
-      return;
+  updateUserInfo(e) {
+    wx.getUserProfile({
+      lang: 'zh_CN',
+      desc: '用于完善会员资料',
+      success: res => {
+        console.log(res);
+        this._updateUserInfo(res.userInfo)
+      },
+      fail: err => {
+        console.log(err);
+        wx.showToast({
+          title: err.errMsg,
+          icon: 'none'
+        })
+      }
+    })
+  },
+  async _updateUserInfo(userInfo) {
+    const postData = {
+      token: wx.getStorageSync('token'),
+      nick: userInfo.nickName,
+      avatarUrl: userInfo.avatarUrl,
+      city: userInfo.city,
+      province: userInfo.province,
+      gender: userInfo.gender,
     }
-    wx.showLoading({
-      title: '',
-    })
-    const res = await WXAPI.encryptedData(this.data.code, e.detail.encryptedData, e.detail.iv)
-    wx.hideLoading({
-      success: (res) => {},
-    })
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
-    })
-    if (res.code == 0) {
-      // 更新用户资料
-      await WXAPI.modifyUserInfo({
-        token: wx.getStorageSync('token'),
-        avatarUrl: res.data.avatarUrl,
-        nick: res.data.nickName,
-        province: res.data.province,
-        city: res.data.city,
-        gender: res.data.gender,
+    const res = await WXAPI.modifyUserInfo(postData)
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
       })
-      this.getUserApiInfo();
-    } else {
-      wx.showModal({
-        title: '错误',
-        content: res.msg,
-        showCancel: false
-      })
+      return
     }
+    wx.showToast({
+      title: '登陆成功',
+    })
+    this.getUserApiInfo()
   },
   gogrowth() {
     wx.navigateTo({

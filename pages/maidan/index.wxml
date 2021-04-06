@@ -6,7 +6,7 @@
   clearable
 />
 <van-field
-  wx:if="{{ balance_pay_pwd && payType =='balance' }}"
+  wx:if="{{ balance_pay_pwd == '1' && payType =='balance' }}"
   label="交易密码"
   password
   model:value="{{ pwd }}"
@@ -29,5 +29,3 @@
 <view class="block-btn btn">
   <van-button type="primary" block bind:click="bindSave">确认支付</van-button>
 </view>
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

@@ -49,7 +49,7 @@ Page({
     }
   },
   onLoad(e) {
-    // e.id = 4659376
+    e.id = 802819
     // 读取分享链接中的邀请人编号
     if (e && e.inviter_id) {
       wx.setStorageSync('referrer', e.inviter_id)
@@ -67,18 +67,25 @@ Page({
       AUTH.bindSeller()
     })
     this.data.goodsId = e.id
-    this.data.kjJoinUid = e.kjJoinUid    
-    let goodsDetailSkuShowType = wx.getStorageSync('goodsDetailSkuShowType')
-    if (!goodsDetailSkuShowType) {
-      goodsDetailSkuShowType = 0
-    }
     this.setData({
-      show_wx_quanzi: wx.getStorageSync('show_wx_quanzi'),
-      goodsDetailSkuShowType,
-      curuid: wx.getStorageSync('uid')
+      show_wx_quanzi: wx.getStorageSync('show_wx_quanzi')
     })
-    this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
-    this.skuImages(this.data.goodsId)
+    this.cpsJdGoodsDetail()
+  },
+  async cpsJdGoodsDetail() {
+    const res = await WXAPI.cpsJdGoodsDetail({
+      skuIds: this.data.goodsId
+    })
+    if (res.code == 0) {
+      this.setData({
+        curAddressData: res.data.info
+      })
+      this.checkCanBuy()
+    } else {
+      this.setData({
+        curAddressData: null
+      });
+    }
   },
   async initShippingAddress() {
     const res = await WXAPI.defaultAddress(wx.getStorageSync('token'))
@@ -193,7 +200,7 @@ Page({
           })
         } else {
           const extJsonStr = {
-            wxaurl: `/pages/goods-details/vop?id=${this.data.goodsId}`,
+            wxaurl: `/pages/goods-details/cps-jd?id=${this.data.goodsId}`,
             skuId: this.data.goodsId,
             pic: this.data.imageDomain + this.data.info.imagePath,
             name: this.data.info.name
@@ -210,23 +217,6 @@ Page({
         }
       }
     })
-  },
-  async getGoodsDetailAndKanjieInfo(goodsId) {
-    const res = await WXAPI.jdvopGoodsDetail(goodsId)
-    if (res.data.info.wxintroduction) {
-      res.data.wxintroduction = JSON.parse(res.data.info.wxintroduction)
-    }
-    if (res.code == 0) {
-      this.setData(res.data)
-    }
-  },
-  async skuImages(goodsId) {
-    const res = await WXAPI.jdvopGoodsSkuImages(goodsId)
-    if (res.code == 0) {
-      this.setData({
-        skuImages: res.data
-      })
-    }
   },
   async shopSubdetail(shopId){
     const res = await WXAPI.shopSubdetail(shopId)
@@ -508,7 +498,7 @@ Page({
   onShareAppMessage() {
     let _data = {
       title: this.data.price.skuName,
-      path: '/pages/goods-details/vop?id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
+      path: '/pages/goods-details/cps-jd?id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function(res) {
         // 转发成功
       },
@@ -659,7 +649,7 @@ Page({
     const _this = this
     const qrcodeRes = await WXAPI.wxaQrcode({
       scene: _this.data.goodsId + ',' + wx.getStorageSync('uid'),
-      page: 'pages/goods-details/vop',
+      page: 'pages/goods-details/cps-jd',
       is_hyaline: true,
       autoColor: true,
       expireHours: 1
@@ -799,7 +789,7 @@ Page({
         "image_list":[
           this.data.goodsDetail.basicInfo.pic
         ],
-        "src_mini_program_path": '/pages/goods-details/vop?id=' + this.data.goodsDetail.basicInfo.id
+        "src_mini_program_path": '/pages/goods-details/cps-jd?id=' + this.data.goodsDetail.basicInfo.id
       }
     })
   },

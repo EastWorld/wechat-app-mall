@@ -49,5 +49,3 @@
 <view class="block-btn btn">
   <van-button type="primary" block bind:click="submit">重置交易密码</van-button>
 </view>
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

@@ -202,7 +202,7 @@ Page({
         // 处理加入购物车的业务逻辑
         this.addShopCarDone(options)
       } else {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
       }
     })
   },
@@ -330,8 +330,13 @@ Page({
     if (needSelectNum == curSelectNum) {
       canSubmit = true;
     }
+    const token = wx.getStorageSync('token')
     if (canSubmit) {
-      const res = await WXAPI.goodsPrice(this.data.skuCurGoods.basicInfo.id, propertyChildIds)
+      const res = await WXAPI.goodsPriceV2({
+        token: token ? token : '',
+        goodsId: this.data.skuCurGoods.basicInfo.id,
+        propertyChildIds: propertyChildIds
+      })
       if (res.code == 0) {
         price = res.data.price
         originalPrice = res.data.originalPrice
@@ -374,16 +379,6 @@ Page({
       sku
     }
     this.addShopCarDone(options)
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
   goodsGoBottom() {
     this.data.page++

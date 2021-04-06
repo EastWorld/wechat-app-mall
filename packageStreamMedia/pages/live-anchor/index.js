@@ -96,14 +96,25 @@ Page({
     }).exec();
   },
   // 主推商品详情
-  toDetail(e) {
-    let {
-      id
-    } = e.currentTarget.dataset
-    let url = `/pages/goods-details/index?id=${id}`
-    wx.navigateTo({
-      url,
-    })
+  async toDetail(e) {
+    const id = e.currentTarget.dataset.id
+    const res = await WXAPI.goodsDetail(id, wx.getStorageSync('token'))
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    if (res.data.basicInfo.supplyType == 'cps_jd') {
+      wx.navigateTo({
+        url: `/pages/goods-details/cps-jd?id=${id}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/goods-details/index?id=${id}`,
+      })
+    }
   },
 
   preventDefault() {

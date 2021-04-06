@@ -14,11 +14,22 @@
   </view>
 </van-sticky>
 <van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
+<wxs module="goodsDetailPage">
+module.exports = {
+  url : function(item) {
+    if (item.supplyType == 'cps_jd') {
+      return '/pages/goods-details/cps-jd?id=' + item.id
+    } else {
+      return '/pages/goods-details/index?id=' + item.id
+    }
+  }
+}
+</wxs>
 <block wx:if="{{listType == 1}}">
   <view class="list1" wx:for="{{goods}}" wx:key="id">
-    <navigator url="/pages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
-      <view class="title ellipsis"><navigator url="/pages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
+      <view class="title ellipsis"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
       <view class="price">¥ {{item.minPrice}}</view>
       <view class="buy-info">
         <view class="num">已售出{{item.numberSells}}件</view>
@@ -29,9 +40,9 @@
 </block>
 <view wx:if="{{listType == 2}}" class="list2-box">
   <view class="list2" wx:for="{{goods}}" wx:key="id">
-    <navigator url="/pages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
-      <view class="title"><navigator url="/pages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
+      <view class="title"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
       <view class="price">¥ {{item.minPrice}}</view>
       <view class="buy-info">
         <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>

@@ -66,8 +66,7 @@
     bind:change="onChange"
   />
   <view class="block-btn">
-    <van-button wx:if="{{ isLogined }}" block type="primary" loading="{{ exchangeCouponsLoading }}" bind:click="exchangeCoupons">立即兑换</van-button>
-    <van-button wx:else block type="primary" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="processLogin">登陆后兑换</van-button>
+    <van-button block type="primary" loading="{{ exchangeCouponsLoading }}" bind:click="exchangeCoupons">立即兑换</van-button>
   </view>
 </view>
 <view class="bottom"></view>

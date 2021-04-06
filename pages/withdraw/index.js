@@ -21,7 +21,7 @@ Page({
   onShow: function() {
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
-        AUTH.openLoginDialog()
+        AUTH.login(this)
       } else {
         this.userAmount()
       }
@@ -34,16 +34,6 @@ Page({
         balance: res.data.balance
       })
     }
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
   async bindSave() {
     let minWidthAmount = wx.getStorageSync('WITHDRAW_MIN');

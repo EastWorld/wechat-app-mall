@@ -253,8 +253,8 @@
     </view>
     <van-goods-action wx:if="{{!curGoodsKanjia}}">
       <van-goods-action-icon icon="chat-o" text="客服" open-type="contact"
-        send-message-title="{{price.skuName}}" send-message-img="{{imageDomain}}{{price.pic}}"
-        send-message-path="/pages/goods-details/vop?id={{goodsId}}" show-message-card="{{ true }}" />
+        send-message-title="{{goodsDetail.basicInfo.name}}" send-message-img="{{goodsDetail.basicInfo.pic}}"
+        send-message-path="/pages/goods-details/cps-jd?id={{goodsDetail.basicInfo.id}}" show-message-card="{{ true }}" />
       <van-goods-action-icon icon="cart-o" text="购物车" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />
       <van-goods-action-icon icon="{{faved?'like':'like-o'}}" text="收藏" bind:click="addFav" />
       <van-goods-action-button text="加入购物车" type="warning"

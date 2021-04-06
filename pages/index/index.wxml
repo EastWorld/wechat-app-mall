@@ -23,6 +23,17 @@
     </view>
   </view>
 </navigator>
+<wxs module="goodsDetailPage">
+module.exports = {
+  url : function(item) {
+    if (item.supplyType == 'cps_jd') {
+      return '/pages/goods-details/cps-jd?id=' + item.goodsId
+    } else {
+      return '/pages/goods-details/index?id=' + item.goodsId
+    }
+  }
+}
+</wxs>
 <view class="swiper-container">
   <swiper class="swiper1" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">
@@ -31,7 +42,7 @@
   </swiper>
   <view wx:if="{{goodsDynamic}}" class="goodsDynamic">
     <swiper class="swiper2" autoplay circular vertical>
-      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="/pages/goods-details/index?id={{item.goodsId}}">
+      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
         <swiper-item>
           <view class="goodsDynamic-item">
             <image mode="aspectFill" src="{{item.avatarUrl}}"></image>
@@ -72,7 +83,7 @@
       </view>
     </view>
     <view class="goods-container">
-      <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
         <view class="img-box">
           <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
         </view>
@@ -94,7 +105,7 @@
     </van-divider>
     <view class="miaosha-container">
       <view class="miaosha-goods-list" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap"
-        data-id="{{item.id}}">
+        data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
         <view class="r">
           <view class="goods-title">{{item.name}}</view>
@@ -128,11 +139,11 @@
     <image class="table-icon-tuijian" src="../../images/home/recommend.png"></image> 爆品推荐
   </van-divider>
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
-    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
-      <view class="goods-title">{{item.name}}</view>
+      <view class="goods-title van-multi-ellipsis--l2">{{item.name}}</view>
       <view style='display:flex;'>
         <view class="goods-price">¥ {{item.minPrice}}</view>
         <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price"
@@ -150,7 +161,7 @@
       <van-card custom-class="kanjia-vcard" wx:for="{{kanjiaList}}" wx:key="id" price="{{item.kanjiaPrice}}"
         origin-price="{{item.originalPrice}}" desc="{{item.characteristic}}" title="{{item.name}}" thumb="{{item.pic}}">
         <view slot="footer">
-          <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" bind:click="toDetailsTap">砍价
+          <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" bind:click="toDetailsTap">砍价
           </van-button>
         </view>
         <view slot="price-top">
@@ -177,7 +188,7 @@
           <text class='original'>￥ {{item.originalPrice}}</text>
         </view>
         <view class="tuan-btn">
-          <button class="ptbtn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}">拼团</button>
+          <button class="ptbtn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">拼团</button>
         </view>
       </view>
     </view>
@@ -188,11 +199,11 @@
     <image class="table-icon-goodslist" src="../../images/home/goodslist.png"></image> 商品列表
   </van-divider>
   <view class="goods-container">
-    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}">
+    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
-      <view class="goods-title">{{item.name}}</view>
+      <view class="goods-title van-multi-ellipsis--l2">{{item.name}}</view>
       <view class="goods-price-container">
         <view class="goods-price">¥ {{item.minPrice}}</view>
         <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price2">¥ {{item.originalPrice}}

@@ -24,5 +24,3 @@
   <van-button type="primary" block bind:click="submit">修改交易密码</van-button>
   <van-cell icon="question-o" title="忘记交易密码？" value="重置" is-link url="/pages/pwd-pay/reset" />
 </view>
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

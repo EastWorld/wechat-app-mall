@@ -7,6 +7,3 @@
 <van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
 <van-cell title="我的收藏" is-link url="/pages/goods/fav" />
 <van-cell title="修改资料" is-link url="/pages/my/info" />
-
-
-<van-dialog id="van-dialog-auth-login" bind:getuserinfo="processLogin" />

@@ -122,18 +122,27 @@ Page({
     }).exec();
 
   },
-
   // 主推商品详情
-  toDetail(e) {
-    let {
-      id
-    } = e.currentTarget.dataset
-    let url = `/pages/goods-details/index?id=${id}`
-    wx.navigateTo({
-      url,
-    })
+  async toDetail(e) {
+    const id = e.currentTarget.dataset.id
+    const res = await WXAPI.goodsDetail(id, wx.getStorageSync('token'))
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    if (res.data.basicInfo.supplyType == 'cps_jd') {
+      wx.navigateTo({
+        url: `/pages/goods-details/cps-jd?id=${id}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/goods-details/index?id=${id}`,
+      })
+    }
   },
-
   async handleLikeClick() {
     await WXAPI.likeLiveRoom(wx.getStorageSync('token'), this.data.id)
     this.sendSocketMessage('act:like')
@@ -221,62 +230,6 @@ Page({
     }
    
   },
-  // getGoodsList() {
-  //   return
-  //   let data = this.data
-  //   if (!data.hasMore) return
-  //   api.get({
-  //     url: '/wxsmall/Live/liveCart',
-  //     data: {
-  //       number: data.number,
-  //       page: data.pageIndex++,
-  //       pagesize: data.pageSize
-  //     },
-  //     success: res => {
-  //       console.log(res)
-  //       let ret = res.data
-  //       let len = ret.length
-  //       let emptyFlag = false
-  //       let moreFlag = true
-  //       if (!len && data.pageIndex == 2) { // 空数组
-  //         emptyFlag = true
-  //       }
-
-  //       if (len < data.pageSize) { // 没有更多数据
-  //         moreFlag = false
-  //       }
-
-  //       let originalList = [...data.goodsList]
-  //       this.setData({
-  //         total: res.total,
-  //         goodsList: originalList.concat(ret),
-  //         hasMore: moreFlag ? true : false,
-  //         showEmpty: emptyFlag ? true : false
-  //       })
-  //     }
-  //   })
-  // },
-
-  // navCart() {
-  //   let url = `/pages/cart/cart`
-  //   wx.navigateTo({
-  //     url,
-  //   })
-  // },
-
-  // navPurchase(e) {
-  //   let { number } = this.data // number表明来自于当前主播
-  //   let url = `/pages/product-detail/index?id=${e.currentTarget.dataset.id}&number=${number}`
-  //   wx.navigateTo({
-  //     url,
-  //   })
-  // },
- // 前往商品详情
- navPurchase(e) { 
-  wx.navigateTo({
-    url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
-  })
-},
   async getLiveInfo() {
     const res = await WXAPI.liveRoomsInfo(wx.getStorageSync('token'), this.data.id)
     if (res.code != 0) {

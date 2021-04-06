@@ -41,7 +41,7 @@ Page({
     }
     const res = await WXAPI.modifyPayPassword(wx.getStorageSync('token'), this.data.pwdOld, this.data.pwd)
     if (res.code == 2000) {
-      AUTH.openLoginDialog()
+      AUTH.login(this)
       return
     }
     if (res.code != 0) {
@@ -59,15 +59,5 @@ Page({
         delta: 0,
       })
     }, 1000);
-  },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
   },
 })

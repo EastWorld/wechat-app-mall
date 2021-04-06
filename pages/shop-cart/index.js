@@ -194,16 +194,6 @@ Page({
       wxlogin: true
     })
   },
-  processLogin(e) {
-    if (!e.detail.userInfo) {
-      wx.showToast({
-        title: '已取消',
-        icon: 'none',
-      })
-      return;
-    }
-    AUTH.register(this);
-  },
   changeCarNumber(e) {
     const key = e.currentTarget.dataset.key
     const num = e.detail.value

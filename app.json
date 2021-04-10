@@ -17,6 +17,7 @@
     "pages/select-address/index",
     "pages/address-add/index",
     "pages/order-list/index",
+    "pages/order-list/cps",
     "pages/order-details/index",
     "pages/order-details/scan-result",
     "pages/order/refundApply",
@@ -53,7 +54,10 @@
     "pages/search/index",
     "pages/my/info",
     "pages/my/setting",
-    "pages/my/info-menu"
+    "pages/my/info-menu",
+    "pages/recycle/index",
+    "pages/recycle/orders",
+    "pages/recycle/order-detail"
   ],
   "subpackages": [
     {

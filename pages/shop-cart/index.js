@@ -6,7 +6,6 @@ const app = getApp()
 
 Page({
   data: {
-    wxlogin: true,
     shopCarType: 0, //0自营 1云货架
     saveHidden: true,
     allSelect: true,
@@ -41,14 +40,7 @@ Page({
     })
   },
   onShow: function () {
-    AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
-      if (isLogined) {
-        this.shippingCarInfo()
-      }
-    })
+    this.shippingCarInfo()
   },
   async shippingCarInfo() {
     const token = wx.getStorageSync('token')
@@ -188,11 +180,6 @@ Page({
       var res = await WXAPI.jdvopCartModifyNumber(token, item.key, number)  
     }
     this.shippingCarInfo()
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
-    })
   },
   changeCarNumber(e) {
     const key = e.currentTarget.dataset.key

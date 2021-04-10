@@ -8,20 +8,20 @@
   </van-sticky>
   <scroll-view class="scroll-container" scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true"
     bindscroll="bindscroll">
-    <view wx:if="{{ imageDomain }}" class="swiper-container" id="swiper-container">
+    <view class="swiper-container" id="swiper-container">
       <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
-        <swiper-item wx:for="{{skuImages}}" wx:key="id">
-          <image src="{{imageDomain}}{{item.path}}" class="slide-image" mode="aspectFill" lazy-load="true" />
+        <swiper-item wx:for="{{cpsJdGoodsDetail.imageInfo.imageList}}" wx:key="id">
+          <image src="{{item.url}}" class="slide-image" mode="aspectFill" lazy-load="true" />
         </swiper-item>
       </swiper>
     </view>
     <view class="goods-info vcell">
       <view class="goods-info-top-container">
         <view class="goods-profile">
-          <view class="p"><text>¥</text> {{price.priceSale}}</view>
-          <view wx:if="{{price.priceJd && price.priceJd > 0}}" class="goods-price"
+          <view class="p"><text>¥</text> {{goodsDetail.basicInfo.minPrice}}</view>
+          <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price"
             style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text>
-            {{price.priceJd}}</view>
+            {{goodsDetail.basicInfo.originalPrice}}</view>
         </view>
         <view class="goods-info-fx">
           <view class='item left'>
@@ -35,10 +35,9 @@
           </view>
         </view>
       </view>
-      <view class="goods-title">{{price.skuName}}</view>
+      <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
       <view class="characteristic">{{goodsDetail.basicInfo.characteristic}}</view>
     </view>
-
 
     <van-cell wx:if="{{ shareQuanziProduct && show_wx_quanzi == '1' }}" custom-class="vw100" center title="微信圈子 好物圈">
       <share-button type="1" fore-color="#e64340" product="{{ shareQuanziProduct }}"
@@ -207,7 +206,7 @@
         <view class="left">商品详情</view>
       </view>
       <view class="goods-text">
-        <image wx:for="{{wxintroduction}}" wx:key="id" mode="widthFix" src="{{ item }}"></image>
+        <image wx:for="{{ cpsJdGoodsDetail.detailImagesArray }}" wx:key="id" mode="widthFix" src="{{ item }}"></image>
       </view>
     </view>
     <van-cell-group wx:if="{{!curGoodsKanjia && reputation}}" custom-class="vw100" title="宝贝评价">
@@ -255,12 +254,9 @@
       <van-goods-action-icon icon="chat-o" text="客服" open-type="contact"
         send-message-title="{{goodsDetail.basicInfo.name}}" send-message-img="{{goodsDetail.basicInfo.pic}}"
         send-message-path="/pages/goods-details/cps-jd?id={{goodsDetail.basicInfo.id}}" show-message-card="{{ true }}" />
-      <van-goods-action-icon icon="cart-o" text="购物车" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />
       <van-goods-action-icon icon="{{faved?'like':'like-o'}}" text="收藏" bind:click="addFav" />
-      <van-goods-action-button text="加入购物车" type="warning"
-        bind:click="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}" />
       <van-goods-action-button text="立即购买" data-shopType="{{shopType}}"
-        bind:click="{{goodsDetailSkuShowType==0?'tobuy':'buyNow'}}" />
+        bind:click="tobuy" />
     </van-goods-action>
   </scroll-view>
 </view>

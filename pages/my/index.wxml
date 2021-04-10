@@ -44,6 +44,8 @@
     <van-grid-item icon="flower-o" text="待评价" badge="{{count_id_no_reputation}}" bindtap='goOrder' data-type="3" />
     <van-grid-item icon="after-sale" text="售后" bindtap='goOrder' data-type="99" />
   </van-grid>
+  <van-cell wx:if="{{ cps_open == '1' }}" title="CPS订单" value="管理" is-link url="/pages/order-list/cps" />
+  <van-cell wx:if="{{ recycle_open == '1' }}" title="回收订单" value="管理" is-link url="/pages/recycle/orders" />
   <van-cell title="常用功能" />
   <van-grid clickable>
     <van-grid-item wx:if="{{canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />

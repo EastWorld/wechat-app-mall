@@ -1,0 +1,23 @@
+.btn {
+  padding: 32rpx;
+}
+.hx-qrcode {
+  padding: 32rpx;
+  text-align: center;
+  color: #333;
+}
+.hx-qrcode .t {
+  font-weight: bold;
+}
+.hx-qrcode .t2 {
+  font-size: 26rpx;
+  color: #666;
+}
+.hx-qrcode .hx-canvas {
+  width: 650rpx;
+  height: 650rpx;
+}
+.statusStr {
+  color: #e64340 !important;
+  font-weight: bold;
+}

@@ -394,14 +394,14 @@ Page({
     })
     wx.onSocketMessage(res => {
       // 接收服务器推送的消息
-      const resJson = JSON.parse(res.data)
-      if (resJson.code != 0) {
+      if (res.code != 0) {
         wx.showToast({
           title: resJson.msg,
           icon: 'none'
         })
         return
       }
+      const resJson = JSON.parse(res.data)
       this.processSocketMessage(resJson.data)
     })
   },
@@ -436,6 +436,9 @@ Page({
         this.setData({
           mainlyGoods
         })
+        return
+      }
+      if (res.msg == 'act:like') {
         return
       }
       const barrageList = this.data.barrageList

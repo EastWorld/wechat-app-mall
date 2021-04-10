@@ -34,7 +34,9 @@ Page({
     const order_hx_uids = wx.getStorageSync('order_hx_uids')
     this.setData({
       version: CONFIG.version,
-      order_hx_uids
+      order_hx_uids,
+      cps_open: wx.getStorageSync('cps_open'),
+      recycle_open: wx.getStorageSync('recycle_open'),
     })
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {

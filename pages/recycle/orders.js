@@ -33,5 +33,57 @@ Page({
     wx.navigateTo({
       url: `/pages/recycle/order-detail?id=${id}`,
     })
+  },
+  async recycleOrderClose(e) {
+    wx.showModal({
+      title: '提示',
+      content: '确认要取消该订单吗？',
+      success: res => {
+        if (res.confirm) {
+          this._recycleOrderClose(e)
+        }
+      }
+    })
+  },
+  async _recycleOrderClose(e) {
+    const id = e.currentTarget.dataset.id
+    const res = await WXAPI.recycleOrderClose(wx.getStorageSync('token'), id)
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    wx.showToast({
+      title: '已取消',
+    })
+    this.recycleOrders()
+  },
+  async recycleOrderDelete(e) {
+    wx.showModal({
+      title: '提示',
+      content: '确认要删除该订单吗？',
+      success: res => {
+        if (res.confirm) {
+          this._recycleOrderDelete(e)
+        }
+      }
+    })
+  },
+  async _recycleOrderDelete(e) {
+    const id = e.currentTarget.dataset.id
+    const res = await WXAPI.recycleOrderDelete(wx.getStorageSync('token'), id)
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    wx.showToast({
+      title: '删除成功',
+    })
+    this.recycleOrders()
   }
 })

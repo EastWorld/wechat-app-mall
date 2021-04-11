@@ -212,7 +212,7 @@ Page({
     const res = await WXAPI.cpsJdGoodsShotUrl(token, this.data.goodsDetail.basicInfo.yyId)
     if (res.code != 0) {
       wx.showToast({
-        title: rs.msg,
+        title: res.msg,
         icon: 'none'
       })
       return

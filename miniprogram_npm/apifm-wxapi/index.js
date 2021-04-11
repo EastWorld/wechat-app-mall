@@ -95,7 +95,7 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://192.168.1.100:8081'; 
+// var API_BASE_URL = 'http://192.168.31.76:8081'; 
 var subDomain = '-';
 var merchantId = '0';
 
@@ -1644,6 +1644,12 @@ module.exports = {
   },
   recycleOrderFahuo: data => {
     return request('/recycleOrder/fahuo', true, 'post', data)
+  },
+  recycleOrderClose: (token, id) => {
+    return request('/recycleOrder/close', true, 'post', { token, id })
+  },
+  recycleOrderDelete: (token, id) => {
+    return request('/recycleOrder/del', true, 'post', { token, id })
   },
 };
 

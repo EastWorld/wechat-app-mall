@@ -14,6 +14,7 @@
   </view>
   <view slot="footer">
     <van-button type="primary" size="mini" data-id="{{ item.id }}" bind:click="detail">详情</van-button>
-    <van-button wx:if="{{ item.validCode == 17 && !item.recycleOrderId }}" type="danger" size="mini" data-type="1" data-orderid="{{ item.id }}" data-platform="jd" bind:click="huishou">取消订单/删除订单</van-button>
+    <van-button wx:if="{{ item.status == 0 }}" custom-class="btn" type="warning" size="mini" data-id="{{ item.id }}" bind:click="recycleOrderClose">取消</van-button>
+    <van-button wx:if="{{ item.status < 1 }}" custom-class="btn" type="danger" size="mini" data-id="{{ item.id }}" bind:click="recycleOrderDelete">删除</van-button>
   </view>
 </van-card>

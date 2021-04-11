@@ -1,1 +1,3 @@
-/* pages/recycle/orders.wxss */
+.btn {
+  margin-left: 16rpx;
+}

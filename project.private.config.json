@@ -114,6 +114,30 @@
         {
           "name": "pages/goods/list-vop",
           "pathName": "pages/goods/list-vop",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageCps/pages/pdd/index",
+          "pathName": "packageCps/pages/pdd/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/category/category",
+          "pathName": "pages/category/category",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageCps/pages/goods-details/cps-pdd",
+          "pathName": "packageCps/pages/goods-details/cps-pdd",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageCps/pages/order-list/cps",
+          "pathName": "packageCps/pages/order-list/cps",
           "scene": null
         }
       ]

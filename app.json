@@ -11,13 +11,11 @@
     "pages/goods/fav",
     "pages/goods-details/index",
     "pages/goods-details/vop",
-    "pages/goods-details/cps-jd",
     "pages/shop-cart/index",
     "pages/to-pay-order/index",
     "pages/select-address/index",
     "pages/address-add/index",
     "pages/order-list/index",
-    "pages/order-list/cps",
     "pages/order-details/index",
     "pages/order-details/scan-result",
     "pages/order/refundApply",
@@ -69,6 +67,15 @@
         "pages/live-anchor/list",
         "pages/live-client/list",
         "pages/live-client/client"
+      ]
+    },
+    {
+      "root": "packageCps",
+      "name": "packageCps",
+      "pages": [
+        "pages/goods-details/cps-jd",
+        "pages/goods-details/cps-pdd",
+        "pages/order-list/cps"
       ]
     }
   ],
@@ -159,7 +166,8 @@
     "van-grid-item": "@vant/weapp/grid-item/index",
     "van-image": "@vant/weapp/image/index",
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-overlay": "@vant/weapp/overlay/index"
   },
   "sitemapLocation": "sitemap.json"
 }

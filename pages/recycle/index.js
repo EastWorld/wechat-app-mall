@@ -10,9 +10,12 @@ Page({
     // e.type = 1
     // e.orderId = 3
     // e.platform = 'jd'
-    this.data.type = e.type
-    this.data.orderId = e.orderId
-    this.data.platform = e.platform
+    
+    this.setData({
+      type: e.type,
+      orderId: e.orderId,
+      platform: e.platform
+    })
 
     wx.getLocation({
       type: 'wgs84', //wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
@@ -35,6 +38,9 @@ Page({
     this.fetchShops()
     if (this.data.type == 1 && this.data.platform == 'jd') {
       this.cpsJdOrderDetail()
+    }
+    if (this.data.type == 1 && this.data.platform == 'pdd') {
+      this.cpsPddOrderDetail()
     }  
   },
   async fetchShops(){
@@ -91,6 +97,52 @@ Page({
         name: orderInfo.skuName,
         pic: orderInfo.imageUrl,
         amount: orderInfo.actualCosPrice,
+      })
+    } else {
+      wx.showModal({
+        title: '错误',
+        content: res.msg,
+        showCancel: false,
+        success: res => {
+          wx.navigateBack()
+        }
+      })
+    }
+  },
+  async cpsPddOrderDetail() {
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.cpsPddOrderDetail(wx.getStorageSync('token'), this.data.orderId)
+    wx.hideLoading()
+    if (res.code == 0) {
+      const orderInfo = res.data.orderInfo
+      if (orderInfo.status != 2 && orderInfo.status != 3 && orderInfo.status != 5) {
+        wx.showModal({
+          title: '错误',
+          content: '已完成订单才可以申请回收',
+          showCancel: false,
+          success: res => {
+            wx.navigateBack()
+          }
+        })
+      }
+      if (orderInfo.recycleOrderId) {
+        wx.showModal({
+          title: '错误',
+          content: '请勿重复申请回收',
+          showCancel: false,
+          success: res => {
+            wx.navigateBack()
+          }
+        })
+      }
+      this.setData({
+        orderInfo,
+        amountRecycle: orderInfo.orderAmount,
+        name: orderInfo.goodsName,
+        pic: orderInfo.imageUrl,
+        amount: orderInfo.orderAmount,
       })
     } else {
       wx.showModal({

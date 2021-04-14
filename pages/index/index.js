@@ -50,7 +50,11 @@ Page({
     const supplytype = e.currentTarget.dataset.supplytype
     if (supplytype == 'cps_jd') {
       wx.navigateTo({
-        url: `/pages/goods-details/cps-jd?id=${id}`,
+        url: `/packageCps/pages/goods-details/cps-jd?id=${id}`,
+      })
+    } else if (supplytype == 'cps_pdd') {
+      wx.navigateTo({
+        url: `/packageCps/pages/goods-details/cps-pdd?id=${id}`,
       })
     } else {
       wx.navigateTo({
@@ -346,7 +350,13 @@ Page({
     })
   },
   async adPosition() {
-    const res = await WXAPI.adPosition('index-live-pic')
+    let res = await WXAPI.adPosition('indexPop')
+    if (res.code == 0) {
+      this.setData({
+        adPositionIndexPop: res.data
+      })
+    }
+    res = await WXAPI.adPosition('index-live-pic')
     if (res.code == 0) {
       this.setData({
         adPositionIndexLivePic: res.data
@@ -359,6 +369,18 @@ Page({
     }
     wx.navigateTo({
       url: this.data.adPositionIndexLivePic.url,
+    })
+  },
+  clickAdPositionIndexPop() {
+    const adPositionIndexPop = this.data.adPositionIndexPop
+    this.setData({
+      adPositionIndexPop: null
+    })
+    if (!adPositionIndexPop || !adPositionIndexPop.url) {
+      return
+    }
+    wx.navigateTo({
+      url: adPositionIndexPop.url,
     })
   }
 })

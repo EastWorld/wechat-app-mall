@@ -28,6 +28,9 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
+    this.setData({
+      categoryMod: wx.getStorageSync('categoryMod')
+    })
     this.categories();
   },
   async categories() {
@@ -56,17 +59,26 @@ Page({
       } else {
         categorySelected = firstCategories[0]
       }
+      const resAd = await WXAPI.adPosition('category_' + categorySelected.id)
+      let adPosition = null
+      if (resAd.code === 0) {
+        adPosition = resAd.data
+      }
       this.setData({
         page: 1,
         activeCategory,
         categories,
         firstCategories,
-        categorySelected
+        categorySelected,
+        adPosition
       })
       this.getGoodsList()
     }
   },
   async getGoodsList() {
+    if (this.data.categoryMod == 2) {
+      return
+    }
     wx.showLoading({
       title: '',
     })
@@ -113,7 +125,7 @@ Page({
       })
     }
   },
-  onCategoryClick(e) {
+  async onCategoryClick(e) {
     const idx = e.target.dataset.idx
     if (idx == this.data.activeCategory) {
       this.setData({
@@ -121,12 +133,19 @@ Page({
       })
       return
     }
+    const categorySelected = this.data.firstCategories[idx]
+    const res = await WXAPI.adPosition('category_' + categorySelected.id)
+    let adPosition = null
+    if (res.code === 0) {
+      adPosition = res.data
+    }
     this.setData({
       page: 1,
       secondCategoryId: '',
       activeCategory: idx,
-      categorySelected: this.data.firstCategories[idx],
-      scrolltop: 0
+      categorySelected,
+      scrolltop: 0,
+      adPosition
     });
     this.getGoodsList();
   },
@@ -383,5 +402,13 @@ Page({
   goodsGoBottom() {
     this.data.page++
     this.getGoodsList()
+  },
+  adPositionClick(e) {
+    const url = e.target.dataset.url
+    if (url) {
+      wx.navigateTo({
+        url: url
+      })
+    }
   },
 })

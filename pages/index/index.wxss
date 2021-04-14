@@ -154,7 +154,7 @@
 
 .category-container {
   padding: 0 0 10px 0;
-  margin-top: -20px;
+  margin-top: 16rpx;
   position: relative;
   background-color: white;
 }
@@ -169,7 +169,6 @@
   border-radius: 10px;
   padding: 20rpx 0;
   position: inherit;
-  z-index: 2;
 }
 
 .category-list {
@@ -186,8 +185,8 @@
 }
 
 .category-imgbox {
-  width: 88rpx;
-  height: 88rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 .category-title {
@@ -599,4 +598,14 @@
   border: none !important;
   line-height: 60rpx !important;
   font-size: 13px !important;
+}
+.adPositionIndexPop {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.adPositionIndexPop image {
+  width: 600rpx;
 }

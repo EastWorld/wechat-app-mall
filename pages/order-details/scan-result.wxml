@@ -57,7 +57,9 @@
     module.exports = {
       url : function(item) {
         if (item.supplyType == 'cps_jd') {
-          return '/pages/goods-details/cps-jd?id=' + item.goodsId
+          return '/packageCps/pages/goods-details/cps-jd?id=' + item.goodsId
+        } else if (item.supplyType == 'cps_pdd') {
+          return '/packageCps/pages/goods-details/cps-pdd?id=' + item.goodsId
         } else {
           return '/pages/goods-details/index?id=' + item.goodsId
         }

@@ -1,7 +1,16 @@
 <van-card
+  wx:if="{{ platform == 'jd' }}"
   num="{{ orderInfo.skuNum }}"
   price="{{ orderInfo.actualCosPrice }}"
   title="{{ orderInfo.skuName }}"
+  thumb="{{ orderInfo.imageUrl }}"
+  centered
+/>
+<van-card
+  wx:if="{{ platform == 'pdd' }}"
+  num="{{ orderInfo.goodsNum }}"
+  price="{{ orderInfo.orderAmount }}"
+  title="{{ orderInfo.goodsName }}"
   thumb="{{ orderInfo.imageUrl }}"
   centered
 />

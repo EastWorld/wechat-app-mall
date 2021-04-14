@@ -6,11 +6,23 @@
     </van-sidebar>
   </scroll-view>
   <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
-    <van-tabs wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick" ellipsis="{{ false }}">
+    <van-tabs wx:if="{{ categoryMod != 2 && categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick" ellipsis="{{ false }}">
       <van-tab title="全部"></van-tab>
       <van-tab wx:for="{{categorySelected.childs}}" wx:key="id" title="{{ item.name }}"></van-tab>
     </van-tabs>
-    <van-empty wx:if="{{!currentGoods}}" description="暂无商品" />
+    <van-empty wx:if="{{categoryMod != 2 &&  !currentGoods}}" description="暂无商品" />
+    <block wx:if="{{ categoryMod == 2 }}">
+      <van-cell title="{{ categorySelected.name }}" is-link url="/pages/goods/list?categoryId={{ categorySelected.id }}" />
+      <image wx:if="{{ adPosition }}" class="adPosition" mode="aspectFill" src="{{adPosition.val}}" mode="widthFix" data-url="{{adPosition.url}}" bindtap="adPositionClick"></image>
+      <view class="small-category-box">
+        <navigator wx:for="{{categorySelected.childs}}" wx:key="id" url="/pages/goods/list?categoryId={{item.id}}">
+          <view class="small-category">
+            <image mode="aspectFill" src="{{item.icon}}" mode="aspectFill"></image>
+            <view>{{item.name}}</view>
+          </view>
+        </navigator>
+      </view>
+    </block>
     <!-- 三级级分类展示 -->
     <!-- <view wx:for="{{categories}}" wx:key="id" wx:if="{{item.pid == categorySelected.id}}">
       <navigator url="/pages/goods/list?categoryId={{item.id}}">
@@ -34,7 +46,9 @@
     module.exports = {
       url : function(item) {
         if (item.supplyType == 'cps_jd') {
-          return '/pages/goods-details/cps-jd?id=' + item.id
+          return '/packageCps/pages/goods-details/cps-jd?id=' + item.id
+        } else if (item.supplyType == 'cps_pdd') {
+          return '/packageCps/pages/goods-details/cps-pdd?id=' + item.id
         } else {
           return '/pages/goods-details/index?id=' + item.id
         }

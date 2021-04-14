@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "poster": "wxa-plugin-canvas/poster"
+  }
+}

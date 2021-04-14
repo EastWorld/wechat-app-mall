@@ -135,7 +135,11 @@ Page({
     }
     if (res.data.basicInfo.supplyType == 'cps_jd') {
       wx.navigateTo({
-        url: `/pages/goods-details/cps-jd?id=${id}`,
+        url: `/packageCps/pages/goods-details/cps-jd?id=${id}`,
+      })
+    } else if (res.data.basicInfo.supplyType == 'cps_pdd') {
+      wx.navigateTo({
+        url: `/packageCps/pages/goods-details/cps-pdd?id=${id}`,
       })
     } else {
       wx.navigateTo({

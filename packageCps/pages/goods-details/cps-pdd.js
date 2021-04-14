@@ -1,55 +1,13 @@
 const WXAPI = require('apifm-wxapi')
-const app = getApp();
-const CONFIG = require('../../config.js')
-const TOOLS = require('../../utils/tools.js')
-const AUTH = require('../../utils/auth')
-const SelectSizePrefix = "选择："
+const AUTH = require('../../../utils/auth')
 import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
   data: {
-    wxlogin: true,
-    createTabs: false, //绘制tabs
-    tabs: [{
-      tabs_name: '商品简介',
-      view_id: 'swiper-container',
-      topHeight: 0
-    }, {
-      tabs_name: '商品详情',
-      view_id: 'goods-des-info',
-      topHeight: 0,
-    }],
-    goodsDetail: {},
-    hasMoreSelect: false,
-    selectSizePrice: 0,
-    selectSizeOPrice: 0,
-    totalScoreToPay: 0,
-    shopNum: 0,
-    hideShopPopup: true,
-    buyNumber: 1,
-    buyNumMin: 1,
-    buyNumMax: 0,
-    propertyChildIds: "",
-    propertyChildNames: "",
-    canSubmit: false, //  选中规格尺寸时候是否允许加入购物车
-    shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
-  },
-  bindscroll(e) {
-    //计算页面 轮播图、详情、评价(砍价)view 高度
-    this.getTopHeightFunction()
-    var tabsHeight = this.data.tabsHeight //顶部距离（tabs高度）
-    if (this.data.tabs[0].topHeight-tabsHeight<=0 && 0 < this.data.tabs[1].topHeight-tabsHeight) { //临界值，根据自己的需求来调整
-      this.setData({
-        active: this.data.tabs[0].tabs_name //设置当前标签栏
-      })
-    } else if (this.data.tabs[1].topHeight-tabsHeight<=0) {
-      this.setData({
-        active: this.data.tabs[1].tabs_name
-      })
-    }
+    beianPass: 0, // 0 未判断，1 未备案， 2 已备案
   },
   onLoad(e) {
-    // e.id = 802819
+    // e.id = 819066
     // 读取分享链接中的邀请人编号
     if (e && e.inviter_id) {
       wx.setStorageSync('referrer', e.inviter_id)
@@ -62,15 +20,53 @@ Page({
         wx.setStorageSync('referrer', scene.split(',')[1])
       }
     }
-    // 静默式授权注册/登陆
-    AUTH.authorize().then(res => {
-      AUTH.bindSeller()
-    })
     this.data.goodsId = e.id
     this.setData({
       show_wx_quanzi: wx.getStorageSync('show_wx_quanzi')
     })
-    this.goodsDetail()
+  },
+  async cpsPddBeian() {
+    if (this.data.beianPass == 2) {
+      return
+    }
+    await AUTH.authorize()
+    AUTH.bindSeller()
+    const token = wx.getStorageSync('token')
+    const res = await WXAPI.cpsPddBeian(token)
+    if (res.code == 10000) {
+      wx.setNavigationBarTitle({
+        title: '商品详情',
+      })
+      this.setData({
+        beianPass: 2
+      })
+      this.goodsDetail()
+      return
+    }
+    if (res.code == 0) {
+      wx.setNavigationBarTitle({
+        title: '认证页',
+      })
+      this.setData({
+        beianPass: 1,
+        beianData: res.data
+      })
+    } else {
+      wx.showModal({
+        title: '错误',
+        content: res.msg,
+        showCancel: false,
+        success: res => {
+          wx.navigateBack()
+        }
+      })
+    }
+  },
+  goBeian() {
+    wx.navigateToMiniProgram({
+      appId: this.data.beianData.we_app_info.app_id,
+      path: this.data.beianData.we_app_info.page_path
+    })
   },
   async goodsDetail() {
     const token = wx.getStorageSync('token')
@@ -79,68 +75,28 @@ Page({
       this.setData({
         goodsDetail: res.data,
       })
-      this.cpsJdGoodsDetail(res.data.basicInfo.yyId)
+      this.cpsPddGoodsDetail(res.data.basicInfo.yyId)
     }
   },
-  async cpsJdGoodsDetail(skuId) {
-    const res = await WXAPI.cpsJdGoodsDetail({
-      skuIds: skuId
+  async cpsPddGoodsDetail(skuId) {
+    const token = wx.getStorageSync('token')
+    const res = await WXAPI.cpsPddGoodsDetail({
+      token,
+      goodsSign: this.data.goodsDetail.basicInfo.yyIdStr
     })
     if (res.code == 0) {
-      const _data = res.data[0]
-      if (_data.detailImages) {
-        _data.detailImagesArray = _data.detailImages.split(',')
-      }
       this.setData({
-        cpsJdGoodsDetail: _data
+        cpsPddGoodsDetail: res.data
       })
     }
   },
-  selectAddress: function () {
-    wx.navigateTo({
-      url: "/pages/select-address/index"
-    })
-  },
   onShow (){
-    this.setData({
-      createTabs: true //绘制tabs
-    })
-    //计算tabs高度
-    var query = wx.createSelectorQuery();
-    query.select('#tabs').boundingClientRect((rect) => {
-      var tabsHeight = rect.height
-      this.setData({
-        tabsHeight:tabsHeight
-      })
-    }).exec()
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        this.setData({
-          wxlogin: isLogined
-        })
+        this.cpsPddBeian()
         this.goodsFavCheck()
       }
     })
-  },
-  getTopHeightFunction() {
-    var that = this
-    var tabs = that.data.tabs
-    tabs.forEach((element, index) => {
-      var viewId = "#" + element.view_id
-      that.getTopHeight(viewId, index)
-    });
-  },
-  getTopHeight(viewId, index) {
-    var query = wx.createSelectorQuery();
-    query.select(viewId).boundingClientRect((rect) => {
-      let top = rect.top
-      var tabs = this.data.tabs
-      tabs[index].topHeight = top
-      this.setData({
-        tabs: tabs
-      })
-    }).exec()
-    
   },
   async goodsFavCheck() {
     const res = await WXAPI.goodsFavCheck(wx.getStorageSync('token'), this.data.goodsId)
@@ -171,7 +127,7 @@ Page({
           })
         } else {
           const extJsonStr = {
-            wxaurl: `/pages/goods-details/cps-jd?id=${this.data.goodsId}`,
+            wxaurl: `/packageCps/pages/goods-details/cps-pdd?id=${this.data.goodsId}`,
             skuId: this.data.goodsId,
             pic: this.data.goodsDetail.basicInfo.pic,
             name: this.data.goodsDetail.basicInfo.name
@@ -209,7 +165,7 @@ Page({
       })
       return
     }
-    const res = await WXAPI.cpsJdGoodsShotUrl(token, this.data.goodsDetail.basicInfo.yyId)
+    const res = await WXAPI.cpsPddGoodsShotUrl(token, this.data.goodsDetail.basicInfo.yyIdStr)
     if (res.code != 0) {
       wx.showToast({
         title: res.msg,
@@ -217,11 +173,9 @@ Page({
       })
       return
     }
-    // res.data.shortURL
-    const url = encodeURIComponent(res.data.shortURL)
     wx.navigateToMiniProgram({
-      appId: 'wx91d27dbf599dff74',
-      path: `/pages/union/proxy/proxy?spreadUrl=${url}`
+      appId: res.data.we_app_info.app_id,
+      path: res.data.we_app_info.page_path
     })
   },
   toPingtuan: function(e) {
@@ -414,7 +368,7 @@ Page({
   onShareAppMessage() {
     let _data = {
       title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/cps-jd?id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
+      path: '/packageCps/pages/goods-details/cps-pdd?id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function(res) {
         // 转发成功
       },
@@ -565,7 +519,7 @@ Page({
     const _this = this
     const qrcodeRes = await WXAPI.wxaQrcode({
       scene: _this.data.goodsId + ',' + wx.getStorageSync('uid'),
-      page: 'pages/goods-details/cps-jd',
+      page: '/packageCps/pages/goods-details/cps-pdd',
       is_hyaline: true,
       autoColor: true,
       expireHours: 1
@@ -705,7 +659,7 @@ Page({
         "image_list":[
           this.data.goodsDetail.basicInfo.pic
         ],
-        "src_mini_program_path": '/pages/goods-details/cps-jd?id=' + this.data.goodsDetail.basicInfo.id
+        "src_mini_program_path": '/packageCps/pages/goods-details/cps-pdd?id=' + this.data.goodsDetail.basicInfo.id
       }
     })
   },

@@ -94,3 +94,6 @@ page {
 .sidebar-l {
   width: 190rpx !important;
 }
+.adPosition {
+  width: 100%;
+}

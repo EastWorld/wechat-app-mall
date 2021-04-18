@@ -1,9 +1,6 @@
 const WXAPI = require('apifm-wxapi')
-const app = getApp();
-const CONFIG = require('../../config.js')
 const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
-const SelectSizePrefix = "选择："
 import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
@@ -155,6 +152,9 @@ Page({
   getTopHeight(viewId, index) {
     var query = wx.createSelectorQuery();
     query.select(viewId).boundingClientRect((rect) => {
+      if (!rect) {
+        return
+      }
       let top = rect.top
       var tabs = this.data.tabs
       tabs[index].topHeight = top

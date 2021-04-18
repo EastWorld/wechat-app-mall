@@ -1,6 +1,6 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
 
-<view class="van-radio custom-class">
+<view class="{{ utils.bem('radio', [direction]) }} custom-class">
   <view
     wx:if="{{ labelPosition === 'left' }}"
     class="label-class {{ utils.bem('radio__label', [labelPosition, { disabled }]) }}"

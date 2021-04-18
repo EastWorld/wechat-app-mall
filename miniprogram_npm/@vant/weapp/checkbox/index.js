@@ -15,7 +15,10 @@ component_1.VantComponent({
     disabled: Boolean,
     useIconSlot: Boolean,
     checkedColor: String,
-    labelPosition: String,
+    labelPosition: {
+      type: String,
+      value: 'right',
+    },
     labelDisabled: Boolean,
     shape: {
       type: String,

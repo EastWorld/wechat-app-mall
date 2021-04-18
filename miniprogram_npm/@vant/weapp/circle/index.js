@@ -1,10 +1,11 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-var component_1 = require('../common/component');
 var color_1 = require('../common/color');
-var canvas_1 = require('./canvas');
-var validator_1 = require('../common/validator');
+var component_1 = require('../common/component');
 var utils_1 = require('../common/utils');
+var validator_1 = require('../common/validator');
+var version_1 = require('../common/version');
+var canvas_1 = require('./canvas');
 function format(rate) {
   return Math.min(Math.max(rate, 0), 100);
 }
@@ -71,7 +72,7 @@ component_1.VantComponent({
       var _a = this.data,
         type = _a.type,
         size = _a.size;
-      if (type === '') {
+      if (type === '' || !version_1.canIUseCanvas2d()) {
         var ctx = wx.createCanvasContext('van-circle', this);
         return Promise.resolve(ctx);
       }

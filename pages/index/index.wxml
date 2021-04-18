@@ -28,6 +28,8 @@ module.exports = {
   url : function(item) {
     if (item.supplyType == 'cps_jd') {
       return '/packageCps/pages/goods-details/cps-jd?id=' + item.goodsId
+    } else if (item.supplyType == 'vop_jd') {
+      return '/pages/goods-details/vop?id=' + item.yyId
     } else if (item.supplyType == 'cps_pdd') {
       return '/packageCps/pages/goods-details/cps-pdd?id=' + item.goodsId
     } else {
@@ -85,7 +87,7 @@ module.exports = {
       </view>
     </view>
     <view class="goods-container">
-      <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
+      <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
         <view class="img-box">
           <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
         </view>
@@ -107,7 +109,7 @@ module.exports = {
     </van-divider>
     <view class="miaosha-container">
       <view class="miaosha-goods-list" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap"
-        data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
+        data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
         <view class="r">
           <view class="goods-title">{{item.name}}</view>
@@ -141,7 +143,7 @@ module.exports = {
     <image class="table-icon-tuijian" src="../../images/home/recommend.png"></image> 爆品推荐
   </van-divider>
   <view class="goods-container" wx:if="{{goodsRecommend.length > 0 && activeCategoryId == 0}}">
-    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
+    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
@@ -163,7 +165,7 @@ module.exports = {
       <van-card custom-class="kanjia-vcard" wx:for="{{kanjiaList}}" wx:key="id" price="{{item.kanjiaPrice}}"
         origin-price="{{item.originalPrice}}" desc="{{item.characteristic}}" title="{{item.name}}" thumb="{{item.pic}}">
         <view slot="footer">
-          <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" bind:click="toDetailsTap">砍价
+          <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}" bind:click="toDetailsTap">砍价
           </van-button>
         </view>
         <view slot="price-top">
@@ -190,7 +192,7 @@ module.exports = {
           <text class='original'>￥ {{item.originalPrice}}</text>
         </view>
         <view class="tuan-btn">
-          <button class="ptbtn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">拼团</button>
+          <button class="ptbtn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">拼团</button>
         </view>
       </view>
     </view>
@@ -201,7 +203,7 @@ module.exports = {
     <image class="table-icon-goodslist" src="../../images/home/goodslist.png"></image> 商品列表
   </van-divider>
   <view class="goods-container">
-    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}">
+    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
       <view class="img-box">
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
@@ -222,8 +224,9 @@ module.exports = {
   <image src="/images/gift.png"></image>
 </view>
 
-<van-overlay show="{{ adPositionIndexPop }}" bind:click="clickAdPositionIndexPop">
+<van-overlay show="{{ adPositionIndexPop }}">
   <view class="adPositionIndexPop">
-    <image src="{{ adPositionIndexPop.val }}" mode="widthFix"></image>
+    <image src="{{ adPositionIndexPop.val }}" mode="widthFix" bindtap="clickAdPositionIndexPop"></image>
+    <van-icon custom-class="close" name="close" size="64rpx" color="#fff" bind:click="closeAdPositionIndexPop" />
   </view>
 </van-overlay>

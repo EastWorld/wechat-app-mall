@@ -1,28 +1,11 @@
 const WXAPI = require('apifm-wxapi')
-const app = getApp();
-const CONFIG = require('../../config.js')
 const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
-const SelectSizePrefix = "选择："
 import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
   data: {
-    wxlogin: true,
     createTabs: false, //绘制tabs
-    tabs: [{
-      tabs_name: '商品简介',
-      view_id: 'swiper-container',
-      topHeight: 0
-    }, {
-      tabs_name: '商品详情',
-      view_id: 'goods-des-info',
-      topHeight: 0,
-    }, {
-      tabs_name: '商品评价',
-      view_id: 'reputation',
-      topHeight: 0,
-    }],
     goodsDetail: {},
     hasMoreSelect: false,
     selectSizePrice: 0,
@@ -45,6 +28,10 @@ Page({
     if (this.data.tabs[0].topHeight-tabsHeight<=0 && 0 < this.data.tabs[1].topHeight-tabsHeight) { //临界值，根据自己的需求来调整
       this.setData({
         active: this.data.tabs[0].tabs_name //设置当前标签栏
+      })
+    } else if (this.data.tabs.length == 2) {
+      this.setData({
+        active: this.data.tabs[1].tabs_name
       })
     } else if (this.data.tabs[1].topHeight-tabsHeight<=0 && 0 < this.data.tabs[2].topHeight-tabsHeight) {
       this.setData({
@@ -80,14 +67,57 @@ Page({
     if (!goodsDetailSkuShowType) {
       goodsDetailSkuShowType = 0
     }
+    // 补偿写法
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
     this.setData({
-      show_wx_quanzi: wx.getStorageSync('show_wx_quanzi'),
       goodsDetailSkuShowType,
       curuid: wx.getStorageSync('uid')
     })
+    this.readConfigVal()
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
     this.shippingCartInfo()
     this.goodsAddition()
+  },
+  readConfigVal() {
+    // 读取系统参数
+    const hide_reputation = wx.getStorageSync('hide_reputation')
+    let tabs = [{
+      tabs_name: '商品简介',
+      view_id: 'swiper-container',
+      topHeight: 0
+    }, {
+      tabs_name: '商品详情',
+      view_id: 'goods-des-info',
+      topHeight: 0,
+    }, {
+      tabs_name: '商品评价',
+      view_id: 'reputation',
+      topHeight: 0,
+    }]
+    if (hide_reputation == '1') {
+      // 隐藏评价
+      tabs = [{
+        tabs_name: '商品简介',
+        view_id: 'swiper-container',
+        topHeight: 0
+      }, {
+        tabs_name: '商品详情',
+        view_id: 'goods-des-info',
+        topHeight: 0,
+      }]
+    } else {
+      // 读取评价
+      if (!this.data.reputation) { // 保证只读取一次
+        this.reputation(this.data.goodsId)
+      }
+    }
+    this.setData({
+      show_wx_quanzi: wx.getStorageSync('show_wx_quanzi'),
+      hide_reputation,
+      tabs
+    })
   },
   async goodsAddition() {
     const res = await WXAPI.goodsAddition(this.data.goodsId)
@@ -119,9 +149,6 @@ Page({
 
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        this.setData({
-          wxlogin: isLogined
-        })
         this.goodsFavCheck()
       }
     })
@@ -137,6 +164,9 @@ Page({
   getTopHeight(viewId, index) {
     var query = wx.createSelectorQuery();
     query.select(viewId).boundingClientRect((rect) => {
+      if (!rect) {
+        return
+      }
       let top = rect.top
       var tabs = this.data.tabs
       tabs[index].topHeight = top
@@ -159,9 +189,6 @@ Page({
   },
   async addFav() {
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         if (this.data.faved) {
           // 取消收藏
@@ -247,7 +274,6 @@ Page({
       }
       that.setData(_data)
       that.initShareQuanziProduct()
-      that.reputation(goodsId)
     }
   },
   async shopSubdetail(shopId) {
@@ -499,9 +525,6 @@ Page({
     }
     const isLogined = await AUTH.checkHasLogined()
     if (!isLogined) {
-      this.setData({
-        wxlogin: false
-      })
       return
     }
     const token = wx.getStorageSync('token')
@@ -590,9 +613,6 @@ Page({
       } else {
         WXAPI.pingtuanOpen(wx.getStorageSync('token'), that.data.goodsDetail.basicInfo.id).then(function (res) {
           if (res.code == 2000) {
-            that.setData({
-              wxlogin: false
-            })
             return
           }
           if (res.code != 0) {
@@ -745,10 +765,6 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
         this.doneJoinKanjia();
-      } else {
-        this.setData({
-          wxlogin: false
-        })
       }
     })
   },
@@ -791,9 +807,6 @@ Page({
   helpKanjia() {
     const _this = this;
     AUTH.checkHasLogined().then(isLogined => {
-      _this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         _this.helpKanjiaDone()
       }
@@ -818,11 +831,6 @@ Page({
         showCancel: false
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
-    })
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
     })
   },
   closePop() {

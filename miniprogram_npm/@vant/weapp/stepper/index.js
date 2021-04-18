@@ -33,11 +33,7 @@ component_1.VantComponent({
   props: {
     value: {
       type: null,
-      observer: function (value) {
-        if (!equal(value, this.data.currentValue)) {
-          this.setData({ currentValue: this.format(value) });
-        }
-      },
+      observer: 'observeValue',
     },
     integer: {
       type: Boolean,
@@ -81,6 +77,7 @@ component_1.VantComponent({
       type: Boolean,
       value: true,
     },
+    theme: String,
   },
   data: {
     currentValue: '',
@@ -91,6 +88,14 @@ component_1.VantComponent({
     });
   },
   methods: {
+    observeValue: function () {
+      var _a = this.data,
+        value = _a.value,
+        currentValue = _a.currentValue;
+      if (!equal(value, currentValue)) {
+        this.setData({ currentValue: this.format(value) });
+      }
+    },
     check: function () {
       var val = this.format(this.data.currentValue);
       if (!equal(val, this.data.currentValue)) {
@@ -98,18 +103,17 @@ component_1.VantComponent({
       }
     },
     isDisabled: function (type) {
+      var _a = this.data,
+        disabled = _a.disabled,
+        disablePlus = _a.disablePlus,
+        disableMinus = _a.disableMinus,
+        currentValue = _a.currentValue,
+        max = _a.max,
+        min = _a.min;
       if (type === 'plus') {
-        return (
-          this.data.disabled ||
-          this.data.disablePlus ||
-          this.data.currentValue >= this.data.max
-        );
+        return disabled || disablePlus || currentValue >= max;
       }
-      return (
-        this.data.disabled ||
-        this.data.disableMinus ||
-        this.data.currentValue <= this.data.min
-      );
+      return disabled || disableMinus || currentValue <= min;
     },
     onFocus: function (event) {
       this.$emit('focus', event.detail);

@@ -95,7 +95,6 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081'; 
 var subDomain = '-';
 var merchantId = '0';
 
@@ -328,6 +327,12 @@ module.exports = {
       type: 2
     });
   },
+  login_q: function login_q(code) {
+    return request('/user/q/login', true, 'post', {
+      code: code,
+      type: 2
+    });
+  },
   loginWxaMobile: function loginWxaMobile(code, encryptedData, iv) {
     return request('/user/wxapp/login/mobile', true, 'post', {
       code: code,
@@ -371,6 +376,9 @@ module.exports = {
   },
   register_complex: function register_complex(data) {
     return request('/user/wxapp/register/complex', true, 'post', data);
+  },
+  registerQ: function registerQ(data) {
+    return request('/user/q/register', true, 'post', data);
   },
   register_simple: function register_simple(data) {
     return request('/user/wxapp/register/simple', true, 'post', data);
@@ -732,6 +740,9 @@ module.exports = {
     return request('/order/hx', true, 'post', {
       hxNumber: hxNumber
     });
+  },
+  orderHXV2: function orderHXV2(data) {
+    return request('/order/hx', true, 'post', data);
   },
   orderSet: function orderSet() {
     return request('/order/set', true, 'get');
@@ -1467,6 +1478,12 @@ module.exports = {
 
     return request('/shop/goods/times/items', true, 'post', { day: day, goodsId: goodsId, propertyChildIds: propertyChildIds });
   },
+  goodsBrandList: function goodsBrandList(data) {
+    return request('/shop/goods/brand/list', true, 'post', data);
+  },
+  goodsBrandDetail: function goodsBrandDetail(id) {
+    return request('/shop/goods/brand/detail', true, 'get', { id: id });
+  },
   wxappServiceLogin: function wxappServiceLogin(data) {
     return request('/user/wxappService/login', true, 'post', data);
   },
@@ -1551,23 +1568,23 @@ module.exports = {
   myLiveRooms: function myLiveRooms(data) {
     return request('/liveRooms/my', true, 'post', data);
   },
-  liveRooms: data => {
-    return request('/liveRooms/list', true, 'post', data)
+  liveRooms: function liveRooms(data) {
+    return request('/liveRooms/list', true, 'post', data);
   },
   myLiveRoomsInfo: function myLiveRoomsInfo(token, id) {
     return request('/liveRooms/my/info', true, 'get', { token: token, id: id });
   },
-  liveRoomsInfo: (token, id) => {
-    return request('/liveRooms/info', true, 'get', { token, id })
+  liveRoomsInfo: function liveRoomsInfo(token, id) {
+    return request('/liveRooms/info', true, 'get', { token: token, id: id });
   },
   liveRoomGoodsMainly: function liveRoomGoodsMainly(data) {
     return request('/liveRooms/goods/mainly', true, 'post', data);
   },
-  likeLiveRoom: (token, id) => {
-    return request('/liveRooms/like', true, 'post', { token, id })
-  },
   stopLiveRoom: function stopLiveRoom(token, id) {
     return request('/liveRooms/my/stop', true, 'post', { token: token, id: id });
+  },
+  likeLiveRoom: function likeLiveRoom(token, id) {
+    return request('/liveRooms/like', true, 'post', { token: token, id: id });
   },
   liveRoomOnlineUsers: function liveRoomOnlineUsers(token, roomId) {
     return request('/websocket/rest/liveRoom/onlines', false, 'get', { token: token, roomId: roomId });
@@ -1621,51 +1638,53 @@ module.exports = {
       token: token
     });
   },
-  cpsJdGoodsDetail: data => {
-    return request('/cpsJdGoods/detail', true, 'get', data)
+  // cps
+  cpsJdGoodsDetail: function cpsJdGoodsDetail(data) {
+    return request('/cpsJdGoods/detail', true, 'get', data);
   },
-  cpsJdGoodsShotUrl: (token, skuId) => {
-    return request('/cpsJdGoods/shotUrl', true, 'get', { token, skuId })
+  cpsJdGoodsShotUrl: function cpsJdGoodsShotUrl(token, skuId) {
+    return request('/cpsJdGoods/shotUrl', true, 'get', { token: token, skuId: skuId });
   },
-  cpsJdOrders: data => {
-    return request('/cpsJdOrder/list', true, 'post', data)
+  cpsJdOrders: function cpsJdOrders(data) {
+    return request('/cpsJdOrder/list', true, 'post', data);
   },
-  cpsJdOrderDetail: (token, id) => {
-    return request('/cpsJdOrder/detail', true, 'get', { token, id })
+  cpsJdOrderDetail: function cpsJdOrderDetail(token, id) {
+    return request('/cpsJdOrder/detail', true, 'get', { token: token, id: id });
   },
-  cpsPddBeian: token => {
-    return request('/cpsPddGoods/beian', true, 'get', { token })
+  cpsPddBeian: function cpsPddBeian(token) {
+    return request('/cpsPddGoods/beian', true, 'get', { token: token });
   },
-  cpsPddGoodsDetail: data => {
-    return request('/cpsPddGoods/detail', true, 'get', data)
+  cpsPddGoodsDetail: function cpsPddGoodsDetail(data) {
+    return request('/cpsPddGoods/detail', true, 'get', data);
   },
-  cpsPddGoodsShotUrl: (token, goodsSign) => {
-    return request('/cpsPddGoods/shotUrl', true, 'get', { token, goodsSign })
+  cpsPddGoodsShotUrl: function cpsPddGoodsShotUrl(token, goodsSign) {
+    return request('/cpsPddGoods/shotUrl', true, 'get', { token: token, goodsSign: goodsSign });
   },
-  cpsPddOrders: data => {
-    return request('/cpsPddOrder/list', true, 'post', data)
+  cpsPddOrders: function cpsPddOrders(data) {
+    return request('/cpsPddOrder/list', true, 'post', data);
   },
-  cpsPddOrderDetail: (token, id) => {
-    return request('/cpsPddOrder/detail', true, 'get', { token, id })
+  cpsPddOrderDetail: function cpsPddOrderDetail(token, id) {
+    return request('/cpsPddOrder/detail', true, 'get', { token: token, id: id });
   },
-  recycleOrders: data => {
-    return request('/recycleOrder/list', true, 'post', data)
+  // 回收
+  recycleOrders: function recycleOrders(data) {
+    return request('/recycleOrder/list', true, 'post', data);
   },
-  recycleOrderApply: data => {
-    return request('/recycleOrder/apply', true, 'post', data)
+  recycleOrderApply: function recycleOrderApply(data) {
+    return request('/recycleOrder/apply', true, 'post', data);
   },
-  recycleOrderDetail: (token, id) => {
-    return request('/recycleOrder/detail', true, 'get', { token, id })
+  recycleOrderDetail: function recycleOrderDetail(token, id) {
+    return request('/recycleOrder/detail', true, 'get', { token: token, id: id });
   },
-  recycleOrderFahuo: data => {
-    return request('/recycleOrder/fahuo', true, 'post', data)
+  recycleOrderFahuo: function recycleOrderFahuo(data) {
+    return request('/recycleOrder/fahuo', true, 'post', data);
   },
-  recycleOrderClose: (token, id) => {
-    return request('/recycleOrder/close', true, 'post', { token, id })
+  recycleOrderClose: function recycleOrderClose(token, id) {
+    return request('/recycleOrder/close', true, 'post', { token: token, id: id });
   },
-  recycleOrderDelete: (token, id) => {
-    return request('/recycleOrder/del', true, 'post', { token, id })
-  },
+  recycleOrderDelete: function recycleOrderDelete(token, id) {
+    return request('/recycleOrder/del', true, 'post', { token: token, id: id });
+  }
 };
 
 /***/ })

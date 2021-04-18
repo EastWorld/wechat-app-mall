@@ -2,6 +2,13 @@
 <wxs src="./index.wxs" module="computed" />
 
 <view class="van-checkbox custom-class">
+  <view
+    wx:if="{{ labelPosition === 'left' }}"
+    class="label-class {{ utils.bem('checkbox__label', [labelPosition, { disabled: disabled || parentDisabled }]) }}"
+    bindtap="onClickLabel"
+  >
+    <slot />
+  </view>
   <view class="van-checkbox__icon-wrap" bindtap="toggle">
     <slot wx:if="{{ useIconSlot }}" name="icon" />
     <van-icon
@@ -14,7 +21,11 @@
       custom-style="line-height: 1.25em;"
     />
   </view>
-  <view class="label-class {{ utils.bem('checkbox__label', [labelPosition, { disabled: disabled || parentDisabled }]) }}" bindtap="onClickLabel">
+  <view
+    wx:if="{{ labelPosition === 'right' }}"
+    class="label-class {{ utils.bem('checkbox__label', [labelPosition, { disabled: disabled || parentDisabled }]) }}"
+    bindtap="onClickLabel"
+  >
     <slot />
   </view>
 </view>

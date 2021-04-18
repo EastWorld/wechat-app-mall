@@ -18,6 +18,7 @@
   <view class="van-notice-bar__wrap">
     <view class="van-notice-bar__content {{ !scrollable && !wrapable ? 'van-ellipsis' : '' }}" animation="{{ animationData }}">
       {{ text }}
+      <slot wx:if="{{ !text }}"></slot>
     </view>
   </view>
 

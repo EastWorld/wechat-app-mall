@@ -1,7 +1,7 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
 <wxs src="./index.wxs" module="computed" />
 
-<view class="van-stepper custom-class">
+<view class="{{ utils.bem('stepper', [theme]) }} custom-class">
   <view
     wx:if="{{ showMinus }}"
     data-type="minus"
@@ -12,7 +12,9 @@
     bind:tap="onTap"
     bind:touchstart="onTouchStart"
     bind:touchend="onTouchEnd"
-  />
+  >
+    <slot name="plus" />
+  </view>
   <input
     type="{{ integer ? 'number' : 'digit' }}"
     class="input-class {{ utils.bem('stepper__input', { disabled: disabled || disableInput }) }}"
@@ -34,5 +36,7 @@
     bind:tap="onTap"
     bind:touchstart="onTouchStart"
     bind:touchend="onTouchEnd"
-  />
+  >
+    <slot name="minus" />
+  </view>
 </view>

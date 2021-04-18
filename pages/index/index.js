@@ -48,9 +48,14 @@ Page({
     console.log(e);
     const id = e.currentTarget.dataset.id
     const supplytype = e.currentTarget.dataset.supplytype
+    const yyId = e.currentTarget.dataset.yyid
     if (supplytype == 'cps_jd') {
       wx.navigateTo({
         url: `/packageCps/pages/goods-details/cps-jd?id=${id}`,
+      })
+    } else if (supplytype == 'vop_jd') {
+      wx.navigateTo({
+        url: `/pages/goods-details/vop?id=${yyId}`,
       })
     } else if (supplytype == 'cps_pdd') {
       wx.navigateTo({
@@ -369,6 +374,11 @@ Page({
     }
     wx.navigateTo({
       url: this.data.adPositionIndexLivePic.url,
+    })
+  },
+  closeAdPositionIndexPop() {
+    this.setData({
+      adPositionIndexPop: null
     })
   },
   clickAdPositionIndexPop() {

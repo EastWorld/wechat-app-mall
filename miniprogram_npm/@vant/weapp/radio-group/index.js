@@ -12,6 +12,7 @@ component_1.VantComponent({
       type: null,
       observer: 'updateChildren',
     },
+    direction: String,
     disabled: {
       type: Boolean,
       observer: 'updateChildren',
@@ -20,16 +21,18 @@ component_1.VantComponent({
   methods: {
     updateChildren: function () {
       var _this = this;
-      (this.children || []).forEach(function (child) {
+      this.children.forEach(function (child) {
         return _this.updateChild(child);
       });
     },
     updateChild: function (child) {
       var _a = this.data,
         value = _a.value,
-        disabled = _a.disabled;
+        disabled = _a.disabled,
+        direction = _a.direction;
       child.setData({
         value: value,
+        direction: direction,
         disabled: disabled || child.data.disabled,
       });
     },

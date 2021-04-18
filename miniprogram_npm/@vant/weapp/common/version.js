@@ -1,6 +1,6 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.canIUseNextTick = exports.canIUseGroupSetData = exports.canIUseAnimate = exports.canIUseFormFieldButton = exports.canIUseModel = void 0;
+exports.canIUseCanvas2d = exports.canIUseNextTick = exports.canIUseGroupSetData = exports.canIUseAnimate = exports.canIUseFormFieldButton = exports.canIUseModel = void 0;
 var utils_1 = require('./utils');
 function compareVersion(v1, v2) {
   v1 = v1.split('.');
@@ -24,27 +24,31 @@ function compareVersion(v1, v2) {
   }
   return 0;
 }
-function canIUseModel() {
+function gte(version) {
   var system = utils_1.getSystemInfoSync();
-  return compareVersion(system.SDKVersion, '2.9.3') >= 0;
+  return compareVersion(system.SDKVersion, version) >= 0;
+}
+function canIUseModel() {
+  return gte('2.9.3');
 }
 exports.canIUseModel = canIUseModel;
 function canIUseFormFieldButton() {
-  var system = utils_1.getSystemInfoSync();
-  return compareVersion(system.SDKVersion, '2.10.3') >= 0;
+  return gte('2.10.3');
 }
 exports.canIUseFormFieldButton = canIUseFormFieldButton;
 function canIUseAnimate() {
-  var system = utils_1.getSystemInfoSync();
-  return compareVersion(system.SDKVersion, '2.9.0') >= 0;
+  return gte('2.9.0');
 }
 exports.canIUseAnimate = canIUseAnimate;
 function canIUseGroupSetData() {
-  var system = utils_1.getSystemInfoSync();
-  return compareVersion(system.SDKVersion, '2.4.0') >= 0;
+  return gte('2.4.0');
 }
 exports.canIUseGroupSetData = canIUseGroupSetData;
 function canIUseNextTick() {
   return wx.canIUse('nextTick');
 }
 exports.canIUseNextTick = canIUseNextTick;
+function canIUseCanvas2d() {
+  return gte('2.9.0');
+}
+exports.canIUseCanvas2d = canIUseCanvas2d;

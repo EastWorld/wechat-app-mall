@@ -4,8 +4,8 @@
   "description": "微信小程序商城，微信小程序微店",
   "main": "app.js",
   "dependencies": {
-    "@vant/weapp": "^1.6.6",
-    "apifm-wxapi": "^3.32.0",
+    "@vant/weapp": "^1.6.8",
+    "apifm-wxapi": "^3.36.0",
     "wxa-plugin-canvas": "^1.1.12",
     "wxbarcode": "^1.0.2"
   },

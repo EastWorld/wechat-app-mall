@@ -20,7 +20,7 @@
     "compileHotReLoad": true,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
-    "useApiHostProcess": false,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -37,7 +37,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.16.0",
-  "appid": "wxa46b09d413fbcaff",
+  "appid": "wx42e619ec7acd5c67",
   "projectname": "天使童装",
   "scripts": {},
   "simulatorType": "wechat",

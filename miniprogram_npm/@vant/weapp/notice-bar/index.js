@@ -7,12 +7,7 @@ component_1.VantComponent({
     text: {
       type: String,
       value: '',
-      observer: function () {
-        var _this = this;
-        wx.nextTick(function () {
-          _this.init();
-        });
-      },
+      observer: 'init',
     },
     mode: {
       type: String,
@@ -33,12 +28,7 @@ component_1.VantComponent({
     speed: {
       type: Number,
       value: 50,
-      observer: function () {
-        var _this = this;
-        wx.nextTick(function () {
-          _this.init();
-        });
-      },
+      observer: 'init',
     },
     scrollable: {
       type: Boolean,
@@ -65,39 +55,44 @@ component_1.VantComponent({
   destroyed: function () {
     this.timer && clearTimeout(this.timer);
   },
+  mounted: function () {
+    this.init();
+  },
   methods: {
     init: function () {
       var _this = this;
-      Promise.all([
-        utils_1.getRect(this, '.van-notice-bar__content'),
-        utils_1.getRect(this, '.van-notice-bar__wrap'),
-      ]).then(function (rects) {
-        var contentRect = rects[0],
-          wrapRect = rects[1];
-        if (
-          contentRect == null ||
-          wrapRect == null ||
-          !contentRect.width ||
-          !wrapRect.width
-        ) {
-          return;
-        }
-        var _a = _this.data,
-          speed = _a.speed,
-          scrollable = _a.scrollable,
-          delay = _a.delay;
-        if (scrollable || wrapRect.width < contentRect.width) {
-          var duration = (contentRect.width / speed) * 1000;
-          _this.wrapWidth = wrapRect.width;
-          _this.contentWidth = contentRect.width;
-          _this.duration = duration;
-          _this.animation = wx.createAnimation({
-            duration: duration,
-            timingFunction: 'linear',
-            delay: delay,
-          });
-          _this.scroll();
-        }
+      utils_1.requestAnimationFrame(function () {
+        Promise.all([
+          utils_1.getRect(_this, '.van-notice-bar__content'),
+          utils_1.getRect(_this, '.van-notice-bar__wrap'),
+        ]).then(function (rects) {
+          var contentRect = rects[0],
+            wrapRect = rects[1];
+          if (
+            contentRect == null ||
+            wrapRect == null ||
+            !contentRect.width ||
+            !wrapRect.width
+          ) {
+            return;
+          }
+          var _a = _this.data,
+            speed = _a.speed,
+            scrollable = _a.scrollable,
+            delay = _a.delay;
+          if (scrollable || wrapRect.width < contentRect.width) {
+            var duration = (contentRect.width / speed) * 1000;
+            _this.wrapWidth = wrapRect.width;
+            _this.contentWidth = contentRect.width;
+            _this.duration = duration;
+            _this.animation = wx.createAnimation({
+              duration: duration,
+              timingFunction: 'linear',
+              delay: delay,
+            });
+            _this.scroll();
+          }
+        });
       });
     },
     scroll: function () {

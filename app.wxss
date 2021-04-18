@@ -79,3 +79,8 @@ page {
   left: 0;
   width: 100vw;
 }
+.characteristic {
+  padding: 0 24rpx;
+  font-size: 24rpx;
+  color: #999;
+}

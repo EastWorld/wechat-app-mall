@@ -34,9 +34,10 @@ module.exports = {
     <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
       <view class="title ellipsis"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0">{{item.characteristic}}</view>
       <view class="price">¥ {{item.minPrice}}</view>
       <view class="buy-info">
-        <view class="num">已售出{{item.numberSells}}件</view>
+        <view wx:if="{{ show_seller_number == '1' }}" class="num">已售出{{item.numberSells}}件</view>
         <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
       </view>
     </view>
@@ -47,9 +48,10 @@ module.exports = {
     <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
       <view class="title"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0">{{item.characteristic}}</view>
       <view class="price">¥ {{item.minPrice}}</view>
       <view class="buy-info">
-        <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
+        <view wx:if="{{ show_seller_number == '1' }}" class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
         <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
       </view>
     </view>

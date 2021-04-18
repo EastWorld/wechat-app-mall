@@ -82,7 +82,10 @@ Page({
     wx.showLoading({
       title: '处理中...',
     })
-    const res = await WXAPI.orderHX(this.data.hxNumber)
+    const res = await WXAPI.orderHXV2({
+      token: wx.getStorageSync('token'),
+      hxNumber: this.data.hxNumber
+    })
     wx.hideLoading()
     if (res.code != 0) {
       wx.showToast({

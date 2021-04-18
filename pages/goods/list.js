@@ -18,21 +18,11 @@ Page({
   onLoad: function (options) {
     this.setData({
       name: options.name,
-      categoryId: options.categoryId
+      categoryId: options.categoryId,
+      show_seller_number: wx.getStorageSync('show_seller_number')
     })
     this.search()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
 
   },
@@ -76,23 +66,6 @@ Page({
       }
     }
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
   onPullDownRefresh: function () {
 
   },

@@ -94,7 +94,8 @@ module.exports =
 
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
-var API_BASE_URL = 'https://api.it120.cc';
+// var API_BASE_URL = 'https://api.it120.cc';
+var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 var merchantId = '0';
 
@@ -1665,6 +1666,15 @@ module.exports = {
   },
   cpsPddOrderDetail: function cpsPddOrderDetail(token, id) {
     return request('/cpsPddOrder/detail', true, 'get', { token: token, id: id });
+  },
+  cpsTaobaoGoodsDetail: data => {
+    return request('/cpsTaobaoGoods/detail', true, 'get', data)
+  },
+  cpsTaobaoGoodsShotUrl: (token, content) => {
+    return request('/cpsTaobaoGoods/shotUrl', true, 'post', { token, content })
+  },
+  cpsTaobaoGoodsKouling: (token, content) => {
+    return request('/cpsTaobaoGoods/kouling', true, 'post', { token, content })
   },
   // 回收
   recycleOrders: function recycleOrders(data) {

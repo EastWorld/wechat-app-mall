@@ -57,11 +57,9 @@ page,view,image,input {
 .list1 {
   margin: 16rpx;
   width: 718rpx;
-  height: 220rpx;
   display: flex;
   background: #fff;
   border-radius: 30rpx;
-  overflow: hidden;
   position: relative;
 }
 .list1 .img {

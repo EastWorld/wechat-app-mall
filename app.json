@@ -75,6 +75,7 @@
       "pages": [
         "pages/goods-details/cps-jd",
         "pages/goods-details/cps-pdd",
+        "pages/goods-details/cps-taobao",
         "pages/order-list/cps"
       ]
     }

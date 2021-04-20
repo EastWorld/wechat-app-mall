@@ -114,6 +114,10 @@ Page({
       wx.navigateTo({
         url: `/packageCps/pages/goods-details/cps-pdd?id=${id}`,
       })
+    } else if (res.data.basicInfo.supplyType == 'cps_taobao') {
+      wx.navigateTo({
+        url: `/packageCps/pages/goods-details/cps-taobao?id=${id}`,
+      })
     } else if (res.data.basicInfo.supplyType == 'vop_jd') {
       wx.navigateTo({
         url: `/pages/goods-details/vop?id=${res.data.basicInfo.yyId}`,

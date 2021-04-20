@@ -138,6 +138,12 @@
         {
           "name": "packageCps/pages/order-list/cps",
           "pathName": "packageCps/pages/order-list/cps",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageCps/pages/goods-details/cps-taobao",
+          "pathName": "packageCps/pages/goods-details/cps-taobao",
           "scene": null
         }
       ]

@@ -145,6 +145,10 @@ Page({
       wx.navigateTo({
         url: `/packageCps/pages/goods-details/cps-pdd?id=${id}`,
       })
+    } else if (res.data.basicInfo.supplyType == 'cps_taobao') {
+      wx.navigateTo({
+        url: `/packageCps/pages/goods-details/cps-taobao?id=${id}`,
+      })
     } else {
       wx.navigateTo({
         url: `/pages/goods-details/index?id=${id}`,

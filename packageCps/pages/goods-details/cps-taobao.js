@@ -7,7 +7,7 @@ Page({
     beianPass: 0, // 0 未判断，1 未备案， 2 已备案
   },
   onLoad(e) {
-    e.id = 825894
+    // e.id = 825894
     // 读取分享链接中的邀请人编号
     if (e && e.inviter_id) {
       wx.setStorageSync('referrer', e.inviter_id)

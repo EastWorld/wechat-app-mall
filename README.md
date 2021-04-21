@@ -43,13 +43,13 @@
 
 - [api工厂](https://admin.it120.cc)
 
-- [WeUI](https://github.com/Tencent/weui-wxss/)
-
 - [vant-weapp](https://youzan.github.io/vant-weapp)
 
 - [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/Parser)
 
 - [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
+
+- [Apache ECharts](https://github.com/ecomfe/echarts-for-weixin)
 
 底部ICON图标使用：
 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=18904

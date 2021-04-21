@@ -219,8 +219,20 @@
     </view>
     <van-cell-group id="reputation" wx:if="{{!curGoodsKanjia && reputation}}" custom-class="vw100 reputation-cell-group">
       <view class="label-title"> 
+        <wxs module="goodReputationPercent">
+        module.exports = {
+          v : function(goodsDetail) {
+            if (!goodsDetail || !goodsDetail.basicInfo) {
+              return "100"
+            }
+            var goodReputation = goodsDetail.basicInfo.numberGoodReputation / goodsDetail.basicInfo.numberOrders * 100
+            goodReputation = goodReputation.toFixed(0)
+            return goodReputation
+          }
+        }
+        </wxs>
         <view class="left">宝贝评价 {{goodsDetail.basicInfo.numberGoodReputation}}</view>
-        <view>好评度：{{reputation.goodReputation}}%</view>
+        <view>好评度：{{goodReputationPercent.v(goodsDetail)}}%</view>
       </view>
       <block wx:for="{{reputation.result}}" wx:key="id">
         <van-cell custom-class="reputation-cell" title="{{item.user.nick}}"

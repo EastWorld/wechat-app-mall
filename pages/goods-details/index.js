@@ -729,9 +729,6 @@ Page({
             ele.goods.goodReputation = 5
           }
         })
-        var goodReputation = that.data.goodsDetail.basicInfo.numberGoodReputation / that.data.goodsDetail.basicInfo.numberOrders * 100
-        goodReputation = goodReputation.toFixed(0)
-        res.data.goodReputation = goodReputation
         that.setData({
           reputation: res.data
         });

@@ -431,6 +431,9 @@ module.exports = {
       goodsId: goodsId
     });
   },
+  goodsStatistics: data => {
+    return request('/shop/goods/statistics/days', true, 'post', data)
+  },
   pushNewGoods: function pushNewGoods(data) {
     return request('/shop/goods/putOrUpdate', true, 'post', data);
   },

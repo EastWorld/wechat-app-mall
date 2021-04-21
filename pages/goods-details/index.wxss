@@ -668,3 +668,9 @@ swiper-item image {
   color: #666;
   font-size: 26rpx;
 }
+
+.mychart {
+  width: 100vw; 
+  height: 500rpx;
+  background-color: #ffffff;
+}

@@ -1,0 +1,6 @@
+
+.mychart {
+  width: 100vw; 
+  height: 500rpx;
+  background-color: #ffffff;
+}

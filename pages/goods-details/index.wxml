@@ -209,9 +209,6 @@
         <view class="address">{{shopSubdetail.info.address}}</view>
       </view>
     </view>
-    <view wx:if="{{ show_goods_echarts == 1 }}" class="mychart">
-      <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
-    </view>
     <view class="goods-des-info" id="goods-des-info">
       <view class="label-title"> 
         <view class="left">商品详情</view>

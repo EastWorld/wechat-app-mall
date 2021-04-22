@@ -78,6 +78,13 @@
         "pages/goods-details/cps-taobao",
         "pages/order-list/cps"
       ]
+    },
+    {
+      "root": "demos",
+      "name": "demos",
+      "pages": [
+        "pages/echarts/line"
+      ]
     }
   ],
   "window": {

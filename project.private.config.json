@@ -150,6 +150,12 @@
         {
           "name": "pages/coupons/index",
           "pathName": "pages/coupons/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demos/pages/echarts/line",
+          "pathName": "demos/pages/echarts/line",
           "scene": null
         }
       ]

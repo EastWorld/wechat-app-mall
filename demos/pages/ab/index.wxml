@@ -1,0 +1,142 @@
+<view class="jcontent">
+  <image class="jtop" src="https://img.alicdn.com/imgextra/i2/2090155038/O1CN01VbPevr1n5RtioWeqo_!!2090155038.jpg" mode="widthFix" />
+  <view class="jtab">
+    <view class="casetop_tab_mod">
+      <view class="change_tab_mod" id="bignav">
+        <view class="change_tab {{xz==1?'cur':''}}" bindtap="ty" data-id="1">
+          <span class="tit">特色</span>
+        </view>
+        <view class="change_tab {{xz==2?'cur':''}}" bindtap="ty" data-id="2">
+          <span class="tit">行程</span>
+        </view>
+        <view class="change_tab {{xz==3?'cur':''}}" bindtap="ty" data-id="3">
+          <span class="tit">费用</span>
+        </view>
+      </view>
+      <view class="date_tab_mod" wx:if="{{d2}}">
+        <view class="scroll_cont">
+          <view class='swiper-view'>
+            <swiper class='day_list' display-multiple-items="{{cc}}" previous-margin="3" next-margin="20">
+              <swiper-item wx:for="{{adddata_day}}" wx:key="index">
+                <view class="swiper-item {{index==djt?'curHHt':''}}" bindtap="ts" data-id="{{index}}">
+                  <a class="">Day {{item.day}}</a>
+                </view>
+              </swiper-item>
+            </swiper>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="case_subject_cont" id="ys0">
+    <view id="ys1" class="cont_mod charact_cont">
+      <view class="indep_mod">
+        <view class="cont_title">
+          <h4 class="big_text">旅行特色</h4>
+        </view>
+        <view class="charactpic_list_mod"></view>
+      </view>
+      <swiper class='c1' display-multiple-items="{{2.4}}" previous-margin="50rpx" next-margin="50rpx">
+        <swiper-item wx:for="{{adddata.pics}}" wx:key="index" style="padding:0 20rpx" data-idx="{{ index }}" bindtap="previewImg">
+          <view class="swiper-item-c1">
+            <image class='swiper-item-c1-img' src='{{item.pic}}' mode="widthFix"></image>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <view id="ys2" class="cont_mod charact_cont">
+      <view class="indep_mod">
+        <view class="cont_title">
+          <h4 class="big_text">甄选行程</h4>
+        </view>
+        <view class="charactpic_list_mod"></view>
+      </view>
+      <view class="c2">
+        <view class="indep_mod">
+          <h4 class="second_title">每日行程</h4>
+          <view class="daytrip_list">
+            <view class="day_li" id="{{'jsday'+index}}" wx:for="{{adddata_day}}" wx:key="index">
+              <view class="date_mod">
+                <p class="day">{{item.day}}</p>
+                DAY
+              </view>
+              <view class="trip_city">
+                <view class="city_name">
+                  <view style="flex: 1 1 0%;">
+                    <span>{{item.name}}</span>
+                  </view>
+                </view>
+                <p class="tips">{{item.subName}}</p>
+              </view>
+              <view class="trip_card_mod" wx:for="{{item.items}}" wx:key="index2" wx:for-item="hdit">
+                <view class="type_label" wx:if="{{hdit.type == 0}}">
+                  <i class="iconfont1 ico_trip_act01"></i>
+                  活动
+                </view>
+                <view class="type_label" wx:elif="{{hdit.type == 10}}">
+                  <i class="iconfont1 ico_trip_food01"></i>
+                  早餐
+                </view>
+                <view class="type_label" wx:elif="{{hdit.type == 11}}">
+                  <i class="iconfont1 ico_trip_food01"></i>
+                  午餐
+                </view>
+                <view class="type_label" wx:elif="{{hdit.type == 12}}">
+                  <i class="iconfont1 ico_trip_food01"></i>
+                  晚餐
+                </view>
+                <view class="type_label" wx:elif="{{hdit.type == 13}}">
+                  <i class="iconfont1 ico_trip_spot01"></i>
+                  茶点
+                </view>
+                <view class="type_label" wx:elif="{{hdit.type == 2}}">
+                  <i class="iconfont1 ico_trip_htl01"></i>
+                  住宿
+                </view>
+                <view class="type_label" wx:else>
+                  <i class="iconfont1 ico_trip_spot01"></i>
+                  景点
+                </view>
+                <view class="plan_detail3_content">
+                  <view class="project_box">
+                    <view class="content">
+                      <view class="top_mod img_mod">
+                        <view class="simple_box">
+                          <view class="img" wx:if="{{hdit.pic}}">
+                            <image src="{{hdit.pic}}" mode="widthFix" />
+                          </view>
+                          <view class="text_cont {{hdit.pic?'zk11':'zk'}}">
+                            <view class="text_main">
+                              <view class="text_name">
+                                <p class="main">{{hdit.name}}</p>
+                              </view>
+                              <view class="city_name">{{hdit.subName}}</view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="order_text dz-pre-wrap" wx:if="{{hdit.descript}}">
+                        {{hdit.descript}}
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view id="ys3" class="cont_mod charact_cont">
+      <view class="indep_mod">
+        <view class="cont_title">
+          <h4 class="big_text">费用说明</h4>
+        </view>
+        <view class="charactpic_list_mod"></view>
+      </view>
+      <view class="c3">
+        <parser html="{{adddata.content}}" />
+      </view>
+    </view>
+  </view>
+</view>

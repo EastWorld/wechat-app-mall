@@ -1,0 +1,94 @@
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+.order-list {
+    padding: 24rpx;
+}
+
+.order-item {
+    background-color: #fff;
+    border-radius: 10rpx;
+    padding: 0 24rpx;
+    margin-bottom: 24rpx;
+}
+
+.order-item:last-of-type {
+    margin-bottom: 0;
+}
+
+.order-item .fx_spbe {
+    height: 72rpx;
+    border-bottom: 2rpx solid #e6e6e6;
+}
+
+.item-desc {
+    padding: 20rpx 0;
+}
+
+.icon {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 10rpx;
+}
+
+.INIT {
+    color: #ff5833;
+}
+
+.AUDITED_SUCCESS {
+    color: #999;
+}
+
+.AUDITED_FAIL {
+    color: #f93c3c;
+}
+
+.mt10 {
+    margin-top: 10rpx;
+}
+
+.cored {
+    color: red;
+}
+.fx_spbe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.co999 {
+    color: #999;
+}
+.fz26 {
+    font-size: 26rpx;
+}
+.fx,.fx_cen {
+    display: flex;
+    align-items: center;
+}
+
+.fx_cen {
+    justify-content: center;
+}
+
+.fx_spbe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.coblack {
+    color: #262626;
+}
+.bold {
+    font-weight: 700;
+}
+.mb10 {
+    margin-bottom: 10rpx;
+}
+.fz24 {
+    font-size: 24rpx;
+}
+.co999 {
+    color: #999;
+}

@@ -1,0 +1,10 @@
+<view class="login-box">
+    <image class="logo" src="/images/wx.jpg" mode="widthFix"></image>
+    <view class="line"></view>
+    <view class="title">申请获取以下权限</view>
+    <view class="profile">授权绑定手机号码</view>
+    <view class="btn">
+        <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">绑定手机号码
+        </van-button>
+    </view>
+</view>

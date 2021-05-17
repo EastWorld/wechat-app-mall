@@ -101,6 +101,9 @@ var merchantId = '0';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+  if (url.indexOf("http") == 0 ) {
+    _url = url
+  }
   var header = {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
@@ -1596,6 +1599,9 @@ module.exports = {
   liveRoomKickOutUser: function liveRoomKickOutUser(token, roomId, uid) {
     return request('/websocket/rest/liveRoom/kickOut', false, 'post', { token: token, roomId: roomId, uid: uid });
   },
+  tourJourneyList: (type, refId) => {
+    return request('/tourJourney/list', true, 'get', { type, refId })
+  },
   // 京东VOP相关接口
   jdvopGoodsList: function jdvopGoodsList(data) {
     return request('/jdvop/' + merchantId + '/goods/list', false, 'post', data);
@@ -1697,7 +1703,7 @@ module.exports = {
   },
   recycleOrderDelete: function recycleOrderDelete(token, id) {
     return request('/recycleOrder/del', true, 'post', { token: token, id: id });
-  }
+  },
 };
 
 /***/ })

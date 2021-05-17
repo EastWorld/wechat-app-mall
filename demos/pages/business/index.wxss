@@ -1,0 +1,44 @@
+page {
+    padding: 24rpx;
+    background-color: #f5f5f5;
+    box-sizing: border-box;
+}
+
+.item {
+    background-color: #fff;
+    border-radius: 10rpx;
+    padding: 40rpx 32rpx;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24rpx;
+}
+
+.icon {
+    width: 72rpx;
+    height: 72rpx;
+    margin-right: 16rpx;
+}
+.icon image {
+    width: 72rpx;
+    height: 72rpx;
+}
+
+.f1 {
+    flex: 1;
+    overflow: hidden;
+}
+.coblack {
+    color: #262626;
+}
+
+.mb10 {
+    margin-bottom: 10rpx;
+}
+
+.co999 {
+    color: #999;
+}
+
+.fz22 {
+    font-size: 22rpx;
+}

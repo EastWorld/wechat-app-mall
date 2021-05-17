@@ -56,7 +56,12 @@ Page({
       const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
       if (scene && scene.split(',').length >= 2) {
         e.id = scene.split(',')[0]
-        wx.setStorageSync('referrer', scene.split(',')[1])
+        e.goodsId = scene.split(',')[1]
+      }
+      if (scene && scene.split(',').length >= 3) {
+        e.id = scene.split(',')[0]
+        e.goodsId = scene.split(',')[1]
+        wx.setStorageSync('referrer', scene.split(',')[2])
       }
     }
     // 静默式授权注册/登陆
@@ -64,6 +69,7 @@ Page({
       AUTH.bindSeller()
     })
     this.data.goodsId = e.id
+    this.data.goodsId2 = e.goodsId ? e.goodsId : ''
     this.data.kjJoinUid = e.kjJoinUid    
     let goodsDetailSkuShowType = wx.getStorageSync('goodsDetailSkuShowType')
     if (!goodsDetailSkuShowType) {
@@ -193,7 +199,7 @@ Page({
           })
         } else {
           const extJsonStr = {
-            wxaurl: `/pages/goods-details/vop?id=${this.data.goodsId}`,
+            wxaurl: `/pages/goods-details/vop?id=${this.data.goodsId}&goodsId=${this.data.goodsId2}`,
             skuId: this.data.goodsId,
             pic: this.data.imageDomain + this.data.info.imagePath,
             name: this.data.info.name
@@ -212,6 +218,15 @@ Page({
     })
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
+    const token = wx.getStorageSync('token')
+    if (this.data.goodsId2) {
+      const goodsDetailRes = await WXAPI.goodsDetail(this.data.goodsId2, token ? token : '')
+      if (goodsDetailRes.code == 0) {
+        this.setData({
+          goodsDetail: goodsDetailRes.data
+        })
+      }
+    }
     const res = await WXAPI.jdvopGoodsDetail(goodsId)
     if (res.data.info.wxintroduction) {
       res.data.wxintroduction = JSON.parse(res.data.info.wxintroduction)
@@ -508,7 +523,7 @@ Page({
   onShareAppMessage() {
     let _data = {
       title: this.data.price.skuName,
-      path: '/pages/goods-details/vop?id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
+      path: '/pages/goods-details/vop?id=' + this.data.goodsId + '&goodsId=' + this.data.goodsId2 + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function(res) {
         // 转发成功
       },
@@ -658,7 +673,7 @@ Page({
   async drawSharePic() {
     const _this = this
     const qrcodeRes = await WXAPI.wxaQrcode({
-      scene: _this.data.goodsId + ',' + wx.getStorageSync('uid'),
+      scene: _this.data.goodsId + ',' + _this.data.goodsId2 + ',' + wx.getStorageSync('uid'),
       page: 'pages/goods-details/vop',
       is_hyaline: true,
       autoColor: true,
@@ -791,7 +806,7 @@ Page({
   initShareQuanziProduct() {
     this.setData({
       shareQuanziProduct: {
-        "item_code": this.data.goodsDetail.basicInfo.id + '',
+        "item_code": this.data.goodsId + '',
         "title": this.data.goodsDetail.basicInfo.name,
         "category_list":[
           this.data.goodsDetail.category.name
@@ -799,7 +814,7 @@ Page({
         "image_list":[
           this.data.goodsDetail.basicInfo.pic
         ],
-        "src_mini_program_path": '/pages/goods-details/vop?id=' + this.data.goodsDetail.basicInfo.id
+        "src_mini_program_path": '/pages/goods-details/vop?id=' + this.data.goodsId + '&goodsId=' + this.data.goodsId2
       }
     })
   },

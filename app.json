@@ -83,7 +83,12 @@
       "root": "demos",
       "name": "demos",
       "pages": [
-        "pages/echarts/line"
+        "pages/echarts/line",
+        "pages/business/index",
+        "pages/bind-phone/index",
+        "pages/merchant/index",
+        "pages/record-list/index",
+        "pages/ab/index"
       ]
     }
   ],
@@ -137,6 +142,16 @@
       "desc": "获取离你最近的门店"
     }
   },
+  "plugins": {
+    "live-player-plugin": {
+      "version": "1.3.0",
+      "provider": "wx2b03c6e691cd7370"
+    },
+    "goodsSharePlugin": {
+       "version": "4.0.1",
+       "provider": "wx56c8f077de74b07c"
+     }
+  },
   "usingComponents": {
     "float-menu": "/components/float-menu/index",
     "parser":"/components/parser.20200414.min/parser",
@@ -162,6 +177,7 @@
     "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
     "van-goods-action-button": "@vant/weapp/goods-action-button/index",
     "van-popup": "@vant/weapp/popup/index",
+    "van-picker": "@vant/weapp/picker/index",
     "van-stepper": "@vant/weapp/stepper/index",
     "van-sticky": "@vant/weapp/sticky/index",
     "van-dialog": "@vant/weapp/dialog/index",
@@ -175,7 +191,9 @@
     "van-image": "@vant/weapp/image/index",
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
-    "van-overlay": "@vant/weapp/overlay/index"
+    "van-overlay": "@vant/weapp/overlay/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-area": "@vant/weapp/area/index"
   },
   "sitemapLocation": "sitemap.json"
 }

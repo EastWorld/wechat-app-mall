@@ -29,14 +29,14 @@
 </block>
 <view wx:if="{{listType == 2}}" class="list2-box">
   <view class="list2" wx:for="{{goods}}" wx:key="id">
-    <navigator url="/pages/goods-details/vop?id={{item.id}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <navigator url="/pages/goods-details/vop?id={{item.skuId}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
-      <view class="title"><navigator url="/pages/goods-details/vop?id={{item.id}}">{{item.name}}</navigator></view>
-      <view class="price">¥ {{item.minPrice}}</view>
-      <view class="buy-info">
+      <view class="title"><navigator url="/pages/goods-details/vop?id={{item.skuId}}">{{item.skuName}}</navigator></view>
+      <view class="price">¥ {{item.priceSale}}</view>
+      <!-- <view class="buy-info">
         <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
         <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>

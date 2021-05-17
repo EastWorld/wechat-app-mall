@@ -208,6 +208,7 @@
       </view>
       <view class="goods-text">
         <image wx:for="{{wxintroduction}}" wx:key="id" mode="widthFix" src="{{ item }}"></image>
+        <parser wx:if="{{ wxintroduction && goodsDetail.content }}" html="{{goodsDetail.content}}" />
       </view>
     </view>
     <van-cell-group wx:if="{{!curGoodsKanjia && reputation}}" custom-class="vw100" title="宝贝评价">
@@ -254,7 +255,7 @@
     <van-goods-action wx:if="{{!curGoodsKanjia}}">
       <van-goods-action-icon icon="chat-o" text="客服" open-type="contact"
         send-message-title="{{price.skuName}}" send-message-img="{{imageDomain}}{{price.pic}}"
-        send-message-path="/pages/goods-details/vop?id={{goodsId}}" show-message-card="{{ true }}" />
+        send-message-path="/pages/goods-details/vop?id={{goodsId}}&goodsId={{ goodsId2 }}" show-message-card="{{ true }}" />
       <van-goods-action-icon icon="cart-o" text="购物车" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />
       <van-goods-action-icon icon="{{faved?'like':'like-o'}}" text="收藏" bind:click="addFav" />
       <van-goods-action-button text="加入购物车" type="warning"

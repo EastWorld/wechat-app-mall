@@ -1,0 +1,120 @@
+<view>
+    <view class="title">{{typeObj[typeIndex]}}</view>
+    <view class="box" wx:if="{{step==1}}">
+        <view class="box-title">联系人信息</view>
+        <van-cell-group>
+            <van-field bind:change="onChangeInp" id="contactInfo.contactName" label="姓名" maxlength="20" placeholder="请输入法人姓名" value="{{contactInfo.contactName}}"></van-field>
+            <van-field bind:change="onChangeInp" id="contactInfo.contactPhone" label="手机号码" maxlength="11" placeholder="请输入法人手机号码" type="number" value="{{contactInfo.contactPhone}}"></van-field>
+            <van-field bind:change="onChangeInp" id="contactInfo.contactEmail" label="电子邮箱" maxlength="20" placeholder="请输入电子邮箱(选填)" value="{{contactInfo.contactEmail}}"></van-field>
+            <van-field clickable readonly bind:click-input="clickPicker" id="idCardInfo" isLink="{{true}}" label="证件类型" placeholder="点击选择证件类型" value="{{idCardInfo.value}}"></van-field>
+            <van-cell title="证件正面照">
+                <view class="right" slot="right-icon">
+                    <van-uploader bind:after-read="afterRead" bind:delete="deleteImg" data-name="contactInfo" fileList="{{fileList.certificateFront}}" id="certificateFront" maxCount="1"></van-uploader>
+                    <view class="van-field__error-message">上传图片大小仅限2M以下</view>
+                </view>
+            </van-cell>
+            <van-field bind:change="onChangeInp" id="contactInfo.certificateNo" label="证件号码" maxlength="30" placeholder="请填写证件号码" value="{{contactInfo.certificateNo}}"></van-field>
+            <van-cell title="证件反面照">
+                <view class="right" slot="right-icon">
+                    <van-uploader bind:after-read="afterRead" bind:delete="deleteImg" data-name="contactInfo" fileList="{{fileList.certificateBack}}" id="certificateBack" maxCount="1"></van-uploader>
+                    <view class="van-field__error-message">上传图片大小仅限2M以下</view>
+                </view>
+            </van-cell>
+            <van-field clickable bind:change="onChangeInp" id="contactInfo.certificateValid" label="证件有效期" placeholder="例如: 2036-04-06" value="{{contactInfo.certificateValid}}"></van-field>
+            <van-cell title="结算证明">
+                <view class="right" slot="right-icon">
+                    <van-uploader bind:after-read="afterRead" bind:delete="deleteImg" data-name="settlementInfo" fileList="{{fileList.bankSettlementCert}}" id="bankSettlementCert" maxCount="1"></van-uploader>
+                    <view class="van-field__error-message">对私传银行卡正面照，对公传其他能证 明账⼾真实有效的材料，如印鉴卡、转 账凭证等；可以证明账⼾的⼾名、账号、开户行信息</view>
+                </view>
+            </van-cell>
+            <van-field bind:change="onChangeInp" id="settlementInfo.bankAccountNo" label="收款银行卡号" maxlength="32" placeholder="请输入银行卡号" type="number" value="{{settlementInfo.bankAccountNo}}"></van-field>
+            <van-field clickable readonly bind:click-input="showBank" isLink="{{true}}" label="开户银行名称" placeholder="请输入开户银行名称" value="{{settlementInfo.bankName}}"></van-field>
+            <van-field bind:change="onChangeInp" errorMessage="银行卡为对公账户，此处为必填；银行卡为私人账户，此处为选填" id="settlementInfo.bankAssNo" label="银行联行号" maxlength="30" placeholder="请输入银行联行号" value="{{settlementInfo.bankAssNo}}"></van-field>
+            <van-field bind:change="onChangeInp" id="settlementInfo.bankAccountPhone" label="银行卡预留手机号" maxlength="11" placeholder="请输入银行卡预留手机号" value="{{settlementInfo.bankAccountPhone}}"></van-field>
+        </van-cell-group>
+        <view class="btns">
+            <view bindtap="confirmContactInfo">下一步</view>
+        </view>
+    </view>
+    <view class="box" wx:elif="{{step==2}}">
+        <view class="box-title">商户信息</view>
+        <van-cell-group>
+            <van-field bind:change="onChangeInp" id="businessInfo.merchantName" label="商户全称" maxlength="40" placeholder="请输入营业执照上的名称" value="{{businessInfo.merchantName}}"></van-field>
+            <van-field bind:change="onChangeInp" id="businessInfo.merchantShortName" label="商户名" maxlength="11" placeholder="请输入商户门头名称" value="{{businessInfo.merchantShortName}}"></van-field>
+            <van-field bind:change="onChangeInp" id="businessInfo.businessScope" label="营业范围" maxlength="30" placeholder="请输入营业执照所包含的经营范围" value="{{businessInfo.businessScope}}"></van-field>
+            <van-field clickable readonly bind:click-input="clickPicker" id="managementInfo" isLink="{{true}}" label="商户经营类型" placeholder="点击选择证件类型" value="{{managementInfo.value}}"></van-field>
+            <van-field clickable readonly bind:click-input="showCategory" id="mccCodeInfo" isLink="{{true}}" label="商户经营类目" placeholder="点击选择证件类目" value="{{mccCodeName}}"></van-field>
+            <van-field clickable readonly bind:click-input="showArea" isLink="{{true}}" label="商户地址" placeholder="点击选择省市区" value="{{areaName}}"></van-field>
+            <van-field bind:change="onChangeInp" id="businessInfo.address" label="详细地址" maxlength="80" placeholder="请输入详细地址" value="{{businessInfo.address}}"></van-field>
+            <van-cell title="门头照">
+                <view class="right" slot="right-icon">
+                    <van-uploader bind:after-read="afterRead" bind:delete="deleteImg" data-name="businessInfo" fileList="{{fileList.signBoard}}" id="signBoard" maxCount="1"></van-uploader>
+                    <view class="van-field__error-message">代理商拓展人员/法人与门头合照，且招牌清晰完整</view>
+                </view>
+            </van-cell>
+            <van-cell title="店内照">
+                <view class="right" slot="right-icon">
+                    <van-uploader bind:after-read="afterRead" bind:delete="deleteImg" data-name="businessInfo" fileList="{{fileList.interior}}" id="interior" maxCount="1"></van-uploader>
+                    <view class="van-field__error-message">展示店内环境，明晰经营内容，包含收银台元素</view>
+                </view>
+            </van-cell>
+            <view wx:if="{{userInfo.marking=='一级'&&typeIndex=='INDIVIDUAL_SELLER'}}">
+                <view class="box-title">费率配置</view>
+                <van-field bind:change="bindRateInput" errorMessage="费率范围0.26 ~ 0.6" id="{{index}}" label="{{item.name}}" placeholder="请输入费率" value="{{item.billingValue}}" wx:for="{{payChannelRates}}" wx:key="index"></van-field>
+            </view>
+        </van-cell-group>
+        <view class="btns">
+            <view bindtap="upperStep" class="primary">上一步</view>
+            <view bindtap="confirmBusiness">{{typeIndex=='INDIVIDUAL_SELLER'?'提交':'下一步'}}</view>
+        </view>
+    </view>
+    <view class="box" wx:elif="{{step==3}}">
+        <view class="box-title">资质信息</view>
+        <van-cell-group>
+            <van-field clickable readonly bind:click-input="clickPicker" id="registCertificateTypeInfo" isLink="{{true}}" label="证照类型" placeholder="点击选择证件类型" value="{{registCertificateTypeInfo.value}}"></van-field>
+            <van-cell title="证件照片">
+                <view class="right" slot="right-icon">
+                    <van-uploader bind:after-read="afterRead" bind:delete="deleteImg" data-name="identifyInfo" fileList="{{fileList.registCertificateFront}}" id="registCertificateFront" maxCount="1"></van-uploader>
+                    <view class="van-field__error-message">上传图片大小仅限2M以下</view>
+                </view>
+            </van-cell>
+            <van-field bind:change="onChangeInp" errorMessage="格式为15位数字或18位数字/大写字母" id="identifyInfo.registCertificateNo" label="证照编号" maxlength="25" placeholder="请输入证照编号" value="{{identifyInfo.registCertificateNo}}"></van-field>
+            <van-field clickable readonly bind:click-input="showDatetimePicker" id="termStartTime" isLink="{{true}}" label="证照起始日期" placeholder="点击选择证照起始日期" value="{{termStartTime.text}}"></van-field>
+            <van-field clickable readonly bind:click-input="showDatetimePicker" id="termEndTime" isLink="{{true}}" label="证照截止日期" placeholder="点击选择证照截止日期" value="{{termEndTime.text}}"></van-field>
+            <van-field bind:change="onChangeInp" errorMessage="单位: 万元" id="identifyInfo.registCertificateCaptial" label="注册资本金" placeholder="请输入注册资本金" value="{{identifyInfo.registCertificateCaptial}}"></van-field>
+            <view wx:if="{{userInfo.marking=='一级'}}">
+                <view class="box-title">费率配置</view>
+                <van-field bind:change="bindRateInput" errorMessage="费率范围0.26 ~ 0.6" id="{{index}}" label="{{item.name}}" placeholder="请输入费率" value="{{item.billingValue}}" wx:for="{{payChannelRates}}" wx:key="index"></van-field>
+            </view>
+        </van-cell-group>
+        <view class="btns">
+            <view bindtap="upperStep" class="primary">上一步</view>
+            <view bindtap="submit">提交</view>
+        </view>
+    </view>
+    <van-popup position="bottom" show="{{isshowPicker}}">
+        <van-picker showToolbar bind:cancel="showPicker" bind:confirm="onConfirmPicker" columns="{{pickerList}}"></van-picker>
+    </van-popup>
+    <van-popup position="bottom" show="{{isshowDatePicker}}">
+        <van-datetime-picker bind:cancel="showDatetimePicker" bind:confirm="onConfirmDatetime" maxDate="{{2524579200000}}" minDate="{{100}}" title="选择年月日" type="date" value="{{currentDate}}"></van-datetime-picker>
+    </van-popup>
+    <van-popup position="bottom" show="{{isshowArea}}">
+        <van-picker showToolbar bind:cancel="showArea" bind:confirm="onConfirmArea" bindchange="changePicker" columns="{{areaList}}" value-key="name"></van-picker>
+    </van-popup>
+    <van-popup bind:click-overlay="showBank" round="{{true}}" show="{{isshowBank}}">
+        <view catchtouchmove="doNothing" class="popup-box">
+            <van-search bind:change="onChangeInp" bind:search="searchBank" id="keyword" placeholder="请输入搜索关键词" value="{{keyword}}"></van-search>
+            <scroll-view scrollY bindscrolltolower="bindscrolltolower" class="scroll">
+                <van-cell clickable bind:click="clickBank" data-code="{{item.bankCode}}" id="{{item.bankName}}" title="{{item.bankName}}" wx:for="{{bankList}}" wx:key="index"></van-cell>
+            </scroll-view>
+        </view>
+    </van-popup>
+    <van-popup bind:click-overlay="showCategory" round="{{true}}" show="{{isshowCategory}}">
+        <view catchtouchmove="doNothing" class="popup-box">
+            <van-search bind:change="onChangeInp" bind:search="getCategoryList" id="keyword" placeholder="请输入搜索关键词" value="{{keyword}}"></van-search>
+            <scroll-view scrollY class="scroll">
+                <van-cell clickable bind:click="clickCategory" data-code="{{item.mccCode}}" id="{{item.mccName}}" title="{{item.mccName}}" wx:for="{{categoryList}}" wx:key="index"></van-cell>
+            </scroll-view>
+        </view>
+    </van-popup>
+</view>

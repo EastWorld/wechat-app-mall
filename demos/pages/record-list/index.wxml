@@ -1,0 +1,25 @@
+<view>
+    <view class="sticky">
+        <van-tabs active="{{active}}" bind:change="onChange" color="#FA4F1A" titleActiveColor="#FA4F1A">
+            <van-tab title="{{item.name}}" wx:for="{{tabLsit}}" wx:key="index"></van-tab>
+        </van-tabs>
+    </view>
+    <view class="order-list" wx:if="{{orderList.length}}">
+        <view bindtap="pageToDetail" class="order-item" data-index="{{index}}" wx:for="{{orderList}}" wx:key="index">
+            <view class="fx_spbe">
+                <view class="co999 fz26 fx">
+                    <image class="icon" src="../../images/icon_biaozhunx.png" wx:if="{{item.type=='INDIVIDUAL_BUSINESS_PEOPLE'}}"></image>
+                    <image class="icon" src="../../images/icon_qiyex.png" wx:elif="{{item.type=='COMPANY'}}"></image>
+                    <image class="icon" src="../../images/icon_xiaoweix.png" wx:elif="{{item.type=='INDIVIDUAL_SELLER'}}"></image>
+        {{typeObj[item.type]}}</view>
+                <view class="fz26 {{item.status}}">{{orderStatus[item.status]}}</view>
+            </view>
+            <view class="item-desc">
+                <view class="coblack fz30 bold mb10">{{item.merchantName}}</view>
+                <view class="fz24 co999">提交时间: {{item.dateAdd}}</view>
+                <view class="fz24 cored mt10" wx:if="{{item.failureReason}}">失败原因: {{item.failureReason}}</view>
+            </view>
+        </view>
+    </view>
+    <van-empty description="暂无商户进件记录" wx:else></van-empty>
+</view>

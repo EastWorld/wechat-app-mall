@@ -156,6 +156,36 @@
         {
           "name": "demos/pages/echarts/line",
           "pathName": "demos/pages/echarts/line",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demos/pages/merchant/index",
+          "pathName": "demos/pages/merchant/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demos/pages/business/index",
+          "pathName": "demos/pages/business/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demos/pages/merchant/select",
+          "pathName": "demos/pages/merchant/select",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demos/pages/record-list/index",
+          "pathName": "demos/pages/record-list/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demos/pages/ab/index",
+          "pathName": "demos/pages/ab/index",
           "scene": null
         }
       ]

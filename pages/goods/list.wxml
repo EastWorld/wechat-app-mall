@@ -20,7 +20,7 @@ module.exports = {
     if (item.supplyType == 'cps_jd') {
       return '/packageCps/pages/goods-details/cps-jd?id=' + item.id
     } else if (item.supplyType == 'vop_jd') {
-      return '/pages/goods-details/vop?id=' + item.yyId
+      return '/pages/goods-details/vop?id=' + item.yyId + '&goodsId=' + item.id
     } else if (item.supplyType == 'cps_pdd') {
       return '/packageCps/pages/goods-details/cps-pdd?id=' + item.id
     } else if (item.supplyType == 'cps_taobao') {
@@ -36,8 +36,9 @@ module.exports = {
     <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
       <view class="title ellipsis"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
-      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0">{{item.characteristic}}</view>
-      <view class="price">¥ {{item.minPrice}}</view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0;-webkit-line-clamp: 1;">{{item.characteristic}}</view>
+      <view class="price">¥ {{item.minPrice}}<text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}
+        </text></view>
       <view class="buy-info">
         <view wx:if="{{ show_seller_number == '1' }}" class="num">已售出{{item.numberSells}}件</view>
         <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
@@ -49,9 +50,10 @@ module.exports = {
   <view class="list2" wx:for="{{goods}}" wx:key="id">
     <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
     <view class="goods-info">
-      <view class="title"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
-      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0">{{item.characteristic}}</view>
-      <view class="price">¥ {{item.minPrice}}</view>
+      <view class="title van-multi-ellipsis--l2"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0;-webkit-line-clamp: 1;">{{item.characteristic}}</view>
+      <view class="price">¥ {{item.minPrice}}<text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}
+        </text></view>
       <view class="buy-info">
         <view wx:if="{{ show_seller_number == '1' }}" class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
         <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>

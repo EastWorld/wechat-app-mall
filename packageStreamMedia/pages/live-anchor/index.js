@@ -120,7 +120,7 @@ Page({
       })
     } else if (res.data.basicInfo.supplyType == 'vop_jd') {
       wx.navigateTo({
-        url: `/pages/goods-details/vop?id=${res.data.basicInfo.yyId}`,
+        url: `/pages/goods-details/vop?id=${res.data.basicInfo.yyId}&goodsId=${res.data.basicInfo.id}`,
       })
     } else {
       wx.navigateTo({

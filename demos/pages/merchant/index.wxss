@@ -1,0 +1,66 @@
+page {
+    background-color: #fff;
+}
+
+.title {
+    text-align: center;
+    padding: 20rpx 0;
+    font-weight: 700;
+}
+
+.box-title {
+    padding: 20rpx 32rpx;
+    font-weight: 700;
+}
+
+.van-cell__title {
+    color: #646566;
+}
+
+.van-field__error-message {
+    color: #999!important;
+    border-top: 2rpx solid #eee;
+    line-height: 36rpx;
+}
+
+.right {
+    width: 488rpx;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    padding: 32rpx;
+    box-sizing: border-box;
+}
+
+.btns view {
+    flex: 1;
+    overflow: hidden;
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    background-color: #1989fa;
+    border-radius: 10rpx;
+    color: #fff;
+}
+
+.primary {
+    background-color: #07c160!important;
+}
+
+.btns view:not(:last-child) {
+    margin-right: 32rpx;
+}
+
+.popup-box {
+    width: 680rpx;
+}
+
+.van-popup--round {
+    border-radius: 20rpx!important;
+}
+
+.scroll {
+    height: 704rpx;
+}

@@ -3,12 +3,6 @@ const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
 
 const APP = getApp()
-// fixed首次打开不显示标题的bug
-APP.configLoadOK = () => {
-  wx.setNavigationBarTitle({
-    title: wx.getStorageSync('mallName')
-  })
-}
 
 Page({
   data: {
@@ -55,7 +49,7 @@ Page({
       })
     } else if (supplytype == 'vop_jd') {
       wx.navigateTo({
-        url: `/pages/goods-details/vop?id=${yyId}`,
+        url: `/pages/goods-details/vop?id=${yyId}&goodsId=${id}`,
       })
     } else if (supplytype == 'cps_pdd') {
       wx.navigateTo({
@@ -96,9 +90,6 @@ Page({
     wx.showShareMenu({
       withShareTicket: true,
     })
-    this.setData({
-      mallName:wx.getStorageSync('mallName')?wx.getStorageSync('mallName'):''
-    })
     const that = this
     // 读取分享链接中的邀请人编号
     if (e && e.inviter_id) {
@@ -116,9 +107,6 @@ Page({
       AUTH.bindSeller()
       TOOLS.showTabBarBadge()
     })
-    wx.setNavigationBarTitle({
-      title: wx.getStorageSync('mallName')
-    })    
     this.initBanners()
     this.categories()
     WXAPI.goods({
@@ -136,6 +124,20 @@ Page({
     that.pingtuanGoods()
     this.wxaMpLiveRooms()
     this.adPosition()
+    // 读取系统参数
+    this.readConfigVal()
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
+  },
+  readConfigVal() {
+    wx.setNavigationBarTitle({
+      title: wx.getStorageSync('mallName')
+    })
+    this.setData({
+      mallName:wx.getStorageSync('mallName')?wx.getStorageSync('mallName'):'',
+      show_buy_dynamic: wx.getStorageSync('show_buy_dynamic')
+    })
   },
   async miaoshaGoods(){
     const res = await WXAPI.goods({

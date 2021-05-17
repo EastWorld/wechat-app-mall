@@ -124,6 +124,13 @@ async function login(page){
 }
 
 async function authorize() {
+  // const code = await wxaCode()
+  // const resLogin = await WXAPI.login_wx(code)
+  // if (resLogin.code == 0) {
+  //   wx.setStorageSync('token', resLogin.data.token)
+  //   wx.setStorageSync('uid', resLogin.data.uid)
+  //   return resLogin
+  // }
   return new Promise((resolve, reject) => {
     wx.login({
       success: function (res) {

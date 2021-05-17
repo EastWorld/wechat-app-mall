@@ -1,0 +1,11 @@
+<view class="container2">
+    <view bindtap="pageTo" class="item" data-url="{{item.url}}" wx:for="{{list}}" wx:key="index">
+        <view class="icon">
+            <image src="{{item.icon}}"></image>
+        </view>
+        <view class="f1">
+            <view class="coblack fz30 mb10">{{item.title}}</view>
+            <view class="co999 fz22">{{item.desc}}</view>
+        </view>
+    </view>
+</view>

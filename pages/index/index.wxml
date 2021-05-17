@@ -29,7 +29,7 @@ module.exports = {
     if (item.supplyType == 'cps_jd') {
       return '/packageCps/pages/goods-details/cps-jd?id=' + item.goodsId
     } else if (item.supplyType == 'vop_jd') {
-      return '/pages/goods-details/vop?id=' + item.yyId
+      return '/pages/goods-details/vop?id=' + item.yyId + '&goodsId=' + item.id
     } else if (item.supplyType == 'cps_pdd') {
       return '/packageCps/pages/goods-details/cps-pdd?id=' + item.goodsId
     } else if (item.supplyType == 'cps_taobao') {
@@ -46,7 +46,7 @@ module.exports = {
       <image mode="aspectFill" bindtap="tapBanner" data-url="{{item.linkUrl}}" src="{{item.picUrl}}" />
     </swiper-item>
   </swiper>
-  <view wx:if="{{goodsDynamic}}" class="goodsDynamic">
+  <view wx:if="{{goodsDynamic && show_buy_dynamic == '1' }}" class="goodsDynamic">
     <swiper class="swiper2" autoplay circular vertical>
       <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
         <swiper-item>
@@ -151,7 +151,7 @@ module.exports = {
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title van-multi-ellipsis--l2">{{item.name}}</view>
-      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2">{{item.characteristic}}</view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="-webkit-line-clamp: 1;">{{item.characteristic}}</view>
       <view style='display:flex;'>
         <view class="goods-price">¥ {{item.minPrice}}</view>
         <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price"
@@ -212,7 +212,7 @@ module.exports = {
         <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title van-multi-ellipsis--l2">{{item.name}}</view>
-      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2">{{item.characteristic}}</view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="-webkit-line-clamp: 1;">{{item.characteristic}}</view>
       <view class="goods-price-container">
         <view class="goods-price">¥ {{item.minPrice}}</view>
         <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price2">¥ {{item.originalPrice}}

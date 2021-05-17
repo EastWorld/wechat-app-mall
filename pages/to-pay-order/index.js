@@ -276,9 +276,9 @@ Page({
               moneyUnit = '%'
             }
             if (ele.moneyHreshold) {
-              ele.nameExt = ele.name + ' [消费满' + ele.moneyHreshold + '元可减' + ele.money + moneyUnit + ']'
+              ele.nameExt = ele.name + ' [面值' + ele.money + moneyUnit + '，满' + ele.moneyHreshold + '元可用]'
             } else {
-              ele.nameExt = ele.name + ' [减' + ele.money + moneyUnit + ']'
+              ele.nameExt = ele.name + ' [面值' + ele.money + moneyUnit + ']'
             }
           })
           coupons = res.data.couponUserList

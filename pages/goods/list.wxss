@@ -239,3 +239,9 @@ page,view,image,input {
   left: 0;
   text-align: center;
 }
+.originalPrice {
+  color: #aaa;
+  text-decoration: line-through;
+  margin-left: 20rpx;
+  font-size: 26rpx;
+}

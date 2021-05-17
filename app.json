@@ -142,16 +142,6 @@
       "desc": "获取离你最近的门店"
     }
   },
-  "plugins": {
-    "live-player-plugin": {
-      "version": "1.3.0",
-      "provider": "wx2b03c6e691cd7370"
-    },
-    "goodsSharePlugin": {
-       "version": "4.0.1",
-       "provider": "wx56c8f077de74b07c"
-     }
-  },
   "usingComponents": {
     "float-menu": "/components/float-menu/index",
     "parser":"/components/parser.20200414.min/parser",

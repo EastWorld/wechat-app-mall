@@ -18,13 +18,29 @@ Page({
   onLoad: function (options) {
     this.setData({
       name: options.name,
-      categoryId: options.categoryId,
-      show_seller_number: wx.getStorageSync('show_seller_number')
+      categoryId: options.categoryId
     })
     this.search()
+    this.readConfigVal()
+    // 补偿写法
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
   },
   onShow: function () {
 
+  },
+  readConfigVal() {
+    const show_seller_number = wx.getStorageSync('show_seller_number')
+    const goods_search_show_type = wx.getStorageSync('goods_search_show_type')
+    let listType = 1
+    if (goods_search_show_type == 2) {
+      listType = 2
+    }
+    this.setData({
+      show_seller_number,
+      listType
+    })
   },
   async search(){
     wx.showLoading({

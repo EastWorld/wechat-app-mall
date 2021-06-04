@@ -28,7 +28,7 @@
       </view>
     </view>
   </view>
-  <view class="case_subject_cont" id="ys0">
+  <view class="case_subject_cont" id="ys0" wx:if="{{adddata.pics}}">
     <view id="ys1" class="cont_mod charact_cont">
       <view class="indep_mod">
         <view class="cont_title">
@@ -36,8 +36,8 @@
         </view>
         <view class="charactpic_list_mod"></view>
       </view>
-      <swiper class='c1' display-multiple-items="{{2.4}}" previous-margin="50rpx" next-margin="50rpx">
-        <swiper-item wx:for="{{adddata.pics}}" wx:key="index" style="padding:0 20rpx" data-idx="{{ index }}" bindtap="previewImg">
+      <swiper class='c1' display-multiple-items="{{2}}" previous-margin="50rpx" next-margin="50rpx">
+        <swiper-item wx:if="{{adddata.pics}}" wx:for="{{adddata.pics}}" wx:key="index" style="padding:0 20rpx" data-idx="{{ index }}" bindtap="previewImg">
           <view class="swiper-item-c1">
             <image class='swiper-item-c1-img' src='{{item.pic}}' mode="widthFix"></image>
           </view>

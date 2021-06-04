@@ -1,13 +1,6 @@
-const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
-
-const APP = getApp()
-// fixed首次打开不显示标题的bug
-APP.configLoadOK = () => {
-  
-}
 
 Page({
 	data: {
@@ -28,16 +21,14 @@ Page({
     userInfoStatus: 0 // 0 未读取 1 没有详细信息 2 有详细信息
   },
 	onLoad() {
+    this.readConfigVal()
+    // 补偿写法
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
 	},
   onShow() {
     const _this = this
-    const order_hx_uids = wx.getStorageSync('order_hx_uids')
-    this.setData({
-      version: CONFIG.version,
-      order_hx_uids,
-      cps_open: wx.getStorageSync('cps_open'),
-      recycle_open: wx.getStorageSync('recycle_open'),
-    })
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
         _this.getUserApiInfo();
@@ -56,6 +47,16 @@ Page({
     })
     AUTH.wxaCode().then(code => {
       this.data.code = code
+    })
+  },
+  readConfigVal() {
+    this.setData({
+      order_hx_uids: wx.getStorageSync('order_hx_uids'),
+      cps_open: wx.getStorageSync('cps_open'),
+      recycle_open: wx.getStorageSync('recycle_open'),
+      show_3_seller: wx.getStorageSync('show_3_seller'),
+      show_quan_exchange_score: wx.getStorageSync('show_quan_exchange_score'),
+      show_score_exchange_growth: wx.getStorageSync('show_score_exchange_growth'),
     })
   },
   async getUserApiInfo() {

@@ -84,15 +84,15 @@
     </block>
   </view>
 
-  <van-cell-group title="三级分销">
+  <van-cell-group wx:if="{{ show_3_seller == 1 }}" title="三级分销">
     <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/pages/fx/apply-status" />
     <van-cell wx:else title="分销中心" is-link url="/pages/fx/apply-status" />
     <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="销售团队" is-link url="/pages/fx/members" />
     <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="佣金明细" is-link url="/pages/fx/commisionLog" />
   </van-cell-group>
   <van-cell-group title="其他功能">
-    <van-cell title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
-    <van-cell title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
+    <van-cell wx:if="{{ show_quan_exchange_score == 1 }}" title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
+    <van-cell wx:if="{{ show_score_exchange_growth == 1 }}" title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
     <van-cell title="帮助中心" is-link url="/pages/help/index" />
     <van-cell title="个人信息" is-link url="/pages/my/info-menu" />
     <van-cell title="系统设置" is-link url="/pages/my/setting" />

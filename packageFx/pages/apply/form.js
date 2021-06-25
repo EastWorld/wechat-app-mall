@@ -1,4 +1,3 @@
-const app = getApp()
 const WXAPI = require('apifm-wxapi')
 
 Page({
@@ -44,18 +43,23 @@ Page({
     this.data.mobile = e.detail.value
   },
   bindSave(){
-    wx.requestSubscribeMessage({
-      tmplIds: ['7sO58VXh0T5a6SwB5c9hR43bnBPxW8E6v3d70QQXuIk'],
-      success(res) {
-
-      },
-      fail(e) {
-        console.error(e)
-      },
-      complete: (e) => {
-        this.bindSaveDone()
-      },
-    })
+    const fx_subscribe_ids = wx.getStorageSync('fx_subscribe_ids')
+    if (fx_subscribe_ids) {
+      wx.requestSubscribeMessage({
+        tmplIds: fx_subscribe_ids.split(','),
+        success(res) {
+  
+        },
+        fail(e) {
+          console.error(e)
+        },
+        complete: (e) => {
+          this.bindSaveDone()
+        },
+      })
+    } else{
+      this.bindSaveDone()
+    }
   },
   bindSaveDone: function () {
     const name = this.data.name
@@ -82,8 +86,8 @@ Page({
         })
         return
       }
-      wx.navigateTo({
-        url: "/pages/fx/apply-status"
+      wx.redirectTo({
+        url: "/packageFx/pages/apply/index"
       })
     })
   },

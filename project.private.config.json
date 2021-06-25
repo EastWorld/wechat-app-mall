@@ -63,13 +63,6 @@
         },
         {
           "id": -1,
-          "name": "分销中心",
-          "pathName": "pages/fx/apply-status",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
           "name": "notice",
           "pathName": "pages/notice/index",
           "query": "",
@@ -186,6 +179,43 @@
         {
           "name": "demos/pages/ab/index",
           "pathName": "demos/pages/ab/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/apply/index",
+          "pathName": "packageFx/pages/apply/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/apply/form",
+          "pathName": "packageFx/pages/apply/form",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/index/index",
+          "pathName": "packageFx/pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/myusers/index",
+          "pathName": "packageFx/pages/myusers/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/commisionLog/index",
+          "pathName": "packageFx/pages/commisionLog/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/index/index",
+          "pathName": "packageFx/pages/index/index",
+          "query": "",
           "scene": null
         }
       ]

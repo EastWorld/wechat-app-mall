@@ -1,8 +1,0 @@
-.logo {
-  width: 750rpx;
-}
-.title {
-  text-align: center;
-  color:#333;
-  font-size:14px;
-}

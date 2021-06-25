@@ -48,6 +48,7 @@ Page({
     }
     if (res.code == 0) {
       const statisticsCommisionMap = res.data.statisticsCommisionMap
+      const userCashMap = res.data.userCashMap
       res.data.result.forEach(ele => {
         if (!ele.avatarUrls) {
           ele.avatarUrls = '/images/face.png'
@@ -58,6 +59,15 @@ Page({
         const _statisticsCommisionMap = statisticsCommisionMap[ele.uids]
         if (_statisticsCommisionMap) {
           ele.saleroom = _statisticsCommisionMap.saleroom
+          ele.numberOrder = _statisticsCommisionMap.numberOrder
+        }
+        if (userCashMap) {
+          const _userCashMap = userCashMap[ele.uids]
+          if (_userCashMap) {
+            ele.totleConsumed = _userCashMap.totleConsumed
+            ele.totalPayNumber = _userCashMap.totalPayNumber
+            ele.totalPayAmount = _userCashMap.totalPayAmount
+          }
         }
       })
       if (this.data.page == 1) {

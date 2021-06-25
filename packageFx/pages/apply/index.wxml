@@ -1,0 +1,31 @@
+<view class='noApply' wx:if="{{applyStatus == -1}}">
+  <van-empty description="诚邀您成为分销商" />
+  <view class="block-btn">
+    <van-button type="primary" block round bind:click="goForm">免费申请 等待管理员审核</van-button>
+  </view>
+  <view wx:if="{{ setting.canBuy }}" class="block-btn">
+    <van-button type="warning" block round bind:click="buy">直接支付{{ setting.price }}元，立即免审开通</van-button>
+  </view>
+</view>
+
+<view class='noApply' wx:if="{{applyStatus == 0}}">
+    <van-empty description="感谢您的支持，请等待管理员审核" />
+    <view class="block-btn">
+      <van-button type="primary" block round bind:click="goShop">先去逛逛</van-button>
+    </view>
+</view>
+
+<view class='noApply' wx:if="{{applyStatus == 1}}">
+  <van-empty description="很遗憾，您的申请没有通过 {{applyInfo.remark}}" />
+  <view class="block-btn">
+    <van-button type="danger" block round bind:click="goShop">回首页</van-button>
+  </view>
+</view>
+
+<view class='noApply' wx:if="{{applyStatus == 2}}">
+  <van-icon name="checked" color="#07c160" size="240rpx" />
+  <view>恭喜您成为分销商</view>
+  <view class="block-btn" style="margin-top:240rpx;">
+    <van-button type="primary" block round bind:click="goFx">前往分销中心</van-button>
+  </view>
+</view>

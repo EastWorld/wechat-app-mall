@@ -29,10 +29,6 @@
     "pages/score/growth",
     "pages/sign/index",
     "pages/maidan/index",
-    "pages/fx/apply",
-    "pages/fx/apply-status",
-    "pages/fx/members",
-    "pages/fx/commisionLog",
     "pages/coupons/index",
     "pages/coupons/merge",
     "pages/invoice/list",
@@ -77,6 +73,19 @@
         "pages/goods-details/cps-pdd",
         "pages/goods-details/cps-taobao",
         "pages/order-list/cps"
+      ]
+    },
+    {
+      "root": "packageFx",
+      "name": "packageFx",
+      "pages": [
+        "pages/index/index",
+        "pages/apply/index",
+        "pages/apply/form",
+        "pages/myusers/index",
+        "pages/commisionLog/index",
+        "pages/report/team",
+        "pages/report/city"
       ]
     },
     {

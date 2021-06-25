@@ -54,7 +54,7 @@
     <van-grid-item icon="bill-o" text="申请发票" url="/pages/invoice/apply" />
     <van-grid-item icon="bill-o" text="开票记录" url="/pages/invoice/list" />
     <van-grid-item icon="coupon-o" text="优惠券" url="/pages/coupons/index" link-type="switchTab" />
-    <van-grid-item icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
+    <van-grid-item wx:if="{{ show_score_sign == 1 }}" icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
   </van-grid>
   <!-- 老样式 -->
   <view class="container">
@@ -85,10 +85,10 @@
   </view>
 
   <van-cell-group wx:if="{{ show_3_seller == 1 }}" title="三级分销">
-    <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/pages/fx/apply-status" />
-    <van-cell wx:else title="分销中心" is-link url="/pages/fx/apply-status" />
-    <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="销售团队" is-link url="/pages/fx/members" />
-    <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="佣金明细" is-link url="/pages/fx/commisionLog" />
+    <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/packageFx/pages/apply/index" />
+    <van-cell wx:else title="分销中心" is-link url="/packageFx/pages/index/index" />
+    <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="我的团队" is-link url="/packageFx/pages/myusers/index" />
+    <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="推广订单" is-link url="/packageFx/pages/commisionLog/index" />
   </van-cell-group>
   <van-cell-group title="其他功能">
     <van-cell wx:if="{{ show_quan_exchange_score == 1 }}" title="积分券兑换积分" is-link url="/pages/score-excharge/index" />

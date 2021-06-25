@@ -1,0 +1,58 @@
+<!-- <van-cell-group>
+  <picker mode="date" value="{{dateBegin}}" bindcancel="dateBeginCancel" bindchange="dateBeginChange">
+    <van-cell title="起始时间" value="{{ dateBegin }}" is-link />
+  </picker>
+  <picker mode="date" value="{{dateEnd}}" bindcancel="dateEndCancel" bindchange="dateEndChange">
+    <van-cell title="截止时间" value="{{ dateEnd }}" is-link />
+  </picker>
+  <van-field
+    label="销售员"
+    model:value="{{ sellerMobile }}"
+    placeholder="输入销售员手机号码"
+    type="number"
+    clearable
+  />
+</van-cell-group>
+<view class="btn-box">
+  <van-button type="primary" block bind:click="getCommisionLog">搜索</van-button>
+</view> -->
+<!-- <van-cell wx:if="{{orderList && orderList.length > 0}}" title="销售总额" value="¥{{ aggregate.sum_sale_amount }}" /> -->
+<view class="container">
+  <van-empty wx:if="{{!orderList || orderList.length == 0}}" description="暂无订单" />
+  <view class="order-list" hidden="{{orderList.length>0 ? false : true}}">
+    <view class="a-order" wx:for="{{orderList}}" wx:key="index">
+      <van-cell title="订单号：{{item.orderNumber}}" value="{{item.statusStr}}" label="购买用户:{{ item.buyerUserNick }}" title-style="flex:3" />
+      <van-card
+        wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="g"
+        num="{{ g.number }}"
+        price="{{ g.amountSingle }}"
+        desc=""
+        title="{{ g.goodsName }}"
+        thumb="{{ g.pic }}"
+        centered
+      >
+        <view slot="bottom" style="color:#ee0a24;">
+          {{ g.commisionRecord.bili }}% 返佣
+          {{ g.commisionRecord.money }} {{g.commisionRecord.unit==0?'元':'积分'}}
+          <text wx:if="{{g.commisionRecord.isSettlement}}"
+            style='color:green;margin-left:10px;font-size:14px;'>已结算</text>
+          <text wx:else style='color:gray;margin-left:10px;font-size:14px;'>待结算</text>
+        </view>
+      </van-card>
+      <view class="goods-price">
+        共 {{item.goodsNumber}} 件商品 合计：
+        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
+        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text>
+        ，累计佣金 <text class="p" wx:if="{{item.score <= 0}}">{{item.totalCommision}}</text>
+      </view>
+      <van-cell wx:if="{{ userInviter[item.goodsList[0].commisionRecord.uids] }}" title="销售员:{{ userInviter[item.goodsList[0].commisionRecord.uids].nick }}" />
+      <view class="goods-info">
+        <view class="goods-des">
+          <view class="remark" wx:if="{{item.remark && item.remark != ''}}">{{item.remark}}</view>
+          <view style="font-size:24rpx;color:#666;">下单日期：{{item.dateAdd}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
+</view>

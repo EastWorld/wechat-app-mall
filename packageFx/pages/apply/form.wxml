@@ -1,5 +1,5 @@
 <image wx:if="{{ adPositionFxTopPic }}" class="logo" src="{{ adPositionFxTopPic.val }}" mode="widthFix" />
-<view class="weui-cells__title title">请填写申请信息</view>
+<van-divider contentPosition="center">您的联系方式</van-divider>
 <view class="weui-cells weui-cells_after-title">
   <view wx:if="{{ userDetail && userDetail.referrer }}" class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
@@ -40,5 +40,3 @@
 <view class="weui-btn-area">
   <button class="weui-btn" type="primary" bindtap="bindSave">申请成为分销商</button>
 </view>
-
-<float-menu /> 

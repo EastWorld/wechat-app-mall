@@ -68,6 +68,7 @@ swiper-item image {
   align-items: center;
   justify-content: space-between;
   margin-right: 35rpx;
+  position: relative;
 }
 
 .goods-info-fx .item {

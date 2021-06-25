@@ -1,0 +1,118 @@
+page{
+    background-color: #f5f5f5;
+}
+
+.container{
+    width: 100%;
+    background-color: #F5f5f5;
+}
+.status-box{
+    width:100%;
+    height: 88rpx;
+    line-height: 88rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+.status-box .status-label{
+    width: 150rpx;
+    height: 100%;
+    text-align: center;
+    font-size:28rpx;
+    color:#353535;
+    box-sizing: border-box;
+    position: relative;
+}
+.status-box .status-label.active{
+    color:#393640;
+    border-bottom: 6rpx solid #393640;
+}
+.order-list{
+    width: 100%;
+}
+.order-list .a-order{
+    width: 100%;
+    background-color: #fff;
+    margin-top: 20rpx;
+}
+.a-order  .goods-info,
+.goods-img-container{
+    width: 720rpx;
+    margin-left: 30rpx;
+    border-top: 1rpx solid #eee;
+    padding: 30rpx 0;
+    display: flex;
+    align-items: center;
+}
+.goods-price {
+  font-size:26rpx;
+  width:720rpx;
+  text-align: right;
+}
+.goods-price .p {
+  font-size:36rpx;
+  color:#e64340;
+}
+.goods-info .img-box{
+    width: 120rpx;
+    height: 120rpx;
+    overflow: hidden;
+    margin-right: 30rpx;
+    background-color: #f7f7f7;
+}
+.goods-info .img-box .goods-img,
+.goods-img-container .img-box .goods-img{
+    width: 120rpx;
+    height: 120rpx;
+}
+.goods-info  .goods-des{
+    font-size:26rpx;
+    color:#000000;
+}
+.goods-img-container{
+    height: 180rpx;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+.goods-img-container .img-box{
+    width: 120rpx;
+    height: 120rpx;
+    overflow: hidden;
+    margin-right: 20rpx;
+    background-color: #f7f7f7;
+    display: inline-block;
+}
+.price-box{
+    width: 720rpx;
+    display: flex;
+    flex-direction:row-reverse;
+    padding-bottom: 30rpx;
+}
+.price-box .btn{
+    width: 166rpx;
+    height: 60rpx;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 60rpx;
+    border: 1rpx solid #ccc;
+    border-radius: 6rpx;
+    margin-left: 20rpx;
+    font-size:26rpx;
+
+    width: 160rpx;
+height: 60rpx;
+border-radius: 30rpx;
+
+}
+.price-box .active{
+    border:1rpx solid #e64340;
+    color: #e64340;
+}
+.remark {
+  color:#e64340;
+  margin-bottom: 20rpx;
+}
+.btn-box {
+    padding: 32rpx;
+}

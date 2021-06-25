@@ -1,0 +1,133 @@
+<view>
+  <image style="width:750rpx;height:486rpx" mode="aspectFit" src="../../images/index-top-bg.png"></image>
+</view>
+
+<!-- 如果当前用户是分销商 -->
+<view wx:if="{{apiUserInfoMap.base && apiUserInfoMap.base.isSeller}}">
+  <view class="tabTop" style="margin-top:-420rpx">
+    <view class="header-box">
+      <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
+      <view class="r">
+        <view class="uid">用户编号: {{ apiUserInfoMap.base.id }}</view>
+        <view style="display:flex">
+          <view class="nick">{{ apiUserInfoMap.base.nick }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="header-box2"> </view>
+    <view class="line"></view>
+    <view class="asset">
+      <view class='item' bindtap='goAsset' style="width: 170rpx">
+        <view class="Count">{{fxCommisionPaying}}</view>
+        <view>未结算金额</view>
+      </view>
+      <view class='item' bindtap='goAsset' style="width: 170rpx">
+        <view class="Count">{{freeze}}</view>
+        <view>冻结金额</view>
+      </view>
+      <view class='item right' bindtap='goAsset' style="width: 170rpx">
+        <view class="Count" style="color:#FF444A">{{balance}}</view>
+        <view>可用金额</view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="titleXS">
+      我的业绩
+    </view>
+    <view class="asset">
+      <view class='item'>
+        <view class="Count">{{commisionData.todayXiaoshou}}</view>
+        <view>今日销售</view>
+        <view class="yjP">{{commisionData.today ? commisionData.today : 0}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+      <view class='item right'>
+        <view class="Count">{{commisionData.yesdayXiaoshou}}</view>
+        <view>昨天销售</view>
+        <view class="yjP">{{commisionData.yesday ? commisionData.yesday : 0}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+      <view class='item right'>
+        <view class="Count">{{commisionData.thisMonthXiaoshou}}</view>
+        <view>本月销售</view>
+        <view class="yjP">{{commisionData.thisMonth ? commisionData.thisMonth : 0}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+      <view class='item right'>
+        <view class="Count">{{commisionData.lastMonthXiaoshou}}</view>
+        <view>上月销售</view>
+        <view class="yjP">{{commisionData.lastMonth ? commisionData.lastMonth : 0}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{ apiUserInfoMap.referrer }}" class="tuan" style="padding: 40rpx 40rpx 20rpx 40rpx;">
+    <view>我的邀请人</view>
+    <view class="line2"></view>
+    <view style="display:flex">
+      <image style="width:80rpx;height:80rpx;margin:10px 20px 0px 0;border-radius:100%"
+        src="{{apiUserInfoMap.referrer.avatarUrl}}"></image>
+      <view style="height:120rpx;line-height:120rpx;font-size:26rpx;">{{apiUserInfoMap.referrer.nick}}</view>
+    </view>
+  </view>
+  <image wx:if="{{ fxIndexAdPos }}" src="{{ fxIndexAdPos.val }}" mode="widthFix" class="adpos" data-url="{{ fxIndexAdPos.url }}" bindtap="goUrl"></image>
+  <van-cell-group title="分销信息" custom-class="cell-class">
+    <van-field
+      value="{{ apiUserInfoMap.base.id }}"
+      readonly
+      center
+      clearable
+      label="我的邀请码"
+      use-button-slot
+    >
+      <van-button slot="button" size="small" type="info" round bindtap="copyContent" data-id="{{ apiUserInfoMap.base.id }}">复制</van-button
+      >
+    </van-field>
+    <van-cell title="我的团队" value="查看" is-link url="../myusers/index" />
+    <van-cell title="推广订单" value="查看" is-link url="../commisionLog/index" />
+    <van-cell title="账单明细" value="查看" is-link url="/pages/asset/index" />
+  </van-cell-group>
+
+  <!-- 团队长、副队长 -->
+  <van-cell-group wx:if="{{apiUserInfoMap.saleDistributionTeam && (apiUserInfoMap.saleDistributionTeam.leader == apiUserInfoMap.base.id || apiUserInfoMap.saleDistributionTeam.deputyLeader == apiUserInfoMap.base.id ) }}" custom-class="cell-class" title="我的团队">
+    <van-cell title="{{ apiUserInfoMap.saleDistributionTeam.name }}" />
+    <van-cell title="身份" value="{{ apiUserInfoMap.saleDistributionTeam.leader == apiUserInfoMap.base.id ? '队长' : '副队长' }}" />
+    <van-cell title="销售目标" value="¥{{ apiUserInfoMap.saleDistributionTeam.standardSaleroom }}/月" />
+    <van-cell title="本月销售" value="¥{{ apiUserInfoMap.saleDistributionTeam.curSaleroom }}" />
+    <van-cell title="月度报表" is-link url="../report/team?teamId={{ apiUserInfoMap.base.teamId }}" />
+  </van-cell-group>
+
+  <!-- 城市合伙人 -->
+  <van-cell-group wx:for="{{fxCities}}" wx:key="id" custom-class="cell-class" title="{{ item.provinceName }}{{ item.cityName }}合伙人">
+    <van-cell title="销售目标" value="¥{{ item.standardSaleroom }}/月" />
+    <van-cell title="本月销售" value="¥{{ item.curSaleroom }}" />
+    <van-cell title="月度报表" is-link url="../report/city?provinceId={{ item.provinceId }}&cityId={{ item.cityId }}" />
+  </van-cell-group>
+  
+  <view class='noApply' style="padding-top:10px;padding-bottom:20px">
+    <view style="text-align:center;">
+      <view class="canvas-box">
+        <canvas class="canvas" style="width:{{canvasHeight}}px;height:{{canvasHeight}}px" canvas-id="firstCanvas"></canvas>
+      </view>
+      <view class="tzBtn" bindtap="saveToMobile" style="margin-top:10px;background: #F5D795;padding: 0 16rpx;">
+        保存到相册
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 还不是分销商 -->
+<view wx:if="{{apiUserInfoMap.base && !apiUserInfoMap.base.isSeller}}" class="tabTop" style="margin-top:-450rpx">
+  <view class="header-box">
+    <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
+    <view class="r">
+      <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
+      <view class="nick">{{ apiUserInfoMap.base.nick }}</view>
+    </view>
+  </view>
+  <view class="header-box2">您当前还不是分销商</view>
+  <view class="line"></view>
+  <view class="header-box2" bindtap="goApply">立即前往申请成为分销商 ></view>
+</view>

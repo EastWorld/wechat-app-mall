@@ -35,7 +35,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.16.0",
+  "libVersion": "2.17.3",
   "appid": "wxa46b09d413fbcaff",
   "projectname": "天使童装",
   "scripts": {},
@@ -100,13 +100,6 @@
           "name": "生成海报",
           "pathName": "pages/goods-details/poster",
           "query": "goodsid=6761",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "分销中心",
-          "pathName": "pages/fx/apply-status",
-          "query": "",
           "scene": null
         },
         {

@@ -1,0 +1,29 @@
+<van-sticky>
+  <van-tabs active="{{ activeIndex }}" bind:change="tabChange">
+    <van-tab title="直推" info="{{ number1 ? number1 : '' }}" />
+    <van-tab title="间推" info="{{ number2 ? number2 : '' }}" />
+  </van-tabs>
+</van-sticky>
+<van-empty wx:if="{{ !members || members.length == 0 }}" description="暂无团队" />
+<view wx:for="{{members}}" wx:key="id" class="list">
+  <image src="{{ item.avatarUrls }}" mode="aspectFill" class="l"></image>
+  <view class="r">
+    <van-cell
+      title="{{ item.nicks }}"
+      label="{{ item.mobileMasks}}"
+      is-link
+      url="myusers-detail?id={{ item.uids }}"
+    />
+    <van-cell
+      title-style="flex:2"
+      title="成交额"
+      value="¥{{ item.totalPayAmount ? item.totalPayAmount : 0}}"
+    />
+    <van-cell
+      title-style="flex:2"
+      title="订单数"
+      label="最近下单:{{ item.lastOrderDate ? item.lastOrderDate : '-'}}"
+      value="{{ item.totalPayNumber ? item.totalPayNumber : 0}}笔"
+    />
+  </view>
+</view>

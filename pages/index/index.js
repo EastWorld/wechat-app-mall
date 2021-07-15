@@ -87,6 +87,7 @@ Page({
     })
   },
   onLoad: function(e) {
+    WXAPI.fxMyCommisionStatistics(wx.getStorageSync('token'), '0')
     wx.showShareMenu({
       withShareTicket: true,
     })

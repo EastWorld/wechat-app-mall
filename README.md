@@ -28,14 +28,14 @@
 
 | 舔果果小铺（升级版） | 面馆风格小程序 | AI名片 |
 | :------: | :------: | :------: |
-| <img src="https://dcdn.it120.cc/2020/08/30/fd095c58-e655-4785-af0a-89e0b4da7cfe.jpg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2019/03/29/9e30cfe31eabcd218eb9c434f17e9295.jpg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2018/12/18/c2324da4eea91602f385db5b523b13ca.jpg" width="200px"> | 
+| <img src="https://dcdn.it120.cc/2020/08/30/fd095c58-e655-4785-af0a-89e0b4da7cfe.jpg" width="200px"> | <img src="https://dcdn.it120.cc/2021/06/25/5caa3793-2e70-43ef-b86a-356c26d89e19.jpeg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2018/12/18/c2324da4eea91602f385db5b523b13ca.jpg" width="200px"> | 
 | [开源地址](https://github.com/gooking/TianguoguoXiaopu) | [开源地址](https://gitee.com/javazj/noodle_shop_procedures) | [开源地址](https://github.com/gooking/visitingCard) |
 
 ## 联系作者
 
-| 微信好友 | 支付宝好友 |
+| 微信好友 | QQ好友 |
 | :------: | :------: |
-| <img src="https://cdn.it120.cc/apifactory/2019/07/03/a86f7e46-1dbc-42fe-9495-65403659671e.jpeg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2019/07/03/fda59aeb-4943-4379-93bb-92856740bd6a.jpeg" width="200px"> |
+| <img src="https://cdn.it120.cc/apifactory/2019/07/03/a86f7e46-1dbc-42fe-9495-65403659671e.jpeg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2019/07/07/d420e29b-872e-4147-b57d-0aa988cd4853.png" width="200px"> |
 
 ## 本项目使用了下面的组件，在此鸣谢
 

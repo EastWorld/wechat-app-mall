@@ -217,6 +217,18 @@
           "pathName": "packageFx/pages/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "门店列表",
+          "pathName": "pages/shop/select",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/test/webview",
+          "pathName": "pages/test/webview",
+          "query": "",
+          "scene": 1011
         }
       ]
     }

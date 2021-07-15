@@ -858,6 +858,9 @@ module.exports = {
   fxMembersStatistics: function fxMembersStatistics(token) {
     return request('/saleDistribution/members/statistics', true, 'get', { token: token });
   },
+  fxMyCommisionStatistics: function fxMyCommisionStatistics(token, days) {
+    return request('/saleDistribution/my/commision', true, 'get', { token: token, days: days });
+  },
   fxGoods: function fxGoods(data) {
     return request('/saleDistribution/goods', true, 'post', data);
   },

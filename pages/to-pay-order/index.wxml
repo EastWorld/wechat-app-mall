@@ -10,24 +10,60 @@
   </view>
 </block>
 <block wx:if="{{ bindMobileStatus == 1 }}">
-  <van-card
-    wx:for="{{goodsList}}" wx:key="index"
-    num="{{item.number}}"
-    price="{{item.price}}"
-    title="{{item.name}}"
-    thumb="{{ item.pic }}"
-    centered
-    >
-    <view slot="desc">
-      {{item.label}}
-      <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
-        {{option.optionName}}:{{option.optionValueName}}
-      </block>
-      <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
-        {{option.pname}}:{{option.name}}
-      </block>
-    </view>
-  </van-card>
+  <block wx:if="{{ orderType != 'buyNow' }}"> <!-- 购物车 -->
+    <van-cell-group wx:for="{{shopList}}" wx:for-item="shop" wx:for-index="shopIndex" wx:key="id" title="{{ shop.name }}">
+      <van-card
+        wx:for="{{goodsList}}" wx:key="index"
+        wx:if="{{ item.shopId == shop.id }}"
+        num="{{item.number}}"
+        price="{{item.price}}"
+        title="{{item.name}}"
+        thumb="{{ item.pic }}"
+        centered
+        >
+        <view slot="desc">
+          {{item.label}}
+          <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+            {{option.optionName}}:{{option.optionValueName}}
+          </block>
+          <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+            {{option.pname}}:{{option.name}}
+          </block>
+        </view>
+      </van-card>
+      <view class="peisong-way" hidden="{{ shop.hasNoCoupons }}">
+        <view class="row-box" style="border-bottom:none;">
+          <view class="row-label t">使用优惠券</view>
+        </view>
+        <picker data-sidx="{{ shopIndex }}" bindchange="bindChangeCouponShop" range="{{ shop.coupons }}" range-key="nameExt">
+          <view class="row-box" style="border-bottom:none;">      
+            <view class="row-label">{{ shop.curCouponShowText }}</view>
+            <image class="next" src="/images/icon/next.png"></image>
+          </view>
+        </picker>
+      </view>
+    </van-cell-group>
+  </block>
+  <block wx:else> <!-- 立即购买 -->
+    <van-card
+      wx:for="{{goodsList}}" wx:key="index"
+      num="{{item.number}}"
+      price="{{item.price}}"
+      title="{{item.name}}"
+      thumb="{{ item.pic }}"
+      centered
+      >
+      <view slot="desc">
+        {{item.label}}
+        <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+          {{option.optionName}}:{{option.optionValueName}}
+        </block>
+        <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+          {{option.pname}}:{{option.name}}
+        </block>
+      </view>
+    </van-card>
+  </block>
   <view class="container-box cell-group">
     <view class="peisong-way">
       <view class="row-box" wx:if="{{shopCarType == 0 && isNeedLogistics > 0}}">

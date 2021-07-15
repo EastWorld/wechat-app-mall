@@ -12,6 +12,7 @@
     model:value="{{ nick }}"
     placeholder="请输入昵称"
     clearable
+    input-align="right"
   />
   <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
     <van-cell title="性别" value="{{ gender }}" is-link />
@@ -31,7 +32,7 @@
     label="{{ k }}"
     name="{{ k}}"
     value="{{ item }}"
-    placeholder="请输入职位"
+    placeholder="请输入信息"
     clearable
   />
   <view class="btn">

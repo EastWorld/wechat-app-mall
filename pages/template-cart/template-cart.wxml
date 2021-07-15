@@ -7,7 +7,49 @@
 </template>
 
 <template name="cart-goods-list">
-  <view class="goodsList">
+  <view wx:if="{{ shopCarType == 0 }}" class="goodsList"> <!-- 自营 -->
+    <van-cell-group wx:for="{{shopList}}" wx:for-item="shop" wx:for-index="shopIndex" wx:key="id" title="{{ shop.name }}">
+      <view class="a-gooods" wx:for="{{items}}" wx:key="key" wx:if="{{ item.shopId == shop.id }}">
+        <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM"
+          bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
+          <view class="goods-info">
+            <view class="radio-box">
+              <radio checked="{{ item.selected }}" bindtap="radioClick" data-index="{{index}}" />
+            </view>
+            <view class="img-box">
+              <image mode="aspectFill" src="{{item.pic}}" class="img" />
+            </view>
+            <view class="text-box">
+              <view class="goods-title">{{item.name}}</view>
+              <view wx:show="{{item.sku}}" class="goods-label">
+                <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+                  {{option.optionName}}:{{option.optionValueName}}
+                </block>
+                <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+                  {{option.pname}}:{{option.name}}
+                </block>
+              </view>
+              <view class="goods-price">¥ {{item.price}}</view>
+              <view class="buy-num">
+                <view class="jian-btn" catchtap="jianBtnTap" data-index="{{index}}">-</view>
+                <input type="number" value="{{item.number}}" data-key="{{item.key}}" bindinput="changeCarNumber" />
+                <view class="jia-btn {{item.number==curTouchGoodStore? 'disabled' : ''}}" catchtap="jiaBtnTap"
+                  data-index="{{index}}">+</view>
+              </view>
+            </view>
+          </view>
+          <view class="delete-btn" data-key="{{item.key}}" catchtap="delItem">
+            删除
+          </view>
+          <!-- <view class="del-icon">
+            <van-icon name="close" size="32rpx" color="#000" data-key="{{item.key}}" catchtap="delItem" />
+          </view> -->
+        </view>
+      </view>
+    </van-cell-group>
+    
+  </view>
+  <view wx:if="{{ shopCarType == 1 }}" class="goodsList"> <!-- vop -->
     <view class="a-gooods" wx:for="{{items}}" wx:key="key">
       <view class="a-goods-conts {{item.active? 'active':''}}" bindtouchstart="touchS" bindtouchmove="touchM"
         bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">

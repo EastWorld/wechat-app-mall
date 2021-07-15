@@ -17,7 +17,7 @@ async function smart(event) {
   copyaddress = copyaddress.split(" ");
   console.log('地址转为数组:', copyaddress);
   for (let index = 0; index < copyaddress.length; index++) {
-    const res = copyaddress[index];
+    let res = copyaddress[index];
     if (res) {
       if (res.length == 1) {
         res += "XX"; // 过滤掉一位的名字或者地址

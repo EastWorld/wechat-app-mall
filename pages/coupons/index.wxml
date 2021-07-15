@@ -1,6 +1,8 @@
-<van-tabs bind:change="tabClick">
-  <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
-</van-tabs>
+<van-sticky>
+  <van-tabs bind:change="tabClick">
+    <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+  </van-tabs>
+</van-sticky>
 <van-cell wx:if="{{ activeIndex == 1 && coupons && coupons.length == 0 }}" custom-class="hecheng" title="合成高品质优惠券" value="合成" is-link />
 <van-empty wx:if="{{ activeIndex != 3 && (!coupons || coupons.length == 0) }}" description="暂无优惠券" />
 <view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 0}}">

@@ -4,6 +4,28 @@ const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const wxpay = require('../../utils/pay.js')
 
+Date.prototype.format = function(format) {
+  var date = {
+         "M+": this.getMonth() + 1,
+         "d+": this.getDate(),
+         "h+": this.getHours(),
+         "m+": this.getMinutes(),
+         "s+": this.getSeconds(),
+         "q+": Math.floor((this.getMonth() + 3) / 3),
+         "S+": this.getMilliseconds()
+  };
+  if (/(y+)/i.test(format)) {
+         format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+  }
+  for (var k in date) {
+         if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                       ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+         }
+  }
+  return format;
+}
+
 Page({
   data: {
     totalScoreToPay: 0,
@@ -29,7 +51,33 @@ Page({
     bindMobileStatus: 0, // 0 未判断 1 已绑定手机号码 2 未绑定手机号码
     userScore: 0, // 用户可用积分
     deductionScore: '0', // 本次交易抵扣的积分数
-    shopCarType: 0 //0自营购物车，1云货架购物车
+    shopCarType: 0, //0自营购物车，1云货架购物车
+    dyopen: 0, // 是否开启订阅
+    dyunit: 0, // 按天
+    dyduration: 1, // 订阅间隔
+    dytimes: 1, // 订阅次数
+    dateStart: undefined, // 订阅首次扣费时间
+    minDate: new Date().getTime(),
+    maxDate: new Date(2030, 10, 1).getTime(),
+    currentDate: new Date().getTime(),
+    formatter: (type, value) => {
+      if (type === 'year') {
+        return `${value}年`;
+      } 
+      if (type === 'month') {
+        return `${value}月`;
+      }
+      if (type === 'day') {
+        return `${value}日`;
+      }
+      if (type === 'hour') {
+        return `${value}点`;
+      }
+      if (type === 'minute') {
+        return `${value}分`;
+      }
+      return value;
+    },
   },
   onShow() {
     if (this.data.pageIsEnd) {
@@ -91,8 +139,11 @@ Page({
   },
 
   onLoad(e) {
+    const nowDate = new Date();
     let _data = {
-      isNeedLogistics: 1
+      isNeedLogistics: 1,
+      dateStart: nowDate.format('yyyy-MM-dd h:m:s'),
+      orderPeriod_open: wx.getStorageSync('orderPeriod_open')
     }
     if (e.orderType) {
       _data.orderType = e.orderType
@@ -166,7 +217,17 @@ Page({
       peisongType: this.data.peisongType,
       deductionScore: this.data.deductionScore,
       goodsType: this.data.shopCarType
-    };
+    }
+    if (this.data.dyopen == 1) {
+      const orderPeriod = {
+        unit: this.data.dyunit,
+        duration: this.data.dyduration,
+        dateStart: this.data.dateStart,
+        times: this.data.dytimes,
+        autoPay: true
+      }
+      postData.orderPeriod = JSON.stringify(orderPeriod)
+    }
     if (this.data.kjId) {
       postData.kjid = this.data.kjId
     }
@@ -622,6 +683,16 @@ Page({
       this.fetchShops()
     }
   },
+  dyChange(e) {
+    this.setData({
+      dyopen: e.detail.value
+    })
+  },
+  dyunitChange(e) {
+    this.setData({
+      dyunit: e.detail.value
+    })
+  },
   cancelLogin() {
     wx.navigateBack()
   },
@@ -715,4 +786,22 @@ Page({
     })
     this.processYunfei()
   },
+  dateStartclick(e) {
+    this.setData({
+      dateStartpop: true
+    })
+  },
+  dateStartconfirm(e) {
+    const d = new Date(e.detail)
+    this.setData({
+      dateStart: d.format('yyyy-MM-dd h:m:s'),
+      dateStartpop: false
+    })
+    console.log(e);
+  },
+  dateStartcancel(e) {
+    this.setData({
+      dateStartpop: false
+    })
+  }
 })

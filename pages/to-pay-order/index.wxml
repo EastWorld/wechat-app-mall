@@ -66,17 +66,18 @@
   </block>
   <view class="container-box cell-group">
     <view class="peisong-way">
-      <view class="row-box" wx:if="{{shopCarType == 0 && isNeedLogistics > 0}}">
-        <view class="row-label">配送方式</view>
-        <radio-group bindchange="radioChange">
-          <label class="radio">
-            <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
-          </label>
-          <label class="radio">
-            <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
-          </label>
-        </radio-group>
-      </view>
+      <van-cell wx:if="{{shopCarType == 0 && isNeedLogistics > 0}}" title="配送方式">
+        <view slot="">
+          <radio-group bindchange="radioChange">
+            <label class="radio">
+              <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
+            </label>
+            <label class="radio">
+              <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
+            </label>
+          </radio-group>
+        </view>
+      </van-cell>
       <van-cell wx:if="{{shopCarType == 1}}" title="配送地址" />
       <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
         <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
@@ -123,6 +124,70 @@
           <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入" />
         </view>
       </view>
+      <van-cell wx:if="{{ orderPeriod_open == 1 }}" title="订阅">
+        <view slot="">
+          <radio-group bindchange="dyChange">
+            <label class="radio">
+              <radio value="1" checked="{{ dyopen == 1 }}" /> 开启
+            </label>
+            <label class="radio">
+              <radio value="0" checked="{{ dyopen == 0 }}" /> 关闭
+            </label>
+          </radio-group>
+        </view>
+      </van-cell>
+      <van-cell wx:if="{{ dyopen == 1 }}" title="订阅周期">
+        <view slot="">
+          <radio-group bindchange="dyunitChange">
+            <label class="radio">
+              <radio value="0" checked="{{ dyunit == 0 }}" /> 天
+            </label>
+            <label class="radio">
+              <radio value="1" checked="{{ dyunit == 1 }}" /> 月
+            </label>
+            <label class="radio">
+              <radio value="2" checked="{{ dyunit == 2 }}" /> 年
+            </label>
+          </radio-group>
+        </view>
+      </van-cell>
+      <van-field
+        wx:if="{{ dyopen == 1 }}"
+        label="订阅间隔"
+        model:value="{{ dyduration }}"
+        type="number"
+        placeholder="请输入数字"
+        input-align="right"
+        use-button-slot
+      >
+        <view slot="button">
+          {{ dyunit == 0 ? '天': '' }}
+          {{ dyunit == 1 ? '月': '' }}
+          {{ dyunit == 2 ? '年': '' }}
+        </view>
+      </van-field>
+      <van-field
+        wx:if="{{ dyopen == 1 }}"
+        label="订阅次数"
+        model:value="{{ dytimes }}"
+        type="number"
+        placeholder="请输入数字"
+        input-align="right"
+        use-button-slot
+      >
+        <view slot="button">次</view>
+      </van-field>
+      <van-field
+        wx:if="{{ dyopen == 1 }}"
+        label="首次扣费"
+        is-link
+        readonly
+        value="{{ dateStart }}"
+        type="number"
+        placeholder="请输入数字"
+        input-align="right"
+        bind:click-input="dateStartclick"
+      />
     </view>
     <view class="peisong-way" hidden="{{hasNoCoupons}}">
       <view class="row-box" style="border-bottom:none;">
@@ -163,3 +228,18 @@
     bind:submit="goCreateOrder"
   />
 </block>
+
+<van-popup
+  show="{{ dateStartpop }}"
+  position="bottom"
+>
+  <van-datetime-picker
+    type="datetime"
+    value="{{ currentDate }}"
+    min-date="{{ minDate }}"
+    max-date="{{ maxDate }}"
+    formatter="{{ formatter }}"
+    bind:confirm="dateStartconfirm"
+    bind:cancel="dateStartcancel"
+  />
+</van-popup>

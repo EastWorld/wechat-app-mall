@@ -1,7 +1,9 @@
 <van-empty wx:if="{{ !addressList }}" description="暂无收货地址" />
 
 <view class="list" wx:for="{{addressList}}" wx:key="id">
-  <van-cell border="{{ false }}" title="{{item.linkMan}} {{item.mobile}}" label="{{item.address}}" bind:click="selectTap" data-id="{{item.id}}" />
+  <view class="aaa">
+    <van-cell custom-class="aaa" title="{{item.linkMan}} {{item.mobile}}" label="{{item.address}}" bind:click="selectTap" data-id="{{item.id}}" />
+  </view>
   <van-icon name="records" size="40rpx" bind:click="editAddess" data-id="{{item.id}}" />
 </view>
 

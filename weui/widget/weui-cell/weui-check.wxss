@@ -1,6 +1,0 @@
-/*!
- * WeUI v2.0.1 (https://github.com/weui/weui-wxss)
- * Copyright 2019 Tencent, Inc.
- * Licensed under the MIT license
- */
-.weui-cells_checkbox .weui-check__label:before{left:55px}.weui-check__label:active{background-color:#ececec}.weui-check{position:absolute;left:-9999px}.weui-check__hd_in-checkbox{padding-right:16px}.weui-cell__ft_in-radio{padding-left:16px}

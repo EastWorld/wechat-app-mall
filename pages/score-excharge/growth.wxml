@@ -14,18 +14,7 @@
     </view>
     <button type="warn" class="save-btn" formType="submit">立即兑换</button>
   </form>
-  <view wx:if="{{deductionRules}}" class="weui-panel weui-panel_access">
-    <view class="weui-panel__hd">兑换规则：</view>
-    <view class="weui-panel__bd">
-      <view wx:for="{{deductionRules}}" wx:key="id" class="weui-media-box weui-media-box_text">
-        <view class="weui-media-box__title weui-media-box__title_in-text">获得 {{ item.money }} 成长值</view>
-        <view class="weui-media-box__desc">{{ item.loop? '每满': '满' }} {{ item.score }} 积分即可兑换</view>
-      </view>
-    </view>
-  </view>
 </view>
-
-
-
-<import src="/template/login/index.wxml" />
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
+<van-cell-group wx:if="{{deductionRules}}" title="兑换规则：">
+  <van-cell wx:for="{{deductionRules}}" wx:key="id" title="获得 {{ item.money }} 成长值" value="{{ item.loop? '每满': '满' }} {{ item.score }} 积分即可兑换" />
+</van-cell-group>

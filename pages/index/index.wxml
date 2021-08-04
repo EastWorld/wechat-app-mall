@@ -82,12 +82,7 @@ module.exports = {
 </view>
 <view class="container">
   <block wx:for="{{categories}}" wx:key="id" wx:if="{{item.goods}}">
-    <view class="category-goods-title">
-      <view class="weui-panel__hd">{{item.name}}</view>
-      <view class="more">
-        <navigator url="/pages/goods/list?categoryId={{item.id}}">更多 ></navigator>
-      </view>
-    </view>
+    <van-cell title="{{item.name}}" value="更多" is-link url="/pages/goods/list?categoryId={{item.id}}" />
     <view class="goods-container">
       <view class="goods-box" wx:for="{{item.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
         <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2">{{item.characteristic}}</view>
@@ -161,22 +156,20 @@ module.exports = {
   </view>
   <view class="space"></view>
   <view wx-if="{{kanjiaList.length > 0 && activeCategoryId == 0}}"
-    class="weui-panel weui-panel_access kanjia-container">
+    class="kanjia-container">
     <van-divider custom-class="table-text" contentPosition="center">
       <image class="table-icon-kanjia" src="../../images/home/kanjia.png"></image> 疯狂砍价
     </van-divider>
-    <view class="weui-panel__bd">
-      <van-card custom-class="kanjia-vcard" wx:for="{{kanjiaList}}" wx:key="id" price="{{item.kanjiaPrice}}"
-        origin-price="{{item.originalPrice}}" desc="{{item.characteristic}}" title="{{item.name}}" thumb="{{item.pic}}">
-        <view slot="footer">
-          <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}" bind:click="toDetailsTap">砍价
-          </van-button>
-        </view>
-        <view slot="price-top">
-          <van-progress custom-class="vprogress" percentage="{{item.process}}" color="#FDEDED;" />
-        </view>
-      </van-card>
-    </view>
+    <van-card custom-class="kanjia-vcard" wx:for="{{kanjiaList}}" wx:key="id" price="{{item.kanjiaPrice}}"
+      origin-price="{{item.originalPrice}}" desc="{{item.characteristic}}" title="{{item.name}}" thumb="{{item.pic}}">
+      <view slot="footer">
+        <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}" bind:click="toDetailsTap">砍价
+        </van-button>
+      </view>
+      <view slot="price-top">
+        <van-progress custom-class="vprogress" percentage="{{item.process}}" color="#FDEDED;" />
+      </view>
+    </van-card>
   </view>
   <block wx:if="{{pingtuanList.length > 0 && activeCategoryId == 0}}">
     <view class='space'></view>
@@ -190,7 +183,7 @@ module.exports = {
         </view>
         <view class='tuan-title'>{{item.name}}</view>
         <view class='tuan-profile'>{{item.characteristic}}</view>
-        <view class="weui-badge" style="margin-left: 20rpx;" wx:if="{{item.tags}}">{{item.tags}}</view>
+        <van-tag custom-class="pingtuantag" wx:if="{{item.tags}}" type="danger">{{item.tags}}</van-tag>
         <view class='tuan-price'>
           <text class='now'>￥ {{item.pingtuanPrice}}</text>
           <text class='original'>￥ {{item.originalPrice}}</text>
@@ -220,10 +213,7 @@ module.exports = {
       </view>
     </view>
   </view>
-  <view hidden="{{loadingMoreHidden ? true : false}}" class="weui-loadmore weui-loadmore_line"
-    style='margin-top:60rpx;margin-bottom:30rpx;'>
-    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多啦</view>
-  </view>
+  <van-divider wx:if="{{ !loadingMoreHidden }}" contentPosition="center">没有更多啦</van-divider>
 </view>
 <view class='coupons-float' bindtap="goCoupons">
   <image src="/images/gift.png"></image>

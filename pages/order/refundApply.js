@@ -1,24 +1,28 @@
 const WXAPI = require('apifm-wxapi')
 Page({
   data: {
+    autosize: {
+      minHeight: 100
+    },
     orderId: 1,
     amount: 999.00,
 
     refundApplyDetail: undefined,
 
-    type: 0,
+    type: '0',
     typeItems: [
       { name: '我要退款(无需退货)', value: '0', checked: true },
       { name: '我要退货退款', value: '1' },
       { name: '我要换货', value: '2' },
     ],
 
-    logisticsStatus:0,
+    logisticsStatus:'0',
     logisticsStatusItems: [
       { name: '未收到货', value: '0', checked: true },
       { name: '已收到货', value: '1' }
     ],
 
+    reason: '不喜欢/不想要',
     reasons: [
       "不喜欢/不想要", 
       "空包裹", 
@@ -64,24 +68,37 @@ Page({
       }
     })
   },
-  typeItemsChange: function (e) {
-    const typeItems = this.data.typeItems;
-    for (var i = 0, len = typeItems.length; i < len; ++i) {
-      typeItems[i].checked = typeItems[i].value == e.detail.value;
-    }
+  typeChange(event) {
     this.setData({
-      typeItems: typeItems,
-      type: e.detail.value
+      type: event.detail,
     });
   },
-  logisticsStatusItemsChange: function (e) {
-    const logisticsStatusItems = this.data.logisticsStatusItems;
-    for (var i = 0, len = logisticsStatusItems.length; i < len; ++i) {
-      logisticsStatusItems[i].checked = logisticsStatusItems[i].value == e.detail.value;
-    }
+  typeClick(event) {
+    const { name } = event.currentTarget.dataset;
     this.setData({
-      logisticsStatusItems: logisticsStatusItems,
-      logisticsStatus: e.detail.value
+      type: name,
+    });
+  },
+  logisticsStatusChange(event) {
+    this.setData({
+      logisticsStatus: event.detail,
+    });
+  },
+  logisticsStatusClick(event) {
+    const { name } = event.currentTarget.dataset;
+    this.setData({
+      logisticsStatus: name,
+    });
+  },
+  reasonChange(event) {
+    this.setData({
+      reason: event.detail,
+    });
+  },
+  reasonClick(event) {
+    const { name } = event.currentTarget.dataset;
+    this.setData({
+      reason: name,
     });
   },
   reasonChange: function (e) {
@@ -89,17 +106,21 @@ Page({
       reasonIndex: e.detail.value
     })
   },
-  chooseImage: function (e) {
-    const that = this;
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
-        });
-      }
+  afterPicRead(e) {
+    let picsList = this.data.picsList
+    if (!picsList) {
+      picsList = []
+    }
+    picsList = picsList.concat(e.detail.file)
+    this.setData({
+      picsList
+    })
+  },
+  afterPicDel(e) {
+    let picsList = this.data.picsList
+    picsList.splice(e.detail.index, 1)
+    this.setData({
+      picsList
     })
   },
   previewImage: function (e) {
@@ -110,11 +131,14 @@ Page({
     })
   },
   async uploadPics(){
-    const _this = this;
-    for (let i = 0; i< _this.data.files.length; i++) {
-      const res = await WXAPI.uploadFile(wx.getStorageSync('token'), _this.data.files[i])
-      if (res.code == 0) {
-        _this.data.pics.push(res.data.url)
+    // 批量上传附件
+    if (this.data.picsList) {
+      for (let index = 0; index < this.data.picsList.length; index++) {
+        const pic = this.data.picsList[index];
+        const res = await WXAPI.uploadFile(wx.getStorageSync('token'), pic.url)
+        if (res.code == 0) {
+          this.data.pics.push(res.data.url)
+        }
       }
     }
   },
@@ -125,11 +149,11 @@ Page({
     // _this.data.type
     // _this.data.logisticsStatus
     // _this.data.reasons[_this.data.reasonIndex]
-    let amount = e.detail.value.amount;
+    let amount = this.data.amount;
     if (_this.data.type == 2) {
       amount = 0.00
     }
-    let remark = e.detail.value.remark;
+    let remark = this.data.remark;
     if (!remark) {
       remark = ''
     }
@@ -141,7 +165,7 @@ Page({
       orderId: _this.data.orderId,
       type: _this.data.type,
       logisticsStatus: _this.data.logisticsStatus,
-      reason: _this.data.reasons[_this.data.reasonIndex],
+      reason: _this.data.reason,
       amount,
       remark,
       pic: _this.data.pics.join()

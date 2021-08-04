@@ -1,20 +1,11 @@
+<van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap">
+  <van-tab wx:for="{{statusType}}" wx:key="index" title="{{item.label}}" info="{{badges[index] ? badges[index] : ''}}" />
+</van-tabs>
 <view class="container">
-  <view wx:if='{{!hasRefund}}' class="status-box">
-    <view bindtap="statusTap" class="status-label {{item.status == status ? 'active' : ''}}" wx:for="{{statusType}}" wx:key="index" data-status="{{item.status}}">
-      {{item.label}}
-      <view wx:if="{{badges[index]}}" class="weui-badge" style="position: absolute;top: 5rpx;right: 5rpx;">{{badges[index]}}</view>
-    </view>
-  </view>
-  <view class="no-order" hidden="{{orderList ? true : false}}">
-    <image src="/images/no-order.png" class="no-order-img"></image>
-    <view class="text">暂无订单</view>
-  </view>
+  <van-empty wx:if="{{ !orderList }}" description="暂无订单" />
   <view class="order-list" hidden="{{orderList ? false : true}}">
     <view class="a-order" wx:for="{{orderList}}" wx:key="index">
-      <navigator url="/pages/order-details/index?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">{{item.orderNumber}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.statusStr}}</view>
-      </navigator>
+      <van-cell title="{{item.orderNumber}}" value="{{item.statusStr}}" is-link url="/pages/order-details/index?id={{item.id}}" />
       <wxs module="goodsDetailPage">
       module.exports = {
         url : function(item) {

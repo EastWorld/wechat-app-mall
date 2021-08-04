@@ -483,10 +483,6 @@ swiper-item image {
   text-align: center;
 }
 
-.curKanjiaprogress .weui-badge {
-  margin-left: 250rpx;
-}
-
 .curKanjiaprogress .placeholder {
   margin-left: 30rpx;
   margin-right: 30rpx;

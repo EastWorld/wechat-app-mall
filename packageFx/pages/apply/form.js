@@ -36,12 +36,6 @@ Page({
       })
     }
   },
-  nameChange(e){
-    this.data.name = e.detail.value
-  },
-  mobileChange(e){
-    this.data.mobile = e.detail.value
-  },
   bindSave(){
     const fx_subscribe_ids = wx.getStorageSync('fx_subscribe_ids')
     if (fx_subscribe_ids) {

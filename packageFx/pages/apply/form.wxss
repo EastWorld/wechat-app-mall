@@ -1,8 +1,11 @@
 .logo {
   width: 750rpx;
 }
-.title {
-  text-align: center;
-  color:#333;
-  font-size:14px;
+.tips {
+  color: #666;
+  font-size: 28rpx;
+  padding: 32rpx;
+}
+.btns {
+  padding: 32rpx;
 }

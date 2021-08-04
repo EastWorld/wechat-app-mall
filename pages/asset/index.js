@@ -32,15 +32,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
   },
 
   /**
@@ -168,10 +159,9 @@ Page({
   },
   tabClick: function (e) {
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.detail.index
     });
-    this.fetchTabData(e.currentTarget.id)
+    this.fetchTabData(e.detail.index)
   },
   cancelLogin(){
     wx.switchTab({

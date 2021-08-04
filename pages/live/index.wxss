@@ -182,9 +182,6 @@
   color:#e64340;
   border-bottom: 1rpx solid #e64340;
 }
-.weui-loadmore {
-  margin-bottom: 0px;
-}
 .goods-container{
   display: flex;
   justify-content: space-between;  
@@ -337,10 +334,6 @@
   color: #666;
   font-size: 24rpx;
   margin-right: 32rpx;
-}
-
-.weui-media-box {
-  padding-bottom: 0rpx;
 }
 .progress {
   width: 686rpx;

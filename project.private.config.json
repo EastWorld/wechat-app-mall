@@ -229,6 +229,12 @@
           "pathName": "pages/test/webview",
           "query": "",
           "scene": 1011
+        },
+        {
+          "name": "pages/address-add/index",
+          "pathName": "pages/address-add/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

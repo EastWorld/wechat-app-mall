@@ -4,5 +4,5 @@
   </swiper-item>
 </swiper>
 <view class="btn">
-  <button wx:if="{{swiperCurrent + 1 == swiperMaxNumber}}" type="primary" size="mini" bindtap="goToIndex" class="weui-btn mini-btn">进入店铺</button>
+  <button wx:if="{{swiperCurrent + 1 == swiperMaxNumber}}" type="primary" size="mini" bindtap="goToIndex">进入店铺</button>
 </view>

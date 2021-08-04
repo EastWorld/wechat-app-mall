@@ -1,6 +1,0 @@
-/*!
- * WeUI v2.0.1 (https://github.com/weui/weui-wxss)
- * Copyright 2019 Tencent, Inc.
- * Licensed under the MIT license
- */
-.weui-footer{color:rgba(0,0,0,.3);font-size:14px;line-height:1.4;text-align:center}.weui-footer_fixed-bottom{position:fixed;bottom:16px;bottom:calc(16px + constant(safe-area-inset-bottom));bottom:calc(16px + env(safe-area-inset-bottom));left:0;right:0}.weui-footer__links{font-size:0}.weui-footer__link{display:inline-block;vertical-align:top;margin:0 8px;position:relative;font-size:14px;color:#576b95}.weui-footer__link:before{content:" ";position:absolute;left:0;top:0;width:1px;bottom:0;border-left:1rpx solid #c7c7c7;color:#c7c7c7;left:-8px;top:.36em;bottom:.36em}.weui-footer__link:first-child:before{display:none}.weui-footer__text{padding:0 .34em;font-size:12px}

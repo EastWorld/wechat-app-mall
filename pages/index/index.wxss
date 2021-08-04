@@ -224,10 +224,6 @@
   border-bottom: 1rpx solid #e64340;
 }
 
-.weui-loadmore {
-  margin-bottom: 0px;
-}
-
 .goods-container {
   display: flex;
   justify-content: space-between;
@@ -409,10 +405,6 @@
   color: #666;
   font-size: 24rpx;
   margin-right: 32rpx;
-}
-
-.weui-media-box {
-  padding-bottom: 0rpx;
 }
 
 .progress {
@@ -612,4 +604,7 @@
 }
 .adPositionIndexPop .close {
   margin-top: 32rpx;
+}
+.pingtuantag {
+  margin-left: 16rpx;
 }

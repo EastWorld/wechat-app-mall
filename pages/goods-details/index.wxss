@@ -485,10 +485,6 @@ swiper-item image {
   text-align: center;
 }
 
-.curKanjiaprogress .weui-badge {
-  margin-left: 250rpx;
-}
-
 .curKanjiaprogress .placeholder {
   margin-left: 30rpx;
   margin-right: 30rpx;
@@ -496,10 +492,6 @@ swiper-item image {
   font-size: 26rpx;
   width: 100rpx;
   color: #999;
-}
-
-.curKanjiaprogress .kjbutton {
-  padding: 30rpx;
 }
 
 .kjBuyButton {
@@ -600,7 +592,7 @@ swiper-item image {
 
 .shop-container {
   width: 100vw;
-  margin: 32rpx 0rpx;
+  margin: 16rpx 0rpx;
   padding: 32rpx;
   display: flex;
   align-items: center;
@@ -668,4 +660,27 @@ swiper-item image {
   padding: 8rpx 32rpx;
   color: #666;
   font-size: 26rpx;
+}
+.van-progress {
+   margin: 32rpx 0;
+}
+.flex {
+  display: flex;
+  width: 100vw;
+}
+.kjbutton {
+  flex: 1;
+  padding: 30rpx;
+}
+.kjlj {
+  display: flex;
+  background-color: #ffffff;
+  padding: 0 32rpx;
+  align-items: center;
+}
+.kjlj-l {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
 }

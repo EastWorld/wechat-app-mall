@@ -86,11 +86,6 @@ picker {
     color: #777;
 }
 
-.weui-panel {
-  width:740rpx;
-}
-
-
 .charge-rule-wrap{
   background: white;
   margin-top:20rpx;

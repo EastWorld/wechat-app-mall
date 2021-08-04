@@ -1,23 +1,18 @@
+.space {
+  width: 100vw;
+  height: 8rpx;
+}
+
 page,view,image,input {
   display: block;
   box-sizing: border-box;
-}
-
-.weui-cell__hd_in-select-after {
-  padding-left: 32rpx;
-}
-.weui-select {
-  padding-left: 0;
 }
 .read-wx {
   padding-left: 32rpx;
   font-size: 28rpx;
   color: #e64340;
 }
-.space {
-  width: 100vw;
-  height: 16rpx;
-}
+
 .form-box {
   width: 100vw;
   background-color: #fff;

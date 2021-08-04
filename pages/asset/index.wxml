@@ -31,52 +31,19 @@
     </button>
   </form>
 </view>
-<view class="page">
-  <view class="page__bd">
-    <view class="weui-tab">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view>
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='no-data' wx:if="{{!cashlogs}}">暂无资金明细~</view>
-          <view class='cashlogs' wx:if="{{cashlogs}}" wx:for="{{cashlogs}}" wx:key="{{index}}">
-            <view class='profile'>
-              <view class='typeStr'>{{ item.typeStr }}</view>
-              <view class='dateAdd'>{{ item.dateAdd }}</view>
-            </view>
-            <view class='amount' style="color: {{ (item.behavior ==0 ) ? 'red' : 'green' }}"> {{ (item.behavior ==0 ) ? '+' : '-' }} {{ item.amount }} </view>
-          </view>
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class='no-data' wx:if="{{!withDrawlogs}}">暂无提现记录~</view>
-          <view class='cashlogs' wx:if="{{withDrawlogs}}" wx:for="{{withDrawlogs}}" wx:key="{{index}}">
-            <view class='profile'>
-              <view class='typeStr'>{{ item.statusStr }}</view>
-              <view class='dateAdd'>{{ item.dateAdd }}</view>
-            </view>
-            <view class='amount' style="color: red"> {{ item.money }} </view>
-          </view>
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view class='no-data' wx:if="{{!depositlogs}}">暂无押金记录~</view>
-          <view class='cashlogs' wx:if="{{depositlogs}}" wx:for="{{depositlogs}}" wx:key="{{index}}">
-            <view class='profile'>
-              <view class='typeStr'>{{ item.statusStr }}</view>
-              <view class='dateAdd'>{{ item.dateAdd }}</view>
-            </view>
-            <view class='amount' style="color: red"> {{ item.amount }} </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-</view>
+<van-tabs active="{{ active }}" bind:change="tabClick">
+  <van-tab wx:for="{{tabs}}" wx:key="*this" title="{{item}}" />
+</van-tabs>
+<van-cell-group wx:if="{{activeIndex == 0}}">
+  <van-empty wx:if="{{!cashlogs}}" description="暂无资金明细" />
+  <van-cell wx:for="{{cashlogs}}" wx:key="index" title="{{ item.typeStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" />
+</van-cell-group>
+<van-cell-group wx:if="{{activeIndex == 1}}">
+  <van-empty wx:if="{{!withDrawlogs}}" description="暂无提现记录" />
+  <van-cell wx:for="{{withDrawlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" value="{{ item.money }}" />
+</van-cell-group>
+<van-cell-group wx:if="{{activeIndex == 2}}">
+  <van-empty wx:if="{{!depositlogs}}" description="暂无押金记录" />
+  <van-cell wx:for="{{depositlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" />
+</van-cell-group>
 
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
-<float-menu /> 

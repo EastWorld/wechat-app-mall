@@ -1,21 +1,15 @@
 <van-empty wx:if="{{invoiceList.length <= 0}}" description="暂无开票信息" />
-<view wx:else class="weui-panel weui-panel_access">
-  <view class="weui-panel__bd">
-    <view wx:for="{{invoiceList}}" wx:key="*this" class="weui-media-box weui-media-box_text">
-      <view class="weui-media-box__title weui-media-box__title_in-text">
-        <text style='color:red'>￥ {{ item.amount }}</text>
-        <view class="weui-badge" style="margin-left: 5px;">{{item.consumption }}</view>
-        <text wx:if="{{item.status == 0}}" style='color:gray;margin-left:10px;font-size:14px;'>待处理</text>
-        <text wx:if="{{item.status == 1}}" style='color:red;margin-left:10px;font-size:14px;'>不通过</text>
-        <text wx:if="{{item.status == 2}}" style='color:orange;margin-left:10px;font-size:14px;'>开票中</text>
-        <text wx:if="{{item.status == 3}}" style='color:green;margin-left:10px;font-size:14px;'>已开票</text>
-      </view>
-      <view class="weui-media-box__desc">{{ item.comName }}</view>
-      <view class="date-btn">
-        <view class="weui-media-box__desc" style='margin-top:10rpx;'>{{ item.dateAdd }}</view>
-        <van-button wx:if="{{item.file}}" type="primary" size="small" bind:click="download" data-file="{{item.file}}">打开电子发票</van-button>
-      </view>
+<van-cell-group wx:for="{{invoiceList}}" wx:key="*this" title="{{ item.comName }}">
+  <van-cell title="金额" value="￥{{ item.amount }}" />
+  <van-cell title="内容" value="{{ item.consumption }}" />
+  <van-cell title="状态">
+    <view slot="">
+      <van-tag wx:if="{{item.status == 0}}" type="primary">待处理</van-tag>
+      <van-tag wx:if="{{item.status == 1}}" type="danger">不通过</van-tag>
+      <van-tag wx:if="{{item.status == 2}}" type="warning">开票中</van-tag>
+      <van-tag wx:if="{{item.status == 3}}" type="success">已开票</van-tag>
     </view>
-  </view>
-</view>
-<!-- <float-menu />  -->
+  </van-cell>  
+  <van-cell title="申请日期" value="{{ item.dateAdd }}" />
+  <van-cell wx:if="{{item.file}}" title="查看" value="打开电子发票" is-link data-file="{{item.file}}" bind:click="download" />
+</van-cell-group>

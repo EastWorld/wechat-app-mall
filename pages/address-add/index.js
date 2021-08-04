@@ -151,7 +151,7 @@ Page({
       sIndex: index
     })
   },
-  async bindSave(e) {
+  async bindSave() {
     if (this.data.pIndex == 0 ) {
       wx.showToast({
         title: '请选择省份',
@@ -184,9 +184,9 @@ Page({
       }
     }
     
-    const linkMan = e.detail.value.linkMan;
-    const address = e.detail.value.address;
-    const mobile = e.detail.value.mobile;
+    const linkMan = this.data.linkMan;
+    const address = this.data.address;
+    const mobile = this.data.mobile;
     if (this.data.shipping_address_gps == '1' && !this.data.addressData) {
       wx.showToast({
         title: '请选择定位',
@@ -196,14 +196,14 @@ Page({
     }
     const latitude = this.data.addressData ? this.data.addressData.latitude : null
     const longitude = this.data.addressData ? this.data.addressData.longitude : null
-    if (linkMan == ""){
+    if (!linkMan){
       wx.showToast({
         title: '请填写联系人姓名',
         icon: 'none'
       })
       return
     }
-    if (mobile == ""){
+    if (!mobile){
       wx.showToast({
         title: '请填写手机号码',
         icon: 'none'
@@ -230,7 +230,7 @@ Page({
     if (longitude) {
       postData.longitude = longitude
     }
-    if (address == ""){
+    if (!address){
       wx.showToast({
         title: '请填写详细地址',
         icon: 'none'
@@ -277,7 +277,7 @@ Page({
       if (res.code == 0) {
         this.setData({
           id: e.id,
-          addressData: res.data.info
+          ...res.data.info
         })
         this.provinces(res.data.info.provinceId, res.data.info.cityId, res.data.info.districtId, res.data.info.streetId)
       } else {
@@ -396,12 +396,10 @@ Page({
             }
           })
         }
-        const addressData = {}
-        addressData.linkMan = res.userName
-        addressData.mobile = res.telNumber
-        addressData.address = res.detailInfo
         that.setData({
-          addressData
+          linkMan: res.userName,
+          mobile: res.telNumber,
+          address: res.detailInfo
         });
       }
     })

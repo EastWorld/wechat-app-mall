@@ -5,6 +5,7 @@ const AUTH = require('../../utils/auth')
 
 Page({
   data: {
+    tabIndex: 0,
     statusType: [
       {
         status: 9999,
@@ -32,7 +33,8 @@ Page({
     badges: [0, 0, 0, 0, 0]
   },
   statusTap: function(e) {
-    const status = e.currentTarget.dataset.status;
+    const index = e.detail.index
+    const status = this.data.statusType[index].status
     this.setData({
       status
     });
@@ -143,8 +145,12 @@ Page({
           hasRefund: true
         });
       } else {
+        const tabIndex = this.data.statusType.findIndex(ele => {
+          return ele.status == options.type
+        })
         this.setData({
-          status: options.type
+          status: options.type,
+          tabIndex
         });
       }      
     }

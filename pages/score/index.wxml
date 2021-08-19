@@ -10,4 +10,3 @@
   </view>
   <view class='amount' style="color: {{ (item.behavior ==0 ) ? 'red' : 'green' }}"> {{ (item.behavior ==0 ) ? '+' : '' }} {{ item.score }} </view>
 </view>
-<float-menu /> 

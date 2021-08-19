@@ -1,7 +1,7 @@
 {
   "name": "wechat-app-mall",
-  "version": "8.3.0",
-  "description": "微信小程序商城，微信小程序微店",
+  "version": "8.4.0",
+  "description": "删除 <float-menu />",
   "main": "app.js",
   "dependencies": {
     "@vant/weapp": "^1.6.8",

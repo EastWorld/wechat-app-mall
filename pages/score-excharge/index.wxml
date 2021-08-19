@@ -11,4 +11,3 @@
     <button type="warn" class="save-btn" formType="submit">立即兑换</button>
     </form>
 </view>
-<float-menu /> 

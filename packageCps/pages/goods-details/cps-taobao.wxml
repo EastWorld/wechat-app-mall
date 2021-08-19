@@ -144,8 +144,6 @@
 </block>
 
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
-<!-- <float-menu />  -->
-
 
 <poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"></poster>
 <view wx:if="{{showposterImg}}" class="popup-mask"></view>

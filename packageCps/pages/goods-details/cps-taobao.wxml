@@ -31,11 +31,6 @@
       <view class="characteristic">{{goodsDetail.basicInfo.characteristic}}</view>
     </view>
 
-    <van-cell wx:if="{{ shareQuanziProduct && show_wx_quanzi == '1' }}" custom-class="vw100" center title="微信圈子 好物圈">
-      <share-button type="1" fore-color="#e64340" product="{{ shareQuanziProduct }}"
-        bind:error="on_share_quanzi_error" />
-    </van-cell>
-
     <view class='space'></view>
     <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{pingtuanList}}">
       <view class="label-title" style="border-bottom:1px solid #eee;">{{pingtuanList.length}}人在拼单，可直接参与</view>

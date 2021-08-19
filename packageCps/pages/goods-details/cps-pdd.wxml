@@ -35,11 +35,6 @@
       <view class="characteristic">{{goodsDetail.basicInfo.characteristic}}</view>
     </view>
 
-    <van-cell wx:if="{{ shareQuanziProduct && show_wx_quanzi == '1' }}" custom-class="vw100" center title="微信圈子 好物圈">
-      <share-button type="1" fore-color="#e64340" product="{{ shareQuanziProduct }}"
-        bind:error="on_share_quanzi_error" />
-    </van-cell>
-
     <view class='space'></view>
     <van-cell wx:if="{{hasMoreSelect && goodsDetailSkuShowType==0}}" custom-class="vw100" is-link
       bind:click="bindGuiGeTap">

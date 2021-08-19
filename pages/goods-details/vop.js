@@ -76,7 +76,6 @@ Page({
       goodsDetailSkuShowType = 0
     }
     this.setData({
-      show_wx_quanzi: wx.getStorageSync('show_wx_quanzi'),
       goodsDetailSkuShowType,
       curuid: wx.getStorageSync('uid')
     })
@@ -802,28 +801,6 @@ Page({
         })
       }
     })
-  },
-  initShareQuanziProduct() {
-    this.setData({
-      shareQuanziProduct: {
-        "item_code": this.data.goodsId + '',
-        "title": this.data.goodsDetail.basicInfo.name,
-        "category_list":[
-          this.data.goodsDetail.category.name
-        ],
-        "image_list":[
-          this.data.goodsDetail.basicInfo.pic
-        ],
-        "src_mini_program_path": '/pages/goods-details/vop?id=' + this.data.goodsId + '&goodsId=' + this.data.goodsId2
-      }
-    })
-  },
-  on_share_quanzi_error(e) {
-    wx.showToast({
-      title: '暂时无法推荐',
-      icon: 'none'
-    })
-    console.error(e)
   },
   previewImage(e) {
     const url = e.currentTarget.dataset.url

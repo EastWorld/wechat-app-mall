@@ -1,0 +1,15 @@
+<view class="avatar">
+  <image src="{{ userInfoMap.base.avatarUrl }}" mode="widthFix"></image>
+</view>
+<van-cell-group title="会员信息">
+  <van-cell title="会员编号" value="{{ userInfoMap.base.id }}" />
+  <van-cell title="手机号码" value="{{ userInfoMap.base.mobile }}" />
+  <van-cell title="昵称" value="{{ userInfoMap.base.nick }}" />
+  <van-cell wx:if="{{ userInfoMap.userLevel }}" title="等级" value="{{ userInfoMap.userLevel.name }}" />
+  <van-cell title="分销商">
+    <view>
+      <view wx:if="{{ !userInfoMap.base.isSeller }}">否</view>
+      <van-tag wx:else type="success">是</van-tag>
+    </view>
+  </van-cell>
+</van-cell-group>

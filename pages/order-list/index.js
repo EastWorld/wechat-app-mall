@@ -85,6 +85,10 @@ Page({
     const needScore = e.currentTarget.dataset.score;
     WXAPI.userAmount(wx.getStorageSync('token')).then(function(res) {
       if (res.code == 0) {
+        const order_pay_user_balance = wx.getStorageSync('order_pay_user_balance')
+        if (order_pay_user_balance != '1') {
+          res.data.balance = 0
+        }
         // 增加提示框
         if (res.data.score < needScore) {
           wx.showToast({

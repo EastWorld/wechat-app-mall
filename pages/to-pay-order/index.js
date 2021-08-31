@@ -143,7 +143,8 @@ Page({
     let _data = {
       isNeedLogistics: 1,
       dateStart: nowDate.format('yyyy-MM-dd h:m:s'),
-      orderPeriod_open: wx.getStorageSync('orderPeriod_open')
+      orderPeriod_open: wx.getStorageSync('orderPeriod_open'),
+      order_pay_user_balance: wx.getStorageSync('order_pay_user_balance')
     }
     if (e.orderType) {
       _data.orderType = e.orderType
@@ -159,9 +160,10 @@ Page({
   },
   async userAmount() {
     const res = await WXAPI.userAmount(wx.getStorageSync('token'))
+    const order_pay_user_balance = wx.getStorageSync('order_pay_user_balance')
     if (res.code == 0) {
       this.setData({
-        balance: res.data.balance,
+        balance: order_pay_user_balance == '1' ? res.data.balance : 0,
         userScore: res.data.score
       })
     }

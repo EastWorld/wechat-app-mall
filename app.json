@@ -85,7 +85,8 @@
         "pages/myusers/index",
         "pages/commisionLog/index",
         "pages/report/team",
-        "pages/report/city"
+        "pages/report/city",
+        "pages/myusers/myusers-detail"
       ]
     },
     {

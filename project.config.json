@@ -34,7 +34,7 @@
     "showES6CompileOption": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.0",
+  "libVersion": "2.19.1",
   "appid": "wxa46b09d413fbcaff",
   "projectname": "天使童装",
   "scripts": {},

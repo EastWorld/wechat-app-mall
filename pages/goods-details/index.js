@@ -352,10 +352,6 @@ Page({
       }
     })
   },
-  // sku显示或者隐藏处理逻辑
-  processPropertyHidden() {
-
-  },
   /**
    * 选择商品规格
    */

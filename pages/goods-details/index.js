@@ -339,6 +339,23 @@ Page({
       buyNumber: event.detail
     })
   },
+  // 判断当前商品是否支持某个sku的属性
+  checkHasSkuItems(sk) {    
+    this.data.goodsDetail.skuList.filter(ele => {
+      const a = this.data.goodsDetail.properties.filter(ele => {
+        return ele.optionValueId
+      })
+      console.log(a);
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        
+      }
+    })
+  },
+  // sku显示或者隐藏处理逻辑
+  processPropertyHidden() {
+
+  },
   /**
    * 选择商品规格
    */
@@ -348,25 +365,54 @@ Page({
 
     const property = this.data.goodsDetail.properties[propertyindex]
     const child = property.childsCurGoods[propertychildindex]
-    // 取消该分类下的子栏目所有的选中状态
-    property.childsCurGoods.forEach(child => {
-      child.active = false
-    })
-    // 设置当前选中状态
+    const _childActive = child.active
+    // 当前位置往下的所有sku取消选中状态
+    for (let index = propertyindex; index < this.data.goodsDetail.properties.length; index++) {
+      const element = this.data.goodsDetail.properties[index]
+      element.optionValueId = null
+      element.childsCurGoods.forEach(child => {
+        child.active = false
+      })
+    }
+    // // 取消该分类下的子栏目所有的选中状态
+    // property.childsCurGoods.forEach(child => {
+    //   child.active = false
+    // })
+    // 设置当前选中状态，或者取消选中
     property.optionValueId = child.id
     child.active = true
+    // 下面代码块，支持点击后取消选中
+    // if (!_childActive) {
+    //   property.optionValueId = child.id
+    //   child.active = true
+    // } else {
+    //   property.optionValueId = null
+    //   child.active = false
+    // }
+    
+    
     // 获取所有的选中规格尺寸数据
     const needSelectNum = this.data.goodsDetail.properties.length
     let curSelectNum = 0;
     let propertyChildIds = "";
     let propertyChildNames = "";
+    let _skuList = this.data.goodsDetail.skuList
 
     this.data.goodsDetail.properties.forEach(p => {
       p.childsCurGoods.forEach(c => {
+        // 处理当前选中的sku信息
         if (c.active) {
+          _skuList = _skuList.filter(aaa => {
+            return aaa.propertyChildIds.indexOf(p.id + ':' + c.id) != -1
+          })
           curSelectNum++;
           propertyChildIds = propertyChildIds + p.id + ":" + c.id + ",";
           propertyChildNames = propertyChildNames + p.name + ":" + c.name + "  ";
+        } else if(!p.optionValueId) {
+          const nextO = _skuList.find(aaa => {
+            return aaa.propertyChildIds.indexOf(p.id + ':' + c.id) != -1
+          })
+          c.hidden = nextO ? false : true
         }
       })
     })

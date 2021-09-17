@@ -45,28 +45,42 @@ Page({
       })
       return;
     }
-    WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv).then(res => {
-      AUTH.wxaCode().then(code => {
-        this.data.code = code
-      })
-      if (res.code === 10002) {
-        AUTH.login(this)
-        return
-      }
-      if (res.code == 0) {
-        wx.showToast({
-          title: '绑定成功',
-          icon: 'success',
-          duration: 2000
-        })
-        this.getUserApiInfo();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: res.msg,
-          showCancel: false
-        })
-      }
-    })
+    this._getPhoneNumber(e)
   },
+  async _getPhoneNumber(e) {
+    let res
+    const extConfigSync = wx.getExtConfigSync()
+    if (extConfigSync.subDomain) {
+      // 服务商模式
+      res = await WXAPI.wxappServiceBindMobile({
+        token: wx.getStorageSync('token'),
+        code: this.data.code,
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+      })
+    } else {
+      res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+    }
+    AUTH.wxaCode().then(code => {
+      this.data.code = code
+    })
+    if (res.code === 10002) {
+      AUTH.login(this)
+      return
+    }
+    if (res.code == 0) {
+      wx.showToast({
+        title: '绑定成功',
+        icon: 'success',
+        duration: 2000
+      })
+      this.getUserApiInfo();
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: res.msg,
+        showCancel: false
+      })
+    }
+  }
 })

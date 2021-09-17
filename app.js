@@ -3,14 +3,7 @@ const CONFIG = require('config.js')
 const AUTH = require('utils/auth')
 App({
   onLaunch: function() {
-    wx.removeStorageSync('appid')
-    wx.removeStorageSync('componentAppid')
     const subDomain = wx.getExtConfigSync().subDomain
-    const componentAppid = wx.getExtConfigSync().componentAppid
-    if (componentAppid) {
-      wx.setStorageSync('appid', wx.getAccountInfoSync().miniProgram.appId)
-      wx.setStorageSync('componentAppid', componentAppid)
-    }
     if (subDomain) {
       WXAPI.init(subDomain)
     } else {
@@ -130,7 +123,9 @@ App({
     // 自动登录
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
-        AUTH.login()
+        AUTH.authorize().then( aaa => {
+          AUTH.bindSeller()
+        })
       } else {
         AUTH.bindSeller()
       }

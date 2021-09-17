@@ -59,8 +59,14 @@ Page({
       }
     }
     // 静默式授权注册/登陆
-    AUTH.authorize().then(res => {
-      AUTH.bindSeller()
+    AUTH.checkHasLogined().then(isLogined => {
+      if (!isLogined) {
+        AUTH.authorize().then( aaa => {
+          AUTH.bindSeller()
+        })
+      } else {
+        AUTH.bindSeller()
+      }
     })
     this.data.goodsId = e.id
     this.goodsDetail()

@@ -69,11 +69,9 @@ async function login(page){
   const _this = this
   wx.login({
     success: function (res) {
-      const componentAppid = wx.getStorageSync('componentAppid')
-      if (componentAppid) {
+      const extConfigSync = wx.getExtConfigSync()
+      if (extConfigSync.subDomain) {
         WXAPI.wxappServiceLogin({
-          componentAppid,
-          appid: wx.getStorageSync('appid'),
           code: res.code
         }).then(function (res) {        
           if (res.code == 10000) {
@@ -141,8 +139,8 @@ async function authorize() {
           referrer = referrer_storge;
         }
         // 下面开始调用注册接口
-        const componentAppid = wx.getStorageSync('componentAppid')
-        if (componentAppid) {
+        const extConfigSync = wx.getExtConfigSync()
+        if (extConfigSync.subDomain) {
           WXAPI.wxappServiceAuthorize({
             code: code,
             referrer: referrer

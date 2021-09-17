@@ -753,7 +753,19 @@ Page({
       })
       return;
     }
-    const res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+    let res
+    const extConfigSync = wx.getExtConfigSync()
+    if (extConfigSync.subDomain) {
+      // 服务商模式
+      res = await WXAPI.wxappServiceBindMobile({
+        token: wx.getStorageSync('token'),
+        code: this.data.code,
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+      })
+    } else {
+      res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+    }
     AUTH.wxaCode().then(code => {
       this.data.code = code
     })

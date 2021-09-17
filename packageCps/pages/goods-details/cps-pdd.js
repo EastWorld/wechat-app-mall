@@ -26,7 +26,6 @@ Page({
     if (this.data.beianPass == 2) {
       return
     }
-    await AUTH.authorize()
     AUTH.bindSeller()
     const token = wx.getStorageSync('token')
     const res = await WXAPI.cpsPddBeian(token)

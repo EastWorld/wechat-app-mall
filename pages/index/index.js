@@ -87,7 +87,6 @@ Page({
     })
   },
   onLoad: function(e) {
-    WXAPI.fxMyCommisionStatistics(wx.getStorageSync('token'), '0')
     wx.showShareMenu({
       withShareTicket: true,
     })
@@ -104,9 +103,16 @@ Page({
       }
     }
     // 静默式授权注册/登陆
-    AUTH.authorize().then(res => {
-      AUTH.bindSeller()
-      TOOLS.showTabBarBadge()
+    AUTH.checkHasLogined().then(isLogined => {
+      if (!isLogined) {
+        AUTH.authorize().then( aaa => {
+          AUTH.bindSeller()
+          TOOLS.showTabBarBadge()
+        })
+      } else {
+        AUTH.bindSeller()
+        TOOLS.showTabBarBadge()
+      }
     })
     this.initBanners()
     this.categories()

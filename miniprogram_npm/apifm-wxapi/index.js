@@ -95,7 +95,7 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
+// var API_BASE_URL = 'http://192.168.1.100:8081';
 var subDomain = '-';
 var merchantId = '0';
 
@@ -300,6 +300,9 @@ module.exports = {
   },
   payNow: function payNow(data) {
     return request('/pay/fomo/payNow', true, 'post', data);
+  },
+  wxpayAirwallex: (data) => {
+    return request('/pay/airwallex/wxapp', true, 'post', data)
   },
   fomoCheckout: function fomoCheckout(data) {
     return request('/pay/fomo/checkout', true, 'post', data);

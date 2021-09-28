@@ -88,23 +88,21 @@
   bottom: 46rpx;
   left: 24rpx;
   width: 668rpx;
-  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  padding: 8rpx 16rpx;
-  border-radius: 32rpx;
   font-size: 24rpx;
 }
 
 .goodsDynamic .swiper2 {
   width: 100%;
-  height: 34rpx;
+  height: 64rpx;
 }
 
 .goodsDynamic-item {
-  width: 100%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  height: 36rpx;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 32rpx;
+  padding: 8rpx 16rpx;
 }
 
 .goodsDynamic-item image {

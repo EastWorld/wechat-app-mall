@@ -14,7 +14,7 @@
 
 ## 扫码体验
 
-<img src="https://cdn.it120.cc/apifactory/2019/06/28/a8304003-3218-4a47-95cf-84d82ebdc07b.jpg" width="200px">
+<img src="https://7.s2m.cc/2021/10/05/d15d243a-951f-4ec8-8f34-422368a20d91.jpeg" width="200px">
 
 ## 详细配置/使用教程
 
@@ -35,7 +35,7 @@
 
 | 微信好友 | QQ好友 |
 | :------: | :------: |
-| <img src="https://cdn.it120.cc/apifactory/2019/07/03/a86f7e46-1dbc-42fe-9495-65403659671e.jpeg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2019/07/07/d420e29b-872e-4147-b57d-0aa988cd4853.png" width="200px"> |
+| <img src="https://dcdn.it120.cc/2021/09/13/61a80363-9085-4a10-9447-e276a3d40ab3.jpeg" width="200px"> | <img src="https://dcdn.it120.cc/2021/09/13/08a598d8-8186-4159-9930-2e4908accc5e.png" width="200px"> |
 
 ## 本项目使用了下面的组件，在此鸣谢
 

@@ -1,11 +1,10 @@
 {
-  "pages": [    
-    "pages/start/start",
-    "pages/shop/select",
+  "pages": [   
+    "pages/category/category",
     "pages/index/index",
+    "pages/shop/select",
     "pages/notice/index",
     "pages/notice/show",
-    "pages/category/category",
     "pages/goods/list",
     "pages/goods/list-vop",
     "pages/goods/fav",
@@ -126,12 +125,6 @@
         "iconPath": "images/nav/fl-off.png",
         "selectedIconPath": "images/nav/fl-on.png",
         "text": "分类"
-      },
-      {
-        "pagePath": "pages/coupons/index",
-        "iconPath": "images/nav/coupon-off.png",
-        "selectedIconPath": "images/nav/coupon-on.png",
-        "text": "优惠券"
       },
       {
         "pagePath": "pages/shop-cart/index",

@@ -199,6 +199,7 @@ Page({
 
         },
         fail(e) {
+          console.log(11111111111111111)
           console.log(e)
           wx.redirectTo({
             url: "/pages/order-list/index"
@@ -498,7 +499,7 @@ Page({
         WXAPI.jdvopCartRemove(loginToken, keyArrays.join())
       }
     }
-    this.processAfterCreateOrder(totalRes)
+    // this.processAfterCreateOrder(totalRes)
   },
   async processAfterCreateOrder(res) {
     let orderId = ''

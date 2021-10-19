@@ -129,6 +129,9 @@ Page({
         })
       }
     }
+    shopList.forEach(ele => {
+      ele.hasNoCoupons = true
+    })
     this.setData({
       shopList,
       goodsList,
@@ -329,6 +332,7 @@ Page({
       let couponAmount = 0
       for (let index = 0; index < shopList.length; index++) {
         const curShop = shopList[index]
+        console.log(curShop);
         postData.filterShopId = curShop.id
         if (curShop.curCoupon) {
           postData.couponId = curShop.curCoupon.id
@@ -349,8 +353,10 @@ Page({
         totalRes.data.score += res.data.score
         totalRes.data.amountReal += res.data.amountReal
         totalRes.data.orderIds.push(res.data.id)
+        console.log('e:', e);
         if (!e) {
           curShop.hasNoCoupons = true
+          console.log(curShop);
           if (res.data.couponUserList) {
             curShop.hasNoCoupons = false
             res.data.couponUserList.forEach(ele => {
@@ -416,6 +422,13 @@ Page({
       });
     } else {
       // 单门店单商品下单
+      if (shopList && shopList.length == 1) {
+        if (shopList[0].curCoupon) {
+          postData.couponId = shopList[0].curCoupon.id
+        } else {
+          postData.couponId = ''
+        }
+      }
       const res = await WXAPI.orderCreate(postData)
       this.data.pageIsEnd = true
       if (res.code != 0) {
@@ -445,6 +458,18 @@ Page({
             }
           })
           coupons = res.data.couponUserList
+          if (shopList && shopList.length == 1 && !hasNoCoupons) {
+            hasNoCoupons = true
+            const curShop = shopList[0]
+            curShop.hasNoCoupons = false
+            curShop.curCouponShowText = '请选择使用优惠券'
+            curShop.coupons = res.data.couponUserList
+            if (res.data.couponId && res.data.couponId.length > 0) {
+              curShop.curCoupon = curShop.coupons.find(ele => { return ele.id == res.data.couponId[0] })
+              curShop.curCouponShowText = curShop.curCoupon.nameExt
+            }
+            shopList[0] = curShop
+          }
         }
         // 计算积分抵扣规则 userScore
         let scoreDeductionRules = res.data.scoreDeductionRules
@@ -467,6 +492,7 @@ Page({
           })
         }
         this.setData({
+          shopList,
           totalScoreToPay: res.data.score,
           isNeedLogistics: res.data.isNeedLogistics,
           allGoodsAndYunPrice: res.data.amountReal,

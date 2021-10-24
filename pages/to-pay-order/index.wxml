@@ -214,6 +214,17 @@
     </van-cell-group>
   </van-radio-group>
 
+  <van-radio-group wx:if="{{ myCards }}" value="{{ cardId }}" bind:change="cardChange">
+    <van-cell-group title="使用水卡支付">
+      <van-cell title="不使用水卡" clickable data-name="0" bind:click="cardClick">
+        <van-radio slot="right-icon" name="0" />
+      </van-cell>
+      <van-cell wx:for="{{ myCards }}" wx:key="id" title="{{ item.cardInfo.name }} - 剩余：{{ item.amount }}桶" clickable data-name="{{ item.id }}" bind:click="cardClick">
+        <van-radio slot="right-icon" name="{{ item.id }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+
   <van-cell-group wx:if="{{ yunPrice || deductionMoney || couponAmount || balance }}" title="小计">
     <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
     <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />

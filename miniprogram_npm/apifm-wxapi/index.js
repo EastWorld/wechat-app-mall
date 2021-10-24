@@ -1710,6 +1710,38 @@ module.exports = {
   recycleOrderDelete: function recycleOrderDelete(token, id) {
     return request('/recycleOrder/del', true, 'post', { token: token, id: id });
   },
+  // 会员卡
+  cardList: data => {
+    return request('/card/list', true, 'post', data)
+  },
+  cardInfo: id => {
+    return request('/card/info', true, 'get', { id })
+  },
+  cardBuy: (token, id) => {
+    return request('/card/buy', true, 'post', { token, id })
+  },
+  cardMyList: token => {
+    return request('/card/my', true, 'get', { token })
+  },
+  cardMyLogs: data => {
+    return request('/card/logs', true, 'post', data)
+  },
+  // 收藏卡片
+  collectCardHis: data => {
+    return request('/collectCard/del', true, 'post', data)
+  },
+  collectCardInfo: (number) => {
+    return request('/collectCard/cardInfo', true, 'get', { number })
+  },
+  collectCardHisInfo: (token, id) => {
+    return request('/collectCard/hisInfo', true, 'get', { token, id })
+  },
+  collectCardBind: data => {
+    return request('/collectCard/bind', true, 'post', data)
+  },
+  collectCardUnBind: (token, id, smsCode) => {
+    return request('/collectCard/bind', true, 'post', { token, id, smsCode })
+  },
 };
 
 /***/ })

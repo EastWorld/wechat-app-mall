@@ -25,6 +25,7 @@
     "pages/score-excharge/index",
     "pages/score-excharge/growth",
     "pages/asset/index",
+    "pages/recharge/index",
     "pages/score/index",
     "pages/score/growth",
     "pages/sign/index",
@@ -51,7 +52,8 @@
     "pages/my/info-menu",
     "pages/recycle/index",
     "pages/recycle/orders",
-    "pages/recycle/order-detail"
+    "pages/recycle/order-detail",
+    "pages/card/logs"
   ],
   "subpackages": [
     {
@@ -87,18 +89,6 @@
         "pages/report/team",
         "pages/report/city",
         "pages/myusers/myusers-detail"
-      ]
-    },
-    {
-      "root": "demos",
-      "name": "demos",
-      "pages": [
-        "pages/echarts/line",
-        "pages/business/index",
-        "pages/bind-phone/index",
-        "pages/merchant/index",
-        "pages/record-list/index",
-        "pages/ab/index"
       ]
     }
   ],

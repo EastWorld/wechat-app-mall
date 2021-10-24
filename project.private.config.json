@@ -235,6 +235,18 @@
           "pathName": "pages/address-add/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/recharge/index",
+          "pathName": "pages/recharge/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/my/index",
+          "pathName": "pages/my/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

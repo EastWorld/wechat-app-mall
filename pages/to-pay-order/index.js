@@ -78,6 +78,7 @@ Page({
       }
       return value;
     },
+    cardId: '0' // 使用的次卡ID
   },
   onShow() {
     if (this.data.pageIsEnd) {
@@ -160,6 +161,7 @@ Page({
     }
     this.setData(_data)
     this.getUserApiInfo()
+    this.cardMyList()
   },
   async userAmount() {
     const res = await WXAPI.userAmount(wx.getStorageSync('token'))
@@ -221,7 +223,11 @@ Page({
       remark: this.data.remark,
       peisongType: this.data.peisongType,
       deductionScore: this.data.deductionScore,
-      goodsType: this.data.shopCarType
+      goodsType: this.data.shopCarType,
+      cardId: this.data.cardId
+    }
+    if (this.data.cardId == '0') {
+      postData.cardId = ''
     }
     if (this.data.dyopen == 1) {
       const orderPeriod = {
@@ -826,6 +832,21 @@ Page({
     })
     this.processYunfei()
   },
+  cardChange(event) {
+    this.setData({
+      cardId: event.detail,
+    })
+    this.processYunfei()
+  },
+  cardClick(event) {
+    const {
+      name
+    } = event.currentTarget.dataset;
+    this.setData({
+      cardId: name,
+    })
+    this.processYunfei()
+  },
   dateStartclick(e) {
     this.setData({
       dateStartpop: true
@@ -843,5 +864,16 @@ Page({
     this.setData({
       dateStartpop: false
     })
-  }
+  },
+  async cardMyList() {
+    const res = await WXAPI.cardMyList(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      const myCards = res.data.filter(ele => { return ele.status == 0 && ele.amount > 0 && ele.cardInfo.refs })
+      if (myCards.length > 0) {
+        this.setData({
+          myCards: res.data
+        })
+      }
+    }
+  },
 })

@@ -36,6 +36,9 @@
     </view>
   </view>
   <view class="space van-hairline--bottom"></view>
+  <van-cell-group wx:if="{{ myCards }}" title="我的会员卡">
+    <van-cell wx:for="{{ myCards }}" wx:key="id" center title="{{ item.cardInfo.name }}" label="{{ item.dateEnd }} 到期" value-class="v-c" value="剩余: {{ item.amount }}" is-link url="/pages/card/logs?id={{ item.id }}" />
+  </van-cell-group>
   <van-cell title="我的订单" value="更多" is-link url="/pages/order-list/index" />
   <van-grid clickable column-num="5">
     <van-grid-item icon="balance-list-o" text="待付款" badge="{{count_id_no_pay}}" bindtap='goOrder' data-type="0" />

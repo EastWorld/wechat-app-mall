@@ -292,6 +292,9 @@ module.exports = {
   sendTempleMsg: function sendTempleMsg(data) {
     return request('/template-msg/put', true, 'post', data);
   },
+  payVariableUrl: (url, data) => {
+    return request(url, true, 'post', data)
+  },
   wxpay: function wxpay(data) {
     return request('/pay/wx/wxapp', true, 'post', data);
   },

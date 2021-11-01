@@ -247,6 +247,12 @@
           "pathName": "pages/my/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/maidan/index",
+          "pathName": "pages/maidan/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

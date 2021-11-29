@@ -253,6 +253,12 @@
           "pathName": "pages/maidan/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/invoice/apply",
+          "pathName": "pages/invoice/apply",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -33,7 +33,7 @@
       </van-card>
       <view class="peisong-way" hidden="{{ shop.hasNoCoupons }}">
         <view class="row-box" style="border-bottom:none;">
-          <view class="row-label t">1使用优惠券{{ shop.hasNoCoupons ? 'true' : 'false' }}</view>
+          <view class="row-label t">使用优惠券</view>
         </view>
         <picker data-sidx="{{ shopIndex }}" bindchange="bindChangeCouponShop" range="{{ shop.coupons }}" range-key="nameExt">
           <view class="row-box" style="border-bottom:none;">      

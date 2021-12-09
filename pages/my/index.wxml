@@ -83,6 +83,15 @@
           </view>
         </navigator>
       </block>
+      <block wx:else>
+        <view class="line"></view>
+        <navigator url="/pages/peisong/orders?status=-1">
+          <view class="menu-item">
+            <view class="l hongdian-box">待接单订单<view wx:if="{{peisongOrderNumber3}}" class="hongdian">{{peisongOrderNumber3}}</view></view>
+            <image class="next" src="/images/icon/next.png"></image>
+          </view>
+        </navigator>
+      </block>
       <view class="space"></view>
     </block>
   </view>

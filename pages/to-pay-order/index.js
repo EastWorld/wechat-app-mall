@@ -186,12 +186,18 @@ Page({
     this.data.remark = e.detail.value
   },
   async goCreateOrder() {
+    this.setData({
+      btnLoading: true
+    })
     // 检测实名认证状态
     if (wx.getStorageSync('needIdCheck') == 1) {
       const res = await WXAPI.userDetail(wx.getStorageSync('token'))
       if (res.code == 0 && !res.data.base.isIdcardCheck) {
         wx.navigateTo({
           url: '/pages/idCheck/index',
+        })
+        this.setData({
+          btnLoading: false
         })
         return
       }
@@ -271,6 +277,9 @@ Page({
           title: '请设置收货地址',
           icon: 'none'
         })
+        this.setData({
+          btnLoading: false
+        })
         return;
       }
       if (postData.peisongType == 'kd') {
@@ -291,6 +300,9 @@ Page({
           title: '请选择自提门店',
           icon: 'none'
         })
+        this.setData({
+          btnLoading: false
+        })
         return;
       }
       const extJsonStr = {}
@@ -300,12 +312,18 @@ Page({
             title: '请填写联系人',
             icon: 'none'
           })
+          this.setData({
+            btnLoading: false
+          })
           return;
         }
         if (!this.data.mobile) {
           wx.showToast({
             title: '请填写联系电话',
             icon: 'none'
+          })
+          this.setData({
+            btnLoading: false
           })
           return;
         }
@@ -353,6 +371,9 @@ Page({
             title: '错误',
             content: res.msg,
             showCancel: false
+          })
+          this.setData({
+            btnLoading: false
           })
           return;
         }
@@ -444,6 +465,9 @@ Page({
           content: res.msg,
           showCancel: false
         })
+        this.setData({
+          btnLoading: false
+        })
         return;
       }
       totalRes = res
@@ -530,6 +554,9 @@ Page({
     this.processAfterCreateOrder(totalRes)
   },
   async processAfterCreateOrder(res) {
+    this.setData({
+      btnLoading: false
+    })
     let orderId = ''
     if (res.data.orderIds && res.data.orderIds.length > 0) {
       orderId = res.data.orderIds.join()

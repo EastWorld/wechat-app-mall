@@ -236,6 +236,7 @@
     price="{{ allGoodsAndYunPrice*100 }}"
     suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
     button-text="提交订单"
+    loading="{{ btnLoading }}"
     bind:submit="goCreateOrder"
   />
 </block>

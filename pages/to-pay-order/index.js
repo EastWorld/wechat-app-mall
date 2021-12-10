@@ -557,6 +557,12 @@ Page({
     this.setData({
       btnLoading: false
     })
+    if (res.data.status != 0) {
+      wx.redirectTo({
+        url: "/pages/order-list/index"
+      })
+      return
+    }
     let orderId = ''
     if (res.data.orderIds && res.data.orderIds.length > 0) {
       orderId = res.data.orderIds.join()

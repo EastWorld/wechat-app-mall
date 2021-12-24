@@ -1,5 +1,5 @@
 <van-sticky>
-<view class="search-contianer">
+<view class="search-container">
   <view class="search" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
     <view class="search-title" src="../../images/actLogo/ytlogo.png"
       style="height:{{navHeight-navTop-5}}px;line-height:{{navHeight-navTop-5}}px;width:{{132/52*(navHeight-navTop-5)}}px;">

@@ -116,6 +116,12 @@ Page({
         shopList = res.data.shopList
       } else if (this.data.shopCarType == 1) {//云货架购物车
         var res = await WXAPI.jdvopCartInfo(token)
+        shopList = [{
+          id: 0,
+          name: '其他',
+          hasNoCoupons: true,
+          serviceDistance: 99999999
+        }]
       }
       if (res.code == 0) {
         goodsList = res.data.items.filter(ele => {
@@ -123,6 +129,9 @@ Page({
         })
         const shopIds = []
         goodsList.forEach(ele => {
+          if (this.data.shopCarType == 1) {
+            ele.shopId = 0
+          }
           shopIds.push(ele.shopId)
         })
         shopList = shopList.filter(ele => {

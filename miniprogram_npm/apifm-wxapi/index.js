@@ -421,6 +421,16 @@ module.exports = {
     }
     return request('/shop/goods/list', true, 'post', data);
   },
+  goodsv2: (data) => {
+    if (!data) {
+      data = {}
+    }
+    const shopIds = wx.getStorageSync('shopIds')
+    if (shopIds) {
+      data.shopId = shopIds
+    }
+    return request('/shop/goods/list/v2', true, 'post', data)
+  },
   goodsDetail: function goodsDetail(id) {
     var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 

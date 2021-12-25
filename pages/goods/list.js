@@ -57,16 +57,16 @@ Page({
     if (this.data.categoryId) {
       _data.categoryId = this.data.categoryId
     }
-    const res = await WXAPI.goods(_data)
+    const res = await WXAPI.goodsv2(_data)
     wx.hideLoading()
     if (res.code == 0) {
       if (this.data.page == 1) {
         this.setData({
-          goods: res.data,
+          goods: res.data.result,
         })
       } else {
         this.setData({
-          goods: this.data.goods.concat(res.data),
+          goods: this.data.goods.concat(res.data.result),
         })
       }
     } else {

@@ -1,4 +1,6 @@
-<van-search value="{{ name }}" placeholder="请输入搜索关键词" shape="round" bind:search="bindconfirm" />
+<van-search value="{{ name }}" placeholder="请输入搜索关键词" shape="round" bind:search="bindconfirm" use-right-icon-slot>
+  <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
+</van-search>
 <view class="main">
   <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
     <van-sidebar custom-class="sidebar-l" active-key="{{ activeCategory }}">

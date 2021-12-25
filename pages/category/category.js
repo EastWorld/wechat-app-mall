@@ -411,4 +411,17 @@ Page({
       })
     }
   },
+  searchscan() {
+    wx.scanCode({
+      scanType: ['barCode', 'qrCode', 'datamatrix', 'pdf417'],
+      success: res => {
+        this.setData({
+          inputVal: res.result
+        })
+        wx.navigateTo({
+          url: '/pages/goods/list?name=' + res.result,
+        })
+      }
+    })
+  }
 })

@@ -104,6 +104,7 @@ Page({
     const idx = e.currentTarget.dataset.idx
     wx.setStorageSync('shopInfo', this.data.shops[idx])
     wx.setStorageSync('shopIds', this.data.shops[idx].id)
+    wx.setStorageSync('refreshIndex', 1)
     wx.switchTab({
       url: '/pages/index/index'
     })

@@ -68,6 +68,7 @@ App({
         if (this.configLoadOK) {
           this.configLoadOK()
         }
+        // wx.setStorageSync('shopMod', '1') // 测试用，不要取消注释
       }
     })
     // ---------------检测navbar高度

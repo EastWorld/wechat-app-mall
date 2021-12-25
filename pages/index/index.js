@@ -207,6 +207,11 @@ Page({
     TOOLS.showTabBarBadge()
     this.goodsDynamic()
     this.miaoshaGoods()
+    const refreshIndex = wx.getStorageSync('refreshIndex')
+    if (refreshIndex) {
+      this.onPullDownRefresh()
+      wx.removeStorageSync('refreshIndex')
+    }
   },
   async goodsDynamic(){
     const res = await WXAPI.goodsDynamic(0)

@@ -12,6 +12,12 @@
 
 [https://github.com/EastWorld/tt-app-mall](https://github.com/EastWorld/tt-app-mall)
 
+# uni-app版本
+
+[https://github.com/gooking/uni-app-mall](https://github.com/gooking/uni-app-mall)
+
+[码云镜像](https://gitee.com/javazj/uni-app-mall)
+
 ## 扫码体验
 
 <img src="https://7.s2m.cc/2021/10/05/d15d243a-951f-4ec8-8f34-422368a20d91.jpeg" width="200px">

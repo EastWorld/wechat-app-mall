@@ -1,6 +1,8 @@
-<van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap">
-  <van-tab wx:for="{{statusType}}" wx:key="index" title="{{item.label}}" info="{{badges[index] ? badges[index] : ''}}" />
-</van-tabs>
+<van-sticky>
+  <van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap">
+    <van-tab wx:for="{{statusType}}" wx:key="index" title="{{item.label}}" info="{{badges[index] ? badges[index] : ''}}" />
+  </van-tabs>
+</van-sticky>
 <view class="container">
   <van-empty wx:if="{{ !orderList }}" description="暂无订单" />
   <view class="order-list" hidden="{{orderList ? false : true}}">

@@ -82,9 +82,6 @@ Page({
       }
     }
   },
-  onPullDownRefresh: function () {
-
-  },
   onReachBottom() {
     this.setData({
       page: this.data.page + 1

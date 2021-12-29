@@ -259,6 +259,18 @@
           "pathName": "pages/invoice/apply",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "type=1",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -38,6 +38,7 @@
     "pages/live/index",
     "pages/help/detail",
     "pages/help/index",
+    "pages/cms/list",
     "pages/about/index",
     "pages/idCheck/index",
     "pages/peisong/detail",
@@ -53,7 +54,8 @@
     "pages/recycle/index",
     "pages/recycle/orders",
     "pages/recycle/order-detail",
-    "pages/card/logs"
+    "pages/card/logs",
+    "pages/notagree/index"
   ],
   "subpackages": [
     {
@@ -143,7 +145,7 @@
     }
   },
   "usingComponents": {
-    "float-menu": "/components/float-menu/index",
+    "fuwuxieyi": "/components/fuwuxieyi/index",
     "parser":"/components/parser.20200414.min/parser",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "van-search": "@vant/weapp/search/index",

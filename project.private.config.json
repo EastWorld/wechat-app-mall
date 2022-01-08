@@ -271,6 +271,30 @@
           "pathName": "pages/order-list/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/shop/select",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/cms/list",
+          "query": "categoryId=66350",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/invoice/apply",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/notagree/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

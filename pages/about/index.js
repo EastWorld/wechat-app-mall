@@ -4,7 +4,9 @@ Page({
 
   },
   onLoad: function (options) {
-    options.key = 'aboutus'
+    if (!options.key) {
+      options.key = 'aboutus'
+    }
     this.data.key = options.key
     this.cmsPage()
   },

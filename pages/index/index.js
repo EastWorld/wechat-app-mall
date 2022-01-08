@@ -13,17 +13,14 @@ Page({
     loadingHidden: false, // loading
     selectCurrent: 0,
     categories: [],
-    activeCategoryId: 0,
     goods: [],
-    scrollTop: 0,
     loadingMoreHidden: true,
     coupons: [],
     curPage: 1,
-    pageSize: 20,
-    cateScrollTop: 0
+    pageSize: 20
   },
-
-  tabClick: function(e) {
+  tabClick(e) {
+    // 商品分类点击
     const category = this.data.categories.find(ele => {
       return ele.id == e.currentTarget.dataset.id
     })
@@ -37,6 +34,13 @@ Page({
         url: '/pages/category/category',
       })
     }
+  },
+  tabClickCms(e) {
+    // 文章分类点击
+    const category = this.data.cmsCategories[e.currentTarget.dataset.idx]
+    wx.navigateTo({
+      url: '/pages/cms/list?categoryId=' + category.id,
+    })
   },
   toDetailsTap: function(e) {
     console.log(e);
@@ -116,6 +120,7 @@ Page({
     })
     this.initBanners()
     this.categories()
+    this.cmsCategories()
     WXAPI.goods({
       recommendStatus: 1
     }).then(res => {
@@ -129,7 +134,6 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
-    this.wxaMpLiveRooms()
     this.adPosition()
     // 读取系统参数
     this.readConfigVal()
@@ -165,14 +169,6 @@ Page({
       })
     }
   },
-  async wxaMpLiveRooms(){
-    const res = await WXAPI.wxaMpLiveRooms()
-    if (res.code == 0 && res.data.length > 0) {
-      this.setData({
-        aliveRooms: res.data
-      })
-    }
-  },
   async initBanners(){
     const _data = {}
     // 读取头部轮播图
@@ -191,9 +187,6 @@ Page({
     this.setData(_data)
   },
   onShow: function(e){
-    console.log("App.globalData.navHeight", APP.globalData.navHeight)
-    console.log("App.globalData.navTop", APP.globalData.navTop)
-    console.log("App.globalData.windowHeight", APP.globalData.windowHeight)
     this.setData({
       navHeight: APP.globalData.navHeight,
       navTop: APP.globalData.navTop,
@@ -232,16 +225,9 @@ Page({
     }
     this.setData({
       categories: categories,
-      activeCategoryId: 0,
       curPage: 1
     });
     this.getGoodsList(0);
-  },
-  onPageScroll(e) {
-    let scrollTop = this.data.scrollTop
-    this.setData({
-      scrollTop: e.scrollTop
-    })
   },
   async getGoodsList(categoryId, append) {
     if (categoryId == 0) {
@@ -308,13 +294,13 @@ Page({
     this.setData({
       curPage: this.data.curPage + 1
     });
-    this.getGoodsList(this.data.activeCategoryId, true)
+    this.getGoodsList(0, true)
   },
   onPullDownRefresh: function() {
     this.setData({
       curPage: 1
     });
-    this.getGoodsList(this.data.activeCategoryId)
+    this.getGoodsList(0)
     wx.stopPullDownRefresh()
   },
   // 获取砍价商品
@@ -410,5 +396,17 @@ Page({
     wx.navigateTo({
       url: adPositionIndexPop.url,
     })
-  }
+  },
+  async cmsCategories() {
+    // https://www.yuque.com/apifm/nu0f75/slu10w
+    const res = await WXAPI.cmsCategories()
+    if (res.code == 0) {
+      const cmsCategories = res.data.filter(ele => {
+        return ele.type == 'index' // 只筛选类型为 index 的分类
+      })
+      this.setData({
+        cmsCategories
+      })
+    }
+  },
 })

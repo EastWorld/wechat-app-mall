@@ -3,24 +3,53 @@ const app = getApp()
 Page({
   data: {},
   onLoad: function (e) {
-    var orderId = e.id;
-    this.data.orderId = orderId;
+    this.data.orderId = e.id
+    this.data.trackingNumber = e.trackingNumber
+    this.orderDetail()
   },
   onShow: function () {
-    var that = this;
-    WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
-      if (res.code != 0) {
-        wx.showModal({
-          title: '错误',
-          content: res.msg,
-          showCancel: false
-        })
-        return;
+  },
+  async orderDetail() {
+    // https://www.yuque.com/apifm/nu0f75/oamel8
+    const res = await WXAPI.orderDetail(wx.getStorageSync('token'), this.data.orderId)
+    if (res.code != 0) {
+      wx.showModal({
+        title: '错误',
+        content: res.msg,
+        showCancel: false,
+        success: () => {
+          wx.navigateBack()
+        }
+      })
+      return;
+    }
+    const orderLogisticsShippers = res.data.orderLogisticsShippers
+    let trackingNumber = this.data.trackingNumber
+    if (!trackingNumber) {
+      trackingNumber = res.data.logistics.trackingNumber
+    }
+    let shipperName = this.data.shipperName
+    if (!shipperName) {
+      shipperName = res.data.logistics.shipperName
+    }
+    let logisticsTraces = null
+    if (this.data.trackingNumber && orderLogisticsShippers) {
+      // 查看子快递单
+      const entity = orderLogisticsShippers.find(ele => { return ele.trackingNumber == this.data.trackingNumber })
+      if (entity.traces) {
+        entity.tracesArray = JSON.parse (entity.traces)
+        logisticsTraces = entity.tracesArray.reverse()
       }
-      that.setData({
-        orderDetail: res.data,
-        logisticsTraces: res.data.logisticsTraces.reverse()
-      });
-    })
-  }
+    } else {
+      if (res.data.logisticsTraces) {
+        logisticsTraces = res.data.logisticsTraces.reverse()
+      }
+    }
+    this.setData({
+      trackingNumber,
+      shipperName,
+      orderDetail: res.data,
+      logisticsTraces
+    });
+  },
 })

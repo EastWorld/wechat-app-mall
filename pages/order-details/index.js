@@ -30,7 +30,18 @@ Page({
         // 绘制核销码
         if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0) {
           wxbarcode.qrcode('qrcode', res.data.orderInfo.hxNumber, 650, 650);
-        }        
+        }
+        // 子快递单信息
+        if (res.data.orderLogisticsShippers) {
+          res.data.orderLogisticsShippers.forEach(ele => {
+            if (ele.traces) {
+              ele.tracesArray = JSON.parse (ele.traces)
+              if (ele.tracesArray && ele.tracesArray.length > 0) {
+                ele.tracesLast = ele.tracesArray[ele.tracesArray.length - 1].AcceptStation + '\n' + ele.tracesArray[ele.tracesArray.length - 1].AcceptTime
+              }
+            }
+          })
+        }
         that.setData({
           orderDetail: res.data
         });

@@ -224,7 +224,8 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    const res = await WXAPI.goods()
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2()
   //  console.log(res.data);
     wx.hideLoading()
     if (res.code == 0) {
@@ -234,7 +235,7 @@ Page({
         })
       }else{
         this.setData({
-          goodsList: res.data,
+          goodsList: res.data.result,
           showEmpty: false
         })
       }

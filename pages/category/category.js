@@ -89,7 +89,8 @@ Page({
     } else if(this.data.categorySelected.id) {
       categoryId = this.data.categorySelected.id
     }
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       categoryId,
       page: this.data.page,
       pageSize: this.data.pageSize
@@ -117,11 +118,11 @@ Page({
     }
     if (this.data.page == 1) {
       this.setData({
-        currentGoods: res.data
+        currentGoods: res.data.result
       })
     } else {
       this.setData({
-        currentGoods: this.data.currentGoods.concat(res.data)
+        currentGoods: this.data.currentGoods.concat(res.data.result)
       })
     }
   },

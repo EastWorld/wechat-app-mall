@@ -38,6 +38,17 @@
           <view class="wuliu-text">暂无物流信息</view>
         </view>
       </view>
+      <van-cell-group wx:if="{{ orderDetail.orderLogisticsShippers && orderDetail.orderLogisticsShippers.length > 0 }}">
+        <van-cell
+          wx:for="{{ orderDetail.orderLogisticsShippers }}"
+          wx:key="id"
+          title="{{ item.shipperName }}: {{ item.trackingNumber }}"
+          label="{{ item.tracesLast }}"
+          center
+          is-link
+          url="/pages/wuliu/index?id={{ item.orderId }}&trackingNumber={{ item.trackingNumber }}"
+        />
+      </van-cell-group>
       <view class="address-sec">
         <view class="icon-box">
           <image class="icon" src="/images/order-details/icon-address.png"></image>

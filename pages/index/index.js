@@ -121,12 +121,13 @@ Page({
     this.initBanners()
     this.categories()
     this.cmsCategories()
-    WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    WXAPI.goodsv2({
       recommendStatus: 1
     }).then(res => {
       if (res.code === 0){
         that.setData({
-          goodsRecommend: res.data
+          goodsRecommend: res.data.result
         })
       }      
     })
@@ -151,11 +152,12 @@ Page({
     })
   },
   async miaoshaGoods(){
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       miaosha: true
     })
     if (res.code == 0) {
-      res.data.forEach(ele => {
+      res.data.result.forEach(ele => {
         const _now = new Date().getTime()
         if (ele.dateStart) {
           ele.dateStartInt = new Date(ele.dateStart.replace(/-/g, '/')).getTime() - _now
@@ -165,7 +167,7 @@ Page({
         }
       })
       this.setData({
-        miaoshaGoods: res.data
+        miaoshaGoods: res.data.result
       })
     }
   },
@@ -236,7 +238,8 @@ Page({
     wx.showLoading({
       "mask": true
     })
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       categoryId: categoryId,
       page: this.data.curPage,
       pageSize: this.data.pageSize
@@ -256,8 +259,8 @@ Page({
     if (append) {
       goods = this.data.goods
     }
-    for (var i = 0; i < res.data.length; i++) {
-      goods.push(res.data[i]);
+    for (var i = 0; i < res.data.result.length; i++) {
+      goods.push(res.data.result[i]);
     }
     this.setData({
       loadingMoreHidden: true,
@@ -305,17 +308,18 @@ Page({
   },
   // 获取砍价商品
   async kanjiaGoods(){
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       kanjia: true
     });
     if (res.code == 0) {
       const kanjiaGoodsIds = []
-      res.data.forEach(ele => {
+      res.data.result.forEach(ele => {
         kanjiaGoodsIds.push(ele.id)
       })
       const goodsKanjiaSetRes = await WXAPI.kanjiaSet(kanjiaGoodsIds.join())
       if (goodsKanjiaSetRes.code == 0) {
-        res.data.forEach(ele => {
+        res.data.result.forEach(ele => {
           const _process = goodsKanjiaSetRes.data.find(_set => {
             return _set.goodsId == ele.id
           })
@@ -325,7 +329,7 @@ Page({
           }
         })
         this.setData({
-          kanjiaList: res.data
+          kanjiaList: res.data.result
         })
       }
     }
@@ -337,12 +341,13 @@ Page({
   },
   pingtuanGoods(){ // 获取团购商品列表
     const _this = this
-    WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    WXAPI.goodsv2({
       pingtuan: true
     }).then(res => {
       if (res.code === 0) {
         _this.setData({
-          pingtuanList: res.data
+          pingtuanList: res.data.result
         })
       }
     })

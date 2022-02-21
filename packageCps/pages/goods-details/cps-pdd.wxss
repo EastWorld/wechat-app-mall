@@ -19,6 +19,7 @@ textarea {
 
 .scroll-container {
   height: 100vh;
+  padding-bottom: 64rpx;
 }
 
 .tabs-container {

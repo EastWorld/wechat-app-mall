@@ -31,6 +31,9 @@ Page({
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
   },
   bindscroll(e) {
+    if (this.data.tabclicked) {
+      return
+    }
     //计算页面 轮播图、详情、评价(砍价)view 高度
     this.getTopHeightFunction()
     var tabsHeight = this.data.tabsHeight //顶部距离（tabs高度）
@@ -706,8 +709,14 @@ Page({
   onTabsChange(e) {
     var index = e.detail.index
     this.setData({
-      toView: this.data.tabs[index].view_id
+      toView: this.data.tabs[index].view_id,
+      tabclicked: true
     })
+    setTimeout(() => {
+      this.setData({
+        tabclicked: false
+      })
+    }, 1000);
   },
   backToHome() {
     wx.switchTab({

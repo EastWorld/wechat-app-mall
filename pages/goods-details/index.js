@@ -781,6 +781,14 @@ Page({
         that.setData({
           reputation: res.data
         });
+      } else {
+        if (that.data.tabs && that.data.tabs.length == 3) {
+          const tabs = that.data.tabs
+          tabs.splice(2, 1)
+          that.setData({
+            tabs
+          })
+        }
       }
     })
   },

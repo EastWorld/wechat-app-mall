@@ -295,6 +295,20 @@
           "pathName": "pages/notagree/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=4469",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=810285",
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }

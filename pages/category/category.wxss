@@ -7,7 +7,7 @@ page {
 .main {
   flex: 1;
   display: flex;
-  height: 100%;
+  overflow: hidden;
 }
 .goods-btn {
   position: absolute;
@@ -52,6 +52,7 @@ page {
   color: #666;
 }
 .sku-container {
+  box-sizing: border-box;
   width: 100vw;
   padding: 32rpx 32rpx 0 32rpx;
 }

@@ -38,7 +38,7 @@
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.20.0",
+  "libVersion": "2.22.1",
   "appid": "wxa46b09d413fbcaff",
   "projectname": "天使童装",
   "scripts": {},

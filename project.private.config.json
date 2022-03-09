@@ -307,6 +307,13 @@
           "name": "",
           "pathName": "pages/goods-details/index",
           "query": "id=810285",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/index",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }

@@ -33,6 +33,10 @@
         <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" />
       </view>
       <view class="input">
+        <view>电子邮箱</view>
+        <input name='email' type="text" placeholder="发票将通过邮件发送给你" placeholder-class="placeholder" />
+      </view>
+      <view class="input">
         <view>备注</view>
         <input name='remark' type="text" placeholder="如有特殊说明，请告诉我们" placeholder-class="placeholder" />
       </view>

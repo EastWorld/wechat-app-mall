@@ -60,6 +60,7 @@ Page({
       show_quan_exchange_score: wx.getStorageSync('show_quan_exchange_score'),
       show_score_exchange_growth: wx.getStorageSync('show_score_exchange_growth'),
       show_score_sign: wx.getStorageSync('show_score_sign'),
+      fx_type: wx.getStorageSync('fx_type'),
     })
   },
   async getUserApiInfo() {

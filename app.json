@@ -84,6 +84,8 @@
       "name": "packageFx",
       "pages": [
         "pages/index/index",
+        "pages/hehuorenfenxiao/index",
+        "pages/hehuorenfenxiao/fxmember",
         "pages/apply/index",
         "pages/apply/form",
         "pages/myusers/index",

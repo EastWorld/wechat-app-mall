@@ -307,6 +307,9 @@ module.exports = {
   wxpayAirwallex: (data) => {
     return request('/pay/airwallex/wxapp', true, 'post', data)
   },
+  wxSphGetpaymentparams: (token, orderId) => {
+    return request('/pay/wxsph/getpaymentparams', true, 'post', { token, orderId })
+  },
   fomoCheckout: function fomoCheckout(data) {
     return request('/pay/fomo/checkout', true, 'post', data);
   },

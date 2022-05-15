@@ -32,6 +32,12 @@ function wxpay(type, money, orderId, redirectUrl, data, content) {
       type: 13
     };
   }
+  if (type === 'payTz') {
+    postData.remark = "购买团长 ：" + money;
+    postData.nextAction = {
+      type: 14
+    };
+  }
   postData.payName = postData.remark;
   if (postData.nextAction) {
     postData.nextAction = JSON.stringify(postData.nextAction);  

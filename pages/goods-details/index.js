@@ -265,12 +265,12 @@ Page({
           _data.myHelpDetail = myHelpDetail.data
         }
         //砍价商品 tabs栏显示砍价情况
-        var tabs = that.data.tabs
-        tabs[2].tabs_name="砍价记录"
-        tabs[2].view_id="kanjia"
-        that.setData({
-          tabs:tabs
-        })
+        // var tabs = that.data.tabs
+        // tabs[2].tabs_name="砍价记录"
+        // tabs[2].view_id="kanjia"
+        // that.setData({
+        //   tabs:tabs
+        // })
       }
       if (goodsDetailRes.data.basicInfo.pingtuan) {
         const pingtuanSetRes = await WXAPI.pingtuanSet(goodsId)

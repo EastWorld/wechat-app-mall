@@ -104,7 +104,7 @@ Page({
         if (res.data.balance > 0) {
           _msg += ',可用余额为 ' + res.data.balance +' 元'
           if (money - res.data.balance > 0) {
-            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
+            _msg += ',仍需微信支付 ' + (money - res.data.balance).toFixed(2) + ' 元'
           }          
         }
         if (needScore > 0) {
@@ -131,6 +131,38 @@ Page({
           content: '无法获取用户资金信息',
           showCancel: false
         })
+      }
+    })
+  },
+  async wxSphGetpaymentparams(e) {
+    const orderId = e.currentTarget.dataset.id
+    const res = await WXAPI.wxSphGetpaymentparams(wx.getStorageSync('token'), orderId)
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return;
+    }
+    // 发起支付
+    wx.requestPayment({
+      timeStamp: res.data.timeStamp,
+      nonceStr: res.data.nonceStr,
+      package: res.data.package,
+      signType: res.data.signType,
+      paySign: res.data.paySign,
+      fail: aaa => {
+        console.error(aaa)
+        wx.showToast({
+          title: '支付失败:' + aaa
+        })
+      },
+      success: () => {
+        // 提示支付成功
+        wx.showToast({
+          title: '支付成功'
+        })
+        this.orderList()
       }
     })
   },
@@ -165,6 +197,9 @@ Page({
     }
     this.getOrderStatistics();
     this.orderList();
+    this.setData({
+      sphpay_open: wx.getStorageSync('sphpay_open')
+    })
   },
   onReady: function() {
     // 生命周期函数--监听页面初次渲染完成

@@ -8,6 +8,7 @@
   custom-style="{{ overlayStyle }}"
   duration="{{ duration }}"
   bind:click="onClickOverlay"
+  lock-scroll="{{ lockScroll }}"
 />
 <view
   wx:if="{{ inited }}"

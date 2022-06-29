@@ -58,12 +58,12 @@
       app-parameter="{{ appParameter }}"
 
       bind:click="onConfirm"
-      bindgetuserinfo="bindGetUserInfo"
-      bindcontact="bindContact"
-      bindgetphonenumber="bindGetPhoneNumber"
-      binderror="bindError"
-      bindlaunchapp="bindLaunchApp"
-      bindopensetting="bindOpenSetting"
+      bindgetuserinfo="onGetUserInfo"
+      bindcontact="onContact"
+      bindgetphonenumber="onGetPhoneNumber"
+      binderror="onError"
+      bindlaunchapp="onLaunchApp"
+      bindopensetting="onOpenSetting"
     >
       {{ confirmButtonText }}
     </van-goods-action-button>
@@ -100,12 +100,12 @@
       app-parameter="{{ appParameter }}"
 
       bind:click="onConfirm"
-      bindgetuserinfo="bindGetUserInfo"
-      bindcontact="bindContact"
-      bindgetphonenumber="bindGetPhoneNumber"
-      binderror="bindError"
-      bindlaunchapp="bindLaunchApp"
-      bindopensetting="bindOpenSetting"
+      bindgetuserinfo="onGetUserInfo"
+      bindcontact="onContact"
+      bindgetphonenumber="onGetPhoneNumber"
+      binderror="onError"
+      bindlaunchapp="onLaunchApp"
+      bindopensetting="onOpenSetting"
     >
       {{ confirmButtonText }}
     </van-button>

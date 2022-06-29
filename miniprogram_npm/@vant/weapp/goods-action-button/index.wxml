@@ -18,12 +18,12 @@
   show-message-card="{{ showMessageCard }}"
   send-message-title="{{ sendMessageTitle }}"
   bind:click="onClick"
-  binderror="bindError"
-  bindcontact="bindContact"
-  bindopensetting="bindOpenSetting"
-  bindgetuserinfo="bindGetUserInfo"
-  bindgetphonenumber="bindGetPhoneNumber"
-  bindlaunchapp="bindLaunchApp"
+  binderror="onError"
+  bindcontact="onContact"
+  bindopensetting="onOpenSetting"
+  bindgetuserinfo="onGetUserInfo"
+  bindgetphonenumber="onGetPhoneNumber"
+  bindlaunchapp="onLaunchApp"
 >
   {{ text }}
   <slot></slot>

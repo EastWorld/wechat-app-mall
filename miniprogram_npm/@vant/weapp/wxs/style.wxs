@@ -2,6 +2,16 @@
 var object = require('./object.wxs');
 var array = require('./array.wxs');
 
+function kebabCase(word) {
+  var newWord = word
+    .replace(getRegExp("[A-Z]", 'g'), function (i) {
+      return '-' + i;
+    })
+    .toLowerCase()
+
+  return newWord;
+}
+
 function style(styles) {
   if (array.isArray(styles)) {
     return styles
@@ -21,7 +31,7 @@ function style(styles) {
         return styles[key] != null && styles[key] !== '';
       })
       .map(function (key) {
-        return [key, [styles[key]]].join(':');
+        return [kebabCase(key), [styles[key]]].join(':');
       })
       .join(';');
   }

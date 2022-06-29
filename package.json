@@ -4,12 +4,11 @@
   "description": "删除 <float-menu />",
   "main": "app.js",
   "dependencies": {
-    "@vant/weapp": "^1.6.8",
-    "apifm-wxapi": "^3.36.0",
+    "@vant/weapp": "^1.10.3",
+    "apifm-wxapi": "^3.55.0",
     "wxa-plugin-canvas": "^1.1.12",
     "wxbarcode": "^1.0.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

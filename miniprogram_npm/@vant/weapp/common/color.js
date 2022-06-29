@@ -1,5 +1,5 @@
-'use strict';
-Object.defineProperty(exports, '__esModule', { value: true });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.GRAY_DARK = exports.GRAY = exports.ORANGE = exports.GREEN = exports.WHITE = exports.BLUE = exports.RED = void 0;
 exports.RED = '#ee0a24';
 exports.BLUE = '#1989fa';

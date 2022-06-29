@@ -21,6 +21,8 @@
       disabled="{{ disabled }}"
       readonly="{{ readonly }}"
       clearable="{{ clearable }}"
+      clear-trigger="{{ clearTrigger }}"
+      clear-icon="{{ clearIcon }}"
       maxlength="{{ maxlength }}"
       input-align="{{ inputAlign }}"
       input-class="input-class"
@@ -32,6 +34,7 @@
       bind:change="onChange"
       bind:confirm="onSearch"
       bind:clear="onClear"
+      bind:click-input="onClickInput"
     >
       <slot wx:if="{{ useLeftIconSlot }}" name="left-icon" slot="left-icon" />
       <slot wx:if="{{ useRightIconSlot }}" name="right-icon" slot="right-icon" />

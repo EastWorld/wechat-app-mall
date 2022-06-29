@@ -1,18 +1,18 @@
-'use strict';
-Object.defineProperty(exports, '__esModule', { value: true });
-var component_1 = require('../common/component');
-component_1.VantComponent({
-  props: {
-    color: String,
-    vertical: Boolean,
-    type: {
-      type: String,
-      value: 'circular',
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var component_1 = require("../common/component");
+(0, component_1.VantComponent)({
+    props: {
+        color: String,
+        vertical: Boolean,
+        type: {
+            type: String,
+            value: 'circular',
+        },
+        size: String,
+        textSize: String,
     },
-    size: String,
-    textSize: String,
-  },
-  data: {
-    array12: Array.from({ length: 12 }),
-  },
+    data: {
+        array12: Array.from({ length: 12 }),
+    },
 });

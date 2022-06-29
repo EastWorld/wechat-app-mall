@@ -1,1 +1,1 @@
-@import '../common/index.wxss';.van-radio-group--horizontal{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap}
+@import '../common/index.wxss';.van-radio-group--horizontal{display:flex;flex-wrap:wrap}

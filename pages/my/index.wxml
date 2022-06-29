@@ -97,7 +97,7 @@
   </view>
 
   <van-cell wx:if="{{ fx_type == 'hehuoren' }}" title="分销中心" is-link url="/packageFx/pages/hehuorenfenxiao/index" />
-  <van-cell-group wx:if="{{ show_3_seller == 1 }}" title="三级分销">
+  <van-cell-group wx:elif="{{ show_3_seller == 1 }}" title="三级分销">
     <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/packageFx/pages/apply/index" />
     <van-cell wx:else title="分销中心" is-link url="/packageFx/pages/index/index" />
     <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="我的团队" is-link url="/packageFx/pages/myusers/index" />

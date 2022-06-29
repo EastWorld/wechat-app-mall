@@ -675,6 +675,11 @@ module.exports = {
       token: token, code: code, encryptedData: encryptedData, iv: iv, pwd: pwd
     });
   },
+  bindMobileWxappV2: (token, code, pwd = '') => {
+    return request('/user/wxapp/bindMobile/v2', true, 'post', {
+      token, code, pwd
+    })
+  },
   bindMobileTta: function bindMobileTta(token, encryptedData, iv) {
     var pwd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
 

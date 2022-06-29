@@ -12,9 +12,6 @@ Page({
     this.getUserApiInfo()
   },
   onShow: function () {
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
-    })
   },
   getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
@@ -39,11 +36,8 @@ Page({
         iv: e.detail.iv,
       })
     } else {
-      res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+      res = await WXAPI.bindMobileWxappV2(wx.getStorageSync('token'), e.detail.code)
     }
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
-    })
     if (res.code === 10002) {
       AUTH.login(this)
       return

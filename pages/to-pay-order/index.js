@@ -94,9 +94,6 @@ Page({
         })
       }
     })
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
-    })
   },
   async doneShow() {
     let goodsList = []
@@ -838,11 +835,8 @@ Page({
         iv: e.detail.iv,
       })
     } else {
-      res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+      res = await WXAPI.bindMobileWxappV2(wx.getStorageSync('token'), e.detail.code)
     }
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
-    })
     if (res.code == 0) {
       wx.showToast({
         title: '读取成功',

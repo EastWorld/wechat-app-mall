@@ -50,7 +50,7 @@ Page({
 
     bindMobileStatus: 0, // 0 未判断 1 已绑定手机号码 2 未绑定手机号码
     userScore: 0, // 用户可用积分
-    deductionScore: '0', // 本次交易抵扣的积分数
+    deductionScore: '-1', // 本次交易抵扣的积分数， -1 为不抵扣，0 为自动抵扣，其他金额为抵扣多少积分
     shopCarType: 0, //0自营购物车，1云货架购物车
     dyopen: 0, // 是否开启订阅
     dyunit: 0, // 按天
@@ -234,9 +234,11 @@ Page({
       goodsJsonStr: this.data.goodsJsonStr,
       remark: this.data.remark,
       peisongType: this.data.peisongType,
-      deductionScore: this.data.deductionScore,
       goodsType: this.data.shopCarType,
       cardId: this.data.cardId
+    }
+    if (this.data.deductionScore != '-1') {
+      postData.deductionScore = this.data.deductionScore
     }
     if (this.data.cardId == '0') {
       postData.cardId = ''

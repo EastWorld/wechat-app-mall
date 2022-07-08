@@ -205,7 +205,10 @@
   <!-- 选择积分抵扣 -->
   <van-radio-group wx:if="{{ scoreDeductionRules && scoreDeductionRules.length > 0 }}" value="{{ deductionScore }}" bind:change="deductionScoreChange">
     <van-cell-group title="积分抵扣">
-      <van-cell title="不使用积分" clickable data-name="0" bind:click="deductionScoreClick">
+      <van-cell title="不使用积分" clickable data-name="-1" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="-1" />
+      </van-cell>
+      <van-cell title="自动抵扣" clickable data-name="0" bind:click="deductionScoreClick">
         <van-radio slot="right-icon" name="0" />
       </van-cell>
       <van-cell wx:for="{{scoreDeductionRules}}" wx:key="id" title="使用{{ item.score }}积分抵扣¥{{ item.money }}" clickable data-name="{{ item.score }}" bind:click="deductionScoreClick">

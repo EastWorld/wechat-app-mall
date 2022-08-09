@@ -57,6 +57,11 @@
     "pages/card/logs",
     "pages/notagree/index"
   ],
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseAddress",
+    "chooseLocation"
+  ],
   "subpackages": [
     {
       "root": "packageStreamMedia",

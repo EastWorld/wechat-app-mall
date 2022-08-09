@@ -153,7 +153,7 @@
   },
   "usingComponents": {
     "fuwuxieyi": "/components/fuwuxieyi/index",
-    "parser":"/components/parser.20200414.min/parser",
+    "mp-html": "mp-html",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "van-search": "@vant/weapp/search/index",
     "van-divider": "@vant/weapp/divider/index",

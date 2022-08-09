@@ -1,6 +1,6 @@
 <view class="notice">
   <view class="title">{{notice.title}}</view>
   <view class="text">
-    <parser html="{{notice.content}}" />
+    <mp-html content="{{notice.content}}" />
   </view>
 </view>

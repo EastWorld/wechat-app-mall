@@ -1,4 +1,5 @@
 /// <reference types="miniprogram-api-typings" />
+/// <reference types="miniprogram-api-typings" />
 export declare type Action = 'confirm' | 'cancel' | 'overlay';
 interface DialogOptions {
     lang?: string;

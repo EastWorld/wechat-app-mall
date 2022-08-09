@@ -40,5 +40,8 @@ exports.button = Behavior({
         onOpenSetting: function (event) {
             this.triggerEvent('opensetting', event.detail);
         },
+        onChooseAvatar: function (event) {
+            this.triggerEvent('chooseavatar', event.detail);
+        },
     },
 });

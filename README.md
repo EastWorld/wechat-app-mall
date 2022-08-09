@@ -51,7 +51,7 @@
 
 - [vant-weapp](https://youzan.github.io/vant-weapp)
 
-- [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/Parser)
+- [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/mp-html)
 
 - [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
 

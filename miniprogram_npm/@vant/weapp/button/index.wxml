@@ -25,6 +25,7 @@
   binderror="onError"
   bindlaunchapp="onLaunchApp"
   bindopensetting="onOpenSetting"
+  bindchooseavatar="onChooseAvatar"
 >
   <block wx:if="{{ loading }}">
     <van-loading

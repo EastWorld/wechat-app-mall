@@ -96,7 +96,7 @@
       </view>
       <view class="goods-text">
         <image wx:for="{{wxintroduction}}" wx:key="id" mode="widthFix" src="{{ item }}"></image>
-        <parser wx:if="{{ wxintroduction && goodsDetail.content }}" html="{{goodsDetail.content}}" />
+        <mp-html wx:if="{{ wxintroduction && goodsDetail.content }}" content="{{goodsDetail.content}}" />
       </view>
     </view>
     <van-cell-group wx:if="{{!curGoodsKanjia && reputation}}" custom-class="vw100" title="宝贝评价">

@@ -1,5 +1,7 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": true
+  },
   "condition": {
     "miniprogram": {
       "list": [
@@ -346,6 +348,20 @@
           "name": "",
           "pathName": "pages/order-list/index",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/category/category",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods/list",
+          "query": "name=",
           "launchMode": "default",
           "scene": null
         }

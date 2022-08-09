@@ -1,0 +1,36 @@
+<van-popup
+  show="{{ skuCurGoodsShow }}"
+  position="bottom"
+  round
+  custom-style="padding-top:32rpx;max-height: 80%;"
+  bind:close="closeSku"
+>
+  <van-card
+    centered
+    price="{{ selectSizePrice }}"
+    origin-price="{{ selectSizePrice != selectSizePrice ? selectSizeOPrice : '' }}"
+    title="{{ skuCurGoods.basicInfo.name }}"
+    thumb="{{ skuGoodsPic }}"
+  />
+  <view class="sku-container">
+    <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id" wx:for-index="idx">
+      <view class="t">{{item.name}}</view>
+      <view class="items">
+        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.childsCurGoods}}" wx:for-item="small" wx:key="id"  hidden="{{ small.hidden }}" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}" bindtap="skuSelect">{{small.name}}</text>
+      </view>
+    </view>
+    <view class="sku" wx:for="{{ goodsAddition }}" wx:key="id" wx:for-index="idx">
+      <view class="t">{{item.name}}</view>
+      <view class="items">
+        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.items}}" wx:for-item="small" wx:key="id" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}" bindtap="additionSelect">{{small.name}}</text>
+      </view>
+    </view>
+    <view class="num">
+      <view class="t">购买数量</view>
+      <van-stepper value="{{ skuCurGoods.basicInfo.storesBuy }}" bind:plus="storesJia" bind:minus="storesJian" />
+    </view>
+  </view>
+  <view class="btn">
+    <van-button type="danger" block round bind:click="addCarSku">加入购物车</van-button>
+  </view>
+</van-popup>

@@ -207,198 +207,33 @@ Page({
       })
       return
     }
-    this.addShopCarCheck({
-      goodsId: curGood.id,
-      buyNumber: 1,
-      sku: []
-    })
-  },
-  async addShopCarCheck(options){
-    AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
-      if (isLogined) {
-        // 处理加入购物车的业务逻辑
-        this.addShopCarDone(options)
-      } else {
-        AUTH.login(this)
-      }
-    })
-  },
-  async addShopCarDone(options){
-    const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), options.goodsId, options.buyNumber, options.sku)
-    if (res.code == 30002) {
-      // 需要选择规格尺寸
-      const skuCurGoodsRes = await WXAPI.goodsDetail(options.goodsId)
-      if (skuCurGoodsRes.code != 0) {
+    if (!curGood.propertyIds && !curGood.hasAddition) {
+      // 直接调用加入购物车方法
+      const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), curGood.id, 1, [])
+      if (res.code == 30002) {
+        // 需要选择规格尺寸
+        this.setData({
+          skuCurGoods: curGood
+        })
+      } else if (res.code == 0) {
         wx.showToast({
-          title: skuCurGoodsRes.msg,
+          title: '加入成功',
+          icon: 'success'
+        })
+        wx.showTabBar()
+        TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
+      } else {
+        wx.showToast({
+          title: res.msg,
           icon: 'none'
         })
-        return
       }
-      wx.hideTabBar()
-      const skuCurGoods = skuCurGoodsRes.data
-      skuCurGoods.basicInfo.storesBuy = 1
+    } else {
+      // 需要选择 SKU 和 可选配件
       this.setData({
-        skuCurGoods,
-        skuGoodsPic: skuCurGoods.basicInfo.pic,
-        selectSizePrice: skuCurGoods.basicInfo.minPrice,
-        selectSizeOPrice: skuCurGoods.basicInfo.originalPrice,
-        skuCurGoodsShow: true
-      })
-      return
-    }
-    if (res.code != 0) {
-      wx.showToast({
-        title: res.msg,
-        icon: 'none'
-      })
-      return
-    }
-    wx.showToast({
-      title: '加入成功',
-      icon: 'success'
-    })
-    this.setData({
-      skuCurGoods: null,
-      skuCurGoodsShow: false
-    })
-    wx.showTabBar()
-    TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
-  },
-  storesJia(){
-    const skuCurGoods = this.data.skuCurGoods
-    if (skuCurGoods.basicInfo.storesBuy < skuCurGoods.basicInfo.stores) {
-      skuCurGoods.basicInfo.storesBuy++
-      this.setData({
-        skuCurGoods
+        skuCurGoods: curGood
       })
     }
-  },
-  storesJian(){
-    const skuCurGoods = this.data.skuCurGoods
-    if (skuCurGoods.basicInfo.storesBuy > 1) {
-      skuCurGoods.basicInfo.storesBuy--
-      this.setData({
-        skuCurGoods
-      })
-    }
-  },
-  closeSku(){
-    this.setData({
-      skuCurGoods: null,
-      skuCurGoodsShow: false
-    })
-    wx.showTabBar()
-  },
-  skuSelect(e){
-    const pid = e.currentTarget.dataset.pid
-    const id = e.currentTarget.dataset.id
-    // 处理选中
-    const skuCurGoods = this.data.skuCurGoods
-    const property = skuCurGoods.properties.find(ele => {return ele.id == pid})
-    let child
-    property.childsCurGoods.forEach(ele => {
-      if (ele.id == id) {
-        ele.active = true
-        child = ele
-      } else {
-        ele.active = false
-      }
-    })
-    // 显示图片
-    let skuGoodsPic = this.data.skuGoodsPic
-    if (skuCurGoods.subPics && skuCurGoods.subPics.length > 0) {
-      const _subPic = skuCurGoods.subPics.find(ele => {
-        return ele.optionValueId == child.id
-      })
-      if (_subPic) {
-        skuGoodsPic = _subPic.pic
-      }
-    }
-    this.setData({
-      skuCurGoods,
-      skuGoodsPic
-    })
-    // 计算价格
-    this.calculateGoodsPrice()
-  },
-  async calculateGoodsPrice() {
-    // 计算最终的商品价格
-    let price = this.data.skuCurGoods.basicInfo.minPrice
-    let originalPrice = this.data.skuCurGoods.basicInfo.originalPrice
-    let totalScoreToPay = this.data.skuCurGoods.basicInfo.minScore
-    let buyNumMax = this.data.skuCurGoods.basicInfo.stores
-    let buyNumber = this.data.skuCurGoods.basicInfo.minBuyNumber
-    // 计算 sku 价格
-    const needSelectNum = this.data.skuCurGoods.properties.length
-    let curSelectNum = 0;
-    let propertyChildIds = "";
-    let propertyChildNames = "";
-    this.data.skuCurGoods.properties.forEach(p => {
-      p.childsCurGoods.forEach(c => {
-        if (c.active) {
-          curSelectNum++;
-          propertyChildIds = propertyChildIds + p.id + ":" + c.id + ",";
-          propertyChildNames = propertyChildNames + p.name + ":" + c.name + "  ";
-        }
-      })
-    })
-    let canSubmit = false;
-    if (needSelectNum == curSelectNum) {
-      canSubmit = true;
-    }
-    const token = wx.getStorageSync('token')
-    if (canSubmit) {
-      const res = await WXAPI.goodsPriceV2({
-        token: token ? token : '',
-        goodsId: this.data.skuCurGoods.basicInfo.id,
-        propertyChildIds: propertyChildIds
-      })
-      if (res.code == 0) {
-        price = res.data.price
-        originalPrice = res.data.originalPrice
-        totalScoreToPay = res.data.score
-        buyNumMax = res.data.stores
-      }
-    }
-    this.setData({
-      selectSizePrice: price,
-      selectSizeOPrice: originalPrice,
-      totalScoreToPay: totalScoreToPay,
-      buyNumMax,
-      buyNumber: (buyNumMax >= buyNumber) ? buyNumber : 0
-    });
-  },
-  addCarSku(){
-    const skuCurGoods = this.data.skuCurGoods
-    const propertySize = skuCurGoods.properties.length // 有几组SKU
-    const sku = []
-    skuCurGoods.properties.forEach(p => {
-      const o = p.childsCurGoods.find(ele => {return ele.active})
-      if (!o) {        
-        return
-      }
-      sku.push({
-        optionId: o.propertyId,
-        optionValueId: o.id
-      })
-    })
-    if (sku.length != propertySize) {
-      wx.showToast({
-        title: '请选择规格',
-        icon: 'none'
-      })
-      return
-    }
-    const options = {
-      goodsId: skuCurGoods.basicInfo.id,
-      buyNumber: skuCurGoods.basicInfo.storesBuy,
-      sku
-    }
-    this.addShopCarDone(options)
   },
   goodsGoBottom() {
     this.data.page++

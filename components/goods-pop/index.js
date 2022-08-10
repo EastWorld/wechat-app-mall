@@ -275,6 +275,7 @@ Component({
       });
     },
     async addCarSku(){
+      await this.calculateGoodsPrice()
       // 加入购物车
       if (!this.data.canSubmit) {
         wx.showToast({

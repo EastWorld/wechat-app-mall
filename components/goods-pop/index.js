@@ -209,19 +209,21 @@ Component({
       let buyNumMax = this.data.skuCurGoods.basicInfo.stores
       let buyNumber = this.data.skuCurGoods.basicInfo.minBuyNumber
       // 计算 sku 价格
-      const needSelectNum = this.data.skuCurGoods.properties.length
+      const needSelectNum = this.data.skuCurGoods.properties ? this.data.skuCurGoods.properties.length : 0
       let curSelectNum = 0;
       let propertyChildIds = "";
       let propertyChildNames = "";
-      this.data.skuCurGoods.properties.forEach(p => {
-        p.childsCurGoods.forEach(c => {
-          if (c.active) {
-            curSelectNum++;
-            propertyChildIds = propertyChildIds + p.id + ":" + c.id + ",";
-            propertyChildNames = propertyChildNames + p.name + ":" + c.name + "  ";
-          }
+      if (this.data.skuCurGoods.properties) {
+        this.data.skuCurGoods.properties.forEach(p => {
+          p.childsCurGoods.forEach(c => {
+            if (c.active) {
+              curSelectNum++;
+              propertyChildIds = propertyChildIds + p.id + ":" + c.id + ",";
+              propertyChildNames = propertyChildNames + p.name + ":" + c.name + "  ";
+            }
+          })
         })
-      })
+      }
       let canSubmit = true;
       if (needSelectNum != curSelectNum) {
         canSubmit = false;
@@ -283,16 +285,18 @@ Component({
       }
       const skuCurGoods = this.data.skuCurGoods
       const sku = []
-      skuCurGoods.properties.forEach(p => {
-        const o = p.childsCurGoods.find(ele => {return ele.active})
-        if (!o) {        
-          return
-        }
-        sku.push({
-          optionId: o.propertyId,
-          optionValueId: o.id
+      if (skuCurGoods.properties) {
+        skuCurGoods.properties.forEach(p => {
+          const o = p.childsCurGoods.find(ele => {return ele.active})
+          if (!o) {        
+            return
+          }
+          sku.push({
+            optionId: o.propertyId,
+            optionValueId: o.id
+          })
         })
-      })
+      }
       const goodsAddition = []
       if (this.data.goodsAddition) {
         this.data.goodsAddition.forEach(ele => {

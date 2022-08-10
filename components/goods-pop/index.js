@@ -148,7 +148,7 @@ Component({
             const nextO = _skuList.find(aaa => {
               return aaa.propertyChildIds.indexOf(p.id + ':' + c.id) != -1
             })
-            c.hidden = nextO ? false : true
+            c.hidden = (nextO || p.id == property.id) ? false : true
           }
         })
       })

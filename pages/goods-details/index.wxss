@@ -15,11 +15,12 @@ textarea {
 
 .container {
   background-color: #F2f2f2;
-  min-height: 100%;
+  min-height: 100vh;
   padding-bottom: 100rpx;
 }
 
 .scroll-container {
+  box-sizing: border-box;
   height: 100vh;
   padding-bottom: 64rpx;
 }

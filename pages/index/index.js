@@ -150,6 +150,13 @@ Page({
       mallName:wx.getStorageSync('mallName')?wx.getStorageSync('mallName'):'',
       show_buy_dynamic: wx.getStorageSync('show_buy_dynamic')
     })
+    const shopMod = wx.getStorageSync('shopMod')
+    const shopInfo = wx.getStorageSync('shopInfo')
+    if (shopMod == '1' && !shopInfo) {
+      wx.redirectTo({
+        url: '/pages/shop/select'
+      })
+    }
   },
   async miaoshaGoods(){
     // https://www.yuque.com/apifm/nu0f75/wg5t98

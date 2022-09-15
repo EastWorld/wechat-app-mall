@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/start/start",
+    "pages/test/wifi",
     "pages/shop/select",
     "pages/index/index",
     "pages/notice/index",

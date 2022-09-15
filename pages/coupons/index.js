@@ -222,10 +222,43 @@ Page({
       }
     })
   },
-  toIndexPage: function () {
-    wx.switchTab({
-      url: "/pages/index/index"
-    });
+  async touse(e) {
+    const item = e.currentTarget.dataset.item
+    const res = await WXAPI.couponDetail(item.pid)
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    if (!res.data.couponRefs || res.data.couponRefs.length == 0) {
+      wx.switchTab({
+        url: "/pages/index/index"
+      })
+      return
+    }
+    let categoryId, goodsId
+    res.data.couponRefs.forEach(ele => {
+      if (ele.type == 0) {
+        categoryId = ele.refId
+      }
+      if (ele.type == 1) {
+        goodsId = ele.refId
+      }
+    })
+    if (categoryId) {
+      wx.navigateTo({
+        url: '/pages/goods/list?categoryId=' + categoryId,
+      })
+      return
+    }
+    if (goodsId) {
+      wx.navigateTo({
+        url: '/pages/goods-details/index?id=' + goodsId,
+      })
+      return
+    }
   },
   pwdCouponChange(e){
     this.setData({

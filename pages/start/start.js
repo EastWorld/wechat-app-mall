@@ -8,7 +8,9 @@ Page({
     swiperMaxNumber: 0,
     swiperCurrent: 0
   },
-  onLoad:function(){
+  onLoad(e){
+    e.shopId = 6040 // 测试，测试完了注释掉
+    this.data.shopId = e.shopId
     const _this = this
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
@@ -20,9 +22,7 @@ Page({
     const app_show_pic_version = wx.getStorageSync('app_show_pic_version')
     if (app_show_pic_version && app_show_pic_version == CONFIG.version) {
       if (shopMod==1) {
-        wx.redirectTo({
-          url: '/pages/shop/select',
-        });
+        this.goShopSelectPage()
       } else {
         wx.switchTab({
           url: '/pages/index/index',
@@ -35,9 +35,7 @@ Page({
       }).then(function (res) {
         if (res.code == 700) {
           if (shopMod==1) {
-            wx.redirectTo({
-              url: '/pages/shop/select',
-            });
+            this.goShopSelectPage()
           } else {
             wx.switchTab({
               url: '/pages/index/index',
@@ -51,9 +49,7 @@ Page({
         }
       }).catch(function (e) {
         if (shopMod==1) {
-          wx.redirectTo({
-            url: '/pages/shop/select',
-          });
+          this.goShopSelectPage()
         } else {
           wx.switchTab({
             url: '/pages/index/index',
@@ -82,9 +78,7 @@ Page({
         data: CONFIG.version
       })
       if (shopMod == 1) {
-        wx.redirectTo({
-          url: '/pages/shop/select',
-        });
+        this.goShopSelectPage()
       } else {
         wx.switchTab({
           url: '/pages/index/index',
@@ -104,5 +98,26 @@ Page({
         icon: 'none',
       })
     }
+  },
+  async goShopSelectPage() {
+    if (!this.data.shopId) {
+      wx.redirectTo({
+        url: '/pages/shop/select'
+      })
+      return
+    }
+    // 有传入门店ID
+    const res = await WXAPI.shopSubdetail(this.data.shopId)
+    if (res.code != 0) {
+      wx.redirectTo({
+        url: '/pages/shop/select'
+      })
+      return
+    }
+    wx.setStorageSync('shopInfo', res.data.info)
+    wx.setStorageSync('shopIds', res.data.info.id)
+    wx.switchTab({
+      url: '/pages/index/index'
+    })
   }
 });

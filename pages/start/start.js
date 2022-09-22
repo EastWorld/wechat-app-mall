@@ -9,7 +9,7 @@ Page({
     swiperCurrent: 0
   },
   onLoad(e){
-    e.shopId = 6040 // 测试，测试完了注释掉
+    // e.shopId = 6040 // 测试，测试完了注释掉
     this.data.shopId = e.shopId
     const _this = this
     wx.setNavigationBarTitle({

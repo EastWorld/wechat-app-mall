@@ -392,6 +392,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/shop/select",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

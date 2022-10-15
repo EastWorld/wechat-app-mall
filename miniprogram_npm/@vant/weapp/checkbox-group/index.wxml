@@ -1,1 +1,5 @@
-<slot />
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<view class="{{ utils.bem('checkbox-group', [{ horizontal: direction === 'horizontal' }]) }}">
+  <slot />
+</view>

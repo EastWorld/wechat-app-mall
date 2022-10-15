@@ -17,9 +17,9 @@
   bind:after-enter="onOpened"
   bind:after-leave="onClosed"
 >
-  <include src="calendar.wxml" />
+  <include src="./calendar.wxml" />
 </van-popup>
 
-<include wx:else src="calendar.wxml" />
+<include wx:else src="./calendar.wxml" />
 
 <van-toast id="van-toast" />

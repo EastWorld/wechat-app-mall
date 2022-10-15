@@ -9,7 +9,7 @@
   bind:touchend="onTouchEnd"
   bind:touchcancel="onTouchEnd"
 >
-  <view style="{{ computed.wrapperStyle({ offset, itemHeight, visibleItemCount }) }}">
+  <view style="{{ computed.wrapperStyle({ offset, itemHeight, visibleItemCount, duration }) }}">
     <view
       wx:for="{{ options }}"
       wx:for-item="option"

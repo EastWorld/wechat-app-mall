@@ -2,6 +2,7 @@
 
 <view class="van-collapse-item custom-class {{ index !== 0 ? 'van-hairline--top' : '' }}">
   <van-cell
+    size="{{ size }}"
     title="{{ title }}"
     title-class="title-class"
     icon="{{ icon }}"

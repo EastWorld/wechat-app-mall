@@ -22,6 +22,9 @@ Page({
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
   },
   bindscroll(e) {
+    if (this.data.tabclicked) {
+      return
+    }
     //计算页面 轮播图、详情、评价(砍价)view 高度
     this.getTopHeightFunction()
     var tabsHeight = this.data.tabsHeight //顶部距离（tabs高度）
@@ -262,12 +265,12 @@ Page({
           _data.myHelpDetail = myHelpDetail.data
         }
         //砍价商品 tabs栏显示砍价情况
-        var tabs = that.data.tabs
-        tabs[2].tabs_name="砍价记录"
-        tabs[2].view_id="kanjia"
-        that.setData({
-          tabs:tabs
-        })
+        // var tabs = that.data.tabs
+        // tabs[2].tabs_name="砍价记录"
+        // tabs[2].view_id="kanjia"
+        // that.setData({
+        //   tabs:tabs
+        // })
       }
       if (goodsDetailRes.data.basicInfo.pingtuan) {
         const pingtuanSetRes = await WXAPI.pingtuanSet(goodsId)
@@ -483,7 +486,7 @@ Page({
       selectSizeOPrice: originalPrice,
       totalScoreToPay: totalScoreToPay,
       buyNumMax,
-      buyNumber: (buyNumMax > buyNumber) ? buyNumber : 0
+      buyNumber: (buyNumMax >= buyNumber) ? buyNumber : 0
     });
   },
   /**
@@ -778,6 +781,14 @@ Page({
         that.setData({
           reputation: res.data
         });
+      } else {
+        if (that.data.tabs && that.data.tabs.length == 3) {
+          const tabs = that.data.tabs
+          tabs.splice(2, 1)
+          that.setData({
+            tabs
+          })
+        }
       }
     })
   },
@@ -1020,8 +1031,14 @@ Page({
   onTabsChange(e) {
     var index = e.detail.index
     this.setData({
-      toView: this.data.tabs[index].view_id
+      toView: this.data.tabs[index].view_id,
+      tabclicked: true
     })
+    setTimeout(() => {
+      this.setData({
+        tabclicked: false
+      })
+    }, 1000);
   },
   backToHome() {
     wx.switchTab({

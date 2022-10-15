@@ -2,17 +2,18 @@
     <view class="top-sec">
         <view class="a-row">
             <view class="label">物流单号</view>
-            <view class="text">{{orderDetail.logistics.trackingNumber}}</view>
+            <view class="text">{{ trackingNumber }}</view>
         </view>
         <view class="a-row">
             <view class="label">物流公司</view>
-            <view class="text">{{orderDetail.logistics.shipperName}}</view>
+            <view class="text">{{ shipperName }}</view>
         </view>
     </view>
     <view class="sec-wrap">
+        <van-empty wx:if="{{ !logisticsTraces || logisticsTraces.length == 0 }}" description="暂无物流信息" />
         <view class="details-info">
             <view class="line-box"></view>
-            <view class="a-row" wx:for="{{logisticsTraces}}" wx:key="{{index}}">
+            <view class="a-row" wx:for="{{logisticsTraces}}" wx:key="index">
                 <view class="dot">
                     <view class="active-dot" hidden="{{index== 0 ? false : true}}"><view class="yuan-red"></view></view>
                     <view class="default-dot" hidden="{{index== 0 ? true : false}}"></view>

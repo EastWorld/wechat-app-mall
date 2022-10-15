@@ -205,11 +205,25 @@
   <!-- 选择积分抵扣 -->
   <van-radio-group wx:if="{{ scoreDeductionRules && scoreDeductionRules.length > 0 }}" value="{{ deductionScore }}" bind:change="deductionScoreChange">
     <van-cell-group title="积分抵扣">
-      <van-cell title="不使用积分" clickable data-name="0" bind:click="deductionScoreClick">
+      <van-cell title="不使用积分" clickable data-name="-1" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="-1" />
+      </van-cell>
+      <van-cell title="自动抵扣" clickable data-name="0" bind:click="deductionScoreClick">
         <van-radio slot="right-icon" name="0" />
       </van-cell>
       <van-cell wx:for="{{scoreDeductionRules}}" wx:key="id" title="使用{{ item.score }}积分抵扣¥{{ item.money }}" clickable data-name="{{ item.score }}" bind:click="deductionScoreClick">
         <van-radio slot="right-icon" name="{{ item.score }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+
+  <van-radio-group wx:if="{{ myCards }}" value="{{ cardId }}" bind:change="cardChange">
+    <van-cell-group title="使用水卡支付">
+      <van-cell title="不使用水卡" clickable data-name="0" bind:click="cardClick">
+        <van-radio slot="right-icon" name="0" />
+      </van-cell>
+      <van-cell wx:for="{{ myCards }}" wx:key="id" title="{{ item.cardInfo.name }} - 剩余：{{ item.amount }}桶" clickable data-name="{{ item.id }}" bind:click="cardClick">
+        <van-radio slot="right-icon" name="{{ item.id }}" />
       </van-cell>
     </van-cell-group>
   </van-radio-group>
@@ -225,6 +239,7 @@
     price="{{ allGoodsAndYunPrice*100 }}"
     suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
     button-text="提交订单"
+    loading="{{ btnLoading }}"
     bind:submit="goCreateOrder"
   />
 </block>

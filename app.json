@@ -1,6 +1,9 @@
 {
-  "pages": [   
-    "pages/category/category",
+
+  "pages": [
+    "pages/start/start",
+    "pages/test/wifi",
+    "pages/shop/select",
     "pages/index/index",
     "pages/shop/select",
     "pages/notice/index",
@@ -24,6 +27,7 @@
     "pages/score-excharge/index",
     "pages/score-excharge/growth",
     "pages/asset/index",
+    "pages/recharge/index",
     "pages/score/index",
     "pages/score/growth",
     "pages/sign/index",
@@ -36,6 +40,7 @@
     "pages/live/index",
     "pages/help/detail",
     "pages/help/index",
+    "pages/cms/list",
     "pages/about/index",
     "pages/idCheck/index",
     "pages/peisong/detail",
@@ -50,7 +55,14 @@
     "pages/my/info-menu",
     "pages/recycle/index",
     "pages/recycle/orders",
-    "pages/recycle/order-detail"
+    "pages/recycle/order-detail",
+    "pages/card/logs",
+    "pages/notagree/index"
+  ],
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseAddress",
+    "chooseLocation"
   ],
   "subpackages": [
     {
@@ -79,6 +91,8 @@
       "name": "packageFx",
       "pages": [
         "pages/index/index",
+        "pages/hehuorenfenxiao/index",
+        "pages/hehuorenfenxiao/fxmember",
         "pages/apply/index",
         "pages/apply/form",
         "pages/myusers/index",
@@ -86,18 +100,6 @@
         "pages/report/team",
         "pages/report/city",
         "pages/myusers/myusers-detail"
-      ]
-    },
-    {
-      "root": "demos",
-      "name": "demos",
-      "pages": [
-        "pages/echarts/line",
-        "pages/business/index",
-        "pages/bind-phone/index",
-        "pages/merchant/index",
-        "pages/record-list/index",
-        "pages/ab/index"
       ]
     }
   ],
@@ -152,8 +154,9 @@
     }
   },
   "usingComponents": {
-    "float-menu": "/components/float-menu/index",
-    "parser":"/components/parser.20200414.min/parser",
+    "fuwuxieyi": "/components/fuwuxieyi/index",
+    "goods-pop": "/components/goods-pop/index",
+    "mp-html": "mp-html",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "van-search": "@vant/weapp/search/index",
     "van-divider": "@vant/weapp/divider/index",

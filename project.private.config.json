@@ -1,68 +1,53 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": true
+  },
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": -1,
           "name": "home",
           "pathName": "pages/index/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "商品详情页面",
           "pathName": "pages/goods-details/index",
           "query": "id=134&inviter_id=456",
           "scene": 1011
         },
         {
-          "id": -1,
           "name": "商品详情页面",
           "pathName": "pages/goods-details/index",
           "query": "id= 6761",
           "scene": null
         },
         {
-          "id": -1,
           "name": "砍价详情页面",
           "pathName": "pages/goods-details/index",
           "query": "id=6765",
           "scene": null
         },
         {
-          "id": -1,
           "name": "砍价详情页面",
           "pathName": "pages/goods-details/index",
           "query": "id=6765&kjJoinUid=701677",
           "scene": null
         },
         {
-          "id": -1,
           "name": "拼团",
           "pathName": "pages/goods-details/index",
           "query": "id=6761",
           "scene": null
         },
         {
-          "id": -1,
           "name": "生成海报",
           "pathName": "pages/goods-details/poster",
           "query": "goodsid=6761",
           "scene": null
         },
         {
-          "id": -1,
           "name": "notice",
           "pathName": "pages/notice/index",
           "query": "",
@@ -235,8 +220,189 @@
           "pathName": "pages/address-add/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/recharge/index",
+          "pathName": "pages/recharge/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/my/index",
+          "pathName": "pages/my/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/maidan/index",
+          "pathName": "pages/maidan/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/invoice/apply",
+          "pathName": "pages/invoice/apply",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "type=1",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/shop/select",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/cms/list",
+          "query": "categoryId=66350",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/invoice/apply",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/notagree/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=4469",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=810285",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "packageFx/pages/hehuorenfenxiao/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/info",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/pwd-pay/reset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/info-menu",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=6746",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/category/category",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods/list",
+          "query": "name=",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=1461223",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=810285",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=1222204",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/shop/select",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
-  }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "libVersion": "2.26.0"
 }

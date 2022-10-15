@@ -7,7 +7,7 @@ page {
 .main {
   flex: 1;
   display: flex;
-  height: 100%;
+  overflow: hidden;
 }
 .goods-btn {
   position: absolute;
@@ -51,43 +51,7 @@ page {
   font-size: 24rpx;
   color: #666;
 }
-.sku-container {
-  width: 100vw;
-  padding: 32rpx 32rpx 0 32rpx;
-}
-.sku-container .sku {
-  border-bottom: 1rpx solid #eee;
-  padding-bottom: 24rpx;
-  margin-bottom: 16rpx;
-}
-.sku-container .sku .t {
-  color: #333;
-}
-.sku-container .sku .items {
-  display: flex;
-  flex-wrap: wrap;
-}
-.sku-container .sku .items text {
-  padding: 8rpx;
-  border: 1rpx solid #999;
-  color: #999;
-  margin: 24rpx 24rpx 0 0;
-  font-size: 26rpx;
-  border-radius: 12rpx;
-}
-.sku-container .sku .items text.active {
-  border: 1rpx solid #e64340;
-  color: #e64340;
-}
-.sku-container .num {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24rpx;
-}
-.sku-container .num .t {
-  color: #333;
-}
+
 .llargada{
   width: 590rpx!important;
 }

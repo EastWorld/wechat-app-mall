@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "商品销售额统计",
-  "usingComponents": {
-    "ec-canvas": "../../components/ec-canvas/ec-canvas"
-  }
-}

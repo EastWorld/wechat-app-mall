@@ -50,7 +50,7 @@ Page({
 
     bindMobileStatus: 0, // 0 未判断 1 已绑定手机号码 2 未绑定手机号码
     userScore: 0, // 用户可用积分
-    deductionScore: '0', // 本次交易抵扣的积分数
+    deductionScore: '-1', // 本次交易抵扣的积分数， -1 为不抵扣，0 为自动抵扣，其他金额为抵扣多少积分
     shopCarType: 0, //0自营购物车，1云货架购物车
     dyopen: 0, // 是否开启订阅
     dyunit: 0, // 按天
@@ -78,6 +78,7 @@ Page({
       }
       return value;
     },
+    cardId: '0' // 使用的次卡ID
   },
   onShow() {
     if (this.data.pageIsEnd) {
@@ -92,9 +93,6 @@ Page({
           this.doneShow()
         })
       }
-    })
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
     })
   },
   async doneShow() {
@@ -115,6 +113,12 @@ Page({
         shopList = res.data.shopList
       } else if (this.data.shopCarType == 1) {//云货架购物车
         var res = await WXAPI.jdvopCartInfo(token)
+        shopList = [{
+          id: 0,
+          name: '其他',
+          hasNoCoupons: true,
+          serviceDistance: 99999999
+        }]
       }
       if (res.code == 0) {
         goodsList = res.data.items.filter(ele => {
@@ -122,6 +126,9 @@ Page({
         })
         const shopIds = []
         goodsList.forEach(ele => {
+          if (this.data.shopCarType == 1) {
+            ele.shopId = 0
+          }
           shopIds.push(ele.shopId)
         })
         shopList = shopList.filter(ele => {
@@ -129,6 +136,9 @@ Page({
         })
       }
     }
+    shopList.forEach(ele => {
+      ele.hasNoCoupons = true
+    })
     this.setData({
       shopList,
       goodsList,
@@ -157,6 +167,7 @@ Page({
     }
     this.setData(_data)
     this.getUserApiInfo()
+    this.cardMyList()
   },
   async userAmount() {
     const res = await WXAPI.userAmount(wx.getStorageSync('token'))
@@ -181,12 +192,18 @@ Page({
     this.data.remark = e.detail.value
   },
   async goCreateOrder() {
+    this.setData({
+      btnLoading: true
+    })
     // 检测实名认证状态
     if (wx.getStorageSync('needIdCheck') == 1) {
       const res = await WXAPI.userDetail(wx.getStorageSync('token'))
       if (res.code == 0 && !res.data.base.isIdcardCheck) {
         wx.navigateTo({
           url: '/pages/idCheck/index',
+        })
+        this.setData({
+          btnLoading: false
         })
         return
       }
@@ -221,8 +238,14 @@ Page({
       goodsJsonStr: this.data.goodsJsonStr,
       remark: this.data.remark,
       peisongType: this.data.peisongType,
-      deductionScore: this.data.deductionScore,
-      goodsType: this.data.shopCarType
+      goodsType: this.data.shopCarType,
+      cardId: this.data.cardId
+    }
+    if (this.data.deductionScore != '-1') {
+      postData.deductionScore = this.data.deductionScore
+    }
+    if (this.data.cardId == '0') {
+      postData.cardId = ''
     }
     if (this.data.dyopen == 1) {
       const orderPeriod = {
@@ -266,6 +289,9 @@ Page({
           title: '请设置收货地址',
           icon: 'none'
         })
+        this.setData({
+          btnLoading: false
+        })
         return;
       }
       if (postData.peisongType == 'kd') {
@@ -286,6 +312,9 @@ Page({
           title: '请选择自提门店',
           icon: 'none'
         })
+        this.setData({
+          btnLoading: false
+        })
         return;
       }
       const extJsonStr = {}
@@ -295,12 +324,18 @@ Page({
             title: '请填写联系人',
             icon: 'none'
           })
+          this.setData({
+            btnLoading: false
+          })
           return;
         }
         if (!this.data.mobile) {
           wx.showToast({
             title: '请填写联系电话',
             icon: 'none'
+          })
+          this.setData({
+            btnLoading: false
           })
           return;
         }
@@ -333,6 +368,7 @@ Page({
       let couponAmount = 0
       for (let index = 0; index < shopList.length; index++) {
         const curShop = shopList[index]
+        console.log(curShop);
         postData.filterShopId = curShop.id
         if (curShop.curCoupon) {
           postData.couponId = curShop.curCoupon.id
@@ -348,13 +384,18 @@ Page({
             content: res.msg,
             showCancel: false
           })
+          this.setData({
+            btnLoading: false
+          })
           return;
         }
         totalRes.data.score += res.data.score
         totalRes.data.amountReal += res.data.amountReal
         totalRes.data.orderIds.push(res.data.id)
+        console.log('e:', e);
         if (!e) {
           curShop.hasNoCoupons = true
+          console.log(curShop);
           if (res.data.couponUserList) {
             curShop.hasNoCoupons = false
             res.data.couponUserList.forEach(ele => {
@@ -420,6 +461,13 @@ Page({
       });
     } else {
       // 单门店单商品下单
+      if (shopList && shopList.length == 1) {
+        if (shopList[0].curCoupon) {
+          postData.couponId = shopList[0].curCoupon.id
+        } else {
+          postData.couponId = ''
+        }
+      }
       const res = await WXAPI.orderCreate(postData)
       this.data.pageIsEnd = true
       if (res.code != 0) {
@@ -428,6 +476,9 @@ Page({
           title: '错误',
           content: res.msg,
           showCancel: false
+        })
+        this.setData({
+          btnLoading: false
         })
         return;
       }
@@ -449,6 +500,18 @@ Page({
             }
           })
           coupons = res.data.couponUserList
+          if (shopList && shopList.length == 1 && !hasNoCoupons) {
+            hasNoCoupons = true
+            const curShop = shopList[0]
+            curShop.hasNoCoupons = false
+            curShop.curCouponShowText = '请选择使用优惠券'
+            curShop.coupons = res.data.couponUserList
+            if (res.data.couponId && res.data.couponId.length > 0) {
+              curShop.curCoupon = curShop.coupons.find(ele => { return ele.id == res.data.couponId[0] })
+              curShop.curCouponShowText = curShop.curCoupon.nameExt
+            }
+            shopList[0] = curShop
+          }
         }
         // 计算积分抵扣规则 userScore
         let scoreDeductionRules = res.data.scoreDeductionRules
@@ -471,6 +534,7 @@ Page({
           })
         }
         this.setData({
+          shopList,
           totalScoreToPay: res.data.score,
           isNeedLogistics: res.data.isNeedLogistics,
           allGoodsAndYunPrice: res.data.amountReal,
@@ -502,6 +566,15 @@ Page({
     // this.processAfterCreateOrder(totalRes)
   },
   async processAfterCreateOrder(res) {
+    this.setData({
+      btnLoading: false
+    })
+    if (res.data.status != 0) {
+      wx.redirectTo({
+        url: "/pages/order-list/index"
+      })
+      return
+    }
     let orderId = ''
     if (res.data.orderIds && res.data.orderIds.length > 0) {
       orderId = res.data.orderIds.join()
@@ -768,11 +841,8 @@ Page({
         iv: e.detail.iv,
       })
     } else {
-      res = await WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+      res = await WXAPI.bindMobileWxappV2(wx.getStorageSync('token'), e.detail.code)
     }
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
-    })
     if (res.code == 0) {
       wx.showToast({
         title: '读取成功',
@@ -804,6 +874,21 @@ Page({
     })
     this.processYunfei()
   },
+  cardChange(event) {
+    this.setData({
+      cardId: event.detail,
+    })
+    this.processYunfei()
+  },
+  cardClick(event) {
+    const {
+      name
+    } = event.currentTarget.dataset;
+    this.setData({
+      cardId: name,
+    })
+    this.processYunfei()
+  },
   dateStartclick(e) {
     this.setData({
       dateStartpop: true
@@ -821,5 +906,16 @@ Page({
     this.setData({
       dateStartpop: false
     })
-  }
+  },
+  async cardMyList() {
+    const res = await WXAPI.cardMyList(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      const myCards = res.data.filter(ele => { return ele.status == 0 && ele.amount > 0 && ele.cardInfo.refs })
+      if (myCards.length > 0) {
+        this.setData({
+          myCards: res.data
+        })
+      }
+    }
+  },
 })

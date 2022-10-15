@@ -46,5 +46,15 @@ Page({
     wx.redirectTo({
       url: '/pages/goods/list?name=' + keywords,
     })
+  },
+  searchscan() {
+    wx.scanCode({
+      scanType: ['barCode', 'qrCode', 'datamatrix', 'pdf417'],
+      success: res => {
+        wx.redirectTo({
+          url: '/pages/goods/list?name=' + res.result,
+        })
+      }
+    })
   }
 })

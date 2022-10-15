@@ -103,8 +103,7 @@ Page({
     const _this = this
     WXAPI.cashLogsV2({
       token: wx.getStorageSync('token'),
-      page:1,
-      pageSize:50
+      page:1
     }).then(res => {
       if (res.code == 0) {
         _this.setData({

@@ -13,15 +13,17 @@
     bind:touchstart="onTouchStart"
     bind:touchend="onTouchEnd"
   >
-    <slot name="plus" />
+    <slot name="minus" />
   </view>
   <input
+    always-embed="{{ false }}"
     type="{{ integer ? 'number' : 'digit' }}"
     class="input-class {{ utils.bem('stepper__input', { disabled: disabled || disableInput }) }}"
     style="{{ computed.inputStyle({ buttonSize, inputWidth }) }}"
     value="{{ currentValue }}"
     focus="{{ focus }}"
     disabled="{{ disabled || disableInput }}"
+    always-embed="{{ alwaysEmbed }}"
     bindinput="onInput"
     bind:focus="onFocus"
     bind:blur="onBlur"
@@ -37,6 +39,6 @@
     bind:touchstart="onTouchStart"
     bind:touchend="onTouchEnd"
   >
-    <slot name="minus" />
+    <slot name="plus" />
   </view>
 </view>

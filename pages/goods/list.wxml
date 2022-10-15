@@ -41,7 +41,8 @@ module.exports = {
         </text></view>
       <view class="buy-info">
         <view wx:if="{{ show_seller_number == '1' }}" class="num">已售出{{item.numberSells}}件</view>
-        <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
+        <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" class="car" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+        <van-icon wx:else class="car" name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
       </view>
     </view>
   </view>
@@ -56,31 +57,12 @@ module.exports = {
         </text></view>
       <view class="buy-info">
         <view wx:if="{{ show_seller_number == '1' }}" class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
-        <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
+        <!-- <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image> -->
+        <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" class="car" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+        <van-icon wx:else class="car" name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
       </view>
     </view>
   </view>
 </view>
 
-
-<block wx:if="{{skuCurGoods}}">
-  <view class="sku-mask"></view>
-  <view class="sku-container">
-    <image class="close" src="/images/icon/close.svg" bindtap="closeSku"></image>
-    <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id">
-      <view class="t">{{item.name}}</view>
-      <view class="items">
-        <text class="{{small.active? 'active' : ''}}" wx:for="{{item.childsCurGoods}}" wx:for-item="small" wx:key="id" data-pid="{{small.propertyId}}" data-id="{{small.id}}" bindtap="skuSelect">{{small.name}}</text>
-      </view>
-    </view>
-    <view class="num">
-      <view class="t">购买数量</view>
-      <view class="num-box">
-        <text class="a" bindtap="storesJian">-</text>
-        <text class="b">{{skuCurGoods.basicInfo.storesBuy}}</text>
-        <text class="a" bindtap="storesJia">+</text>
-      </view>
-    </view>
-  </view>
-  <view class="sku-btn" bindtap="addCarSku">加入购物车</view>
-</block>
+<goods-pop skuCurGoodsBaseInfo="{{ skuCurGoods }}" />

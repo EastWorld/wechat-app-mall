@@ -34,6 +34,7 @@ Page({
         _this.getUserApiInfo();
         _this.getUserAmount();
         _this.orderStatistics();
+        _this.cardMyList();
         TOOLS.showTabBarBadge();
       } else {
         AUTH.authorize().then(res => {
@@ -41,6 +42,7 @@ Page({
           _this.getUserApiInfo();
           _this.getUserAmount();
           _this.orderStatistics();
+          _this.cardMyList();
           TOOLS.showTabBarBadge();
         })
       }
@@ -58,6 +60,7 @@ Page({
       show_quan_exchange_score: wx.getStorageSync('show_quan_exchange_score'),
       show_score_exchange_growth: wx.getStorageSync('show_score_exchange_growth'),
       show_score_sign: wx.getStorageSync('show_score_sign'),
+      fx_type: wx.getStorageSync('fx_type'),
     })
   },
   async getUserApiInfo() {
@@ -208,5 +211,16 @@ Page({
     wx.navigateTo({
       url: '/pages/score/growth',
     })
+  },
+  async cardMyList() {
+    const res = await WXAPI.cardMyList(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      const myCards = res.data.filter(ele => { return ele.status == 0 })
+      if (myCards.length > 0) {
+        this.setData({
+          myCards: res.data
+        })
+      }
+    }
   },
 })

@@ -36,7 +36,7 @@
           {{ g.commisionRecord.money }} {{g.commisionRecord.unit==0?'元':'积分'}}
           <text wx:if="{{g.commisionRecord.isSettlement}}"
             style='color:green;margin-left:10px;font-size:14px;'>已结算</text>
-          <text wx:else style='color:gray;margin-left:10px;font-size:14px;'>待结算</text>
+          <text wx:elif="{{ item.status != -1 }}" style='color:gray;margin-left:10px;font-size:14px;'>待结算</text>
         </view>
       </van-card>
       <view class="goods-price">

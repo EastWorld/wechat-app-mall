@@ -1,4 +1,6 @@
-<van-search placeholder="请输入搜索关键词" focus bind:search="search" />
+<van-search placeholder="请输入搜索关键词" focus bind:search="search" use-right-icon-slot>
+  <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
+</van-search>
 <van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无历史搜索" />
 <van-cell-group wx:if="{{ list && list.length > 0 }}" title="历史搜索">
   <van-cell wx:for="{{list}}" wx:key="*this">

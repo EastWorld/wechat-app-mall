@@ -20,6 +20,7 @@
     style="{{ computed.titleStyle({ titleWidth, titleStyle }) }}"
     class="van-cell__title title-class"
   >
+
     <block wx:if="{{ title }}">{{ title }}</block>
     <slot wx:else name="title" />
 

@@ -13,17 +13,14 @@ Page({
     loadingHidden: false, // loading
     selectCurrent: 0,
     categories: [],
-    activeCategoryId: 0,
     goods: [],
-    scrollTop: 0,
     loadingMoreHidden: true,
     coupons: [],
     curPage: 1,
-    pageSize: 20,
-    cateScrollTop: 0
+    pageSize: 20
   },
-
-  tabClick: function(e) {
+  tabClick(e) {
+    // 商品分类点击
     const category = this.data.categories.find(ele => {
       return ele.id == e.currentTarget.dataset.id
     })
@@ -37,6 +34,13 @@ Page({
         url: '/pages/category/category',
       })
     }
+  },
+  tabClickCms(e) {
+    // 文章分类点击
+    const category = this.data.cmsCategories[e.currentTarget.dataset.idx]
+    wx.navigateTo({
+      url: '/pages/cms/list?categoryId=' + category.id,
+    })
   },
   toDetailsTap: function(e) {
     console.log(e);
@@ -116,12 +120,14 @@ Page({
     })
     this.initBanners()
     this.categories()
-    WXAPI.goods({
+    this.cmsCategories()
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    WXAPI.goodsv2({
       recommendStatus: 1
     }).then(res => {
       if (res.code === 0){
         that.setData({
-          goodsRecommend: res.data
+          goodsRecommend: res.data.result
         })
       }      
     })
@@ -129,7 +135,6 @@ Page({
     that.getNotice()
     that.kanjiaGoods()
     that.pingtuanGoods()
-    this.wxaMpLiveRooms()
     this.adPosition()
     // 读取系统参数
     this.readConfigVal()
@@ -145,13 +150,21 @@ Page({
       mallName:wx.getStorageSync('mallName')?wx.getStorageSync('mallName'):'',
       show_buy_dynamic: wx.getStorageSync('show_buy_dynamic')
     })
+    const shopMod = wx.getStorageSync('shopMod')
+    const shopInfo = wx.getStorageSync('shopInfo')
+    if (shopMod == '1' && !shopInfo) {
+      wx.redirectTo({
+        url: '/pages/shop/select'
+      })
+    }
   },
   async miaoshaGoods(){
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       miaosha: true
     })
     if (res.code == 0) {
-      res.data.forEach(ele => {
+      res.data.result.forEach(ele => {
         const _now = new Date().getTime()
         if (ele.dateStart) {
           ele.dateStartInt = new Date(ele.dateStart.replace(/-/g, '/')).getTime() - _now
@@ -161,15 +174,7 @@ Page({
         }
       })
       this.setData({
-        miaoshaGoods: res.data
-      })
-    }
-  },
-  async wxaMpLiveRooms(){
-    const res = await WXAPI.wxaMpLiveRooms()
-    if (res.code == 0 && res.data.length > 0) {
-      this.setData({
-        aliveRooms: res.data
+        miaoshaGoods: res.data.result
       })
     }
   },
@@ -191,9 +196,6 @@ Page({
     this.setData(_data)
   },
   onShow: function(e){
-    console.log("App.globalData.navHeight", APP.globalData.navHeight)
-    console.log("App.globalData.navTop", APP.globalData.navTop)
-    console.log("App.globalData.windowHeight", APP.globalData.windowHeight)
     this.setData({
       navHeight: APP.globalData.navHeight,
       navTop: APP.globalData.navTop,
@@ -207,6 +209,11 @@ Page({
     TOOLS.showTabBarBadge()
     this.goodsDynamic()
     this.miaoshaGoods()
+    const refreshIndex = wx.getStorageSync('refreshIndex')
+    if (refreshIndex) {
+      this.onPullDownRefresh()
+      wx.removeStorageSync('refreshIndex')
+    }
   },
   async goodsDynamic(){
     const res = await WXAPI.goodsDynamic(0)
@@ -227,16 +234,9 @@ Page({
     }
     this.setData({
       categories: categories,
-      activeCategoryId: 0,
       curPage: 1
     });
     this.getGoodsList(0);
-  },
-  onPageScroll(e) {
-    let scrollTop = this.data.scrollTop
-    this.setData({
-      scrollTop: e.scrollTop
-    })
   },
   async getGoodsList(categoryId, append) {
     if (categoryId == 0) {
@@ -245,7 +245,8 @@ Page({
     wx.showLoading({
       "mask": true
     })
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       categoryId: categoryId,
       page: this.data.curPage,
       pageSize: this.data.pageSize
@@ -265,8 +266,8 @@ Page({
     if (append) {
       goods = this.data.goods
     }
-    for (var i = 0; i < res.data.length; i++) {
-      goods.push(res.data[i]);
+    for (var i = 0; i < res.data.result.length; i++) {
+      goods.push(res.data.result[i]);
     }
     this.setData({
       loadingMoreHidden: true,
@@ -303,28 +304,29 @@ Page({
     this.setData({
       curPage: this.data.curPage + 1
     });
-    this.getGoodsList(this.data.activeCategoryId, true)
+    this.getGoodsList(0, true)
   },
   onPullDownRefresh: function() {
     this.setData({
       curPage: 1
     });
-    this.getGoodsList(this.data.activeCategoryId)
+    this.getGoodsList(0)
     wx.stopPullDownRefresh()
   },
   // 获取砍价商品
   async kanjiaGoods(){
-    const res = await WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    const res = await WXAPI.goodsv2({
       kanjia: true
     });
     if (res.code == 0) {
       const kanjiaGoodsIds = []
-      res.data.forEach(ele => {
+      res.data.result.forEach(ele => {
         kanjiaGoodsIds.push(ele.id)
       })
       const goodsKanjiaSetRes = await WXAPI.kanjiaSet(kanjiaGoodsIds.join())
       if (goodsKanjiaSetRes.code == 0) {
-        res.data.forEach(ele => {
+        res.data.result.forEach(ele => {
           const _process = goodsKanjiaSetRes.data.find(_set => {
             return _set.goodsId == ele.id
           })
@@ -334,7 +336,7 @@ Page({
           }
         })
         this.setData({
-          kanjiaList: res.data
+          kanjiaList: res.data.result
         })
       }
     }
@@ -346,12 +348,13 @@ Page({
   },
   pingtuanGoods(){ // 获取团购商品列表
     const _this = this
-    WXAPI.goods({
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
+    WXAPI.goodsv2({
       pingtuan: true
     }).then(res => {
       if (res.code === 0) {
         _this.setData({
-          pingtuanList: res.data
+          pingtuanList: res.data.result
         })
       }
     })
@@ -405,5 +408,17 @@ Page({
     wx.navigateTo({
       url: adPositionIndexPop.url,
     })
-  }
+  },
+  async cmsCategories() {
+    // https://www.yuque.com/apifm/nu0f75/slu10w
+    const res = await WXAPI.cmsCategories()
+    if (res.code == 0) {
+      const cmsCategories = res.data.filter(ele => {
+        return ele.type == 'index' // 只筛选类型为 index 的分类
+      })
+      this.setData({
+        cmsCategories
+      })
+    }
+  },
 })

@@ -36,6 +36,9 @@
     </view>
   </view>
   <view class="space van-hairline--bottom"></view>
+  <van-cell-group wx:if="{{ myCards }}" title="我的会员卡">
+    <van-cell wx:for="{{ myCards }}" wx:key="id" center title="{{ item.cardInfo.name }}" label="{{ item.dateEnd }} 到期" value-class="v-c" value="剩余: {{ item.amount }}" is-link url="/pages/card/logs?id={{ item.id }}" />
+  </van-cell-group>
   <van-cell title="我的订单" value="更多" is-link url="/pages/order-list/index" />
   <van-grid clickable column-num="5">
     <van-grid-item icon="balance-list-o" text="待付款" badge="{{count_id_no_pay}}" bindtap='goOrder' data-type="0" />
@@ -80,11 +83,21 @@
           </view>
         </navigator>
       </block>
+      <block wx:else>
+        <view class="line"></view>
+        <navigator url="/pages/peisong/orders?status=-1">
+          <view class="menu-item">
+            <view class="l hongdian-box">待接单订单<view wx:if="{{peisongOrderNumber3}}" class="hongdian">{{peisongOrderNumber3}}</view></view>
+            <image class="next" src="/images/icon/next.png"></image>
+          </view>
+        </navigator>
+      </block>
       <view class="space"></view>
     </block>
   </view>
 
-  <van-cell-group wx:if="{{ show_3_seller == 1 }}" title="三级分销">
+  <van-cell wx:if="{{ fx_type == 'hehuoren' }}" title="分销中心" is-link url="/packageFx/pages/hehuorenfenxiao/index" />
+  <van-cell-group wx:elif="{{ show_3_seller == 1 }}" title="三级分销">
     <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/packageFx/pages/apply/index" />
     <van-cell wx:else title="分销中心" is-link url="/packageFx/pages/index/index" />
     <van-cell wx:if="{{apiUserInfoMap.base.isSeller}}" title="我的团队" is-link url="/packageFx/pages/myusers/index" />

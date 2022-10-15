@@ -4,7 +4,7 @@
     <view class="van-calendar__header-title">{{ title }}</view>
   </block>
 
-  <view wx:if="{{ showSubtitle }}" class="van-calendar__header-subtitle">
+  <view wx:if="{{ showSubtitle }}" class="van-calendar__header-subtitle" bind:tap="onClickSubtitle">
     {{ subtitle }}
   </view>
 

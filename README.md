@@ -24,12 +24,12 @@
 
 [点击这里找答案，可用关键词搜索](https://www.it120.cc/help.html)
 
-## 其他开源模板
-
-| 舔果果小铺（升级版） | 面馆风格小程序 | AI名片 |
-| :------: | :------: | :------: |
-| <img src="https://dcdn.it120.cc/2020/08/30/fd095c58-e655-4785-af0a-89e0b4da7cfe.jpg" width="200px"> | <img src="https://dcdn.it120.cc/2021/06/25/5caa3793-2e70-43ef-b86a-356c26d89e19.jpeg" width="200px"> | <img src="https://cdn.it120.cc/apifactory/2018/12/18/c2324da4eea91602f385db5b523b13ca.jpg" width="200px"> | 
-| [开源地址](https://github.com/gooking/TianguoguoXiaopu) | [开源地址](https://gitee.com/javazj/noodle_shop_procedures) | [开源地址](https://github.com/gooking/visitingCard) |
+## 其他优秀开源模板推荐
+- [天使童装（uni-app版本）](https://github.com/gooking/uni-app-mall) [码云镜像](https://gitee.com/javazj/uni-app-mall)
+- [舔果果小铺（升级版）](https://github.com/gooking/TianguoguoXiaopu)
+- [面馆风格小程序](https://gitee.com/javazj/noodle_shop_procedures)
+- [AI名片](https://github.com/gooking/visitingCard)
+- [仿海底捞订座排队 (uni-app)](https://github.com/gooking/dingzuopaidui) [码云镜像](https://gitee.com/javazj/dingzuopaidui)
 
 ## 联系作者
 
@@ -45,7 +45,7 @@
 
 - [vant-weapp](https://youzan.github.io/vant-weapp)
 
-- [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/Parser)
+- [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/mp-html)
 
 - [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
 

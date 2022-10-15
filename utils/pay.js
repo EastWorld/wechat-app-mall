@@ -4,11 +4,12 @@ const WXAPI = require('apifm-wxapi')
  * type: order 支付订单 recharge 充值 paybill 优惠买单
  * data: 扩展数据对象，用于保存参数
  */
-function wxpay(type, money, orderId, redirectUrl, data) {
+function wxpay(type, money, orderId, redirectUrl, data, content) {
   const postData = {
     token: wx.getStorageSync('token'),
     money: money,
     remark: "在线充值",
+    content: content ? content : ''
   }
   if (type === 'order') {
     postData.remark = "支付订单 ：" + orderId;
@@ -31,11 +32,18 @@ function wxpay(type, money, orderId, redirectUrl, data) {
       type: 13
     };
   }
+  if (type === 'payTz') {
+    postData.remark = "购买团长 ：" + money;
+    postData.nextAction = {
+      type: 14
+    };
+  }
   postData.payName = postData.remark;
   if (postData.nextAction) {
     postData.nextAction = JSON.stringify(postData.nextAction);  
   }
-  WXAPI.wxpay(postData).then(function (res) {
+  const url = wx.getStorageSync('wxpay_api_url')
+  WXAPI.payVariableUrl(url ? url : '/pay/wx/wxapp', postData).then(function (res) {
     if (res.code == 0) {
       // 发起支付
       wx.requestPayment({

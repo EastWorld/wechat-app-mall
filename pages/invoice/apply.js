@@ -80,7 +80,6 @@ Page({
   onShareAppMessage() {    
     return {
       title: '申请开票',
-      imageUrl: 'https://cdn.it120.cc/apifactory/2019/06/13/13f5f43c-4819-414d-88f5-968e32facd79.png',
       path: '/pages/invoice/apply?inviter_id=' + wx.getStorageSync('uid')
     }
   },
@@ -92,6 +91,7 @@ Page({
     let amount = e.detail.value.amount;
     let consumption = e.detail.value.consumption;
     let remark = e.detail.value.remark;
+    let email = e.detail.value.email
     let address = e.detail.value.address;
     let bank = e.detail.value.bank;
     if (!mobile) {
@@ -122,6 +122,13 @@ Page({
       })
       return
     }
+    if (!email) {
+      wx.showToast({
+        title: '请填写邮箱地址',
+        icon: 'none'
+      })
+      return
+    }
     if (!amount || amount*1 < 100) {
       wx.showToast({
         title: '开票金额不能低于100',
@@ -140,6 +147,7 @@ Page({
       amount,
       consumption,
       remark,
+      email,
       extJsonStr: JSON.stringify(extJsonStr)
     }).then(res => {
       if (res.code == 0) {

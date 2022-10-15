@@ -7,9 +7,12 @@ function getMark(date) {
 
 var ROW_HEIGHT = 64;
 
-function getDayStyle(type, index, date, rowHeight, color) {
+function getDayStyle(type, index, date, rowHeight, color, firstDayOfWeek) {
   var style = [];
-  var offset = getDate(date).getDay();
+  var current = getDate(date).getDay() || 7;
+  var offset = current < firstDayOfWeek ? (7 - firstDayOfWeek + current) :
+               current === 7 && firstDayOfWeek === 0 ? 0 :
+               (current - firstDayOfWeek);
 
   if (index === 0) {
     style.push(['margin-left', (100 * offset) / 7 + '%']);
@@ -23,6 +26,7 @@ function getDayStyle(type, index, date, rowHeight, color) {
     if (
       type === 'start' ||
       type === 'end' ||
+      type === 'start-end' ||
       type === 'multiple-selected' ||
       type === 'multiple-middle'
     ) {

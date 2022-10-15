@@ -92,18 +92,17 @@ module.exports =
 "use strict";
 
 
+var _module$exports;
+
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://192.168.1.100:8081';
+// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 var merchantId = '0';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
-  if (url.indexOf("http") == 0 ) {
-    _url = url
-  }
   var header = {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
@@ -149,7 +148,7 @@ var request = function request(url, needSubDomain, method, data) {
 //   );
 // }
 
-module.exports = {
+module.exports = (_module$exports = {
   init2: function init2(a, b) {
     API_BASE_URL = a;
     subDomain = b;
@@ -181,6 +180,12 @@ module.exports = {
   },
   nextMobileSegment: function nextMobileSegment(data) {
     return request('/common/mobile-segment/next', false, 'post', data);
+  },
+  gpsDistance: function gpsDistance(data) {
+    return request('/common/map/qq/distance', false, 'post', data);
+  },
+  forexRate: function forexRate(fromCode, toCode) {
+    return request('/forex/rate', true, 'get', { fromCode: fromCode, toCode: toCode });
   },
   queryConfigValue: function queryConfigValue(key) {
     return request('/config/value', true, 'get', { key: key });
@@ -292,17 +297,29 @@ module.exports = {
   sendTempleMsg: function sendTempleMsg(data) {
     return request('/template-msg/put', true, 'post', data);
   },
+  payVariableUrl: function payVariableUrl(url, data) {
+    return request(url, true, 'post', data);
+  },
   wxpay: function wxpay(data) {
     return request('/pay/wx/wxapp', true, 'post', data);
+  },
+  wxpayH5: function wxpayH5(data) {
+    return request('/pay/wx/h5', true, 'post', data);
+  },
+  wxpayJsapi: function wxpayJsapi(data) {
+    return request('/pay/wx/jsapi', true, 'post', data);
+  },
+  wxpayQrcode: function wxpayQrcode(data) {
+    return request('/pay/wx/qrcode', true, 'post', data);
+  },
+  wxpayApp: function wxpayApp(data) {
+    return request('/pay/wx/app', true, 'post', data);
   },
   wxpayFOMO: function wxpayFOMO(data) {
     return request('/pay/fomo/wxapp', true, 'post', data);
   },
   payNow: function payNow(data) {
     return request('/pay/fomo/payNow', true, 'post', data);
-  },
-  wxpayAirwallex: (data) => {
-    return request('/pay/airwallex/wxapp', true, 'post', data)
   },
   fomoCheckout: function fomoCheckout(data) {
     return request('/pay/fomo/checkout', true, 'post', data);
@@ -312,6 +329,9 @@ module.exports = {
   },
   ttpay: function ttpay(data) {
     return request('/pay/tt/microapp', true, 'post', data);
+  },
+  ttEcpay: function ttEcpay(data) {
+    return request('/pay/tt/ecpay', true, 'post', data);
   },
   payQuery: function payQuery(token, outTradeId) {
     return request('/pay/query', true, 'get', { token: token, outTradeId: outTradeId });
@@ -325,13 +345,36 @@ module.exports = {
   wxpayxpert: function wxpayxpert(data) {
     return request('/pay/payxpert/wxapp', true, 'post', data);
   },
+  wxpayIPaynow: function wxpayIPaynow(data) {
+    return request('/pay/ipaynow/wxapp', true, 'post', data);
+  },
+  wxpayAirwallex: function wxpayAirwallex(data) {
+    return request('/pay/airwallex/wxapp', true, 'post', data);
+  },
+  wxSphGetpaymentparams: function wxSphGetpaymentparams(token, orderId) {
+    return request('/pay/wxsph/getpaymentparams', true, 'post', { token: token, orderId: orderId });
+  },
+  paypalCheckout: function paypalCheckout(data) {
+    return request('/pay/paypal/checkout', true, 'post', data);
+  },
   alipay: function alipay(data) {
     return request('/pay/alipay/semiAutomatic/payurl', true, 'post', data);
+  },
+  alipayMP: function alipayMP(data) {
+    return request('/pay/alipay/gate/mp', true, 'post', data);
+  },
+  alipayAPP: function alipayAPP(data) {
+    return request('/pay/alipay/gate/app', true, 'post', data);
   },
   login_wx: function login_wx(code) {
     return request('/user/wxapp/login', true, 'post', {
       code: code,
       type: 2
+    });
+  },
+  login_tt: function login_tt(code) {
+    return request('/user/tt/microapp/login', true, 'post', {
+      code: code
     });
   },
   login_q: function login_q(code) {
@@ -349,6 +392,9 @@ module.exports = {
   },
   loginWxaMobileV2: function loginWxaMobileV2(data) {
     return request('/user/wxapp/login/mobile', true, 'post', data);
+  },
+  fetchWxaMobile: function fetchWxaMobile(code) {
+    return request('/user/wxapp/getMobile', true, 'get', { code: code });
   },
   login_username: function login_username(data) {
     return request('/user/username/login', true, 'post', data);
@@ -381,17 +427,32 @@ module.exports = {
       email: email, pwd: pwd, code: code
     });
   },
+  wxmpAuth: function wxmpAuth(data) {
+    return request('/user/wxmp/auth', true, 'post', data);
+  },
   register_complex: function register_complex(data) {
     return request('/user/wxapp/register/complex', true, 'post', data);
   },
+  register_tt: function register_tt(data) {
+    return request('/user/tt/microapp/register', true, 'post', data);
+  },
   registerQ: function registerQ(data) {
     return request('/user/q/register', true, 'post', data);
+  },
+  qqAuthorize: function qqAuthorize(data) {
+    return request('/user/q/authorize', true, 'post', data);
+  },
+  qqQrcode: function qqQrcode(content) {
+    return request('/user/q/qrcode', true, 'post', { content: content });
   },
   register_simple: function register_simple(data) {
     return request('/user/wxapp/register/simple', true, 'post', data);
   },
   authorize: function authorize(data) {
     return request('/user/wxapp/authorize', true, 'post', data);
+  },
+  ttAuthorize: function ttAuthorize(data) {
+    return request('/user/tt/microapp/authorize', true, 'post', data);
   },
   register_username: function register_username(data) {
     return request('/user/username/register', true, 'post', data);
@@ -405,6 +466,11 @@ module.exports = {
   goodsCategory: function goodsCategory() {
     return request('/shop/goods/category/all', true, 'get');
   },
+  goodsCategoryV2: function goodsCategoryV2() {
+    var shopId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+    return request('/shop/goods/category/all', true, 'get', { shopId: shopId });
+  },
   goodsCategoryDetail: function goodsCategoryDetail(id) {
     return request('/shop/goods/category/info', true, 'get', { id: id });
   },
@@ -417,6 +483,16 @@ module.exports = {
       data.shopId = shopIds;
     }
     return request('/shop/goods/list', true, 'post', data);
+  },
+  goodsv2: function goodsv2(data) {
+    if (!data) {
+      data = {};
+    }
+    var shopIds = wx.getStorageSync('shopIds');
+    if (shopIds) {
+      data.shopId = shopIds;
+    }
+    return request('/shop/goods/list/v2', true, 'post', data);
   },
   goodsDetail: function goodsDetail(id) {
     var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -432,13 +508,23 @@ module.exports = {
       goodsId: goodsId, priceId: priceId
     });
   },
+  goodsLimitationsV2: function goodsLimitationsV2(goodsId) {
+    var propertyChildIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/shop/goods/limitation', true, 'get', {
+      goodsId: goodsId, propertyChildIds: propertyChildIds
+    });
+  },
   goodsAddition: function goodsAddition(goodsId) {
     return request('/shop/goods/goodsAddition', true, 'get', {
       goodsId: goodsId
     });
   },
-  goodsStatistics: data => {
-    return request('/shop/goods/statistics/days', true, 'post', data)
+  goodsStatistics: function goodsStatistics(data) {
+    return request('/shop/goods/statistics/days', true, 'post', data);
+  },
+  goodsUseless: function goodsUseless(data) {
+    return request('/shop/goods/useful', true, 'post', data);
   },
   pushNewGoods: function pushNewGoods(data) {
     return request('/shop/goods/putOrUpdate', true, 'post', data);
@@ -489,6 +575,9 @@ module.exports = {
   goodsFavList: function goodsFavList(data) {
     return request('/shop/goods/fav/list', true, 'post', data);
   },
+  goodsFavListV2: function goodsFavListV2(data) {
+    return request('/shop/goods/fav/list/v2', true, 'post', data);
+  },
   goodsFavPut: function goodsFavPut(token, goodsId) {
     return request('/shop/goods/fav/add', true, 'post', {
       token: token, goodsId: goodsId
@@ -502,6 +591,9 @@ module.exports = {
       token: token, goodsId: goodsId
     });
   },
+  goodsFavCheckV2: function goodsFavCheckV2(data) {
+    return request('/shop/goods/fav/check', true, 'get', data);
+  },
   goodsFavDelete: function goodsFavDelete(token) {
     var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var goodsId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
@@ -512,6 +604,9 @@ module.exports = {
   },
   goodsFavDeleteV2: function goodsFavDeleteV2(data) {
     return request('/shop/goods/fav/delete', true, 'post', data);
+  },
+  goodsSeckillGrab: function goodsSeckillGrab(token, goodsId, seconds) {
+    return request('/goods/seckill/grab', true, 'post', { token: token, goodsId: goodsId, seconds: seconds });
   },
   coupons: function coupons(data) {
     return request('/discounts/coupons', true, 'get', data);
@@ -546,6 +641,15 @@ module.exports = {
       token: token, number: number, pwd: pwd, extJsonStr: extJsonStr
     });
   },
+  couponsShareOpen: function couponsShareOpen(token, id) {
+    return request('/discounts/share/open', true, 'post', { token: token, id: id });
+  },
+  couponsShareClose: function couponsShareClose(token, id) {
+    return request('/discounts/share/close', true, 'post', { token: token, id: id });
+  },
+  couponsShareFetch: function couponsShareFetch(token, id, shareToken) {
+    return request('/discounts/share/fetch', true, 'post', { token: token, id: id, shareToken: shareToken });
+  },
   noticeList: function noticeList(data) {
     return request('/notice/list', true, 'post', data);
   },
@@ -577,6 +681,9 @@ module.exports = {
     return request('/user/shipping-address/list', true, 'get', {
       token: token
     });
+  },
+  queryAddressV2: function queryAddressV2(data) {
+    return request('/user/shipping-address/list/v2', true, 'post', data);
   },
   defaultAddress: function defaultAddress(token) {
     return request('/user/shipping-address/default/v2', true, 'get', {
@@ -610,9 +717,17 @@ module.exports = {
     });
   },
   pingtuanOpen: function pingtuanOpen(token, goodsId) {
+    var extJsonStr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
     return request('/shop/goods/pingtuan/open', true, 'post', {
       goodsId: goodsId,
-      token: token
+      token: token,
+      extJsonStr: extJsonStr
+    });
+  },
+  pingtuanTuanInfo: function pingtuanTuanInfo(tuanId) {
+    return request('/shop/goods/pingtuan/tuanInfo', true, 'get', {
+      tuanId: tuanId
     });
   },
   pingtuanList: function pingtuanList(data) {
@@ -637,8 +752,20 @@ module.exports = {
   addFriend: function addFriend(token, uid) {
     return request('/user/friend/add', true, 'post', { token: token, uid: uid });
   },
+  deleteFriend: function deleteFriend(token, uid) {
+    return request('/user/friend/delete', true, 'post', { token: token, uid: uid });
+  },
   friendUserDetail: function friendUserDetail(token, uid) {
     return request('/user/friend/detail', true, 'get', { token: token, uid: uid });
+  },
+  userImList: function userImList(data) {
+    return request('/userIm/list', true, 'post', data);
+  },
+  userImSendmessage: function userImSendmessage(token, uid, content) {
+    return request('/userIm/sendmessage', true, 'post', { token: token, uid: uid, content: content });
+  },
+  userImEmpty: function userImEmpty(token, uid) {
+    return request('/userIm/empty', true, 'post', { token: token, uid: uid });
   },
   videoDetail: function videoDetail(videoId) {
     return request('/media/video/detail', true, 'get', {
@@ -657,6 +784,13 @@ module.exports = {
 
     return request('/user/wxapp/bindMobile', true, 'post', {
       token: token, code: code, encryptedData: encryptedData, iv: iv, pwd: pwd
+    });
+  },
+  bindMobileWxappV2: function bindMobileWxappV2(token, code) {
+    var pwd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+    return request('/user/wxapp/bindMobile/v2', true, 'post', {
+      token: token, code: code, pwd: pwd
     });
   },
   bindMobileTta: function bindMobileTta(token, encryptedData, iv) {
@@ -688,6 +822,11 @@ module.exports = {
       token: token
     });
   },
+  userAliappInfo: function userAliappInfo(token) {
+    return request('/user/aliappInfo', true, 'get', {
+      token: token
+    });
+  },
   userAmount: function userAmount(token) {
     return request('/user/amount', true, 'get', {
       token: token
@@ -710,6 +849,11 @@ module.exports = {
       peisongOrderId: peisongOrderId
     });
   },
+  orderMtLocation: function orderMtLocation(id) {
+    return request('/order/mtlocation', true, 'get', {
+      id: id
+    });
+  },
   orderDelivery: function orderDelivery(token, orderId) {
     return request('/order/delivery', true, 'post', {
       orderId: orderId,
@@ -718,6 +862,9 @@ module.exports = {
   },
   orderReputation: function orderReputation(data) {
     return request('/order/reputation', true, 'post', data);
+  },
+  orderReputationList: function orderReputationList(data) {
+    return request('/order/listReputation', true, 'post', data);
   },
   orderClose: function orderClose(token, orderId) {
     return request('/order/close', true, 'post', {
@@ -798,11 +945,19 @@ module.exports = {
       pid: pid
     });
   },
+  regionInfo: function regionInfo(id) {
+    return request('/common/region/v2/info', false, 'get', {
+      id: id
+    });
+  },
   cashLogs: function cashLogs(data) {
     return request('/user/cashLog', true, 'post', data);
   },
   cashLogsV2: function cashLogsV2(data) {
     return request('/user/cashLog/v2', true, 'post', data);
+  },
+  statisticsComingOut: function statisticsComingOut(data) {
+    return request('/user/statisticsComingOut', true, 'post', data);
   },
   payLogs: function payLogs(data) {
     return request('/user/payLogs', true, 'post', data);
@@ -826,6 +981,9 @@ module.exports = {
   },
   fxApply: function fxApply(token, name, mobile) {
     return request('/saleDistribution/apply', true, 'post', { token: token, name: name, mobile: mobile });
+  },
+  fxApplyV2: function fxApplyV2(data) {
+    return request('/saleDistribution/apply/v2', true, 'post', data);
   },
   fxSetting: function fxSetting() {
     return request('/saleDistribution/setting', true, 'get');
@@ -853,6 +1011,11 @@ module.exports = {
       page: page, pageSize: pageSize
     });
   },
+  fxSaleroomRankTotalTeam: function fxSaleroomRankTotalTeam(page, pageSize) {
+    return request('/saleDistribution/sale-room-rank/team/total', true, 'get', {
+      page: page, pageSize: pageSize
+    });
+  },
   fxSaleroomRankDaily: function fxSaleroomRankDaily(page, pageSize, day) {
     return request('/saleDistribution/sale-room-rank/daily', true, 'get', {
       page: page, pageSize: pageSize, day: day
@@ -868,6 +1031,7 @@ module.exports = {
     return request('/saleDistribution/goods', true, 'post', data);
   },
   fxTeamReport: function fxTeamReport(data) {
+    // SDK文档到这里
     return request('/saleDistribution/team/report', true, 'post', data);
   },
   fxCities: function fxCities(token) {
@@ -885,6 +1049,15 @@ module.exports = {
   },
   wxaQrcode: function wxaQrcode(data) {
     return request('/qrcode/wxa/unlimit', true, 'post', data);
+  },
+  ttaQrcode: function ttaQrcode(paramsJson, expireHours) {
+    return request('/user/tt/microapp/qrcode', true, 'post', {
+      content: JSON.stringify(paramsJson),
+      expireHours: expireHours
+    });
+  },
+  commonQrcode: function commonQrcode(data) {
+    return request('/qrcode/content', true, 'post', data);
   },
   uploadFile: function uploadFile(token, tempFilePath) {
     var expireHours = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
@@ -952,6 +1125,9 @@ module.exports = {
   cmsArticles: function cmsArticles(data) {
     return request('/cms/news/list', true, 'post', data);
   },
+  cmsArticlesV2: function cmsArticlesV2(data) {
+    return request('/cms/news/list/v2', true, 'post', data);
+  },
   cmsArticleUsefulLogs: function cmsArticleUsefulLogs(data) {
     return request('/cms/news/useful/logs', true, 'post', data);
   },
@@ -959,7 +1135,9 @@ module.exports = {
     return request('/cms/news/detail', true, 'get', { id: id });
   },
   cmsArticleDetailV2: function cmsArticleDetailV2(id) {
-    return request('/cms/news/detail/v2', true, 'get', { id: id });
+    var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/cms/news/detail/v2', true, 'get', { id: id, token: token });
   },
   cmsArticlePreNext: function cmsArticlePreNext(id) {
     return request('/cms/news/preNext', true, 'get', { id: id });
@@ -978,6 +1156,18 @@ module.exports = {
   },
   cmsTags: function cmsTags() {
     return request('/cms/tags/list', true, 'get', {});
+  },
+  cmsNewsSignUsers: function cmsNewsSignUsers(data) {
+    return request('/newsSign/signUsers', true, 'post', data);
+  },
+  cmsNewsSignOnline: function cmsNewsSignOnline(data) {
+    return request('/newsSign/signOnline', true, 'post', data);
+  },
+  cmsNewsSignOffline: function cmsNewsSignOffline(data) {
+    return request('/newsSign/signOffline', true, 'post', data);
+  },
+  cmsNewsSignCheck: function cmsNewsSignCheck(token, newsId) {
+    return request('/newsSign/check', true, 'get', { token: token, newsId: newsId });
   },
   invoiceList: function invoiceList(data) {
     return request('/invoice/list', true, 'post', data);
@@ -1000,6 +1190,18 @@ module.exports = {
   depositBackApply: function depositBackApply(token, id) {
     return request('/deposit/back/apply', true, 'post', { token: token, id: id });
   },
+  shopAreaCities: function shopAreaCities() {
+    return request('/shopArea/cities', true, 'get');
+  },
+  shopAreaList: function shopAreaList(data) {
+    return request('/shopArea/list', true, 'post', data);
+  },
+  shopAreaDetail: function shopAreaDetail(id) {
+    return request('/shopArea/detail', true, 'get', { id: id });
+  },
+  fetchShopsCities: function fetchShopsCities() {
+    return request('/shop/subshop/cities', true, 'get');
+  },
   fetchShops: function fetchShops(data) {
     return request('/shop/subshop/list', true, 'post', data);
   },
@@ -1015,6 +1217,33 @@ module.exports = {
   pickPoints: function pickPoints(data) {
     return request('/shop/subshop/pickPoints', true, 'post', data);
   },
+  shopReputationList: function shopReputationList(data) {
+    return request('/shop/subshop/listReputation', true, 'post', data);
+  },
+  shopFavPut: function shopFavPut(token, shopId) {
+    return request('/shop/fav/add', true, 'post', { token: token, shopId: shopId });
+  },
+  shopFavCheck: function shopFavCheck(token, shopId) {
+    return request('/shop/fav/check', true, 'get', { token: token, shopId: shopId });
+  },
+  shopFavList: function shopFavList(data) {
+    return request('/shop/fav/list', true, 'post', data);
+  },
+  shopFavDelete: function shopFavDelete(token, shopId) {
+    return request('/shop/fav/delete', true, 'post', { token: token, shopId: shopId });
+  },
+  userAttendantFavPut: function userAttendantFavPut(token, attendantId) {
+    return request('/userAttendantFav/add', true, 'post', { token: token, attendantId: attendantId });
+  },
+  userAttendantFavCheck: function userAttendantFavCheck(token, attendantId) {
+    return request('/userAttendantFav/check', true, 'get', { token: token, attendantId: attendantId });
+  },
+  userAttendantFavList: function userAttendantFavList(data) {
+    return request('/userAttendantFav/list', true, 'post', data);
+  },
+  userAttendantFavDelete: function userAttendantFavDelete(token, attendantId) {
+    return request('/userAttendantFav/delete', true, 'post', { token: token, attendantId: attendantId });
+  },
   addComment: function addComment(data) {
     return request('/comment/add', true, 'post', data);
   },
@@ -1024,7 +1253,7 @@ module.exports = {
   modifyUserInfo: function modifyUserInfo(data) {
     return request('/user/modify', true, 'post', data);
   },
-  bindSaleman: function bindSaleman(token, uid) {
+  bindSaleman: function bindSaleman(data) {
     return request('/user/bindSaleman', true, 'post', data);
   },
   modifyUserPassword: function modifyUserPassword(token, pwdOld, pwdNew) {
@@ -1055,14 +1284,20 @@ module.exports = {
   jsonList: function jsonList(data) {
     return request('/json/list', true, 'post', data);
   },
+  jsonListV2: function jsonListV2(data) {
+    return request('/json/list/v2', true, 'post', data);
+  },
   jsonSet: function jsonSet(data) {
     return request('/json/set', true, 'post', data);
   },
-  jsonDelete: function jsonDelete() {
-    var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    var id = arguments[1];
-
+  jsonDelete: function jsonDelete(token, id) {
     return request('/json/delete', true, 'post', { token: token, id: id });
+  },
+  jsonTop: function jsonTop(token, id, isTop) {
+    return request('/json/top', true, 'post', { token: token, id: id, isTop: isTop });
+  },
+  jsonHighlight: function jsonHighlight(token, id, isHighlight) {
+    return request('/json/highlight', true, 'post', { token: token, id: id, isHighlight: isHighlight });
   },
   graphValidateCodeUrl: function graphValidateCodeUrl() {
     var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Math.random();
@@ -1110,6 +1345,11 @@ module.exports = {
     var coord_type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '5';
 
     return request('/common/map/qq/address', false, 'get', { location: location, coord_type: coord_type });
+  },
+  mapQQAddressV2: function mapQQAddressV2(key, location) {
+    var coord_type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '5';
+
+    return request('/common/map/qq/address', false, 'get', { key: key, location: location, coord_type: coord_type });
   },
   mapQQSearch: function mapQQSearch(data) {
     return request('/common/map/qq/search', false, 'post', data);
@@ -1225,11 +1465,22 @@ module.exports = {
   voteLogs: function voteLogs(data) {
     return request('/vote/vote/list', true, 'post', data);
   },
+  myInviteVoteJoinList: function myInviteVoteJoinList(data) {
+    return request('/vote/myInviteLoinList', true, 'post', data);
+  },
+  yuyueItemPublish: function yuyueItemPublish(data) {
+    return request('/yuyue/publish', true, 'post', data);
+  },
   yuyueItems: function yuyueItems(data) {
     return request('/yuyue/items', true, 'post', data);
   },
   yuyueItemDetail: function yuyueItemDetail(id) {
-    return request('/yuyue/info', true, 'get', { id: id });
+    var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/yuyue/info', true, 'get', { id: id, token: token });
+  },
+  yuyueItemDelete: function yuyueItemDelete(token, id) {
+    return request('/yuyue/del', true, 'post', { token: token, id: id });
   },
   yuyueJoin: function yuyueJoin(data) {
     return request('/yuyue/join', true, 'post', data);
@@ -1280,6 +1531,12 @@ module.exports = {
   goodsDynamic: function goodsDynamic(type) {
     return request('/site/goods/dynamic', true, 'get', { type: type });
   },
+  goodsDynamicV2: function goodsDynamicV2(data) {
+    return request('/site/goods/dynamic', true, 'get', data);
+  },
+  usersDynamic: function usersDynamic(type) {
+    return request('/site/user/dynamic', true, 'get', { type: type });
+  },
   fetchSubDomainByWxappAppid: function fetchSubDomainByWxappAppid(appid) {
     return request('/subdomain/appid/wxapp', false, 'get', { appid: appid });
   },
@@ -1299,37 +1556,50 @@ module.exports = {
     return request('/cms/news/fav/delete', true, 'post', { token: token, newsId: newsId });
   },
   shippingCarInfo: function shippingCarInfo(token) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
     return request('/shopping-cart/info', true, 'get', {
-      token: token
+      token: token, type: type
     });
   },
   shippingCarInfoAddItem: function shippingCarInfoAddItem(token, goodsId, number, sku, addition) {
+    var type = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : '';
+
     return request('/shopping-cart/add', true, 'post', {
       token: token,
       goodsId: goodsId,
       number: number,
       sku: sku && sku.length > 0 ? JSON.stringify(sku) : '',
-      addition: addition && addition.length > 0 ? JSON.stringify(addition) : ''
+      addition: addition && addition.length > 0 ? JSON.stringify(addition) : '',
+      type: type
     });
   },
   shippingCarInfoModifyNumber: function shippingCarInfoModifyNumber(token, key, number) {
+    var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+
     return request('/shopping-cart/modifyNumber', true, 'post', {
-      token: token, key: key, number: number
+      token: token, key: key, number: number, type: type
     });
   },
   shippingCarInfoRemoveItem: function shippingCarInfoRemoveItem(token, key) {
+    var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
     return request('/shopping-cart/remove', true, 'post', {
-      token: token, key: key
+      token: token, key: key, type: type
     });
   },
   shippingCartSelected: function shippingCartSelected(token, key, selected) {
+    var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+
     return request('/shopping-cart/select', true, 'post', {
-      token: token, key: key, selected: selected
+      token: token, key: key, selected: selected, type: type
     });
   },
   shippingCarInfoRemoveAll: function shippingCarInfoRemoveAll(token) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
     return request('/shopping-cart/empty', true, 'post', {
-      token: token
+      token: token, type: type
     });
   },
   growthLogs: function growthLogs(data) {
@@ -1385,6 +1655,9 @@ module.exports = {
   peisongEndService: function peisongEndService(data) {
     return request('/peisong/order/end-service', true, 'post', data);
   },
+  peisongEndServiceRemark: function peisongEndServiceRemark(token, id, remarkEnd) {
+    return request('/peisong/order/end-service/remarkEnd', true, 'post', { token: token, id: id, remarkEnd: remarkEnd });
+  },
   peisongOrderAllocation: function peisongOrderAllocation(token, id, uid) {
     return request('/peisong/order/allocation', true, 'post', {
       token: token, id: id, uid: uid
@@ -1397,6 +1670,9 @@ module.exports = {
     return request('/order/statistics', true, 'get', {
       token: token
     });
+  },
+  orderStatisticsv2: function orderStatisticsv2(data) {
+    return request('/order/statistics', true, 'get', data);
   },
   siteStatisticsSaleroom: function siteStatisticsSaleroom(data) {
     return request('/site/statistics/saleroom', true, 'get', data);
@@ -1426,14 +1702,6 @@ module.exports = {
   },
   mtjTransferLogs: function mtjTransferLogs(data) {
     return request('/mtj/transfer/logs', true, 'post', data);
-  },
-  register_tt: function register_tt(data) {
-    return request('/user/tt/microapp/register', true, 'post', data);
-  },
-  login_tt: function login_tt(code) {
-    return request('/user/tt/microapp/login', true, 'post', {
-      code: code
-    });
   },
   wxOpenAuthorization: function wxOpenAuthorization(data) {
     return request('/user/wxsns/authorization', true, 'post', data);
@@ -1481,6 +1749,14 @@ module.exports = {
   cyTablePayOrder: function cyTablePayOrder(data) {
     return request('/cyTable/pay-order', true, 'post', data);
   },
+  goodsTimesSchedule: function goodsTimesSchedule() {
+    var goodsId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var propertyChildIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var brandId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+    var categoryId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+
+    return request('/shop/goods/times/schedule', true, 'post', { goodsId: goodsId, propertyChildIds: propertyChildIds, brandId: brandId, categoryId: categoryId });
+  },
   goodsTimesDays: function goodsTimesDays(goodsId) {
     var propertyChildIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
@@ -1515,6 +1791,9 @@ module.exports = {
   wxappServiceBindMobile: function wxappServiceBindMobile(data) {
     return request('/user/wxappService/bindMobile', true, 'post', data);
   },
+  wxappServiceBindMobileV2: function wxappServiceBindMobileV2(data) {
+    return request('/user/wxappService/bindMobile/v2', true, 'post', data);
+  },
   wxappServiceBindOpenid: function wxappServiceBindOpenid(data) {
     return request('/user/wxappService/bindOpenid', true, 'post', data);
   },
@@ -1535,6 +1814,9 @@ module.exports = {
   },
   adPosition: function adPosition(key) {
     return request('/site/adPosition/info', true, 'get', { key: key });
+  },
+  adPositionBatch: function adPositionBatch(keys) {
+    return request('/site/adPosition/batch', true, 'get', { keys: keys });
   },
   momentsCategory: function momentsCategory() {
     return request('/momentsCategory/list', true, 'get');
@@ -1605,8 +1887,23 @@ module.exports = {
   liveRoomKickOutUser: function liveRoomKickOutUser(token, roomId, uid) {
     return request('/websocket/rest/liveRoom/kickOut', false, 'post', { token: token, roomId: roomId, uid: uid });
   },
-  tourJourneyList: (type, refId) => {
-    return request('/tourJourney/list', true, 'get', { type, refId })
+  mockApi: function mockApi(groupName, apiName, method) {
+    return request('/mock/' + groupName + '/' + apiName, true, method);
+  },
+  tourJourneyList: function tourJourneyList(type, refId) {
+    return request('/tourJourney/list', true, 'get', { type: type, refId: refId });
+  },
+  userBankSelectBanks: function userBankSelectBanks() {
+    return request('/userBank/banks', true, 'get');
+  },
+  userBankInfo: function userBankInfo(token) {
+    return request('/userBank/info', true, 'get', { token: token });
+  },
+  userBankBind: function userBankBind(data) {
+    return request('/userBank/bind', true, 'post', data);
+  },
+  userBankUnBind: function userBankUnBind(token) {
+    return request('/userBank/unbind', true, 'post', { token: token });
   },
   // 京东VOP相关接口
   jdvopGoodsList: function jdvopGoodsList(data) {
@@ -1654,12 +1951,34 @@ module.exports = {
       token: token
     });
   },
+  // 商家从区管进货
+  jdvopJinhuoGoods: function jdvopJinhuoGoods(data) {
+    return request('/vop/goods/list', true, 'post', data);
+  },
+  jdvopJinhuoGoodsDetail: function jdvopJinhuoGoodsDetail(token, skuId) {
+    return request('/vop/goods/detail', true, 'get', { token: token, skuId: skuId });
+  },
   // cps
+  cpsJdGoodsCategory: function cpsJdGoodsCategory(parentId, grade) {
+    return request('/cpsJdGoods/category', true, 'get', { parentId: parentId, grade: grade });
+  },
+  cpsJdGoodsSearch: function cpsJdGoodsSearch(data) {
+    return request('/cpsJdGoods/search', true, 'post', data);
+  },
   cpsJdGoodsDetail: function cpsJdGoodsDetail(data) {
     return request('/cpsJdGoods/detail', true, 'get', data);
   },
+  cpsJdGoodsSetExt: function cpsJdGoodsSetExt(data) {
+    return request('/cpsJdGoods/ext/set', true, 'post', data);
+  },
+  cpsJdGoodsQueryExt: function cpsJdGoodsQueryExt(skuId) {
+    return request('/cpsJdGoods/ext/query', true, 'get', { skuId: skuId });
+  },
   cpsJdGoodsShotUrl: function cpsJdGoodsShotUrl(token, skuId) {
     return request('/cpsJdGoods/shotUrl', true, 'get', { token: token, skuId: skuId });
+  },
+  cpsJdGoodsShotUrlSite: function cpsJdGoodsShotUrlSite(token, materialUrl, couponUrl) {
+    return request('/cpsJdGoods/shotUrl/site', true, 'post', { token: token, materialUrl: materialUrl, couponUrl: couponUrl });
   },
   cpsJdOrders: function cpsJdOrders(data) {
     return request('/cpsJdOrder/list', true, 'post', data);
@@ -1682,14 +2001,14 @@ module.exports = {
   cpsPddOrderDetail: function cpsPddOrderDetail(token, id) {
     return request('/cpsPddOrder/detail', true, 'get', { token: token, id: id });
   },
-  cpsTaobaoGoodsDetail: data => {
-    return request('/cpsTaobaoGoods/detail', true, 'get', data)
+  cpsTaobaoGoodsDetail: function cpsTaobaoGoodsDetail(data) {
+    return request('/cpsTaobaoGoods/detail', true, 'get', data);
   },
-  cpsTaobaoGoodsShotUrl: (token, content) => {
-    return request('/cpsTaobaoGoods/shotUrl', true, 'post', { token, content })
+  cpsTaobaoGoodsShotUrl: function cpsTaobaoGoodsShotUrl(token, content) {
+    return request('/cpsTaobaoGoods/shotUrl', true, 'post', { token: token, content: content });
   },
-  cpsTaobaoGoodsKouling: (token, content) => {
-    return request('/cpsTaobaoGoods/kouling', true, 'post', { token, content })
+  cpsTaobaoGoodsKouling: function cpsTaobaoGoodsKouling(token, content) {
+    return request('/cpsTaobaoGoods/kouling', true, 'post', { token: token, content: content });
   },
   // 回收
   recycleOrders: function recycleOrders(data) {
@@ -1710,7 +2029,185 @@ module.exports = {
   recycleOrderDelete: function recycleOrderDelete(token, id) {
     return request('/recycleOrder/del', true, 'post', { token: token, id: id });
   },
-};
+  // 会员卡
+  cardList: function cardList(data) {
+    return request('/card/list', true, 'post', data);
+  },
+  cardInfo: function cardInfo(id) {
+    return request('/card/info', true, 'get', { id: id });
+  },
+  cardBuy: function cardBuy(token, id) {
+    return request('/card/buy', true, 'post', { token: token, id: id });
+  },
+  cardMyList: function cardMyList(token) {
+    return request('/card/my', true, 'get', { token: token });
+  },
+  cardMyLogs: function cardMyLogs(data) {
+    return request('/card/logs', true, 'post', data);
+  },
+  // 收藏卡片
+  collectCardHis: function collectCardHis(data) {
+    return request('/collectCard/del', true, 'post', data);
+  },
+  collectCardInfo: function collectCardInfo(number) {
+    return request('/collectCard/cardInfo', true, 'get', { number: number });
+  },
+  collectCardHisInfo: function collectCardHisInfo(token, id) {
+    return request('/collectCard/hisInfo', true, 'get', { token: token, id: id });
+  },
+  collectCardBind: function collectCardBind(data) {
+    return request('/collectCard/bind', true, 'post', data);
+  },
+  collectCardUnBind: function collectCardUnBind(token, id, smsCode) {
+    return request('/collectCard/bind', true, 'post', { token: token, id: id, smsCode: smsCode });
+  },
+  // 其他
+  bengenSaleTongjiList: function bengenSaleTongjiList(data) {
+    return request('/bengenSaleTongji/list', true, 'post', data);
+  },
+  bengenSaleTongjiRank: function bengenSaleTongjiRank(data) {
+    return request('/bengenSaleTongji/rank', true, 'get', data);
+  },
+  // 购买课程
+  courseInfoList: function courseInfoList(data) {
+    return request('/courseInfo/list', true, 'post', data);
+  },
+  courseInfo: function courseInfo(id) {
+    return request('/courseInfo/info', true, 'get', { id: id });
+  },
+  courseBuyLogPublic: function courseBuyLogPublic(data) {
+    return request('/courseBuyLog/public', true, 'post', data);
+  },
+  courseBuyLogMy: function courseBuyLogMy(data) {
+    return request('/courseBuyLog/my', true, 'post', data);
+  },
+  courseInfoBuy: function courseInfoBuy(data) {
+    return request('/courseBuyLog/buy', true, 'post', data);
+  },
+  courseInfoBuyLogPay: function courseInfoBuyLogPay(token, orderId) {
+    return request('/courseBuyLog/pay', true, 'post', { token: token, orderId: orderId });
+  },
+  courseInfoBuyLogDetail: function courseInfoBuyLogDetail(token, id) {
+    var hxNumber = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+    return request('/courseBuyLog/detail', true, 'get', { token: token, id: id, hxNumber: hxNumber });
+  },
+  courseInfoBuyLogClose: function courseInfoBuyLogClose(token, orderId) {
+    return request('/courseBuyLog/close', true, 'post', { token: token, orderId: orderId });
+  },
+  courseInfoBuyLogDelete: function courseInfoBuyLogDelete(token, orderId) {
+    return request('/courseBuyLog/del', true, 'post', { token: token, orderId: orderId });
+  },
+  // 橱窗
+  chuchuanSettingInfo: function chuchuanSettingInfo(uid) {
+    return request('/chuchuan/info', true, 'get', { uid: uid });
+  },
+  chuchuanSettingModify: function chuchuanSettingModify(data) {
+    return request('/chuchuan/modify', true, 'post', data);
+  },
+  chuchuanGoodsList: function chuchuanGoodsList(data) {
+    return request('/chuchuanGoods/list', true, 'post', data);
+  },
+  chuchuanGoodsAdd: function chuchuanGoodsAdd(data) {
+    return request('/chuchuanGoods/add', true, 'post', data);
+  },
+  chuchuanGoodsRemove: function chuchuanGoodsRemove(token, goodsId) {
+    return request('/chuchuanGoods/remove', true, 'post', { token: token, goodsId: goodsId });
+  },
+  chuchuanGoodsCheck: function chuchuanGoodsCheck(token, goodsId) {
+    return request('/chuchuanGoods/check', true, 'get', { token: token, goodsId: goodsId });
+  },
+  // 寄存
+  jicunGoodsList: function jicunGoodsList(data) {
+    return request('/jicunGoods/list', true, 'post', data);
+  },
+  jicunGoodsDetail: function jicunGoodsDetail(data) {
+    return request('/jicunGoods/detail', true, 'get', data);
+  },
+  // ocr
+  ocrBusinessLicense: function ocrBusinessLicense(imageUrl) {
+    return request('/ocr/businessLicense', true, 'post', { imageUrl: imageUrl });
+  },
+  ocrIdcard: function ocrIdcard(imageUrl) {
+    return request('/ocr/idcard', true, 'post', { imageUrl: imageUrl });
+  },
+  ocrBankcard: function ocrBankcard(imageUrl) {
+    return request('/ocr/bankcard', true, 'post', { imageUrl: imageUrl });
+  },
+  ocrDriverLicense: function ocrDriverLicense(imageUrl) {
+    return request('/ocr/driverLicense', true, 'post', { imageUrl: imageUrl });
+  },
+  // 朋友圈
+  momentsPublish: function momentsPublish(data) {
+    return request('/user/moments/publish', true, 'post', data);
+  }
+}, _module$exports['momentsList'] = function momentsList(data) {
+  return request('/user/moments/list', true, 'get', data);
+}, _module$exports.momentsDetail = function momentsDetail(token, momentsId) {
+  return request('/user/moments/detail', true, 'get', { token: token, momentsId: momentsId });
+}, _module$exports.momentsDelete = function momentsDelete(token, momentsId) {
+  return request('/user/moments/del', true, 'post', { token: token, momentsId: momentsId });
+}, _module$exports.momentsDeleteComment = function momentsDeleteComment(token, commentId) {
+  return request('/user/moments/delCommon', true, 'post', { token: token, commentId: commentId });
+}, _module$exports.momentsLike = function momentsLike(token, momentsId) {
+  return request('/user/moments/like', true, 'post', { token: token, momentsId: momentsId });
+}, _module$exports.momentsComment = function momentsComment(token, momentsId) {
+  var uid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  var content = arguments[3];
+
+  return request('/user/moments/comment', true, 'post', { token: token, momentsId: momentsId, uid: uid, content: content });
+}, _module$exports.momentsCommentLogs = function momentsCommentLogs(data) {
+  return request('/user/moments/logs', true, 'get', data);
+}, _module$exports.momentsLogsRead = function momentsLogsRead(token, logsIds) {
+  return request('/user/moments/logRead', true, 'post', { token: token, logsIds: logsIds });
+}, _module$exports.bottleMsgPublish = function bottleMsgPublish(data) {
+  return request('/bottleMsg/publish', true, 'post', data);
+}, _module$exports.bottleMsgSalvage = function bottleMsgSalvage(token) {
+  return request('/bottleMsg/salvage', true, 'get', { token: token });
+}, _module$exports.userInvoiceInfo = function userInvoiceInfo(token) {
+  return request('/userInvoice/info', true, 'get', { token: token });
+}, _module$exports.userInvoiceUnbind = function userInvoiceUnbind(token) {
+  return request('/userInvoice/unbind', true, 'post', { token: token });
+}, _module$exports.userInvoiceBind = function userInvoiceBind(data) {
+  return request('/userInvoice/bind', true, 'post', data);
+}, _module$exports.goodsLendsList = function goodsLendsList(data) {
+  return request('/goodsLends/list', true, 'post', data);
+}, _module$exports.goodsLendsLogs = function goodsLendsLogs(data) {
+  return request('/goodsLends/logs', true, 'post', data);
+}, _module$exports.aliappUserRegister = function aliappUserRegister(data) {
+  return request('/user/aliapp/register', true, 'post', data);
+}, _module$exports.aliappUserLogin = function aliappUserLogin(data) {
+  return request('/user/aliapp/login', true, 'post', data);
+}, _module$exports.aliappUserAuthorize = function aliappUserAuthorize(data) {
+  return request('/user/aliapp/authorize', true, 'post', data);
+}, _module$exports.aliappWebUserAuthorize = function aliappWebUserAuthorize(data) {
+  return request('/user/aliappweb/authorize', true, 'post', data);
+}, _module$exports.aliappQrcode = function aliappQrcode(content) {
+  return request('/user/aliapp/qrcode', true, 'post', { content: content });
+}, _module$exports.tempDataSet = function tempDataSet(key, content) {
+  return request('/tempData/set', true, 'post', { key: key, content: content });
+}, _module$exports.tempDataGet = function tempDataGet(key) {
+  return request('/tempData/get', true, 'get', { key: key });
+}, _module$exports.commonDatetime = function commonDatetime() {
+  return request('/common/datetime', true, 'get');
+}, _module$exports.commonDays = function commonDays() {
+  var startDay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var days = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+  return request('/common/days', false, 'get', { startDay: startDay, days: days });
+}, _module$exports.organizeInfoCreate = function organizeInfoCreate(token, name) {
+  return request('/organizeInfo/create', true, 'post', { token: token, name: name });
+}, _module$exports.userAttendantList = function userAttendantList(data) {
+  return request('/user/attendant/list', true, 'post', data);
+}, _module$exports.userAttendantDetail = function userAttendantDetail(id) {
+  return request('/user/attendant/detail', true, 'get', { id: id });
+}, _module$exports.userAttendantGoods = function userAttendantGoods(id) {
+  return request('/user/attendant/goods', true, 'get', { id: id });
+}, _module$exports.shopCategory = function shopCategory() {
+  return request('/shopCategory/all', true, 'get');
+}, _module$exports.shopCategoryDetail = function shopCategoryDetail(id) {
+  return request('/shopCategory/info', true, 'get', { id: id });
+}, _module$exports);
 
 /***/ })
 /******/ ]);

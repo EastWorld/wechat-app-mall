@@ -14,12 +14,12 @@
     <view
       wx:for="{{ days }}"
       wx:key="index"
-      style="{{ computed.getDayStyle(item.type, index, date, rowHeight, color) }}"
+      style="{{ computed.getDayStyle(item.type, index, date, rowHeight, color, firstDayOfWeek) }}"
       class="{{ utils.bem('calendar__day', [item.type]) }} {{ item.className }}"
       data-index="{{ index }}"
       bindtap="onClick"
     >
-      <view wx:if="{{ item.type === 'selected' }}" class="van-calendar__selected-day" style="background: {{ color }}">
+      <view wx:if="{{ item.type === 'selected' }}" class="van-calendar__selected-day" style="width: {{ rowHeight }}px; height: {{ rowHeight }}px; background: {{ color }}">
         <view wx:if="{{ item.topInfo }}" class="van-calendar__top-info">{{ item.topInfo }}</view>
         {{ item.text }}
         <view wx:if="{{ item.bottomInfo }}" class="van-calendar__bottom-info">

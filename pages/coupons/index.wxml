@@ -32,7 +32,7 @@
       <view wx:if="{{ item.moneyType == 0 }}" class="amount"><text>￥</text>{{item.money}}</view>
       <view wx:if="{{ item.moneyType == 1 }}" class="amount"><text></text>{{item.money}}<text>%</text></view>
     </view>
-    <view class="btn" bindtap="toIndexPage">立即使用</view>
+    <view class="btn" bindtap="touse" data-item="{{ item }}">立即使用</view>
   </view>
 </view>
 <view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 2}}">

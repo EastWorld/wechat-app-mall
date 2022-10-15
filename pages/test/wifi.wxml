@@ -1,0 +1,3 @@
+<van-cell-group title="wifi列表">
+  <van-cell wx:for="{{wifiList}}" wx:key="id" title="{{ item.SSID }}" value="强度:{{ item.signalStrength }}" is-link bind:click="connetWifi" data-d="{{ item }}" />
+</van-cell-group>

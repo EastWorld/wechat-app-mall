@@ -1,7 +1,7 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
 <wxs src="./index.wxs" module="computed" />
 
-<view class="van-dropdown-menu van-dropdown-menu--top-bottom">
+<view class="van-dropdown-menu van-dropdown-menu--top-bottom custom-class">
   <view
     wx:for="{{ itemListData }}"
     wx:key="index"

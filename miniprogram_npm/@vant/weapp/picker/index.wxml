@@ -1,7 +1,7 @@
 <wxs src="./index.wxs" module="computed" />
 
 <view class="van-picker custom-class">
-  <include wx:if="{{ toolbarPosition === 'top' }}" src="toolbar.wxml" />
+  <include wx:if="{{ toolbarPosition === 'top' }}" src="./toolbar.wxml" />
 
   <view wx:if="{{ loading }}" class="van-picker__loading">
     <loading color="#1989fa"/>
@@ -33,5 +33,5 @@
     />
   </view>
 
-  <include wx:if="{{ toolbarPosition === 'bottom' }}" src="toolbar.wxml" />
+  <include wx:if="{{ toolbarPosition === 'bottom' }}" src="./toolbar.wxml" />
 </view>

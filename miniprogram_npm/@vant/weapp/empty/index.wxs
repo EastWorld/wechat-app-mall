@@ -12,3 +12,4 @@ function imageUrl(image) {
 module.exports = {
   imageUrl: imageUrl,
 };
+

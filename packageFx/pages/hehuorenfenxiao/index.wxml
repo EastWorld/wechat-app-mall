@@ -1,0 +1,241 @@
+<view>
+  <image style="width:750rpx;height:200rpx" mode="scaleToFill"
+    src="https://dcdn.it120.cc/2021/01/13/3bb7207c-de68-476e-a5f8-8a2bfb7f1f09.png"></image>
+</view>
+
+<view wx:if="{{apiUserInfoMap.base.isTeamMember || apiUserInfoMap.base.isTeamLeader || apiUserInfoMap.partnerInfo}}">
+  <view class="tabTop" style="margin-top:-88rpx">
+    <view wx:if="{{apiUserInfoMap}}" class="header-box">
+      <!-- <image class="avatar2" src="../../../../images/my/vip-guan@2x.png" mode="aspectFill"></image> -->
+      <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
+      <view class="r">
+        <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
+        <view style="display:flex">
+          <view class="nick">{{ apiUserInfoMap.base.nick }}</view>
+          <view wx:if="{{apiUserInfoMap.partnerInfo}}" class="nick"
+            style="padding:2rpx 10rpx;background-color:#FFAF32;color:white;border-radius:10rpx;font-size:14px;margin-left:10px">
+            合伙人</view>
+          <view wx:elif="{{apiUserInfoMap.base.isTeamLeader}}" class="nick"
+            style="padding:2rpx 10rpx;background-color:#FFAF32;color:white;border-radius:10rpx;font-size:14px;margin-left:10px">
+            团长</view>
+        </view>
+      </view>
+    </view>
+    <view class="header-box2"> </view>
+    <view class="line"></view>
+    <view class="asset">
+      <view class='item'>
+        <view class="Count">{{freeze}}</view>
+        <view>冻结金额</view>
+      </view>
+      <view class='item right'>
+        <view class="Count" style="color:#FF444A">{{balance}}</view>
+        <view>可用金额</view>
+      </view>
+      <view class="txBtn" bindtap="withdraw" style="margin-top:20px;background: #F5D795;">
+        立即提现
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="titleXS">
+      我的销售额
+    </view>
+    <view class="asset">
+      <view class='item'>
+        <view class="Count">{{commisionData.todayXiaoshou}}</view>
+        <view>今日销售</view>
+        <view class="yjP">{{commisionData.today}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+      <view class='item right'>
+        <view class="Count">{{commisionData.yesdayXiaoshou}}</view>
+        <view>昨天销售</view>
+        <view class="yjP">{{commisionData.yesday}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+      <view class='item right' bindtap='goScore'>
+        <view class="Count">{{commisionData.thisMonthXiaoshou}}</view>
+        <view>本月销售</view>
+        <view class="yjP">{{commisionData.thisMonth}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+      <view class='item right'>
+        <view class="Count">{{commisionData.lastMonthXiaoshou}}</view>
+        <view>上月销售</view>
+        <view class="yjP">{{commisionData.lastMonth}}</view>
+        <view class="yjT">（佣金）</view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+
+  <view wx:if="{{apiUserInfoMap.partnerInfo}}">
+    <!-- 我是合伙人 -->
+    <view class="tuan" wx:if="{{apiUserInfoMap.partnerInfo}}">
+      <view>我的团队</view>
+      <view class="line2"></view>
+      <view style="display:flex">
+        <view class="tuanItem" bindtap="goFxmem" data-level="0">
+          <view class="tI1">{{membersStatistics.leaders}}人</view>
+          <view class="tI2">团队长</view>
+        </view>
+        <view class="tuanItem" bindtap="goFxmem" data-level="1">
+          <view class="tI1">{{membersStatistics.members}}人</view>
+          <view class="tI2">团员</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="tuan2" style="margin-top:10px;display:flex;justify-content: space-between;margin-bottom:10px"
+      bindtap="goCommision">
+      <view class="tL" style="display:flex;align-items:center">
+        <view>推广订单</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </view>
+
+    <view class="tuan2" style="margin-top:10px;display:flex;justify-content: space-between;">
+      <view class="tL" style="display:flex;align-items:center">
+        <view>我的邀请码</view>
+        <view class="yqCode">{{ apiUserInfoMap.base.id }}</view>
+      </view>
+      <view class="cybtn" bindtap="copyContent" data-id="{{ apiUserInfoMap.base.id }}">
+        复制
+      </view>
+    </view>
+  </view>
+
+  <view wx:elif="{{apiUserInfoMap.base.isTeamLeader}}">
+    <!-- -----我是团长---- -->
+    <view class="tuan" style="padding: 40rpx 40rpx 20rpx 40rpx;margin-bottom:10px"
+      wx:if="{{apiUserInfoMap.parentPartnerInfo}}">
+      <view>我的合伙人</view>
+      <view class="line2"></view>
+      <view style="display:flex">
+        <image style="width:80rpx;height:80rpx;margin:10px 20px 0px 0;border-radius:100%"
+          src="{{apiUserInfoMap.parentPartnerInfo.avatarUrl}}"></image>
+
+        <view style="height:120rpx;line-height:120rpx">{{apiUserInfoMap.parentPartnerInfo.nick}}</view>
+      </view>
+    </view>
+
+    <view class="tuan2" style="margin-top:10px;display:flex;justify-content: space-between;margin-bottom:10px"
+      bindtap="goFxmem" data-level="1">
+      <view class="tL" style="display:flex;align-items:center">
+        <view>我的团员</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </view>
+
+    <view class="tuan2" style="margin-top:10px;display:flex;justify-content: space-between;margin-bottom:10px"
+      bindtap="goCommision">
+      <view class="tL" style="display:flex;align-items:center">
+        <view>推广订单</view>
+        <image class="next" src="/images/icon/next.png"></image>
+      </view>
+    </view>
+
+    <view class="tuan2" style="margin-top:10px;display:flex;justify-content: space-between;margin-bottom:10px">
+      <view class="tL" style="display:flex;align-items:center">
+        <view>我的邀请码</view>
+        <view class="yqCode">{{ apiUserInfoMap.base.id }}</view>
+      </view>
+      <view class="cybtn" bindtap="copyContent" data-id="{{ apiUserInfoMap.base.id }}">
+        复制
+      </view>
+    </view>
+
+  </view>
+
+  <view wx:elif="{{apiUserInfoMap.base.isTeamMember}}">
+    <!-- -----我是团员--------- -->
+    <view class="tuan" style="padding: 40rpx 40rpx 20rpx 40rpx;" wx:if="{{apiUserInfoMap.parentTeamLeaderInfo}}">
+      <view>我的团长</view>
+      <view class="line2"></view>
+      <view style="display:flex">
+        <image style="width:80rpx;height:80rpx;margin:10px 20px 0px 0;border-radius:100%"
+          src="{{apiUserInfoMap.parentTeamLeaderInfo.avatarUrl}}"></image>
+
+        <view style="height:120rpx;line-height:120rpx">{{apiUserInfoMap.parentTeamLeaderInfo.nick}}</view>
+      </view>
+    </view>
+
+    <view class="tuan" style="padding: 40rpx 40rpx 20rpx 40rpx;" wx:else>
+      <view>绑定团长</view>
+      <view class="line2"></view>
+      <van-field value="{{ tzid }}" placeholder="请输入团长邀请码，立即成为会员" border="{{ false }}" bind:change="onChange" clearable
+        input-align="center" />
+      <view style="text-align:center">
+        <view class="tzBtn" bindtap="partnerBindTeamLeader" style="margin-top:20px;background: #F5D795;">
+          立即绑定
+        </view>
+      </view>
+    </view>
+
+    <view class="tuan" style="margin-top:10px">
+      <view>我的团队</view>
+      <view class="line2"></view>
+      <view style="width:100%;text-align:center">
+        <view class="textsjtz"> 您还不是团长，支付 <span style="color: #FF444A;">{{fxData.priceLeader}}</span> 立即升级 </view>
+      </view>
+      <view style="text-align:center">
+        <view class="tzBtn" style="margin-top:20px;background: #F5D795;" bindtap="payFx"
+          wx:if="{{fxData.isOpen && !apiUserInfoMap.base.isTeamLeader}}">
+          立即升级
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class='noApply' wx:if="{{ apiUserInfoMap.base.isTeamLeader || apiUserInfoMap.partnerInfo}}"
+    style="padding-top:10px;padding-bottom:20px">
+    <!-- 我是合伙人或者团长可以生成推广码 -->
+    <view style="text-align:center">
+      <canvas class="canvas" style="height:160px;width:160px;margin:0 auto" canvas-id="firstCanvas"></canvas>
+      <view class="tzBtn" bindtap="saveToMobile" style="margin-top:10px;background: #F5D795;">
+        保存到相册
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view wx:else class="tabTop" style="margin-top:-88rpx">
+  <!-- ------我是普通用户----- -->
+  <view wx:if="{{apiUserInfoMap}}" class="header-box">
+    <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
+    <view class="r">
+      <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
+      <view class="nick">{{ apiUserInfoMap.base.nick }}</view>
+    </view>
+  </view>
+  <view class="header-box2">您当前还不是分销商</view>
+  <view class="line"></view>
+  <view style="padding:20px">
+    <van-cell-group>
+      <van-field value="{{ tzid }}" placeholder="请输入团长邀请码，立即成为分销商" bind:change="onChange" />
+    </van-cell-group>
+  </view>
+  <view style="text-align:center">
+    <view class="tzBtn" bindtap="partnerBindTeamLeader" style="margin-top:20px;background: #F5D795;">
+      立即加入
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
+<!-- <float-menu /> -->

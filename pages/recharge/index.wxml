@@ -1,30 +1,16 @@
-<view class="container">
-  <form bindsubmit="bindSave">
-    <view class="form-box">
-      <view class="row-wrap">
-        <view class="label">充值金额</view>
-        <view class="label-right">
-          <input name="amount" class="input" type="digit" value="{{amount}}" placeholder="至少充值 {{recharge_amount_min}} 元" />
-        </view>
-      </view>
-    </view>
-
-    <block wx:if='{{rechargeSendRules}}'>
-      <view class="charge-rule-wrap">
-        <block wx:for='{{rechargeSendRules}}' wx:for-item="item">
-
-          <!-- <button  class='font charge-detail' bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
-                  <text>充{{item.confine}}送{{item.send}}</text>
-                </button> -->
-          <view class="btn charge-detail" bindtap="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}">
-            <text>充{{item.confine}}</text>
-            <text>送{{item.send}}</text>
-          </view>
-        </block>
-
-      </view>
-    </block>
-
-    <button type="warn" class="save-btn" formType="submit">立即支付</button>
-  </form>
+<van-field
+  label="充值金额"
+  model:value="{{ amount }}"
+  size="large"
+  type="digit"
+  focus
+  clearable
+  required
+  placeholder="请输入充值金额"
+/>
+<van-grid custom-class="rechargeSendRules" wx:if="{{ rechargeSendRules }}" column-num="3" square gutter="{{ 10 }}" clickable>
+  <van-grid-item wx:for="{{ rechargeSendRules }}" icon="balance-o" text="¥{{item.confine}}" badge="{{item.send ? '送 ¥' + item.send : ''}}" bind:click="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}" />
+</van-grid>
+<view class="block-btn">
+  <van-button type="primary" block round bind:click="bindSave">立即充值</van-button>
 </view>

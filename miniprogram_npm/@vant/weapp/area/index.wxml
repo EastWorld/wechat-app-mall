@@ -5,7 +5,7 @@
   active-class="active-class"
   toolbar-class="toolbar-class"
   column-class="column-class"
-  show-toolbar
+  show-toolbar="{{ showToolbar }}"
   value-key="name"
   title="{{ title }}"
   loading="{{ loading }}"

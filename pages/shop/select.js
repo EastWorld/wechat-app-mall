@@ -30,7 +30,7 @@ Page({
    */
   onShow: function () {
     wx.getLocation({
-      type: 'wgs84', //wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+      type: 'gcj02', //wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
       success: (res) => {
         this.data.latitude = res.latitude
         this.data.longitude = res.longitude
@@ -104,6 +104,7 @@ Page({
     const idx = e.currentTarget.dataset.idx
     wx.setStorageSync('shopInfo', this.data.shops[idx])
     wx.setStorageSync('shopIds', this.data.shops[idx].id)
+    wx.setStorageSync('refreshIndex', 1)
     wx.switchTab({
       url: '/pages/index/index'
     })

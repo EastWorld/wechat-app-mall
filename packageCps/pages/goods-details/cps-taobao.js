@@ -266,7 +266,7 @@ Page({
       selectSizeOPrice: originalPrice,
       totalScoreToPay: totalScoreToPay,
       buyNumMax,
-      buyNumber: (buyNumMax > buyNumber) ? buyNumber : 0
+      buyNumber: (buyNumMax >= buyNumber) ? buyNumber : 0
     });
   },
   /**

@@ -10,11 +10,14 @@
   custom-class="van-toast__container"
 >
   <view
-    class="van-toast van-toast--{{ type === 'text' ? 'text' : 'icon' }} van-toast--{{ position }}"
+    class="van-toast van-toast--{{ (type === 'text' || type === 'html') ? 'text' : 'icon' }} van-toast--{{ position }}"
     catch:touchmove="noop"
   >
     <!-- text only -->
     <text wx:if="{{ type === 'text' }}">{{ message }}</text>
+
+    <!-- html only -->
+    <rich-text wx:elif="{{ type === 'html' }}" nodes="{{ message }}"></rich-text>
 
     <!-- with icon -->
     <block wx:else>

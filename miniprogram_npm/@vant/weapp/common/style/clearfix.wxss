@@ -1,1 +1,1 @@
-.van-clearfix:after{display:table;clear:both;content:""}
+.van-clearfix:after{clear:both;content:"";display:table}

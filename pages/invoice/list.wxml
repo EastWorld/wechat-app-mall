@@ -10,6 +10,7 @@
       <van-tag wx:if="{{item.status == 3}}" type="success">已开票</van-tag>
     </view>
   </van-cell>  
+  <van-cell wx:if="{{ item.email }}" title="邮箱" value="{{ item.email }}" />
   <van-cell title="申请日期" value="{{ item.dateAdd }}" />
   <van-cell wx:if="{{item.file}}" title="查看" value="打开电子发票" is-link data-file="{{item.file}}" bind:click="download" />
 </van-cell-group>

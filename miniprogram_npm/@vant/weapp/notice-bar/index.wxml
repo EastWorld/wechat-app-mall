@@ -9,14 +9,13 @@
 >
   <van-icon
     wx:if="{{ leftIcon }}"
-    size="16px"
     name="{{ leftIcon }}"
     class="van-notice-bar__left-icon"
   />
   <slot wx:else name="left-icon" />
 
   <view class="van-notice-bar__wrap">
-    <view class="van-notice-bar__content {{ !scrollable && !wrapable ? 'van-ellipsis' : '' }}" animation="{{ animationData }}">
+    <view class="van-notice-bar__content {{ scrollable === false && !wrapable ? 'van-ellipsis' : '' }}" animation="{{ animationData }}">
       {{ text }}
       <slot wx:if="{{ !text }}"></slot>
     </view>

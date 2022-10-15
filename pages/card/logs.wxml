@@ -1,0 +1,2 @@
+<van-empty wx:if="{{ !list }}" description="暂无消费记录" />
+<van-cell wx:for="{{ list }}" wx:key="id" title="{{ item.typeStr }}" value="{{ item.amount }} (余额:{{ item.balance }})" label="{{ item.dateAdd }}" />

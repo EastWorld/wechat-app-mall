@@ -1,19 +1,20 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="../wxs/style.wxs" module="style" />
 
 <view
-  class="van-rate custom-class"
+  class="{{ utils.bem('rate') }} custom-class"
   bind:touchmove="onTouchMove"
 >
   <view
-    class="van-rate__item"
+    class="{{ utils.bem('rate__item') }}"
     wx:for="{{ innerCountArray }}"
     wx:key="index"
-    style="padding-right: {{ index !== count - 1 ? utils.addUnit(gutter) : '' }}"
+    style="{{ style({ paddingRight: index !== count - 1 ? utils.addUnit(gutter) : null }) }}"
   >
     <van-icon
       name="{{ index + 1 <= innerValue ? icon : voidIcon }}"
-      class="van-rate__icon"
-      style="font-size: {{ utils.addUnit(size) }}"
+      class="{{ utils.bem('rate__icon', [{ disabled, full: index + 1 <= innerValue }])}}"
+      style="{{ style({ fontSize: utils.addUnit(size) }) }}"
       custom-class="icon-class"
       data-score="{{ index }}"
       color="{{ disabled ? disabledColor : index + 1 <= innerValue ? color : voidColor }}"
@@ -23,8 +24,8 @@
     <van-icon
       wx:if="{{ allowHalf }}"
       name="{{ index + 0.5 <= innerValue ? icon : voidIcon }}"
-      class="{{ utils.bem('rate__icon', ['half']) }}"
-      style="font-size: {{ utils.addUnit(size) }}"
+      class="{{ utils.bem('rate__icon', ['half', { disabled, full: index + 0.5 <= innerValue }]) }}"
+      style="{{ style({ fontSize: utils.addUnit(size) }) }}"
       custom-class="icon-class"
       data-score="{{ index - 0.5 }}"
       color="{{ disabled ? disabledColor : index + 0.5 <= innerValue ? color : voidColor }}"

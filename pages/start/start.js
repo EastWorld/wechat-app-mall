@@ -1,7 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('../../config.js')
-//获取应用实例
-var app = getApp();
+const AUTH = require('../../utils/auth')
 Page({
   data: {
     banners:[],
@@ -11,7 +10,20 @@ Page({
   onLoad(e){
     // e.shopId = 6040 // 测试，测试完了注释掉
     this.data.shopId = e.shopId
-    const _this = this
+    this.readConfigVal()
+    // 补偿写法
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
+  },
+  onShow:function(){
+    
+  },
+  async readConfigVal() {
+    const mallName = wx.getStorageSync('mallName')
+    if (!mallName) {
+      return
+    }
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
@@ -26,40 +38,28 @@ Page({
       } else {
         wx.switchTab({
           url: '/pages/index/index',
-        });
+        })
       }
     } else {
       // 展示启动页
-      WXAPI.banners({
+      const res = await WXAPI.banners({
         type: 'app'
-      }).then(function (res) {
-        if (res.code == 700) {
-          if (shopMod==1) {
-            this.goShopSelectPage()
-          } else {
-            wx.switchTab({
-              url: '/pages/index/index',
-            });
-          }
-        } else {
-          _this.setData({
-            banners: res.data,
-            swiperMaxNumber: res.data.length
-          });
-        }
-      }).catch(function (e) {
+      })
+      if (res.code == 700) {
         if (shopMod==1) {
           this.goShopSelectPage()
         } else {
           wx.switchTab({
             url: '/pages/index/index',
-          });
+          })
         }
-      })
+      } else {
+        this.setData({
+          banners: res.data,
+          swiperMaxNumber: res.data.length
+        });
+      }
     }
-  },
-  onShow:function(){
-    
   },
   swiperchange: function (e) {
     //console.log(e.detail.current)
@@ -72,7 +72,7 @@ Page({
     if (!shopMod) {
       shopMod = 0
     }
-    if (app.globalData.isConnected) {
+    if (getApp().globalData.isConnected) {
       wx.setStorage({
         key: 'app_show_pic_version',
         data: CONFIG.version

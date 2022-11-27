@@ -217,9 +217,6 @@ Page({
         },
         fail(e) {
           console.error(e)
-          wx.redirectTo({
-            url: "/pages/order-list/index"
-          })
         },
         complete: (e) => {
           this.createOrder(true)

@@ -399,6 +399,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "wifi",
+          "pathName": "pages/test/wifi",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/feedback",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

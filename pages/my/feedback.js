@@ -1,10 +1,12 @@
 const WXAPI = require('apifm-wxapi')
+const dayjs = require("dayjs")
 
 Page({
   data: {
     autosize: {
       minHeight: 100
-    }
+    },
+    day: dayjs().format('YYYY-MM-DD')
   },
 
   /**
@@ -20,7 +22,7 @@ Page({
     // 判断一天只能留言5次
     const res = await WXAPI.jsonList({
       token: wx.getStorageSync('token'),
-      type: 'feedback_times'
+      type: 'feedback_times_' + this.data.day
     })
     if (res.code === 0) {
       this.setData({
@@ -78,7 +80,7 @@ Page({
       await WXAPI.jsonSet({
         token: wx.getStorageSync('token'),
         id: feedbackTimes.id,
-        type: 'feedback_times',
+        type: 'feedback_times_' + this.data.day,
         refId: feedbackTimes.refId + 1,
         content: feedbackTimes.content
       })

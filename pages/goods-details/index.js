@@ -1028,6 +1028,17 @@ Page({
       urls: [url] // 需要预览的图片http链接列表
     })
   },
+  previewImage2(e) {
+    const url = e.currentTarget.dataset.url
+    const urls = []
+    this.data.goodsDetail.pics.forEach(ele => {
+      urls.push(ele.pic)
+    })
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls // 需要预览的图片http链接列表
+    })
+  },
   onTabsChange(e) {
     var index = e.detail.index
     this.setData({

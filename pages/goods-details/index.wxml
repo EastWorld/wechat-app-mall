@@ -14,7 +14,7 @@
           <video src="{{videoMp4Src}}" autoplay="true" loop="true" style='width:100%;height:100%;'></video>
         </swiper-item>
         <swiper-item wx:for="{{goodsDetail.pics}}" wx:key="id">
-          <image src="{{item.pic}}" class="slide-image" mode="aspectFill" lazy-load="true" />
+          <image src="{{item.pic}}" class="slide-image" mode="aspectFill" lazy-load="true" bindtap="previewImage2" data-url="{{ item.pic }}" />
         </swiper-item>
       </swiper>
     </view>

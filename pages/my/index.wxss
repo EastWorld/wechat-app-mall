@@ -8,7 +8,13 @@
 .header-box .avatar {
   width: 128rpx;
   height: 128rpx;
+  margin: 20rpx;
   border-radius: 50%;
+}
+.header-box .avatar-img {
+  width: 128rpx;
+  height: 128rpx;
+  margin-left: -30rpx;
 }
 .header-box .btn {
   margin-left: 32rpx;

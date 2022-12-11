@@ -51,7 +51,7 @@ Page({
       const userCashMap = res.data.userCashMap
       res.data.result.forEach(ele => {
         if (!ele.avatarUrls) {
-          ele.avatarUrls = '/images/face.png'
+          ele.avatarUrls = '/images/default.png'
         }
         if (!ele.nicks) {
           ele.nicks = '用户' + ele.uids

@@ -1,6 +1,7 @@
 {
   "setting": {
-    "compileHotReLoad": true
+    "compileHotReLoad": true,
+    "urlCheck": false
   },
   "condition": {
     "miniprogram": {
@@ -425,6 +426,27 @@
           "name": "",
           "pathName": "pages/my/index",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/idCheck/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=435060",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/to-pay-order/index",
+          "query": "orderType=buyNow",
           "launchMode": "default",
           "scene": null
         }

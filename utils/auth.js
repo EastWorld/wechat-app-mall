@@ -1,5 +1,4 @@
 const WXAPI = require('apifm-wxapi')
-import Dialog from '@vant/weapp/dialog/dialog'
 
 async function checkSession(){
   return new Promise((resolve, reject) => {

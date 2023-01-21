@@ -7,7 +7,14 @@
   clearable
 />
 <van-field
-  wx:if="{{ balance_pay_pwd }}"
+  wx:if="{{ amount > 2000 }}"
+  label="真实姓名"
+  model:value="{{ name }}"
+  placeholder="超过2000需要校验真实姓名"
+  clearable
+/>
+<van-field
+  wx:if="{{ balance_pay_pwd == '1' }}"
   label="交易密码"
   password
   model:value="{{ pwd }}"

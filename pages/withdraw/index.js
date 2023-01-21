@@ -48,7 +48,7 @@ Page({
       })
       return
     }
-    if (this.data.balance_pay_pwd && !this.data.pwd) {
+    if (this.data.balance_pay_pwd == '1' && !this.data.pwd) {
       wx.showToast({
         title: '请输入交易密码',
         icon: 'none'
@@ -62,10 +62,22 @@ Page({
       })
       return
     }
+    if (amount * 1 > 2000) {
+      if (!this.data.name) {
+        wx.showToast({
+          title: '请输入真实姓名',
+          icon: 'none'
+        })
+        return
+      }
+    } else {
+      this.data.name = ''
+    }
     const res = await WXAPI.withDrawApplyV2({
       token: wx.getStorageSync('token'),
       money: amount,
-      pwd: this.data.pwd
+      pwd: this.data.pwd ? this.data.pwd : '',
+      name: this.data.name ? this.data.name : '',
     })
     if (res.code == 0) {
       wx.showModal({

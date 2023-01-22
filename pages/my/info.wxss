@@ -1,3 +1,14 @@
 .btn {
   margin: 32rpx;
 }
+.avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  margin-right: 0rpx;
+}
+.avatar-img {
+  width: 88rpx;
+  height: 88rpx;
+  margin-left: -30rpx;
+}

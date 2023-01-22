@@ -449,6 +449,13 @@
           "query": "orderType=buyNow",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/info",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

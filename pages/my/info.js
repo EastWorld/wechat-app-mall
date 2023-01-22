@@ -110,16 +110,12 @@ Page({
       })
     }, 1000);
   },
-  chooseImage() {
-    const _this = this
-    wx.chooseImage({
-      count: 1,
-      success (res) {
-        _this.setData({
-          avatarUrl: res.tempFilePaths[0],
-          avatarUrlTmpFile: res.tempFilePaths[0]
-        })
-      }
+  async onChooseAvatar(e) {
+    console.log(e);
+    const avatarUrl = e.detail.avatarUrl
+    this.setData({
+      avatarUrl: avatarUrl,
+      avatarUrlTmpFile: avatarUrl
     })
   },
   bindPickerChange: function(e) {

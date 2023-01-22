@@ -1,13 +1,17 @@
 <form catchsubmit="formSubmit">
-  <van-cell title="头像" is-link center bind:click="chooseImage">
-    <van-image
+  <van-cell title="头像" is-link center>
+    <!-- <van-image
       round
       width="64rpx"
       height="64rpx"
       src="{{ avatarUrl }}"
-    />
+    /> -->
+    <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+    </button>
   </van-cell>  
   <van-field
+    type="nickname"
     label="昵称"
     model:value="{{ nick }}"
     placeholder="请输入昵称"

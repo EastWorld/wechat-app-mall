@@ -56,7 +56,8 @@
     "pages/recycle/orders",
     "pages/recycle/order-detail",
     "pages/card/logs",
-    "pages/notagree/index"
+    "pages/notagree/index",
+    "pages/my/user-code"
   ],
   "requiredPrivateInfos": [
     "getLocation",

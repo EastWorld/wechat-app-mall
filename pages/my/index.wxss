@@ -1,9 +1,13 @@
 .header-box {
-  padding: 32rpx;
-  padding-bottom: 64rpx;
+  padding-right: 32rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: #333;
+}
+.header-box-left {
+  display: flex;
+  align-items: center;
 }
 .header-box .avatar {
   width: 128rpx;
@@ -22,6 +26,16 @@
 .header-box .r {
   margin-left: 32rpx;
   font-size: 28rpx;
+}
+.header-box .user-code {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header-box .user-code .txt {
+  font-size: 24rpx;
+  color: #666;
 }
 
 page,view,image,input {

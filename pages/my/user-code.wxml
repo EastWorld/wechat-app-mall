@@ -1,0 +1,8 @@
+
+<view class="title">{{ userCode }}</view>
+<canvas class="user-code-bar" canvas-id="barcode" />
+<canvas class="user-code" canvas-id="qrcode" />
+<van-grid column-num="2" icon-size="64rpx" square>
+  <van-grid-item icon="balance-o" text="余额 {{ balance }}" icon-color="#e64340" text-class="amount-c" />
+  <van-grid-item icon="points" text="积分 {{ score }}" icon-color="#e64340" text-class="amount-c" />
+</van-grid>

@@ -1,0 +1,22 @@
+.title {
+  text-align: center;
+  color: #666;
+  margin: 32rpx;
+}
+
+.van-grid-item__text {
+  color: #e64340 !important;
+  font-size: 28rpx !important;
+}
+
+.user-code-bar {
+  width: 650rpx;
+  height: 200rpx;
+  margin-left: 50rpx;
+}
+
+.user-code {
+  width: 650rpx;
+  height: 650rpx;
+  margin-left: 50rpx;
+}

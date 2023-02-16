@@ -1,10 +1,16 @@
 <view class="header-box">
-  <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar-img" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
-  </button>
-  <view class="r">
-    <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
-    <view class="nick" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</view>
+  <view class="header-box-left">
+    <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar-img" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+    </button>
+    <view class="r">
+      <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
+      <view class="nick" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</view>
+    </view>
+  </view>
+  <view class="user-code" bindtap="goUserCode">
+    <van-icon name="qr" size="64rpx" />
+    <view class="txt">会员码</view>
   </view>
 </view>
 <view class="asset">

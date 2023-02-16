@@ -1391,6 +1391,12 @@ module.exports = (_module$exports = {
   loginout: function loginout(token) {
     return request('/user/loginout', true, 'get', { token: token });
   },
+  userDelete: (token) => {
+    return request('/user/delete', true, 'post', { token })
+  },
+  dynamicUserCode: (token) => {
+    return request('/user/dynamicUserCode', true, 'get', { token })
+  },
   userLevelList: function userLevelList(data) {
     return request('/user/level/list', true, 'post', data);
   },

@@ -12,6 +12,7 @@
   position="{{ position }}"
   closeable="{{ showTitle || showSubtitle }}"
   close-on-click-overlay="{{ closeOnClickOverlay }}"
+  safe-area-inset-bottom="{{ safeAreaInsetBottom }}"
   bind:enter="onOpen"
   bind:close="onClose"
   bind:after-enter="onOpened"

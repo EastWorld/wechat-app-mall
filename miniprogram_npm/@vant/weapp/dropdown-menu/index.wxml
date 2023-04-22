@@ -10,7 +10,7 @@
     bind:tap="onTitleTap"
   >
     <view
-      class="{{ item.titleClass }} {{ utils.bem('dropdown-menu__title', { active: item.showPopup, down: item.showPopup === (direction === 'down') }) }}"
+      class="{{ item.titleClass }} {{ utils.bem('dropdown-menu__title', { active: item.showPopup, down: item.showPopup === (direction === 'down') }) }} title-class"
       style="{{ item.showPopup ? 'color:' + activeColor : '' }}"
     >
       <view class="van-ellipsis">

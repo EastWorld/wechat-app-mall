@@ -6,6 +6,10 @@ var version_1 = require("../common/version");
     field: true,
     classes: ['field-class', 'input-class', 'cancel-class'],
     props: {
+        value: {
+            type: String,
+            value: '',
+        },
         label: String,
         focus: Boolean,
         error: Boolean,
@@ -63,7 +67,7 @@ var version_1 = require("../common/version");
             var _this = this;
             /**
              * 修复修改输入框值时，输入框失焦和赋值同时触发，赋值失效
-             * https://github.com/vant-ui/vant-weapp/issues/1768
+             * https://github.com/youzan/vant-weapp/issues/1768
              */
             setTimeout(function () {
                 if ((0, version_1.canIUseModel)()) {

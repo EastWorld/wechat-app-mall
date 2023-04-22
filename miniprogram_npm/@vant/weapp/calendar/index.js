@@ -119,6 +119,10 @@ var getTime = function (date) {
             type: null,
             value: null,
         },
+        minRange: {
+            type: Number,
+            value: 1,
+        },
         firstDayOfWeek: {
             type: Number,
             value: 0,
@@ -180,7 +184,7 @@ var getTime = function (date) {
         getInitialDate: function (defaultDate) {
             var _this = this;
             if (defaultDate === void 0) { defaultDate = null; }
-            var _a = this.data, type = _a.type, minDate = _a.minDate, maxDate = _a.maxDate;
+            var _a = this.data, type = _a.type, minDate = _a.minDate, maxDate = _a.maxDate, allowSameDay = _a.allowSameDay;
             var now = (0, utils_1.getToday)().getTime();
             if (type === 'range') {
                 if (!Array.isArray(defaultDate)) {
@@ -188,7 +192,8 @@ var getTime = function (date) {
                 }
                 var _b = defaultDate || [], startDay = _b[0], endDay = _b[1];
                 var start = this.limitDateRange(startDay || now, minDate, (0, utils_1.getPrevDay)(new Date(maxDate)).getTime());
-                var end = this.limitDateRange(endDay || now, (0, utils_1.getNextDay)(new Date(minDate)).getTime());
+                var date = getTime(endDay || now);
+                var end = this.limitDateRange(date, allowSameDay ? date : (0, utils_1.getNextDay)(new Date(minDate)).getTime());
                 return [start, end];
             }
             if (type === 'multiple') {
@@ -262,7 +267,7 @@ var getTime = function (date) {
                         this.select([date, null]);
                     }
                     else if (allowSameDay) {
-                        this.select([date, date]);
+                        this.select([date, date], true);
                     }
                 }
                 else {

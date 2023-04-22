@@ -4,6 +4,11 @@ var component_1 = require("../common/component");
 var touch_1 = require("../mixins/touch");
 var version_1 = require("../common/version");
 var utils_1 = require("../common/utils");
+var DRAG_STATUS = {
+    START: 'start',
+    MOVING: 'moving',
+    END: 'end',
+};
 (0, component_1.VantComponent)({
     mixins: [touch_1.touch],
     props: {
@@ -57,17 +62,17 @@ var utils_1 = require("../common/utils");
             else {
                 this.startValue = this.format(this.newValue);
             }
-            this.dragStatus = 'start';
+            this.dragStatus = DRAG_STATUS.START;
         },
         onTouchMove: function (event) {
             var _this = this;
             if (this.data.disabled)
                 return;
-            if (this.dragStatus === 'start') {
+            if (this.dragStatus === DRAG_STATUS.START) {
                 this.$emit('drag-start');
             }
             this.touchMove(event);
-            this.dragStatus = 'draging';
+            this.dragStatus = DRAG_STATUS.MOVING;
             (0, utils_1.getRect)(this, '.van-slider').then(function (rect) {
                 var vertical = _this.data.vertical;
                 var delta = vertical ? _this.deltaY : _this.deltaX;
@@ -84,11 +89,15 @@ var utils_1 = require("../common/utils");
             });
         },
         onTouchEnd: function () {
+            var _this = this;
             if (this.data.disabled)
                 return;
-            if (this.dragStatus === 'draging') {
-                this.updateValue(this.newValue, true);
-                this.$emit('drag-end');
+            if (this.dragStatus === DRAG_STATUS.MOVING) {
+                this.dragStatus = DRAG_STATUS.END;
+                (0, utils_1.nextTick)(function () {
+                    _this.updateValue(_this.newValue, true);
+                    _this.$emit('drag-end');
+                });
             }
         },
         onClick: function (event) {
@@ -161,15 +170,19 @@ var utils_1 = require("../common/utils");
             var _a = this.data, max = _a.max, min = _a.min;
             return max - min;
         },
+        getOffsetWidth: function (current, min) {
+            var scope = this.getScope();
+            // 避免最小值小于最小step时出现负数情况
+            return "".concat(Math.max(((current - min) * 100) / scope, 0), "%");
+        },
         // 计算选中条的长度百分比
         calcMainAxis: function () {
             var value = this.value;
             var min = this.data.min;
-            var scope = this.getScope();
             if (this.isRange(value)) {
-                return "".concat(((value[1] - value[0]) * 100) / scope, "%");
+                return this.getOffsetWidth(value[1], value[0]);
             }
-            return "".concat(((value - Number(min)) * 100) / scope, "%");
+            return this.getOffsetWidth(value, Number(min));
         },
         // 计算选中条的开始位置的偏移量
         calcOffset: function () {

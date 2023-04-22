@@ -11,6 +11,7 @@ var link_1 = require("../mixins/link");
         dot: Boolean,
         info: String,
         icon: String,
+        color: String,
         classPrefix: {
             type: String,
             value: 'van-icon',

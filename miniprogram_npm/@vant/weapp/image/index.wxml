@@ -11,6 +11,7 @@
     src="{{ src }}"
     mode="{{ computed.mode(fit) }}"
     lazy-load="{{ lazyLoad }}"
+    webp="{{ webp }}"
     class="image-class van-image__img"
     show-menu-by-longpress="{{ showMenuByLongpress }}"
     bind:load="onLoad"

@@ -29,7 +29,6 @@ function equal(value1, value2) {
     props: {
         value: {
             type: null,
-            observer: 'observeValue',
         },
         integer: {
             type: Boolean,
@@ -79,6 +78,11 @@ function equal(value1, value2) {
     data: {
         currentValue: '',
     },
+    watch: {
+        value: function () {
+            this.observeValue();
+        },
+    },
     created: function () {
         this.setData({
             currentValue: this.format(this.data.value),
@@ -86,10 +90,8 @@ function equal(value1, value2) {
     },
     methods: {
         observeValue: function () {
-            var _a = this.data, value = _a.value, currentValue = _a.currentValue;
-            if (!equal(value, currentValue)) {
-                this.setData({ currentValue: this.format(value) });
-            }
+            var value = this.data.value;
+            this.setData({ currentValue: this.format(value) });
         },
         check: function () {
             var val = this.format(this.data.currentValue);
@@ -100,15 +102,16 @@ function equal(value1, value2) {
         isDisabled: function (type) {
             var _a = this.data, disabled = _a.disabled, disablePlus = _a.disablePlus, disableMinus = _a.disableMinus, currentValue = _a.currentValue, max = _a.max, min = _a.min;
             if (type === 'plus') {
-                return disabled || disablePlus || currentValue >= max;
+                return disabled || disablePlus || +currentValue >= +max;
             }
-            return disabled || disableMinus || currentValue <= min;
+            return disabled || disableMinus || +currentValue <= +min;
         },
         onFocus: function (event) {
             this.$emit('focus', event.detail);
         },
         onBlur: function (event) {
             var value = this.format(event.detail.value);
+            this.setData({ currentValue: value });
             this.emitChange(value);
             this.$emit('blur', __assign(__assign({}, event.detail), { value: value }));
         },

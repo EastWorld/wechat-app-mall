@@ -60,6 +60,7 @@ function trackStyle(data) {
 function lineStyle(data) {
   return style({
     width: utils.addUnit(data.lineWidth),
+    opacity: data.inited ? 1 : 0,
     transform: 'translateX(' + data.lineOffsetLeft + 'px)',
     '-webkit-transform': 'translateX(' + data.lineOffsetLeft + 'px)',
     'background-color': data.color,

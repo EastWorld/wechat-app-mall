@@ -1,4 +1,4 @@
-export declare type TimeData = {
+export type TimeData = {
     days: number;
     hours: number;
     minutes: number;

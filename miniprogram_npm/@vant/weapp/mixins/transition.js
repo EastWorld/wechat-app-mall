@@ -53,6 +53,9 @@ function transition(showDefaultValue) {
                 var _a = this.data, duration = _a.duration, name = _a.name;
                 var classNames = getClassNames(name);
                 var currentDuration = (0, validator_1.isObj)(duration) ? duration.enter : duration;
+                if (this.status === 'enter') {
+                    return;
+                }
                 this.status = 'enter';
                 this.$emit('before-enter');
                 (0, utils_1.requestAnimationFrame)(function () {

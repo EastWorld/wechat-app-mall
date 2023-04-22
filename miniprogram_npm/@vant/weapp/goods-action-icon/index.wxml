@@ -27,6 +27,7 @@
     name="{{ icon }}"
     dot="{{ dot }}"
     info="{{ info }}"
+    color="{{ color }}"
     class-prefix="{{ classPrefix }}"
     class="van-goods-action-icon__icon"
     custom-class="icon-class"

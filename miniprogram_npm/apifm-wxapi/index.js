@@ -97,7 +97,6 @@ var _module$exports;
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 var merchantId = '0';
 
@@ -1390,12 +1389,6 @@ module.exports = (_module$exports = {
   },
   loginout: function loginout(token) {
     return request('/user/loginout', true, 'get', { token: token });
-  },
-  userDelete: (token) => {
-    return request('/user/delete', true, 'post', { token })
-  },
-  dynamicUserCode: (token) => {
-    return request('/user/dynamicUserCode', true, 'get', { token })
   },
   userLevelList: function userLevelList(data) {
     return request('/user/level/list', true, 'post', data);

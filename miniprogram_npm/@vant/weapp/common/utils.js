@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCurrentPage = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.getSystemInfoSync = exports.nextTick = exports.range = exports.isDef = void 0;
+exports.getCurrentPage = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.nextTick = exports.range = exports.getSystemInfoSync = exports.isDef = void 0;
 var validator_1 = require("./validator");
 var version_1 = require("./version");
 var validator_2 = require("./validator");
 Object.defineProperty(exports, "isDef", { enumerable: true, get: function () { return validator_2.isDef; } });
+var version_2 = require("./version");
+Object.defineProperty(exports, "getSystemInfoSync", { enumerable: true, get: function () { return version_2.getSystemInfoSync; } });
 function range(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
@@ -20,14 +22,6 @@ function nextTick(cb) {
     }
 }
 exports.nextTick = nextTick;
-var systemInfo;
-function getSystemInfoSync() {
-    if (systemInfo == null) {
-        systemInfo = wx.getSystemInfoSync();
-    }
-    return systemInfo;
-}
-exports.getSystemInfoSync = getSystemInfoSync;
 function addUnit(value) {
     if (!(0, validator_1.isDef)(value)) {
         return undefined;
@@ -37,19 +31,9 @@ function addUnit(value) {
 }
 exports.addUnit = addUnit;
 function requestAnimationFrame(cb) {
-    var systemInfo = getSystemInfoSync();
-    if (systemInfo.platform === 'devtools') {
-        return setTimeout(function () {
-            cb();
-        }, 1000 / 30);
-    }
-    return wx
-        .createSelectorQuery()
-        .selectViewport()
-        .boundingClientRect()
-        .exec(function () {
+    return setTimeout(function () {
         cb();
-    });
+    }, 1000 / 30);
 }
 exports.requestAnimationFrame = requestAnimationFrame;
 function pickExclude(obj, keys) {

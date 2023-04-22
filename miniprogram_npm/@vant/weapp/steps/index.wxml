@@ -20,7 +20,7 @@
             wx:if="{{ item.inactiveIcon || inactiveIcon }}"
             color="{{ status(index, active) === 'inactive' ? inactiveColor: activeColor }}"
             name="{{ item.inactiveIcon || inactiveIcon }}"
-            custom-class="van-step__icon"
+            class="van-step__icon"
           />
           <view
             wx:else
@@ -29,7 +29,7 @@
           />
         </block>
 
-        <van-icon wx:else name="{{ item.activeIcon || activeIcon }}" color="{{ activeColor }}" custom-class="van-step__icon" />
+        <van-icon wx:else name="{{ item.activeIcon || activeIcon }}" color="{{ activeColor }}" class="van-step__icon" />
       </view>
       <view
         wx:if="{{ index !== steps.length - 1 }}"

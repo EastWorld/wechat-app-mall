@@ -1,6 +1,8 @@
 <wxs src="../wxs/utils.wxs" module="utils" />
 <wxs src="./index.wxs" module="computed" />
 
+<import src="./popup.wxml" />
+
 <van-overlay
   wx:if="{{ overlay }}"
   show="{{ show }}"
@@ -9,18 +11,11 @@
   duration="{{ duration }}"
   bind:click="onClickOverlay"
   lock-scroll="{{ lockScroll }}"
+  root-portal="{{ rootPortal }}"
 />
-<view
-  wx:if="{{ inited }}"
-  class="custom-class {{ classes }} {{ utils.bem('popup', [position, { round, safe: safeAreaInsetBottom, safeTop: safeAreaInsetTop }]) }}"
-  style="{{ computed.popupStyle({ zIndex, currentDuration, display, customStyle }) }}"
-  bind:transitionend="onTransitionEnd"
->
-  <slot />
-  <van-icon
-    wx:if="{{ closeable }}"
-    name="{{ closeIcon }}"
-    class="close-icon-class van-popup__close-icon van-popup__close-icon--{{ closeIconPosition }}"
-    bind:tap="onClickCloseIcon"
-  />
-</view>
+
+<root-portal wx:if="{{ rootPortal }}">
+  <include src="./popup.wxml" />
+</root-portal>
+
+ <include wx:else src="./popup.wxml" />

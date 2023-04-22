@@ -6,6 +6,7 @@ var utils_1 = require("../common/utils");
 var ARRAY = [];
 (0, component_1.VantComponent)({
     field: true,
+    classes: ['title-class'],
     relation: (0, relation_1.useChildren)('dropdown-item', function () {
         this.updateItemListData();
     }),
@@ -32,6 +33,10 @@ var ARRAY = [];
             type: String,
             value: 'down',
             observer: 'updateChildrenData',
+        },
+        safeAreaTabBar: {
+            type: Boolean,
+            value: false,
         },
         closeOnClickOverlay: {
             type: Boolean,

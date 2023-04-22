@@ -5,7 +5,7 @@
   id="{{ id }}"
   data-detail="{{ dataset }}"
   class="custom-class {{ utils.bem('button', [type, size, { block, round, plain, square, loading, disabled, hairline, unclickable: disabled || loading }]) }} {{ hairline ? 'van-hairline--surround' : '' }}"
-  hover-class="van-button--active hover-class"
+  hover-class="{{ disabled || loading ? '' : 'van-button--active hover-class'}}"
   lang="{{ lang }}"
   form-type="{{ formType }}"
   style="{{ computed.rootStyle({ plain, color, customStyle }) }}"

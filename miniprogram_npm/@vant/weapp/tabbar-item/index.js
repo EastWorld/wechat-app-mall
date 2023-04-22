@@ -8,6 +8,14 @@ var relation_1 = require("../common/relation");
         name: null,
         icon: String,
         dot: Boolean,
+        url: {
+            type: String,
+            value: '',
+        },
+        linkType: {
+            type: String,
+            value: 'redirectTo',
+        },
         iconPrefix: {
             type: String,
             value: 'van-icon',
@@ -28,6 +36,10 @@ var relation_1 = require("../common/relation");
                 if (active !== this.data.active) {
                     parent.$emit('change', active);
                 }
+            }
+            var _a = this.data, url = _a.url, linkType = _a.linkType;
+            if (url && wx[linkType]) {
+                return wx[linkType]({ url: url });
             }
             this.$emit('click');
         },

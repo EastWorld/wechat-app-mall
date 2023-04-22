@@ -43,7 +43,9 @@ function getContext() {
 var Dialog = function (options) {
     options = __assign(__assign({}, currentOptions), options);
     return new Promise(function (resolve, reject) {
-        var context = options.context || getContext();
+        var context = (typeof options.context === 'function'
+            ? options.context()
+            : options.context) || getContext();
         var dialog = context.selectComponent(options.selector);
         delete options.context;
         delete options.selector;

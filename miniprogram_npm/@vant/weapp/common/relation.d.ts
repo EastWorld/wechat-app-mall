@@ -1,5 +1,5 @@
 /// <reference types="miniprogram-api-typings" />
-declare type TrivialInstance = WechatMiniprogram.Component.TrivialInstance;
+type TrivialInstance = WechatMiniprogram.Component.TrivialInstance;
 export declare function useParent(name: string, onEffect?: (this: TrivialInstance) => void): {
     relations: {
         [x: string]: WechatMiniprogram.Component.RelationOption;

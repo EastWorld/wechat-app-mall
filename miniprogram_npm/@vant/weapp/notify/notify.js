@@ -26,6 +26,7 @@ var defaultOptions = {
     onOpened: function () { },
     onClose: function () { },
 };
+var currentOptions = __assign({}, defaultOptions);
 function parseOptions(message) {
     if (message == null) {
         return {};
@@ -37,7 +38,7 @@ function getContext() {
     return pages[pages.length - 1];
 }
 function Notify(options) {
-    options = __assign(__assign({}, defaultOptions), parseOptions(options));
+    options = __assign(__assign({}, currentOptions), parseOptions(options));
     var context = options.context || getContext();
     var notify = context.selectComponent(options.selector);
     delete options.context;
@@ -57,4 +58,10 @@ Notify.clear = function (options) {
     if (notify) {
         notify.hide();
     }
+};
+Notify.setDefaultOptions = function (options) {
+    Object.assign(currentOptions, options);
+};
+Notify.resetDefaultOptions = function () {
+    currentOptions = __assign({}, defaultOptions);
 };

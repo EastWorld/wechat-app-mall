@@ -15,7 +15,7 @@ function getMonths(minDate, maxDate) {
   return months;
 }
 
-function getButtonDisabled(type, currentDate) {
+function getButtonDisabled(type, currentDate, minRange) {
   if (currentDate == null) {
     return true;
   }
@@ -25,7 +25,7 @@ function getButtonDisabled(type, currentDate) {
   }
 
   if (type === 'multiple') {
-    return !currentDate.length;
+    return currentDate.length < minRange;
   }
 
   return !currentDate;

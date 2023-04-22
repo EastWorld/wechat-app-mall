@@ -1,12 +1,13 @@
 /// <reference types="miniprogram-api-typings" />
 /// <reference types="miniprogram-api-typings" />
-declare type ToastMessage = string | number;
+type ToastMessage = string | number;
+type ToastContext = WechatMiniprogram.Component.TrivialInstance | WechatMiniprogram.Page.TrivialInstance;
 interface ToastOptions {
     show?: boolean;
     type?: string;
     mask?: boolean;
     zIndex?: number;
-    context?: WechatMiniprogram.Component.TrivialInstance | WechatMiniprogram.Page.TrivialInstance;
+    context?: (() => ToastContext) | ToastContext;
     position?: string;
     duration?: number;
     selector?: string;

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var relation_1 = require("../common/relation");
 var component_1 = require("../common/component");
 (0, component_1.VantComponent)({
+    classes: ['item-title-class'],
     field: true,
     relation: (0, relation_1.useParent)('dropdown-menu', function () {
         this.updateDataFromParent();
@@ -27,12 +28,21 @@ var component_1 = require("../common/component");
             observer: 'rerender',
         },
         popupStyle: String,
+        useBeforeToggle: {
+            type: Boolean,
+            value: false,
+        },
+        rootPortal: {
+            type: Boolean,
+            value: false,
+        },
     },
     data: {
         transition: true,
         showPopup: false,
         showWrapper: false,
         displayTitle: '',
+        safeAreaTabBar: false,
     },
     methods: {
         rerender: function () {
@@ -44,13 +54,14 @@ var component_1 = require("../common/component");
         },
         updateDataFromParent: function () {
             if (this.parent) {
-                var _a = this.parent.data, overlay = _a.overlay, duration = _a.duration, activeColor = _a.activeColor, closeOnClickOverlay = _a.closeOnClickOverlay, direction = _a.direction;
+                var _a = this.parent.data, overlay = _a.overlay, duration = _a.duration, activeColor = _a.activeColor, closeOnClickOverlay = _a.closeOnClickOverlay, direction = _a.direction, safeAreaTabBar = _a.safeAreaTabBar;
                 this.setData({
                     overlay: overlay,
                     duration: duration,
                     activeColor: activeColor,
                     closeOnClickOverlay: closeOnClickOverlay,
                     direction: direction,
+                    safeAreaTabBar: safeAreaTabBar,
                 });
             }
         },
@@ -80,7 +91,6 @@ var component_1 = require("../common/component");
         },
         toggle: function (show, options) {
             var _this = this;
-            var _a;
             if (options === void 0) { options = {}; }
             var showPopup = this.data.showPopup;
             if (typeof show !== 'boolean') {
@@ -89,19 +99,38 @@ var component_1 = require("../common/component");
             if (show === showPopup) {
                 return;
             }
-            this.setData({
-                transition: !options.immediate,
-                showPopup: show,
-            });
-            if (show) {
-                (_a = this.parent) === null || _a === void 0 ? void 0 : _a.getChildWrapperStyle().then(function (wrapperStyle) {
-                    _this.setData({ wrapperStyle: wrapperStyle, showWrapper: true });
-                    _this.rerender();
+            this.onBeforeToggle(show).then(function (status) {
+                var _a;
+                if (!status) {
+                    return;
+                }
+                _this.setData({
+                    transition: !options.immediate,
+                    showPopup: show,
                 });
+                if (show) {
+                    (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.getChildWrapperStyle().then(function (wrapperStyle) {
+                        _this.setData({ wrapperStyle: wrapperStyle, showWrapper: true });
+                        _this.rerender();
+                    });
+                }
+                else {
+                    _this.rerender();
+                }
+            });
+        },
+        onBeforeToggle: function (status) {
+            var _this = this;
+            var useBeforeToggle = this.data.useBeforeToggle;
+            if (!useBeforeToggle) {
+                return Promise.resolve(true);
             }
-            else {
-                this.rerender();
-            }
+            return new Promise(function (resolve) {
+                _this.$emit('before-toggle', {
+                    status: status,
+                    callback: function (value) { return resolve(value); },
+                });
+            });
         },
     },
 });

@@ -1,0 +1,14 @@
+<view
+  wx:if="{{ inited }}"
+  class="custom-class {{ classes }} {{ utils.bem('popup', [position, { round, safe: safeAreaInsetBottom, safeTop: safeAreaInsetTop, safeTabBar: safeAreaTabBar }]) }}"
+  style="{{ computed.popupStyle({ zIndex, currentDuration, display, customStyle }) }}"
+  bind:transitionend="onTransitionEnd"
+>
+  <slot />
+  <van-icon
+    wx:if="{{ closeable }}"
+    name="{{ closeIcon }}"
+    class="close-icon-class van-popup__close-icon van-popup__close-icon--{{ closeIconPosition }}"
+    bind:tap="onClickCloseIcon"
+  />
+</view>

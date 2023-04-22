@@ -17,6 +17,10 @@ var component_1 = require("../common/component");
             type: Boolean,
             value: true,
         },
+        rootPortal: {
+            type: Boolean,
+            value: false,
+        },
     },
     methods: {
         onClick: function () {

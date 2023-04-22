@@ -35,6 +35,9 @@ var props_1 = require("./props");
         }, clearIcon: {
             type: String,
             value: 'clear',
+        }, extraEventParams: {
+            type: Boolean,
+            value: false,
         } }),
     data: {
         focused: false,
@@ -50,7 +53,7 @@ var props_1 = require("./props");
             var _a = (event.detail || {}).value, value = _a === void 0 ? '' : _a;
             this.value = value;
             this.setShowClear();
-            this.emitChange();
+            this.emitChange(event.detail);
         },
         onFocus: function (event) {
             this.focused = true;
@@ -74,7 +77,7 @@ var props_1 = require("./props");
             this.value = '';
             this.setShowClear();
             (0, utils_1.nextTick)(function () {
-                _this.emitChange();
+                _this.emitChange({ value: '' });
                 _this.$emit('clear', '');
             });
         },
@@ -90,7 +93,7 @@ var props_1 = require("./props");
             if (value === '') {
                 this.setData({ innerValue: '' });
             }
-            this.emitChange();
+            this.emitChange({ value: value });
         },
         onLineChange: function (event) {
             this.$emit('linechange', event.detail);
@@ -98,12 +101,14 @@ var props_1 = require("./props");
         onKeyboardHeightChange: function (event) {
             this.$emit('keyboardheightchange', event.detail);
         },
-        emitChange: function () {
+        emitChange: function (detail) {
             var _this = this;
-            this.setData({ value: this.value });
+            var extraEventParams = this.data.extraEventParams;
+            this.setData({ value: detail.value });
             (0, utils_1.nextTick)(function () {
-                _this.$emit('input', _this.value);
-                _this.$emit('change', _this.value);
+                var data = extraEventParams ? detail : detail.value;
+                _this.$emit('input', data);
+                _this.$emit('change', data);
             });
         },
         setShowClear: function () {

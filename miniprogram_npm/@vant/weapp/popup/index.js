@@ -55,9 +55,17 @@ var transition_1 = require("../mixins/transition");
             type: Boolean,
             value: false,
         },
+        safeAreaTabBar: {
+            type: Boolean,
+            value: false,
+        },
         lockScroll: {
             type: Boolean,
             value: true,
+        },
+        rootPortal: {
+            type: Boolean,
+            value: false,
         },
     },
     created: function () {

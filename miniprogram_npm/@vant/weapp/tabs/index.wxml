@@ -9,7 +9,7 @@
     container="{{ container }}"
     bind:scroll="onTouchScroll"
   >
-    <view class="{{ utils.bem('tabs__wrap', { scrollable }) }} {{ type === 'line' && border ? 'van-hairline--top-bottom' : '' }}">
+    <view class="{{ utils.bem('tabs__wrap', { scrollable }) }} {{ type === 'line' && border ? 'van-hairline--top-bottom' : '' }} wrap-class">
       <slot name="nav-left" />
 
       <scroll-view
@@ -20,7 +20,7 @@
         style="{{ color ? 'border-color: ' + color : '' }}"
       >
         <view class="{{ utils.bem('tabs__nav', [type, { complete: !ellipsis }]) }} nav-class" style="{{ computed.navStyle(color, type) }}">
-          <view wx:if="{{ type === 'line' }}" class="van-tabs__line" style="{{ computed.lineStyle({ color, lineOffsetLeft, lineHeight, skipTransition, duration, lineWidth }) }}" />
+          <view wx:if="{{ type === 'line' }}" class="van-tabs__line" style="{{ computed.lineStyle({ color, lineOffsetLeft, lineHeight, skipTransition, duration, lineWidth, inited }) }}" />
           <view
             wx:for="{{ tabs }}"
             wx:key="index"

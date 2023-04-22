@@ -55,7 +55,7 @@ function formatFile(res) {
     return res.tempFiles.map(function (item) { return (__assign(__assign({}, (0, utils_1.pickExclude)(item, ['path'])), { url: item.path })); });
 }
 function chooseFile(_a) {
-    var accept = _a.accept, multiple = _a.multiple, capture = _a.capture, compressed = _a.compressed, maxDuration = _a.maxDuration, sizeType = _a.sizeType, camera = _a.camera, maxCount = _a.maxCount;
+    var accept = _a.accept, multiple = _a.multiple, capture = _a.capture, compressed = _a.compressed, maxDuration = _a.maxDuration, sizeType = _a.sizeType, camera = _a.camera, maxCount = _a.maxCount, mediaType = _a.mediaType, extension = _a.extension;
     return new Promise(function (resolve, reject) {
         switch (accept) {
             case 'image':
@@ -70,6 +70,7 @@ function chooseFile(_a) {
             case 'media':
                 wx.chooseMedia({
                     count: multiple ? Math.min(maxCount, 9) : 1,
+                    mediaType: mediaType,
                     sourceType: capture,
                     maxDuration: maxDuration,
                     sizeType: sizeType,
@@ -89,12 +90,7 @@ function chooseFile(_a) {
                 });
                 break;
             default:
-                wx.chooseMessageFile({
-                    count: multiple ? maxCount : 1,
-                    type: accept,
-                    success: function (res) { return resolve(formatFile(res)); },
-                    fail: reject,
-                });
+                wx.chooseMessageFile(__assign(__assign({ count: multiple ? maxCount : 1, type: accept }, (extension ? { extension: extension } : {})), { success: function (res) { return resolve(formatFile(res)); }, fail: reject }));
                 break;
         }
     });

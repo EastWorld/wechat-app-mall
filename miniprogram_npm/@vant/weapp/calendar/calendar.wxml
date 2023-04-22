@@ -54,12 +54,12 @@
       type="danger"
       color="{{ color }}"
       custom-class="van-calendar__confirm"
-      disabled="{{ computed.getButtonDisabled(type, currentDate) }}"
+      disabled="{{ computed.getButtonDisabled(type, currentDate, minRange) }}"
       nativeType="text"
       bind:click="onConfirm"
     >
       {{
-        computed.getButtonDisabled(type, currentDate)
+        computed.getButtonDisabled(type, currentDate, minRange)
           ? confirmDisabledText
           : confirmText
       }}

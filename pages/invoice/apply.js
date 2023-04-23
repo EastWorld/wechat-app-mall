@@ -83,6 +83,13 @@ Page({
       path: '/pages/invoice/apply?inviter_id=' + wx.getStorageSync('uid')
     }
   },
+  onShareTimeline() {    
+    return {
+      title: '申请开票',
+      query: 'inviter_id=' + wx.getStorageSync('uid'),
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
   async bindSave(e) {
     // 提交保存
     let comName = e.detail.value.comName;

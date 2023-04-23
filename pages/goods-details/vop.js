@@ -529,7 +529,7 @@ Page({
     return buyNowInfo;
   },
   onShareAppMessage() {
-    let _data = {
+    return {
       title: this.data.price.skuName,
       path: '/pages/goods-details/vop?id=' + this.data.goodsId + '&goodsId=' + this.data.goodsId2 + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function(res) {
@@ -539,11 +539,13 @@ Page({
         // 转发失败
       }
     }
-    if (this.data.kjJoinUid) {
-      _data.title = this.data.curKanjiaprogress.joiner.nick + '邀请您帮TA砍价'
-      _data.path += '&kjJoinUid=' + this.data.kjJoinUid
+  },
+  onShareTimeline() {
+    return {
+      title: this.data.price.skuName,
+      query: 'id=' + this.data.goodsId + '&goodsId=' + this.data.goodsId2 + '&inviter_id=' + wx.getStorageSync('uid'),
+      imageUrl: wx.getStorageSync('share_pic'),
     }
-    return _data
   },
   reputation: function(goodsId) {
     var that = this;

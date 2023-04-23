@@ -763,6 +763,19 @@ Page({
     }
     return _data
   },
+  onShareTimeline() {
+    let title = this.data.goodsDetail.basicInfo.name
+    let query = 'id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid')
+    if (this.data.kjJoinUid) {
+      title = this.data.curKanjiaprogress.joiner.nick + '邀请您帮TA砍价'
+      query += '&kjJoinUid=' + this.data.kjJoinUid
+    }
+    return {
+      title,
+      query,
+      imageUrl: this.data.goodsDetail.basicInfo.pic
+    }
+  },
   reputation: function (goodsId) {
     var that = this;
     WXAPI.goodsReputationV2({

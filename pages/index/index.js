@@ -290,6 +290,13 @@ Page({
       path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
     }
   },
+  onShareTimeline() {    
+    return {
+      title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),
+      query: 'inviter_id=' + wx.getStorageSync('uid'),
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
   getNotice: function() {
     var that = this;
     WXAPI.noticeList({pageSize: 5}).then(function (res) {

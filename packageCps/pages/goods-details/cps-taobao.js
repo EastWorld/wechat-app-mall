@@ -321,7 +321,7 @@ Page({
     return buyNowInfo;
   },
   onShareAppMessage() {
-    let _data = {
+    return {
       title: this.data.goodsDetail.basicInfo.name,
       path: '/packageCps/pages/goods-details/cps-taobao?id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function(res) {
@@ -331,11 +331,13 @@ Page({
         // 转发失败
       }
     }
-    if (this.data.kjJoinUid) {
-      _data.title = this.data.curKanjiaprogress.joiner.nick + '邀请您帮TA砍价'
-      _data.path += '&kjJoinUid=' + this.data.kjJoinUid
+  },
+  onShareTimeline() {    
+    return {
+      title: this.data.goodsDetail.basicInfo.name,
+      query: 'id=' + this.data.goodsId + '&inviter_id=' + wx.getStorageSync('uid'),
+      imageUrl: this.data.goodsDetail.basicInfo.pic
     }
-    return _data
   },
   reputation: function(goodsId) {
     var that = this;

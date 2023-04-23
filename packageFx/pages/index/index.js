@@ -315,6 +315,13 @@ Page({
       }
     }
   },
+  onShareTimeline() {    
+    return {
+      title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),
+      query: 'inviter_id=' + wx.getStorageSync('uid'),
+      imageUrl: this.data.goodsDetail.basicInfo.pic
+    }
+  },
   goApply() {
     wx.redirectTo({
       url: '/packageFx/pages/apply/index',

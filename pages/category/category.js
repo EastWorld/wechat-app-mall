@@ -177,6 +177,13 @@ Page({
       path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
     }
   },
+  onShareTimeline() {    
+    return {
+      title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),
+      query: '',
+      imageUrl: this.data.goodsDetail.basicInfo.pic
+    }
+  },
   onShow() {
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {

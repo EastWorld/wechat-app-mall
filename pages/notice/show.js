@@ -16,4 +16,11 @@ Page({
   },
   onShareAppMessage() {
   },
+  onShareTimeline() {    
+    return {
+      title: this.data.notice.title,
+      query: 'id=' + this.data.notice.id,
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
 })

@@ -102,21 +102,21 @@ module.exports = {
           <view class="goods-title">{{item.name}}</view>
           <view class="count-down">
             <van-count-down wx:if="{{item.dateStartInt > 0}}" time="{{ item.dateStartInt }}"
-              format="距离开始: HH 时 mm 分 ss 秒" />
+              format="{{ item.dateStartInt > 86400000 ? '距离开始: DD 天 HH 时 mm 分 ss 秒' : '距离开始: HH 时 mm 分 ss 秒' }}" />
             <van-count-down wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0}}" time="{{ item.dateEndInt }}"
-              format="剩余: HH 时 mm 分 ss 秒" />
+              format="{{ item.dateEndInt > 86400000 ? '剩余: DD 天 HH 时 mm 分 ss 秒' : '剩余: HH 时 mm 分 ss 秒' }}" />
           </view>
           <view class="miaosha-price-btn">
             <view class="price">￥{{item.minPrice}} <text>￥{{item.originalPrice}}</text></view>
             <van-button custom-class="msbtn" wx:if="{{item.dateStartInt > 0}}" type="danger" size="small" round plain
               disabled>未开始</van-button>
-            <van-button custom-class="msbtn" wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" round>已结束
+            <van-button custom-class="msbtn" wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" disabled round>已结束
             </van-button>
-            <van-button custom-class="msbtn" wx:if="{{item.stores <= 0}}" type="danger" size="small" round>已抢完
+            <van-button custom-class="msbtn" wx:if="{{item.stores <= 0}}" type="danger" size="small" round disabled>已抢完
             </van-button>
             <van-button custom-class="msbtn"
               wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}" type="danger" size="small"
-              round>立即抢购</van-button>
+              round>马上抢</van-button>
           </view>
         </view>
       </view>

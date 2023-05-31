@@ -3,7 +3,7 @@ const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 Page({
   data: {
-
+    enableDebug: wx.getSystemInfoSync().enableDebug
   },
   onLoad: function (options) {
     this.setData({
@@ -48,6 +48,23 @@ Page({
       appId: 'wx5e5b0066c8d3f33d',
       path: 'pages/login/auto?token=' + wx.getStorageSync('token'),
       envVersion: 'trial' // develop trial release
+    })
+  },
+  setEnableDebug() {
+    const enableDebug = wx.getSystemInfoSync().enableDebug
+    if (enableDebug) {
+      wx.setEnableDebug({
+        enableDebug: false
+      })
+    } else {
+      wx.setEnableDebug({
+        enableDebug: true
+      })
+    }
+  },
+  openSetting() {
+    wx.openSetting({
+      withSubscriptions: true
     })
   },
 })

@@ -2060,6 +2060,9 @@ module.exports = (_module$exports = {
   collectCardUnBind: function collectCardUnBind(token, id, smsCode) {
     return request('/collectCard/bind', true, 'post', { token: token, id: id, smsCode: smsCode });
   },
+  dynamicUserCode: (token) => {
+    return request('/user/dynamicUserCode', true, 'get', { token })
+  },
   // 其他
   bengenSaleTongjiList: function bengenSaleTongjiList(data) {
     return request('/bengenSaleTongji/list', true, 'post', data);

@@ -1,0 +1,38 @@
+.btn-add-box-popup {
+  width: 600rpx;
+}
+.t-box {
+  margin-top: 32rpx;
+  height: 100rpx;
+  position: relative;
+}
+.t {
+  line-height: 100rpx;
+  font-size: 38rpx;
+  text-align: center;
+}
+.jump {
+  position: absolute;
+  top: 0;
+  right: 48rpx;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  color: #bbb;
+}
+.avatar {
+  margin-top: 32rpx;
+  width: 240rpx;
+  height: 240rpx;
+  padding: 0;
+  border-radius: 50%;
+}
+.avatar-img {
+  width: 240rpx;
+  height: 240rpx;
+}
+.nick-box {
+  padding: 32rpx 0;
+}
+.btn-group {
+  padding: 32rpx;
+}

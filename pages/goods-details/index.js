@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
+const CONFIG = require('../../config.js')
 import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
@@ -64,10 +65,14 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
         AUTH.authorize().then( aaa => {
-          AUTH.bindSeller()
+          if (CONFIG.bindSeller) {
+            AUTH.bindSeller()
+          }
         })
       } else {
-        AUTH.bindSeller()
+        if (CONFIG.bindSeller) {
+          AUTH.bindSeller()
+        }
       }
     })
     this.data.goodsId = e.id
@@ -88,6 +93,8 @@ Page({
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
     this.shippingCartInfo()
     this.goodsAddition()
+    // 弹出编辑昵称头像框
+    getApp().initNickAvatarUrlPOP(this)
   },
   readConfigVal() {
     // 读取系统参数

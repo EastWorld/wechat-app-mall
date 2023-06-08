@@ -1,5 +1,5 @@
 const WXAPI = require('apifm-wxapi')
-
+const CONFIG = require('../config.js')
 async function checkSession(){
   return new Promise((resolve, reject) => {
     wx.checkSession({
@@ -88,7 +88,9 @@ async function login(page){
           }
           wx.setStorageSync('token', res.data.token)
           wx.setStorageSync('uid', res.data.uid)
-          _this.bindSeller()
+          if (CONFIG.bindSeller) {
+            _this.bindSeller()
+          }
           if ( page ) {
             page.onShow()
           }
@@ -110,7 +112,9 @@ async function login(page){
           }
           wx.setStorageSync('token', res.data.token)
           wx.setStorageSync('uid', res.data.uid)
-          _this.bindSeller()
+          if (CONFIG.bindSeller) {
+            _this.bindSeller()
+          }
           if ( page ) {
             page.onShow()
           }

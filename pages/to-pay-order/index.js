@@ -89,7 +89,9 @@ Page({
         this.doneShow()
       } else {
         AUTH.authorize().then(res => {
-          AUTH.bindSeller()
+          if (CONFIG.bindSeller) {
+            AUTH.bindSeller()
+          }
           this.doneShow()
         })
       }

@@ -263,3 +263,6 @@
   <van-button wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" data-shopType="{{shopType}}" bindtap="buyNow"
     type="danger" block>立即购买</van-button>
 </van-popup>
+
+<!-- 弹出编辑昵称和头像的框 -->
+<login show="{{ nickPopShow }}" avatarUrl="{{ popavatarUrl }}" name="{{ popnick }}" />

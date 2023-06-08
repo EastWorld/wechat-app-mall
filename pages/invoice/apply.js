@@ -1,6 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-
+const CONFIG = require('../../config.js')
 Page({
 
   /**
@@ -21,12 +21,18 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
         AUTH.authorize().then( aaa => {
-          AUTH.bindSeller()
+          if (CONFIG.bindSeller) {
+            AUTH.bindSeller()
+          }
         })
       } else {
-        AUTH.bindSeller()
+        if (CONFIG.bindSeller) {
+          AUTH.bindSeller()
+        }
       }
     })
+    // 弹出编辑昵称头像框
+    getApp().initNickAvatarUrlPOP(this)
   },
   onShow() {
   },

@@ -1,0 +1,23 @@
+<van-popup show="{{ show }}" custom-class="btn-add-box-popup" round close-on-click-overlay="{{ false }}">
+  <view class="t-box">
+    <view class="t">头像昵称填写</view>
+    <view class="jump" bindtap="jump">跳过</view>
+  </view>
+  <view class="avatar-box">
+    <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/upload.jpg' }}" mode="aspectFill"></image>
+    </button>
+  </view>
+  <view class="nick-box">
+    <van-field
+      model:value="{{ nick }}"
+      size="large"
+      placeholder="请输入昵称"
+      clearable
+      type="nickname"
+    />
+  </view>
+  <view class="btn-group">
+    <van-button type="primary" block round bind:click="_editNick">保存</van-button>
+  </view>
+</van-popup>

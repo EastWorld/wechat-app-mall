@@ -1,7 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
-
+const CONFIG = require('../../config.js')
 Page({
 	data: {
     balance:0.00,
@@ -36,7 +36,9 @@ Page({
         TOOLS.showTabBarBadge();
       } else {
         AUTH.authorize().then(res => {
-          AUTH.bindSeller()
+          if (CONFIG.bindSeller) {
+            AUTH.bindSeller()
+          }
           _this.getUserApiInfo();
           _this.getUserAmount();
           _this.orderStatistics();

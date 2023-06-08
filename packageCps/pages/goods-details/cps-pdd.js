@@ -1,5 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../../utils/auth')
+const CONFIG = require('../../../config.js')
 import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
@@ -26,7 +27,9 @@ Page({
     if (this.data.beianPass == 2) {
       return
     }
-    AUTH.bindSeller()
+    if (CONFIG.bindSeller) {
+      AUTH.bindSeller()
+    }
     const token = wx.getStorageSync('token')
     const res = await WXAPI.cpsPddBeian(token)
     if (res.code == 10000) {

@@ -154,8 +154,11 @@
             if (!goodsDetail || !goodsDetail.basicInfo) {
               return "100"
             }
-            var goodReputation = goodsDetail.basicInfo.numberGoodReputation / goodsDetail.basicInfo.numberOrders * 100
+            var goodReputation = goodsDetail.basicInfo.numberGoodReputation / goodsDetail.basicInfo.numberReputation * 100
             goodReputation = goodReputation.toFixed(0)
+            if (goodReputation > 100) {
+              goodReputation = 100
+            }
             return goodReputation
           }
         }

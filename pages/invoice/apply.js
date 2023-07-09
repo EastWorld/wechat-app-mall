@@ -97,6 +97,25 @@ Page({
     }
   },
   async bindSave(e) {
+    const invoice_subscribe_ids = wx.getStorageSync('invoice_subscribe_ids')
+    if (invoice_subscribe_ids) {
+      wx.requestSubscribeMessage({
+        tmplIds: invoice_subscribe_ids.split(','),
+        success(res) {
+          console.log(res)
+        },
+        fail(err) {
+          console.error(err)
+        },
+        complete: (res) => {
+          this._bindSave(e)
+        },
+      })
+    } else {
+      this._bindSave(e)
+    }
+  },
+  async _bindSave(e) {
     // 提交保存
     let comName = e.detail.value.comName;
     let tfn = e.detail.value.tfn;

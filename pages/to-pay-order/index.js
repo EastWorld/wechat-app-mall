@@ -215,7 +215,7 @@ Page({
       wx.requestSubscribeMessage({
         tmplIds: subscribe_ids.split(','),
         success(res) {
-
+          console.log(res)
         },
         fail(e) {
           console.error(e)

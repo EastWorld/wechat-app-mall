@@ -1,7 +1,6 @@
 const app = getApp();
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
-import wxbarcode from 'wxbarcode'
 
 Page({
     data:{
@@ -28,8 +27,8 @@ Page({
           return;
         }
         // 绘制核销码
-        if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0) {
-          wxbarcode.qrcode('qrcode', res.data.orderInfo.hxNumber, 650, 650);
+        if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0 && res.data.orderInfo.status < 3) {
+          that.wxaQrcode(res.data.orderInfo.hxNumber)
         }
         // 子快递单信息
         if (res.data.orderLogisticsShippers) {
@@ -139,5 +138,28 @@ Page({
       this.setData({
         picsList
       })
-    }
+    },
+    async wxaQrcode(hxNumber) {
+      // https://www.yuque.com/apifm/nu0f75/ak40es
+      const accountInfo = wx.getAccountInfoSync()
+      const envVersion = accountInfo.miniProgram.envVersion
+      const res = await WXAPI.wxaQrcode({
+        scene: hxNumber,
+        page: 'pages/order-details/scan-result',
+        autoColor: true,
+        expireHours: 1,
+        env_version: envVersion,
+        check_path: envVersion == 'release' ? true : false,
+      })
+      if (res.code != 0) {
+        wx.wx.showModal({
+          content: res.msg,
+          showCancel: false
+        })
+        return
+      }
+      this.setData({
+        hxNumberQrcode: res.data
+      })
+    },
 })

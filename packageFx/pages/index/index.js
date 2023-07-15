@@ -209,12 +209,16 @@ Page({
       title: '加载中',
       mask: true
     })
+    const accountInfo = wx.getAccountInfoSync()
+    const envVersion = accountInfo.miniProgram.envVersion
     WXAPI.wxaQrcode({
       scene: 'inviter_id=' + wx.getStorageSync('uid'),
       page: 'pages/index/index',
       is_hyaline: true,
       autoColor: true,
-      expireHours: 1
+      expireHours: 1,
+      env_version: envVersion,
+      check_path: envVersion == 'release' ? true : false,
     }).then(res => {
       wx.hideLoading()
       if (res.code ==  41030) {

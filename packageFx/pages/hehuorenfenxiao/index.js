@@ -206,7 +206,7 @@ Page({
         that.setData(_data);
         that.commision();
         if(res.data.base.isTeamLeader || res.data.partnerInfo) {
-          that.fetchQrcode(false)
+          that.fetchQrcode()
         }
       }
     })
@@ -491,23 +491,26 @@ Page({
       tzid:e.detail
     })
   },
-  fetchQrcode(test){
+  fetchQrcode(){
     const _this = this
     wx.showLoading({
       title: '加载中',
       mask: true
     })
+    const accountInfo = wx.getAccountInfoSync()
+    const envVersion = accountInfo.miniProgram.envVersion
     WXAPI.wxaQrcode({
       scene: 'inviter_id=' + wx.getStorageSync('uid'),
       page: 'pages/index/index',
       is_hyaline: true,
       autoColor: true,
       expireHours: 1,
-      check_path: test ? false : true
+      env_version: envVersion,
+      check_path: envVersion == 'release' ? true : false,
     }).then(res => {
       wx.hideLoading()
       if (res.code ==  41030) {
-        _this.fetchQrcode(true)
+        _this.fetchQrcode()
         return
       }
       if (res.code == 0) {

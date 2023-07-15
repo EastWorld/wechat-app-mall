@@ -914,12 +914,17 @@ Page({
   },
   async drawSharePic() {
     const _this = this
+    // https://www.yuque.com/apifm/nu0f75/ak40es
+    const accountInfo = wx.getAccountInfoSync()
+    const envVersion = accountInfo.miniProgram.envVersion
     const qrcodeRes = await WXAPI.wxaQrcode({
       scene: _this.data.goodsDetail.basicInfo.id + ',' + wx.getStorageSync('uid'),
       page: 'pages/goods-details/index',
       is_hyaline: true,
       autoColor: true,
-      expireHours: 1
+      expireHours: 1,
+      env_version: envVersion,
+      check_path: envVersion == 'release' ? true : false,
     })
     if (qrcodeRes.code != 0) {
       wx.showToast({

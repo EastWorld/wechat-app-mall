@@ -102,7 +102,6 @@
         size="large"
         model:value="{{ name }}"
         label="联系人"
-        focus
         clearable
         required
         placeholder="请输入联系人"

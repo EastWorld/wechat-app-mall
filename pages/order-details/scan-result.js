@@ -1,30 +1,69 @@
 const WXAPI = require('apifm-wxapi')
+const AUTH = require('../../utils/auth')
+const CONFIG = require('../../config.js')
 
 Page({
   data: {
     
   },
   onLoad: function (e) {
-    // e.hxNumber = '2003201758574236'
+    // e.hxNumber = '2307150981053363'
+    // 读取小程序码中的核销码
+    console.log('e', e);
+    if (e && e.scene) {
+      const scene = decodeURIComponent(e.scene)
+      if (scene) {
+        e.hxNumber = scene
+      }
+    }
+    this.readConfigVal()
+    // 补偿写法
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
     this.setData({
       hxNumber: e.hxNumber
     });
   },
   onShow: function () {
-    var that = this;
-    WXAPI.orderDetail(wx.getStorageSync('token'), '', this.data.hxNumber).then(function (res) {
-      if (res.code != 0) {
-        wx.showModal({
-          title: '错误',
-          content: res.msg,
-          showCancel: false
-        })
-        return;
-      }
-      that.setData({
-        orderDetail: res.data
-      });
+    this.orderDetail()
+  },
+  readConfigVal() {
+    const order_hx_uids = wx.getStorageSync('order_hx_uids')
+    const uid = wx.getStorageSync('uid')
+    if (!order_hx_uids || !uid) {
+      return
+    }
+    if (order_hx_uids.indexOf(uid) != -1) {
+      this.setData({
+        canHX: true
+      })
+    }
+  },
+  async orderDetail() {
+    wx.showLoading({
+      title: '',
     })
+    const isLogined = await AUTH.checkHasLogined()
+    if (!isLogined) {
+      await AUTH.authorize()
+      if (CONFIG.bindSeller) {
+        AUTH.bindSeller()
+      }
+    }
+    const res = await WXAPI.orderDetail(wx.getStorageSync('token'), '', this.data.hxNumber)
+    wx.hideLoading()
+    if (res.code != 0) {
+      wx.showModal({
+        content: res.msg,
+        showCancel: false
+      })
+      return;
+    }
+    this.setData({
+      orderDetail: res.data
+    })
+    this.readConfigVal()
   },
   wuliuDetailsTap: function (e) {
     var orderId = e.currentTarget.dataset.id;

@@ -62,9 +62,9 @@
       </view>
     </block>
   </view>
-  <view wx:if="{{orderDetail.orderInfo.hxNumber && orderDetail.orderInfo.status > 0}}" class="goods-list">
-    <view class="list-title hx-title">核销码</view>
-    <canvas class="hx-canvas" canvas-id="qrcode" />
+  <view wx:if="{{ hxNumberQrcode }}" class="goods-list">
+    <view class="list-title hx-title">核销码「出示给店员或者长按下载」</view>
+    <image class="hx-canvas" src="{{ hxNumberQrcode }}" mode="widthFix" show-menu-by-longpress></image>
   </view>
   <view class="goods-list">
     <view class="list-title">商品信息</view>

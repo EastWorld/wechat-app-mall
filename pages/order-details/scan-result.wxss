@@ -301,13 +301,6 @@ page{
   margin-left: 50rpx;
 }
 
-.hx-btn {
-  width: 650rpx;
-  margin: 0 50rpx 50rpx 50rpx;
-  background: #e64340;
-  color: #fff;
-  text-align: center;
-  height: 88rpx;
-  line-height: 88rpx;
-  border-radius: 16rpx;
+.btn {
+  padding: 32rpx;
 }

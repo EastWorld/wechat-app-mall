@@ -296,7 +296,8 @@ page{
   text-align: center;
 }
 .hx-canvas {
-  width: 650rpx;
-  height: 650rpx;
-  margin-left: 50rpx;
+  width: 400rpx;
+  height: 400rpx;
+  margin-left: 175rpx;
+  margin-bottom: 32rpx;
 }

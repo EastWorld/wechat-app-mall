@@ -518,12 +518,16 @@ Page({
   },
   async drawSharePic() {
     const _this = this
+    const accountInfo = wx.getAccountInfoSync()
+    const envVersion = accountInfo.miniProgram.envVersion
     const qrcodeRes = await WXAPI.wxaQrcode({
       scene: _this.data.goodsId + ',' + wx.getStorageSync('uid'),
       page: '/packageCps/pages/goods-details/cps-pdd',
       is_hyaline: true,
       autoColor: true,
-      expireHours: 1
+      expireHours: 1,
+      env_version: envVersion,
+      check_path: envVersion == 'release' ? true : false,
     })
     if (qrcodeRes.code != 0) {
       wx.showToast({

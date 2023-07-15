@@ -513,6 +513,48 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=1997738",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=2110153",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/scan-result",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/scan-result",
+          "query": "hxNumber=2307150981053363",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/goods-details/index",
+          "query": "id=1321798",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=2110298",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

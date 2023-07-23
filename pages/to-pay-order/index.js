@@ -582,6 +582,7 @@ Page({
       orderId = res.data.id
     }
     // 直接弹出支付，取消支付的话，去订单列表
+    await this.userAmount()
     const balance = this.data.balance
     const userScore = this.data.userScore
     if (userScore < res.data.score) {

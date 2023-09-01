@@ -1,4 +1,5 @@
 <input
+  id="{{ name }}"
   class="{{ utils.bem('field__control', [inputAlign, { disabled, error }]) }} input-class"
   type="{{ type }}"
   focus="{{ focus }}"

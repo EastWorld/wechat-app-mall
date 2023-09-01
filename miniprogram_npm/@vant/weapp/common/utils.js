@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCurrentPage = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.nextTick = exports.range = exports.getSystemInfoSync = exports.isDef = void 0;
+exports.isPC = exports.getCurrentPage = exports.clamp = exports.addNumber = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.nextTick = exports.range = exports.getSystemInfoSync = exports.isDef = void 0;
 var validator_1 = require("./validator");
 var version_1 = require("./version");
 var validator_2 = require("./validator");
@@ -90,8 +90,18 @@ function toPromise(promiseLike) {
     return Promise.resolve(promiseLike);
 }
 exports.toPromise = toPromise;
+// 浮点数精度处理
+function addNumber(num1, num2) {
+    var cardinal = Math.pow(10, 10);
+    return Math.round((num1 + num2) * cardinal) / cardinal;
+}
+exports.addNumber = addNumber;
+// 限制value在[min, max]之间
+var clamp = function (num, min, max) { return Math.min(Math.max(num, min), max); };
+exports.clamp = clamp;
 function getCurrentPage() {
     var pages = getCurrentPages();
     return pages[pages.length - 1];
 }
 exports.getCurrentPage = getCurrentPage;
+exports.isPC = ['mac', 'windows'].includes((0, version_1.getSystemInfoSync)().platform);

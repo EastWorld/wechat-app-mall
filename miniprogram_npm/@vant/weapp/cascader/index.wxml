@@ -37,14 +37,14 @@
         wx:for="{{ tab.options }}"
         wx:for-item="option"
         wx:key="index"
-        class="{{ option.className }} {{ utils.optionClass(tab, textKey, option) }}"
-        style="{{ utils.optionStyle({ tab, textKey, option, activeColor }) }}"
+        class="{{ option.className }} {{ utils.optionClass(tab, valueKey, option) }}"
+        style="{{ utils.optionStyle({ tab, valueKey, option, activeColor }) }}"
         data-option="{{ option }}"
         data-tab-index="{{ tabIndex }}"
         bind:tap="onSelect"
       >
         <text>{{ option[textKey] }}</text>
-        <van-icon wx:if="{{ utils.isSelected(tab, textKey, option) }}" name="success" size="18" />
+        <van-icon wx:if="{{ utils.isSelected(tab, valueKey, option) }}" name="success" size="18" />
       </view>
     </view>
     <!-- 暂不支持 -->

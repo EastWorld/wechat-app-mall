@@ -28,6 +28,7 @@
         title="{{ item.name || ('视频' + index) }}"
         poster="{{ item.thumb }}"
         autoplay="{{ item.autoplay }}"
+        object-fit="{{videoFit}}"
         class="van-uploader__preview-image"
         style="{{ computed.sizeStyle({ previewSize }) }}"
         data-index="{{ index }}"

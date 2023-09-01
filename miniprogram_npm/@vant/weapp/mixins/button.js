@@ -31,6 +31,9 @@ exports.button = Behavior({
         onGetPhoneNumber: function (event) {
             this.triggerEvent('getphonenumber', event.detail);
         },
+        onGetRealTimePhoneNumber: function (event) {
+            this.triggerEvent('getrealtimephonenumber', event.detail);
+        },
         onError: function (event) {
             this.triggerEvent('error', event.detail);
         },

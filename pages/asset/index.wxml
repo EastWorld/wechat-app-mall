@@ -40,7 +40,7 @@
 </van-cell-group>
 <van-cell-group wx:if="{{activeIndex == 1}}">
   <van-empty wx:if="{{!withDrawlogs}}" description="暂无提现记录" />
-  <van-cell wx:for="{{withDrawlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" value="{{ item.money }}" />
+  <van-cell wx:for="{{withDrawlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}{{ item.rejectionReason ? ' 驳回原因：' + item.rejectionReason : '' }}" value="{{ item.money }}" />
 </van-cell-group>
 <van-cell-group wx:if="{{activeIndex == 2}}">
   <van-empty wx:if="{{!depositlogs}}" description="暂无押金记录" />

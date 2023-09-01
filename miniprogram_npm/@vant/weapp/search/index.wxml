@@ -28,6 +28,7 @@
       input-class="input-class"
       placeholder="{{ placeholder }}"
       placeholder-style="{{ placeholderStyle }}"
+      cursor-spacing="{{ cursorSpacing }}"
       custom-style="padding: 5px 10px 5px 0; background-color: transparent;"
       bind:blur="onBlur"
       bind:focus="onFocus"

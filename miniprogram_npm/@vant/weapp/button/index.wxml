@@ -22,6 +22,7 @@
   bindgetuserinfo="onGetUserInfo"
   bindcontact="onContact"
   bindgetphonenumber="onGetPhoneNumber"
+  bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
   binderror="onError"
   bindlaunchapp="onLaunchApp"
   bindopensetting="onOpenSetting"

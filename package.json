@@ -4,8 +4,8 @@
   "description": "删除 <float-menu />",
   "main": "app.js",
   "dependencies": {
-    "@vant/weapp": "^1.10.16",
-    "apifm-wxapi": "^3.55.0",
+    "@vant/weapp": "^1.10.23",
+    "apifm-wxapi": "^3.67.0",
     "dayjs": "^1.11.6",
     "mp-html": "^2.3.1",
     "wxa-plugin-canvas": "^1.1.12",

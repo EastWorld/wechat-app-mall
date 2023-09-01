@@ -179,6 +179,9 @@ var relation_1 = require("../common/relation");
                 });
             });
             if (currentIndex === data.currentIndex) {
+                if (!data.inited) {
+                    this.resize();
+                }
                 return;
             }
             var shouldEmitChange = data.currentIndex !== null;

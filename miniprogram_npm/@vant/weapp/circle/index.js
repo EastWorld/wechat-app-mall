@@ -98,6 +98,8 @@ var STEP = 1;
             var _a = this.data, color = _a.color, size = _a.size;
             if ((0, validator_1.isObj)(color)) {
                 return this.getContext().then(function (context) {
+                    if (!context)
+                        return;
                     var LinearColor = context.createLinearGradient(size, 0, 0, 0);
                     Object.keys(color)
                         .sort(function (a, b) { return parseFloat(a) - parseFloat(b); })
@@ -142,6 +144,8 @@ var STEP = 1;
             var _this = this;
             var size = this.data.size;
             this.getContext().then(function (context) {
+                if (!context)
+                    return;
                 context.clearRect(0, 0, size, size);
                 _this.renderLayerCircle(context);
                 var formatValue = format(currentValue);

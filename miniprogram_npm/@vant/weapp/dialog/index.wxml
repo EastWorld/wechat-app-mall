@@ -33,7 +33,7 @@
       size="large"
       loading="{{ loading.cancel }}"
       class="van-dialog__button van-hairline--right"
-      custom-class="van-dialog__cancel"
+      custom-class="van-dialog__cancel cancle-button-class"
       custom-style="color: {{ cancelButtonColor }}"
       bind:click="onCancel"
     >
@@ -44,7 +44,7 @@
       size="large"
       class="van-dialog__button"
       loading="{{ loading.confirm }}"
-      custom-class="van-dialog__confirm"
+      custom-class="van-dialog__confirm confirm-button-class"
       custom-style="color: {{ confirmButtonColor }}"
 
       open-type="{{ confirmButtonOpenType }}"
@@ -70,44 +70,53 @@
   </van-goods-action>
 
   <view wx:elif="{{ showCancelButton || showConfirmButton }}" class="van-hairline--top van-dialog__footer">
-    <van-button
-      wx:if="{{ showCancelButton }}"
-      size="large"
-      loading="{{ loading.cancel }}"
-      class="van-dialog__button van-hairline--right"
-      custom-class="van-dialog__cancel"
-      custom-style="color: {{ cancelButtonColor }}"
-      bind:click="onCancel"
-    >
-      {{ cancelButtonText }}
-    </van-button>
-    <van-button
-      wx:if="{{ showConfirmButton }}"
-      size="large"
-      class="van-dialog__button"
-      loading="{{ loading.confirm }}"
-      custom-class="van-dialog__confirm"
-      custom-style="color: {{ confirmButtonColor }}"
+    <block wx:if="{{ showCancelButton }}">
+      <slot wx:if="{{ useCancelButtonSlot }}" name="cancel-button" />
 
-      open-type="{{ confirmButtonOpenType }}"
-      lang="{{ lang }}"
-      business-id="{{ businessId }}"
-      session-from="{{ sessionFrom }}"
-      send-message-title="{{ sendMessageTitle }}"
-      send-message-path="{{ sendMessagePath }}"
-      send-message-img="{{ sendMessageImg }}"
-      show-message-card="{{ showMessageCard }}"
-      app-parameter="{{ appParameter }}"
+      <van-button
+        wx:else
+        size="large"
+        loading="{{ loading.cancel }}"
+        class="van-dialog__button van-hairline--right"
+        custom-class="van-dialog__cancel cancle-button-class"
+        custom-style="color: {{ cancelButtonColor }}"
+        bind:click="onCancel"
+      >
+        {{ cancelButtonText }}
+      </van-button>
+    </block>
 
-      bind:click="onConfirm"
-      bindgetuserinfo="onGetUserInfo"
-      bindcontact="onContact"
-      bindgetphonenumber="onGetPhoneNumber"
-      binderror="onError"
-      bindlaunchapp="onLaunchApp"
-      bindopensetting="onOpenSetting"
-    >
-      {{ confirmButtonText }}
-    </van-button>
+    <block wx:if="{{ showConfirmButton }}">
+      <slot wx:if="{{ useConfirmButtonSlot }}" name="confirm-button" />
+
+      <van-button
+        wx:else
+        size="large"
+        class="van-dialog__button"
+        loading="{{ loading.confirm }}"
+        custom-class="van-dialog__confirm confirm-button-class"
+        custom-style="color: {{ confirmButtonColor }}"
+
+        open-type="{{ confirmButtonOpenType }}"
+        lang="{{ lang }}"
+        business-id="{{ businessId }}"
+        session-from="{{ sessionFrom }}"
+        send-message-title="{{ sendMessageTitle }}"
+        send-message-path="{{ sendMessagePath }}"
+        send-message-img="{{ sendMessageImg }}"
+        show-message-card="{{ showMessageCard }}"
+        app-parameter="{{ appParameter }}"
+
+        bind:click="onConfirm"
+        bindgetuserinfo="onGetUserInfo"
+        bindcontact="onContact"
+        bindgetphonenumber="onGetPhoneNumber"
+        binderror="onError"
+        bindlaunchapp="onLaunchApp"
+        bindopensetting="onOpenSetting"
+      >
+        {{ confirmButtonText }}
+      </van-button>
+    </block>
   </view>
 </van-popup>

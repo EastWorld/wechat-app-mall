@@ -61,10 +61,8 @@ var ROOT_ELEMENT = '.van-sticky';
             }
             this.scrollTop = scrollTop || this.scrollTop;
             if (typeof container === 'function') {
-                Promise.all([
-                    (0, utils_1.getRect)(this, ROOT_ELEMENT),
-                    this.getContainerRect(),
-                ]).then(function (_a) {
+                Promise.all([(0, utils_1.getRect)(this, ROOT_ELEMENT), this.getContainerRect()])
+                    .then(function (_a) {
                     var root = _a[0], container = _a[1];
                     if (offsetTop + root.height > container.height + container.top) {
                         _this.setDataAfterDiff({
@@ -82,11 +80,12 @@ var ROOT_ELEMENT = '.van-sticky';
                     else {
                         _this.setDataAfterDiff({ fixed: false, transform: 0 });
                     }
-                });
+                })
+                    .catch(function () { });
                 return;
             }
             (0, utils_1.getRect)(this, ROOT_ELEMENT).then(function (root) {
-                if (!(0, validator_1.isDef)(root)) {
+                if (!(0, validator_1.isDef)(root) || (!root.width && !root.height)) {
                     return;
                 }
                 if (offsetTop >= root.top) {
@@ -118,6 +117,9 @@ var ROOT_ELEMENT = '.van-sticky';
         },
         getContainerRect: function () {
             var nodesRef = this.data.container();
+            if (!nodesRef) {
+                return Promise.reject(new Error('not found container'));
+            }
             return new Promise(function (resolve) { return nodesRef.boundingClientRect(resolve).exec(); });
         },
     },

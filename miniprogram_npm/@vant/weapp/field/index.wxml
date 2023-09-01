@@ -13,12 +13,12 @@
   title-style="margin-right: 12px;"
   custom-style="{{ customStyle }}"
   arrow-direction="{{ arrowDirection }}"
-  custom-class="van-field"
+  custom-class="custom-class van-field"
 >
   <slot name="left-icon" slot="icon" />
-  <view wx:if="{{ label }}" class="label-class {{ utils.bem('field__label', { disabled }) }}" slot="title">
+  <label for="{{ name }}" wx:if="{{ label }}" class="label-class {{ utils.bem('field__label', { disabled }) }}" slot="title">
     {{ label }}
-  </view>
+  </label>
   <slot wx:else name="label" slot="title" />
   <view class="{{ utils.bem('field__body', [type]) }}">
     <view class="{{ utils.bem('field__control', [inputAlign, 'custom']) }}" bindtap="onClickInput">
@@ -47,10 +47,10 @@
       <slot name="button" />
     </view>
   </view>
-  <view wx:if="{{ showWordLimit && maxlength }}" class="van-field__word-limit">
+  <label for="{{ name }}" wx:if="{{ showWordLimit && maxlength }}" class="van-field__word-limit">
     <view class="{{ utils.bem('field__word-num', { full: value.length >= maxlength }) }}">{{ value.length >= maxlength ? maxlength : value.length }}</view>/{{ maxlength }}
-  </view>
-  <view wx:if="{{ errorMessage }}" class="{{ utils.bem('field__error-message', [errorMessageAlign, { disabled, error }]) }}">
+  </label>
+  <label for="{{ name }}"  wx:if="{{ errorMessage }}" class="{{ utils.bem('field__error-message', [errorMessageAlign, { disabled, error }]) }}">
     {{ errorMessage }}
-  </view>
+  </label>
 </van-cell>

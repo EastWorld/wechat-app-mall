@@ -47,6 +47,9 @@ var validator_1 = require("../common/validator");
         }, previewFullImage: {
             type: Boolean,
             value: true,
+        }, videoFit: {
+            type: String,
+            value: 'contain',
         }, imageFit: {
             type: String,
             value: 'scaleToFill',

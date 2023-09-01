@@ -9,6 +9,10 @@ function isImage(name) {
 function rootClass(data) {
   var classes = ['custom-class'];
 
+  if (data.classPrefix !== 'van-icon') {
+    classes.push('van-icon--custom')
+  }
+
   if (data.classPrefix != null) {
     classes.push(data.classPrefix);
   }

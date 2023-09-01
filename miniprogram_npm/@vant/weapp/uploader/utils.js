@@ -41,7 +41,7 @@ function isVideoFile(item) {
 }
 exports.isVideoFile = isVideoFile;
 function formatImage(res) {
-    return res.tempFiles.map(function (item) { return (__assign(__assign({}, (0, utils_1.pickExclude)(item, ['path'])), { type: 'image', url: item.path, thumb: item.path })); });
+    return res.tempFiles.map(function (item) { return (__assign(__assign({}, (0, utils_1.pickExclude)(item, ['path'])), { type: 'image', url: item.tempFilePath || item.path, thumb: item.tempFilePath || item.path })); });
 }
 function formatVideo(res) {
     return [
@@ -59,13 +59,27 @@ function chooseFile(_a) {
     return new Promise(function (resolve, reject) {
         switch (accept) {
             case 'image':
-                wx.chooseImage({
-                    count: multiple ? Math.min(maxCount, 9) : 1,
-                    sourceType: capture,
-                    sizeType: sizeType,
-                    success: function (res) { return resolve(formatImage(res)); },
-                    fail: reject,
-                });
+                if (utils_1.isPC) {
+                    wx.chooseImage({
+                        count: multiple ? Math.min(maxCount, 9) : 1,
+                        sourceType: capture,
+                        sizeType: sizeType,
+                        success: function (res) { return resolve(formatImage(res)); },
+                        fail: reject,
+                    });
+                }
+                else {
+                    wx.chooseMedia({
+                        count: multiple ? Math.min(maxCount, 9) : 1,
+                        mediaType: ['image'],
+                        sourceType: capture,
+                        maxDuration: maxDuration,
+                        sizeType: sizeType,
+                        camera: camera,
+                        success: function (res) { return resolve(formatImage(res)); },
+                        fail: reject,
+                    });
+                }
                 break;
             case 'media':
                 wx.chooseMedia({

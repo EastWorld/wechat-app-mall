@@ -195,8 +195,12 @@ var DRAG_STATUS = {
             return '0%';
         },
         format: function (value) {
-            var _a = this.data, max = _a.max, min = _a.min, step = _a.step;
-            return Math.round(Math.max(min, Math.min(value, max)) / step) * step;
+            var min = +this.data.min;
+            var max = +this.data.max;
+            var step = +this.data.step;
+            value = (0, utils_1.clamp)(value, min, max);
+            var diff = Math.round((value - min) / step) * step;
+            return (0, utils_1.addNumber)(min, diff);
         },
     },
 });

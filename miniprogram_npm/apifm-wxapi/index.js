@@ -92,12 +92,10 @@ module.exports =
 "use strict";
 
 
-var _module$exports;
-
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
-var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
+// var API_BASE_URL = 'https://api.it120.cc';
+var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 var merchantId = '0';
 
@@ -148,7 +146,7 @@ var request = function request(url, needSubDomain, method, data) {
 //   );
 // }
 
-module.exports = (_module$exports = {
+module.exports = {
   init2: function init2(a, b) {
     API_BASE_URL = a;
     subDomain = b;
@@ -183,6 +181,9 @@ module.exports = (_module$exports = {
   },
   gpsDistance: function gpsDistance(data) {
     return request('/common/map/qq/distance', false, 'post', data);
+  },
+  commonIP: function commonIP(ip) {
+    return request('/common/ip', false, 'get', { ip: ip });
   },
   forexRate: function forexRate(fromCode, toCode) {
     return request('/forex/rate', true, 'get', { fromCode: fromCode, toCode: toCode });
@@ -234,6 +235,17 @@ module.exports = (_module$exports = {
       encryptedData: encryptedData,
       iv: iv
     });
+  },
+  scoreDeductionRules: function scoreDeductionRules() {
+    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+    return request('/score/deduction/rules', true, 'get', { type: type });
+  },
+  scoreTaskList: function scoreTaskList(token) {
+    return request('/score/taskList', true, 'get', { token: token });
+  },
+  scoreTaskSuccess: function scoreTaskSuccess(token, type) {
+    return request('/score/taskSuccess', true, 'post', { token: token, type: type });
   },
   kanjiaSet: function kanjiaSet(goodsId) {
     return request('/shop/goods/kanjia/set/v2', true, 'get', { goodsId: goodsId });
@@ -312,6 +324,9 @@ module.exports = (_module$exports = {
   wxpayQrcode: function wxpayQrcode(data) {
     return request('/pay/wx/qrcode', true, 'post', data);
   },
+  wxpayCode: function wxpayCode(data) {
+    return request('/pay/wx/paymentCode', true, 'post', data);
+  },
   wxpayApp: function wxpayApp(data) {
     return request('/pay/wx/app', true, 'post', data);
   },
@@ -366,10 +381,28 @@ module.exports = (_module$exports = {
   alipayAPP: function alipayAPP(data) {
     return request('/pay/alipay/gate/app', true, 'post', data);
   },
+  alipayQrcode: function alipayQrcode(data) {
+    return request('/pay/alipay/gate/qrcode', true, 'post', data);
+  },
+  alipayQrcode2: function alipayQrcode2(data) {
+    return request('/pay/alipay/gate/paymentCode', true, 'post', data);
+  },
+  kasipayH5: function kasipayH5(data) {
+    return request('/pay/kasipay/h5', true, 'post', data);
+  },
+  hmpayJsapi: function hmpayJsapi(data) {
+    return request('/pay/sandpay/hmpay/jsapi', true, 'post', data);
+  },
   login_wx: function login_wx(code) {
     return request('/user/wxapp/login', true, 'post', {
       code: code,
       type: 2
+    });
+  },
+  loginWxV2: function loginWxV2(code, appid) {
+    return request('/user/wxapp/login/v2', true, 'post', {
+      code: code,
+      appid: appid
     });
   },
   login_tt: function login_tt(code) {
@@ -393,6 +426,9 @@ module.exports = (_module$exports = {
   loginWxaMobileV2: function loginWxaMobileV2(data) {
     return request('/user/wxapp/login/mobile', true, 'post', data);
   },
+  loginWxaMobileV3: function loginWxaMobileV3(data) {
+    return request('/user/wxapp/login/mobile/v2', true, 'post', data);
+  },
   fetchWxaMobile: function fetchWxaMobile(code) {
     return request('/user/wxapp/getMobile', true, 'get', { code: code });
   },
@@ -413,6 +449,9 @@ module.exports = (_module$exports = {
     return request('/user/m/login', true, 'post', {
       mobile: mobile, pwd: pwd, deviceId: deviceId, deviceName: deviceName
     });
+  },
+  loginMobileV2: function loginMobileV2(data) {
+    return request('/user/m/login', true, 'post', data);
   },
   loginMobileSmsCode: function loginMobileSmsCode(data) {
     return request('/user/m/loginMobile', true, 'post', data);
@@ -460,6 +499,9 @@ module.exports = (_module$exports = {
   register_mobile: function register_mobile(data) {
     return request('/user/m/register', true, 'post', data);
   },
+  bannerTypes: function bannerTypes() {
+    return request('/banner/types', true, 'get');
+  },
   banners: function banners(data) {
     return request('/banner/list', true, 'get', data);
   },
@@ -501,6 +543,9 @@ module.exports = (_module$exports = {
       id: id, token: token
     });
   },
+  goodsDetailV2: function goodsDetailV2(data) {
+    return request('/shop/goods/detail', true, 'get', data);
+  },
   goodsLimitations: function goodsLimitations(goodsId) {
     var priceId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
@@ -518,6 +563,18 @@ module.exports = (_module$exports = {
   goodsAddition: function goodsAddition(goodsId) {
     return request('/shop/goods/goodsAddition', true, 'get', {
       goodsId: goodsId
+    });
+  },
+  goodsVideoEpisodesList: function goodsVideoEpisodesList(goodsId) {
+    var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/goodsVideoEpisodes/list', true, 'get', {
+      goodsId: goodsId, token: token
+    });
+  },
+  goodsVideoEpisodesBuy: function goodsVideoEpisodesBuy(goodsId, number, token) {
+    return request('/goodsVideoEpisodes/buy', true, 'post', {
+      goodsId: goodsId, number: number, token: token
     });
   },
   goodsStatistics: function goodsStatistics(data) {
@@ -928,6 +985,9 @@ module.exports = (_module$exports = {
   withDrawLogs: function withDrawLogs(data) {
     return request('/user/withDraw/list', true, 'post', data);
   },
+  withDrawSetting: function withDrawSetting() {
+    return request('/user/withDraw/setting', true, 'get');
+  },
   province: function province() {
     return request('/common/region/v2/province', false, 'get');
   },
@@ -949,6 +1009,9 @@ module.exports = (_module$exports = {
     return request('/common/region/v2/info', false, 'get', {
       id: id
     });
+  },
+  regionSearch: function regionSearch(data) {
+    return request('/common/region/v2/search', false, 'post', data);
   },
   cashLogs: function cashLogs(data) {
     return request('/user/cashLog', true, 'post', data);
@@ -1031,7 +1094,6 @@ module.exports = (_module$exports = {
     return request('/saleDistribution/goods', true, 'post', data);
   },
   fxTeamReport: function fxTeamReport(data) {
-    // SDK文档到这里
     return request('/saleDistribution/team/report', true, 'post', data);
   },
   fxCities: function fxCities(token) {
@@ -1095,6 +1157,12 @@ module.exports = (_module$exports = {
 
     return request('/dfs/upload/list', true, 'post', { path: path });
   },
+  uploadFileListV2: function uploadFileListV2(data) {
+    return request('/dfs/upload/list/v2', true, 'post', data);
+  },
+  galleryList: function galleryList(data) {
+    return request('/dfs/gallery', true, 'post', data);
+  },
   refundApply: function refundApply(data) {
     return request('/order/refundApply/apply', true, 'post', data);
   },
@@ -1150,6 +1218,12 @@ module.exports = (_module$exports = {
   },
   cmsArticleUseless: function cmsArticleUseless(data) {
     return request('/cms/news/useful', true, 'post', data);
+  },
+  cmsArticleModifyExtNumber: function cmsArticleModifyExtNumber(data) {
+    return request('/cms/news/modifyExtNumber', true, 'post', data);
+  },
+  newsOwnerUserViewStatistics: function newsOwnerUserViewStatistics(data) {
+    return request('/newsOwnerUserViewStatistics/list', true, 'post', data);
   },
   cmsPage: function cmsPage(key) {
     return request('/cms/page/info/v2', true, 'get', { key: key });
@@ -1250,6 +1324,12 @@ module.exports = (_module$exports = {
   commentList: function commentList(data) {
     return request('/comment/list', true, 'post', data);
   },
+  commentListV2: function commentListV2(data) {
+    return request('/comment/list/v2', true, 'post', data);
+  },
+  delComment: function delComment(data) {
+    return request('/comment/del', true, 'post', data);
+  },
   modifyUserInfo: function modifyUserInfo(data) {
     return request('/user/modify', true, 'post', data);
   },
@@ -1258,6 +1338,9 @@ module.exports = (_module$exports = {
   },
   modifyUserPassword: function modifyUserPassword(token, pwdOld, pwdNew) {
     return request('/user/modify/password', true, 'post', { token: token, pwdOld: pwdOld, pwdNew: pwdNew });
+  },
+  modifyUserPasswordByUserName: function modifyUserPasswordByUserName(data) {
+    return request('/user/username/modifyPassword', true, 'post', data);
   },
   uniqueId: function uniqueId() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -1315,6 +1398,12 @@ module.exports = (_module$exports = {
     var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
     return request('/common/short-url/shorten', false, 'post', { url: url });
+  },
+  shortUrlV2: function shortUrlV2(content) {
+    return request('/common/short-url/shorten/v2', false, 'post', { content: content });
+  },
+  shortUrlExpand: function shortUrlExpand(suffix) {
+    return request('/common/short-url/expand', false, 'post', { suffix: suffix });
   },
   smsValidateCode: function smsValidateCode(mobile) {
     var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
@@ -1391,6 +1480,12 @@ module.exports = (_module$exports = {
   loginout: function loginout(token) {
     return request('/user/loginout', true, 'get', { token: token });
   },
+  userDelete: function userDelete(token) {
+    return request('/user/delete', true, 'post', { token: token });
+  },
+  dynamicUserCode: function dynamicUserCode(token) {
+    return request('/user/dynamicUserCode', true, 'get', { token: token });
+  },
   userLevelList: function userLevelList(data) {
     return request('/user/level/list', true, 'post', data);
   },
@@ -1415,6 +1510,7 @@ module.exports = (_module$exports = {
     return request('/user/level/buyLogs', true, 'post', data);
   },
   messageList: function messageList(data) {
+    // SDK文档到这里
     return request('/user/message/list', true, 'post', data);
   },
   messageRead: function messageRead(token, id) {
@@ -1429,15 +1525,15 @@ module.exports = (_module$exports = {
       type: 2
     });
   },
+  bindOpenidV2: function bindOpenidV2(token, code, appid) {
+    return request('/user/wxapp/bindOpenid/v2', true, 'post', {
+      token: token, code: code, appid: appid
+    });
+  },
   encryptedData: function encryptedData(code, _encryptedData, iv) {
     return request('/user/wxapp/decode/encryptedData', true, 'post', {
       code: code, encryptedData: _encryptedData, iv: iv
     });
-  },
-  scoreDeductionRules: function scoreDeductionRules() {
-    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-    return request('/score/deduction/rules', true, 'get', { type: type });
   },
   voteItems: function voteItems(data) {
     return request('/vote/items', true, 'post', data);
@@ -1452,6 +1548,9 @@ module.exports = (_module$exports = {
       remark: remark
     });
   },
+  voteCategory: function voteCategory(data) {
+    return request('/vote/vote/category', true, 'post', data);
+  },
   myVote: function myVote(token, voteId) {
     return request('/vote/vote/info', true, 'get', {
       token: token, voteId: voteId
@@ -1464,6 +1563,12 @@ module.exports = (_module$exports = {
   },
   voteLogs: function voteLogs(data) {
     return request('/vote/vote/list', true, 'post', data);
+  },
+  voteGroups: function voteGroups(data) {
+    return request('/vote/vote/groups', true, 'post', data);
+  },
+  voteGroupsDetail: function voteGroupsDetail(data) {
+    return request('/vote/vote/groups/detail', true, 'get', data);
   },
   myInviteVoteJoinList: function myInviteVoteJoinList(data) {
     return request('/vote/myInviteLoinList', true, 'post', data);
@@ -1495,6 +1600,11 @@ module.exports = (_module$exports = {
       token: token, joinId: joinId, extJsonStr: extJsonStr
     });
   },
+  yuyueJoinDelete: function yuyueJoinDelete(token, joinId) {
+    return request('/yuyue/delJoin', true, 'post', {
+      token: token, id: joinId
+    });
+  },
   yuyueMyJoinInfo: function yuyueMyJoinInfo(token, joinId) {
     return request('/yuyue/join/info', true, 'post', {
       token: token, joinId: joinId
@@ -1524,7 +1634,7 @@ module.exports = (_module$exports = {
   bindEmail: function bindEmail(token, email, code) {
     var pwd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
 
-    return request('/user/email/bindUsername', true, 'post', {
+    return request('/user/email/bindEmail', true, 'post', {
       token: token, email: email, code: code, pwd: pwd
     });
   },
@@ -1548,6 +1658,9 @@ module.exports = (_module$exports = {
   },
   cmsArticleFavList: function cmsArticleFavList(data) {
     return request('/cms/news/fav/list', true, 'post', data);
+  },
+  cmsArticleFavListV2: function cmsArticleFavListV2(data) {
+    return request('/cms/news/fav/list/v2', true, 'post', data);
   },
   cmsArticleFavDeleteById: function cmsArticleFavDeleteById(token, id) {
     return request('/cms/news/fav/delete', true, 'post', { token: token, id: id });
@@ -1573,6 +1686,9 @@ module.exports = (_module$exports = {
       addition: addition && addition.length > 0 ? JSON.stringify(addition) : '',
       type: type
     });
+  },
+  shippingCarInfoAddItemV2: function shippingCarInfoAddItemV2(data) {
+    return request('/shopping-cart/add', true, 'post', data);
   },
   shippingCarInfoModifyNumber: function shippingCarInfoModifyNumber(token, key, number) {
     var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
@@ -1706,6 +1822,15 @@ module.exports = (_module$exports = {
   wxOpenAuthorization: function wxOpenAuthorization(data) {
     return request('/user/wxsns/authorization', true, 'post', data);
   },
+  wxOpenRegister: function wxOpenRegister(data) {
+    return request('/user/wxsns/register', true, 'post', data);
+  },
+  wxOpenBindOpenid: function wxOpenBindOpenid(data) {
+    return request('/user/wxsns/bindOpenid/v2', true, 'post', data);
+  },
+  wxOpenLogin: function wxOpenLogin(data) {
+    return request('/user/wxsns/login', true, 'post', data);
+  },
   userAttentioncheck: function userAttentioncheck(token, uid) {
     return request('/user/attention/check', true, 'get', {
       token: token, uid: uid
@@ -1748,6 +1873,12 @@ module.exports = (_module$exports = {
   },
   cyTablePayOrder: function cyTablePayOrder(data) {
     return request('/cyTable/pay-order', true, 'post', data);
+  },
+  cyTableInfo: function cyTableInfo(id) {
+    return request('/cyTable/info', true, 'get', { id: id });
+  },
+  cyTableList: function cyTableList(data) {
+    return request('/cyTable/list', true, 'post', data);
   },
   goodsTimesSchedule: function goodsTimesSchedule() {
     var goodsId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -1835,6 +1966,9 @@ module.exports = (_module$exports = {
   },
   goodsVisitLogDelete: function goodsVisitLogDelete(data) {
     return request('/goods/visitLog/delete', true, 'post', data);
+  },
+  goodsVisitLogClear: function goodsVisitLogClear(token) {
+    return request('/goods/visitLog/clear', true, 'post', { token: token });
   },
   channelDataPush: function channelDataPush(key, content) {
     return request('/channelData/push', true, 'post', { key: key, content: content });
@@ -2031,7 +2165,7 @@ module.exports = (_module$exports = {
   },
   // 会员卡
   cardList: function cardList(data) {
-    return request('/card/list', true, 'post', data);
+    return request('/card/list', true, 'get', data);
   },
   cardInfo: function cardInfo(id) {
     return request('/card/info', true, 'get', { id: id });
@@ -2044,6 +2178,9 @@ module.exports = (_module$exports = {
   },
   cardMyLogs: function cardMyLogs(data) {
     return request('/card/logs', true, 'post', data);
+  },
+  cardExchangeFromPwd: function cardExchangeFromPwd(data) {
+    return request('/card/exchange', true, 'post', data);
   },
   // 收藏卡片
   collectCardHis: function collectCardHis(data) {
@@ -2060,9 +2197,6 @@ module.exports = (_module$exports = {
   },
   collectCardUnBind: function collectCardUnBind(token, id, smsCode) {
     return request('/collectCard/bind', true, 'post', { token: token, id: id, smsCode: smsCode });
-  },
-  dynamicUserCode: (token) => {
-    return request('/user/dynamicUserCode', true, 'get', { token })
   },
   // 其他
   bengenSaleTongjiList: function bengenSaleTongjiList(data) {
@@ -2143,74 +2277,276 @@ module.exports = (_module$exports = {
   // 朋友圈
   momentsPublish: function momentsPublish(data) {
     return request('/user/moments/publish', true, 'post', data);
+  },
+  userMomentsList: function userMomentsList(data) {
+    return request('/user/moments/list', true, 'get', data);
+  },
+  momentsDetail: function momentsDetail(token, momentsId) {
+    return request('/user/moments/detail', true, 'get', { token: token, momentsId: momentsId });
+  },
+  momentsDelete: function momentsDelete(token, momentsId) {
+    return request('/user/moments/del', true, 'post', { token: token, momentsId: momentsId });
+  },
+  momentsDeleteComment: function momentsDeleteComment(token, commentId) {
+    return request('/user/moments/delCommon', true, 'post', { token: token, commentId: commentId });
+  },
+  momentsLike: function momentsLike(token, momentsId) {
+    return request('/user/moments/like', true, 'post', { token: token, momentsId: momentsId });
+  },
+  momentsComment: function momentsComment(token, momentsId) {
+    var uid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+    var content = arguments[3];
+
+    return request('/user/moments/comment', true, 'post', { token: token, momentsId: momentsId, uid: uid, content: content });
+  },
+  momentsCommentLogs: function momentsCommentLogs(data) {
+    return request('/user/moments/logs', true, 'get', data);
+  },
+  momentsLogsRead: function momentsLogsRead(token, logsIds) {
+    return request('/user/moments/logRead', true, 'post', { token: token, logsIds: logsIds });
+  },
+  bottleMsgPublish: function bottleMsgPublish(data) {
+    return request('/bottleMsg/publish', true, 'post', data);
+  },
+  bottleMsgSalvage: function bottleMsgSalvage(token) {
+    return request('/bottleMsg/salvage', true, 'get', { token: token });
+  },
+  userInvoiceInfo: function userInvoiceInfo(token) {
+    return request('/userInvoice/info', true, 'get', { token: token });
+  },
+  userInvoiceUnbind: function userInvoiceUnbind(token) {
+    return request('/userInvoice/unbind', true, 'post', { token: token });
+  },
+  userInvoiceBind: function userInvoiceBind(data) {
+    return request('/userInvoice/bind', true, 'post', data);
+  },
+  goodsLendsList: function goodsLendsList(data) {
+    return request('/goodsLends/list', true, 'post', data);
+  },
+  goodsLendsLogs: function goodsLendsLogs(data) {
+    return request('/goodsLends/logs', true, 'post', data);
+  },
+  // 支付宝小程序
+  aliappUserRegister: function aliappUserRegister(data) {
+    return request('/user/aliapp/register', true, 'post', data);
+  },
+  aliappUserLogin: function aliappUserLogin(data) {
+    return request('/user/aliapp/login', true, 'post', data);
+  },
+  aliappUserAuthorize: function aliappUserAuthorize(data) {
+    return request('/user/aliapp/authorize', true, 'post', data);
+  },
+  aliappWebUserAuthorize: function aliappWebUserAuthorize(data) {
+    return request('/user/aliappweb/authorize', true, 'post', data);
+  },
+  aliappQrcode: function aliappQrcode(content) {
+    return request('/user/aliapp/qrcode', true, 'post', { content: content });
+  },
+  aliappBindMobile: function aliappBindMobile(data) {
+    return request('/user/aliapp/bindMobile', true, 'post', data);
+  },
+  aliappGetMobile: function aliappGetMobile(encryptedData) {
+    return request('/user/aliapp/getMobile', true, 'post', { encryptedData: encryptedData });
+  },
+  tempDataSet: function tempDataSet(key, content) {
+    return request('/tempData/set', true, 'post', { key: key, content: content });
+  },
+  tempDataGet: function tempDataGet(key) {
+    return request('/tempData/get', true, 'get', { key: key });
+  },
+  commonDatetime: function commonDatetime() {
+    return request('/common/datetime', true, 'get');
+  },
+  commonDays: function commonDays() {
+    var startDay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var days = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/common/days', false, 'get', { startDay: startDay, days: days });
+  },
+  commonDiffMillis: function commonDiffMillis() {
+    var d1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var d2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/common/diffMillis', false, 'get', { d1: d1, d2: d2 });
+  },
+  // 企业应用 组织/成员/网盘
+  organizePrices: function organizePrices() {
+    return request('/organizeInfo/prices', true, 'get');
+  },
+  organizeCreate: function organizeCreate(data) {
+    return request('/organizeInfo/create', true, 'post', data);
+  },
+  organizeUpgrade: function organizeUpgrade(data) {
+    return request('/organizeInfo/upgrade', true, 'post', data);
+  },
+  organizeModify: function organizeModify(data) {
+    return request('/organizeInfo/modify', true, 'post', data);
+  },
+  organizeJoinKey: function organizeJoinKey(data) {
+    return request('/organizeInfo/joinKey', true, 'get', data);
+  },
+  organizeJoin: function organizeJoin(data) {
+    return request('/organizeInfo/join', true, 'post', data);
+  },
+  organizeGrantAdmin: function organizeGrantAdmin(data) {
+    return request('/organizeInfo/grantAdmin', true, 'post', data);
+  },
+  organizeKick: function organizeKick(data) {
+    return request('/organizeInfo/kick', true, 'post', data);
+  },
+  organizeKickAllMembers: function organizeKickAllMembers(data) {
+    return request('/organizeInfo/kickAllMembers', true, 'post', data);
+  },
+  organizeKickSelf: function organizeKickSelf(data) {
+    return request('/organizeInfo/kickSelf', true, 'post', data);
+  },
+  organizeNick: function organizeNick(data) {
+    return request('/organizeInfo/nick', true, 'post', data);
+  },
+  organizeDelete: function organizeDelete(data) {
+    return request('/organizeInfo/deleteOrganize', true, 'post', data);
+  },
+  organizeMyOrganizeInfo: function organizeMyOrganizeInfo(data) {
+    return request('/organizeInfo/myOrganizeInfo', true, 'post', data);
+  },
+  organizeDetail: function organizeDetail(data) {
+    return request('/organizeInfo/organizeDetail', true, 'get', data);
+  },
+  organizeMembers: function organizeMembers(data) {
+    return request('/organizeInfo/members', true, 'post', data);
+  },
+  newsExtFieldList: function newsExtFieldList(token, organizeId, newsId) {
+    return request('/newsExtField/extFields', true, 'get', { token: token, organizeId: organizeId, newsId: newsId });
+  },
+  newsExtFieldDynamic: function newsExtFieldDynamic(token, newsId) {
+    return request('/newsExtField/dynamic', true, 'get', { token: token, newsId: newsId });
+  },
+  newsExtFieldSet: function newsExtFieldSet(data) {
+    return request('/newsExtField/setField', true, 'post', data);
+  },
+  userAttendantList: function userAttendantList(data) {
+    return request('/user/attendant/list', true, 'post', data);
+  },
+  userAttendantDetail: function userAttendantDetail(id) {
+    var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/user/attendant/detail', true, 'get', { id: id, token: token });
+  },
+  userAttendantGoods: function userAttendantGoods(id) {
+    return request('/user/attendant/goods', true, 'get', { id: id });
+  },
+  userAttendantGoodsSet: function userAttendantGoodsSet(token, ids) {
+    return request('/user/attendant/goodsSet', true, 'post', { token: token, ids: ids });
+  },
+  userAttendantBindShop: function userAttendantBindShop(token, shopId) {
+    return request('/user/attendant/bindShop', true, 'post', { shopId: shopId, token: token });
+  },
+  userAttendantUnBindShop: function userAttendantUnBindShop(token) {
+    return request('/user/attendant/unbindShop', true, 'post', { token: token });
+  },
+  userAttendantChangeStatus: function userAttendantChangeStatus(data) {
+    return request('/user/attendant/changeStatus', true, 'post', data);
+  },
+  userAttendantDaysTimesAttendant: function userAttendantDaysTimesAttendant(goodsId, day) {
+    return request('/user/attendant/daysTimesAttendant', true, 'get', { goodsId: goodsId, day: day });
+  },
+  userAttendantDaysTimesAttendantSetQuery: function userAttendantDaysTimesAttendantSetQuery(token, day) {
+    return request('/user/attendant/daysTimesAttendant/set/query', true, 'get', { token: token, day: day });
+  },
+  userAttendantDaysTimesAttendantSet: function userAttendantDaysTimesAttendantSet(data) {
+    return request('/user/attendant/daysTimesAttendant/set', true, 'post', data);
+  },
+  userAttendantListReputation: function userAttendantListReputation(data) {
+    return request('/user/attendant/listReputation', true, 'post', data);
+  },
+  userAttendantShowPics: function userAttendantShowPics(id) {
+    return request('/user/attendant/showPics', true, 'get', { id: id });
+  },
+  userAttendantShowPicsAdd: function userAttendantShowPicsAdd(token, url) {
+    return request('/user/attendant/showPicsAdd', true, 'post', { token: token, url: url });
+  },
+  userAttendantShowPicsDel: function userAttendantShowPicsDel(token, id) {
+    return request('/user/attendant/showPicsDel', true, 'post', { token: token, id: id });
+  },
+  userAttendantUpdate: function userAttendantUpdate(data) {
+    return request('/user/attendant/update', true, 'post', data);
+  },
+  userAttendantOrderServing: function userAttendantOrderServing(token, orderId) {
+    return request('/order/serving', true, 'post', { token: token, orderId: orderId });
+  },
+  userAttendantOrderRejectOrder: function userAttendantOrderRejectOrder(token, orderId) {
+    return request('/order/rejectOrder', true, 'post', { token: token, orderId: orderId });
+  },
+  userAttendantOrderSuccess: function userAttendantOrderSuccess(token, orderId) {
+    return request('/order/success', true, 'post', { token: token, orderId: orderId });
+  },
+  shopCategory: function shopCategory() {
+    return request('/shopCategory/all', true, 'get');
+  },
+  shopCategoryDetail: function shopCategoryDetail(id) {
+    return request('/shopCategory/info', true, 'get', { id: id });
+  },
+  yudingStatistics: function yudingStatistics(day) {
+    return request('/shop/goods/yudingStatistics', true, 'get', { day: day });
+  },
+  contactList: function contactList() {
+    return request('/contact/list', true, 'get');
+  },
+  distributedLock: function distributedLock(key, seconds) {
+    return request('/distributedLock/lock', true, 'get', { key: key, seconds: seconds });
+  },
+  distributedLockRelease: function distributedLockRelease(key) {
+    return request('/distributedLock/lock', true, 'get', { key: key });
+  },
+  communitySetting: function communitySetting() {
+    return request('/community/setting', true, 'get');
+  },
+  communityLeaderApply: function communityLeaderApply(data) {
+    return request('/communityLeader/apply', true, 'post', data);
+  },
+  communityLeaderApplyInfo: function communityLeaderApplyInfo(token) {
+    return request('/communityLeader/apply/info', true, 'get', { token: token });
+  },
+  communityLeaderBuy: function communityLeaderBuy(token) {
+    return request('/communityLeader/buy', true, 'post', { token: token });
+  },
+  communityOrderFahuo: function communityOrderFahuo(data) {
+    return request('/communityOrder/fahuo', true, 'post', data);
+  },
+  wxmpOpenid: function wxmpOpenid(code) {
+    return request('/user/wxmp/openid', true, 'get', { code: code });
+  },
+  listingSet: function listingSet() {
+    return request('/listingSet/info', true, 'get');
+  },
+  listingMyListing: function listingMyListing(token) {
+    return request('/listingInfo/myListing', true, 'get', { token: token });
+  },
+  listingSave: function listingSave(data) {
+    return request('/listingInfo/save', true, 'post', data);
+  },
+  listingDetail: function listingDetail(id) {
+    return request('/listingInfo/detail', true, 'get', { id: id });
+  },
+  listingCancel: function listingCancel(token, id) {
+    return request('/listingInfo/cancel', true, 'post', { token: token, id: id });
+  },
+  listingSuccess: function listingSuccess(token, id) {
+    return request('/listingInfo/success', true, 'post', { token: token, id: id });
+  },
+  listingDelete: function listingDelete(token, id) {
+    return request('/listingInfo/delete', true, 'post', { token: token, id: id });
+  },
+  listingAddGoods: function listingAddGoods(data) {
+    return request('/listingInfo/addGoods', true, 'post', data);
+  },
+  listingRemoveGoods: function listingRemoveGoods(data) {
+    return request('/listingInfo/removeGoods', true, 'post', data);
+  },
+  listingJoinList: function listingJoinList(data) {
+    return request('/listingInfo/joinList', true, 'post', data);
   }
-}, _module$exports['momentsList'] = function momentsList(data) {
-  return request('/user/moments/list', true, 'get', data);
-}, _module$exports.momentsDetail = function momentsDetail(token, momentsId) {
-  return request('/user/moments/detail', true, 'get', { token: token, momentsId: momentsId });
-}, _module$exports.momentsDelete = function momentsDelete(token, momentsId) {
-  return request('/user/moments/del', true, 'post', { token: token, momentsId: momentsId });
-}, _module$exports.momentsDeleteComment = function momentsDeleteComment(token, commentId) {
-  return request('/user/moments/delCommon', true, 'post', { token: token, commentId: commentId });
-}, _module$exports.momentsLike = function momentsLike(token, momentsId) {
-  return request('/user/moments/like', true, 'post', { token: token, momentsId: momentsId });
-}, _module$exports.momentsComment = function momentsComment(token, momentsId) {
-  var uid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var content = arguments[3];
-
-  return request('/user/moments/comment', true, 'post', { token: token, momentsId: momentsId, uid: uid, content: content });
-}, _module$exports.momentsCommentLogs = function momentsCommentLogs(data) {
-  return request('/user/moments/logs', true, 'get', data);
-}, _module$exports.momentsLogsRead = function momentsLogsRead(token, logsIds) {
-  return request('/user/moments/logRead', true, 'post', { token: token, logsIds: logsIds });
-}, _module$exports.bottleMsgPublish = function bottleMsgPublish(data) {
-  return request('/bottleMsg/publish', true, 'post', data);
-}, _module$exports.bottleMsgSalvage = function bottleMsgSalvage(token) {
-  return request('/bottleMsg/salvage', true, 'get', { token: token });
-}, _module$exports.userInvoiceInfo = function userInvoiceInfo(token) {
-  return request('/userInvoice/info', true, 'get', { token: token });
-}, _module$exports.userInvoiceUnbind = function userInvoiceUnbind(token) {
-  return request('/userInvoice/unbind', true, 'post', { token: token });
-}, _module$exports.userInvoiceBind = function userInvoiceBind(data) {
-  return request('/userInvoice/bind', true, 'post', data);
-}, _module$exports.goodsLendsList = function goodsLendsList(data) {
-  return request('/goodsLends/list', true, 'post', data);
-}, _module$exports.goodsLendsLogs = function goodsLendsLogs(data) {
-  return request('/goodsLends/logs', true, 'post', data);
-}, _module$exports.aliappUserRegister = function aliappUserRegister(data) {
-  return request('/user/aliapp/register', true, 'post', data);
-}, _module$exports.aliappUserLogin = function aliappUserLogin(data) {
-  return request('/user/aliapp/login', true, 'post', data);
-}, _module$exports.aliappUserAuthorize = function aliappUserAuthorize(data) {
-  return request('/user/aliapp/authorize', true, 'post', data);
-}, _module$exports.aliappWebUserAuthorize = function aliappWebUserAuthorize(data) {
-  return request('/user/aliappweb/authorize', true, 'post', data);
-}, _module$exports.aliappQrcode = function aliappQrcode(content) {
-  return request('/user/aliapp/qrcode', true, 'post', { content: content });
-}, _module$exports.tempDataSet = function tempDataSet(key, content) {
-  return request('/tempData/set', true, 'post', { key: key, content: content });
-}, _module$exports.tempDataGet = function tempDataGet(key) {
-  return request('/tempData/get', true, 'get', { key: key });
-}, _module$exports.commonDatetime = function commonDatetime() {
-  return request('/common/datetime', true, 'get');
-}, _module$exports.commonDays = function commonDays() {
-  var startDay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var days = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-  return request('/common/days', false, 'get', { startDay: startDay, days: days });
-}, _module$exports.organizeInfoCreate = function organizeInfoCreate(token, name) {
-  return request('/organizeInfo/create', true, 'post', { token: token, name: name });
-}, _module$exports.userAttendantList = function userAttendantList(data) {
-  return request('/user/attendant/list', true, 'post', data);
-}, _module$exports.userAttendantDetail = function userAttendantDetail(id) {
-  return request('/user/attendant/detail', true, 'get', { id: id });
-}, _module$exports.userAttendantGoods = function userAttendantGoods(id) {
-  return request('/user/attendant/goods', true, 'get', { id: id });
-}, _module$exports.shopCategory = function shopCategory() {
-  return request('/shopCategory/all', true, 'get');
-}, _module$exports.shopCategoryDetail = function shopCategoryDetail(id) {
-  return request('/shopCategory/info', true, 'get', { id: id });
-}, _module$exports);
+};
 
 /***/ })
 /******/ ]);

@@ -1,0 +1,4 @@
+<van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无可预定日期" />
+<van-cell-group>
+  <van-cell wx:for="{{ list }}" wx:key="id" title="{{ item.name }}" border="{{ true }}" value="预约 ￥{{ item.price }}" is-link data-idx="{{ index }}" bind:click="submit" />
+</van-cell-group>

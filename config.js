@@ -1,6 +1,6 @@
 module.exports = {
-  version: '14.11.0',
-  note: 'vant，apifm-sdk升级到最新版', // 这个为版本描述，无需修改
+  version: '14.12.0',
+  note: '按天定价、时段定价页面示例', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

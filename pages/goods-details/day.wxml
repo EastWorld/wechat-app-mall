@@ -1,0 +1,2 @@
+<van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无可预定日期" />
+<van-calendar wx:else type="multiple" poppable="{{ false }}" max-date="{{ maxDate }}" formatter="{{ formatter }}" bind:select="onSelect" bind:confirm="onConfirm" />

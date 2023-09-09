@@ -2545,7 +2545,16 @@ module.exports = {
   },
   listingJoinList: function listingJoinList(data) {
     return request('/listingInfo/joinList', true, 'post', data);
-  }
+  },
+  shopIotDevices: data => {
+    return request('/shopIot/devices', true, 'get', data)
+  },
+  shopIotCmds: data => {
+    return request('/shopIot/cmds', true, 'get', data)
+  },
+  shopIotExecute: data => {
+    return request('/shopIot/execute', true, 'post', data)
+  },
 };
 
 /***/ })

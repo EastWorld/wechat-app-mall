@@ -9,6 +9,34 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=2311341",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=2311223",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-list/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/order-details/index",
+          "query": "id=2311223",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/goods-details/times02",
           "query": "goodsId=1546468&day=2023-09-09",
           "launchMode": "default",

@@ -41,8 +41,23 @@ Page({
             }
           })
         }
+        let iotControl = false
+        res.data.goods.forEach(ele => {
+          if (ele.iotControl) {
+            iotControl = true
+          }
+        })
+        if (iotControl) {
+          // 读取IoT设备列表
+          that._shopIotDevices()
+        }
+        let orderStores = null
+        if (res.data.orderStores) {
+          orderStores = res.data.orderStores.filter(ele => ele.type == 2)
+        }
         that.setData({
-          orderDetail: res.data
+          orderDetail: res.data,
+          orderStores
         });
       })
     },
@@ -161,5 +176,60 @@ Page({
       this.setData({
         hxNumberQrcode: res.data
       })
+    },
+    async _shopIotDevices() {
+      // https://www.yuque.com/apifm/nu0f75/ibg4icu15di25hfc
+      const res = await WXAPI.shopIotDevices({
+        token: wx.getStorageSync('token'),
+        orderId: this.data.orderId
+      })
+      if (res.code == 0) {
+        this.setData({
+          shopIotDevices: res.data
+        })
+      }
+    },
+    async shopIotCmds(e) {
+      const idx = e.target.dataset.idx
+      const item = this.data.shopIotDevices[idx]
+      // https://www.yuque.com/apifm/nu0f75/rek5dwng8b9cdoko
+      const res = await WXAPI.shopIotCmds({
+        token: wx.getStorageSync('token'),
+        orderId: this.data.orderId,
+        topic: item.topic
+      })
+      if (res.code != 0) {
+        wx.showModal({
+          content: res.msg
+        })
+        return
+      }
+      this.setData({
+        cmdList: res.data,
+        cmdListShow: true
+      })
+    },
+    cmdClose() {
+      this.setData({ cmdListShow: false });
+    },
+  
+    async cmdSelect(event) {
+      // https://www.yuque.com/apifm/nu0f75/uq495hlq3ho5kw4t
+      console.log(event.detail);
+      const res = await WXAPI.shopIotExecute({
+        token: wx.getStorageSync('token'),
+        orderId: this.data.orderId,
+        topic: event.detail.topic,
+        cmdId: event.detail.id,
+      })
+      if (res.code != 0) {
+        wx.showModal({
+          content: res.msg
+        })
+      } else {
+        wx.showToast({
+          title: '已发送',
+        })
+      }
     },
 })

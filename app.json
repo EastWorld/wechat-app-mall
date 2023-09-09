@@ -199,7 +199,8 @@
     "van-tabs": "@vant/weapp/tabs/index",
     "van-overlay": "@vant/weapp/overlay/index",
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
-    "van-area": "@vant/weapp/area/index"
+    "van-area": "@vant/weapp/area/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index"
   },
   "sitemapLocation": "sitemap.json"
 }

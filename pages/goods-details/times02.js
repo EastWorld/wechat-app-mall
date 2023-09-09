@@ -54,6 +54,6 @@ Page({
       return
     }
     // 发起微信支付
-    wxpay.wxpay('order', res.data.amountReal, res.data.id, "/pages/order-list/index");
+    wxpay.wxpay('order', res.data.amountReal, res.data.id, "/pages/order-details/index?id=" + res.data.id);
   },
 })

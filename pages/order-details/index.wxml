@@ -133,6 +133,12 @@
       </view>
     </form>
   </view>
+  <view wx:if="{{ orderStores && orderStores.length > 0 }}" class="vw100">
+    <van-cell-group title="日期详情">
+      <van-cell wx:for="{{ orderStores }}" wx:key="id" title="{{ item.remark }} X{{ item.stores }}" value="{{ item.day }}" />
+    </van-cell-group>
+  </view>
+  <view wx:if="{{ orderStores && orderStores.length > 0 }}" class="space"></view>
   <view class="peisong-way" hidden="true">
     <view class="row-box">
       <view class="row-label">配送方式</view>
@@ -167,3 +173,15 @@
     </view>
   </view>
 </view>
+
+<van-cell-group wx:if="{{ shopIotDevices && shopIotDevices.length > 0 }}" title="设备控制">
+  <van-cell wx:for="{{ shopIotDevices }}" wx:key="id" title="{{ item.name }}" value="控制" is-link data-idx="{{ index }}" bind:click="shopIotCmds" />
+</van-cell-group>
+<van-action-sheet
+  show="{{ cmdListShow }}"
+  actions="{{ cmdList }}"
+  cancel-text="取消"
+  bind:close="cmdClose"
+  bind:cancel="cmdClose"
+  bind:select="cmdSelect"
+/>

@@ -32,6 +32,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const withdrawal = wx.getStorageSync('withdrawal')
+    if (withdrawal == '1') {
+      this.setData({
+        withdrawal,
+        tabs: ["资金明细", "提现记录", "押金记录"]
+      })
+    } else {
+      this.setData({
+        tabs: ["资金明细", "押金记录"]
+      })
+    }
   },
 
   /**

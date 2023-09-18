@@ -9,6 +9,20 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/asset/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/shop-cart/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/order-details/index",
           "query": "id=2311341",
           "launchMode": "default",

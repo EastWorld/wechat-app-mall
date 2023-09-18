@@ -25,7 +25,7 @@
       押金
     </button>
   </form>
-  <form bindsubmit="withdraw" report-submit="true">
+  <form wx:if="{{ withdrawal == '1' }}" bindsubmit="withdraw" report-submit="true">
     <button class='btn' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
       提现
     </button>

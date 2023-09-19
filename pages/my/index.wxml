@@ -103,6 +103,7 @@
   <van-cell wx:if="{{ show_quan_exchange_score == 1 }}" title="积分券兑换积分" is-link url="/pages/score-excharge/index" />
   <van-cell wx:if="{{ show_score_exchange_growth == 1 }}" title="积分兑换成长值" is-link url="/pages/score-excharge/growth" />
   <van-cell title="帮助中心" is-link url="/pages/help/index" />
+  <van-cell wx:if="{{ customerServiceType == 'QW' }}" title="联系客服" is-link bind:click="customerService" />
   <van-cell title="个人信息" is-link url="/pages/my/info-menu" />
   <van-cell title="系统设置" is-link url="/pages/my/setting" />
 </van-cell-group>

@@ -61,6 +61,7 @@ Page({
       show_score_exchange_growth: wx.getStorageSync('show_score_exchange_growth'),
       show_score_sign: wx.getStorageSync('show_score_sign'),
       fx_type: wx.getStorageSync('fx_type'),
+      customerServiceType: CONFIG.customerServiceType
     })
   },
   async getUserApiInfo() {
@@ -246,6 +247,16 @@ Page({
   goUserCode() {
     wx.navigateTo({
       url: '/pages/my/user-code',
+    })
+  },
+  customerService() {
+    wx.openCustomerServiceChat({
+      extInfo: {url: wx.getStorageSync('customerServiceChatUrl')},
+      corpId: wx.getStorageSync('customerServiceChatCorpId'),
+      success: res => {},
+      fail: err => {
+        console.error(err)
+      }
     })
   },
 })

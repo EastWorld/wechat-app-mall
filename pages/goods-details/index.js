@@ -87,7 +87,8 @@ Page({
     }
     this.setData({
       goodsDetailSkuShowType,
-      curuid: wx.getStorageSync('uid')
+      curuid: wx.getStorageSync('uid'),
+      customerServiceType: CONFIG.customerServiceType
     })
     this.readConfigVal()
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
@@ -1079,6 +1080,20 @@ Page({
   backToHome() {
     wx.switchTab({
       url: '/pages/index/index',
+    })
+  },
+  customerService() {
+    wx.openCustomerServiceChat({
+      extInfo: {url: wx.getStorageSync('customerServiceChatUrl')},
+      corpId: wx.getStorageSync('customerServiceChatCorpId'),
+      showMessageCard: true,
+      sendMessageTitle: this.data.goodsDetail.basicInfo.name,
+      sendMessagePath: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id,
+      sendMessageImg: this.data.goodsDetail.basicInfo.pic,
+      success: res => {},
+      fail: err => {
+        console.error(err)
+      }
     })
   },
 })

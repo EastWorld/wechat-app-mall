@@ -91,7 +91,8 @@ Page({
     }
     this.setData({
       goodsDetailSkuShowType,
-      curuid: wx.getStorageSync('uid')
+      curuid: wx.getStorageSync('uid'),
+      customerServiceType: CONFIG.customerServiceType
     })
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
     this.skuImages(this.data.goodsId)
@@ -845,5 +846,19 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     })
-  }
+  },
+  customerService() {
+    wx.openCustomerServiceChat({
+      extInfo: {url: wx.getStorageSync('customerServiceChatUrl')},
+      corpId: wx.getStorageSync('customerServiceChatCorpId'),
+      showMessageCard: true,
+      sendMessageTitle: this.data.price.skuName,
+      sendMessagePath: '/pages/goods-details/vop?id='+ this.data.goodsId +'&goodsId=' + this.data.goodsId2,
+      sendMessageImg: this.data.imageDomain + this.data.price.pic,
+      success: res => {},
+      fail: err => {
+        console.error(err)
+      }
+    })
+  },
 })

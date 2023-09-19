@@ -199,7 +199,8 @@
     </view>
   </scroll-view>
   <van-goods-action wx:if="{{!curGoodsKanjia}}">
-    <van-goods-action-icon icon="chat-o" text="客服" open-type="contact"
+    <van-goods-action-icon wx:if="{{ customerServiceType == 'QW' }}" icon="chat-o" text="客服" bind:click="customerService" />
+    <van-goods-action-icon wx:else icon="chat-o" text="客服" open-type="contact"
       send-message-title="{{goodsDetail.basicInfo.name}}" send-message-img="{{goodsDetail.basicInfo.pic}}"
       send-message-path="/pages/goods-details/index?id={{goodsDetail.basicInfo.id}}" show-message-card="{{ true }}" />
     <van-goods-action-icon icon="cart-o" text="购物车" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />

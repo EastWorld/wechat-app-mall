@@ -22,4 +22,20 @@ Page({
       })
     }
   },
+  onShareAppMessage: function() {
+    const uid = wx.getStorageSync('uid')
+    return {
+      title: wx.getStorageSync('mallName') + ' - ' + this.data.cmsArticleDetail.title,
+      path: `/pages/help/detail?id=${this.data.id}&inviter_id=${ uid ? uid : ''}`,
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
+  onShareTimeline() {
+    const uid = wx.getStorageSync('uid')   
+    return {
+      title: wx.getStorageSync('mallName') + ' - ' + this.data.cmsArticleDetail.title,
+      query: `id=${this.data.id}&inviter_id=${ uid ? uid : ''}`,
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
 })

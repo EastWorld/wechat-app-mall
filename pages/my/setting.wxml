@@ -4,5 +4,4 @@
 <van-cell title="清除缓存" is-link bind:click="clearStorage" />
 <van-cell title="{{ enableDebug ? '关闭调试模式' : '打开调试模式' }}" is-link bind:click="setEnableDebug" />
 <van-cell title="权限与设置" is-link bind:click="openSetting" />
-<van-cell wx:if="{{isAdmin}}" title="管理员入口" is-link bind:click="goadmin" />
 <van-cell title="当前版本" value="{{version}}" />

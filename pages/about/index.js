@@ -24,4 +24,20 @@ Page({
       })
     }
   },
+  onShareAppMessage: function() {
+    const uid = wx.getStorageSync('uid')
+    return {
+      title: wx.getStorageSync('mallName') + ' - ' + this.data.cmsPageDetail.info.title,
+      path: `/pages/about/index?key=${this.data.key}&inviter_id=${ uid ? uid : ''}`,
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
+  onShareTimeline() {
+    const uid = wx.getStorageSync('uid')   
+    return {
+      title: wx.getStorageSync('mallName') + ' - ' + this.data.cmsPageDetail.info.title,
+      query: `key=${this.data.key}&inviter_id=${ uid ? uid : ''}`,
+      imageUrl: wx.getStorageSync('share_pic')
+    }
+  },
 })

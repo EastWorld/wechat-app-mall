@@ -1146,6 +1146,31 @@ module.exports = {
       });
     });
   },
+  uploadFileV2: function uploadFileV2(token, tempFilePath) {
+    var expireHours = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+    return new Promise(function (resolve, reject) {
+      wx.uploadFile({
+        url: 'https://oss.apifm.com/upload2',
+        filePath: tempFilePath,
+        name: 'upfile',
+        formData: {
+          token: token,
+          subDomain: subDomain,
+          expireHours: expireHours
+        },
+        success: function success(res) {
+          resolve(JSON.parse(res.data));
+        },
+        fail: function fail(error) {
+          reject(error);
+        },
+        complete: function complete(aaa) {
+          // 加载完成
+        }
+      });
+    });
+  },
   uploadFileFromUrl: function uploadFileFromUrl() {
     var remoteFileUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
     var ext = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';

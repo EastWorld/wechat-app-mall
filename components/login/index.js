@@ -68,7 +68,7 @@ Component({
     },
     async onChooseAvatar(e) {
       let avatarUrl = e.detail.avatarUrl
-      let res = await WXAPI.uploadFile(wx.getStorageSync('token'), avatarUrl)
+      let res = await WXAPI.uploadFileV2(wx.getStorageSync('token'), avatarUrl)
       if (res.code != 0) {
         wx.showToast({
           title: res.msg,

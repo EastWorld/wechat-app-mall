@@ -114,7 +114,7 @@ Page({
           reputations_json.pics = []
           for (let index = 0; index < this.data.picsList[i].length; index++) {
             const pic = this.data.picsList[i][index];
-            const res = await WXAPI.uploadFile(wx.getStorageSync('token'), pic.url)
+            const res = await WXAPI.uploadFileV2(wx.getStorageSync('token'), pic.url)
             if (res.code == 0) {
               reputations_json.pics.push(res.data.url)
             }

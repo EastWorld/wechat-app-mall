@@ -54,7 +54,7 @@ Page({
     if (this.data.picsList) {
       for (let index = 0; index < this.data.picsList.length; index++) {
         const pic = this.data.picsList[index];
-        const res = await WXAPI.uploadFile(wx.getStorageSync('token'), pic.url)
+        const res = await WXAPI.uploadFileV2(wx.getStorageSync('token'), pic.url)
         if (res.code == 0) {
           extJsonStr['file' + index] = res.data.url
         }

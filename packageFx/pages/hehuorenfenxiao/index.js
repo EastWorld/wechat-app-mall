@@ -8,24 +8,24 @@ const APP = getApp()
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
-Date.prototype.format = function(format) {
+Date.prototype.format = function (format) {
   var date = {
-        "M+": this.getMonth() + 1,
-        "d+": this.getDate(),
-        "h+": this.getHours(),
-        "m+": this.getMinutes(),
-        "s+": this.getSeconds(),
-        "q+": Math.floor((this.getMonth() + 3) / 3),
-        "S+": this.getMilliseconds()
+    "M+": this.getMonth() + 1,
+    "d+": this.getDate(),
+    "h+": this.getHours(),
+    "m+": this.getMinutes(),
+    "s+": this.getSeconds(),
+    "q+": Math.floor((this.getMonth() + 3) / 3),
+    "S+": this.getMilliseconds()
   };
   if (/(y+)/i.test(format)) {
-        format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
   }
   for (var k in date) {
-        if (new RegExp("(" + k + ")").test(format)) {
-                format = format.replace(RegExp.$1, RegExp.$1.length == 1
-                      ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
-        }
+    if (new RegExp("(" + k + ")").test(format)) {
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1
+        ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+    }
   }
   return format;
 }
@@ -64,8 +64,8 @@ Page({
       thisMonthXiaoshou: 0,
       lastMonthXiaoshou: 0,
     },
-    tzid:"",//团长id
-    originShow:false,//显示固定得二维码 不带参数
+    tzid: "",//团长id
+    originShow: false,//显示固定得二维码 不带参数
   },
 
   /**
@@ -174,7 +174,7 @@ Page({
       commisionData.lastMonthXiaoshou = res.data[0].saleroom
     }
     this.setData({
-      commisionData:commisionData
+      commisionData: commisionData
     })
   },
 
@@ -205,7 +205,7 @@ Page({
         }
         that.setData(_data);
         that.commision();
-        if(res.data.base.isTeamLeader || res.data.partnerInfo) {
+        if (res.data.base.isTeamLeader || res.data.partnerInfo) {
           that.fetchQrcode()
         }
       }
@@ -247,17 +247,17 @@ Page({
   },
 
 
-  async getfxMoney(){
+  async getfxMoney() {
     const res = await WXAPI.partnerSetting()
-    console.log("getfxMoney",res)
-    if(res.code==0){
+    console.log("getfxMoney", res)
+    if (res.code == 0) {
       this.setData({
-        fxData:res.data
+        fxData: res.data
       })
     }
   },
 
-  async payFx(){
+  async payFx() {
     var money = this.data.fxData.priceLeader;
     wxpay.wxpay('payTz', money, '', "/pages/packageA/pages/vip/index");
   },
@@ -450,20 +450,20 @@ Page({
       })
     }
   },
-  async fxMembers(){
+  async fxMembers() {
     const res = await WXAPI.fxMembers({
-      token:wx.getStorageSync('token')
+      token: wx.getStorageSync('token')
     })
-    console.log("fxmenber",res)
+    console.log("fxmenber", res)
   },
-  goFxmem(e){
+  goFxmem(e) {
     var level = e.currentTarget.dataset.level
     wx.navigateTo({
-      url: 'fxmember?level='+level,
+      url: 'fxmember?level=' + level,
     })
   },
 
-  goCommision(){
+  goCommision() {
     wx.navigateTo({
       url: '../commisionLog/index',
     })
@@ -471,7 +471,7 @@ Page({
 
   async partnerBindTeamLeader() {
     var uid = this.data.tzid;
-    const res = await WXAPI.partnerBindTeamLeader(wx.getStorageSync('token'),uid)
+    const res = await WXAPI.partnerBindTeamLeader(wx.getStorageSync('token'), uid)
     if (res.code != 0) {
       wx.showToast({
         title: res.msg,
@@ -486,12 +486,12 @@ Page({
       }, 1000);
     }
   },
-  onChange(e){
+  onChange(e) {
     this.setData({
-      tzid:e.detail
+      tzid: e.detail
     })
   },
-  fetchQrcode(){
+  fetchQrcode() {
     const _this = this
     wx.showLoading({
       title: '加载中',
@@ -509,7 +509,7 @@ Page({
       check_path: envVersion == 'release' ? true : false,
     }).then(res => {
       wx.hideLoading()
-      if (res.code ==  41030) {
+      if (res.code == 41030) {
         _this.fetchQrcode()
         return
       }
@@ -518,7 +518,7 @@ Page({
       }
     })
   },
-  showCanvas(qrcode){
+  showCanvas(qrcode) {
     const _this = this
     let ctx
     wx.getImageInfo({
@@ -526,7 +526,7 @@ Page({
       success: (res) => {
         const imageSize = ImageUtil.imageUtil(res.width, res.height)
         const qrcodeWidth = 160
-        console.log("imageSize",imageSize)
+        console.log("imageSize", imageSize)
         _this.setData({
           canvasHeight: qrcodeWidth
         })
@@ -558,11 +558,39 @@ Page({
             })
           },
           fail: (res) => {
-            wx.showToast({
-              title: res.errMsg,
-              icon: 'none',
-              duration: 2000
-            })
+            if (res.errMsg.indexOf('fail privacy permission is not authorized') != -1) {
+              wx.showModal({
+                content: '请阅读并同意隐私条款以后才能继续本操作',
+                confirmText: '阅读协议',
+                cancelText: '取消',
+                success(res) {
+                  if (res.confirm) {
+                    wx.requirePrivacyAuthorize() // 弹出用户隐私授权框
+                  }
+                }
+              })
+            } else if (res.errMsg.indexOf('fail auth deny') != -1) {
+              wx.showModal({
+                content: '本次操作需要您同意并将图片写入手机相册',
+                confirmText: '立即授权',
+                cancelText: '取消',
+                success(res) {
+                  if (res.confirm) {
+                    // 弹出设置窗口，让用户去设置
+                    wx.openSetting({
+                      withSubscriptions: true,
+                      fail: aaa => console.log(aaa)
+                    });
+                  }
+                }
+              })
+            } else {
+              console.error(res);
+              wx.showToast({
+                title: res.errMsg,
+                icon: 'none'
+              })
+            }
           }
         })
       }
@@ -574,56 +602,91 @@ Page({
     let that = this
     //若二维码未加载完毕，加个动画提高用户体验
     wx.showToast({
-     icon: 'loading',
-     title: '正在保存图片',
-     duration: 1000
+      icon: 'loading',
+      title: '正在保存图片',
+      duration: 1000
     })
     //判断用户是否授权"保存到相册"
     wx.getSetting({
-     success (res) {
-      //没有权限，发起授权
-      if (!res.authSetting['scope.writePhotosAlbum']) {
-       wx.authorize({
-        scope: 'scope.writePhotosAlbum',
-        success () {//用户允许授权，保存图片到相册
-         that.savePhoto();
-        },
-        fail () {//用户点击拒绝授权，跳转到设置页，引导用户授权
-         wx.openSetting({
-          success () {
-           wx.authorize({
+      success(res) {
+        //没有权限，发起授权
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
             scope: 'scope.writePhotosAlbum',
-            success() {
-             that.savePhoto();
+            success() {//用户允许授权，保存图片到相册
+              that.savePhoto();
+            },
+            fail() {//用户点击拒绝授权，跳转到设置页，引导用户授权
+              wx.openSetting({
+                success() {
+                  wx.authorize({
+                    scope: 'scope.writePhotosAlbum',
+                    success() {
+                      that.savePhoto();
+                    }
+                  })
+                }
+              })
             }
-           })
-          }
-         })
+          })
+        } else {//用户已授权，保存到相册
+          that.savePhoto()
         }
-       })
-      } else {//用户已授权，保存到相册
-       that.savePhoto()
       }
-     }
     })
-   },
+  },
   //保存图片到相册，提示保存成功
-   savePhoto() {
+  savePhoto() {
     let that = this
     wx.downloadFile({
-     url: 'https://dcdn.it120.cc/2021/01/24/928782d2-062c-4a45-9911-b331fdf38ed9.jpg',
-     success: function (res) {
-      wx.saveImageToPhotosAlbum({
-       filePath: res.tempFilePath,
-       success(res) {
-        wx.showToast({
-         title: '保存成功',
-         icon: "success",
-         duration: 1000
+      url: 'https://dcdn.it120.cc/2021/01/24/928782d2-062c-4a45-9911-b331fdf38ed9.jpg',
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success(res) {
+            wx.showToast({
+              title: '保存成功',
+              icon: "success",
+              duration: 1000
+            })
+          },
+          fail: (res) => {
+            if (res.errMsg.indexOf('fail privacy permission is not authorized') != -1) {
+              wx.showModal({
+                content: '请阅读并同意隐私条款以后才能继续本操作',
+                confirmText: '阅读协议',
+                cancelText: '取消',
+                success(res) {
+                  if (res.confirm) {
+                    wx.requirePrivacyAuthorize() // 弹出用户隐私授权框
+                  }
+                }
+              })
+            } else if (res.errMsg.indexOf('fail auth deny') != -1) {
+              wx.showModal({
+                content: '本次操作需要您同意并将图片写入手机相册',
+                confirmText: '立即授权',
+                cancelText: '取消',
+                success(res) {
+                  if (res.confirm) {
+                    // 弹出设置窗口，让用户去设置
+                    wx.openSetting({
+                      withSubscriptions: true,
+                      fail: aaa => console.log(aaa)
+                    });
+                  }
+                }
+              })
+            } else {
+              console.error(res);
+              wx.showToast({
+                title: res.errMsg,
+                icon: 'none'
+              })
+            }
+          }
         })
-       }
-      })
-     }
+      }
     })
-   },
+  },
 })

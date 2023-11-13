@@ -9,6 +9,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "packageFx/pages/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/help/detail",
           "query": "id=35814",
           "launchMode": "default",

@@ -645,11 +645,39 @@ Page({
         })
       },
       fail: (res) => {
-        wx.showToast({
-          title: res.errMsg,
-          icon: 'none',
-          duration: 2000
-        })
+        if (res.errMsg.indexOf('fail privacy permission is not authorized') != -1) {
+          wx.showModal({
+            content: '请阅读并同意隐私条款以后才能继续本操作',
+            confirmText: '阅读协议',
+            cancelText: '取消',
+            success (res) {
+              if (res.confirm) {
+                wx.requirePrivacyAuthorize() // 弹出用户隐私授权框
+              }
+            }
+          })
+        } else if (res.errMsg.indexOf('fail auth deny') != -1) {
+          wx.showModal({
+            content: '本次操作需要您同意并将图片写入手机相册',
+            confirmText: '立即授权',
+            cancelText: '取消',
+            success (res) {
+              if (res.confirm) {
+                // 弹出设置窗口，让用户去设置
+                wx.openSetting({
+                  withSubscriptions: true,
+                  fail: aaa => console.log(aaa)
+                });
+              }
+            }
+          })
+        } else {
+          console.error(res);
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none'
+          })
+        }
       }
     })
   },

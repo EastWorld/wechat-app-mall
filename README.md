@@ -25,11 +25,18 @@
 [点击这里找答案，可用关键词搜索](https://www.it120.cc/help.html)
 
 ## 其他优秀开源模板推荐
-- [天使童装（uni-app版本）](https://github.com/gooking/uni-app-mall) [码云镜像](https://gitee.com/javazj/uni-app-mall)
+- [天使童装](https://github.com/EastWorld/wechat-app-mall)   /  [码云镜像](https://gitee.com/javazj/wechat-app-mall)
+- [天使童装（uni-app版本）](https://github.com/gooking/uni-app-mall)  /   [码云镜像](https://gitee.com/javazj/uni-app-mall)
+- [简约精品商城（uni-app版本）](https://github.com/gooking/uni-app--mini-mall)  /   [码云镜像](https://gitee.com/javazj/uni-app--mini-mall)
 - [舔果果小铺（升级版）](https://github.com/gooking/TianguoguoXiaopu)
 - [面馆风格小程序](https://gitee.com/javazj/noodle_shop_procedures)
 - [AI名片](https://github.com/gooking/visitingCard)
-- [仿海底捞订座排队 (uni-app)](https://github.com/gooking/dingzuopaidui) [码云镜像](https://gitee.com/javazj/dingzuopaidui)
+- [仿海底捞订座排队 (uni-app)](https://github.com/gooking/dingzuopaidui)  /   [码云镜像](https://gitee.com/javazj/dingzuopaidui)
+- [H5版本商城/餐饮](https://github.com/gooking/vueMinishop)  /  [码云镜像](https://gitee.com/javazj/vueMinishop)
+- [餐饮点餐](https://github.com/woniudiancang/bee)  / [码云镜像](https://gitee.com/woniudiancang/bee)
+- [企业微展](https://github.com/gooking/qiyeweizan)  / [码云镜像](https://gitee.com/javazj/qiyeweizan)
+- [无人棋牌室](https://github.com/gooking/wurenqipai)  / [码云镜像](https://gitee.com/javazj/wurenqipai)
+- [酒店客房服务小程序](https://github.com/gooking/hotelRoomService)  / [码云镜像](https://gitee.com/javazj/hotelRoomService)
 
 ## 联系作者
 

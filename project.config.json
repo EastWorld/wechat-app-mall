@@ -19,8 +19,6 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": true,
     "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -40,9 +38,6 @@
     "condition": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.22.1",
-  "appid": "wxa46b09d413fbcaff",
-  "projectname": "天使童装",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
@@ -122,12 +117,14 @@
       ]
     }
   },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "appid": "wxa46b09d413fbcaff",
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "editorSetting": {
-    "tabIndent": "insertSpaces",
-    "tabSize": 2
-  }
+  "projectname": "天使童装"
 }

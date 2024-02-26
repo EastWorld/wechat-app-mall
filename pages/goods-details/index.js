@@ -1065,6 +1065,11 @@ Page({
               }
             }
           })
+        } else if (res.errMsg.indexOf('fail cancel') != -1) {
+          wx.showToast({
+            title: '已取消',
+            icon: 'none'
+          })
         } else {
           console.error(res);
           wx.showToast({

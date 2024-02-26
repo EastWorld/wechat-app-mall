@@ -167,7 +167,7 @@ Page({
         check_path: envVersion == 'release' ? true : false,
       })
       if (res.code != 0) {
-        wx.wx.showModal({
+        wx.showModal({
           content: res.msg,
           showCancel: false
         })

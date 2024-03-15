@@ -156,3 +156,6 @@ page,view,image,input {
 .login-box .btn {
   margin: 88rpx 32rpx;
 }
+.user-level {
+  color: #e64340;
+}

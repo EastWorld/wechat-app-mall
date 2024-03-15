@@ -1,6 +1,6 @@
 module.exports = {
-  version: '14.14.2',
-  note: '保存小程序码到手机相册，用户拒绝后给你提示并引导用户打开设置去开启权限', // 这个为版本描述，无需修改
+  version: '14.15.0',
+  note: '会员中心页面，增加显示会员等级名称', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

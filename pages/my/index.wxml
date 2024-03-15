@@ -6,6 +6,7 @@
     <view class="r">
       <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
       <view class="nick" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</view>
+      <view wx:if="{{ apiUserInfoMap.userLevel }}" class="user-level"><van-icon name="medal-o" />{{ apiUserInfoMap.userLevel.name }}</view>
     </view>
   </view>
   <view class="user-code" bindtap="goUserCode">

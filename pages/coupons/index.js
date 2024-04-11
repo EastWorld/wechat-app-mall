@@ -241,7 +241,11 @@ Page({
     let categoryId, goodsId
     res.data.couponRefs.forEach(ele => {
       if (ele.type == 0) {
-        categoryId = ele.refId
+        if (categoryId) {
+          categoryId = categoryId + ',' + ele.refId
+        } else {
+          categoryId = ele.refId
+        }
       }
       if (ele.type == 1) {
         goodsId = ele.refId

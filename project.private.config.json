@@ -1,12 +1,19 @@
 {
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false,
+    "urlCheck": true,
     "bigPackageSizeSupport": false
   },
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "pages/coupons/index",
+          "pathName": "pages/coupons/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
         {
           "name": "pages/address-add/index",
           "pathName": "pages/address-add/index",

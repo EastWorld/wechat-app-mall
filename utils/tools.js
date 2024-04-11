@@ -13,9 +13,12 @@ async function showTabBarBadge(noTabBarPage){
     number += res.data.number
   }
   // vop 购物车
-  res = await WXAPI.jdvopCartInfo(token)
-  if (res.code == 0) {
-    number += res.data.number
+  const shopping_cart_vop_open = wx.getStorageSync('shopping_cart_vop_open')
+  if (shopping_cart_vop_open == '1') {
+    res = await WXAPI.jdvopCartInfo(token)
+    if (res.code == 0) {
+      number += res.data.number
+    }
   }
   if (!noTabBarPage) {
     if (number == 0) {

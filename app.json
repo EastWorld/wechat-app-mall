@@ -60,7 +60,8 @@
     "pages/recycle/order-detail",
     "pages/card/logs",
     "pages/notagree/index",
-    "pages/my/user-code"
+    "pages/my/user-code",
+    "pages/raffle/index"
   ],
   "requiredPrivateInfos": [
     "getLocation",

@@ -1,0 +1,29 @@
+<view class="container">
+
+  <view class='frame_view'>
+    <view class='frame_row'>
+      <image class='frame_item' style='{{border[0]}}' src='{{luckyGoods[0].pic}}' mode="aspectFill"></image>
+      <image class='frame_item' style='{{border[1]}}' src='{{luckyGoods[1].pic}}' mode="aspectFill"></image>
+      <image class='frame_item' style='{{border[2]}}' src='{{luckyGoods[2].pic}}' mode="aspectFill"></image>
+    </view>
+
+    <view class='frame_row'>
+      <image class='frame_item' style='{{border[7]}}' src='{{luckyGoods[7].pic}}' mode="aspectFill"></image>
+      <image class='frame_item' src='{{btnconfirm}}' bindtap='getLuckyInfoJoin' mode="aspectFill"></image>
+      <image class='frame_item' style='{{border[3]}}' src='{{luckyGoods[3].pic}}' mode="aspectFill"></image>
+    </view>
+
+    <view class='frame_row'>
+      <image class='frame_item' style='{{border[6]}}' src='{{luckyGoods[6].pic}}' mode="aspectFill"></image>
+      <image class='frame_item' style='{{border[5]}}' src='{{luckyGoods[5].pic}}' mode="aspectFill"></image>
+      <image class='frame_item' style='{{border[4]}}' src='{{luckyGoods[4].pic}}' mode="aspectFill"></image>
+    </view>
+  </view>
+</view>
+
+<view class="number">剩余抽奖次数: {{ timesPerUser }}</view>
+<view wx:if="{{ logs }}" class="logs">
+  <van-cell-group title="抽奖记录">
+    <van-cell wx:for="{{ logs }}" wx:key="id" title="{{ item.prizeName }}" value="{{ item.dateAdd }}"></van-cell>
+  </van-cell-group>
+</view>

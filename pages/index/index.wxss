@@ -604,9 +604,9 @@
   justify-content: center;
   align-items: center;
 }
-.adPositionIndexPop image {
+/* .adPositionIndexPop image {
   width: 420rpx;
-}
+} */
 .adPositionIndexPop .close {
   margin-top: 32rpx;
 }

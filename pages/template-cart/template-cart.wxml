@@ -17,10 +17,10 @@
               <radio checked="{{ item.selected }}" bindtap="radioClick" data-index="{{index}}" />
             </view>
             <view class="img-box">
-              <image mode="aspectFill" src="{{item.pic}}" class="img" />
+              <image mode="aspectFill" src="{{item.pic}}" class="img" bind:tap="goDetail" data-item="{{ item }}" />
             </view>
             <view class="text-box">
-              <view class="goods-title">{{item.name}}</view>
+              <view class="goods-title" bind:tap="goDetail" data-item="{{ item }}">{{item.name}}</view>
               <view wx:show="{{item.sku}}" class="goods-label">
                 <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
                   {{option.optionName}}:{{option.optionValueName}}

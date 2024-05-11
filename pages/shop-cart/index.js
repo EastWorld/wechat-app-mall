@@ -214,5 +214,11 @@ Page({
       shopCarType: event.detail.name
     })
     this.shippingCarInfo()
-  }
+  },
+  goDetail(e) {
+    const item = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '/pages/goods-details/index?id=' + item.goodsId,
+    })
+  },
 })

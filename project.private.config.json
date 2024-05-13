@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/goods-details/index",
+          "pathName": "pages/goods-details/index",
+          "query": "id=1774762",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/goods-details/index",
+          "pathName": "pages/goods-details/index",
+          "query": "id=1774326",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/raffle/index",
           "pathName": "pages/raffle/index",
           "query": "id=393",

@@ -65,7 +65,7 @@
       wx:for="{{currentGoods}}" wx:key="id"
       price="{{item.minPrice}}"
       desc="{{item.numberSells ? '已售' + item.numberSells : ''}}"
-      tag="{{item.gotScore ? item.gotScore + '积分' : ''}}"
+      tag="{{item.gotScore ? (item.gotScore + (item.gotScoreType ? '%' : '') + '积分') : ''}}"
       title="{{item.name}}"
       thumb="{{item.pic}}"
       thumb-link="{{ goodsDetailPage.url(item) }}"

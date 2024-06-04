@@ -78,6 +78,7 @@ Component({
       const skuCurGoods = skuCurGoodsRes.data
       skuCurGoods.basicInfo.storesBuy = 1
       // 处理可选配件
+      skuCurGoods.basicInfo.hasAddition = skuCurGoodsBaseInfo.hasAddition
       let goodsAddition = []
       if (skuCurGoods.basicInfo.hasAddition) {
         const res = await WXAPI.goodsAddition(skuCurGoodsBaseInfo.id)

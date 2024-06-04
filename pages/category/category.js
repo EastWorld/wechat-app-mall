@@ -214,6 +214,16 @@ Page({
       })
       return
     }
+    // 判断是否有可选配件全局或者按分类的
+    const resGoodsAddition = await WXAPI.goodsAddition(curGood.id)
+    if (resGoodsAddition.code == 0) {
+      // 需要选择 SKU 和 可选配件
+      curGood.hasAddition = true
+      this.setData({
+        skuCurGoods: curGood
+      })
+      return
+    }
     if (!curGood.propertyIds && !curGood.hasAddition) {
       // 直接调用加入购物车方法
       const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), curGood.id, 1, [])

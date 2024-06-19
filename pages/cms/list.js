@@ -26,13 +26,13 @@ Page({
     wx.showLoading({
       title: '',
     })
-    const res = await WXAPI.cmsArticles({
-      categoryId: this.data.categoryId
+    const res = await WXAPI.cmsArticlesV3({
+      categoryId: this.data.categoryId || ''
     })
     wx.hideLoading()
     if (res.code == 0) {
       this.setData({
-        cmsArticles: res.data
+        cmsArticles: res.data.result
       })
     } else {
       this.setData({

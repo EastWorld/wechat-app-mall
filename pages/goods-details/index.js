@@ -231,13 +231,16 @@ Page({
           pic: goodsDetailRes.data.basicInfo.pic
         }]
       }
+      const _data = {
+        goodsDetail: goodsDetailRes.data,
+        selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
+        selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
+        totalScoreToPay: goodsDetailRes.data.basicInfo.minScore,
+        buyNumMax: goodsDetailRes.data.basicInfo.stores,
+        buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0
+      }
       if (goodsDetailRes.data.properties) {
-        that.setData({
-          hasMoreSelect: true,
-          selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
-          selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
-          totalScoreToPay: goodsDetailRes.data.basicInfo.minScore
-        });
+        _data.hasMoreSelect = true
       }
       if (goodsDetailRes.data.basicInfo.shopId) {
         this.shopSubdetail(goodsDetailRes.data.basicInfo.shopId)
@@ -249,14 +252,7 @@ Page({
       if (goodsDetailRes.data.basicInfo.videoId) {
         that.getVideoSrc(goodsDetailRes.data.basicInfo.videoId);
       }
-      let _data = {
-        goodsDetail: goodsDetailRes.data,
-        selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
-        selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
-        totalScoreToPay: goodsDetailRes.data.basicInfo.minScore,
-        buyNumMax: goodsDetailRes.data.basicInfo.stores,
-        buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0
-      }
+      
       if (goodsKanjiaSetRes.code == 0) {
         _data.curGoodsKanjia = goodsKanjiaSetRes.data[0]
         that.data.kjId = _data.curGoodsKanjia.id

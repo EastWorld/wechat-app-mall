@@ -51,8 +51,8 @@
   <van-grid-item wx:if="{{canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />
   <van-grid-item icon="paid" text="优惠买单" url="/pages/maidan/index" />
   <van-grid-item icon="balance-list-o" text="资金明细" url="/pages/asset/index" />
-  <van-grid-item icon="bill-o" text="申请发票" url="/pages/invoice/apply" />
-  <van-grid-item icon="bill-o" text="开票记录" url="/pages/invoice/list" />
+  <van-grid-item wx:if="{{ invoice_open == 1 }}" icon="bill-o" text="申请发票" url="/pages/invoice/apply" />
+  <van-grid-item wx:if="{{ invoice_open == 1 }}" icon="bill-o" text="开票记录" url="/pages/invoice/list" />
   <van-grid-item icon="coupon-o" text="优惠券" url="/pages/coupons/index" link-type="switchTab" />
   <van-grid-item wx:if="{{ show_score_sign == 1 }}" icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
 </van-grid>

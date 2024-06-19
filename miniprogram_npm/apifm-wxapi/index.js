@@ -95,12 +95,14 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
 var subDomain = '-';
 var merchantId = '0';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+  if (url.indexOf("http") == 0) {
+    _url = url;
+  }
   var header = {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
@@ -228,6 +230,9 @@ module.exports = {
   scoreLogs: function scoreLogs(data) {
     return request('/score/logs', true, 'post', data);
   },
+  scoreDynamics: function scoreDynamics() {
+    return request('/score/dynamics', true, 'get');
+  },
   shareGroupGetScore: function shareGroupGetScore(code, referrer, encryptedData, iv) {
     return request('/score/share/wxa/group', true, 'post', {
       code: code,
@@ -240,6 +245,15 @@ module.exports = {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
     return request('/score/deduction/rules', true, 'get', { type: type });
+  },
+  scoreDailyFixedNum: function scoreDailyFixedNum(token) {
+    return request('/score/dailyFixedNum', true, 'post', { token: token });
+  },
+  scoreRank: function scoreRank(data) {
+    return request('/score/rank', true, 'get', data);
+  },
+  scoreRankBydate: function scoreRankBydate(data) {
+    return request('/score/rankBydate', true, 'get', data);
   },
   scoreTaskList: function scoreTaskList(token) {
     return request('/score/taskList', true, 'get', { token: token });
@@ -363,6 +377,9 @@ module.exports = {
   wxpayIPaynow: function wxpayIPaynow(data) {
     return request('/pay/ipaynow/wxapp', true, 'post', data);
   },
+  ccvvPayWxapp: function ccvvPayWxapp(data) {
+    return request('/pay/ccvv/wxapp', true, 'post', data);
+  },
   wxpayAirwallex: function wxpayAirwallex(data) {
     return request('/pay/airwallex/wxapp', true, 'post', data);
   },
@@ -386,6 +403,12 @@ module.exports = {
   },
   alipayQrcode2: function alipayQrcode2(data) {
     return request('/pay/alipay/gate/paymentCode', true, 'post', data);
+  },
+  alipayH5: function alipayH5(data) {
+    return request('/pay/alipay/gate/h5', true, 'post', data);
+  },
+  alipayPC: function alipayPC(data) {
+    return request('/pay/alipay/gate/pc', true, 'post', data);
   },
   kasipayH5: function kasipayH5(data) {
     return request('/pay/kasipay/h5', true, 'post', data);
@@ -869,6 +892,13 @@ module.exports = {
       token: token
     });
   },
+  randomNick: function randomNick() {
+    var len = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+    return request('/user/randomNick', true, 'get', {
+      len: len
+    });
+  },
   userDetailSpreadUser: function userDetailSpreadUser(token, uid) {
     return request('/user/detail/spreadUser', true, 'get', {
       token: token, uid: uid
@@ -923,6 +953,12 @@ module.exports = {
   orderReputationList: function orderReputationList(data) {
     return request('/order/listReputation', true, 'post', data);
   },
+  orderReputationDelete: function orderReputationDelete(data) {
+    return request('/order/reputation/delete', true, 'post', data);
+  },
+  orderReputationModify: function orderReputationModify(data) {
+    return request('/order/reputation/modify', true, 'post', data);
+  },
   orderClose: function orderClose(token, orderId) {
     return request('/order/close', true, 'post', {
       orderId: orderId,
@@ -940,6 +976,9 @@ module.exports = {
       orderId: orderId,
       token: token
     });
+  },
+  orderPayV2: function orderPayV2(data) {
+    return request('/order/pay', true, 'post', data);
   },
   jdjlOrderPay: function jdjlOrderPay(token, _token) {
     var couponId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
@@ -1008,6 +1047,11 @@ module.exports = {
   regionInfo: function regionInfo(id) {
     return request('/common/region/v2/info', false, 'get', {
       id: id
+    });
+  },
+  regionInfoBatch: function regionInfoBatch(ids) {
+    return request('/common/region/v2/infoBatch', false, 'get', {
+      ids: ids
     });
   },
   regionSearch: function regionSearch(data) {
@@ -1177,6 +1221,10 @@ module.exports = {
 
     return request('/dfs/upload/url', true, 'post', { remoteFileUrl: remoteFileUrl, ext: ext });
   },
+  uploadFileFromUrlV2: function uploadFileFromUrlV2(data) {
+    var _data = Object.assign(data, { subDomain: subDomain });
+    return request('https://oss.apifm.com/uploadByUrl', false, 'post', _data);
+  },
   uploadFileList: function uploadFileList() {
     var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
@@ -1221,6 +1269,9 @@ module.exports = {
   cmsArticlesV2: function cmsArticlesV2(data) {
     return request('/cms/news/list/v2', true, 'post', data);
   },
+  cmsArticlesV3: function cmsArticlesV3(data) {
+    return request('https://cms.apifm.com/' + merchantId + '/cms/news/list/v2', true, 'post', data);
+  },
   cmsArticleUsefulLogs: function cmsArticleUsefulLogs(data) {
     return request('/cms/news/useful/logs', true, 'post', data);
   },
@@ -1232,20 +1283,35 @@ module.exports = {
 
     return request('/cms/news/detail/v2', true, 'get', { id: id, token: token });
   },
+  cmsArticleDetailV3: function cmsArticleDetailV3(data) {
+    return request('https://cms.apifm.com/' + merchantId + '/cms/news/detail/v2', true, 'get', data);
+  },
   cmsArticlePreNext: function cmsArticlePreNext(id) {
     return request('/cms/news/preNext', true, 'get', { id: id });
+  },
+  cmsArticlePreNextV2: function cmsArticlePreNextV2(id) {
+    return request('https://cms.apifm.com/' + merchantId + '/cms/news/preNext', true, 'get', { id: id });
   },
   cmsArticleCreate: function cmsArticleCreate(data) {
     return request('/cms/news/put', true, 'post', data);
   },
+  cmsArticleCreateV2: function cmsArticleCreateV2(data) {
+    return request('https://cms.apifm.com/' + merchantId + '/cms/news/put', true, 'post', data);
+  },
   cmsArticleDelete: function cmsArticleDelete(token, id) {
     return request('/cms/news/del', true, 'post', { token: token, id: id });
+  },
+  cmsArticleDeleteV2: function cmsArticleDeleteV2(token, id) {
+    return request('https://cms.apifm.com/' + merchantId + '/cms/news/del', true, 'post', { token: token, id: id });
   },
   cmsArticleUseless: function cmsArticleUseless(data) {
     return request('/cms/news/useful', true, 'post', data);
   },
   cmsArticleModifyExtNumber: function cmsArticleModifyExtNumber(data) {
     return request('/cms/news/modifyExtNumber', true, 'post', data);
+  },
+  cmsArticleModifyExtNumberV2: function cmsArticleModifyExtNumberV2(data) {
+    return request('https://cms.apifm.com/' + merchantId + '/cms/news/modifyExtNumber', true, 'post', data);
   },
   newsOwnerUserViewStatistics: function newsOwnerUserViewStatistics(data) {
     return request('/newsOwnerUserViewStatistics/list', true, 'post', data);
@@ -1319,6 +1385,9 @@ module.exports = {
   shopReputationList: function shopReputationList(data) {
     return request('/shop/subshop/listReputation', true, 'post', data);
   },
+  shopPicList: function shopPicList(data) {
+    return request('/shop/subshop/shopPics', true, 'post', data);
+  },
   shopFavPut: function shopFavPut(token, shopId) {
     return request('/shop/fav/add', true, 'post', { token: token, shopId: shopId });
   },
@@ -1366,6 +1435,9 @@ module.exports = {
   },
   modifyUserPasswordByUserName: function modifyUserPasswordByUserName(data) {
     return request('/user/username/modifyPassword', true, 'post', data);
+  },
+  anonymousUserInfo: function anonymousUserInfo(id) {
+    return request('/user/anonymous/info', true, 'get', { id: id });
   },
   uniqueId: function uniqueId() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -1499,6 +1571,12 @@ module.exports = {
   idcardCheck: function idcardCheck(token, name, idCardNo) {
     return request('/user/idcard', true, 'post', { token: token, name: name, idCardNo: idCardNo });
   },
+  idcardCheckManualReview: function idcardCheckManualReview(data) {
+    return request('/user/idcard/manualReview', true, 'post', data);
+  },
+  idcardCheckManualReviewInfo: function idcardCheckManualReviewInfo(token) {
+    return request('/user/idcard/manualReview/info', true, 'get', { token: token });
+  },
   bindSeller: function bindSeller(data) {
     return request('/user/bindSeller', true, 'post', data);
   },
@@ -1535,7 +1613,6 @@ module.exports = {
     return request('/user/level/buyLogs', true, 'post', data);
   },
   messageList: function messageList(data) {
-    // SDK文档到这里
     return request('/user/message/list', true, 'post', data);
   },
   messageRead: function messageRead(token, id) {
@@ -1545,6 +1622,7 @@ module.exports = {
     return request('/user/message/del', true, 'post', { token: token, id: id });
   },
   bindOpenid: function bindOpenid(token, code) {
+    // SDK文档到这里
     return request('/user/wxapp/bindOpenid', true, 'post', {
       token: token, code: code,
       type: 2
@@ -1554,6 +1632,9 @@ module.exports = {
     return request('/user/wxapp/bindOpenid/v2', true, 'post', {
       token: token, code: code, appid: appid
     });
+  },
+  bindOpenidV11: function bindOpenidV11(data) {
+    return request('/user/wxapp/bindOpenid', true, 'post', data);
   },
   encryptedData: function encryptedData(code, _encryptedData, iv) {
     return request('/user/wxapp/decode/encryptedData', true, 'post', {
@@ -2440,6 +2521,33 @@ module.exports = {
   organizeMembers: function organizeMembers(data) {
     return request('/organizeInfo/members', true, 'post', data);
   },
+  organizeNoticeList: function organizeNoticeList(data) {
+    return request('/organizeNotice/list', true, 'post', data);
+  },
+  organizeNoticeDetail: function organizeNoticeDetail(data) {
+    return request('/organizeNotice/detail', true, 'get', data);
+  },
+  organizeNoticeSave: function organizeNoticeSave(data) {
+    return request('/organizeNotice/save', true, 'post', data);
+  },
+  organizeNoticeDelete: function organizeNoticeDelete(data) {
+    return request('/organizeNotice/del', true, 'post', data);
+  },
+  organizePanUpload: function organizePanUpload(data) {
+    return request('/organizePan/upload', true, 'post', data);
+  },
+  organizePanDownload: function organizePanDownload(data) {
+    return request('/organizePan/download', true, 'get', data);
+  },
+  organizePanFiles: function organizePanFiles(data) {
+    return request('/organizePan/files', true, 'post', data);
+  },
+  organizePanModify: function organizePanModify(data) {
+    return request('/organizePan/modify', true, 'post', data);
+  },
+  organizePanDelete: function organizePanDelete(data) {
+    return request('/organizePan/del', true, 'post', data);
+  },
   newsExtFieldList: function newsExtFieldList(token, organizeId, newsId) {
     return request('/newsExtField/extFields', true, 'get', { token: token, organizeId: organizeId, newsId: newsId });
   },
@@ -2571,15 +2679,164 @@ module.exports = {
   listingJoinList: function listingJoinList(data) {
     return request('/listingInfo/joinList', true, 'post', data);
   },
-  shopIotDevices: data => {
-    return request('/shopIot/devices', true, 'get', data)
+  attendantAcceptOrder: function attendantAcceptOrder(data) {
+    return request('/order/acceptOrder', true, 'post', data);
   },
-  shopIotCmds: data => {
-    return request('/shopIot/cmds', true, 'get', data)
+  orderCancelOrderPeriod: function orderCancelOrderPeriod(data) {
+    return request('/order/cancelOrderPeriod', true, 'post', data);
   },
-  shopIotExecute: data => {
-    return request('/shopIot/execute', true, 'post', data)
+  orderStartOrderPeriod: function orderStartOrderPeriod(data) {
+    return request('/order/startOrderPeriod', true, 'post', data);
   },
+  shansongCourierInfo: function shansongCourierInfo(data) {
+    return request('/order/shansongCourierInfo', true, 'get', data);
+  },
+  shansongOrderInfo: function shansongOrderInfo(data) {
+    return request('/order/shansongOrderInfo', true, 'get', data);
+  },
+  userAttendantOrderStatistics: function userAttendantOrderStatistics(data) {
+    return request('/order/statisticsJishi', true, 'get', data);
+  },
+  keloopOrderLogs: function keloopOrderLogs(data) {
+    return request('/order/keloop/orderLogs', true, 'get', data);
+  },
+  keloopCourierTag: function keloopCourierTag(data) {
+    return request('/order/keloop/courierTag', true, 'get', data);
+  },
+  workingHoursMySubmitLogs: function workingHoursMySubmitLogs(data) {
+    return request('/workingHours/mySubmitLogs', true, 'post', data);
+  },
+  workingHoursSubmit: function workingHoursSubmit(data) {
+    return request('/workingHours/submit', true, 'post', data);
+  },
+  workingHoursBossReport: function workingHoursBossReport(data) {
+    return request('/workingHours/bossReport', true, 'post', data);
+  },
+  workingHoursMyProject: function workingHoursMyProject(data) {
+    return request('/workingHours/myProject', true, 'post', data);
+  },
+  workingHoursProjectInfo: function workingHoursProjectInfo(code) {
+    return request('/workingHours/project', true, 'get', { code: code });
+  },
+  bestpayProCreateOrder: function bestpayProCreateOrder(data) {
+    return request('/pay/bestpay/proCreateOrder', true, 'post', data);
+  },
+  bestpayH5: function bestpayH5(data) {
+    return request('/pay/bestpay/h5', true, 'get', data);
+  },
+  shopIotDevices: function shopIotDevices(data) {
+    return request('/shopIot/devices', true, 'get', data);
+  },
+  shopIotCmds: function shopIotCmds(data) {
+    return request('/shopIot/cmds', true, 'get', data);
+  },
+  shopIotExecute: function shopIotExecute(data) {
+    return request('/shopIot/execute', true, 'post', data);
+  },
+  wxTemplateNumberList: function wxTemplateNumberList(token) {
+    return request('/wxTemplateNumber/list', true, 'get', { token: token });
+  },
+  wxTemplateNumberSubscribe: function wxTemplateNumberSubscribe(data) {
+    return request('/wxTemplateNumber/subscribe', true, 'post', data);
+  },
+  errandsTaskPublish: function errandsTaskPublish(data) {
+    return request('/errandsTask/publish', true, 'post', data);
+  },
+  errandsTaskPay: function errandsTaskPay(data) {
+    return request('/errandsTask/pay', true, 'post', data);
+  },
+  errandsTaskAccept: function errandsTaskAccept(data) {
+    return request('/errandsTask/accept', true, 'post', data);
+  },
+  errandsTaskFinish: function errandsTaskFinish(data) {
+    return request('/errandsTask/finish', true, 'post', data);
+  },
+  errandsTaskSuccess: function errandsTaskSuccess(data) {
+    return request('/errandsTask/success', true, 'post', data);
+  },
+  activityVoteInfoList: function activityVoteInfoList(data) {
+    return request('/activityVoteInfo/list', true, 'post', data);
+  },
+  activityVoteInfoJoinList: function activityVoteInfoJoinList(data) {
+    return request('/activityVoteInfo/joinList', true, 'post', data);
+  },
+  activityVoteInfoDetail: function activityVoteInfoDetail(id) {
+    return request('/activityVoteInfo/detail', true, 'get', { id: id });
+  },
+  activityVoteInfoJoinDetail: function activityVoteInfoJoinDetail(joinId) {
+    return request('/activityVoteInfo/joinDetail', true, 'get', { joinId: joinId });
+  },
+  activityVoteInfoScoreToVotes: function activityVoteInfoScoreToVotes(activityId) {
+    return request('/activityVoteInfo/scoreToVotes', true, 'get', { activityId: activityId });
+  },
+  activityVoteInfoFetchVoteNumber: function activityVoteInfoFetchVoteNumber(data) {
+    return request('/activityVoteInfo/fetchVoteNumber', true, 'post', data);
+  },
+  activityVoteInfoJoin: function activityVoteInfoJoin(data) {
+    return request('/activityVoteInfo/join', true, 'post', data);
+  },
+  activityVoteInfoVote: function activityVoteInfoVote(data) {
+    return request('/activityVoteInfo/vote', true, 'post', data);
+  },
+  activityVoteBlance: function activityVoteBlance(token, activityId) {
+    return request('/activityVoteInfo/balance', true, 'get', { token: token, activityId: activityId });
+  },
+  stringsToPlainText: function stringsToPlainText(content) {
+    var len = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    return request('/common/strings/plainText', true, 'post', { content: content, len: len });
+  },
+  blindBoxFriendsMatch: function blindBoxFriendsMatch(data) {
+    return request('/blindBoxFriends/match', true, 'post', data);
+  },
+  blindBoxFriendsPush: function blindBoxFriendsPush(data) {
+    return request('/blindBoxFriends/push', true, 'post', data);
+  },
+  blindBoxFriendsPay: function blindBoxFriendsPay(data) {
+    return request('/blindBoxFriends/pay', true, 'post', data);
+  },
+  blindBoxFriendsChangeStatus: function blindBoxFriendsChangeStatus(data) {
+    return request('/blindBoxFriends/changeStatus', true, 'post', data);
+  },
+  blindBoxFriendsDelete: function blindBoxFriendsDelete(data) {
+    return request('/blindBoxFriends/delete', true, 'post', data);
+  },
+  blindBoxFriendsPullLogs: function blindBoxFriendsPullLogs(data) {
+    return request('/blindBoxFriends/pullLogs', true, 'post', data);
+  },
+  blindBoxFriendsPushLogs: function blindBoxFriendsPushLogs(data) {
+    return request('/blindBoxFriends/pushLogs', true, 'post', data);
+  },
+  blindBoxFriendsRechargeRule: function blindBoxFriendsRechargeRule() {
+    return request('/blindBoxFriends/rechargeRule', true, 'get');
+  },
+  blindBoxFriendsBuyPullTimes: function blindBoxFriendsBuyPullTimes(data) {
+    return request('/blindBoxFriends/buyPullTimes', true, 'post', data);
+  },
+  blindBoxFriendsUnlock: function blindBoxFriendsUnlock(data) {
+    return request('/blindBoxFriends/unlock', true, 'post', data);
+  },
+  blindBoxFriendsBalance: function blindBoxFriendsBalance(token) {
+    return request('/blindBoxFriends/balance', true, 'get', { token: token });
+  },
+  cpactivityInfoDetail: function cpactivityInfoDetail(id) {
+    return request('/cpactivityInfo/detail', true, 'get', { id: id });
+  },
+  cpactivityUpdateUserInfo: function cpactivityUpdateUserInfo(data) {
+    return request('/cpactivityInfo/updateUserInfo', true, 'post', data);
+  },
+  cpactivityJoinDetail: function cpactivityJoinDetail(data) {
+    return request('/cpactivityInfo/join', true, 'get', data);
+  },
+  cpactivityJoin: function cpactivityJoin(data) {
+    return request('/cpactivityInfo/join', true, 'post', data);
+  },
+  cpactivityJoinDynamics: function cpactivityJoinDynamics(cpactivityId) {
+    return request('/cpactivityInfo/joinDynamics', true, 'get', { cpactivityId: cpactivityId });
+  },
+  cpactivityPay: function cpactivityPay(data) {
+    return request('/cpactivityInfo/pay', true, 'post', data);
+  }
 };
 
 /***/ })

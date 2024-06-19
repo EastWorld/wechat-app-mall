@@ -61,6 +61,7 @@ Page({
       show_score_exchange_growth: wx.getStorageSync('show_score_exchange_growth'),
       show_score_sign: wx.getStorageSync('show_score_sign'),
       fx_type: wx.getStorageSync('fx_type'),
+      invoice_open: wx.getStorageSync('invoice_open'),
       customerServiceType: CONFIG.customerServiceType
     })
   },

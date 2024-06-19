@@ -12,13 +12,13 @@ Page({
 
   },
   async fetchDetail() {
-    const res = await WXAPI.cmsArticleDetail(this.data.id)
+    const res = await WXAPI.cmsArticleDetailV3({ id: this.data.id })
     if (res.code == 0) {
       this.setData({
-        cmsArticleDetail: res.data
+        cmsArticleDetail: res.data.info
       })
       wx.setNavigationBarTitle({
-        title: res.data.title,
+        title: res.data.info.title,
       })
     }
   },

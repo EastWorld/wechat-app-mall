@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "@vant/weapp": "^1.10.23",
-    "apifm-wxapi": "^3.67.0",
+    "apifm-wxapi": "^24.06.19",
     "dayjs": "^1.11.6",
     "mp-html": "^2.3.1",
     "wxa-plugin-canvas": "^1.1.12",

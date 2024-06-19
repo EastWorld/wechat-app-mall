@@ -1,12 +1,26 @@
 {
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": true,
+    "urlCheck": false,
     "bigPackageSizeSupport": false
   },
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "pages/cms/list",
+          "pathName": "pages/cms/list",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/goods-details/index",
+          "pathName": "pages/goods-details/index",
+          "query": "id=810285",
+          "launchMode": "default",
+          "scene": null
+        },
         {
           "name": "pages/category/category",
           "pathName": "pages/category/category",
@@ -728,6 +742,6 @@
     }
   },
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "libVersion": "3.4.3",
+  "libVersion": "3.4.6",
   "projectname": "%E5%A4%A9%E4%BD%BF%E7%AB%A5%E8%A3%85"
 }

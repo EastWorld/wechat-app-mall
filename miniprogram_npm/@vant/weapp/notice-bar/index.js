@@ -108,7 +108,7 @@ var utils_1 = require("../common/utils");
             });
             this.timer = setTimeout(function () {
                 _this.scroll();
-            }, this.duration);
+            }, this.duration + this.data.delay);
         },
         onClickIcon: function (event) {
             if (this.data.mode === 'closeable') {

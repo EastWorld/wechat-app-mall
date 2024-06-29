@@ -9,6 +9,7 @@
   custom-class="van-action-sheet custom-class"
   safe-area-inset-bottom="{{ safeAreaInsetBottom }}"
   close-on-click-overlay="{{ closeOnClickOverlay }}"
+  root-portal="{{ rootPortal }}"
   bind:close="onClickOverlay"
 >
   <view wx:if="{{ title }}" class="van-action-sheet__header">

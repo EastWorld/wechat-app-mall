@@ -9,6 +9,7 @@
   custom-style="width: {{ utils.addUnit(width) }};{{ customStyle }}"
   overlay-style="{{ overlayStyle }}"
   close-on-click-overlay="{{ closeOnClickOverlay }}"
+  root-portal="{{ rootPortal }}"
   bind:close="onClickOverlay"
 >
   <view
@@ -46,7 +47,7 @@
       loading="{{ loading.confirm }}"
       custom-class="van-dialog__confirm confirm-button-class"
       custom-style="color: {{ confirmButtonColor }}"
-
+      button-id="{{ confirmButtonId }}"
       open-type="{{ confirmButtonOpenType }}"
       lang="{{ lang }}"
       business-id="{{ businessId }}"
@@ -56,7 +57,8 @@
       send-message-img="{{ sendMessageImg }}"
       show-message-card="{{ showMessageCard }}"
       app-parameter="{{ appParameter }}"
-
+      bindagreeprivacyauthorization="onAgreePrivacyAuthorization"
+      bindgetRealTimePhoneNumber="onGetRealTimePhoneNumber"
       bind:click="onConfirm"
       bindgetuserinfo="onGetUserInfo"
       bindcontact="onContact"
@@ -96,7 +98,7 @@
         loading="{{ loading.confirm }}"
         custom-class="van-dialog__confirm confirm-button-class"
         custom-style="color: {{ confirmButtonColor }}"
-
+        button-id="{{ confirmButtonId }}"
         open-type="{{ confirmButtonOpenType }}"
         lang="{{ lang }}"
         business-id="{{ businessId }}"
@@ -106,7 +108,8 @@
         send-message-img="{{ sendMessageImg }}"
         show-message-card="{{ showMessageCard }}"
         app-parameter="{{ appParameter }}"
-
+        bindagreeprivacyauthorization="onAgreePrivacyAuthorization"
+        bindgetRealTimePhoneNumber="onGetRealTimePhoneNumber"
         bind:click="onConfirm"
         bindgetuserinfo="onGetUserInfo"
         bindcontact="onContact"

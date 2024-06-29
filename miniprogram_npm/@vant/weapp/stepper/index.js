@@ -141,12 +141,7 @@ function equal(value1, value2) {
             if (value === '') {
                 return;
             }
-            var formatted = this.filter(value);
-            // limit max decimal length
-            if ((0, validator_1.isDef)(this.data.decimalLength) && formatted.indexOf('.') !== -1) {
-                var pair = formatted.split('.');
-                formatted = "".concat(pair[0], ".").concat(pair[1].slice(0, this.data.decimalLength));
-            }
+            var formatted = this.format(value);
             this.emitChange(formatted);
         },
         emitChange: function (value) {

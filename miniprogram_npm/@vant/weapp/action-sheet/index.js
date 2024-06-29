@@ -38,6 +38,10 @@ var button_1 = require("../mixins/button");
             type: Boolean,
             value: true,
         },
+        rootPortal: {
+            type: Boolean,
+            value: false,
+        },
     },
     methods: {
         onSelect: function (event) {

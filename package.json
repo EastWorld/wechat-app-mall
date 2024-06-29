@@ -4,7 +4,7 @@
   "description": "删除 <float-menu />",
   "main": "app.js",
   "dependencies": {
-    "@vant/weapp": "^1.10.23",
+    "@vant/weapp": "^1.11.6",
     "apifm-wxapi": "^24.06.19",
     "dayjs": "^1.11.6",
     "mp-html": "^2.3.1",

@@ -21,6 +21,10 @@ var link_1 = require("../mixins/link");
             type: String,
             value: 'danger',
         },
+        customStyle: {
+            type: String,
+            value: '',
+        },
     },
     methods: {
         onClick: function (event) {

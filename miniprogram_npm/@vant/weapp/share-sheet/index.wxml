@@ -11,6 +11,7 @@
   overlay-style="{{ overlayStyle }}"
   close-on-click-overlay="{{ closeOnClickOverlay }}"
   safe-area-inset-bottom="{{ safeAreaInsetBottom }}"
+  root-portal="{{ rootPortal }}"
   bind:close="onClose"
   bind:click-overlay="onClickOverlay"
 >

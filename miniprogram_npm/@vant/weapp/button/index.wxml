@@ -2,7 +2,7 @@
 <wxs src="./index.wxs" module="computed" />
 
 <button
-  id="{{ id }}"
+  id="{{ id || buttonId }}"
   data-detail="{{ dataset }}"
   class="custom-class {{ utils.bem('button', [type, size, { block, round, plain, square, loading, disabled, hairline, unclickable: disabled || loading }]) }} {{ hairline ? 'van-hairline--surround' : '' }}"
   hover-class="{{ disabled || loading ? '' : 'van-button--active hover-class'}}"
@@ -23,6 +23,7 @@
   bindcontact="onContact"
   bindgetphonenumber="onGetPhoneNumber"
   bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
+  bindagreeprivacyauthorization="onAgreePrivacyAuthorization"
   binderror="onError"
   bindlaunchapp="onLaunchApp"
   bindopensetting="onOpenSetting"

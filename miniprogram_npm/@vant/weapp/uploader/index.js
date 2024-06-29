@@ -12,9 +12,9 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var component_1 = require("../common/component");
-var utils_1 = require("./utils");
-var shared_1 = require("./shared");
 var validator_1 = require("../common/validator");
+var shared_1 = require("./shared");
+var utils_1 = require("./utils");
 (0, component_1.VantComponent)({
     props: __assign(__assign(__assign(__assign({ disabled: Boolean, multiple: Boolean, uploadText: String, useBeforeRead: Boolean, afterRead: null, beforeRead: null, previewSize: {
             type: null,

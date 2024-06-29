@@ -44,6 +44,18 @@ var props_1 = require("./props");
         innerValue: '',
         showClear: false,
     },
+    watch: {
+        value: function (value) {
+            if (value !== this.value) {
+                this.setData({ innerValue: value });
+                this.value = value;
+                this.setShowClear();
+            }
+        },
+        clearTrigger: function () {
+            this.setShowClear();
+        },
+    },
     created: function () {
         this.value = this.data.value;
         this.setData({ innerValue: this.value });
@@ -109,6 +121,9 @@ var props_1 = require("./props");
         onKeyboardHeightChange: function (event) {
             this.$emit('keyboardheightchange', event.detail);
         },
+        onBindNicknameReview: function (event) {
+            this.$emit('nicknamereview', event.detail);
+        },
         emitChange: function (detail) {
             var extraEventParams = this.data.extraEventParams;
             this.setData({ value: detail.value });
@@ -130,7 +145,7 @@ var props_1 = require("./props");
                 var trigger = clearTrigger === 'always' || (clearTrigger === 'focus' && focused);
                 showClear = hasValue && trigger;
             }
-            this.setData({ showClear: showClear });
+            this.setView({ showClear: showClear });
         },
         noop: function () { },
     },

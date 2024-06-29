@@ -18,3 +18,4 @@ export declare function addNumber(num1: any, num2: any): number;
 export declare const clamp: (num: any, min: any, max: any) => number;
 export declare function getCurrentPage<T>(): T & WechatMiniprogram.OptionalInterface<WechatMiniprogram.Page.ILifetime> & WechatMiniprogram.Page.InstanceProperties & WechatMiniprogram.Page.InstanceMethods<WechatMiniprogram.IAnyObject> & WechatMiniprogram.Page.Data<WechatMiniprogram.IAnyObject> & WechatMiniprogram.IAnyObject;
 export declare const isPC: boolean;
+export declare const isWxWork: boolean;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isPC = exports.getCurrentPage = exports.clamp = exports.addNumber = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.nextTick = exports.range = exports.getSystemInfoSync = exports.isDef = void 0;
+exports.isWxWork = exports.isPC = exports.getCurrentPage = exports.clamp = exports.addNumber = exports.toPromise = exports.groupSetData = exports.getAllRect = exports.getRect = exports.pickExclude = exports.requestAnimationFrame = exports.addUnit = exports.nextTick = exports.range = exports.getSystemInfoSync = exports.isDef = void 0;
 var validator_1 = require("./validator");
 var version_1 = require("./version");
 var validator_2 = require("./validator");
@@ -105,3 +105,5 @@ function getCurrentPage() {
 }
 exports.getCurrentPage = getCurrentPage;
 exports.isPC = ['mac', 'windows'].includes((0, version_1.getSystemInfoSync)().platform);
+// 是否企业微信
+exports.isWxWork = (0, version_1.getSystemInfoSync)().environment === 'wxwork';

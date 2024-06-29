@@ -129,11 +129,23 @@ var getTime = function (date) {
             value: 0,
         },
         readonly: Boolean,
+        rootPortal: {
+            type: Boolean,
+            value: false,
+        },
     },
     data: {
         subtitle: '',
         currentDate: null,
         scrollIntoView: '',
+    },
+    watch: {
+        minDate: function () {
+            this.initRect();
+        },
+        maxDate: function () {
+            this.initRect();
+        },
     },
     created: function () {
         this.setData({
@@ -148,7 +160,7 @@ var getTime = function (date) {
     },
     methods: {
         reset: function () {
-            this.setData({ currentDate: this.getInitialDate() });
+            this.setData({ currentDate: this.getInitialDate(this.data.defaultDate) });
             this.scrollIntoView();
         },
         initRect: function () {

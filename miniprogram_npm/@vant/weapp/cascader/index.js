@@ -60,6 +60,7 @@ var defaultFieldNames = {
             value: defaultFieldNames,
             observer: 'updateFieldNames',
         },
+        useTitleSlot: Boolean,
     },
     data: {
         tabs: [],
@@ -160,6 +161,7 @@ var defaultFieldNames = {
                         selected: null,
                     },
                 ],
+                activeTab: 0,
             });
         },
         onClose: function () {

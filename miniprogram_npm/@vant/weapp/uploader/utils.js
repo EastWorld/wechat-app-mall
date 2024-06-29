@@ -49,7 +49,7 @@ function formatVideo(res) {
     ];
 }
 function formatMedia(res) {
-    return res.tempFiles.map(function (item) { return (__assign(__assign({}, (0, utils_1.pickExclude)(item, ['fileType', 'thumbTempFilePath', 'tempFilePath'])), { type: res.type, url: item.tempFilePath, thumb: res.type === 'video' ? item.thumbTempFilePath : item.tempFilePath })); });
+    return res.tempFiles.map(function (item) { return (__assign(__assign({}, (0, utils_1.pickExclude)(item, ['fileType', 'thumbTempFilePath', 'tempFilePath'])), { type: item.fileType, url: item.tempFilePath, thumb: item.fileType === 'video' ? item.thumbTempFilePath : item.tempFilePath })); });
 }
 function formatFile(res) {
     return res.tempFiles.map(function (item) { return (__assign(__assign({}, (0, utils_1.pickExclude)(item, ['path'])), { url: item.path })); });
@@ -59,7 +59,7 @@ function chooseFile(_a) {
     return new Promise(function (resolve, reject) {
         switch (accept) {
             case 'image':
-                if (utils_1.isPC) {
+                if (utils_1.isPC || utils_1.isWxWork) {
                     wx.chooseImage({
                         count: multiple ? Math.min(maxCount, 9) : 1,
                         sourceType: capture,

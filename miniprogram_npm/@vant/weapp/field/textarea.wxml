@@ -1,3 +1,5 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
 <textarea
   id="{{ name }}"
   class="{{ utils.bem('field__control', [inputAlign, type, { disabled, error }]) }} input-class"

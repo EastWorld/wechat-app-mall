@@ -13,6 +13,7 @@
   closeable="{{ showTitle || showSubtitle }}"
   close-on-click-overlay="{{ closeOnClickOverlay }}"
   safe-area-inset-bottom="{{ safeAreaInsetBottom }}"
+  root-portal="{{ rootPortal }}"
   bind:enter="onOpen"
   bind:close="onClose"
   bind:after-enter="onOpened"

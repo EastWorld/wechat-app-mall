@@ -29,6 +29,10 @@ export declare const videoProps: {
         type: StringConstructor;
         value: string;
     };
+    referrerPolicy: {
+        type: StringConstructor;
+        value: string;
+    };
 };
 export declare const mediaProps: {
     capture: {

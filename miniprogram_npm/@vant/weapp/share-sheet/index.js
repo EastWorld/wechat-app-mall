@@ -38,6 +38,10 @@ var component_1 = require("../common/component");
             type: null,
             value: 300,
         },
+        rootPortal: {
+            type: Boolean,
+            value: false,
+        },
     },
     methods: {
         onClickOverlay: function () {

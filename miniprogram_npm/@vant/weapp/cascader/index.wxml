@@ -1,7 +1,8 @@
 <wxs src="./index.wxs" module="utils" />
 
 <view wx:if="{{ showHeader }}" class="van-cascader__header">
-  <text class="van-cascader__title"><slot name="title"></slot>{{ title }}</text>
+  <slot name="title" wx:if="{{ useTitleSlot }}"></slot>
+  <text class="van-cascader__title" wx:else>{{ title }}</text>
   <van-icon
     wx:if="{{ closeable }}"
     name="{{ closeIcon }}"

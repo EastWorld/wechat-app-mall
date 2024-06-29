@@ -20,6 +20,7 @@ var utils_1 = require("../common/utils");
             type: String,
             value: 'default',
         },
+        confirmButtonId: String,
         className: String,
         customStyle: String,
         asyncClose: Boolean,
@@ -65,6 +66,10 @@ var utils_1 = require("../common/utils");
         transition: {
             type: String,
             value: 'scale',
+        },
+        rootPortal: {
+            type: Boolean,
+            value: false,
         },
     },
     data: {

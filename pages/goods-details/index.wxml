@@ -167,15 +167,15 @@
         <view>好评度：{{goodReputationPercent.v(goodsDetail)}}%</view>
       </view>
       <block wx:for="{{reputation.result}}" wx:key="id">
-        <van-cell custom-class="reputation-cell" title="{{item.user.nick}}"
+        <van-cell custom-class="reputation-cell" title="{{ item.user.nick || ('用户' + item.user.id) }}"
           label="{{item.goods.dateReputation}}" border="{{ false }}">
-          <van-image slot="icon" custom-class="avatarUrl-img" src="{{item.user.avatarUrl}}" round/>
+          <van-image slot="icon" custom-class="avatarUrl-img" src="{{ item.user.avatarUrl ? (item.user.avatarUrl + '_m') : '/images/default.png' }}" round/>
           <van-rate value="{{ item.goods.goodReputation }}" color="#e64340" readonly />          
         </van-cell>
         <van-cell wx:if="{{ item.goods.goodReputationRemark }}" title-class="reputation-cell-reamrk"
           title="{{item.goods.goodReputationRemark}}" />
         <view wx:if="{{ item.reputationPics }}" class="reputation-pics">
-          <image wx:for="{{item.reputationPics}}" wx:for-item="picItem" src="{{ picItem.pic }}" mode="aspectFill"
+          <image wx:for="{{item.reputationPics}}" wx:for-item="picItem" src="{{ picItem.pic }}_m" mode="aspectFill"
             bindtap="previewImage" data-url="{{ picItem.pic }}"></image>
         </view>
         <van-cell wx:if="{{ item.goods.goodReputationReply }}" title-class="reputation-cell-reamrk"

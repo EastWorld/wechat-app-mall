@@ -1,0 +1,25 @@
+app.json usingComponents 加上
+"date-time-selecter": "/components/date-time-selecter/index",
+
+
+在需要的页面上加这句代码即可
+<date-time-selecter
+  maxDays="16"
+  title="您期望的上门服务时间"
+  alarmText="师傅上门前会与您确认最终上门时间"
+  show="{{ show }}"
+  bind:ok="dayTimeSelectOK"
+  bind:cancel="dayTimeSelectCancel"
+/>
+
+dayTimeSelectOK(e) {
+  console.log(e.detail); // 这里是组件里data的数据
+  this.setData({
+    show: false
+  })
+},
+dayTimeSelectCancel() {
+  this.setData({
+    show: false
+  })
+},

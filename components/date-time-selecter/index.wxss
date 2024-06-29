@@ -1,0 +1,35 @@
+.pop-main {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  padding: 32rpx;
+  text-align: center;
+}
+.main {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+.l {
+  width: 250rpx;
+  height: 100%;
+}
+.ll {
+  width: 250rpx;
+}
+.r {
+  flex: 1;
+}
+.time-box {
+  padding: 32rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.time-l-active {
+  font-weight: bold;
+}
+.btn-box {
+  padding: 32rpx;
+}

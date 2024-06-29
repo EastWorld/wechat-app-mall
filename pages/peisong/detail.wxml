@@ -1,90 +1,32 @@
+<view wx:if="{{orderDetail.orderInfo.refundStatus == 1}}" class="refundStatus">客户已申请退款</view>
+<van-cell-group title="订单信息">
+  <van-cell title="客户订单号" value="{{ orderDetail.orderInfo.orderNumber }}" />
+  <van-cell title="配送单号" value="{{ orderDetail.peisongOrderInfo.orderNumber }}" />
+  <van-cell wx:if="{{ orderDetail.logistics }}" title="客户姓名" value="{{orderDetail.logistics.linkMan}}" />      
+  <van-cell wx:if="{{ orderDetail.logistics }}" title="客户手机" value="{{orderDetail.logistics.mobile}}" is-link bindtap="callMobile2" />
+  <van-cell wx:if="{{ orderDetail.logistics }}" title="客户地址" value="{{ orderDetail.logistics.address }}" />
+</van-cell-group>
+<van-cell-group title="商品信息">
+  <van-card
+    wx:for="{{ orderDetail.goods }}" wx:key="id"
+    num="{{ item.number }}"
+    price="{{ item.amount }}"
+    desc="配送时间：{{ item.day }} {{ item.time }}"
+    title="{{ item.goodsName }}"
+    thumb="{{ item.pic }}"
+    thumb-mode="aspectFill"
+    centered
+  />
+</van-cell-group>
+<van-cell-group wx:if="{{orderDetail.peisongMember}}" title="配送员信息">
+  <van-cell title="姓名" value="{{orderDetail.peisongMember.name}}" />      
+  <van-cell title="手机" value="{{orderDetail.peisongMember.mobile}}" is-link bindtap="callMobile" />         
+  <van-cell wx:if="{{orderDetail.peisongOrderInfo.estimatedCompletionTime}}" title="预计完成时间" value="{{orderDetail.peisongOrderInfo.estimatedCompletionTime}}" /> 
+</van-cell-group>
 <view class="container">
-  <view class="sec-wrap">    
-    <block wx:if="{{orderDetail.logistics}}">      
-      <view class="wuliu-box">
-        <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
-        </view>
-        <view class="right-text">
-          <view class="order-number">配送订单：{{orderDetail.logistics.trackingNumber}}</view>
-          <!-- <view class="wuliu-text">服务地址</view> -->
-        </view>
-      </view>
-      <view class="address-sec" bindtap="goMap">
-        <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-address.png"></image>
-        </view>
-        <view class="right-box">
-          <view class="text">
-            {{orderDetail.logistics.address}}
-            <view class="item" wx:for="{{orderDetail.extJson}}" wx:for-index='key' wx:key="index">
-              <text class="n" style="font-weight:bold;">{{ key }}: </text>
-              <text class="v">{{ item }}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view>
-  <view class="vant-contaner">
-    <van-cell-group title="顾客信息">
-      <van-cell title="姓名" value="{{orderDetail.logistics.linkMan}}" />      
-      <van-cell title="手机" value="{{orderDetail.logistics.mobile}}" bindtap="callMobile2" />      
-    </van-cell-group>
-  </view>
-  <view wx:if="{{orderDetail.peisongMember}}" class="vant-contaner">
-    <van-cell-group title="服务人员">
-      <van-cell title="姓名" value="{{orderDetail.peisongMember.name}}" />      
-      <van-cell title="手机" value="{{orderDetail.peisongMember.mobile}}" bindtap="callMobile" />         
-      <van-cell wx:if="{{orderDetail.peisongOrderInfo.estimatedCompletionTime}}" title="预计完成时间" value="{{orderDetail.peisongOrderInfo.estimatedCompletionTime}}" /> 
-    </van-cell-group>
-  </view>
   <view class="goods-list">
-    <view class="list-title">服务内容</view>
-    <wxs module="goodsDetailPage">
-    module.exports = {
-      url : function(item) {
-        if (item.supplyType == 'cps_jd') {
-          return '/packageCps/pages/goods-details/cps-jd?id=' + item.goodsId
-        } else if (item.supplyType == 'vop_jd') {
-          return '/pages/goods-details/vop?id=' + item.yyId + '&goodsId=' + item.id
-        } else if (item.supplyType == 'cps_pdd') {
-          return '/packageCps/pages/goods-details/cps-pdd?id=' + item.goodsId
-        } else if (item.supplyType == 'cps_taobao') {
-          return '/packageCps/pages/goods-details/cps-taobao?id=' + item.goodsId
-        } else {
-          return '/pages/goods-details/index?id=' + item.goodsId
-        }
-      }
-    }
-    </wxs>
-    <form bindsubmit="submitReputation" report-submit="true">
-      <block wx:for="{{orderDetail.goods}}" wx:key="id">
-        <navigator url="{{ goodsDetailPage.url(item) }}">
-          <view class="a-goods">
-            <view class="img-box">
-              <image src="{{item.pic}}" class="img" />
-            </view>
-            <view class="text-box">
-              <view class="arow arow01">
-                <view class="goods-name">{{item.goodsName}}</view>
-                <view class="goods-price">¥ {{item.amount}}</view>
-              </view>
-              <view class="arow">
-                <view class="goods-label">{{item.property}}</view>
-                <view class="goods-num">x {{item.number}}</view>
-              </view>
-            </view>
-          </view>
-        </navigator>        
-      </block>      
-    </form>
-    <block wx:if="{{orderDetail.orderInfo.refundStatus == 1}}">
-      <view class="btn-row">
-        <van-button type="danger" block disabled>客户已申请退款</van-button>
-      </view>
-    </block>
-    <block wx:else>
+    <block wx:if="{{orderDetail.orderInfo.refundStatus != 1}}">
+      <view class="list-title">操作台</view>
       <view class="btn-row" wx:if="{{!peisongOrderDetail}}">
         <van-field
           type="text"
@@ -97,7 +39,7 @@
       </view>
       <view class="btn-row" wx:if="{{peisongOrderDetail.orderInfo.status==1}}">
         <picker bindchange="bindPickerChange" value="{{membersSelectIndex}}" range="{{peisongMembers}}" range-key="showStr">
-          <van-cell title="配送员" is-link value="{{membersSelectStr}}" custom-class="select-peisong-member" />
+          <van-cell title="选择配送员" is-link value="{{membersSelectStr}}" custom-class="select-peisong-member" />
         </picker>
         <van-button type="danger" block bind:click="paidan">派单</van-button>
       </view>
@@ -121,18 +63,6 @@
       </view>
     </block>
   </view>
-  <view class="peisong-way" hidden="true">
-    <view class="row-box">
-      <view class="row-label">配送方式</view>
-      <view class="right-text">顺丰快递</view>
-    </view>
-    <view class="row-box">
-      <view class="row-label">留言</view>
-      <view class="right-text">
-        <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
-      </view>
-    </view>
-  </view>
   <view wx:if="{{orderDetail.goodsCoupons}}" class="goods-info" style="margin-bottom:32rpx;">
     <view wx:for="{{orderDetail.goodsCoupons}}" wx:key="{{item.id}}" class="row-box">
       <view wx:if="{{item.type == 0}}" class="row-label">优惠券</view>
@@ -148,7 +78,7 @@
     <view class="row-box">
       <view class="row-label">配送费</view>
       <!-- 运费 -->
-      <view class="right-text">+ ¥ {{orderDetail.orderInfo.amountLogistics}}</view>
+      <view class="right-text">¥ {{orderDetail.orderInfo.amountLogistics}}</view>
     </view>
     <view class="row-box">
       <view class="row-label">应付总额</view>

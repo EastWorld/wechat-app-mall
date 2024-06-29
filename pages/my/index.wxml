@@ -56,43 +56,19 @@
   <van-grid-item icon="coupon-o" text="优惠券" url="/pages/coupons/index" link-type="switchTab" />
   <van-grid-item wx:if="{{ show_score_sign == 1 }}" icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
 </van-grid>
-<!-- 老样式 -->
-<view class="container">
+<van-cell-group title="配送员工作台">
   <block wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}">
-    <view class="space"></view>
-    <view class="menu-item">
-      <view class="l">工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})</view>
-      <van-switch checked="{{ memberChecked }}" bind:change="memberCheckedChange" />
-    </view>
-    <view class="line"></view>
-    <navigator url="/pages/peisong/orders">
-      <view class="menu-item">
-        <view class="l hongdian-box">配送订单<view wx:if="{{peisongOrderNumber}}" class="hongdian">{{peisongOrderNumber}}</view></view>
-        <image class="next" src="/images/icon/next.png"></image>
+    <van-cell title="工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})">
+      <view slot="">
+        <van-switch size="40rpx" checked="{{ memberChecked }}" bind:change="memberCheckedChange" />
       </view>
-    </navigator>
-    <block wx:if="{{apiUserInfoMap.peisongMember.type == 2}}">
-      <view class="line"></view>
-      <navigator url="/pages/peisong/orders?status=1">
-        <view class="menu-item">
-          <view class="l hongdian-box">待分配订单<view wx:if="{{peisongOrderNumber2}}" class="hongdian">{{peisongOrderNumber2}}</view></view>
-          <image class="next" src="/images/icon/next.png"></image>
-        </view>
-      </navigator>
-    </block>
-    <block wx:else>
-      <view class="line"></view>
-      <navigator url="/pages/peisong/orders?status=-1">
-        <view class="menu-item">
-          <view class="l hongdian-box">待接单订单<view wx:if="{{peisongOrderNumber3}}" class="hongdian">{{peisongOrderNumber3}}</view></view>
-          <image class="next" src="/images/icon/next.png"></image>
-        </view>
-      </navigator>
-    </block>
-    <view class="space"></view>
+    </van-cell>
+    <van-cell title="我的配送单" is-link url="/pages/peisong/orders" />
+    <van-cell wx:if="{{apiUserInfoMap.peisongMember.type != 2}}" title="抢单任务大厅" is-link url="/pages/peisong/orders?status=-1" />
   </block>
-</view>
-
+  <van-cell wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type == 2}}" title="管理员派单管理" is-link url="/pages/peisong/orders?status=1" />
+  <van-cell title="业绩统计" is-link url="/pages/peisong/statistics" />
+</van-cell-group>
 <van-cell wx:if="{{ fx_type == 'hehuoren' }}" title="分销中心" is-link url="/packageFx/pages/hehuorenfenxiao/index" />
 <van-cell-group wx:elif="{{ show_3_seller == 1 }}" title="三级分销">
   <van-cell wx:if="{{!apiUserInfoMap.base.isSeller}}" title="成为分销商" is-link url="/packageFx/pages/apply/index" />

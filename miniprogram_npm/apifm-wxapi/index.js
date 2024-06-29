@@ -1856,6 +1856,9 @@ module.exports = {
       token: token
     });
   },
+  peisongMemberStatistics: (data) => {
+    return request('/peisong/member/statistics', true, 'post', data)
+  },
   peisongOrdersGrabbing: function peisongOrdersGrabbing(token) {
     return request('/peisong/order/grabbing', true, 'get', { token: token });
   },

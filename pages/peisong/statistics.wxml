@@ -1,0 +1,5 @@
+<van-tabs active="{{ active }}" bind:change="tabClick">
+  <van-tab wx:for="{{ tabs }}" wx:key="*this" title="{{ item }}"></van-tab>
+</van-tabs>
+<van-empty wx:if="{{ !list }}" description="暂无统计" />
+<van-cell wx:for="{{ list }}" wx:key="*this" title="{{ item.day }}" value="共 {{ item.orders }} 单" label="累计销售额 ￥{{ item.amountOrders }}" />

@@ -47,6 +47,7 @@
     "pages/idCheck/index",
     "pages/peisong/detail",
     "pages/peisong/orders",
+    "pages/peisong/statistics",
     "pages/pwd-pay/reset",
     "pages/pwd-pay/modify",
     "pages/pwd-pay/set",

@@ -306,3 +306,18 @@ page{
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+.pic-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pic-box .pic {
+  margin: 16rpx 0 0 16rpx;
+  width: 228rpx;
+  height: 228rpx;
+}
+.refundStatus {
+  background: #ee0a24;
+  color: #ffffff;
+  padding: 16rpx;
+  text-align: center;
+}

@@ -2,3 +2,12 @@
   color:#e64340;
   font-weight: bold;
 }
+.pic-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pic-box .pic {
+  margin: 16rpx 0 0 16rpx;
+  width: 228rpx;
+  height: 228rpx;
+}

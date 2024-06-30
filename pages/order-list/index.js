@@ -60,12 +60,12 @@ Page({
       }
     })
   },
-  refundApply (e) {
-    // 申请售后
+  async refundApply (e) {
+    // 申请售后 todo 判断是去申请页面还是去查看页面
     const orderId = e.currentTarget.dataset.id;
     const amount = e.currentTarget.dataset.amount;
     wx.navigateTo({
-      url: "/pages/order/refundApply?id=" + orderId + "&amount=" + amount
+      url: "/pages/order/refundApply?id=" + orderId
     })
   },
   toPayTap: function(e) {

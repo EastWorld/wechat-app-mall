@@ -1,86 +1,148 @@
-<view class="page">
-  <form bindsubmit="bindSave" report-submit="true">
-  <view class="page__bd">
-    <van-notice-bar
-      wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 0}}"
-      left-icon="volume-o"
-      speed="30"
-      text="已申请，等待处理"
-    />
-    <van-notice-bar
-      wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 2}}"
-      left-icon="volume-o"
-      speed="30"
-      text="本次申请已拒绝，请联系客服"
-    />
-    <van-notice-bar
-      wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 3}}"
-      left-icon="volume-o"
-      speed="30"
-      text="正在处理中"
-    />
-    <van-notice-bar
-      wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 4}}"
-      left-icon="volume-o"
-      speed="30"
-      text="已成功退换货"
-    />
-    <van-radio-group value="{{ type }}" bind:change="typeChange">
-      <van-cell-group title="选择服务类型">
-        <van-cell wx:for="{{typeItems}}" wx:key="value" title="{{ item.name }}" clickable data-name="{{ item.value }}" bind:click="typeClick">
-          <van-radio slot="right-icon" name="{{ item.value }}" />
-        </van-cell>
-      </van-cell-group>
-    </van-radio-group>
-    <van-radio-group wx:if="{{type == 0}}" value="{{ logisticsStatus }}" bind:change="logisticsStatusChange">
-      <van-cell-group title="选择货物状态">
-        <van-cell wx:for="{{logisticsStatusItems}}" wx:key="value" title="{{ item.name }}" clickable data-name="{{ item.value }}" bind:click="logisticsStatusClick">
-          <van-radio slot="right-icon" name="{{ item.value }}" />
-        </van-cell>
-      </van-cell-group>
-    </van-radio-group>
-    <van-radio-group value="{{ reason }}" bind:change="reasonChange">
-      <van-cell-group title="售后原因">
-        <van-cell wx:for="{{reasons}}" wx:key="value" title="{{ item }}" clickable data-name="{{ item }}" bind:click="reasonClick">
-          <van-radio slot="right-icon" name="{{ item }}" />
-        </van-cell>
-      </van-cell-group>
-    </van-radio-group>
-    <van-field
-      wx:if="{{type != 2}}"
-      label="退款金额"
-      model:value="{{ amount }}"
-      placeholder="请输入申请退款金额"
-      type="digit"
-      input-align="right"
-      clearable
-    />
-    <van-cell-group title="售后说明">
-      <van-field
-        model:value="{{ remark }}"
-        placeholder="请输入退款说明"
-        type="textarea"
-        autosize="{{ autosize }}"
-      />
+<van-cell-group wx:if="{{ refundApplyList && refundApplyList.length > 0 }}" title="我的售后">
+  <van-cell wx:for="{{ refundApplyList  }}" wx:key="id"
+    title="{{ item.goodInfo.goodsName }} x{{ item.baseInfo.number }} ￥{{ item.baseInfo.amount }}"
+    icon="{{ item.goodInfo.pic }}_m"
+    label="申请时间:{{ item.baseInfo.dateAdd }}"
+    value="{{ item.baseInfo.statusStr }}"
+    is-link
+    data-idx="{{ index }}"
+    bind:click="refundDetail"
+  >
+  </van-cell>
+</van-cell-group>
+<block>
+  <van-radio-group value="{{ goodsIndex }}">
+    <van-cell-group title="选择需要售后的商品">
+      <van-cell wx:for="{{ goods }}" wx:key="id" title="{{ item.goodsName }}" label="{{ !item.afterSale ? '该商品不支持售后' : '' }}" clickable data-name="{{ index }}" bind:click="goodsClick">
+        <van-radio slot="right-icon" name="{{ index }}" disabled="{{ !item.afterSale }}" />
+      </van-cell>
     </van-cell-group>
-    <view style="margin-top:16rpx;padding-left:32rpx;">
-      <van-uploader
-        accept="image"
-        multiple
-        upload-text="上传图片"
-        image-fit="aspectFill"
-        file-list="{{ picsList }}"
-        bind:after-read="afterPicRead"
-        bind:delete="afterPicDel"
-      />
-    </view>
-
-    <view>
-      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 0}}" type="warn" bindtap='refundApplyCancel'>撤回本次申请</button>
-      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 3}}" type="warn" disabled>等待处理</button>
-      <button wx:if="{{refundApplyDetail && refundApplyDetail.baseInfo.status == 4}}" type="primary" disabled>处理完毕</button>
-      <button wx:else type="warn" formType="submit">立即申请售后</button>
-    </view>
+  </van-radio-group>
+</block>
+<block wx:if="{{ curGoods }}">
+  <van-cell-group title="商品预览">
+    <van-card
+      price="{{ curGoods.amount }}"
+      title="{{ curGoods.goodsName }}"
+      thumb="{{ curGoods.pic }}_m"
+      thumb-mode="aspectFill"
+      centered
+    />
+    <van-cell title="选择数量">
+      <van-stepper value="{{ number }}" integer min="1" max="{{ curGoods.number }}" bind:change="numberChange" />
+    </van-cell>
+  </van-cell-group>
+  <van-radio-group value="{{ type }}" bind:change="typeChange">
+    <van-cell-group title="选择售后类型">
+      <block wx:for="{{typeItems}}" wx:key="*this">
+        <van-cell wx:if="{{ curGoods['afterSale' + index] }}" title="{{ item.name }}" clickable data-name="{{ item.value }}" bind:click="typeClick">
+          <van-radio slot="right-icon" name="{{ item.value }}" />
+        </van-cell>
+      </block>
+    </van-cell-group>
+  </van-radio-group>
+  <van-radio-group wx:if="{{type == 0}}" value="{{ logisticsStatus }}" bind:change="logisticsStatusChange">
+    <van-cell-group title="选择货物状态">
+      <van-cell wx:for="{{logisticsStatusItems}}" wx:key="value" title="{{ item.name }}" clickable data-name="{{ item.value }}" bind:click="logisticsStatusClick">
+        <van-radio slot="right-icon" name="{{ item.value }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+  <van-radio-group value="{{ reason }}" bind:change="reasonChange">
+    <van-cell-group title="售后原因">
+      <van-cell wx:for="{{reasons}}" wx:key="value" title="{{ item }}" clickable data-name="{{ item }}" bind:click="reasonClick">
+        <van-radio slot="right-icon" name="{{ item }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+  <!-- <van-field
+    wx:if="{{type != 2}}"
+    label="退款金额"
+    model:value="{{ amount }}"
+    placeholder="请输入申请退款金额"
+    type="digit"
+    input-align="right"
+    clearable
+  /> -->
+  <van-cell-group title="售后说明">
+    <van-field
+      model:value="{{ remark }}"
+      placeholder="请输入退款说明"
+      type="textarea"
+      autosize="{{ autosize }}"
+    />
+  </van-cell-group>
+  <view style="margin-top:16rpx;padding-left:32rpx;">
+    <van-uploader
+      accept="image"
+      multiple
+      upload-text="上传图片"
+      image-fit="aspectFill"
+      file-list="{{ picsList }}"
+      bind:after-read="afterPicRead"
+      bind:delete="afterPicDel"
+    />
   </view>
-  </form>
-</view>
+  <button type="warn" bind:tap="bindSave">立即申请售后</button>
+</block>
+
+<van-popup show="{{ popShow }}" position="bottom" round custom-style="max-height: 80vh" bind:close="popClose">
+  <van-card
+    price="{{ curRufund.baseInfo.amount }}"
+    title="{{ curRufund.goodInfo.goodsName }}"
+    num="{{ curRufund.baseInfo.number }}"
+    thumb="{{ curRufund.goodInfo.pic }}_m"
+    thumb-mode="aspectFill"
+    centered
+  />
+  <van-notice-bar
+    wx:if="{{curRufund.baseInfo.status == 0}}"
+    left-icon="volume-o"
+    speed="30"
+    text="已申请，等待商家处理，请耐心等待~"
+  />
+  <van-notice-bar
+    wx:if="{{curRufund.baseInfo.status == 2}}"
+    left-icon="volume-o"
+    speed="30"
+    text="商家已拒绝，如果诉求未得到解决，请联系客服~"
+  />
+  <van-notice-bar
+    wx:if="{{curRufund.baseInfo.status == 3}}"
+    left-icon="volume-o"
+    speed="30"
+    text="商家正在处理中，请耐心等待~"
+  />
+  <van-notice-bar
+    wx:if="{{curRufund.baseInfo.status == 4}}"
+    left-icon="volume-o"
+    speed="30"
+    text="本次售后已处理完成"
+  />
+  <van-cell title="申请时间" value="{{ curRufund.baseInfo.dateAdd }}" />
+  <van-cell title="售后类型" value="{{ curRufund.baseInfo.typeStr }}" />
+  <van-cell title="物流状态" value="{{ curRufund.baseInfo.logisticsStatusStr }}" />
+  <van-cell title="售后原因" value="{{ curRufund.baseInfo.reason }}" />
+  <van-cell wx:if="{{ curRufund.baseInfo.remark }}" title="备注" value="{{ curRufund.baseInfo.remark }}" />
+  <van-cell-group wx:if="{{ curRufund.pics && curRufund.pics.length > 0 }}" title="举证照片">
+    <view class="pic-box">
+      <image
+        wx:for="{{ curRufund.pics }}" wx:key="*this"
+        class="pic" mode="aspectFill"
+        src="{{ item.pic }}_m"
+        data-current="{{ item.pic }}_m"
+        bind:tap="previewImageimageList"
+      ></image>
+    </view>
+  </van-cell-group>
+  <view style="height: 132rpx;"></view>
+  <van-goods-action>
+    <van-goods-action-icon wx:if="{{ customerServiceType == 'QW' }}" icon="chat-o" text="联系客服" bind:click="customerService" />
+    <van-goods-action-icon wx:else icon="chat-o" text="联系客服" open-type="contact" />
+    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 0}}" text="撤回本次申请" bind:click="refundApplyCancel" />
+    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 1}}" text="您已撤销本次申请" disabled type="warning" />
+    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 2}}" text="商家已取消本次申请" disabled type="warning" />
+    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 3}}" text="商家正在处理中" disabled type="primary" />
+    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 4}}" text="本次售后已处理完结" disabled type="primary" />
+  </van-goods-action>
+</van-popup>

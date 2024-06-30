@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/order/refundApply",
+          "pathName": "pages/order/refundApply",
+          "query": "id=4638527",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/order-list/index",
+          "pathName": "pages/order-list/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/goods-details/index",
           "pathName": "pages/goods-details/index",
           "query": "id=4232",

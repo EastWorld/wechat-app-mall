@@ -56,16 +56,14 @@
   <van-grid-item icon="coupon-o" text="优惠券" url="/pages/coupons/index" link-type="switchTab" />
   <van-grid-item wx:if="{{ show_score_sign == 1 }}" icon="calendar-o" text="签到赚积分" url="/pages/sign/index" />
 </van-grid>
-<van-cell-group title="配送员工作台">
-  <block wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}">
-    <van-cell title="工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})">
-      <view slot="">
-        <van-switch size="40rpx" checked="{{ memberChecked }}" bind:change="memberCheckedChange" />
-      </view>
-    </van-cell>
-    <van-cell title="我的配送单" is-link url="/pages/peisong/orders" />
-    <van-cell wx:if="{{apiUserInfoMap.peisongMember.type != 2}}" title="抢单任务大厅" is-link url="/pages/peisong/orders?status=-1" />
-  </block>
+<van-cell-group wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}" title="配送员工作台">
+  <van-cell title="工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})">
+    <view slot="">
+      <van-switch size="40rpx" checked="{{ memberChecked }}" bind:change="memberCheckedChange" />
+    </view>
+  </van-cell>
+  <van-cell title="我的配送单" is-link url="/pages/peisong/orders" />
+  <van-cell wx:if="{{apiUserInfoMap.peisongMember.type != 2}}" title="抢单任务大厅" is-link url="/pages/peisong/orders?status=-1" />
   <van-cell wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type == 2}}" title="管理员派单管理" is-link url="/pages/peisong/orders?status=1" />
   <van-cell title="业绩统计" is-link url="/pages/peisong/statistics" />
 </van-cell-group>

@@ -121,10 +121,9 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "appid": "wxa46b09d413fbcaff",
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "projectname": "天使童装"
+  "appid": "wxa46b09d413fbcaff"
 }

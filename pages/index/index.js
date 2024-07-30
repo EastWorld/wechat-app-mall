@@ -69,12 +69,20 @@ Page({
       })
     }
   },
-  tapBanner: function(e) {
-    const url = e.currentTarget.dataset.url
-    if (url) {
-      wx.navigateTo({
-        url
+  tapBanner(e) {
+    const item = e.currentTarget.dataset.item
+    if (item.linkType == 1) {
+      // 跳小程序
+      wx.navigateToMiniProgram({
+        appId: item.appid,
+        path: item.linkUrl || '',
       })
+    } else {
+      if (url) {
+        wx.navigateTo({
+          url
+        })
+      }
     }
   },
   adClick: function(e) {

@@ -1058,6 +1058,30 @@ module.exports = {
   regionSearch: function regionSearch(data) {
     return request('/common/region/v2/search', false, 'post', data);
   },
+  provinceV2: () => {
+    return request('https://common.apifm.com/' + subDomain + '/region/province', false, 'get')
+  },
+  cityV2: () => {
+    return request('https://common.apifm.com/' + subDomain + '/region/city', false, 'get')
+  },
+  districtsV2: data => {
+    return request('https://common.apifm.com/' + subDomain + '/region/districts', false, 'post', data)
+  },
+  streetsV2: data => {
+    return request('https://common.apifm.com/' + subDomain + '/region/streets', false, 'post', data)
+  },
+  nextRegionV2: pid => {
+    return request('https://common.apifm.com/' + subDomain + '/region/child', false, 'get', { pid })
+  },
+  regionInfoV2: id => {
+    return request('https://common.apifm.com/' + subDomain + '/region/info', false, 'get', { id })
+  },
+  regionInfoBatchV2: ids => {
+    return request('https://common.apifm.com/' + subDomain + '/region/infoBatch', false, 'get', { ids })
+  },
+  regionSearchV2: data => {
+    return request('https://common.apifm.com/' + subDomain + '/region/search', false, 'post', data)
+  },
   cashLogs: function cashLogs(data) {
     return request('/user/cashLog', true, 'post', data);
   },

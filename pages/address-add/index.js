@@ -11,7 +11,7 @@ Page({
     aIndex: 0,//选择的区下标
   },
   async provinces(provinceId, cityId, districtId, streetId) {
-    const res = await WXAPI.province()
+    const res = await WXAPI.provinceV2()
     if (res.code == 0) {
       const provinces = [{
         id: 0,
@@ -48,7 +48,7 @@ Page({
       })
       return
     }
-    const res = await WXAPI.nextRegion(pid);
+    const res = await WXAPI.nextRegionV2(pid);
     if (res.code == 0) {
       const cities = [{
         id: 0,
@@ -83,7 +83,7 @@ Page({
       })
       return
     }
-    const res = await WXAPI.nextRegion(pid);
+    const res = await WXAPI.nextRegionV2(pid);
     if (res.code == 0) {
       const areas = [{
         id: 0,
@@ -123,7 +123,7 @@ Page({
       })
       return
     }
-    const res = await WXAPI.nextRegion(pid);
+    const res = await WXAPI.nextRegionV2(pid);
     if (res.code == 0) {
       const streets = [{
         id: 0,

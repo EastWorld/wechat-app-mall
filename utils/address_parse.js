@@ -53,7 +53,7 @@ async function smatrAddress(event) {
   console.log('smatrAddress:', address);
   let matchAddress = "";
   //省匹配 比如输入北京市朝阳区，会用北  北京  北京市 北京市朝 以此类推在addressList里的province中做匹配，会得到北京市  河北省 天津市等等；
-  const resProvince = await WXAPI.province()
+  const resProvince = await WXAPI.provinceV2()
   const provinceList = resProvince.data
 
   let matchProvince = []; //粗略匹配上的省份
@@ -94,7 +94,7 @@ async function smatrAddress(event) {
     address = address.replace(province.matchValue, "");
   }
   //市查找
-  const resCity = await WXAPI.city()
+  const resCity = await WXAPI.cityV2()
   let cityList = resCity.data
   if (smartObj.provinceCode) {
     cityList = resCity.data.filter(ele => {

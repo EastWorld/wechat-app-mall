@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/address-add/index",
+          "pathName": "pages/address-add/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/maidan/index",
+          "pathName": "pages/maidan/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/order/refundApply",
           "pathName": "pages/order/refundApply",
           "query": "id=4638527",

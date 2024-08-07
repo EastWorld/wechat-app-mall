@@ -8,6 +8,48 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/to-pay-order/index",
+          "pathName": "pages/to-pay-order/index",
+          "query": "orderType=buyNow",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/pwd-pay/reset",
+          "pathName": "pages/pwd-pay/reset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/my/info",
+          "pathName": "pages/my/info",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/my/info-menu",
+          "pathName": "pages/my/info-menu",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/maidan/index",
+          "pathName": "pages/maidan/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/recharge/index",
+          "pathName": "pages/recharge/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/address-add/index",
           "pathName": "pages/address-add/index",
           "query": "",

@@ -29,3 +29,12 @@
 <view class="block-btn btn">
   <van-button type="primary" block bind:click="bindSave">确认支付</van-button>
 </view>
+
+
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>

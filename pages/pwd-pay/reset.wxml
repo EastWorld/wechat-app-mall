@@ -19,7 +19,7 @@
   placeholder="绑定后才可以重置"
   use-button-slot
 >
-  <van-button slot="button" type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
+  <van-button slot="button" type="primary" size="small" bind:tap="bindMobile">立即绑定</van-button>
 </van-field>
 <van-field
   wx:if="{{ mobile }}"
@@ -49,3 +49,11 @@
 <view class="block-btn btn">
   <van-button type="primary" block bind:click="submit">重置交易密码</van-button>
 </view>
+
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>

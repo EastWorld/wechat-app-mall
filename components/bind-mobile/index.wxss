@@ -1,0 +1,11 @@
+.pop-main {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  padding: 32rpx;
+  text-align: center;
+}
+.btn-box {
+  padding: 32rpx;
+}

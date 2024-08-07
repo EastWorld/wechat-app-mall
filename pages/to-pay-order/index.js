@@ -824,42 +824,23 @@ Page({
       })
     }
   },
-  async getPhoneNumber(e) {
-    if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
-      wx.showToast({
-        title: e.detail.errMsg,
-        icon: 'none'
-      })
-      return;
-    }
-    let res
-    const extConfigSync = wx.getExtConfigSync()
-    if (extConfigSync.subDomain) {
-      // 服务商模式
-      res = await WXAPI.wxappServiceBindMobile({
-        token: wx.getStorageSync('token'),
-        code: this.data.code,
-        encryptedData: e.detail.encryptedData,
-        iv: e.detail.iv,
-      })
-    } else {
-      res = await WXAPI.bindMobileWxappV2(wx.getStorageSync('token'), e.detail.code)
-    }
-    if (res.code == 0) {
-      wx.showToast({
-        title: '读取成功',
-        icon: 'success'
-      })
-      this.setData({
-        mobile: res.data,
-        bindMobileStatus: 1
-      })
-    } else {
-      wx.showToast({
-        title: res.msg,
-        icon: 'none'
-      })
-    }
+  bindMobile() {
+    this.setData({
+      bindMobileShow: true
+    })
+  },
+  bindMobileOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      bindMobileShow: false,
+      mobile: e.detail.mobile,
+      bindMobileStatus: 1
+    })
+  },
+  bindMobileCancel() {
+    this.setData({
+      bindMobileShow: false
+    })
   },
   deductionScoreChange(event) {
     this.setData({

@@ -1,0 +1,19 @@
+<van-popup
+  show="{{ show }}"
+  position="bottom"
+  round
+  closeable
+  bind:close="close"
+>
+  <view class="pop-main">
+    <view class="title">{{ title }}</view>
+    <van-notice-bar
+      wx:if="{{ alarmText }}"
+      left-icon="volume-o"
+      text="{{ alarmText }}"
+    />
+    <view class="btn-box">
+      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
+    </view>
+  </view>
+</van-popup>

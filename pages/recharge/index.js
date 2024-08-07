@@ -28,7 +28,16 @@ Page({
   /**
      * 点击充值优惠的充值送
      */
-  rechargeAmount: function (e) {
+  async rechargeAmount(e) {
+    // 判断是否需要绑定手机号码
+    // https://www.yuque.com/apifm/nu0f75/zgf8pu
+    const resUserDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
+    if (resUserDetail.code == 0 && !resUserDetail.data.base.mobile) {
+      this.setData({
+        bindMobileShow: true
+      })
+      return
+    }
     var confine = e.currentTarget.dataset.confine;
     var amount = confine;
     this.setData({
@@ -54,6 +63,26 @@ Page({
       })
       return
     }
+    // 判断是否需要绑定手机号码
+    // https://www.yuque.com/apifm/nu0f75/zgf8pu
+    const resUserDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
+    if (resUserDetail.code == 0 && !resUserDetail.data.base.mobile) {
+      this.setData({
+        bindMobileShow: true
+      })
+      return
+    }
     wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
-  }
+  },
+  bindMobileOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      bindMobileShow: false
+    })
+  },
+  bindMobileCancel() {
+    this.setData({
+      bindMobileShow: false
+    })
+  },
 })

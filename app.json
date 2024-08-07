@@ -162,6 +162,7 @@
     "fuwuxieyi": "/components/fuwuxieyi/index",
     "goods-pop": "/components/goods-pop/index",
     "login": "/components/login/index",
+    "bind-mobile": "/components/bind-mobile/index",
     "mp-html": "mp-html",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "van-search": "@vant/weapp/search/index",

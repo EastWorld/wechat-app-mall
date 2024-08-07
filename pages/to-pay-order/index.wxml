@@ -5,7 +5,7 @@
     <view class="title">申请获取以下权限</view>
     <view class="profile">授权绑定手机号码</view>
     <view class="btn">
-      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">绑定手机号码</van-button>
+      <van-button type="primary" block round bind:tap="bindMobile">绑定手机号码</van-button>
     </view>
   </view>
 </block>
@@ -115,7 +115,7 @@
         clearable
         required
         placeholder="请输入手机号码">
-        <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">自动获取</van-button>
+        <van-button slot="button" size="small" type="danger" bind:tap="bindMobile">自动获取</van-button>
       </van-field>
       <view wx:if="{{shopCarType == 0}}" class="row-box">
         <view class="row-label">备注</view>
@@ -257,3 +257,11 @@
     bind:cancel="dateStartcancel"
   />
 </van-popup>
+
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>

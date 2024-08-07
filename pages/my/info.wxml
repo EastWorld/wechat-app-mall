@@ -29,7 +29,7 @@
     label="手机号码"
     use-button-slot
   >
-    <van-button slot="button" type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">重新绑定</van-button>
+    <van-button slot="button" type="primary" size="small" bind:tap="bindMobile">一键绑定</van-button>
   </van-field>
   <van-field
     wx:for="{{apiUserInfoMap.ext}}" wx:for-index='k' wx:key="index"
@@ -43,3 +43,11 @@
     <van-button type="primary" block form-type="submit">保存</van-button>
   </view>
 </form>
+
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>

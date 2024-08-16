@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/order-details/index",
+          "pathName": "pages/order-details/index",
+          "query": "id=4862932",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/goods-details/index",
+          "pathName": "pages/goods-details/index",
+          "query": "id=235853",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/to-pay-order/index",
           "pathName": "pages/to-pay-order/index",
           "query": "orderType=buyNow",

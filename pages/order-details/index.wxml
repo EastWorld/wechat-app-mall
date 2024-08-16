@@ -158,19 +158,28 @@
       <image mode="widthFix" wx:if="{{item.type == 1}}" src="{{item.coupon}}" style="max-width:100%;"></image>
     </view>
   </view>
-  <view class="goods-info">
-    <view class="row-box">
-      <view class="row-label">商品金额</view>
-      <view class="right-text">¥ {{orderDetail.orderInfo.amount}}</view>
-    </view>
-    <view class="row-box">
-      <view class="row-label">运费</view>
-      <view class="right-text">+ ¥ {{orderDetail.orderInfo.amountLogistics}}</view>
-    </view>
-    <view class="row-box">
-      <view class="row-label">应付总额</view>
-      <view class="right-text">¥ {{orderDetail.orderInfo.amountReal}}</view>
-    </view>
+  <view style="width: 100vw;">
+    <van-cell-group title="订单金额">
+      <van-cell
+        title="商品金额"
+        value="¥ {{orderDetail.orderInfo.amount}}"
+      />
+      <van-cell
+        title="运费"
+        value="¥ {{orderDetail.orderInfo.amountLogistics}}"
+      />
+      <block wx:if="{{ orderDetail.orderAdditionalPrices }}">
+        <van-cell
+          wx:for="{{ orderDetail.orderAdditionalPrices }}" wx:key="id"
+          title="{{ item.name }}"
+          value="{{ '￥' + item.amount }}"
+        />
+      </block>
+      <van-cell
+        title="应付总额"
+        value="¥ {{orderDetail.orderInfo.amountReal}}"
+      />
+    </van-cell-group>
   </view>
 </view>
 

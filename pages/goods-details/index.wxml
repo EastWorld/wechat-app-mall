@@ -40,6 +40,14 @@
       </view>
       <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
       <view class="characteristic">{{goodsDetail.basicInfo.characteristic}}</view>
+      <!-- 商品附加费用展示 -->
+      <van-cell-group wx:if="{{ goodsDetail.goodsAdditionalPriceItems }}" title="其他费用">
+        <van-cell
+          wx:for="{{ goodsDetail.goodsAdditionalPriceItems }}" wx:key="id"
+          title="{{ item.name }}"
+          value="{{ item.type == 0 ? ('￥' + item.price) : (item.price + '%') }}"
+        />
+      </van-cell-group>
       <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得
         {{goodsDetail.basicInfo.commission}} 积分奖励</view>
       <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得

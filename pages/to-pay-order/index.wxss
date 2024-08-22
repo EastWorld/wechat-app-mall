@@ -5,6 +5,7 @@ page,view,image,input,textarea {
 
 page {
   background-color: #f2f2f2;
+  padding-bottom: 48rpx;
 }
 
 .address-box {

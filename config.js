@@ -1,5 +1,5 @@
 module.exports = {
-  version: '24.08.16',
+  version: '24.08.17',
   note: '增加支持商品附加价格的显示，订单附加价格的显示', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看

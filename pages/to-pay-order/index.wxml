@@ -229,6 +229,13 @@
 
   <van-cell-group wx:if="{{ yunPrice || deductionMoney || couponAmount || balance }}" title="小计">
     <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
+    <block wx:if="{{ goodsAdditionalPriceMap }}">
+      <van-cell
+        wx:for="{{ goodsAdditionalPriceMap }}" wx:key="id"
+        title="{{ index }}"
+        value="¥{{ item }}"
+      />
+    </block>
     <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />
     <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-¥{{couponAmount}}" />
     <van-cell wx:if="{{order_pay_user_balance == '1' && balance}}" title="账户余额" value="¥{{balance}}" />

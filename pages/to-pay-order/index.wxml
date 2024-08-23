@@ -229,6 +229,7 @@
 
   <van-cell-group wx:if="{{ yunPrice || deductionMoney || couponAmount || balance }}" title="小计">
     <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
+    <van-cell wx:if="{{ amountLogistics2 }}" title="附加运费" value="¥{{ amountLogistics2 }}" />
     <block wx:if="{{ goodsAdditionalPriceMap }}">
       <van-cell
         wx:for="{{ goodsAdditionalPriceMap }}" wx:key="id"

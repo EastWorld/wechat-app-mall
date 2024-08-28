@@ -61,3 +61,6 @@ page {
 .adPosition {
   width: 100%;
 }
+.title-class-apifm {
+  word-break: break-all;
+}

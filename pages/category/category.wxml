@@ -67,6 +67,7 @@
       desc="{{item.numberSells ? '已售' + item.numberSells : ''}}"
       tag="{{item.gotScore ? (item.gotScore + (item.gotScoreType ? '%' : '') + '积分') : ''}}"
       title="{{item.name}}"
+      title-class="title-class-apifm"
       thumb="{{item.pic}}"
       thumb-link="{{ goodsDetailPage.url(item) }}"
     >

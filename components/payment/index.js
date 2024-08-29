@@ -20,13 +20,14 @@ Component({
    */
   data: {
     payType: 'wx',
-    alipayOpenMod: wx.getStorageSync('alipay')
+    alipayOpenMod: '0'
   },
   // 组件数据字段监听器，用于监听 properties 和 data 的变化
   observers: {
     'show': function(show) {
       this.setData({
-        alipayQrcode: null
+        alipayQrcode: null,
+        alipayOpenMod: wx.getStorageSync('alipay')
       })
     }
   },

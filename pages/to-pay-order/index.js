@@ -1,8 +1,6 @@
-const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-const wxpay = require('../../utils/pay.js')
 
 Date.prototype.format = function(format) {
   var date = {
@@ -647,7 +645,15 @@ Page({
           success: res2 => {
             if (res2.confirm) {
               // 使用余额支付
-              wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
+              this.setData({
+                orderId,
+                money,
+                paymentShow: true,
+                nextAction: {
+                  type: 0,
+                  id: orderId
+                }
+              })
             } else {
               wx.redirectTo({
                 url: "/pages/order-list/index"
@@ -658,7 +664,15 @@ Page({
       }
     } else {
       // 没余额
-      wxpay.wxpay('order', res.data.amountReal, orderId, "/pages/order-list/index");
+      this.setData({
+        orderId,
+        money: res.data.amountReal,
+        paymentShow: true,
+        nextAction: {
+          type: 0,
+          id: orderId
+        }
+      })
     }
   },
   async initShippingAddress() {
@@ -907,5 +921,19 @@ Page({
         })
       }
     }
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.redirectTo({
+      url: '/pages/order-list/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
+    })
   },
 })

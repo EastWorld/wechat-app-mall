@@ -1,6 +1,5 @@
 const WXAPI = require('apifm-wxapi')
 const dayjs = require("dayjs")
-const wxpay = require('../../utils/pay.js')
 
 Page({
   data: {
@@ -53,7 +52,28 @@ Page({
       })
       return
     }
-    // 发起微信支付
-    wxpay.wxpay('order', res.data.amountReal, res.data.id, "/pages/order-details/index?id=" + res.data.id);
+    this.setData({
+      orderId: res.data.id,
+      money: res.data.amountReal,
+      paymentShow: true,
+      nextAction: {
+        type: 0,
+        id: res.data.id
+      }
+    })
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.redirectTo({
+      url: '/pages/order-details/index?id=' + this.data.orderId,
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
+    })
   },
 })

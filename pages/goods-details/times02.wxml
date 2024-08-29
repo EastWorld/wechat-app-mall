@@ -2,3 +2,12 @@
 <van-cell-group>
   <van-cell wx:for="{{ list }}" wx:key="id" title="{{ item.name }}" border="{{ true }}" value="预约 ￥{{ item.price }}" is-link data-idx="{{ index }}" bind:click="submit" />
 </van-cell-group>
+
+<payment
+  money="{{ money }}"
+  remark="支付订单 ：{{ orderId }}"
+  nextAction="{{ nextAction }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

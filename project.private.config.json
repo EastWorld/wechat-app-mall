@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "packageFx/pages/apply/index",
+          "pathName": "packageFx/pages/apply/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/recharge/index",
+          "pathName": "pages/recharge/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/category/category",
           "pathName": "pages/category/category",
           "query": "",

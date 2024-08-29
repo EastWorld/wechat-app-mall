@@ -1,0 +1,26 @@
+app.json usingComponents 加上
+"payment": "/components/payment/index",
+
+
+在需要的页面上加这句代码即可
+<payment
+  money="100"
+  remark="支付备注信息"
+  nextAction=""
+  extData="需要同时提交给接口的参数对象"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>
+
+paymentOk(e) {
+  console.log(e.detail); // 这里是组件里data的数据
+  this.setData({
+    paymentShow: false
+  })
+},
+paymentCancel() {
+  this.setData({
+    paymentShow: false
+  })
+},

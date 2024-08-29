@@ -1,0 +1,31 @@
+<van-popup
+  show="{{ show }}"
+  position="bottom"
+  round
+  closeable
+  bind:close="close"
+>
+  <view class="pop-main">
+    <view class="title">{{ remark }}</view>
+    <view class="amount"><text>￥</text>{{ money }}</view>
+    <van-divider contentPosition="center">选择支付方式</van-divider>
+    <van-radio-group value="{{ payType }}" bind:change="payTypeChange">
+      <van-cell-group>
+        <van-cell icon="https://dcdn.it120.cc/2024/08/29/b327bac1-bfe6-4083-8c56-e2628a7273df.png" title="微信支付" clickable data-name="wx" bind:click="payTypeClick">
+          <van-radio slot="right-icon" name="wx" />
+        </van-cell>
+        <van-cell wx:if="{{ alipayOpenMod == '1' }}" icon="https://dcdn.it120.cc/2024/08/29/b6fdcdd9-bb24-46fd-b066-1a41c0ea8047.png" title="支付宝支付" clickable data-name="alipay" bind:click="payTypeClick">
+          <van-radio slot="right-icon" name="alipay" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+    <block wx:if="{{ alipayQrcode }}">
+      <image src="{{ alipayQrcode }}" mode="widthFix" class="alipayQrcode" show-menu-by-longpress></image>
+      <view class="alipayQrcodeText">长按图片保存，然后使用支付宝扫一扫付款</view>
+    </block>
+    
+    <view wx:if="{{ !alipayQrcode }}" class="btn-box">
+      <van-button type="primary" block round bind:click="submit">立即支付</van-button>
+    </view>
+  </view>
+</van-popup>

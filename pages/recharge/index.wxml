@@ -22,3 +22,11 @@
   bind:cancel="bindMobileCancel"
   bind:ok="bindMobileOk"
 />
+
+<payment
+  money="{{ amount }}"
+  remark="在线充值{{ amount }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

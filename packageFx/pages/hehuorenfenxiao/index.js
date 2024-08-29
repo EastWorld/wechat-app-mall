@@ -1,7 +1,6 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../../utils/auth')
-const wxpay = require('../../../utils/pay.js')
 const ImageUtil = require('../../../utils/image')
 const APP = getApp()
 // fixed首次打开不显示标题的bug
@@ -258,8 +257,12 @@ Page({
   },
 
   async payFx() {
-    var money = this.data.fxData.priceLeader;
-    wxpay.wxpay('payTz', money, '', "/pages/packageA/pages/vip/index");
+    var money = this.data.fxData.priceLeader
+    this.setData({
+      money,
+      paymentShow: true,
+      nextAction: {type: 14}
+    })
   },
 
   fetchTabData(activeIndex) {
@@ -687,6 +690,20 @@ Page({
           }
         })
       }
+    })
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.redirectTo({
+      url: '/pages/packageA/pages/vip/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
     })
   },
 })

@@ -1,0 +1,30 @@
+.pop-main {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  padding: 32rpx;
+  text-align: center;
+}
+.btn-box {
+  padding: 32rpx;
+}
+.alipayQrcode {
+  margin-left: 50rpx;
+}
+.alipayQrcodeText {
+  text-align: center;
+  color: rgb(201, 25, 48);
+  font-size: 24rpx;
+}
+.amount {
+  padding: 16rpx;
+  text-align: center;
+  color: #e64340;
+  font-weight: bold;
+  font-size: 52rpx;
+}
+.amount text {
+  font-weight: normal;
+  font-size: 28rpx;
+}

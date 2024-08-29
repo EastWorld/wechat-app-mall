@@ -51,3 +51,12 @@
   </view>
   <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>
+
+<payment
+  money="{{ money }}"
+  remark="支付订单 ：{{ orderId }}"
+  nextAction="{{ nextAction }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

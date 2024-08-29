@@ -1,4 +1,3 @@
-const wxpay = require('../../utils/pay.js')
 const WXAPI = require('apifm-wxapi')
 Page({
   data: {
@@ -41,9 +40,9 @@ Page({
     var confine = e.currentTarget.dataset.confine;
     var amount = confine;
     this.setData({
-      amount: amount
-    });
-    wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
+      amount,
+      paymentShow: true
+    })
   },
   async bindSave() {
     const amount = this.data.amount;
@@ -72,7 +71,9 @@ Page({
       })
       return
     }
-    wxpay.wxpay('recharge', amount, 0, "/pages/my/index");
+    this.setData({
+      paymentShow: true
+    })
   },
   bindMobileOk(e) {
     console.log(e.detail); // 这里是组件里data的数据
@@ -83,6 +84,20 @@ Page({
   bindMobileCancel() {
     this.setData({
       bindMobileShow: false
+    })
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.switchTab({
+      url: '/pages/my/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
     })
   },
 })

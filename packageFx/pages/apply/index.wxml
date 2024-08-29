@@ -29,3 +29,12 @@
     <van-button type="primary" block round bind:click="goFx">前往分销中心</van-button>
   </view>
 </view>
+
+<payment
+  money="{{ price }}"
+  remark="购买分销资格"
+  show="{{ paymentShow }}"
+  nextAction="{{ nextAction }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

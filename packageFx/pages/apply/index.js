@@ -1,6 +1,5 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../../utils/auth')
-const wxpay = require('../../../utils/pay.js')
 
 Page({
   data: {
@@ -103,7 +102,25 @@ Page({
     } else {
       let price = this.data.setting.price - res.data.balance
       price = price.toFixed(2)
-      wxpay.wxpay('fxsBuy', price, 0, "/packageFx/pages/index/index");
+      this.setData({
+        price,
+        paymentShow: true,
+        nextAction: {type: 13}
+      })
     }
-  }
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.redirectTo({
+      url: '/packageFx/pages/index/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
+    })
+  },
 })

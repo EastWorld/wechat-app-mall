@@ -113,7 +113,7 @@ Page({
         var res = await WXAPI.shippingCarInfo(token)
         shopList = res.data.shopList
       } else if (this.data.shopCarType == 1) {//云货架购物车
-        var res = await WXAPI.jdvopCartInfo(token)
+        var res = await WXAPI.jdvopCartInfoV2(token)
         shopList = [{
           id: 0,
           name: '其他',
@@ -565,7 +565,7 @@ Page({
       if (this.data.shopCarType == 0) { //自营购物车
         WXAPI.shippingCarInfoRemoveItem(loginToken, keyArrays.join())
       } else if (this.data.shopCarType == 1) {//云货架购物车
-        WXAPI.jdvopCartRemove(loginToken, keyArrays.join())
+        WXAPI.jdvopCartRemoveV2(loginToken, keyArrays.join())
       }
     }
     this.processAfterCreateOrder(totalRes)

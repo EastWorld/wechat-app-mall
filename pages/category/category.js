@@ -42,9 +42,10 @@ Page({
     let activeCategory = 0
     let categorySelected = this.data.categorySelected
     if (res.code == 0) {
-      const categories = res.data.filter(ele => {
-        return !ele.vopCid1 && !ele.vopCid2
-      })
+      // const categories = res.data.filter(ele => {
+      //   return !ele.vopCid1 && !ele.vopCid2
+      // })
+      const categories = res.data
       categories.forEach(p => {
         p.childs = categories.filter(ele => {
           return p.id == ele.pid
@@ -59,10 +60,12 @@ Page({
       } else {
         categorySelected = firstCategories[0]
       }
-      const resAd = await WXAPI.adPosition('category_' + categorySelected.id)
       let adPosition = null
-      if (resAd.code === 0) {
-        adPosition = resAd.data
+      if (categorySelected) {
+        const resAd = await WXAPI.adPosition('category_' + categorySelected.id)
+        if (resAd.code === 0) {
+          adPosition = resAd.data
+        }
       }
       this.setData({
         page: 1,
@@ -86,7 +89,7 @@ Page({
     let categoryId = ''
     if (this.data.secondCategoryId) {
       categoryId = this.data.secondCategoryId
-    } else if(this.data.categorySelected.id) {
+    } else if(this.data.categorySelected && this.data.categorySelected.id) {
       categoryId = this.data.categorySelected.id
     }
     // https://www.yuque.com/apifm/nu0f75/wg5t98

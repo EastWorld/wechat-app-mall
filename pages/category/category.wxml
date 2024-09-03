@@ -71,7 +71,7 @@
       thumb="{{item.pic}}"
       thumb-link="{{ goodsDetailPage.url(item) }}"
     >
-      <view class="goods-btn" slot="footer">
+      <view wx:if="{{ item.supplyType != 'vop_jd' }}" class="goods-btn" slot="footer">
         <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
         <van-icon wx:else name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
       </view>

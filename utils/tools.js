@@ -15,7 +15,7 @@ async function showTabBarBadge(noTabBarPage){
   // vop 购物车
   const shopping_cart_vop_open = wx.getStorageSync('shopping_cart_vop_open')
   if (shopping_cart_vop_open == '1') {
-    res = await WXAPI.jdvopCartInfo(token)
+    res = await WXAPI.jdvopCartInfoV2(token)
     if (res.code == 0) {
       number += res.data.number
     }

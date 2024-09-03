@@ -50,7 +50,7 @@ Page({
     if (this.data.shopCarType == 0) { //自营购物车
       var res = await WXAPI.shippingCarInfo(token)
     } else if (this.data.shopCarType == 1) { //云货架购物车
-      var res = await WXAPI.jdvopCartInfo(token)
+      var res = await WXAPI.jdvopCartInfoV2(token)
     }
     if (res.code == 0) {
       if (this.data.shopCarType == 0) //自营商品
@@ -129,7 +129,7 @@ Page({
       var res = await WXAPI.shippingCarInfoRemoveItem(token, key)
     }
     if(this.data.shopCarType == 1){
-      var res = await WXAPI.jdvopCartRemove(token, key)
+      var res = await WXAPI.jdvopCartRemoveV2(token, key)
     }
     if (res.code != 0 && res.code != 700) {
       wx.showToast({
@@ -150,7 +150,7 @@ Page({
       var res = await WXAPI.shippingCarInfoModifyNumber(token, item.key, number)
     }
     else if(this.data.shopCarType == 1){
-      var res = await WXAPI.jdvopCartModifyNumber(token, item.key, number)
+      var res = await WXAPI.jdvopCartModifyNumberV2(token, item.key, number)
     }    
     this.shippingCarInfo()
   },
@@ -177,7 +177,7 @@ Page({
     }
     if(this.data.shopCarType == 1)
     {
-      var res = await WXAPI.jdvopCartModifyNumber(token, item.key, number)  
+      var res = await WXAPI.jdvopCartModifyNumberV2(token, item.key, number)  
     }
     this.shippingCarInfo()
   },
@@ -190,7 +190,7 @@ Page({
       this.shippingCarInfo()
     })}
     else if(this.data.shopCarType == 1){
-      WXAPI.jdvopCartModifyNumber(token, key, num).then(res => {
+      WXAPI.jdvopCartModifyNumberV2(token, key, num).then(res => {
         this.shippingCarInfo()
       })
     }
@@ -205,7 +205,7 @@ Page({
       }
       var res = await WXAPI.shippingCartSelected(token, item.key, !item.selected)
     } else if (this.data.shopCarType == 1) { //云货架购物车
-      var res = await WXAPI.jdvopCartSelect(token, item.key, !item.selected)
+      var res = await WXAPI.jdvopCartSelectV2(token, item.key, !item.selected)
     }
     this.shippingCarInfo()
   },

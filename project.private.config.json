@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/to-pay-order/index",
+          "pathName": "pages/to-pay-order/index",
+          "query": "orderType=buyNow&shopCarType=1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/category/category",
+          "pathName": "pages/category/category",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "packageFx/pages/apply/index",
           "pathName": "packageFx/pages/apply/index",
           "query": "",

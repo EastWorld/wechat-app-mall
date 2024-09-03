@@ -127,7 +127,7 @@ Page({
       return
     }
     const curAddressData = this.data.curAddressData
-    const res = await WXAPI.jdvopGoodsCheckCanBuy({
+    const res = await WXAPI.jdvopGoodsCheckCanBuyV2({
       token,
       skuIds: this.data.goodsId,
       address: curAddressData.provinceStr + curAddressData.cityStr + curAddressData.areaStr + curAddressData.streetStr + curAddressData.address
@@ -241,7 +241,7 @@ Page({
         })
       }
     }
-    const res = await WXAPI.jdvopGoodsDetail(goodsId)
+    const res = await WXAPI.jdvopGoodsDetailV2(goodsId)
     if (res.data.info.wxintroduction) {
       res.data.wxintroduction = JSON.parse(res.data.info.wxintroduction)
     }
@@ -250,7 +250,7 @@ Page({
     }
   },
   async skuImages(goodsId) {
-    const res = await WXAPI.jdvopGoodsSkuImages(goodsId)
+    const res = await WXAPI.jdvopGoodsSkuImagesV2(goodsId)
     if (res.code == 0) {
       this.setData({
         skuImages: res.data
@@ -470,7 +470,7 @@ Page({
     }
     const token = wx.getStorageSync('token')
     const goodsId = this.data.goodsId
-    const res = await WXAPI.jdvopCartAdd({
+    const res = await WXAPI.jdvopCartAddV2({
       token,
       goodsId,
       number: this.data.buyNumber

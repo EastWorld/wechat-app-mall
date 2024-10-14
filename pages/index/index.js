@@ -78,9 +78,9 @@ Page({
         path: item.linkUrl || '',
       })
     } else {
-      if (url) {
+      if (item.linkUrl) {
         wx.navigateTo({
-          url
+          url: item.linkUrl
         })
       }
     }

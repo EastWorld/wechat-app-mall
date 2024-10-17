@@ -660,8 +660,9 @@ swiper-item image {
 }
 .characteristic {
   padding: 8rpx 32rpx;
-  color: #666;
-  font-size: 26rpx;
+  color: #000;
+  font-size: 28rpx;
+  line-height: 64rpx;
 }
 .van-progress {
    margin: 32rpx 0;

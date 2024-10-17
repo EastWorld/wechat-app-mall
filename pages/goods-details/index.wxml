@@ -39,7 +39,18 @@
         </view>
       </view>
       <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
-      <view class="characteristic">{{goodsDetail.basicInfo.characteristic}}</view>
+      <view wx:if="{{ goodsDetail.basicInfo.purchaseNotes }}" class="goods-des-info">
+        <view class="label-title"> 
+          <view class="left">购买须知</view>
+        </view>
+        <view class="characteristic"><text>{{ goodsDetail.basicInfo.purchaseNotes }}</text></view>
+      </view>
+      <view wx:if="{{ goodsDetail.basicInfo.characteristic }}" class="goods-des-info">
+        <view class="label-title"> 
+          <view class="left">商品特色</view>
+        </view>
+        <view class="characteristic"><text>{{ goodsDetail.basicInfo.characteristic }}</text></view>
+      </view>
       <!-- 商品附加费用展示 -->
       <van-cell-group wx:if="{{ goodsDetail.goodsAdditionalPriceItems }}" title="其他费用">
         <van-cell

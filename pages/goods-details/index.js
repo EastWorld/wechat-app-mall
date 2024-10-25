@@ -203,6 +203,10 @@ Page({
             this.goodsFavCheck()
           })
         }
+      } else {
+        wx.navigateTo({
+          url: '/pages/login/index',
+        })
       }
     })
   },
@@ -564,6 +568,9 @@ Page({
     }
     const isLogined = await AUTH.checkHasLogined()
     if (!isLogined) {
+      wx.navigateTo({
+        url: '/pages/login/index',
+      })
       return
     }
     const token = wx.getStorageSync('token')
@@ -596,7 +603,14 @@ Page({
   /**
    * 立即购买
    */
-  buyNow: function (e) {
+  async buyNow(e) {
+    const isLogined = await AUTH.checkHasLogined()
+    if (!isLogined) {
+      wx.navigateTo({
+        url: '/pages/login/index',
+      })
+      return
+    }
     let that = this
     let shoptype = e.currentTarget.dataset.shoptype
     if (this.data.goodsDetail.properties && !this.data.canSubmit) {

@@ -36,9 +36,6 @@ Page({
       this.sysCoupons()
     }
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        isLogined
-      })
       if (isLogined) {
         if (this.data.activeIndex == 1) {
           this.getMyCoupons()
@@ -125,6 +122,12 @@ Page({
       token: wx.getStorageSync('token'),
       pwd: this.data.couponPwd
     }).then(function (res) {
+      if (res.code == 2000) {
+        wx.navigateTo({
+            url: '/pages/login/index',
+        })
+        return
+      }
       if (res.code == 20001 || res.code == 20002) {
         wx.showModal({
           title: '错误',
@@ -183,6 +186,12 @@ Page({
       wx.hideLoading({
         success: (res) => {},
       })
+      if (res.code == 2000) {
+        wx.navigateTo({
+            url: '/pages/login/index',
+        })
+        return
+      }
       if (res.code == 0) {
         res.data.forEach(ele => {
           if (ele.dateEnd) {

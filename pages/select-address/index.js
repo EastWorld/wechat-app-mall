@@ -38,8 +38,6 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
         this.initShippingAddress();
-      } else {
-        AUTH.login(this)
       }
     })
   },

@@ -100,6 +100,12 @@ Page({
     })
     const res = await WXAPI.luckyInfoJoin(this.data.id, token)
     wx.hideLoading()
+    if (res.code == 2000) {
+      wx.navigateTo({
+          url: '/pages/login/index',
+      })
+      return
+    }
     if (res.code != 0) {
       wx.showToast({
         title: res.msg,

@@ -254,4 +254,9 @@ Page({
       data: this.data.apiUserInfoMap.base.id + '',
     })
   },
+  login() {
+    wx.navigateTo({
+      url: '/pages/login/index',
+    })
+  },
 })

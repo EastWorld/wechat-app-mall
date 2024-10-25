@@ -1,4 +1,9 @@
-<view class="header-box">
+<view wx:if="{{ !apiUserInfoMap }}" class="header-box">
+  <view class="login-btn">
+    <van-button type="warning" block round bind:click="login">立即登陆</van-button>
+  </view>
+</view>
+<view wx:else class="header-box">
   <view class="header-box-left">
     <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
       <image class="avatar-img" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>

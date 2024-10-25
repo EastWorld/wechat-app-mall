@@ -135,6 +135,12 @@ Page({
     if (!curGood.propertyIds && !curGood.hasAddition) {
       // 直接调用加入购物车方法
       const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), curGood.id, 1, [])
+      if (res.code == 2000) {
+        wx.navigateTo({
+            url: '/pages/login/index',
+        })
+        return
+      }
       if (res.code == 30002) {
         // 需要选择规格尺寸
         this.setData({

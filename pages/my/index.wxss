@@ -159,3 +159,8 @@ page,view,image,input {
 .user-level {
   color: #e64340;
 }
+.login-btn {
+  width: 100%;
+  padding: 32rpx;
+  padding-left: 48rpx;
+}

@@ -168,6 +168,12 @@ Page({
       email,
       extJsonStr: JSON.stringify(extJsonStr)
     }).then(res => {
+      if (res.code == 2000) {
+        wx.navigateTo({
+            url: '/pages/login/index',
+        })
+        return
+      }
       if (res.code == 0) {
         wx.showModal({
           title: '成功',

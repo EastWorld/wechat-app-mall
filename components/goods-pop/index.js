@@ -313,6 +313,12 @@ Component({
         })
       }
       const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), skuCurGoods.basicInfo.id, skuCurGoods.basicInfo.storesBuy, sku, goodsAddition)
+      if (res.code == 2000) {
+        wx.navigateTo({
+          url: '/pages/login/index',
+        })
+        return
+      }
       if (res.code == 0) {
         wx.showToast({
           title: '加入成功',

@@ -8,9 +8,65 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/goods-details/index",
-          "pathName": "pages/goods-details/index",
-          "query": "id=1550676",
+          "name": "pages/score/index",
+          "pathName": "pages/score/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/invoice/list",
+          "pathName": "pages/invoice/list",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/category/category",
+          "pathName": "pages/category/category",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/score/growth",
+          "pathName": "pages/score/growth",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/hehuorenfenxiao/index",
+          "pathName": "packageFx/pages/hehuorenfenxiao/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/apply/index",
+          "pathName": "packageFx/pages/apply/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/asset/index",
+          "pathName": "pages/asset/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/my/index",
+          "pathName": "pages/my/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "packageFx/pages/apply/index",
+          "pathName": "packageFx/pages/hehuorenfenxiao/fxmember",
+          "query": "",
           "launchMode": "default",
           "scene": null
         }

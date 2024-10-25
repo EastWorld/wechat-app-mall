@@ -111,9 +111,6 @@ Page({
   },
   async addFav(){
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         if (this.data.faved) {
           // 取消收藏
@@ -431,10 +428,6 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
         this.doneJoinKanjia();
-      } else {
-        this.setData({
-          wxlogin: false
-        })
       }
     })
   },
@@ -477,9 +470,6 @@ Page({
   helpKanjia() {
     const _this = this;
     AUTH.checkHasLogined().then(isLogined => {
-      _this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         _this.helpKanjiaDone()
       }
@@ -504,11 +494,6 @@ Page({
         showCancel: false
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
-    })
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
     })
   },
   closePop(){

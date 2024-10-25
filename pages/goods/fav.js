@@ -5,16 +5,17 @@ Page({
   data: {
   },
   onLoad: function (options) {
-  },
-  onShow: function () {
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         this.goodsFavList()
+      } else {
+        getApp().loginOK = () => {
+          this.goodsFavList()
+        }
       }
     })
+  },
+  onShow: function () {
   },
   async goodsFavList() {
     // 搜索商品

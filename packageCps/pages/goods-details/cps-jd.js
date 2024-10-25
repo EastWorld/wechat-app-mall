@@ -5,7 +5,6 @@ import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
   data: {
-    wxlogin: true,
     createTabs: false, //绘制tabs
     tabs: [{
       tabs_name: '商品简介',
@@ -62,20 +61,6 @@ Page({
         wx.setStorageSync('referrer', scene.split(',')[1])
       }
     }
-    // 静默式授权注册/登陆
-    AUTH.checkHasLogined().then(isLogined => {
-      if (!isLogined) {
-        AUTH.authorize().then( aaa => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-        })
-      } else {
-        if (CONFIG.bindSeller) {
-          AUTH.bindSeller()
-        }
-      }
-    })
     this.data.goodsId = e.id
     this.goodsDetail()
   },
@@ -122,9 +107,6 @@ Page({
     }).exec()
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        this.setData({
-          wxlogin: isLogined
-        })
         this.goodsFavCheck()
       }
     })
@@ -166,9 +148,6 @@ Page({
   },
   async addFav(){
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         if (this.data.faved) {
           // 取消收藏
@@ -488,10 +467,6 @@ Page({
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
         this.doneJoinKanjia();
-      } else {
-        this.setData({
-          wxlogin: false
-        })
       }
     })
   },
@@ -534,9 +509,6 @@ Page({
   helpKanjia() {
     const _this = this;
     AUTH.checkHasLogined().then(isLogined => {
-      _this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         _this.helpKanjiaDone()
       }
@@ -561,11 +533,6 @@ Page({
         showCancel: false
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
-    })
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
     })
   },
   closePop(){

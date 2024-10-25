@@ -3,33 +3,29 @@ const AUTH = require('../../../utils/auth')
 
 Page({
   data: {
-    wxlogin: true,
-
     applyStatus: -2, // -1 表示未申请，0 审核中 1 不通过 2 通过
     applyInfo: {},
     canvasHeight: 0
   },
   onLoad: function (options) {
     this.setting()
-  },
-  onShow() {
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        this.doneShow();
+        this.initData()
+      } else {
+        getApp().loginOK = () => {
+          this.initData()
+        }
       }
     })
   },
-  async doneShow() {
+  onShow() {
+  },
+  async initData() {
     const _this = this
     const userDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
     WXAPI.fxApplyProgress(wx.getStorageSync('token')).then(res => {
       let applyStatus = userDetail.data.base.isSeller ? 2 : -1
-      if (res.code == 2000) {
-        this.setData({
-          wxlogin: false
-        })
-        return
-      }
       if (res.code === 700) {
         _this.setData({
           applyStatus: applyStatus

@@ -190,10 +190,11 @@ Page({
   onShow() {
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        this.setData({
-          wxlogin: isLogined
-        })
         TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
+      } else {
+        getApp().loginOK = () => {
+          TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
+        }
       }
     })
     const _categoryId = wx.getStorageSync('_categoryId')

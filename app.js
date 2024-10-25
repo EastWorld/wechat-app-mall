@@ -123,13 +123,42 @@ App({
     // 自动登录
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
-        AUTH.authorize().then( aaa => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-          this.getUserApiInfo()
-        })
+        // 未登录
+        if (CONFIG.openIdAutoRegister) {
+          // 进行登陆，用户不存在则注册
+          AUTH.authorize().then( aaa => {
+            if (CONFIG.bindSeller) {
+              AUTH.bindSeller()
+            }
+            this.getUserApiInfo().then(() => {
+              if (this.loginOK) {
+                this.loginOK()
+              }
+            })
+          })
+        } else {
+          // 只是登陆
+          AUTH.login20241025().then( res => {
+            if (res.code == 0) {
+              // 登陆成功
+              if (CONFIG.bindSeller) {
+                AUTH.bindSeller()
+              }
+              this.getUserApiInfo().then(() => {
+                if (this.loginOK) {
+                  this.loginOK()
+                }
+              })
+            } else {
+              // 用户没注册
+              if (this.loginFail) {
+                this.loginFail()
+              }
+            }
+          })
+        }
       } else {
+        // 已登录
         if (CONFIG.bindSeller) {
           AUTH.bindSeller()
         }

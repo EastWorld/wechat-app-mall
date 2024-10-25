@@ -186,9 +186,62 @@ async function authorize() {
   })
 }
 
+// 最新的登陆接口，建议用这个
+async function login20241025() {
+  const code = await wxaCode()
+  const extConfigSync = wx.getExtConfigSync()
+  if (extConfigSync.subDomain) {
+    // 服务商模式
+    const res = await WXAPI.wxappServiceLogin({ code })
+    if (res.code == 10000) {
+      // 去注册
+      return res
+    }
+    if (res.code != 0) {
+      // 登录错误
+      wx.showModal({
+        content: res.msg,
+        showCancel: false
+      })
+      return res
+    }
+    wx.setStorageSync('token', res.data.token)
+    wx.setStorageSync('uid', res.data.uid)
+    wx.setStorageSync('openid', res.data.openid)
+    wx.setStorageSync('mobile', res.data.mobile)
+    if (CONFIG.bindSeller) {
+      this.bindSeller()
+    }
+    return res
+  } else {
+    // 非服务商模式
+    const res = await WXAPI.login_wx(code)
+    if (res.code == 10000) {
+      // 去注册
+      return res;
+    }
+    if (res.code != 0) {
+      // 登录错误
+      wx.showModal({
+        content: res.msg,
+        showCancel: false
+      })
+      return res;
+    }
+    wx.setStorageSync('token', res.data.token)
+    wx.setStorageSync('uid', res.data.uid)
+    if (CONFIG.bindSeller) {
+      this.bindSeller()
+    }
+    return res
+  }
+}
+
 function loginOut(){
   wx.removeStorageSync('token')
   wx.removeStorageSync('uid')
+  wx.removeStorageSync('openid')
+  wx.removeStorageSync('mobile')
 }
 
 async function checkAndAuthorize (scope) {
@@ -241,6 +294,7 @@ module.exports = {
   checkHasLogined: checkHasLogined,
   wxaCode: wxaCode,
   login: login,
+  login20241025: login20241025,
   loginOut: loginOut,
   checkAndAuthorize: checkAndAuthorize,
   authorize: authorize,

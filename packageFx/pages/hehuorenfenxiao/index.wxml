@@ -227,19 +227,6 @@
   </view>
 </view>
 
-
-
-
-
-
-
-
-
-
-
-<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
-<!-- <float-menu /> -->
-
 <payment
   money="{{ money }}"
   remark="购买团长 ：{{ money }}"

@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    wxlogin: true,
     score: 0,
     uid: undefined
   },
@@ -17,28 +16,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         this.initData()
+      } else {
+        getApp().loginOK = () => {
+          this.initData()
+        }
       }
     })
+  },
+  onShow: function () {
   },
   async initData(){
     const token = wx.getStorageSync('token')
@@ -77,10 +65,5 @@ Page({
         icon: 'none'
       })
     }
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
-    })
   },
 })

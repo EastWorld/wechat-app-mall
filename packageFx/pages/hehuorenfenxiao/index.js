@@ -35,7 +35,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    wxlogin: true,
     balance: 0,
     freeze: 0,
     score: 0,
@@ -70,41 +69,22 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    const that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  onLoad(options) {
     this.setData({
       navHeight: APP.globalData.navHeight,
       navTop: APP.globalData.navTop,
       windowHeight: APP.globalData.windowHeight,
       menuButtonObject: APP.globalData.menuButtonObject //小程序胶囊信息
     })
-
+    wx.getSystemInfo({
+      success: res => {
+        this.setData({
+          sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
+        });
+      }
+    });
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         this.doneShow();
         this.getUserApiInfo();
@@ -113,8 +93,20 @@ Page({
         this.getfxMoney();
         this.fxMembers();
         this.getMembersStatistics();
+      } else {
+        getApp().loginOK = () => {
+          this.doneShow();
+          this.getUserApiInfo();
+          this.getTz(1);
+          this.getTy(2);
+          this.getfxMoney();
+          this.fxMembers();
+          this.getMembersStatistics();
+        }
       }
     })
+  },
+  onShow() {
   },
 
   async commision() {
@@ -213,23 +205,11 @@ Page({
   doneShow: function () {
     const _this = this
     const token = wx.getStorageSync('token')
-    if (!token) {
-      this.setData({
-        wxlogin: false
-      })
-      return
-    }
     WXAPI.userAmount(token).then(function (res) {
       if (res.code == 700) {
         wx.showToast({
           title: '当前账户存在异常',
           icon: 'none'
-        })
-        return
-      }
-      if (res.code == 2000) {
-        this.setData({
-          wxlogin: false
         })
         return
       }

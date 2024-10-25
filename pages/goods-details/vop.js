@@ -6,7 +6,6 @@ import Poster from 'wxa-plugin-canvas/poster/poster'
 
 Page({
   data: {
-    wxlogin: true,
     createTabs: false, //绘制tabs
     tabs: [{
       tabs_name: '商品简介',
@@ -96,6 +95,19 @@ Page({
     })
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
     this.skuImages(this.data.goodsId)
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.goodsFavCheck()
+        this.shippingCartInfo()
+        this.initShippingAddress()
+      } else {
+        getApp().loginOK = () => {
+          this.goodsFavCheck()
+          this.shippingCartInfo()
+          this.initShippingAddress()
+        }
+      }
+    })
   },
   async initShippingAddress() {
     const res = await WXAPI.defaultAddress(wx.getStorageSync('token'))
@@ -150,16 +162,6 @@ Page({
         tabsHeight:tabsHeight
       })
     }).exec()
-    AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        this.setData({
-          wxlogin: isLogined
-        })
-        this.goodsFavCheck()
-        this.shippingCartInfo()
-        this.initShippingAddress()
-      }
-    })
   },
   getTopHeightFunction() {
     var that = this
@@ -197,39 +199,32 @@ Page({
     }
   },
   async addFav(){
-    AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
+    if (this.data.faved) {
+      // 取消收藏
+      WXAPI.goodsFavDeleteV2({
+        token: wx.getStorageSync('token'),
+        goodsId: this.data.goodsId,
+        type: 1
+      }).then(res => {
+        this.goodsFavCheck()
       })
-      if (isLogined) {
-        if (this.data.faved) {
-          // 取消收藏
-          WXAPI.goodsFavDeleteV2({
-            token: wx.getStorageSync('token'),
-            goodsId: this.data.goodsId,
-            type: 1
-          }).then(res => {
-            this.goodsFavCheck()
-          })
-        } else {
-          const extJsonStr = {
-            wxaurl: `/pages/goods-details/vop?id=${this.data.goodsId}&goodsId=${this.data.goodsId2}`,
-            skuId: this.data.goodsId,
-            pic: this.data.imageDomain + this.data.info.imagePath,
-            name: this.data.info.name
-          }
-          // 加入收藏
-          WXAPI.goodsFavAdd({
-            token: wx.getStorageSync('token'),
-            goodsId: this.data.goodsId,
-            type: 1,
-            extJsonStr: JSON.stringify(extJsonStr)
-          }).then(res => {
-            this.goodsFavCheck()
-          })
-        }
+    } else {
+      const extJsonStr = {
+        wxaurl: `/pages/goods-details/vop?id=${this.data.goodsId}&goodsId=${this.data.goodsId2}`,
+        skuId: this.data.goodsId,
+        pic: this.data.imageDomain + this.data.info.imagePath,
+        name: this.data.info.name
       }
-    })
+      // 加入收藏
+      WXAPI.goodsFavAdd({
+        token: wx.getStorageSync('token'),
+        goodsId: this.data.goodsId,
+        type: 1,
+        extJsonStr: JSON.stringify(extJsonStr)
+      }).then(res => {
+        this.goodsFavCheck()
+      })
+    }
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const token = wx.getStorageSync('token')
@@ -461,13 +456,6 @@ Page({
       })
       return
     }
-    const isLogined = await AUTH.checkHasLogined()
-    if (!isLogined) {
-      this.setData({
-        wxlogin: false
-      })
-      return
-    }
     const token = wx.getStorageSync('token')
     const goodsId = this.data.goodsId
     const res = await WXAPI.jdvopCartAddV2({
@@ -598,15 +586,7 @@ Page({
     })
   },
   joinKanjia(){
-    AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        this.doneJoinKanjia();
-      } else {
-        this.setData({
-          wxlogin: false
-        })
-      }
-    })
+    this.doneJoinKanjia();
   },
   doneJoinKanjia: function() { // 报名参加砍价活动
     const _this = this;
@@ -645,15 +625,7 @@ Page({
     });
   },
   helpKanjia() {
-    const _this = this;
-    AUTH.checkHasLogined().then(isLogined => {
-      _this.setData({
-        wxlogin: isLogined
-      })
-      if (isLogined) {
-        _this.helpKanjiaDone()
-      }
-    })
+    this.helpKanjiaDone()
   },
   helpKanjiaDone(){
     const _this = this;
@@ -674,11 +646,6 @@ Page({
         showCancel: false
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
-    })
-  },
-  cancelLogin() {
-    this.setData({
-      wxlogin: true
     })
   },
   closePop(){

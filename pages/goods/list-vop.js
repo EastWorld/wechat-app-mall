@@ -167,15 +167,7 @@ Page({
     })
   },
   async addShopCarCheck(options) {
-    AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
-      if (isLogined) {
-        // 处理加入购物车的业务逻辑
-        this.addShopCarDone(options)
-      }
-    })
+    this.addShopCarDone(options)
   },
   async addShopCarDone(options) {
     const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), options.goodsId, options.buyNumber, options.sku)

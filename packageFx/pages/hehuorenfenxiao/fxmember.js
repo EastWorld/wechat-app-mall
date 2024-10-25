@@ -1,8 +1,5 @@
-const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../../utils/auth')
-const wxpay = require('../../../utils/pay.js')
-const APP = getApp()
 
 
 Page({
@@ -37,11 +34,12 @@ Page({
       })
     }
     AUTH.checkHasLogined().then(isLogined => {
-      this.setData({
-        wxlogin: isLogined
-      })
       if (isLogined) {
         this.fxMembers(level)
+      } else {
+        getApp().loginOK = () => {
+          this.fxMembers(level)
+        }
       }
     })
   },

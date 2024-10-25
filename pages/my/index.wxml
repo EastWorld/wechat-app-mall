@@ -4,7 +4,7 @@
       <image class="avatar-img" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
     </button>
     <view class="r">
-      <view class="uid">用户ID: {{ apiUserInfoMap.base.id }}</view>
+      <view class="uid" bind:tap="copyUid">用户ID: {{ apiUserInfoMap.base.id }}</view>
       <view class="nick" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</view>
       <view wx:if="{{ apiUserInfoMap.userLevel }}" class="user-level"><van-icon name="medal-o" />{{ apiUserInfoMap.userLevel.name }}</view>
     </view>

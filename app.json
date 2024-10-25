@@ -62,7 +62,8 @@
     "pages/card/logs",
     "pages/notagree/index",
     "pages/my/user-code",
-    "pages/raffle/index"
+    "pages/raffle/index",
+    "pages/login/index"
   ],
   "requiredPrivateInfos": [
     "getLocation",
@@ -204,7 +205,9 @@
     "van-overlay": "@vant/weapp/overlay/index",
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
     "van-area": "@vant/weapp/area/index",
-    "van-action-sheet": "@vant/weapp/action-sheet/index"
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index"
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -70,39 +70,25 @@
       }
     }
     </wxs>
-    <form bindsubmit="submitReputation" report-submit="true">
-      <block wx:for="{{orderDetail.goods}}" wx:key="{{index}}">
-        <navigator url="{{ goodsDetailPage.url(item) }}">
-          <view class="a-goods">
-            <view class="img-box">
-              <image src="{{item.pic}}" class="img" />
+    <block wx:for="{{orderDetail.goods}}" wx:key="{{index}}">
+      <navigator url="{{ goodsDetailPage.url(item) }}">
+        <view class="a-goods">
+          <view class="img-box">
+            <image src="{{item.pic}}" class="img" />
+          </view>
+          <view class="text-box">
+            <view class="arow arow01">
+              <view class="goods-name">{{item.goodsName}}</view>
+              <view class="goods-price">¥ {{item.amount}}</view>
             </view>
-            <view class="text-box">
-              <view class="arow arow01">
-                <view class="goods-name">{{item.goodsName}}</view>
-                <view class="goods-price">¥ {{item.amount}}</view>
-              </view>
-              <view class="arow">
-                <view class="goods-label">{{item.property}}</view>
-                <view class="goods-num">x {{item.number}}</view>
-              </view>
+            <view class="arow">
+              <view class="goods-label">{{item.property}}</view>
+              <view class="goods-num">x {{item.number}}</view>
             </view>
           </view>
-        </navigator>
-      </block>
-    </form>
-  </view>
-  <view class="peisong-way" hidden="true">
-    <view class="row-box">
-      <view class="row-label">配送方式</view>
-      <view class="right-text">顺丰快递</view>
-    </view>
-    <view class="row-box">
-      <view class="row-label">留言</view>
-      <view class="right-text">
-        <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
-      </view>
-    </view>
+        </view>
+      </navigator>
+    </block>
   </view>
   <view wx:if="{{orderDetail.goodsCoupons}}" class="goods-info" style="margin-bottom:32rpx;">
     <view wx:for="{{orderDetail.goodsCoupons}}" wx:key="{{item.id}}" class="row-box">
@@ -136,12 +122,14 @@
   </view>
 </view>
 
-<view wx:if="{{ !canHX }}" class="btn">
-  <van-button type="danger" block disabled>暂无核销权限</van-button>
-</view>
-<view wx:elif="{{ orderDetail.orderInfo.status < 1 || orderDetail.orderInfo.status > 2 }}" class="btn">
-  <van-button type="default" block disabled>{{ orderDetail.orderInfo.statusStr }}</van-button>
-</view>
-<view wx:else class="btn">
-  <van-button type="danger" block bind:click="doneHx">确认核销</van-button>
+<view wx:if="{{ apiOK }}">
+  <view wx:if="{{ !canHX }}" class="btn">
+    <van-button type="danger" block disabled>暂无核销权限</van-button>
+  </view>
+  <view wx:elif="{{ orderDetail.orderInfo.status < 1 || orderDetail.orderInfo.status > 2 }}" class="btn">
+    <van-button type="default" block disabled>{{ orderDetail.orderInfo.statusStr }}</van-button>
+  </view>
+  <view wx:elif="{{ orderDetail.orderInfo }}" class="btn">
+    <van-button type="danger" block bind:click="doneHx">确认核销</van-button>
+  </view>
 </view>

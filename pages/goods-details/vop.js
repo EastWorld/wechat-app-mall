@@ -67,20 +67,6 @@ Page({
         wx.setStorageSync('referrer', scene.split(',')[2])
       }
     }
-    // 静默式授权注册/登陆
-    AUTH.checkHasLogined().then(isLogined => {
-      if (!isLogined) {
-        AUTH.authorize().then( aaa => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-        })
-      } else {
-        if (CONFIG.bindSeller) {
-          AUTH.bindSeller()
-        }
-      }
-    })
     this.data.goodsId = e.id
     this.data.goodsId2 = e.goodsId ? e.goodsId : ''
     this.data.kjJoinUid = e.kjJoinUid    

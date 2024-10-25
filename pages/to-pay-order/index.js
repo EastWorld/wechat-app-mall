@@ -83,18 +83,7 @@ Page({
     if (this.data.pageIsEnd) {
       return
     }
-    AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        this.doneShow()
-      } else {
-        AUTH.authorize().then(res => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-          this.doneShow()
-        })
-      }
-    })
+    this.doneShow()
   },
   async doneShow() {
     let goodsList = []

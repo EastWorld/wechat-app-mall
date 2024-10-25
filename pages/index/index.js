@@ -114,20 +114,13 @@ Page({
         wx.setStorageSync('referrer', scene.substring(11))
       }
     }
-    // 静默式授权注册/登陆
     AUTH.checkHasLogined().then(isLogined => {
-      if (!isLogined) {
-        AUTH.authorize().then( aaa => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-          TOOLS.showTabBarBadge()
-        })
-      } else {
-        if (CONFIG.bindSeller) {
-          AUTH.bindSeller()
-        }
+      if (isLogined) {
         TOOLS.showTabBarBadge()
+      } else {
+        getApp().loginOK = () => {
+          TOOLS.showTabBarBadge()
+        }
       }
     })
     this.initBanners()

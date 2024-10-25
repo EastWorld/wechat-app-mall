@@ -38,6 +38,19 @@ Component({
       this.triggerEvent('cancel')
     },
     async getPhoneNumber(e) {
+      if (e.detail.errMsg.indexOf('privacy permission is not authorized') != -1) {
+        wx.showModal({
+          content: '请阅读并同意隐私条款以后才能继续本操作',
+          confirmText: '阅读协议',
+          cancelText: '取消',
+          success (res) {
+            if (res.confirm) {
+              wx.requirePrivacyAuthorize() // 弹出用户隐私授权框
+            }
+          }
+        })
+        return
+      }
       if (!e.detail.errMsg) {
         wx.showModal({
           content: 'getPhoneNumber异常',

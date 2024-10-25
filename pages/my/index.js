@@ -26,29 +26,22 @@ Page({
     }
 	},
   onShow() {
-    const _this = this
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        _this.getUserApiInfo();
-        _this.getUserAmount();
-        _this.orderStatistics();
-        _this.cardMyList();
+        this.getUserApiInfo();
+        this.getUserAmount();
+        this.orderStatistics();
+        this.cardMyList();
         TOOLS.showTabBarBadge();
       } else {
-        AUTH.authorize().then(res => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-          _this.getUserApiInfo();
-          _this.getUserAmount();
-          _this.orderStatistics();
-          _this.cardMyList();
+        getApp().loginOK = () => {
+          this.getUserApiInfo();
+          this.getUserAmount();
+          this.orderStatistics();
+          this.cardMyList();
           TOOLS.showTabBarBadge();
-        })
+        }
       }
-    })
-    AUTH.wxaCode().then(code => {
-      this.data.code = code
     })
   },
   readConfigVal() {
@@ -254,6 +247,11 @@ Page({
       fail: err => {
         console.error(err)
       }
+    })
+  },
+  copyUid() {
+    wx.setClipboardData({
+      data: this.data.apiUserInfoMap.base.id + '',
     })
   },
 })

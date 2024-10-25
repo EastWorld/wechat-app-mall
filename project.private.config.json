@@ -8,6 +8,27 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/login/index",
+          "pathName": "pages/login/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/invoice/apply",
+          "pathName": "pages/invoice/apply",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/order-details/scan-result",
+          "pathName": "pages/order-details/scan-result",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/score/index",
           "pathName": "pages/score/index",
           "query": "",

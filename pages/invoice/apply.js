@@ -17,20 +17,6 @@ Page({
     if (e && e.inviter_id) {
       wx.setStorageSync('referrer', e.inviter_id)
     }
-    // 静默式授权注册/登陆
-    AUTH.checkHasLogined().then(isLogined => {
-      if (!isLogined) {
-        AUTH.authorize().then( aaa => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller()
-          }
-        })
-      } else {
-        if (CONFIG.bindSeller) {
-          AUTH.bindSeller()
-        }
-      }
-    })
     // 弹出编辑昵称头像框
     getApp().initNickAvatarUrlPOP(this)
   },

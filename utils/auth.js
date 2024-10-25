@@ -230,6 +230,8 @@ async function login20241025() {
     }
     wx.setStorageSync('token', res.data.token)
     wx.setStorageSync('uid', res.data.uid)
+    wx.setStorageSync('openid', res.data.openid)
+    wx.setStorageSync('mobile', res.data.mobile)
     if (CONFIG.bindSeller) {
       this.bindSeller()
     }

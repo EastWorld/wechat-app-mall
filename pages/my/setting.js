@@ -56,4 +56,10 @@ Page({
       withSubscriptions: true
     })
   },
+  loginOut() {
+    AUTH.loginOut()
+    wx.navigateTo({
+      url: '/pages/login/index',
+    })
+  },
 })

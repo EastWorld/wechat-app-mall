@@ -827,8 +827,12 @@ Page({
   async getUserApiInfo() {
     const res = await WXAPI.userDetail(wx.getStorageSync('token'))
     if (res.code == 0) {
+      let bindMobileStatus = res.data.base.mobile ? 1 : 2 // 账户绑定的手机号码状态
+      if (!CONFIG.needBindMobile) {
+        bindMobileStatus = 1
+      }
       this.setData({
-        bindMobileStatus: res.data.base.mobile ? 1 : 2, // 账户绑定的手机号码状态
+        bindMobileStatus,
         mobile: res.data.base.mobile,
         name: res.data.base.nick,
       })

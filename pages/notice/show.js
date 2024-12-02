@@ -23,4 +23,20 @@ Page({
       imageUrl: wx.getStorageSync('share_pic')
     }
   },
+  subscribe() {
+    const notice_subscribe_ids = wx.getStorageSync('notice_subscribe_ids')
+    if (notice_subscribe_ids) {
+      wx.requestSubscribeMessage({
+        tmplIds: notice_subscribe_ids.split(','),
+        success(res) {
+          wx.showToast({
+            title: '订阅成功',
+          })
+        },
+        fail(err) {
+          console.error(err)
+        },
+      })
+    }
+  },
 })

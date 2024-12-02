@@ -30,7 +30,26 @@ Page({
       })
     }
   },
-  async bindSave() {    
+  async bindSave() {
+    const comment_subscribe_ids = wx.getStorageSync('comment_subscribe_ids')
+    if (comment_subscribe_ids) {
+      wx.requestSubscribeMessage({
+        tmplIds: comment_subscribe_ids.split(','),
+        success(res) {
+          console.log(res)
+        },
+        fail(err) {
+          console.error(err)
+        },
+        complete: (res) => {
+          this._bindSave()
+        },
+      })
+    } else {
+      this._bindSave()
+    }
+  },
+  async _bindSave() {    
     if (!this.data.name) {
       wx.showToast({
         title: '请填写您的姓名',

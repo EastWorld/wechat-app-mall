@@ -10,7 +10,6 @@
   form-type="{{ formType }}"
   style="{{ computed.rootStyle({ plain, color, customStyle }) }}"
   open-type="{{ disabled || loading || (canIUseGetUserProfile && openType === 'getUserInfo') ? '' : openType }}"
-  business-id="{{ businessId }}"
   session-from="{{ sessionFrom }}"
   send-message-title="{{ sendMessageTitle }}"
   send-message-path="{{ sendMessagePath }}"

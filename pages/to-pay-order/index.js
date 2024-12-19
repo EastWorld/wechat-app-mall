@@ -355,6 +355,7 @@ Page({
       let amountLogistics2 = 0
       let deductionMoney = 0
       let couponAmount = 0
+      let goodsAdditionalPriceMap = {}
       for (let index = 0; index < shopList.length; index++) {
         const curShop = shopList[index]
         console.log(curShop);
@@ -437,6 +438,7 @@ Page({
           amountLogistics2 += res.data.amountLogistics2 || 0
           deductionMoney += res.data.deductionMoney
           couponAmount += res.data.couponAmount
+          goodsAdditionalPriceMap = Object.assign(goodsAdditionalPriceMap, res.data.goodsAdditionalPriceMap)
         }
       }
       this.setData({
@@ -444,7 +446,7 @@ Page({
         totalScoreToPay,
         isNeedLogistics,
         allGoodsAndYunPrice,
-        goodsAdditionalPriceMap: res.data.goodsAdditionalPriceMap,
+        goodsAdditionalPriceMap,
         yunPrice,
         amountLogistics2,
         hasNoCoupons: true,

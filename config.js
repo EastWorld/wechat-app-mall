@@ -1,6 +1,6 @@
 module.exports = {
-  version: '24.12.02',
-  note: 'config可配置是否强制用户绑定手机号码', // 这个为版本描述，无需修改
+  version: '24.12.19',
+  note: '修复部分手机点击客服图标无法拉起客服窗口的bug', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

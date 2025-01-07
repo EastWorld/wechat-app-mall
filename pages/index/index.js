@@ -124,7 +124,6 @@ Page({
       }
     })
     this.initBanners()
-    this.categories()
     this.cmsCategories()
     // https://www.yuque.com/apifm/nu0f75/wg5t98
     WXAPI.goodsv2({
@@ -148,12 +147,18 @@ Page({
     }
   },
   readConfigVal() {
+    const mallName = wx.getStorageSync('mallName')
+    if (!mallName) {
+      return
+    }
+    this.categories()
     wx.setNavigationBarTitle({
-      title: wx.getStorageSync('mallName')
+      title: mallName
     })
     this.setData({
       mallName:wx.getStorageSync('mallName')?wx.getStorageSync('mallName'):'',
-      show_buy_dynamic: wx.getStorageSync('show_buy_dynamic')
+      show_buy_dynamic: wx.getStorageSync('show_buy_dynamic'),
+      hidden_goods_index: wx.getStorageSync('hidden_goods_index'),
     })
     const shopMod = wx.getStorageSync('shopMod')
     const shopInfo = wx.getStorageSync('shopInfo')
@@ -248,7 +253,7 @@ Page({
       categoryId = "";
     }
     wx.showLoading({
-      "mask": true
+      title: ''
     })
     // https://www.yuque.com/apifm/nu0f75/wg5t98
     const res = await WXAPI.goodsv2({
@@ -272,7 +277,12 @@ Page({
       goods = this.data.goods
     }
     for (var i = 0; i < res.data.result.length; i++) {
-      goods.push(res.data.result[i]);
+      const item = res.data.result[i]
+      const hidden_goods_index = wx.getStorageSync('hidden_goods_index')
+      if (hidden_goods_index.indexOf(item.id) != -1) {
+        continue
+      }
+      goods.push(item);
     }
     this.setData({
       loadingMoreHidden: true,

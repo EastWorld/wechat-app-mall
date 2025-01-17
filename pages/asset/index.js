@@ -155,4 +155,38 @@ Page({
       url: '/pages/my/index'
     })
   },
+  async confirmTX(e) {
+    const item = e.currentTarget.dataset.item
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.wxpayRequestMerchantTransfer({
+      token: wx.getStorageSync('token'),
+      number: item.number
+    })
+    wx.hideLoading()
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    wx.requestMerchantTransfer({
+      mchId: res.data.mchId,
+      appId: res.data.appId,
+      package: res.data.package,
+      openId: res.data.openId,
+      success: res => {
+        console.log(res);
+        this.setData({
+          activeIndex: 1
+        });
+        this.fetchTabData(1)
+      },
+      fail: res => {
+        console.error(res);
+      },
+    })
+  },
 })

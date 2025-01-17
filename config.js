@@ -1,6 +1,6 @@
 module.exports = {
-  version: '25.01.07',
-  note: '首页可设置排除哪些商品显示【系统参数里设置 hidden_goods_index 参数，多个商品用英文逗号隔开】', // 这个为版本描述，无需修改
+  version: '25.01.17',
+  note: '微信商家转账接口，增加用户确认收款功能', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

@@ -57,3 +57,10 @@
 .cashlogs .amount {
   width:150rpx;
 }
+.price {
+  color: #e85654;
+  font-size: 28rpx;
+}
+.price text {
+  font-size: 22rpx;
+}

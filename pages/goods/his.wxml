@@ -1,0 +1,24 @@
+<van-sticky>
+  <van-search value="{{ value }}" placeholder="输入商品名称搜索" bind:search="search2" bind:clear="search3" />
+  <view class="filters">
+    <view class="item">
+      <picker bindchange="categoryChange" value="{{ categoryIndex }}" range="{{ categories }}" range-key="name">
+        {{ categoryIndex == -1 ? '筛选类目' : categories[categoryIndex].name }}
+      </picker>
+    </view>
+    <view class="item">
+      <picker bindchange="dayChange" value="{{ dayIndex }}" range="{{ dayArray }}">
+        {{ dayIndex == -1 ? '购买时间' : dayArray[dayIndex] }}
+      </picker>
+    </view>
+  </view>
+</van-sticky>
+<van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
+<view class="list2-box">
+  <view class="list2" wx:for="{{goods}}" wx:key="id">
+    <navigator url="/pages/goods-details/index?id={{ item.goodsId }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <view class="goods-info">
+      <view class="title van-multi-ellipsis--l2"><navigator url="/pages/goods-details/index?id={{ item.goodsId }}">{{item.goodsName}}</navigator></view>
+    </view>
+  </view>
+</view>

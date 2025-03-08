@@ -10,6 +10,7 @@
     "pages/goods/list",
     "pages/goods/list-vop",
     "pages/goods/fav",
+    "pages/goods/his",
     "pages/goods-details/index",
     "pages/goods-details/vop",
     "pages/goods-details/day",

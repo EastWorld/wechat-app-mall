@@ -53,7 +53,7 @@
 <van-cell wx:if="{{ recycle_open == '1' }}" title="回收订单" value="管理" is-link url="/pages/recycle/orders" />
 <van-cell title="常用功能" />
 <van-grid clickable>
-  <van-grid-item wx:if="{{canHX}}" icon="todo-list-o" text="历史购买" url="/pages/goods/his" />
+  <van-grid-item icon="todo-list-o" text="历史购买" url="/pages/goods/his" />
   <van-grid-item wx:if="{{canHX}}" icon="scan" text="扫码核销" bind:click="scanOrderCode" />
   <van-grid-item icon="paid" text="优惠买单" url="/pages/maidan/index" />
   <van-grid-item icon="balance-list-o" text="资金明细" url="/pages/asset/index" />

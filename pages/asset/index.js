@@ -1,8 +1,5 @@
-const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 
 Page({
 
@@ -24,7 +21,7 @@ Page({
     withDrawlogs: undefined,
     depositlogs: undefined,
 
-    rechargeOpen: false // 是否开启充值[预存]功能
+    rechargeOpen: false, // 是否开启充值[预存]功能
   },
 
   /**
@@ -91,7 +88,9 @@ Page({
     const _this = this
     WXAPI.cashLogsV2({
       token: wx.getStorageSync('token'),
-      page:1
+      page:1,
+      dateAddBegin: this.data.dateAddBegin || '',
+      dateAddEnd: this.data.dateAddEnd || '',
     }).then(res => {
       if (res.code == 0) {
         _this.setData({
@@ -188,5 +187,17 @@ Page({
         console.error(res);
       },
     })
+  },
+  dateAddBeginChange(e) {
+    this.setData({
+      dateAddBegin: e.detail.value
+    })
+    this.fetchTabData(0)
+  },
+  dateAddEndChange(e) {
+    this.setData({
+      dateAddEnd: e.detail.value
+    })
+    this.fetchTabData(0)
   },
 })

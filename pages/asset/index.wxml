@@ -34,6 +34,12 @@
 <van-tabs active="{{ active }}" bind:change="tabClick">
   <van-tab wx:for="{{tabs}}" wx:key="*this" title="{{item}}" />
 </van-tabs>
+<picker wx:if="{{activeIndex == 0}}" mode="date" value="{{ dateAddBegin }}" bindchange="dateAddBeginChange">
+  <van-cell title="交易开始日期" value="{{ dateAddBegin ? dateAddBegin : '请选择' }}" is-link />
+</picker>
+<picker wx:if="{{activeIndex == 0}}" mode="date" value="{{ dateAddEnd }}" bindchange="dateAddEndChange">
+  <van-cell title="交易结束日期" value="{{ dateAddEnd ? dateAddEnd : '请选择' }}" is-link />
+</picker>
 <van-cell-group wx:if="{{activeIndex == 0}}">
   <van-empty wx:if="{{!cashlogs}}" description="暂无资金明细" />
   <van-cell wx:for="{{cashlogs}}" wx:key="index" title="{{ item.typeStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" />

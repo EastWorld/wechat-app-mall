@@ -86,6 +86,7 @@ Page({
   },
   cashLogs() {
     const _this = this
+    // https://www.yuque.com/apifm/nu0f75/khq7xu
     WXAPI.cashLogsV2({
       token: wx.getStorageSync('token'),
       page:1,

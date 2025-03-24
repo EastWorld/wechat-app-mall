@@ -117,6 +117,17 @@
         placeholder="请输入手机号码">
         <van-button slot="button" size="small" type="danger" bind:tap="bindMobile">自动获取</van-button>
       </van-field>
+      <block wx:if="{{ extRequired && extRequired.length > 0 }}">
+        <van-field
+          wx:for="{{ extRequired }}" wx:key="*this"
+          size="large"
+          label="{{ item }}"
+          required
+          placeholder="请输入{{ item }}"
+          data-name="{{ item }}"
+          bind:change="extRequiredChange"
+        />
+      </block>
       <view wx:if="{{shopCarType == 0}}" class="row-box">
         <view class="row-label">备注</view>
         <view class="right-text">
@@ -240,6 +251,7 @@
     <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />
     <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-¥{{couponAmount}}" />
     <van-cell wx:if="{{order_pay_user_balance == '1' && balance}}" title="账户余额" value="¥{{balance}}" />
+    <van-cell wx:if="{{order_pay_user_balance == '1' && userScore}}" title="可用积分" value="{{userScore}}" />
   </van-cell-group>
   <view class="bottom-box"></view>
   <van-submit-bar

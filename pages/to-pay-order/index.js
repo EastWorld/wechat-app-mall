@@ -129,10 +129,27 @@ Page({
     shopList.forEach(ele => {
       ele.hasNoCoupons = true
     })
+    const extRequired = []; // 必填项
+    if (this.data.create_order_ext) {
+      const _create_order_ext = JSON.parse(this.data.create_order_ext)
+      goodsList.forEach(g => {
+        Object.keys(_create_order_ext).forEach(k => {
+          if (k.split(',').includes(g.goodsId + '')) {
+            console.log(1212, _create_order_ext[k]);
+            _create_order_ext[k].split(',').forEach(v => {
+              if (!extRequired.includes(v)) {
+                extRequired.push(v)
+              }
+            })
+          }
+        })
+      })
+    }
     this.setData({
       shopList,
       goodsList,
-      peisongType: this.data.peisongType
+      peisongType: this.data.peisongType,
+      extRequired
     });
     this.initShippingAddress()
     this.userAmount()
@@ -146,6 +163,7 @@ Page({
       orderPeriod_open: wx.getStorageSync('orderPeriod_open'),
       order_pay_user_balance: wx.getStorageSync('order_pay_user_balance'),
       zt_open_hx: wx.getStorageSync('zt_open_hx'),
+      create_order_ext: wx.getStorageSync('create_order_ext'),
     }
     if (e.orderType) {
       _data.orderType = e.orderType
@@ -305,6 +323,32 @@ Page({
         return;
       }
       const extJsonStr = {}
+      if (this.data.extRequired && this.data.extRequired.length > 0) {
+        const extRequiredMap = this.data.extRequiredMap
+        if (!extRequiredMap) {
+          wx.showToast({
+            title: '请填写必填项',
+            icon: 'none'
+          })
+          this.setData({
+            btnLoading: false
+          })
+          return;
+        }
+        this.data.extRequired.forEach(k => {
+          if (!extRequiredMap[k]) {
+            wx.showToast({
+              title: '请填写' + k,
+              icon: 'none'
+            })
+            this.setData({
+              btnLoading: false
+            })
+            return;
+          }
+          extJsonStr[k] = extRequiredMap[k]
+        })
+      }
       if (postData.peisongType == 'zq') {
         if (!this.data.name) {
           wx.showToast({
@@ -929,6 +973,17 @@ Page({
   paymentCancel() {
     this.setData({
       paymentShow: false
+    })
+  },
+  extRequiredChange(e) {
+    let extRequiredMap = this.data.extRequiredMap
+    if (!extRequiredMap) {
+      extRequiredMap = {}
+    }
+    extRequiredMap[e.target.dataset.name] = e.detail
+    console.log(extRequiredMap);
+    this.setData({
+      extRequiredMap
     })
   },
 })

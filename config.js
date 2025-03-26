@@ -1,6 +1,6 @@
 module.exports = {
-  version: '25.03.24',
-  note: '购买商品，下单页面可指定必填项，系统参数 create_order_ext', // 这个为版本描述，无需修改
+  version: '25.03.26',
+  note: '评价记录5星好评的数量', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

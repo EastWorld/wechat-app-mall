@@ -94,6 +94,7 @@ Page({
       while (e.detail.value["orderGoodsId" + i]) {
         let orderGoodsId = e.detail.value["orderGoodsId" + i];
         let goodReputation = e.detail.value["goodReputation" + i];
+        const goodReputationNumber = goodReputation
         let goodReputationRemark = e.detail.value["goodReputationRemark" + i];
 
         if (!goodReputation) {
@@ -109,6 +110,7 @@ Page({
         let reputations_json = {};
         reputations_json.id = orderGoodsId;
         reputations_json.reputation = goodReputation;
+        reputations_json.reputationNumber = goodReputationNumber
         reputations_json.remark = goodReputationRemark;
         if (this.data.picsList && this.data.picsList[i] && this.data.picsList[i].length > 0) {
           reputations_json.pics = []

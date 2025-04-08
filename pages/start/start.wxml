@@ -1,8 +1,14 @@
-<swiper class="swiper_box" bindchange="swiperchange" indicator-dots="true" indicator-active-color="#fff">
+<swiper class="swiper_box" current="{{ swiperCurrent }}" bindchange="swiperchange">
   <swiper-item wx:for="{{banners}}" wx:key="id">
-    <image mode="aspectFill" bindtap="imgClick" src="{{item.picUrl}}" />
+    <image mode="aspectFill" src="{{item.picUrl}}" />
   </swiper-item>
 </swiper>
-<view class="btn">
-  <button wx:if="{{swiperCurrent + 1 == swiperMaxNumber}}" type="primary" size="mini" bindtap="goToIndex">进入店铺</button>
+<view wx:if="{{ swiperMaxNumber > 1 }}" class="swiper-icon" bind:tap="goLeft">
+  <image src="/images/start-left.png" mode="widthFix"></image>
+</view>
+<view wx:if="{{ swiperMaxNumber > 1 }}" class="swiper-icon r" bind:tap="goRight">
+  <image src="/images/start-right.png" mode="widthFix"></image>
+</view>
+<view class="jump-btn-box">
+  <view class="jump-btn" bind:tap="goToIndex">进入小程序</view>
 </view>

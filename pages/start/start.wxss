@@ -18,3 +18,36 @@ image {
   display: flex;  
   justify-content: center;  
 }
+.swiper-icon {
+  position: absolute;
+  left: 32rpx;
+  top: 50vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8rpx 16rpx;
+  border-radius: 32rpx;
+}
+.swiper-icon.r {
+  left: auto;
+  right: 32rpx;
+}
+.swiper-icon image {
+  width: 88rpx;
+  height: 0;
+}
+.jump-btn-box {
+  position: absolute;
+  left: 0;
+  bottom: calc(env(safe-area-inset-bottom) + 32rpx);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.jump-btn {
+  left: 0;
+  top: auto;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 16rpx 32rpx;
+  border-radius: 32rpx;
+  font-size: 28rpx;
+}

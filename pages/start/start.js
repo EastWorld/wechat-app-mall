@@ -1,6 +1,5 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('../../config.js')
-const AUTH = require('../../utils/auth')
 Page({
   data: {
     banners:[],
@@ -67,6 +66,28 @@ Page({
       swiperCurrent: e.detail.current
     })
   },
+  goLeft() {
+    if (this.data.swiperCurrent == 0) {
+      this.setData({
+        swiperCurrent: this.data.swiperMaxNumber - 1
+      })
+    } else {
+      this.setData({
+        swiperCurrent: this.data.swiperCurrent - 1
+      })
+    }
+  },
+  goRight() {
+    if (this.data.swiperCurrent == this.data.swiperMaxNumber - 1) {
+      this.setData({
+        swiperCurrent: 0
+      })
+    } else {
+      this.setData({
+        swiperCurrent: this.data.swiperCurrent + 1
+      })
+    }
+  },
   goToIndex: function (e) {
     let shopMod = wx.getStorageSync('shopMod')
     if (!shopMod) {
@@ -87,14 +108,6 @@ Page({
     } else {
       wx.showToast({
         title: '当前无网络',
-        icon: 'none',
-      })
-    }
-  },
-  imgClick(){
-    if (this.data.swiperCurrent + 1 != this.data.swiperMaxNumber) {
-      wx.showToast({
-        title: '左滑进入',
         icon: 'none',
       })
     }

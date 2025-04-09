@@ -1,5 +1,3 @@
-const app = getApp();
-const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 
 Page({
@@ -8,57 +6,102 @@ Page({
       goodsList:[]
     },
     onLoad:function(e){
-      // e.id = 478785
-      var orderId = e.id;
-      this.data.orderId = orderId;
+      // e.id = e.sfsdffd
+      // e.payOrderNo = 'ZF2408290780106421'
       this.setData({
-        orderId: orderId
-      });
+        orderId: e.id,
+        payOrderNo: e.payOrderNo,
+      })
+      if (e.payOrderNo) {
+        this.payLogs()
+      }
     },
-    onShow : function () {
-      var that = this;
-      WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
-        if (res.code != 0) {
-          wx.showModal({
-            title: '错误',
-            content: res.msg,
-            showCancel: false
-          })
-          return;
-        }
-        // 绘制核销码
-        if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0 && res.data.orderInfo.status < 3) {
-          that.wxaQrcode(res.data.orderInfo.hxNumber)
-        }
-        // 子快递单信息
-        if (res.data.orderLogisticsShippers) {
-          res.data.orderLogisticsShippers.forEach(ele => {
-            if (ele.traces) {
-              ele.tracesArray = JSON.parse (ele.traces)
-              if (ele.tracesArray && ele.tracesArray.length > 0) {
-                ele.tracesLast = ele.tracesArray[ele.tracesArray.length - 1].AcceptStation + '\n' + ele.tracesArray[ele.tracesArray.length - 1].AcceptTime
-              }
+    onShow() {
+      this.orderDetail()
+    },
+    async payLogs() {
+      wx.showLoading({
+        title: '',
+      })
+      const res = await WXAPI.payLogs({
+        token: wx.getStorageSync('token'),
+        orderNo: this.data.payOrderNo
+      })
+      wx.hideLoading()
+      if (res.code != 0) {
+        wx.showModal({
+          content: res.msg,
+          showCancel: false
+        })
+        return
+      }
+      const nextAction = res.data[0].nextAction
+      if(!nextAction) {
+        wx.navigateTo({
+          url: '/pages/asset/index',
+        })
+        return
+      }
+      const _nextAction = JSON.parse(nextAction)
+      if (_nextAction.type != 0) {
+        wx.navigateTo({
+          url: '/pages/asset/index',
+        })
+        return
+      }
+      this.setData({
+        orderId: _nextAction.id,
+      })
+      this.orderDetail()
+    },
+    async orderDetail() {
+      if (!this.data.orderId) {
+        return
+      }
+      wx.showLoading({
+        title: '',
+      })
+      const res = await WXAPI.orderDetail(wx.getStorageSync('token'), this.data.orderId)
+      wx.hideLoading()
+      if (res.code != 0) {
+        wx.showModal({
+          content: res.msg,
+          showCancel: false
+        })
+        return
+      }
+      // 绘制核销码
+      if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0 && res.data.orderInfo.status < 3) {
+        this.wxaQrcode(res.data.orderInfo.hxNumber)
+      }
+      // 子快递单信息
+      if (res.data.orderLogisticsShippers) {
+        res.data.orderLogisticsShippers.forEach(ele => {
+          if (ele.traces) {
+            ele.tracesArray = JSON.parse (ele.traces)
+            if (ele.tracesArray && ele.tracesArray.length > 0) {
+              ele.tracesLast = ele.tracesArray[ele.tracesArray.length - 1].AcceptStation + '\n' + ele.tracesArray[ele.tracesArray.length - 1].AcceptTime
             }
-          })
-        }
-        let iotControl = false
-        res.data.goods.forEach(ele => {
-          if (ele.iotControl) {
-            iotControl = true
           }
         })
-        if (iotControl) {
-          // 读取IoT设备列表
-          that._shopIotDevices()
+      }
+      let iotControl = false
+      res.data.goods.forEach(ele => {
+        if (ele.iotControl) {
+          iotControl = true
         }
-        let orderStores = null
-        if (res.data.orderStores) {
-          orderStores = res.data.orderStores.filter(ele => ele.type == 2)
-        }
-        that.setData({
-          orderDetail: res.data,
-          orderStores
-        });
+      })
+      if (iotControl) {
+        // 读取IoT设备列表
+        this._shopIotDevices()
+      }
+      let orderStores = null
+      if (res.data.orderStores) {
+        orderStores = res.data.orderStores.filter(ele => ele.type == 2)
+      }
+      this.setData({
+        orderDetail: res.data,
+        orderStores
       })
     },
     wuliuDetailsTap:function(e){
@@ -77,7 +120,7 @@ Page({
             if (res.confirm) {
               WXAPI.orderDelivery(wx.getStorageSync('token'), orderId).then(function (res) {
                 if (res.code == 0) {
-                  that.onShow();                  
+                  that.orderDetail()
                 }
               })
             }
@@ -130,7 +173,7 @@ Page({
         postJsonString: JSON.stringify(postJsonString)
       }).then(function (res) {
         if (res.code == 0) {
-          that.onShow();
+          that.orderDetail()
         }
       })
     },

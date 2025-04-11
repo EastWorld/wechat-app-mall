@@ -5,7 +5,10 @@
   </view>
   <view class="avatar-box">
     <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-      <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/upload.jpg' }}" mode="aspectFill"></image>
+      <view class="abc-box">
+        <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/upload.png' }}" mode="aspectFill"></image>
+        <view class="trip">设置头像</view>
+      </view>
     </button>
   </view>
   <view class="nick-box">

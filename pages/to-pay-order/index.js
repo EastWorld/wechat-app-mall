@@ -164,6 +164,7 @@ Page({
       order_pay_user_balance: wx.getStorageSync('order_pay_user_balance'),
       zt_open_hx: wx.getStorageSync('zt_open_hx'),
       create_order_ext: wx.getStorageSync('create_order_ext'),
+      needBindMobile: wx.getStorageSync('needBindMobile'),
     }
     if (e.orderType) {
       _data.orderType = e.orderType
@@ -874,7 +875,7 @@ Page({
     const res = await WXAPI.userDetail(wx.getStorageSync('token'))
     if (res.code == 0) {
       let bindMobileStatus = res.data.base.mobile ? 1 : 2 // 账户绑定的手机号码状态
-      if (!CONFIG.needBindMobile) {
+      if (this.data.needBindMobile != 1) {
         bindMobileStatus = 1
       }
       this.setData({

@@ -5,11 +5,13 @@ Page({
   data: {
     payType: 'wxpay'
   },
-  onLoad: function (options) {
+  onLoad(e) {
     this.payBillDiscounts()
-    this.setData({
-      balance_pay_pwd: wx.getStorageSync('balance_pay_pwd')
-    })
+    // 读取系统参数
+    this.readConfigVal()
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
   },
   onShow () {
     AUTH.checkHasLogined().then(isLogined => {
@@ -19,6 +21,12 @@ Page({
         this.userAmount()
       }
     })    
+  },
+  readConfigVal() {
+    this.setData({
+      balance_pay_pwd: wx.getStorageSync('balance_pay_pwd'),
+      needBindMobile: wx.getStorageSync('needBindMobile'),
+    })
   },
   async payBillDiscounts() {
     const res = await WXAPI.payBillDiscounts()
@@ -56,7 +64,7 @@ Page({
     }
     // 判断是否需要绑定手机号码
     // https://www.yuque.com/apifm/nu0f75/zgf8pu
-    if (CONFIG.needBindMobile) {
+    if (this.data.needBindMobile == 1) {
       const resUserDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
       if (resUserDetail.code == 0 && !resUserDetail.data.base.mobile) {
         this.setData({

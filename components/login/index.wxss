@@ -8,7 +8,7 @@
 }
 .t {
   line-height: 100rpx;
-  font-size: 38rpx;
+  font-size: 32rpx;
   text-align: center;
 }
 .jump {
@@ -16,7 +16,7 @@
   top: 0;
   right: 48rpx;
   line-height: 100rpx;
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #bbb;
 }
 .avatar {
@@ -35,4 +35,16 @@
 }
 .btn-group {
   padding: 32rpx;
+}
+.abc-box {
+  position: relative;
+}
+.abc-box .trip {
+  position: absolute;
+  width: 100%;
+  bottom: 32rpx;
+  left: 0;
+  font-size: 24rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
 }

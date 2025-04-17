@@ -50,7 +50,7 @@
 
 - [接口 SDK](https://github.com/gooking/apifm-wxapi)
 
-- [api工厂](https://admin.it120.cc)
+- [api工厂](https://admin.s2m.cc)
 
 - [vant-weapp](https://youzan.github.io/vant-weapp)
 

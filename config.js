@@ -1,6 +1,6 @@
 module.exports = {
-  version: '25.04.11',
-  note: '下单、买单、充值是否需要绑定手机号改为后台控制', // 这个为版本描述，无需修改
+  version: '25.04.17',
+  note: '编辑用户资料接口，改为 V2 接口', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

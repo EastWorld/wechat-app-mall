@@ -50,7 +50,8 @@ Component({
         token: wx.getStorageSync('token'),
         nick: this.data.nick,
       }
-      const res = await WXAPI.modifyUserInfo(postData)
+      // https://www.yuque.com/apifm/nu0f75/ykr2zr
+      const res = await WXAPI.modifyUserInfoV2(postData)
       if (res.code != 0) {
         wx.showToast({
           title: res.msg,
@@ -77,7 +78,8 @@ Component({
         return
       }
       avatarUrl = res.data.url
-      res = await WXAPI.modifyUserInfo({
+      // https://www.yuque.com/apifm/nu0f75/ykr2zr
+      res = await WXAPI.modifyUserInfoV2({
         token: wx.getStorageSync('token'),
         avatarUrl,
       })

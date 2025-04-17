@@ -1452,6 +1452,9 @@ module.exports = {
   modifyUserInfo: function modifyUserInfo(data) {
     return request('/user/modify', true, 'post', data);
   },
+  modifyUserInfoV2: (data) => {
+    return request('https://common.apifm.com/' + subDomain + '/user/modify', false, 'post', data)
+  },
   bindSaleman: function bindSaleman(data) {
     return request('/user/bindSaleman', true, 'post', data);
   },

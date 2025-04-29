@@ -22,7 +22,7 @@
 
 **遇到使用问题？**
 
-[点击这里找答案，可用关键词搜索](https://www.it120.cc/help.html)
+[点击这里找答案，可用关键词搜索](https://www.it120.cc/help/index.html)
 
 ## 其他优秀开源模板推荐
 - [天使童装](https://github.com/EastWorld/wechat-app-mall)   /  [码云镜像](https://gitee.com/javazj/wechat-app-mall)
@@ -39,6 +39,7 @@
 - [酒店客房服务小程序](https://github.com/gooking/hotelRoomService)  / [码云镜像](https://gitee.com/javazj/hotelRoomService)
 - [面包店风格小程序](https://github.com/gooking/bread)  / [码云镜像](https://gitee.com/javazj/bread)
 - [朋友圈发圈素材小程序](https://github.com/gooking/moments)  / [码云镜像](https://gitee.com/javazj/moments)
+- [小红书企业微展](https://github.com/gooking/xhs-qiyeweizan)  / [码云镜像](https://gitee.com/javazj/xhs-qiyeweizan)
 
 ## 联系作者
 

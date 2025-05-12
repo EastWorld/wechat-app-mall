@@ -74,3 +74,10 @@ https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=189
 - 开发工具里面上传代码提交微信审核
 - 审核通过后，小程序后台去发布新版本即可
 - 用户无需重新扫码，关闭小程序重新打开就是新版本了
+
+## 1.When you open the shopping cart, there is an authorization login prompt (with options "Allow" or "Don't Log In for Now").
+## 2.Allowing authorization can provide better services.
+## 3.If not logged in, no information will be disclosed to the user.
+
+
+## This is the authorization login pop - up interface on the shopping cart page of a WeChat Mini - Program. The page title is "Shopping Cart", and the pop - up title is "Authorization Login". It prompts users to authorize the Mini - Program to log in, promising not to disclose their information and stating that it is only for providing better services. The pop - up has two buttons: "Allow" and "Not Now". At the bottom is the navigation bar of the Mini - Program, which includes options such as "Home", "Categories", "Shopping Cart", and "My Account". Currently, the user is on the "Shopping Cart" page.

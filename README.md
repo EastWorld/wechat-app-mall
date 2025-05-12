@@ -75,9 +75,90 @@ https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=189
 - 审核通过后，小程序后台去发布新版本即可
 - 用户无需重新扫码，关闭小程序重新打开就是新版本了
 
-## 1.When you open the shopping cart, there is an authorization login prompt (with options "Allow" or "Don't Log In for Now").
+## 潘英明
+
+1.When you open the shopping cart, there is an authorization login prompt (with options "Allow" or "Don't Log In for Now").
 ## 2.Allowing authorization can provide better services.
 ## 3.If not logged in, no information will be disclosed to the user.
 
 
 ## This is the authorization login pop - up interface on the shopping cart page of a WeChat Mini - Program. The page title is "Shopping Cart", and the pop - up title is "Authorization Login". It prompts users to authorize the Mini - Program to log in, promising not to disclose their information and stating that it is only for providing better services. The pop - up has two buttons: "Allow" and "Not Now". At the bottom is the navigation bar of the Mini - Program, which includes options such as "Home", "Categories", "Shopping Cart", and "My Account". Currently, the user is on the "Shopping Cart" page.
+
+
+
+黎孔铭
+
+
+My Account Feature Introduction
+1. Interface Overview
+Top Section: User Assets & Login
+Login Now
+Redirects to WeChat authorization login to bind user identity.
+
+Balance
+Available cash in the user's account, usable for spending or withdrawal (e.g., pocket money, top-up balance).
+
+Frozen Amount
+Temporarily locked funds (e.g., pending transactions or withdrawals under review).
+
+Points
+Earned through spending, check-ins, etc., redeemable for goods or coupons.
+
+Growth Value
+Reflects user level progression (e.g., Silver → Gold).
+2. My Orders (Status Categories)
+Pending Payment
+Unpaid orders, often with a countdown (e.g., 30-minute payment window).
+
+Pending Shipment
+Paid orders awaiting seller dispatch, with estimated shipping time.
+Pending Delivery
+Orders in transit, with tracking number and logistics updates
+Pending Review
+Post-delivery, users can rate and review products.
+After-Sales
+Entry for returns/refunds/exchanges, requiring reason and proof.
+3. Frequently Used Features
+
+Discount Checkout
+Quick payment using coupons or promo codes (common for in-store QR payments).
+Transaction Records
+View income/expense history (e.g., top-ups, spending, refunds).
+Invoice Request
+Apply for e-invoices or paper invoices for completed orders.
+Invoice History
+Track past invoice requests (issued, pending, mailed).
+Shipping Addresses
+Manage delivery addresses (add, edit, set as default).
+Coupon Center
+Claim platform or merchant coupons/discounts.
+4. User Engagement & Benefits
+My Favorites
+List of saved products, shops, or articles.
+Daily Check-In
+Earn points/coupons for consecutive check-ins.
+Redeem Points with Vouchers
+Exchange voucher codes for extra points (e.g., event rewards).
+Convert Points to Growth
+Accelerate membership level by converting points.
+5. Account & Security
+Bind Phone Number
+Link a phone number for verification or password recovery.
+Bind Now
+Redirects to phone binding page (SMS verification required).
+Authorized Logins
+Manage third-party app authorizations (e.g., WeChat-linked mini-programs).
+6. About & Version
+About Us
+View developer info, privacy policy, and user agreements.
+EastWorld v7.20.1
+Current version number (check for updates or report issues).
+7. Bottom Navigation Bar (All Clickable for Page Jumps)
+Home
+Return to the homepage for featured products/activities.
+Categories
+Filter by product/service type (e.g., food, apparel, electronics).
+Shopping Cart
+Holds items for checkout (supports batch operations).
+My Account
+Personal center entry (current page).

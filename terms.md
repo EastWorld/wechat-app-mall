@@ -130,3 +130,51 @@ stopPullDownRefresh：停止下拉刷新
 onReachBottom：页面触底事件
 onPageScroll：页面滚动事件
 TabBarBadge：底部 Tab 栏角标
+
+
+#黄润军
+微信功能中英对照词汇表
+(WeChat Feature Glossary - Chinese-English Version)
+1. 导航栏功能 (Navigation Bar Features)
+中文	English
+首页	Home
+分类	Categories
+优惠券	Coupons
+购物车	Shopping Cart
+我的	Me / Profile
+2. 首页 (Home)
+中文	English
+聊天列表	Chat list
+新消息	New messages
+发起新聊天	Start new chat
+3. 分类 (Categories)
+中文	English
+发现页	Discover Page
+朋友圈	Moments
+扫一扫	Scan
+小程序	Mini Programs
+搜索功能	Search function
+4. 优惠券 (Coupons)
+中文	English
+微信支付	WeChat Pay
+商家服务	Merchant services
+折扣活动	Discounts
+会员权益	Membership benefits
+5. 购物车 (Shopping Cart)
+中文	English
+电商功能	E-commerce
+小程序商城	Mini Program stores
+订单管理	Order management
+结算	Checkout
+6. 我的 (Me/Profile)
+中文	English
+个人中心	Personal center
+钱包	Wallet
+收藏	Favorites
+设置	Settings
+7. 通用术语 (General Terms)
+中文	English
+导航栏	Navigation bar
+用户界面	User interface
+版本特定功能	Version-specific features
+内容筛选	Content filtering

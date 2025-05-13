@@ -194,3 +194,31 @@ We can analyze users' preferences and interests through big data and recommend r
 Coupon redirection function description:
 Users can click the coupon redirection button to easily view the coupon information they own, facilitating their use of coupons
 
+
+
+##黄润军
+WeChat
+Categories
+Enter search keywords
+
+Home
+The default page displays the chat list, including conversations with friends and group chats. Users can view new messages, start new chats, or access existing conversations.
+
+Categories
+The functionality may vary depending on the version or context. Common uses include:
+
+"Discover" Page: Features like Moments (朋友圈), Scan (扫一扫), Mini Programs (小程序), etc.
+
+Search Function: Allows users to find chat history, contacts, articles, etc., by keywords.
+
+The "Categories" and search bar at the top may refer to product categorization or content filtering (e.g., in e-commerce or service modules).
+
+Coupons
+Typically linked to WeChat Pay or merchant services, users can view claimed coupons, discounts, or membership benefits. Commonly found in Mini Programs or partnered merchant promotions.
+
+Shopping Cart
+An entry point for WeChat’s built-in e-commerce features (e.g., Mini Program stores, JD.com integration). Users can review added items, manage orders, or proceed to checkout.
+
+Me (Profile)
+The personal center page, containing account information, Wallet (钱包), Favorites (收藏), Settings (设置), and more. Users can manage personal details, payment settings, or access personalized services.
+

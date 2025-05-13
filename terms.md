@@ -178,3 +178,36 @@ TabBarBadge：底部 Tab 栏角标
 用户界面	User interface
 版本特定功能	Version-specific features
 内容筛选	Content filtering
+
+
+黄忠堂
+1. 页面结构与生命周期
+Page()：微信小程序的页面构造函数，用于定义页面逻辑。
+生命周期函数：onLoad、onReady、onShow、onHide、onUnload、onPullDownRefresh、onReachBottom，这些函数在页面不同阶段自动触发。
+2. 数据绑定与状态管理
+data：页面初始数据对象，包含tabs（选项卡）、activeIndex（当前激活的选项卡索引）等。
+setData()：微信小程序中用于更新视图数据的方法，触发页面重新渲染。
+3. 事件处理
+bindtap：微信小程序的点击事件绑定，如tabClick、getCounpon等方法。
+自定义事件：如pwdCouponChange处理输入框内容变化。
+4. UI 组件与交互
+选项卡（Tabs）：实现了 "可领券"、"已领券"、"已失效" 三个选项卡切换功能。
+模态框（Modal）：使用wx.showModal显示提示信息，如领取失败的错误提示。
+提示框（Toast）：使用wx.showToast显示简短消息，如领取成功提示。
+5. API 调用与异步处理
+Promise：使用.then()处理异步 API 调用的结果，如WXAPI.coupons().then(...)。
+API 封装：WXAPI是封装的接口调用库，包含coupons()（获取优惠券列表）、fetchCoupons()（领取优惠券）等方法。
+6. 用户认证
+AUTH 模块：自定义的认证模块，包含checkHasLogined()（检查是否登录）和login()（登录方法）。
+token：用户身份令牌，存储在本地缓存中（wx.getStorageSync('token')）。
+7. 优惠券业务逻辑
+三种状态：可领取、已领取、已失效，通过选项卡和接口参数（status）区分。
+领取流程：调用fetchCoupons接口，处理各种领取结果（成功、已领过、已过期等）。
+口令券：支持需要输入口令才能领取的优惠券，通过showPwdPop控制弹窗显示。
+8. 代码组织与优化
+模块化：使用require引入外部模块（WXAPI、AUTH）。
+变量命名：部分使用_this或that保存当前上下文引用（在回调函数中保持对页面实例的引用）。
+9. 错误处理
+针对不同的错误码（如 20001、20003 等）显示不同的提示信息，提升用户体验。
+10. 性能优化
+在页面显示（onShow）时根据当前选项卡加载数据，避免不必要的 API 调用。

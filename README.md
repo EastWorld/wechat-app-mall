@@ -75,7 +75,13 @@ https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=189
 - 审核通过后，小程序后台去发布新版本即可
 - 用户无需重新扫码，关闭小程序重新打开就是新版本了
 
-## 潘英明
+
+#My Account Feature Introduction
+=======
+
+
+
+潘英明
 
 1.When you open the shopping cart, there is an authorization login prompt (with options "Allow" or "Don't Log In for Now").
 ## 2.Allowing authorization can provide better services.
@@ -90,6 +96,7 @@ https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=189
 
 
 My Account Feature Introduction
+
 1. Interface Overview
 Top Section: User Assets & Login
 Login Now
@@ -161,11 +168,14 @@ Filter by product/service type (e.g., food, apparel, electronics).
 Shopping Cart
 Holds items for checkout (supports batch operations).
 My Account
+
 Personal center entry (current page).
 
 
 
+
 陈锋
+
 The home page has four functions:
 
 1. Product search function
@@ -183,6 +193,7 @@ We can analyze users' preferences and interests through big data and recommend r
 
 Coupon redirection function description:
 Users can click the coupon redirection button to easily view the coupon information they own, facilitating their use of coupons
+
 
 
 ##黄润军
@@ -211,6 +222,8 @@ An entry point for WeChat’s built-in e-commerce features (e.g., Mini Program s
 Me (Profile)
 The personal center page, containing account information, Wallet (钱包), Favorites (收藏), Settings (设置), and more. Users can manage personal details, payment settings, or access personalized services.
 
+
+=======
 
 黄忠堂
 Here's the English translation of your analysis of the coupon center's functionality:
@@ -255,3 +268,4 @@ Control Layer: Manages user actions through event handlers (e.g., tabClick, getC
 This coupon center fully implements browsing and redemption workflows with a clean UI, clear interaction logic, and comprehensive error handling.
 
 Let me know if you need further refinements!
+

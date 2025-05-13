@@ -222,3 +222,50 @@ An entry point for WeChat’s built-in e-commerce features (e.g., Mini Program s
 Me (Profile)
 The personal center page, containing account information, Wallet (钱包), Favorites (收藏), Settings (设置), and more. Users can manage personal details, payment settings, or access personalized services.
 
+
+=======
+
+黄忠堂
+Here's the English translation of your analysis of the coupon center's functionality:
+
+Tab Switching Functionality
+The top of the page features three tabs: "Available Coupons", "My Coupons", and "Expired Coupons".
+Clicking on a tab switches the display to the corresponding coupon status and automatically loads the relevant data.
+Coupon Data Loading
+Available Coupons: Calls sysCoupons(), which uses WXAPI.coupons() to fetch the list of redeemable coupons from the system.
+My Coupons: Calls getMyCoupons(), which uses WXAPI.myCoupons() to retrieve the user's active (unredeemed) coupons.
+Expired Coupons: Calls invalidCoupons(), which uses WXAPI.myCoupons() to fetch the user's used or expired coupons.
+Coupon Redemption Function
+Clicking the "Redeem Now" button triggers the getCounpon() method.
+Supports two types of coupons:
+Regular Coupons: Directly calls WXAPI.fetchCoupons() for redemption.
+Password-Protected Coupons: Prompts a password input dialog; redemption occurs after entering the correct password.
+Redemption Results:
+Success: Displays "Redemption Successful".
+Failure: Shows specific error messages based on error codes (e.g., "Too late", "Already redeemed").
+User Authentication & Access Control
+Checks login status via AUTH.checkHasLogined().
+If not logged in, accessing "My Coupons" or "Expired Coupons" prompts the user to log in.
+All user-specific requests include the authentication token.
+UI Interaction & State Management
+Uses activeIndex to track the currently selected tab.
+Controls the password input dialog via showPwdPop.
+Displays an empty state message when the coupon list is empty.
+Page Lifecycle Management
+onLoad: Initializes the page.
+onShow: Loads data based on the current tab when the page appears.
+onReady, onHide, onUnload: Reserved lifecycle functions (currently unimplemented).
+Additional Features
+Returns to the home page via toIndexPage().
+Handles password input changes via pwdCouponChange().
+
+Code Structure Analysis
+
+Data Layer: Interacts with the backend via WXAPI-encapsulated APIs.
+View Layer: Updates UI data using setData().
+Control Layer: Manages user actions through event handlers (e.g., tabClick, getCounpon).
+
+This coupon center fully implements browsing and redemption workflows with a clean UI, clear interaction logic, and comprehensive error handling.
+
+Let me know if you need further refinements!
+

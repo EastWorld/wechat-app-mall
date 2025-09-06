@@ -1282,6 +1282,9 @@ module.exports = {
       orderGoodsId: orderGoodsId
     });
   },
+  refundApplySetBackLogistics: (data) => {
+    return request('/order/refundApply/setBackLogistics', true, 'post', data)
+  },
   cmsCategories: function cmsCategories() {
     return request('/cms/category/list', true, 'get', {});
   },

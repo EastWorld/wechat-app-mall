@@ -356,3 +356,7 @@ margin-top:10px ;
   box-sizing: border-box;
   border-radius: 16rpx;
 }
+.user-level {
+  color: #e64340;
+  margin-top: 8rpx;
+}

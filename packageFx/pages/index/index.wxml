@@ -12,6 +12,7 @@
         <view style="display:flex">
           <view class="nick">{{ apiUserInfoMap.base.nick }}</view>
         </view>
+        <view wx:if="{{ apiUserInfoMap.saleDistributionLevel }}" class="user-level"><van-icon name="medal-o" />{{ apiUserInfoMap.saleDistributionLevel.name }}</view>
       </view>
     </view>
     <view class="header-box2"> </view>

@@ -302,4 +302,10 @@ Page({
       paymentShow: false
     })
   },
+  goOrderDetail(e) {
+    const item = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '/pages/order-details/index?id=' + item.id,
+    })
+  },
 })

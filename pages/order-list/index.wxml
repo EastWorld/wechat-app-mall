@@ -6,8 +6,8 @@
 <view class="container">
   <van-empty wx:if="{{ !orderList }}" description="暂无订单" />
   <view class="order-list" hidden="{{orderList ? false : true}}">
-    <view class="a-order" wx:for="{{orderList}}" wx:key="index">
-      <van-cell title="{{item.orderNumber}}" value="{{item.statusStr}}" is-link url="/pages/order-details/index?id={{item.id}}" />
+    <view class="a-order" wx:for="{{orderList}}" wx:key="index" bind:tap="goOrderDetail" data-item="{{ item }}">
+      <van-cell title="{{item.orderNumber}}" value="{{item.statusStr}}" is-link />
       <wxs module="goodsDetailPage">
       module.exports = {
         url : function(item) {
@@ -42,10 +42,10 @@
         </view>
       </view>
       <view class="price-box">
-        <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
-        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款</view>
-        <view wx:if="{{ item.status == 0 && sphpay_open == '1' }}" class="btn active" bindtap="wxSphGetpaymentparams" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">视频号支付</view>
-        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
+        <view class="btn" hidden="{{item.status==0? false : true}}" catch:tap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
+        <view class="btn active" hidden="{{item.status==0? false : true}}" catch:tap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款</view>
+        <view wx:if="{{ item.status == 0 && sphpay_open == '1' }}" class="btn active" catch:tap="wxSphGetpaymentparams" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">视频号支付</view>
+        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" catch:tap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
       </view>
     </view>
   </view>

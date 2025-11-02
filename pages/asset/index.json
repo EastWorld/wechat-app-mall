@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "我的资产"
+  "navigationBarTitleText": "我的资产",
+  "enablePullDownRefresh": true
 }

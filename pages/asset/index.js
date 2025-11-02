@@ -22,12 +22,9 @@ Page({
     depositlogs: undefined,
 
     rechargeOpen: false, // 是否开启充值[预存]功能
+    page: 1,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
+  onLoad(e) {
     const withdrawal = wx.getStorageSync('withdrawal')
     if (withdrawal == '1') {
       this.setData({
@@ -51,26 +48,33 @@ Page({
   },
   onShow() {
   },
-  initData() {
-    const _this = this
+  onPullDownRefresh() {
+    this.data.page = 1
+    this.fetchTabData(this.data.activeIndex)
+    wx.stopPullDownRefresh()
+  },
+  onReachBottom() {
+    this.data.page++
+    this.fetchTabData(this.data.activeIndex)
+  },
+  async initData() {
     const token = wx.getStorageSync('token')
-    WXAPI.userAmount(token).then(function (res) {
-      if (res.code == 700) {
-        wx.showToast({
-          title: '当前账户存在异常',
-          icon: 'none'
-        })
-        return
-      }
-      if (res.code == 0) {
-        _this.setData({
-          balance: res.data.balance.toFixed(2),
-          freeze: res.data.freeze.toFixed(2),
-          totleConsumed: res.data.totleConsumed.toFixed(2),
-          score: res.data.score
-        });
-      }
-    })
+    const res = await WXAPI.userAmount(token)
+    if (res.code == 700) {
+      wx.showToast({
+        title: '当前账户存在异常',
+        icon: 'none'
+      })
+      return
+    }
+    if (res.code == 0) {
+      this.setData({
+        balance: res.data.balance.toFixed(2),
+        freeze: res.data.freeze.toFixed(2),
+        totleConsumed: res.data.totleConsumed.toFixed(2),
+        score: res.data.score
+      })
+    }
     this.fetchTabData(this.data.activeIndex)
   },
   fetchTabData(activeIndex){
@@ -84,49 +88,91 @@ Page({
       this.depositlogs()
     }
   },
-  cashLogs() {
-    const _this = this
+  async cashLogs() {
     // https://www.yuque.com/apifm/nu0f75/khq7xu
-    WXAPI.cashLogsV2({
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.cashLogsV3({
       token: wx.getStorageSync('token'),
-      page:1,
+      page: this.data.page,
       dateAddBegin: this.data.dateAddBegin || '',
       dateAddEnd: this.data.dateAddEnd || '',
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
+    })
+    wx.hideLoading()
+    if (res.code == 0) {
+      if (this.data.page == 1) {
+        this.setData({
           cashlogs: res.data.result
         })
+      } else {
+        this.setData({
+          cashlogs: this.data.cashlogs.concat(res.data.result)
+        })
       }
-    })
+    } else {
+      if (this.data.page == 1) {
+        this.setData({
+          cashlogs: null
+        })
+      }
+    }
   },
-  withDrawlogs() {
-    const _this = this
-    WXAPI.withDrawLogs({
+  async withDrawlogs() {
+    // https://www.yuque.com/apifm/nu0f75/aw6qt6
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.withDrawLogs({
       token: wx.getStorageSync('token'),
-      page:1,
-      pageSize:50
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
+      page: this.data.page
+    })
+    wx.hideLoading()
+    if (res.code == 0) {
+      if (this.data.page == 1) {
+        this.setData({
           withDrawlogs: res.data
         })
-      }
-    })
-  },
-  depositlogs() {
-    const _this = this
-    WXAPI.depositList({
-      token: wx.getStorageSync('token'),
-      page:1,
-      pageSize:50
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
-          depositlogs: res.data.result
+      } else {
+        this.setData({
+          withDrawlogs: this.data.withDrawlogs.concat(res.data)
         })
       }
+    } else {
+      if (this.data.page == 1) {
+        this.setData({
+          withDrawlogs: null
+        })
+      }
+    }
+  },
+  async depositlogs() {
+    // https://www.yuque.com/apifm/nu0f75/xd6g5h
+    wx.showLoading({
+      title: '',
     })
+    const res = await WXAPI.depositList({
+      token: wx.getStorageSync('token'),
+      page: this.data.page
+    })
+    wx.hideLoading()
+    if (res.code == 0) {
+      if (this.data.page == 1) {
+        this.setData({
+          depositlogs: res.data.result
+        })
+      } else {
+        this.setData({
+          depositlogs: this.data.depositlogs.concat(res.data.result)
+        })
+      }
+    } else {
+      if (this.data.page == 1) {
+        this.setData({
+          depositlogs: null
+        })
+      }
+    }
   },
 
   recharge: function (e) {
@@ -147,7 +193,8 @@ Page({
   tabClick: function (e) {
     this.setData({
       activeIndex: e.detail.index
-    });
+    })
+    this.data.page = 1
     this.fetchTabData(e.detail.index)
   },
   cancelLogin(){

@@ -1,6 +1,6 @@
 module.exports = {
-  version: '25.09.06',
-  note: '分销中心显示分销等级、订单列表，点击区域方法', // 这个为版本描述，无需修改
+  version: '25.11.01',
+  note: '我的资产页面，资金明细、提现记录、押金记录支持触底加载下一页', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

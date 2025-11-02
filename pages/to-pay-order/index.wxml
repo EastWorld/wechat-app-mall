@@ -255,6 +255,14 @@
   </van-cell-group>
   <view class="bottom-box"></view>
   <van-submit-bar
+    wx:if="{{ yunPrice >= 99999 }}"
+    price="{{ (allGoodsAndYunPrice - yunPrice)*100 }}"
+    suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
+    button-text="该地区禁售"
+    disabled
+  />
+  <van-submit-bar
+    wx:else
     price="{{ allGoodsAndYunPrice*100 }}"
     suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
     button-text="提交订单"

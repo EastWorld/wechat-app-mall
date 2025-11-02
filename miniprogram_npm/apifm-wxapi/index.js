@@ -1088,6 +1088,9 @@ module.exports = {
   cashLogsV2: function cashLogsV2(data) {
     return request('/user/cashLog/v2', true, 'post', data);
   },
+  cashLogsV3: (data) => {
+    return request('https://common.apifm.com/' + subDomain + '/user/cashLog/v2', false, 'post', data)
+  },
   statisticsComingOut: function statisticsComingOut(data) {
     return request('/user/statisticsComingOut', true, 'post', data);
   },

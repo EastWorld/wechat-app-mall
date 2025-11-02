@@ -1,62 +1,99 @@
 <import src="/template/login/index.wxml" />
 
-<view class="asset">
-  <view class='item'>
-    <view>可用余额(元)</view>
-    <view>{{balance}}</view>
+<view class="asset-container">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg">
+    <view class="bg-circle circle-1"></view>
+    <view class="bg-circle circle-2"></view>
+    <view class="bg-circle circle-3"></view>
   </view>
-  <view class='item'>
-    <view>冻结金额(元)</view>
-    <view>{{freeze}}</view>
-  </view>
-  <view class='item right'>
-    <view>累计消费(元)</view>
-    <view>{{totleConsumed}}</view>
-  </view>
-</view>
-<view class='btn-view'>
-  <form bindsubmit="recharge" report-submit="true">
-    <button class="btn" type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
-      充值
-    </button>
-  </form>
-  <form bindsubmit="payDeposit" report-submit="true">
-    <button class='btn' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
-      押金
-    </button>
-  </form>
-  <form wx:if="{{ withdrawal == '1' }}" bindsubmit="withdraw" report-submit="true">
-    <button class='btn' type="default" size="mini" form-type="submit" hover-class="btn-hover" plain="true">
-      提现
-    </button>
-  </form>
-</view>
-<van-tabs active="{{ active }}" bind:change="tabClick">
-  <van-tab wx:for="{{tabs}}" wx:key="*this" title="{{item}}" />
-</van-tabs>
-<picker wx:if="{{activeIndex == 0}}" mode="date" value="{{ dateAddBegin }}" bindchange="dateAddBeginChange">
-  <van-cell title="交易开始日期" value="{{ dateAddBegin ? dateAddBegin : '请选择' }}" is-link />
-</picker>
-<picker wx:if="{{activeIndex == 0}}" mode="date" value="{{ dateAddEnd }}" bindchange="dateAddEndChange">
-  <van-cell title="交易结束日期" value="{{ dateAddEnd ? dateAddEnd : '请选择' }}" is-link />
-</picker>
-<van-cell-group wx:if="{{activeIndex == 0}}">
-  <van-empty wx:if="{{!cashlogs}}" description="暂无资金明细" />
-  <van-cell wx:for="{{cashlogs}}" wx:key="index" title="{{ item.typeStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" />
-</van-cell-group>
-<van-cell-group wx:if="{{activeIndex == 1}}">
-  <van-empty wx:if="{{!withDrawlogs}}" description="暂无提现记录" />
-  <van-cell wx:for="{{withDrawlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}{{ item.rejectionReason ? ' 驳回原因：' + item.rejectionReason : '' }}">
-    <view slot="">
-      <view class="price"><text>￥</text>{{ item.money }}</view>
-      <view wx:if="{{ item.status == 3 && item.packageInfo }}">
-        <van-button type="primary" size="mini" bind:click="confirmTX" data-item="{{ item }}">确认收款</van-button>
+
+  <!-- 资产卡片 -->
+  <view class="asset-card">
+    <view class="asset-header">
+      <view class="header-title">我的资产</view>
+      <view class="header-subtitle">Asset Overview</view>
+    </view>
+    
+    <view class="balance-main">
+      <view class="balance-label">可用余额(元)</view>
+      <view class="balance-amount">
+        <text class="currency-symbol">¥</text>
+        <text class="amount-number">{{balance}}</text>
       </view>
     </view>
-  </van-cell>
-</van-cell-group>
-<van-cell-group wx:if="{{activeIndex == 2}}">
-  <van-empty wx:if="{{!depositlogs}}" description="暂无押金记录" />
-  <van-cell wx:for="{{depositlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" />
-</van-cell-group>
+
+    <view class="asset-stats">
+      <view class='stat-item'>
+        <view class="stat-value">¥{{freeze}}</view>
+        <view class="stat-label">冻结金额</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class='stat-item'>
+        <view class="stat-value">¥{{totleConsumed}}</view>
+        <view class="stat-label">累计消费</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮区 -->
+  <view class='action-buttons'>
+    <form bindsubmit="recharge" report-submit="true">
+      <button class="action-btn btn-primary" form-type="submit" hover-class="btn-hover">
+        <view class="btn-icon">💰</view>
+        <view class="btn-text">充值</view>
+      </button>
+    </form>
+    <form bindsubmit="payDeposit" report-submit="true">
+      <button class='action-btn btn-primary' form-type="submit" hover-class="btn-hover">
+        <view class="btn-icon">🔒</view>
+        <view class="btn-text">押金</view>
+      </button>
+    </form>
+    <form wx:if="{{ withdrawal == '1' }}" bindsubmit="withdraw" report-submit="true">
+      <button class='action-btn btn-primary' form-type="submit" hover-class="btn-hover">
+        <view class="btn-icon">💸</view>
+        <view class="btn-text">提现</view>
+      </button>
+    </form>
+  </view>
+</view>
+
+<!-- 交易记录区域 -->
+<view class="records-section">
+  <van-tabs active="{{ active }}" bind:change="tabClick" color="#5B7FFF" title-active-color="#5B7FFF">
+    <van-tab wx:for="{{tabs}}" wx:key="*this" title="{{item}}" />
+  </van-tabs>
+  
+  <view class="filter-section" wx:if="{{activeIndex == 0}}">
+    <picker mode="date" value="{{ dateAddBegin }}" bindchange="dateAddBeginChange">
+      <van-cell title="交易开始日期" value="{{ dateAddBegin ? dateAddBegin : '请选择' }}" is-link border="{{false}}" />
+    </picker>
+    <picker mode="date" value="{{ dateAddEnd }}" bindchange="dateAddEndChange">
+      <van-cell title="交易结束日期" value="{{ dateAddEnd ? dateAddEnd : '请选择' }}" is-link border="{{false}}" />
+    </picker>
+  </view>
+  
+  <view class="list-container">
+    <van-cell-group wx:if="{{activeIndex == 0}}" border="{{false}}">
+      <van-empty wx:if="{{!cashlogs}}" description="暂无资金明细" />
+      <van-cell wx:for="{{cashlogs}}" wx:key="index" title="{{ item.typeStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" border="{{false}}" />
+    </van-cell-group>
+    <van-cell-group wx:if="{{activeIndex == 1}}" border="{{false}}">
+      <van-empty wx:if="{{!withDrawlogs}}" description="暂无提现记录" />
+      <van-cell wx:for="{{withDrawlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}{{ item.rejectionReason ? ' 驳回原因：' + item.rejectionReason : '' }}" border="{{false}}">
+        <view slot="">
+          <view class="price"><text>￥</text>{{ item.money }}</view>
+          <view wx:if="{{ item.status == 3 && item.packageInfo }}">
+            <van-button type="primary" size="mini" bind:click="confirmTX" data-item="{{ item }}" color="#5B7FFF">确认收款</van-button>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+    <van-cell-group wx:if="{{activeIndex == 2}}" border="{{false}}">
+      <van-empty wx:if="{{!depositlogs}}" description="暂无押金记录" />
+      <van-cell wx:for="{{depositlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" border="{{false}}" />
+    </van-cell-group>
+  </view>
+</view>
 

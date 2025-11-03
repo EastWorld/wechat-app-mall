@@ -68,4 +68,34 @@ Page({
     this.initShippingAddress()
     wx.stopPullDownRefresh()
   },
+  deleteAddress(e) {
+    const id = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
+    console.log('index', index);
+    wx.showModal({
+      content: '确定要删除该收货地址吗？',
+      success: async (res) => {
+        if (res.confirm) {
+          // https://www.yuque.com/apifm/nu0f75/gb0a2k
+          wx.showLoading({
+            title: '',
+          })
+          const res = await WXAPI.deleteAddress(wx.getStorageSync('token'), id)
+          wx.hideLoading()
+          if (res.code != 0) {
+            wx.showToast({
+              title: res.msg,
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: '删除成功',
+              icon: 'none'
+            })
+            this.initShippingAddress()
+          }
+        }
+      }
+    })
+  },
 })

@@ -1,80 +1,144 @@
+/* 京东风格 - 页面基础样式 */
 page {
-  background: #f5f5f5;
+  background: #F5F5F5;
 }
-page,view,image,input {
+
+page, view, image, input {
   display: block;
   box-sizing: border-box;
 }
+
+/* 顶部搜索栏 - 京东风格 */
 .header {
-  padding: 32rpx;
-  background: #fff;
+  padding: 20rpx 24rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #E1251B 100%);
   display: flex;
   align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(225, 37, 27, 0.15);
 }
+
 .header .search {
   position: relative;
-  width: 650rpx;
-  height: 66rpx;
+  flex: 1;
+  height: 64rpx;
 }
+
 .header .search input {
-  border: 1rpx solid #e3e3e3;
   width: 100%;
   height: 100%;
-  border-radius: 30rpx;
-  padding-left: 60rpx; 
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 32rpx;
+  padding: 0 80rpx 0 32rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: none;
 }
+
+.header .search input::placeholder {
+  color: #999;
+}
+
 .header .search image {
-  width: 35rpx;
-  height: 35rpx;
+  width: 32rpx;
+  height: 32rpx;
   position: absolute;
   top: 16rpx;
-  right: 40rpx;
-  z-index: 9999;
+  right: 24rpx;
+  z-index: 10;
 }
+
 .header .show-type {
   width: 40rpx;
   height: 40rpx;
   margin-left: 20rpx;
+  filter: brightness(0) invert(1);
 }
-.line {
-  width: 100vw;
-  height: 2rpx;
-  background: #dfdfdf;
-}
+
+/* 筛选栏 - 京东风格 */
 .filters {
   width: 100vw;
   height: 88rpx;
-  background: #fff;
+  background: #FFFFFF;
   display: flex;
   justify-content: space-around;
-}
-.filters .item {
-  line-height: 88rpx;
-}
-.filters .active {
-  color:#fa1e26;
-}
-.list1 {
-  margin: 16rpx;
-  width: 718rpx;
-  display: flex;
-  background: #fff;
-  border-radius: 30rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #F0F0F0;
   position: relative;
 }
+
+.filters .item {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+  padding: 0 20rpx;
+  transition: all 0.3s ease;
+}
+
+.filters .active {
+  color: #E4393C;
+  font-weight: 600;
+  position: relative;
+}
+
+.filters .active::after {
+  content: '';
+  position: absolute;
+  bottom: -14rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background: #E4393C;
+  border-radius: 2rpx;
+}
+
+/* 列表模式1 - 横向卡片 */
+.list1 {
+  margin: 20rpx 24rpx 0;
+  width: 702rpx;
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.list1:active {
+  transform: scale(0.98);
+}
+
 .list1 .img {
-  width: 220rpx;
-  height: 220rpx;
+  width: 240rpx;
+  height: 240rpx;
   flex-shrink: 0;
+  background: #F8F8F8;
 }
+
 .list1 .goods-info {
-  padding: 16rpx 32rpx 0 24rpx;
+  padding: 20rpx 24rpx;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .list1 .goods-info .title {
-  color: #333;
-  font-size: 30rpx;
+  color: #333333;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 500;
+  margin-bottom: 8rpx;
 }
+
+.list1 .goods-info .characteristic {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 34rpx;
+  margin-bottom: 12rpx;
+}
+
 .ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -83,76 +147,161 @@ page,view,image,input {
   -webkit-box-orient: vertical;
   word-break: break-all;
 }
+
 .list1 .goods-info .price {
-  color: #FF3B30;
-  font-size: 34rpx;
+  color: #E4393C;
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+  display: flex;
+  align-items: baseline;
 }
+
+.list1 .goods-info .price::before {
+  content: '¥';
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-right: 2rpx;
+}
+
 .list1 .goods-info .buy-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-right: 60rpx;
 }
+
 .list1 .goods-info .buy-info .num {
-  font-size:24rpx;
-  color:#999999;
+  font-size: 22rpx;
+  color: #999999;
+  background: #F5F5F5;
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
 }
+
 .list1 .goods-info .buy-info .car {
   position: absolute;
-  right: 16rpx;
-  bottom: 16rpx;
-  width: 50rpx;
-  height: 50rpx;
+  right: 20rpx;
+  bottom: 20rpx;
+  width: 56rpx;
+  height: 56rpx;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.3);
 }
+
+/* 购物车图标设置为白色 */
+.list1 .goods-info .buy-info .car .van-icon {
+  color: #FFFFFF !important;
+}
+
+/* 列表模式2 - 网格布局 */
 .list2-box {
-  margin: 16rpx;
-  width: 718rpx;
+  padding: 12rpx 20rpx;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .list2 {
-  margin: 16rpx 0;
-  width: 350rpx;
-  background: #fff;
-  border-radius: 30rpx;
+  margin: 12rpx 0;
+  width: 345rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
   overflow: hidden;
   position: relative;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
 }
+
+.list2:active {
+  transform: scale(0.97);
+}
+
 .list2 .img {
-  width: 350rpx;
-  height: 350rpx;
+  width: 345rpx;
+  height: 345rpx;
+  background: #F8F8F8;
 }
+
 .list2 .goods-info {
-  padding: 16rpx;
+  padding: 16rpx 16rpx 20rpx;
 }
+
 .list2 .goods-info .title {
-  color: #333;
-  font-size: 30rpx;
+  color: #333333;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  font-weight: 500;
+  height: 76rpx;
+  margin-bottom: 8rpx;
 }
+
+.list2 .goods-info .characteristic {
+  font-size: 22rpx;
+  color: #999;
+  line-height: 32rpx;
+  margin-bottom: 12rpx;
+}
+
 .list2 .goods-info .price {
-  color: #FF3B30;
-  font-size: 34rpx;
+  color: #E4393C;
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+  display: flex;
+  align-items: baseline;
 }
+
+.list2 .goods-info .price::before {
+  content: '¥';
+  font-size: 22rpx;
+  font-weight: 500;
+  margin-right: 2rpx;
+}
+
 .list2 .goods-info .buy-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-right: 60rpx;
 }
+
 .list2 .goods-info .buy-info .num {
-  font-size:24rpx;
-  color:#999999;
+  font-size: 20rpx;
+  color: #999999;
+  background: #F5F5F5;
+  padding: 4rpx 10rpx;
+  border-radius: 4rpx;
 }
+
 .list2 .goods-info .buy-info .car {
-  width: 50rpx;
-  height: 50rpx;
+  width: 52rpx;
+  height: 52rpx;
   position: absolute;
   right: 16rpx;
   bottom: 16rpx;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.3);
 }
 
+/* 购物车图标设置为白色 */
+.list2 .goods-info .buy-info .car .van-icon {
+  color: #FFFFFF !important;
+}
+
+/* 原价样式 */
 .originalPrice {
-  color: #aaa;
+  color: #BBBBBB;
   text-decoration: line-through;
-  margin-left: 20rpx;
-  font-size: 26rpx;
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  font-weight: 400;
 }

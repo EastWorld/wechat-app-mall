@@ -1,99 +1,260 @@
-.score {
+/* 页面整体样式 */
+page {
+  height: 100%;
+  background: linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+/* 顶部渐变背景区 - 京东红 */
+.top-header {
+  background: linear-gradient(135deg, #E3393C 0%, #F44336 100%);
+  padding: 40rpx 30rpx 80rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.top-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400rpx;
+  height: 400rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.top-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 300rpx;
+  height: 300rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+/* 资产展示卡片 */
+.assets-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  padding: 50rpx 40rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 8rpx 32rpx rgba(227, 57, 60, 0.2);
+  backdrop-filter: blur(10rpx);
+  position: relative;
+  z-index: 2;
+}
+
+.asset-item {
+  flex: 1;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  width: 750rpx;  
-  padding-top:50rpx;
-  height: 150rpx;
-  background-color: #e85654;
-  text-align: center;
-  font-size: 14px;
-  line-height: 30px;
-  color:#fff;
+  align-items: center;
 }
-page{
-    height: 100%;
+
+.asset-label {
+  font-size: 26rpx;
+  color: #999999;
+  margin-bottom: 16rpx;
+  font-weight: 400;
 }
-.container{
-    background-color: #f5f5f9;
-    justify-content: initial;
+
+.asset-value {
+  font-size: 68rpx;
+  color: #E3393C;
+  font-weight: bold;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #E3393C 0%, #F44336 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.form-box{
-    width:100%;
-    background-color: #fff;
-    margin-top: 20rpx;
+
+.asset-unit {
+  font-size: 24rpx;
+  color: #666666;
+  margin-top: 8rpx;
 }
-.row-wrap{
-    width: 720rpx;
-    height: 88rpx;
-    line-height: 88rpx;
-    margin-left: 30rpx;
-    border-bottom: 1rpx solid #eee;
-    display: flex;
-    font-size: 28rpx;
-    /*justify-content: space-between;*/
+
+.divider-line {
+  width: 2rpx;
+  height: 100rpx;
+  background: linear-gradient(180deg, 
+    rgba(227, 57, 60, 0) 0%, 
+    rgba(227, 57, 60, 0.3) 50%, 
+    rgba(227, 57, 60, 0) 100%
+  );
+  margin: 0 20rpx;
 }
-.row-wrap .label{
-    width: 160rpx;
-    color: #000
+
+/* 主容器 */
+.container {
+  background-color: transparent;
+  justify-content: initial;
+  padding: 0 30rpx;
+  margin-top: -50rpx;
+  position: relative;
+  z-index: 3;
 }
-.row-wrap .label-right{
-    flex: 1;
-    height: 88rpx;
-    line-height: 88rpx;
+
+/* 兑换卡片 */
+.exchange-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  margin-bottom: 30rpx;
 }
-.row-wrap .label-right input{
-    height: 100%;
-    font-size: 28rpx;
-    padding-right: 30rpx;
+
+.card-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx solid #f5f5f5;
 }
-.row-wrap .right-box{
-    margin-right: 30rpx; 
+
+.title-icon {
+  font-size: 40rpx;
+  margin-right: 16rpx;
 }
-.arrow-right{
-    width: 15rpx;
-    height: 24rpx;
+
+.title-text {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
 }
+
+/* 输入区域 */
+.input-wrapper {
+  margin-bottom: 30rpx;
+}
+
+.input-label {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.input-box {
+  background: #f8f8f8;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.input-box .input {
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.placeholder-style {
+  color: #bbbbbb;
+  font-size: 28rpx;
+}
+
+/* 提示信息 */
+.exchange-hint {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #FFF3F3 0%, #FFE8E8 100%);
+  padding: 20rpx 24rpx;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #E3393C;
+}
+
+.hint-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+
+.hint-text {
+  font-size: 24rpx;
+  color: #E3393C;
+  line-height: 1.6;
+}
+
+/* 兑换按钮 - 京东风格 */
+.exchange-btn {
+  width: 690rpx;
+  height: 96rpx;
+  background: linear-gradient(135deg, #E3393C 0%, #F44336 100%);
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(227, 57, 60, 0.35);
+  border: none;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.exchange-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.exchange-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(227, 57, 60, 0.3);
+}
+
+.exchange-btn:active::before {
+  width: 200%;
+  height: 200%;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  color: #ffffff;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 兑换规则样式优化 */
+.van-cell-group {
+  margin-top: 30rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 移除旧样式 */
+.form-box,
+.row-wrap,
 .save-btn,
-.cancel-btn{
-    width: 690rpx;
-    height: 80rpx;
-    line-height: 80rpx;
-    text-align: center;
-    margin-top:30rpx; 
-    border-radius: 6rpx;
-    box-sizing: border-box;
+.cancel-btn,
+.addr-details {
+  display: none;
 }
-.save-btn{
-    background-color: #e64340;
-    color:#fff;
-}
-button[type="default"]{
-    background-color: #ffffff;
-    color:#000;
-}
-.addr-details{
-    height: auto;
-    padding: 30rpx 0;
-    margin-left:30rpx;
-    border-bottom: 1rpx solid #eee;
-    display: flex;
-    font-size: 28rpx;
-}
-.addr-details .label{
-    margin:auto 0 auto 0;
-    width: 160rpx;
-    color: #000
-}
-.addr-details textarea{
-    box-sizing: border-box;
-    width: 480rpx;
-    overflow: scroll;
-}
+
+/* 保留的通用样式 */
 picker {
-    min-width: 20rpx;
-    height: 100%;
-    margin-right: 20rpx;
+  min-width: 20rpx;
+  height: 100%;
+  margin-right: 20rpx;
 }
-.hui{
-    color: #777;
+
+.hui {
+  color: #777;
 }

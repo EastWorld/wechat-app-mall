@@ -1,18 +1,45 @@
-<view class="score">
-  <view>当前可用积分</view>
-  <view>{{score}}</view>
+<!-- 顶部渐变背景区 -->
+<view class="top-header">
+  <!-- 资产展示卡片 -->
+  <view class="assets-card">
+    <view class="asset-item">
+      <view class="asset-label">当前积分</view>
+      <view class="asset-value">{{score}}</view>
+      <view class="asset-unit">分</view>
+    </view>
+    <view class="divider-line"></view>
+    <view class="asset-item">
+      <view class="asset-label">当前成长值</view>
+      <view class="asset-value">{{ growth }}</view>
+      <view class="asset-unit">值</view>
+    </view>
+  </view>
 </view>
+
 <view class="container">
   <form bindsubmit="bindSave">
-    <view class="form-box">
-      <view class="row-wrap">
-        <view class="label">兑换积分</view>
-        <view class="label-right">
-          <input name="score" class="input" type="text" placeholder="你希望用多少积分来兑换成长值" />
+    <!-- 兑换卡片 -->
+    <view class="exchange-card">
+      <view class="card-title">
+        <view class="title-icon">💎</view>
+        <view class="title-text">积分兑换成长值</view>
+      </view>
+      <view class="input-wrapper">
+        <view class="input-label">兑换积分</view>
+        <view class="input-box">
+          <input name="score" class="input" type="number" placeholder="请输入兑换积分数量" placeholder-class="placeholder-style" />
         </view>
       </view>
+      <view class="exchange-hint">
+        <text class="hint-icon">ℹ️</text>
+        <text class="hint-text">积分可兑换成长值，助您快速升级</text>
+      </view>
     </view>
-    <button type="warn" class="save-btn" formType="submit">立即兑换</button>
+    
+    <!-- 兑换按钮 -->
+    <button class="exchange-btn" formType="submit">
+      <text class="btn-text">立即兑换</text>
+    </button>
   </form>
 </view>
 <van-cell-group wx:if="{{deductionRules}}" title="兑换规则：">

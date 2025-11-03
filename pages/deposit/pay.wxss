@@ -1,127 +1,391 @@
-page{
-    height: 100%;
-}
-.container{
-    background-color: #f5f5f9;
-    justify-content: initial;
-}
-.form-box{
-    width:100%;
-    background-color: #fff;
-    margin-top: 20rpx;
-}
-.row-wrap{
-    width: 720rpx;
-    height: 88rpx;
-    line-height: 88rpx;
-    margin-left: 30rpx;
-    border-bottom: 1rpx solid #eee;
-    display: flex;
-    font-size: 28rpx;
-    /*justify-content: space-between;*/
-}
-.row-wrap .label{
-    width: 160rpx;
-    color: #000
-}
-.row-wrap .label-right{
-    flex: 1;
-    height: 88rpx;
-    line-height: 88rpx;
-}
-.row-wrap .label-right input{
-    height: 100%;
-    font-size: 28rpx;
-    padding-right: 30rpx;
-}
-.row-wrap .right-box{
-    margin-right: 30rpx;
-}
-.arrow-right{
-    width: 15rpx;
-    height: 24rpx;
-}
-.save-btn,
-.cancel-btn{
-    width: 690rpx;
-    height: 80rpx;
-    line-height: 80rpx;
-    text-align: center;
-    margin-top:30rpx;
-    border-radius: 6rpx;
-    box-sizing: border-box;
-}
-.save-btn{
-    background-color: #e64340;
-    color:#fff;
-}
-button[type="default"]{
-    background-color: #ffffff;
-    color:#000;
-}
-.addr-details{
-    height: auto;
-    padding: 30rpx 0;
-    margin-left:30rpx;
-    border-bottom: 1rpx solid #eee;
-    display: flex;
-    font-size: 28rpx;
-}
-.addr-details .label{
-    margin:auto 0 auto 0;
-    width: 160rpx;
-    color: #000
-}
-.addr-details textarea{
-    box-sizing: border-box;
-    width: 480rpx;
-    overflow: scroll;
-}
-picker {
-    min-width: 20rpx;
-    height: 100%;
-    margin-right: 20rpx;
-}
-.hui{
-    color: #777;
+/* 页面基础样式 */
+page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
 }
 
-.charge-rule-wrap{
-  background: white;
-  margin-top:20rpx;
-  padding:10rpx;
-  padding-left:20rpx;
+/* 主容器 */
+.deposit-container {
+  position: relative;
+  min-height: 100vh;
+  padding: 30rpx;
+  overflow: hidden;
+}
+
+/* 装饰背景圆圈 */
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 800rpx;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.circle-1 {
+  width: 400rpx;
+  height: 400rpx;
+  top: -150rpx;
+  right: -100rpx;
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-2 {
+  width: 300rpx;
+  height: 300rpx;
+  top: 150rpx;
+  left: -100rpx;
+  animation: float 8s ease-in-out infinite;
+}
+
+.circle-3 {
+  width: 200rpx;
+  height: 200rpx;
+  top: 400rpx;
+  right: 50rpx;
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30rpx) rotate(180deg);
+  }
+}
+
+/* 页面标题 */
+.page-header {
+  position: relative;
+  z-index: 1;
+  padding: 30rpx 20rpx 40rpx;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12rpx;
+  letter-spacing: 2rpx;
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.header-subtitle {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  letter-spacing: 3rpx;
+  text-transform: uppercase;
+}
+
+/* 押金卡片 */
+.deposit-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 32rpx;
+  padding: 50rpx 40rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 20rpx 60rpx rgba(102, 126, 234, 0.25);
+  overflow: hidden;
+}
+
+.deposit-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400rpx;
+  height: 400rpx;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  border-radius: 50%;
+}
+
+.card-icon {
+  font-size: 80rpx;
+  text-align: center;
+  margin-bottom: 20rpx;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 12rpx;
+  letter-spacing: 1rpx;
+  position: relative;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: #718096;
+  text-align: center;
+  margin-bottom: 40rpx;
+  position: relative;
+}
+
+/* 金额输入区 */
+.amount-input-wrap {
+  position: relative;
   display: flex;
-  flex-direction:row;
-  flex-wrap:wrap;
-}
-.btn{
-    box-sizing: border-box;
-    text-align: center;
-    border-radius: 6rpx;
-    margin-left: 20rpx;
-}
-.charge-detail{
-  width:220rpx;
-  height:100rpx;
-  color:rgba(99, 190, 133, 1);
-  background-color:white;
-  border:3rpx solid rgba(99, 190, 133, 1);
-  display:table-cell;
-  line-height:30rpx;
-  font-weight:300;
-  font-size:30rpx;
-  margin:10rpx;
-  align-items:flex-start;
-}
-.charge-detail text{
-  vertical-align:middle;
-  font-size: 28rpx;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top:12rpx;
+  justify-content: center;
+  padding: 40rpx 30rpx;
+  margin: 30rpx 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: 24rpx;
+  border: 3rpx solid rgba(102, 126, 234, 0.1);
+  transition: all 0.3s ease;
 }
-.button-hover{
-  background-color:grey;
+
+.amount-input-wrap:focus-within {
+  border-color: #667eea;
+  background: #ffffff;
+  box-shadow: 0 0 0 6rpx rgba(102, 126, 234, 0.1);
+}
+
+.currency-label {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #667eea;
+  margin-right: 16rpx;
+  line-height: 1;
+}
+
+.amount-input {
+  flex: 1;
+  font-size: 64rpx;
+  font-weight: 700;
+  color: #2d3748;
+  text-align: left;
+  line-height: 1;
+}
+
+.input-placeholder {
+  color: #cbd5e0;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+/* 支付按钮 */
+.pay-btn {
+  width: 100%;
+  height: 100rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50rpx;
+  border: none;
+  box-shadow: 0 12rpx 32rpx rgba(102, 126, 234, 0.35);
+  margin-top: 20rpx;
+  padding: 0;
+  line-height: normal;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.pay-btn::after {
+  border: none;
+}
+
+.pay-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pay-btn-hover {
+  transform: translateY(-4rpx);
+  box-shadow: 0 16rpx 40rpx rgba(102, 126, 234, 0.45) !important;
+}
+
+.pay-btn-hover::before {
+  opacity: 1;
+}
+
+.btn-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.btn-icon {
+  font-size: 40rpx;
+  margin-right: 12rpx;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2rpx;
+}
+
+/* 提示卡片 */
+.notice-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%);
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(255, 152, 0, 0.15);
+  border-left: 8rpx solid #ff9800;
+}
+
+.notice-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.notice-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.notice-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #e65100;
+  letter-spacing: 1rpx;
+}
+
+.notice-content {
+  padding-left: 48rpx;
+}
+
+.notice-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+  line-height: 1.6;
+}
+
+.notice-item:last-child {
+  margin-bottom: 0;
+}
+
+.notice-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  border-radius: 50%;
+  margin-right: 16rpx;
+  margin-top: 10rpx;
+  flex-shrink: 0;
+}
+
+.notice-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #5d4037;
+  line-height: 1.6;
+}
+
+.highlight {
+  color: #e65100;
+  font-weight: 700;
+  padding: 0 6rpx;
+  background: rgba(255, 152, 0, 0.15);
+  border-radius: 6rpx;
+}
+
+/* 安全提示 */
+.security-tips {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  padding: 30rpx 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.security-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.security-icon {
+  font-size: 36rpx;
+  margin-bottom: 8rpx;
+}
+
+.security-text {
+  font-size: 22rpx;
+  color: #718096;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.security-divider {
+  width: 2rpx;
+  height: 50rpx;
+  background: linear-gradient(to bottom, 
+    rgba(102, 126, 234, 0) 0%,
+    rgba(102, 126, 234, 0.3) 50%,
+    rgba(102, 126, 234, 0) 100%
+  );
+}
+
+/* 按钮基础样式重置 */
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+button::after {
+  border: none;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 320px) {
+  .header-title {
+    font-size: 40rpx;
+  }
+  
+  .amount-input {
+    font-size: 52rpx;
+  }
+  
+  .card-icon {
+    font-size: 64rpx;
+  }
 }

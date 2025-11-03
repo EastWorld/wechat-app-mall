@@ -1,13 +1,70 @@
-<view class="container">
-    <form bindsubmit="bindSave">
-    <view class="form-box">
-        <view class="row-wrap">
-            <view class="label">券号</view>
-            <view class="label-right">
-                <input name="amount" class="input" type="text" placeholder="请输入券号"/>
-            </view>
-        </view>
+<view class="exchange-page">
+  <!-- 头部装饰区域 -->
+  <view class="header-decoration">
+    <view class="decoration-circle circle1"></view>
+    <view class="decoration-circle circle2"></view>
+    <view class="decoration-circle circle3"></view>
+  </view>
+  
+  <!-- 主要内容区域 -->
+  <view class="exchange-content">
+    <!-- 标题区域 -->
+    <view class="title-section">
+      <view class="icon-wrapper">
+        <image class="gift-icon" src="/images/gift.png" mode="aspectFit"></image>
+      </view>
+      <text class="main-title">积分券兑换</text>
+      <text class="sub-title">输入积分券号码，立即获得积分奖励</text>
     </view>
-    <button type="warn" class="save-btn" formType="submit">立即兑换</button>
+    
+    <!-- 兑换表单 -->
+    <form bindsubmit="bindSave">
+      <view class="exchange-form">
+        <view class="form-item">
+          <text class="form-label">积分券号码</text>
+          <view class="input-wrapper">
+            <input 
+              name="amount" 
+              class="coupon-input" 
+              type="text" 
+              placeholder="请输入积分券号码"
+              placeholder-class="input-placeholder"
+              maxlength="50"
+            />
+          </view>
+        </view>
+        
+        <!-- 兑换按钮 -->
+        <button class="exchange-btn" formType="submit">
+          <text class="btn-text">立即兑换</text>
+        </button>
+      </view>
     </form>
+    
+    <!-- 使用说明 -->
+    <view class="tips-section">
+      <view class="tips-header">
+        <view class="info-icon">i</view>
+        <text class="tips-title">使用说明</text>
+      </view>
+      <view class="tips-list">
+        <view class="tips-item">
+          <text class="tips-dot">•</text>
+          <text class="tips-text">积分券仅限本平台使用，不可转让</text>
+        </view>
+        <view class="tips-item">
+          <text class="tips-dot">•</text>
+          <text class="tips-text">每个积分券仅可使用一次</text>
+        </view>
+        <view class="tips-item">
+          <text class="tips-dot">•</text>
+          <text class="tips-text">兑换成功后积分将立即到账</text>
+        </view>
+        <view class="tips-item">
+          <text class="tips-dot">•</text>
+          <text class="tips-text">如有疑问请联系客服</text>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

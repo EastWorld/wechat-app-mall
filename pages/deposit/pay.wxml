@@ -1,13 +1,77 @@
-<view class="container">
-  <form bindsubmit="bindSave" report-submit="true">
-    <view class="form-box">
-      <view class="row-wrap">
-        <view class="label">押金金额</view>
-        <view class="label-right">
-          <input name="amount" class="input" type="digit" value="{{amount}}" placeholder="请输入押金金额" />
+<view class="deposit-container">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg">
+    <view class="bg-circle circle-1"></view>
+    <view class="bg-circle circle-2"></view>
+    <view class="bg-circle circle-3"></view>
+  </view>
+
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-title">押金支付</view>
+    <view class="header-subtitle">Deposit Payment</view>
+  </view>
+
+  <!-- 押金卡片 -->
+  <view class="deposit-card">
+    <view class="card-icon">🔐</view>
+    <view class="card-title">支付押金</view>
+    <view class="card-desc">完成押金支付后即可享受服务</view>
+    
+    <form bindsubmit="bindSave" report-submit="true">
+      <view class="amount-input-wrap">
+        <view class="currency-label">¥</view>
+        <input 
+          name="amount" 
+          class="amount-input" 
+          type="digit" 
+          value="{{amount}}" 
+          placeholder="请输入押金金额"
+          placeholder-class="input-placeholder" />
+      </view>
+      
+      <button class="pay-btn" formType="submit" hover-class="pay-btn-hover">
+        <view class="btn-content">
+          <text class="btn-icon">💳</text>
+          <text class="btn-text">立即支付</text>
         </view>
+      </button>
+    </form>
+  </view>
+
+  <!-- 重要提示 -->
+  <view class="notice-card">
+    <view class="notice-header">
+      <view class="notice-icon">ℹ️</view>
+      <view class="notice-title">重要提示</view>
+    </view>
+    <view class="notice-content">
+      <view class="notice-item">
+        <view class="notice-dot"></view>
+        <text class="notice-text">押金支付后，会显示在您的<text class="highlight">冻结余额</text>里面</text>
+      </view>
+      <view class="notice-item">
+        <view class="notice-dot"></view>
+        <text class="notice-text">如需退还押金，请<text class="highlight">联系管理员</text>进行退还操作</text>
       </view>
     </view>
-    <button type="warn" class="save-btn" formType="submit">立即支付</button>
-  </form>
+  </view>
+
+  <!-- 安全保障 -->
+  <view class="security-tips">
+    <view class="security-item">
+      <view class="security-icon">🔒</view>
+      <view class="security-text">安全支付</view>
+    </view>
+    <view class="security-divider"></view>
+    <view class="security-item">
+      <view class="security-icon">✓</view>
+      <view class="security-text">随时退还</view>
+    </view>
+    <view class="security-divider"></view>
+    <view class="security-item">
+      <view class="security-icon">⚡</view>
+      <view class="security-text">即时到账</view>
+    </view>
+  </view>
 </view>

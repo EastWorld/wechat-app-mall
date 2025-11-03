@@ -1,18 +1,78 @@
-<van-field
-  label="充值金额"
-  model:value="{{ amount }}"
-  size="large"
-  type="digit"
-  focus
-  clearable
-  required
-  placeholder="请输入充值金额"
-/>
-<van-grid custom-class="rechargeSendRules" wx:if="{{ rechargeSendRules }}" column-num="3" square gutter="{{ 10 }}" clickable>
-  <van-grid-item wx:for="{{ rechargeSendRules }}" icon="balance-o" text="¥{{item.confine}}" badge="{{item.send ? '送 ¥' + item.send : ''}}" bind:click="rechargeAmount" data-confine="{{item.confine}}" data-send="{{item.send}}" />
-</van-grid>
-<view class="block-btn">
-  <van-button type="primary" block round bind:click="bindSave">立即充值</van-button>
+<!-- 顶部背景装饰 -->
+<view class="page-container">
+  <!-- 头部区域 -->
+  <view class="header-section">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="header-title">余额充值</view>
+      <view class="header-subtitle">安全便捷 · 即时到账</view>
+    </view>
+  </view>
+
+  <!-- 充值金额输入卡片 -->
+  <view class="amount-card">
+    <view class="card-title">
+      <view class="title-icon">💰</view>
+      <view class="title-text">充值金额</view>
+    </view>
+    <view class="amount-input-wrapper">
+      <view class="amount-symbol">¥</view>
+      <van-field
+        custom-class="amount-input"
+        model:value="{{ amount }}"
+        type="digit"
+        focus
+        clearable
+        placeholder="请输入充值金额"
+        placeholder-class="amount-placeholder"
+      />
+    </view>
+  </view>
+
+  <!-- 快速充值金额选择 -->
+  <view class="quick-amount-section" wx:if="{{ rechargeSendRules }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <view class="title-text">快速选择</view>
+      <view class="title-line"></view>
+    </view>
+    <view class="amount-options">
+      <view 
+        class="amount-option" 
+        wx:for="{{ rechargeSendRules }}" 
+        wx:key="index"
+        bind:tap="rechargeAmount"
+        data-confine="{{item.confine}}"
+        data-send="{{item.send}}"
+      >
+        <view class="option-amount">¥{{item.confine}}</view>
+        <view class="option-gift" wx:if="{{item.send}}">
+          <view class="gift-tag">送¥{{item.send}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="tips-section">
+    <view class="tips-title">
+      <view class="tips-icon">ℹ️</view>
+      <text>温馨提示</text>
+    </view>
+    <view class="tips-content">
+      <view class="tip-item">• 充值金额实时到账，可随时使用</view>
+      <view class="tip-item">• 支持微信支付，安全可靠</view>
+      <view class="tip-item">• 充值记录可在"我的"页面查看</view>
+    </view>
+  </view>
+
+  <!-- 充值按钮 -->
+  <view class="submit-section">
+    <view class="submit-btn" bind:tap="bindSave">
+      <view class="btn-text">立即充值</view>
+      <view class="btn-icon">→</view>
+    </view>
+  </view>
 </view>
 
 <bind-mobile

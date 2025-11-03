@@ -3,8 +3,10 @@ Page({
 
   },
   onLoad: function (options) {
+    const hot_search_words = wx.getStorageSync('hot_search_words')
     this.setData({
-      list: wx.getStorageSync('searchHis')
+      list: wx.getStorageSync('searchHis'),
+      hot_search_words: hot_search_words ? hot_search_words.split(',') : null
     })
   },
   onShow: function () {
@@ -27,7 +29,7 @@ Page({
         list: searchHis
       })
     }
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/goods/list?name=' + this.data.inputVal,
     })
   },
@@ -43,7 +45,7 @@ Page({
   go(e) {
     const idx = e.currentTarget.dataset.idx
     const keywords = this.data.list[idx]
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/goods/list?name=' + keywords,
     })
   },
@@ -51,7 +53,7 @@ Page({
     wx.scanCode({
       scanType: ['barCode', 'qrCode', 'datamatrix', 'pdf417'],
       success: res => {
-        wx.redirectTo({
+        wx.navigateTo({
           url: '/pages/goods/list?name=' + res.result,
         })
       }

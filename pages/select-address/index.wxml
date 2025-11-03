@@ -1,13 +1,39 @@
-<van-empty wx:if="{{ !addressList }}" description="暂无收货地址" />
+<view class="address-container">
+  <van-empty wx:if="{{ !addressList }}" description="暂无收货地址" />
 
-<view class="list" wx:for="{{addressList}}" wx:key="id">
-  <view class="aaa">
-    <van-cell custom-class="aaa" title="{{item.linkMan}} {{item.mobile}}" label="{{item.address}}" bind:click="selectTap" data-id="{{item.id}}" />
+  <view class="address-list">
+    <view class="address-item" wx:for="{{addressList}}" wx:key="id">
+      <view class="address-content" bind:tap="selectTap" data-id="{{item.id}}">
+        <view class="address-header">
+          <view class="user-info">
+            <text class="user-name">{{item.linkMan}}</text>
+            <text class="user-phone">{{item.mobile}}</text>
+          </view>
+          <view class="default-tag" wx:if="{{item.isDefault}}">默认</view>
+        </view>
+        <view class="address-detail">
+          <text class="address-text">{{item.address}}</text>
+        </view>
+      </view>
+      
+      <view class="address-actions">
+        <view class="action-btn edit-btn" bind:tap="editAddess" data-id="{{item.id}}">
+          <van-icon name="edit" size="32rpx" />
+          <text>编辑</text>
+        </view>
+        <view class="action-divider"></view>
+        <view class="action-btn delete-btn" bind:tap="deleteAddress" data-index="{{ index }}" data-id="{{item.id}}">
+          <van-icon name="delete-o" size="32rpx" />
+          <text>删除</text>
+        </view>
+      </view>
+    </view>
   </view>
-  <van-icon name="records" size="40rpx" bind:click="editAddess" data-id="{{item.id}}" />
-</view>
 
-<view style="height:32rpx"></view>
-<view class="safe-bottom-box">
-  <van-button type="primary" icon="add-o" block bind:click="addAddess">新增收货地址</van-button>
+  <view class="safe-bottom-box">
+    <view class="add-btn" bind:tap="addAddess">
+      <van-icon name="add-o" size="36rpx" color="#fff" />
+      <text>新增收货地址</text>
+    </view>
+  </view>
 </view>

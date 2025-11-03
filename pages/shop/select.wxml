@@ -1,31 +1,53 @@
-<view class="search">
-  <image class="icon" src="/images/icon/search.svg"></image>
-  <input placeholder="搜索门店" bindinput="searchChange" bindconfirm="search"/>
-</view>
-<view class="shops" wx:for="{{shops}}" wx:key="id">
-  <view class="t">
-    <view class="name">
-      <image src="/images/icon/{{ index == 0?'shop-on':'shop' }}.svg"></image>
-      <text style="color:{{ index == 0?'#FEB21C':'#333333' }}">{{ item.name }}</text>
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-wrapper">
+    <view class="search-box">
+      <image class="search-icon" src="/images/icon/search.svg"></image>
+      <input class="search-input" placeholder="搜索门店名称、地址" placeholder-class="search-placeholder" bindinput="searchChange" bindconfirm="search"/>
     </view>
-    <view wx:if="{{index == 0}}" class="distance">{{ item.distance }}<text>km</text></view>
   </view>
-  <view class="p">
-    <image src="/images/icon/pos-gray.svg"></image>
-    <text>{{ item.address }}</text>
+
+  <!-- 门店列表 -->
+  <view class="shops-container">
+    <view class="shop-card {{ index == 0 ? 'shop-card-nearest' : '' }}" wx:for="{{shops}}" wx:key="id">
+      <!-- 门店头部 -->
+      <view class="shop-header">
+        <view class="shop-name-wrapper">
+          <image class="shop-icon" src="/images/icon/{{ index == 0?'shop-on':'shop' }}.svg"></image>
+          <text class="shop-name {{ index == 0 ? 'shop-name-active' : '' }}">{{ item.name }}</text>
+        </view>
+        <view class="distance-wrapper {{ index == 0 ? 'distance-active' : '' }}">
+          <text class="distance-num">{{ item.distance }}</text>
+          <text class="distance-unit">km</text>
+        </view>
+      </view>
+
+      <!-- 门店信息 -->
+      <view class="shop-info">
+        <view class="info-item">
+          <image class="info-icon" src="/images/icon/pos-gray.svg"></image>
+          <text class="info-text">{{ item.address }}</text>
+        </view>
+        <view class="info-item">
+          <image class="info-icon" src="/images/icon/time-gray.svg"></image>
+          <text class="info-text">{{ item.openingHours }}</text>
+        </view>
+        <view class="info-item">
+          <image class="info-icon" src="/images/icon/tel-gray.svg"></image>
+          <text class="info-text">{{ item.linkPhone }}</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="shop-action">
+        <button wx:if="{{index == 0}}" class="btn-enter-shop" bindtap="goShop" data-idx="{{ index }}">
+          <text class="btn-text">进入门店</text>
+        </button>
+        <view wx:else class="btn-select-shop" bindtap="goShop" data-idx="{{ index }}">
+          <text class="btn-select-text">选择门店</text>
+          <image class="btn-arrow" src="/images/icon/next.svg"></image>
+        </view>
+      </view>
+    </view>
   </view>
-  <view class="p">
-    <image src="/images/icon/time-gray.svg"></image>
-    <text>{{ item.openingHours }}</text>
-  </view>
-  <view class="p">
-    <image src="/images/icon/tel-gray.svg"></image>
-    <text>{{ item.linkPhone }}</text>
-  </view>
-  <view wx:if="{{index > 0}}" class="distance-black" bindtap="goShop" data-idx="{{ index }}">
-    <text class="d">{{ item.distance }}</text>
-    <text class="u">km</text>
-    <image src="/images/icon/next.svg"></image>
-  </view>
-  <button wx:if="{{index == 0}}" class="goHotel" type="default" bindtap="goShop" data-idx="{{ index }}"> 进入门店 </button>
 </view>

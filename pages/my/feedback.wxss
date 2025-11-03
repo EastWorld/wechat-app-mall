@@ -1,3 +1,211 @@
-.btn {
-  margin-top: 32rpx;
+/* 京东风格 - 意见反馈页面 */
+page {
+  background: #f4f4f4;
+}
+
+.feedback-container {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* 页面头部 */
+.feedback-header {
+  background: linear-gradient(135deg, #E93323 0%, #E4393C 100%);
+  padding: 60rpx 40rpx 50rpx;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.feedback-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400rpx;
+  height: 400rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+/* 限制提示 */
+.limit-tips {
+  margin-top: 40rpx;
+  padding: 0 40rpx;
+}
+
+/* 反馈卡片 */
+.feedback-card {
+  background: #fff;
+  margin: 24rpx 30rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(233, 51, 35, 0.08);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 30rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.title-icon {
+  font-size: 36rpx;
+  margin-right: 16rpx;
+}
+
+.title-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+}
+
+.title-tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+
+.card-content {
+  padding: 8rpx 0 16rpx;
+}
+
+.upload-content {
+  padding: 16rpx 30rpx 24rpx;
+}
+
+/* 提交按钮 */
+.submit-wrapper {
+  padding: 40rpx 30rpx 20rpx;
+}
+
+.submit-btn {
+  background: linear-gradient(90deg, #E93323 0%, #E4393C 100%);
+  height: 96rpx;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(233, 51, 35, 0.3);
+  transition: all 0.3s;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(233, 51, 35, 0.2);
+}
+
+.submit-text {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 2rpx;
+}
+
+/* 温馨提示 */
+.tips-box {
+  background: #fff;
+  margin: 24rpx 30rpx;
+  padding: 32rpx;
+  border-radius: 16rpx;
+  border-left: 6rpx solid #E93323;
+}
+
+.tips-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.tips-item {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 44rpx;
+  padding-left: 8rpx;
+}
+
+/* 优化 van-field 样式 */
+.feedback-card /deep/ .van-cell {
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+}
+
+.feedback-card /deep/ .van-field__label {
+  color: #333;
+  font-weight: 500;
+  width: 140rpx;
+}
+
+.feedback-card /deep/ .van-field__control {
+  color: #333;
+}
+
+.feedback-card /deep/ .van-field__placeholder {
+  color: #c8c9cc;
+}
+
+/* 文本域特殊样式 */
+.feedback-card /deep/ .van-field__control--textarea {
+  min-height: 200rpx;
+  padding: 24rpx 30rpx;
+  font-size: 28rpx;
+  line-height: 44rpx;
+}
+
+/* 上传组件优化 */
+.upload-content /deep/ .van-uploader__wrapper {
+  margin: -8rpx;
+}
+
+.upload-content /deep/ .van-uploader__preview,
+.upload-content /deep/ .van-uploader__upload {
+  margin: 8rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+}
+
+.upload-content /deep/ .van-uploader__upload {
+  border: 2rpx dashed #E4393C;
+  background: #fff5f5;
+}
+
+.upload-content /deep/ .van-uploader__upload-icon {
+  color: #E4393C;
+  font-size: 48rpx;
+}
+
+.upload-content /deep/ .van-uploader__upload-text {
+  color: #E4393C;
+  font-size: 24rpx;
+  margin-top: 8rpx;
+}
+
+/* 响应式优化 */
+@media (max-width: 375px) {
+  .header-title {
+    font-size: 44rpx;
+  }
+  
+  .feedback-card {
+    margin: 20rpx 24rpx;
+  }
 }

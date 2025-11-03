@@ -1,14 +1,37 @@
-<swiper class="swiper_box" current="{{ swiperCurrent }}" bindchange="swiperchange">
-  <swiper-item wx:for="{{banners}}" wx:key="id">
-    <image mode="aspectFill" src="{{item.picUrl}}" />
-  </swiper-item>
-</swiper>
-<view wx:if="{{ swiperMaxNumber > 1 }}" class="swiper-icon" bind:tap="goLeft">
-  <image src="/images/start-left.png" mode="widthFix"></image>
-</view>
-<view wx:if="{{ swiperMaxNumber > 1 }}" class="swiper-icon r" bind:tap="goRight">
-  <image src="/images/start-right.png" mode="widthFix"></image>
-</view>
-<view class="jump-btn-box">
-  <view class="jump-btn" bind:tap="goToIndex">进入小程序</view>
+<!-- 启动页容器 -->
+<view class="start-container">
+  <!-- 轮播图区域 -->
+  <swiper class="swiper_box" current="{{ swiperCurrent }}" bindchange="swiperchange" circular="{{true}}" autoplay="{{false}}" interval="5000" duration="500">
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <view class="swiper-item-wrapper">
+        <image class="banner-image" mode="aspectFill" src="{{item.picUrl}}" />
+        <!-- 渐变遮罩 -->
+        <view class="image-mask"></view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 左右切换按钮 -->
+  <view wx:if="{{ swiperMaxNumber > 1 }}" class="swiper-icon left-icon" bind:tap="goLeft">
+    <image src="/images/start-left.png" mode="widthFix"></image>
+  </view>
+  <view wx:if="{{ swiperMaxNumber > 1 }}" class="swiper-icon right-icon" bind:tap="goRight">
+    <image src="/images/start-right.png" mode="widthFix"></image>
+  </view>
+
+  <!-- 指示器 -->
+  <view wx:if="{{ swiperMaxNumber > 1 }}" class="dots-wrapper">
+    <view class="dots-container">
+      <view wx:for="{{banners}}" wx:key="id" class="dot {{index == swiperCurrent ? 'dot-active' : ''}}"></view>
+    </view>
+  </view>
+
+  <!-- 底部进入按钮区域 -->
+  <view class="jump-btn-box">
+    <view class="jump-btn" bind:tap="goToIndex">
+      <text class="btn-text">立即进入</text>
+      <view class="btn-shine"></view>
+    </view>
+    <view class="skip-hint">精彩内容等你探索</view>
+  </view>
 </view>

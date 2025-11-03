@@ -1,19 +1,64 @@
-<view class="list2-box">
-  <block wx:for="{{goods}}" wx:key="id">
-    <view wx:if="{{ item.type == 0 }}" class="list2">
-      <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
-      <view class="goods-info">
-        <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><view class="title ellipsis">{{item.goodsName}}</view></navigator>
-        <image class="delete-btn" src="/images/icon/delete.svg" data-idx="{{ index }}" bindtap="removeFav"></image>
+<view class="fav-container">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg">
+    <view class="bg-circle circle-1"></view>
+    <view class="bg-circle circle-2"></view>
+    <view class="bg-circle circle-3"></view>
+  </view>
+
+  <!-- 标题区域 -->
+  <view class="page-header">
+    <view class="header-title">我的收藏</view>
+    <view class="header-subtitle">My Favorites</view>
+    <view class="header-count" wx:if="{{goods && goods.length > 0}}">共 {{goods.length}} 件商品</view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="list2-box" wx:if="{{goods && goods.length > 0}}">
+    <block wx:for="{{goods}}" wx:key="id">
+      <view wx:if="{{ item.type == 0 }}" class="list2">
+        <navigator url="/pages/goods-details/index?id={{item.goodsId}}" class="goods-link">
+          <view class="img-wrapper">
+            <image class="img" mode="aspectFill" src="{{item.pic}}"></image>
+            <view class="img-overlay"></view>
+          </view>
+          <view class="goods-info">
+            <view class="title ellipsis">{{item.goodsName}}</view>
+          </view>
+        </navigator>
+        <view class="delete-btn-wrapper">
+          <view class="delete-btn" data-idx="{{ index }}" bindtap="removeFav">
+            <image class="delete-icon" src="/images/icon/delete.svg"></image>
+            <text class="delete-text">取消收藏</text>
+          </view>
+        </view>
       </view>
-    </view>
-    <view wx:else class="list2">
-      <navigator url="{{item.json.wxaurl}}"><image class="img" mode="aspectFill" src="{{item.json.pic}}"></image></navigator>
-      <view class="goods-info">
-        <navigator url="{{item.json.wxaurl}}"><view class="title ellipsis">{{item.json.name}}</view></navigator>
-        <image class="delete-btn" src="/images/icon/delete.svg" data-idx="{{ index }}" bindtap="removeFav"></image>
+      <view wx:else class="list2">
+        <navigator url="{{item.json.wxaurl}}" class="goods-link">
+          <view class="img-wrapper">
+            <image class="img" mode="aspectFill" src="{{item.json.pic}}"></image>
+            <view class="img-overlay"></view>
+          </view>
+          <view class="goods-info">
+            <view class="title ellipsis">{{item.json.name}}</view>
+          </view>
+        </navigator>
+        <view class="delete-btn-wrapper">
+          <view class="delete-btn" data-idx="{{ index }}" bindtap="removeFav">
+            <image class="delete-icon" src="/images/icon/delete.svg"></image>
+            <text class="delete-text">取消收藏</text>
+          </view>
+        </view>
       </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-container" wx:if="{{!goods || goods.length == 0}}">
+    <view class="empty-card">
+      <view class="empty-icon">💝</view>
+      <view class="empty-title">还没有收藏商品</view>
+      <view class="empty-desc">快去发现心仪的商品吧</view>
     </view>
-  </block>
+  </view>
 </view>
-<van-empty wx:if="{{!goods || goods.length == 0}}" description="暂无收藏" />

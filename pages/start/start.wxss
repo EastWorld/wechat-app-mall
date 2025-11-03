@@ -1,53 +1,219 @@
-swiper {
+/* 京东风格 - 启动页样式 */
+
+/* 页面容器 */
+page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* 启动页主容器 */
+.start-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 轮播图容器 */
+.swiper_box {
   width: 100vw;
   height: 100vh;
 }
+
 swiper-item {
   width: 100vw;
   height: 100vh;
 }
-image {
+
+/* 轮播项包装器 */
+.swiper-item-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* 轮播图片 */
+.banner-image {
   width: 100vw;
   height: 100vh;
+  display: block;
 }
-.btn {  
-  position: absolute;  
-  left: 0;  
-  right: 0;  
-  bottom: 50rpx;  
-  display: flex;  
-  justify-content: center;  
+
+/* 图片渐变遮罩 - 京东风格 */
+.image-mask {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
+  z-index: 1;
+  pointer-events: none;
 }
+
+/* 左右切换按钮样式 - 优雅半透明风格 */
 .swiper-icon {
   position: absolute;
-  left: 32rpx;
-  top: 50vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 8rpx 16rpx;
-  border-radius: 32rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80rpx;
+  height: 80rpx;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(20rpx);
+  z-index: 10;
+  transition: all 0.3s ease;
 }
-.swiper-icon.r {
-  left: auto;
-  right: 32rpx;
+
+.swiper-icon.left-icon {
+  left: 40rpx;
 }
+
+.swiper-icon.right-icon {
+  right: 40rpx;
+}
+
+.swiper-icon:active {
+  transform: translateY(-50%) scale(0.9);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+}
+
 .swiper-icon image {
-  width: 88rpx;
-  height: 0;
+  width: 32rpx;
+  height: 32rpx;
+  filter: brightness(0) invert(1);
 }
+
+/* 指示器容器 */
+.dots-wrapper {
+  position: absolute;
+  bottom: 260rpx;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.dots-container {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 12rpx 24rpx;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10rpx);
+  border-radius: 40rpx;
+}
+
+/* 指示器小点 */
+.dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 指示器激活状态 - 京东红色 */
+.dot-active {
+  width: 48rpx;
+  height: 16rpx;
+  border-radius: 8rpx;
+  background: linear-gradient(90deg, #E93B3D, #FF6B6B);
+  box-shadow: 0 4rpx 12rpx rgba(233, 59, 61, 0.4);
+}
+
+/* 底部按钮区域 */
 .jump-btn-box {
   position: absolute;
   left: 0;
-  bottom: calc(env(safe-area-inset-bottom) + 32rpx);
+  bottom: calc(env(safe-area-inset-bottom) + 80rpx);
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  gap: 24rpx;
 }
+
+/* 进入按钮 - 京东风格 */
 .jump-btn {
-  left: 0;
-  top: auto;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 16rpx 32rpx;
-  border-radius: 32rpx;
-  font-size: 28rpx;
+  position: relative;
+  padding: 28rpx 120rpx;
+  background: linear-gradient(135deg, #E93B3D 0%, #E61717 100%);
+  border-radius: 60rpx;
+  box-shadow: 0 12rpx 40rpx rgba(233, 59, 61, 0.45), 
+              0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jump-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 8rpx 28rpx rgba(233, 59, 61, 0.4), 
+              0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮文字 */
+.btn-text {
+  position: relative;
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  z-index: 2;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮光泽效果 */
+.btn-shine {
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transform: skewX(-25deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* 提示文字 */
+.skip-hint {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 24rpx;
+  letter-spacing: 1rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+  animation: breath 2s ease-in-out infinite;
+}
+
+@keyframes breath {
+  0%, 100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
 }

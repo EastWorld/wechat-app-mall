@@ -1,26 +1,82 @@
-<van-cell title="可用余额" value="{{ balance }}" />
-<van-field
-  label="提现金额"
-  type="digit"
-  model:value="{{ amount }}"
-  placeholder="请输入本次提现金额"
-  clearable
-/>
-<van-field
-  wx:if="{{ amount > 2000 }}"
-  label="真实姓名"
-  model:value="{{ name }}"
-  placeholder="超过2000需要校验真实姓名"
-  clearable
-/>
-<van-field
-  wx:if="{{ balance_pay_pwd == '1' }}"
-  label="交易密码"
-  password
-  model:value="{{ pwd }}"
-  placeholder="请输入交易密码"
-  clearable
-/>
-<view class="block-btn btn">
-  <van-button type="primary" block bind:click="bindSave">申请提现</van-button>
+<view class="withdraw-container">
+  <!-- 顶部余额卡片 -->
+  <view class="balance-card">
+    <view class="balance-bg">
+      <view class="balance-label">可提现余额（元）</view>
+      <view class="balance-amount">
+        <text class="balance-symbol">¥</text>
+        <text class="balance-value">{{ balance }}</text>
+      </view>
+      <view class="balance-tips">提现将在1-3个工作日内到账</view>
+    </view>
+  </view>
+
+  <!-- 提现表单 -->
+  <view class="withdraw-form">
+    <view class="form-title">提现信息</view>
+    
+    <view class="form-item">
+      <view class="item-label">
+        <text class="label-icon">💰</text>
+        <text>提现金额</text>
+      </view>
+      <van-field
+        type="digit"
+        model:value="{{ amount }}"
+        placeholder="请输入本次提现金额"
+        clearable
+        border="{{ false }}"
+        custom-style="padding: 0; font-size: 32rpx; font-weight: 500;"
+      />
+    </view>
+
+    <view class="form-item" wx:if="{{ amount > 2000 }}">
+      <view class="item-label">
+        <text class="label-icon">👤</text>
+        <text>真实姓名</text>
+      </view>
+      <van-field
+        model:value="{{ name }}"
+        placeholder="超过2000需要校验真实姓名"
+        clearable
+        border="{{ false }}"
+        custom-style="padding: 0; font-size: 32rpx;"
+      />
+    </view>
+
+    <view class="form-item" wx:if="{{ balance_pay_pwd == '1' }}">
+      <view class="item-label">
+        <text class="label-icon">🔒</text>
+        <text>交易密码</text>
+      </view>
+      <van-field
+        password
+        model:value="{{ pwd }}"
+        placeholder="请输入交易密码"
+        clearable
+        border="{{ false }}"
+        custom-style="padding: 0; font-size: 32rpx;"
+      />
+    </view>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="tips-box">
+    <view class="tips-title">
+      <text class="tips-icon">ℹ️</text>
+      <text>温馨提示</text>
+    </view>
+    <view class="tips-content">
+      <view class="tips-item">• 提现金额将原路返回至您的账户</view>
+      <view class="tips-item">• 每日最多可申请3次提现</view>
+      <view class="tips-item">• 如有疑问请联系客服</view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-btn-wrapper">
+    <view class="submit-btn" bind:tap="bindSave">
+      <text class="btn-text">立即提现</text>
+    </view>
+  </view>
 </view>

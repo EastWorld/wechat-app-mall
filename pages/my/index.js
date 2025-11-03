@@ -206,6 +206,7 @@ Page({
     wx.showToast({
       title: '设置成功',
     })
+    this.hideNickModal()
     this.getUserApiInfo()
   },
   async onChooseAvatar(e) {
@@ -259,6 +260,11 @@ Page({
   login() {
     wx.navigateTo({
       url: '/pages/login/index',
+    })
+  },
+  hideNickModal() {
+    this.setData({
+      nickShow: false
     })
   },
 })

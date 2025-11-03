@@ -1,61 +1,301 @@
+/* 京东风格 - 发票申请页面 */
 page {
-  background-color: #f0f2f6;
+  background: linear-gradient(180deg, #f8f8f8 0%, #ffffff 100%);
+  min-height: 100vh;
 }
-.form {
-  width: 702rpx;
-  background: #FFFFFF;
-  border-radius: 16rpx;
-  margin: 24rpx;
-  display: flex;
-  flex-direction: column;
+
+.page-container {
+  padding-bottom: 40rpx;
 }
-.form .title {
-  margin-top: 32rpx;
-  margin-left: 24rpx;
-  margin-bottom: 24rpx;
-  font-family: PingFangSC-Medium;
-  font-size: 30rpx;
-  color: #333333;
-}
-.form .input {
-  width: 654rpx;
-  height: 90rpx;
+
+/* 顶部装饰栏 */
+.header-bar {
+  background: linear-gradient(135deg, #E4393C 0%, #F85959 100%);
+  padding: 40rpx 32rpx 60rpx;
   position: relative;
-  margin-left: 24rpx;
+  overflow: hidden;
 }
-.form .input view {
+
+.header-bar::after {
+  content: '';
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  right: -100rpx;
+  top: -200rpx;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.header-title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8rpx;
+  letter-spacing: 2rpx;
+}
+
+.header-subtitle {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1rpx;
+  font-weight: 300;
+}
+
+/* 快捷导入卡片 */
+.quick-import-card {
+  margin: -30rpx 24rpx 20rpx;
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 28rpx 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(228, 57, 60, 0.12);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-import-card::before {
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
-  line-height: 90rpx;
-  font-family: PingFangSC-Regular;
-  font-size: 26rpx;
-  color: #555555;
+  bottom: 0;
+  width: 6rpx;
+  background: linear-gradient(180deg, #E4393C 0%, #F85959 100%);
 }
-.form .input input {
-  border-bottom: 1rpx solid #E6E6E6;
-  padding-left: 200rpx;
-  height: 90rpx;
+
+.import-icon {
+  font-size: 48rpx;
+  margin-right: 24rpx;
+  margin-left: 12rpx;
 }
-.placeholder {
-  font-family: PingFangSC-Regular;
-  font-size: 26rpx;
+
+.import-content {
+  flex: 1;
+}
+
+.import-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 4rpx;
+}
+
+.import-desc {
+  font-size: 24rpx;
   color: #999999;
-  letter-spacing: -0.82rpx;
-  line-height: 90rpx;
 }
-.save-btn {
-  margin: 164rpx 32rpx;
+
+.import-arrow {
+  font-size: 48rpx;
+  color: #E4393C;
+  font-weight: 300;
+  margin-right: 8rpx;
 }
-.hasRight {
+
+/* 主表单卡片 */
+.form-card {
+  margin: 0 24rpx 20rpx;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 32rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.card-title {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
 }
-.hasRight .import {
-  margin-right: 32rpx;
-  font-size:26rpx;
-  color: #e64340;
+
+.title-icon {
+  width: 6rpx;
+  height: 28rpx;
+  background: linear-gradient(180deg, #E4393C 0%, #F85959 100%);
+  border-radius: 3rpx;
+  margin-right: 16rpx;
 }
-.go-list {
-  margin-top: 24rpx;
+
+/* 表单内容 */
+.form-content {
+  padding: 0 32rpx;
+}
+
+.input-group {
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.input-group.last-group {
+  border-bottom: none;
+}
+
+.input-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.label-text {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.required {
+  color: #E4393C;
+  margin-left: 6rpx;
+  font-size: 28rpx;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.custom-input {
+  width: 100%;
+  height: 80rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #333333;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.custom-input:focus {
+  background: #ffffff;
+  border-color: #E4393C;
+}
+
+.placeholder {
+  color: #bbbbbb;
+  font-size: 26rpx;
+}
+
+/* 金额输入特殊样式 */
+.amount-group {
+  position: relative;
+}
+
+.amount-wrapper {
+  display: flex;
+  align-items: center;
+  background: #fff5f5;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #ffe5e5;
+}
+
+.currency-symbol {
+  font-size: 32rpx;
+  color: #E4393C;
+  font-weight: 600;
+  margin-right: 12rpx;
+}
+
+.amount-input {
+  flex: 1;
+  background: transparent !important;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #E4393C;
+  padding: 0;
+  height: 80rpx;
+  border: none !important;
+}
+
+/* 温馨提示卡片 */
+.tips-card {
+  margin: 0 24rpx 20rpx;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff5dc 100%);
+  border-radius: 16rpx;
+  padding: 28rpx 32rpx;
+  border: 1rpx solid #ffe8b3;
+}
+
+.tips-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #ff9900;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 38rpx;
+  margin-bottom: 8rpx;
+}
+
+.tips-text:last-child {
+  margin-bottom: 0;
+}
+
+/* 底部操作区 */
+.bottom-actions {
+  padding: 0 24rpx;
+  margin-top: 20rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #F85959 100%);
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(228, 57, 60, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2rpx;
+  transition: all 0.3s;
+}
+
+.submit-btn::after {
+  border: none;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(228, 57, 60, 0.3);
+}
+
+.record-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 28rpx;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.record-link text:first-child {
+  margin-right: 8rpx;
+}
+
+.link-arrow {
+  font-size: 36rpx;
+  color: #E4393C;
+  font-weight: 300;
 }

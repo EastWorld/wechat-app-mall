@@ -1,44 +1,102 @@
-<block wx:if="{{feedbackTimes && feedbackTimes.refId > 5}}">
-  <van-empty image="error" description="今天你已经提交{{ feedbackTimes.refId }}次，明天再来吧" />
-</block>
-<block wx:else>
-  <van-field
-    label="姓名"
-    model:value="{{ name }}"
-    placeholder="如何称呼您"
-    clearable
-  />
-  <van-field
-    label="联系电话"
-    type="number"
-    model:value="{{ mobile }}"
-    placeholder="方便我们与您联系"
-    clearable
-  />
-  <van-field
-    label="微信号"
-    model:value="{{ wx }}"
-    placeholder="填写您的微信号"
-    clearable
-  />
-  <view style="margin-top:16rpx;padding-left:32rpx;">
-    <van-uploader
-      accept="media"
-      multiple
-      upload-text="图片/视频"
-      image-fit="aspectFill"
-      file-list="{{ picsList }}"
-      bind:after-read="afterPicRead"
-      bind:delete="afterPicDel"
-    />
+<view class="feedback-container">
+  <!-- 页面头部 -->
+  <view class="feedback-header">
+    <view class="header-title">意见反馈</view>
+    <view class="header-subtitle">您的建议是我们前进的动力</view>
   </view>
-  <van-field
-    model:value="{{ content }}"
-    placeholder="请留下您的宝贵建议或意见～"
-    type="textarea"
-    autosize="{{ autosize }}"
-  />
-  <view class="block-btn btn">
-    <van-button type="primary" block bind:click="bindSave">提交反馈</van-button>
-  </view>
-</block>
+
+  <block wx:if="{{feedbackTimes && feedbackTimes.refId > 5}}">
+    <view class="limit-tips">
+      <van-empty image="error" description="今天你已经提交{{ feedbackTimes.refId }}次，明天再来吧" />
+    </view>
+  </block>
+  
+  <block wx:else>
+    <!-- 联系信息卡片 -->
+    <view class="feedback-card">
+      <view class="card-title">
+        <view class="title-icon">📞</view>
+        <view class="title-text">联系方式</view>
+      </view>
+      <view class="card-content">
+        <van-field
+          label="姓名"
+          model:value="{{ name }}"
+          placeholder="如何称呼您"
+          clearable
+          input-align="right"
+          custom-style="background: transparent;"
+        />
+        <van-field
+          label="联系电话"
+          type="number"
+          model:value="{{ mobile }}"
+          placeholder="方便我们与您联系"
+          clearable
+          input-align="right"
+          custom-style="background: transparent;"
+        />
+        <van-field
+          label="微信号"
+          model:value="{{ wx }}"
+          placeholder="填写您的微信号"
+          clearable
+          input-align="right"
+          custom-style="background: transparent;"
+        />
+      </view>
+    </view>
+
+    <!-- 反馈内容卡片 -->
+    <view class="feedback-card">
+      <view class="card-title">
+        <view class="title-icon">✍️</view>
+        <view class="title-text">反馈内容</view>
+      </view>
+      <view class="card-content">
+        <van-field
+          model:value="{{ content }}"
+          placeholder="请详细描述您的问题或建议，我们会认真对待每一条反馈..."
+          type="textarea"
+          autosize="{{ autosize }}"
+          border="{{false}}"
+        />
+      </view>
+    </view>
+
+    <!-- 上传图片卡片 -->
+    <view class="feedback-card">
+      <view class="card-title">
+        <view class="title-icon">📷</view>
+        <view class="title-text">添加图片或视频</view>
+        <view class="title-tip">（选填）</view>
+      </view>
+      <view class="card-content upload-content">
+        <van-uploader
+          accept="media"
+          multiple
+          upload-text="上传"
+          image-fit="aspectFill"
+          file-list="{{ picsList }}"
+          bind:after-read="afterPicRead"
+          bind:delete="afterPicDel"
+        />
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-wrapper">
+      <view class="submit-btn" bind:tap="bindSave">
+        <text class="submit-text">提交反馈</text>
+      </view>
+    </view>
+
+    <!-- 温馨提示 -->
+    <view class="tips-box">
+      <view class="tips-title">温馨提示：</view>
+      <view class="tips-item">• 我们将在1-3个工作日内处理您的反馈</view>
+      <view class="tips-item">• 如需快速联系，请留下您的手机号</view>
+      <view class="tips-item">• 每天最多可提交5次反馈</view>
+    </view>
+  </block>
+</view>

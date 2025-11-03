@@ -1,1 +1,248 @@
-/* pages/search/index.wxss */
+/* pages/search/index.wxss - 京东风格搜索页面 */
+
+/* 页面整体 */
+.search-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #E4393C 0%, #E4393C 120rpx, #f5f5f5 120rpx);
+}
+
+/* ==================== 搜索头部区域 ==================== */
+.search-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #E4393C;
+  padding: 16rpx 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.15);
+}
+
+.search-container {
+  position: relative;
+}
+
+/* 覆盖van-search默认样式 */
+.search-header .van-search {
+  padding: 0;
+}
+
+.search-header .van-search__content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 48rpx;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.search-header .van-field__control {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.scan-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 56rpx;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  border-radius: 50%;
+  margin-left: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.3);
+}
+
+/* ==================== 内容区域 ==================== */
+.search-content {
+  padding-top: 120rpx;
+  padding-bottom: 40rpx;
+}
+
+/* ==================== 搜索区块 ==================== */
+.search-section {
+  margin: 32rpx 24rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 区块头部 */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #FFE5E5 0%, #FFD5D5 100%);
+  border-radius: 12rpx;
+  margin-right: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 0.5rpx;
+}
+
+/* ==================== 标签容器 ==================== */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.tag-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  background: #f8f8f8;
+  border-radius: 48rpx;
+  font-size: 28rpx;
+  color: #666;
+  transition: all 0.3s ease;
+  border: 2rpx solid transparent;
+}
+
+.tag-item:active {
+  background: #fff;
+  border-color: #E4393C;
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.15);
+}
+
+.tag-text {
+  max-width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 关闭按钮 */
+.tag-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 12rpx;
+  background: #e8e8e8;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.tag-close:active {
+  background: #E4393C;
+}
+
+.tag-close:active .van-icon {
+  color: #fff !important;
+}
+
+/* ==================== 热门标签特殊样式 ==================== */
+.hot-tag {
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
+  color: #E4393C;
+  font-weight: 500;
+  border: 2rpx solid #FFD5D5;
+  padding-left: 24rpx;
+}
+
+.hot-tag:active {
+  background: linear-gradient(135deg, #FFE8E8 0%, #FFD5D5 100%);
+  border-color: #E4393C;
+  box-shadow: 0 4rpx 16rpx rgba(228, 57, 60, 0.2);
+}
+
+.hot-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32rpx;
+  height: 32rpx;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 600;
+  border-radius: 50%;
+  margin-right: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(228, 57, 60, 0.3);
+}
+
+/* ==================== 空状态 ==================== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 48rpx;
+  margin: 80rpx 24rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.empty-icon {
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+  border-radius: 50%;
+  margin-bottom: 32rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+  font-weight: 500;
+}
+
+.empty-tip {
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+/* ==================== 动画效果 ==================== */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-section {
+  animation: slideInUp 0.4s ease-out;
+}
+
+/* ==================== 响应式优化 ==================== */
+@media (max-width: 375px) {
+  .tag-item {
+    padding: 14rpx 28rpx;
+    font-size: 26rpx;
+  }
+  
+  .section-title {
+    font-size: 30rpx;
+  }
+}

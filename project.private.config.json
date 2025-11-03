@@ -8,11 +8,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/about/index",
-          "pathName": "pages/about/index",
+          "name": "pages/shop/select",
+          "pathName": "pages/shop/select",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/about/index",
+          "pathName": "pages/about/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/order-details/index",

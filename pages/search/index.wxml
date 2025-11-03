@@ -1,21 +1,86 @@
-<van-search placeholder="请输入搜索关键词" focus bind:search="search" use-right-icon-slot>
-  <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
-</van-search>
-<van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无历史搜索" />
-<van-cell-group wx:if="{{ list && list.length > 0 }}" title="历史搜索">
-  <van-cell wx:for="{{list}}" wx:key="*this">
-    <view slot="title">
-      <view data-idx="{{ index }}" bindtap="go">{{ item }}</view>
+<view class="search-page">
+  <!-- 搜索栏 -->
+  <view class="search-header">
+    <view class="search-container">
+      <van-search 
+        placeholder="请输入搜索关键词" 
+        focus 
+        bind:search="search" 
+        use-right-icon-slot
+        shape="round"
+        background="#E4393C"
+        input-align="left"
+      >
+        <view slot="right-icon" class="scan-icon" bind:tap="searchscan">
+          <van-icon name="scan" size="20px" color="#fff" />
+        </view>
+      </van-search>
     </view>
-    <van-tag
-      closeable
-      size="medium"
-      type="primary"
-      id="primary"
-      data-idx="{{ index }}"
-      bind:close="onClose"
-    >
-      删除
-    </van-tag>
-  </van-cell>
-</van-cell-group>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="search-content">
+    <!-- 历史搜索 -->
+    <view class="search-section" wx:if="{{ list && list.length > 0 }}">
+      <view class="section-header">
+        <view class="header-left">
+          <view class="icon-wrapper">
+            <van-icon name="clock-o" size="18px" color="#E4393C" />
+          </view>
+          <text class="section-title">历史搜索</text>
+        </view>
+      </view>
+      <view class="tag-container">
+        <view 
+          class="tag-item" 
+          wx:for="{{list}}" 
+          wx:key="*this"
+          data-idx="{{ index }}" 
+          bindtap="go"
+        >
+          <text class="tag-text">{{ item }}</text>
+          <view 
+            class="tag-close" 
+            data-idx="{{ index }}"
+            catchtap="onClose"
+          >
+            <van-icon name="cross" size="12px" color="#999" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 热门搜索 -->
+    <view class="search-section" wx:if="{{ hot_search_words && hot_search_words.length > 0 }}">
+      <view class="section-header">
+        <view class="header-left">
+          <view class="icon-wrapper">
+            <van-icon name="fire-o" size="18px" color="#E4393C" />
+          </view>
+          <text class="section-title">热门搜索</text>
+        </view>
+      </view>
+      <view class="tag-container">
+        <view 
+          class="tag-item hot-tag" 
+          wx:for="{{ hot_search_words }}" 
+          wx:key="*this"
+          data-idx="{{ index }}" 
+          bindtap="go"
+        >
+          <view class="hot-badge" wx:if="{{ index < 3 }}">{{ index + 1 }}</view>
+          <text class="tag-text">{{ item }}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{ (!list || list.length == 0) && (!hot_search_words || hot_search_words.length == 0) }}">
+      <view class="empty-icon">
+        <van-icon name="search" size="80px" color="#ddd" />
+      </view>
+      <text class="empty-text">暂无搜索记录</text>
+      <text class="empty-tip">快去搜索你想要的商品吧~</text>
+    </view>
+  </view>
+</view>

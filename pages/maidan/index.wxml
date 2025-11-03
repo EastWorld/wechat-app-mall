@@ -1,18 +1,19 @@
-<van-field
-  label="消费金额"
-  type="digit"
-  model:value="{{ amount }}"
-  placeholder="询问服务员本次消费金额"
-  clearable
-/>
-<van-field
-  wx:if="{{ balance_pay_pwd == '1' && payType =='balance' }}"
-  label="交易密码"
-  password
-  model:value="{{ pwd }}"
-  placeholder="请输入交易密码"
-  clearable
-/>
+<van-cell-group title="消费金额">
+  <van-field
+    type="digit"
+    model:value="{{ amount }}"
+    placeholder="询问服务员本次消费金额"
+    clearable
+  />
+</van-cell-group>
+<van-cell-group wx:if="{{ balance_pay_pwd == '1' && payType =='balance' }}" title="交易密码">
+  <van-field
+    password
+    model:value="{{ pwd }}"
+    placeholder="请输入交易密码"
+    clearable
+  />
+</van-cell-group>
 <van-cell-group wx:if='{{rechargeSendRules}}' title="优惠规则">
   <van-cell wx:for='{{rechargeSendRules}}' wx:key="index" title="减 {{item.discounts}} 元" value="消费满 {{item.consume}} 元" />
 </van-cell-group>

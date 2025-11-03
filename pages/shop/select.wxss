@@ -1,116 +1,257 @@
-.search {
-  background: #eee;
-  padding: 14rpx 24rpx;
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f5f5f5 0%, #ffffff 300rpx);
+}
+
+/* ==================== 搜索栏样式 ==================== */
+.search-wrapper {
+  padding: 24rpx 24rpx 20rpx;
+  background: #ffffff;
+}
+
+.search-box {
   position: relative;
-}
-.search input {
-  background: #FFFFFF;
-  border-radius: 10rpx;
+  background: #f5f5f5;
+  border-radius: 36rpx;
   height: 72rpx;
-  padding-left: 56rpx;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
 }
-.search .icon {
+
+.search-icon {
   position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  left: 28rpx;
+  z-index: 2;
+}
+
+.search-input {
+  flex: 1;
+  height: 72rpx;
+  padding-left: 72rpx;
+  padding-right: 28rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.search-placeholder {
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* ==================== 门店列表容器 ==================== */
+.shops-container {
+  padding: 0 24rpx 24rpx;
+}
+
+/* ==================== 门店卡片样式 ==================== */
+.shop-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16rpx;
+  margin-top: 24rpx;
+  padding: 32rpx 28rpx 28rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* 最近门店卡片特殊样式 */
+.shop-card-nearest {
+  border: 2rpx solid #E93B3D;
+  box-shadow: 0 8rpx 24rpx rgba(233, 59, 61, 0.15);
+}
+
+/* ==================== 门店头部 ==================== */
+.shop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding-right: 12rpx;
+}
+
+.shop-name-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.shop-icon {
+  width: 32rpx;
+  height: 38rpx;
+  margin-right: 16rpx;
+}
+
+.shop-name {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: 600;
+  letter-spacing: 0.5rpx;
+  line-height: 44rpx;
+}
+
+.shop-name-active {
+  color: #E93B3D;
+}
+
+/* 距离显示 */
+.distance-wrapper {
+  display: flex;
+  align-items: baseline;
+  padding: 8rpx 16rpx;
+  background: #f5f5f5;
+  border-radius: 24rpx;
+  margin-left: 16rpx;
+}
+
+.distance-active {
+  background: linear-gradient(135deg, #FFE8E8 0%, #FFE0E0 100%);
+}
+
+.distance-num {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  letter-spacing: 0.5rpx;
+}
+
+.distance-active .distance-num {
+  color: #E93B3D;
+}
+
+.distance-unit {
+  font-size: 24rpx;
+  color: #666666;
+  margin-left: 4rpx;
+}
+
+.distance-active .distance-unit {
+  color: #E93B3D;
+}
+
+/* ==================== 门店信息 ==================== */
+.shop-info {
+  background: #f9f9f9;
+  border-radius: 12rpx;
+  padding: 24rpx 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
   width: 28rpx;
   height: 28rpx;
-  top: 36rpx;
-  left: 40rpx;
+  margin-right: 16rpx;
+  margin-top: 2rpx;
+  flex-shrink: 0;
 }
-.shops {
+
+.info-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 38rpx;
+  letter-spacing: 0.3rpx;
+}
+
+/* ==================== 操作按钮 ==================== */
+.shop-action {
+  margin-top: 8rpx;
+}
+
+/* 进入门店按钮 */
+.btn-enter-shop {
+  width: 100%;
+  height: 80rpx;
+  background: linear-gradient(135deg, #E93B3D 0%, #F54749 100%);
+  border-radius: 40rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(233, 59, 61, 0.25);
+  transition: all 0.3s ease;
+}
+
+.btn-enter-shop::after {
+  border: none;
+}
+
+.btn-text {
+  font-size: 30rpx;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+}
+
+/* 选择门店按钮 */
+.btn-select-shop {
+  width: 100%;
+  height: 80rpx;
+  background: #ffffff;
+  border: 2rpx solid #E93B3D;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  display: flex;
-  flex-direction:column;
-  padding: 28rpx 24rpx 24rpx 24rpx;
-  border-bottom: 1rpx solid #ddd;
+  transition: all 0.3s ease;
 }
-.shops .t {
-  display: flex;
-  justify-content:space-between;
-  align-items:center;
+
+.btn-select-text {
+  font-size: 30rpx;
+  color: #E93B3D;
+  font-weight: 500;
+  letter-spacing: 1rpx;
 }
-.shops .t .name image {
-  width: 26rpx;
-  height: 32rpx;
-}
-.shops .t .name text {
-  margin-left: 12rpx;
-  font-family: PingFangSC-Medium;
-  font-size: 28rpx;
-  letter-spacing: 0.34rpx;
-  text-align: center;
-  line-height: 28rpx;
-}
-.shops .t .distance {
-  font-family: PingFangSC-Medium;
-  font-size: 32rpx;
-  color: #FEB21C;
-  letter-spacing: 0.38rpx;
-  text-align: right;
-  line-height: 28rpx;
-}
-.shops .t .distance text {
-  margin-left: 10rpx;
-  font-family: PingFangSC-Regular;
-  font-size: 24rpx;
-  color: #FEB21C;
-  letter-spacing: 0.28rpx;
-  text-align: right;
-  line-height: 24rpx;
-}
-.shops .p {
-  margin-top: 24rpx;
-}
-.shops .p {
-  display: flex;
-  align-items:center;
-}
-.shops .p image {
+
+.btn-arrow {
   width: 20rpx;
-  height: 24rpx;
-}
-.shops .p text {
-  margin-left: 14rpx;
-  font-family: PingFangSC-Regular;
-  font-size: 24rpx;
-  color: #999999;
-  letter-spacing: 0.28rpx;
-  text-align: center;
-  line-height: 24rpx;
-}
-.goHotel {
-  margin-top: 28rpx;
-  width: 700rpx;
-  height: 72rpx;
-  line-height: 72rpx;
-  background: #FEB21C !important;
-  color:#FFFFFF !important;
-  font-family: PingFangSC-Medium;
-  font-size: 28rpx;
-}
-.distance-black {
-  position: absolute;
-  top: 100rpx;
-  right: 24rpx;
-}
-.distance-black .d {
-  font-family: PingFangSC-Medium;
-  font-size: 32rpx;
-  color: #333333;
-  letter-spacing: 0.38rpx;
-  text-align: right;
-  line-height: 28rpx;
-}
-.distance-black .u {
-  margin-left: 10rpx;
-  font-family: PingFangSC-Regular;
-  font-size: 24rpx;
-  color: #333333;
-  letter-spacing: 0.28rpx;
-  text-align: right;
-  line-height: 24rpx;
-}
-.distance-black image {
+  height: 20rpx;
   margin-left: 12rpx;
-  width: 14rpx;
-  height: 24rpx;
+}
+
+/* ==================== 响应式优化 ==================== */
+@media (max-width: 375px) {
+  .shop-name {
+    font-size: 30rpx;
+  }
+  
+  .distance-num {
+    font-size: 28rpx;
+  }
+  
+  .info-text {
+    font-size: 24rpx;
+  }
+}
+
+/* ==================== 动画效果 ==================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shop-card {
+  animation: fadeIn 0.4s ease-out;
 }

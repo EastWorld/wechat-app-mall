@@ -1,4 +1,269 @@
-.date-btn {
+/* 京东风格 - 发票记录页面 */
+
+page {
+  background: linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+/* ========== 容器 ========== */
+.invoice-container {
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 200rpx 40rpx;
+}
+
+.empty-icon {
+  width: 240rpx;
+  height: 240rpx;
+  margin-bottom: 40rpx;
+  opacity: 0.6;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666666;
+  font-weight: 500;
+  margin-bottom: 16rpx;
+}
+
+.empty-tip {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+/* ========== 发票列表 ========== */
+.invoice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* ========== 发票卡片 ========== */
+.invoice-card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.invoice-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+/* ========== 卡片头部 ========== */
+.card-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 28rpx 24rpx;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  border-bottom: 2rpx solid #f5f5f5;
 }
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.invoice-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.company-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========== 状态标签 ========== */
+.status-tag {
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.status-0 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(79, 172, 254, 0.3);
+}
+
+.status-1 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(245, 87, 108, 0.3);
+}
+
+.status-2 {
+  background: linear-gradient(135deg, #ffd89b 0%, #ff9a56 100%);
+  color: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(255, 154, 86, 0.3);
+}
+
+.status-3 {
+  background: linear-gradient(135deg, #a8edea 0%, #52d29a 100%);
+  color: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(82, 210, 154, 0.3);
+}
+
+/* ========== 卡片内容 ========== */
+.card-content {
+  padding: 24rpx 28rpx;
+}
+
+/* ========== 金额区域 ========== */
+.amount-section {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+  border-left: 6rpx solid #E4393C;
+}
+
+.amount-label {
+  font-size: 26rpx;
+  color: #666666;
+  font-weight: 500;
+}
+
+.amount-value {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #E4393C;
+  letter-spacing: 1rpx;
+}
+
+/* ========== 信息区域 ========== */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #999999;
+  min-width: 140rpx;
+  flex-shrink: 0;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333333;
+  text-align: right;
+  flex: 1;
+  word-break: break-all;
+  line-height: 1.6;
+}
+
+/* ========== 卡片底部（查看按钮区域） ========== */
+.card-footer {
+  padding: 20rpx 28rpx 28rpx;
+  border-top: 2rpx solid #f5f5f5;
+  background: #fafafa;
+}
+
+/* ========== 查看电子发票按钮（京东风格） ========== */
+.view-invoice-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #C81623 100%);
+  border-radius: 40rpx;
+  box-shadow: 0 6rpx 20rpx rgba(228, 57, 60, 0.35);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-invoice-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.view-invoice-btn:active::before {
+  left: 100%;
+}
+
+.view-invoice-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.4);
+}
+
+.btn-icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 12rpx;
+}
+
+.btn-text {
+  font-size: 30rpx;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+}
+
+/* ========== 动画效果 ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.invoice-card {
+  animation: fadeInUp 0.4s ease-out backwards;
+}
+
+.invoice-card:nth-child(1) { animation-delay: 0.1s; }
+.invoice-card:nth-child(2) { animation-delay: 0.15s; }
+.invoice-card:nth-child(3) { animation-delay: 0.2s; }
+.invoice-card:nth-child(4) { animation-delay: 0.25s; }
+.invoice-card:nth-child(5) { animation-delay: 0.3s; }

@@ -1,24 +1,100 @@
+<!-- 页面头部 -->
+<view class="page-header">
+  <view class="header-title">
+    <view class="title-icon">🕒</view>
+    <text class="title-text">浏览历史</text>
+    <view class="title-count" wx:if="{{ goods && goods.length > 0 }}">{{ goods.length }}件商品</view>
+  </view>
+</view>
+
+<!-- 搜索栏 -->
 <van-sticky>
-  <van-search value="{{ value }}" placeholder="输入商品名称搜索" bind:search="search2" bind:clear="search3" />
-  <view class="filters">
-    <view class="item">
-      <picker bindchange="categoryChange" value="{{ categoryIndex }}" range="{{ categories }}" range-key="name">
-        {{ categoryIndex == -1 ? '筛选类目' : categories[categoryIndex].name }}
-      </picker>
-    </view>
-    <view class="item">
-      <picker bindchange="dayChange" value="{{ dayIndex }}" range="{{ dayArray }}">
-        {{ dayIndex == -1 ? '购买时间' : dayArray[dayIndex] }}
-      </picker>
+  <view class="search-container">
+    <van-search value="{{ value }}" placeholder="搜索浏览过的商品" bind:search="search2" bind:clear="search3" shape="round" />
+  </view>
+  
+  <!-- 筛选条件 -->
+  <view class="filters-wrapper">
+    <view class="filters">
+      <view class="filter-item">
+        <picker bindchange="categoryChange" value="{{ categoryIndex }}" range="{{ categories }}" range-key="name">
+          <view class="picker-content {{categoryIndex != -1 ? 'active' : ''}}">
+            <text class="picker-icon">📦</text>
+            <text class="picker-text">{{ categoryIndex == -1 ? '全部分类' : categories[categoryIndex].name }}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <view class="filter-divider"></view>
+      <view class="filter-item">
+        <picker bindchange="dayChange" value="{{ dayIndex }}" range="{{ dayArray }}">
+          <view class="picker-content {{dayIndex != -1 ? 'active' : ''}}">
+            <text class="picker-icon">⏰</text>
+            <text class="picker-text">{{ dayIndex == -1 ? '全部时间' : dayArray[dayIndex] }}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
     </view>
   </view>
 </van-sticky>
-<van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
-<view class="list2-box">
-  <view class="list2" wx:for="{{goods}}" wx:key="id">
-    <navigator url="/pages/goods-details/index?id={{ item.goodsId }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
-    <view class="goods-info">
-      <view class="title van-multi-ellipsis--l2"><navigator url="/pages/goods-details/index?id={{ item.goodsId }}">{{item.goodsName}}</navigator></view>
+
+<!-- 空状态 -->
+<view wx:if="{{ !goods || goods.length == 0 }}" class="empty-container">
+  <view class="empty-content">
+    <view class="empty-icon">🛍️</view>
+    <view class="empty-text">暂无浏览记录</view>
+    <view class="empty-tip">快去逛逛吧～</view>
+    <navigator url="/pages/index/index" class="empty-btn">去首页看看</navigator>
+  </view>
+</view>
+
+<!-- 商品列表 -->
+<view class="goods-container" wx:if="{{ goods && goods.length > 0 }}">
+  <view class="list2-box">
+    <view class="list2" wx:for="{{goods}}" wx:key="id">
+      <navigator url="/pages/goods-details/index?id={{ item.goodsId }}" class="goods-card">
+        <!-- 商品图片 -->
+        <view class="img-wrapper">
+          <image class="img" mode="aspectFill" src="{{item.pic}}" lazy-load></image>
+          <view class="viewed-badge">已浏览</view>
+        </view>
+        
+        <!-- 商品信息 -->
+        <view class="goods-info">
+          <view class="title van-multi-ellipsis--l2">{{item.goodsName}}</view>
+          
+          <!-- 价格区域 -->
+          <view class="price-section">
+            <view class="price-wrapper">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.minPrice || '0.00'}}</text>
+            </view>
+            <view class="sales-info" wx:if="{{item.numberSells}}">
+              <text>{{item.numberSells}}人付款</text>
+            </view>
+          </view>
+          
+          <!-- 标签 -->
+          <view class="tags" wx:if="{{item.dateAdd}}">
+            <view class="tag">
+              <text class="tag-text">{{item.dateAdd}}</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+      
+      <!-- 快捷操作按钮 -->
+      <view class="quick-actions">
+        <navigator url="/pages/goods-details/index?id={{ item.goodsId }}" class="action-btn primary">
+          <text>再看看</text>
+        </navigator>
+      </view>
     </view>
   </view>
+</view>
+
+<!-- 加载提示 -->
+<view class="loading-tip" wx:if="{{ goods && goods.length > 0 }}">
+  <text>— 向下滑动加载更多 —</text>
 </view>

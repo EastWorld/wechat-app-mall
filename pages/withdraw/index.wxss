@@ -1,3 +1,216 @@
-.btn {
-  margin-top: 32rpx;
+/* 京东风格 - 提现页面样式 */
+page {
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.withdraw-container {
+  padding-bottom: 40rpx;
+}
+
+/* 顶部余额卡片 */
+.balance-card {
+  padding: 40rpx 30rpx;
+  background: linear-gradient(135deg, #E93323 0%, #C81623 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.balance-card::before {
+  content: '';
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: -200rpx;
+  right: -100rpx;
+}
+
+.balance-card::after {
+  content: '';
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  bottom: -150rpx;
+  left: -50rpx;
+}
+
+.balance-bg {
+  position: relative;
+  z-index: 1;
+}
+
+.balance-label {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20rpx;
+  font-weight: 400;
+}
+
+.balance-amount {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 16rpx;
+}
+
+.balance-symbol {
+  font-size: 40rpx;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 8rpx;
+}
+
+.balance-value {
+  font-size: 72rpx;
+  color: #fff;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+.balance-tips {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 提现表单 */
+.withdraw-form {
+  margin: 24rpx 30rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+}
+
+.form-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 32rpx;
+  padding-left: 16rpx;
+  border-left: 6rpx solid #E93323;
+}
+
+.form-item {
+  margin-bottom: 36rpx;
+  padding-bottom: 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.item-label {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.label-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+/* 温馨提示 */
+.tips-box {
+  margin: 24rpx 30rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+}
+
+.tips-title {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 24rpx;
+}
+
+.tips-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.tips-content {
+  padding-left: 44rpx;
+}
+
+.tips-item {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 44rpx;
+  position: relative;
+}
+
+/* 提交按钮 */
+.submit-btn-wrapper {
+  padding: 40rpx 30rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, #fff 0%, rgba(255, 255, 255, 0.95) 100%);
+  z-index: 100;
+}
+
+.submit-btn {
+  height: 96rpx;
+  background: linear-gradient(135deg, #E93323 0%, #C81623 100%);
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(233, 51, 35, 0.3);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(233, 51, 35, 0.4);
+}
+
+.btn-text {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+}
+
+/* van-field 自定义样式覆盖 */
+.form-item .van-field {
+  padding: 0 !important;
+}
+
+.form-item .van-field__control {
+  color: #333;
+  font-weight: 500;
+}
+
+.form-item .van-field__control::-webkit-input-placeholder {
+  color: #ccc;
+  font-weight: 400;
 }

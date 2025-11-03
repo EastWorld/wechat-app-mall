@@ -1,3 +1,220 @@
+/* 京东风格 - 页面整体样式 */
+page {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  min-height: 100vh;
+  padding: 32rpx 0 40rpx 0;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+}
+/* 输入框容器美化 */
+.van-cell-group {
+  margin: 24rpx !important;
+  border-radius: 20rpx !important;
+  overflow: hidden !important;
+}
+
+/* 标题美化 */
+.van-cell-group__title {
+  padding: 32rpx 32rpx 24rpx 32rpx !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  position: relative;
+}
+
+.van-cell-group__title::before {
+  content: '';
+  position: absolute;
+  left: 16rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 32rpx;
+  background: linear-gradient(180deg, #E1251B 0%, #FF6B6B 100%);
+  border-radius: 3rpx;
+}
+
+/* 让输入框标题和内容分成两行显示 */
+.van-field .van-cell {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding: 0 !important;
+}
+
+.van-field .van-cell__title {
+  width: 100% !important;
+  margin-bottom: 20rpx !important;
+  font-size: 28rpx !important;
+  color: #666 !important;
+  font-weight: 400 !important;
+}
+
+.van-field .van-cell__value {
+  width: 100% !important;
+}
+
+/* 输入框单元格美化 */
+.van-cell {
+  padding: 28rpx 32rpx !important;
+  font-size: 28rpx !important;
+  transition: all 0.3s ease;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+.van-cell::after {
+  border-bottom: 1rpx solid #f5f5f5 !important;
+}
+
+.van-cell:last-child::after {
+  border-bottom: none !important;
+}
+
+/* 输入框标签 */
+.van-cell__title {
+  font-size: 30rpx !important;
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+
+/* 输入框内容 */
+.van-field__control {
+  font-size: 40rpx !important;
+  color: #E1251B !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+}
+
+.van-field__control::-webkit-input-placeholder {
+  color: #bbb !important;
+  font-weight: 400 !important;
+  font-size: 28rpx !important;
+}
+
+/* 金额输入特殊样式 - 取消右对齐，因为改成两行了 */
+.van-field__control[type="digit"] {
+  text-align: left !important;
+}
+
+/* 余额显示美化 */
+.van-cell__label {
+  color: #E1251B !important;
+  font-size: 26rpx !important;
+  margin-top: 8rpx !important;
+  font-weight: 500 !important;
+}
+
+/* 单选框美化 */
+.van-radio__icon--checked {
+  background-color: #E1251B !important;
+  border-color: #E1251B !important;
+}
+
+.van-radio__icon {
+  border: 2rpx solid #ddd !important;
+  width: 40rpx !important;
+  height: 40rpx !important;
+}
+
+/* 支付方式容器 */
+.van-radio-group {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 支付方式标题样式 */
+.van-radio-group .van-cell-group__title {
+  background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+}
+
+/* 确认支付按钮容器 */
 .btn {
-  margin-top: 32rpx;
+  margin: 24rpx 24rpx 0 24rpx;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 支付按钮美化 - 京东红色主题 */
+.van-button--primary {
+  background: linear-gradient(135deg, #E1251B 0%, #FF4655 100%) !important;
+  border: none !important;
+  border-radius: 50rpx !important;
+  height: 96rpx !important;
+  font-size: 36rpx !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8rpx 24rpx rgba(225, 37, 27, 0.35) !important;
+  transition: all 0.3s ease !important;
+  letter-spacing: 4rpx !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 按钮按下效果 */
+.van-button--primary:active {
+  transform: translateY(4rpx);
+  box-shadow: 0 4rpx 16rpx rgba(225, 37, 27, 0.25) !important;
+}
+
+/* 按钮光泽效果 */
+.van-button--primary::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: rotate(45deg);
+  animation: buttonShine 3s infinite;
+}
+
+@keyframes buttonShine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  50%, 100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* 输入框聚焦效果 */
+.van-field__control:focus {
+  background-color: #fffbfb !important;
+}
+
+/* 清除按钮美化 */
+.van-field__clear {
+  color: #E1251B !important;
+}
+
+/* 付款方式选项卡片效果 */
+.van-radio-group .van-cell {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.van-radio-group .van-cell:active {
+  background-color: #fff5f5 !important;
+}
+
+/* 已选中的支付方式高亮 */
+.van-cell--clickable:active {
+  background-color: #fffbfb !important;
+}
+
+/* 分隔线美化 */
+.van-hairline--top-bottom::after {
+  border-color: #f0f0f0 !important;
+}
+
+
+/* 图标增强 */
+.van-icon {
+  transition: all 0.3s ease;
+}
+
+/* 空状态美化 */
+.van-empty {
+  padding: 80rpx 0;
 }

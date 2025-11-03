@@ -1,80 +1,346 @@
+/* ==================== 全局样式 ==================== */
 page {
   background: #f5f5f5;
+  min-height: 100vh;
 }
-page,view,image,input {
+
+page, view, image, input {
   display: block;
   box-sizing: border-box;
 }
-.header {
-  padding: 32rpx;
+
+/* ==================== 页面头部 ==================== */
+.page-header {
   background: #fff;
+  padding: 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.header-title {
   display: flex;
   align-items: center;
+  color: #333;
 }
-.header .search {
-  position: relative;
-  width: 650rpx;
-  height: 66rpx;
+
+.title-icon {
+  font-size: 40rpx;
+  margin-right: 12rpx;
 }
-.header .search input {
-  border: 1rpx solid #e3e3e3;
-  width: 100%;
-  height: 100%;
-  border-radius: 30rpx;
-  padding-left: 60rpx; 
+
+.title-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
 }
-.header .search image {
-  width: 35rpx;
-  height: 35rpx;
-  position: absolute;
-  top: 16rpx;
-  right: 40rpx;
-  z-index: 9999;
+
+.title-count {
+  margin-left: 16rpx;
+  background: #fff5f5;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: #e4393c;
+  border: 1rpx solid #ffebeb;
 }
-.header .show-type {
-  width: 40rpx;
-  height: 40rpx;
-  margin-left: 20rpx;
-}
-.line {
-  width: 100vw;
-  height: 2rpx;
-  background: #dfdfdf;
-}
-.filters {
-  width: 100vw;
-  padding-bottom: 16rpx;
+
+/* ==================== 搜索栏 ==================== */
+.search-container {
   background: #fff;
-  display: flex;
-  justify-content: space-around;
+  padding: 16rpx 16rpx 0;
 }
-.filters .item {
+
+/* ==================== 筛选条件 ==================== */
+.filters-wrapper {
+  background: #fff;
+  padding: 16rpx 16rpx 16rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8rpx;
+  padding: 16rpx 20rpx;
+  border: 1rpx solid #e5e5e5;
+}
+
+.filter-item {
+  flex: 1;
   font-size: 28rpx;
 }
-.filters .active {
-  color:#fa1e26;
-}
-.list1 {
-  margin: 16rpx;
-  width: 718rpx;
+
+.picker-content {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.picker-content.active {
+  color: #e4393c;
+  font-weight: 500;
+}
+
+.picker-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.picker-text {
+  font-size: 28rpx;
+}
+
+.picker-arrow {
+  font-size: 20rpx;
+  margin-left: 8rpx;
+  color: #999;
+}
+
+.filter-divider {
+  width: 1rpx;
+  height: 28rpx;
+  background: #e5e5e5;
+  margin: 0 20rpx;
+}
+
+/* ==================== 空状态 ==================== */
+.empty-container {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
   background: #fff;
-  border-radius: 30rpx;
-  position: relative;
+  margin-top: 20rpx;
 }
-.list1 .img {
-  width: 220rpx;
-  height: 220rpx;
-  flex-shrink: 0;
+
+.empty-content {
+  text-align: center;
 }
-.list1 .goods-info {
-  padding: 16rpx 32rpx 0 24rpx;
-  width: 100%;
+
+.empty-icon {
+  font-size: 140rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.6;
 }
-.list1 .goods-info .title {
+
+.empty-text {
+  font-size: 32rpx;
   color: #333;
-  font-size: 30rpx;
+  font-weight: 500;
+  margin-bottom: 16rpx;
 }
+
+.empty-tip {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 48rpx;
+}
+
+.empty-btn {
+  display: inline-block;
+  background: #e4393c;
+  color: #fff;
+  padding: 20rpx 60rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  transition: all 0.3s ease;
+}
+
+.empty-btn:active {
+  background: #c81623;
+}
+
+/* ==================== 商品容器 ==================== */
+.goods-container {
+  padding: 20rpx 0 32rpx;
+}
+
+.list2-box {
+  padding: 0 16rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* ==================== 商品卡片 ==================== */
+.list2 {
+  width: 355rpx;
+  margin-bottom: 16rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.list2:active {
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.goods-card {
+  display: block;
+}
+
+/* 图片区域 */
+.img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 355rpx;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
+
+.viewed-badge {
+  position: absolute;
+  top: 12rpx;
+  left: 0;
+  background: rgba(228, 57, 60, 0.9);
+  color: #fff;
+  font-size: 20rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 0 20rpx 20rpx 0;
+  font-weight: 400;
+}
+
+/* 商品信息 */
+.goods-info {
+  padding: 16rpx;
+}
+
+.title {
+  color: #333;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  height: 76rpx;
+  font-weight: 400;
+  margin-bottom: 12rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+/* 价格区域 */
+.price-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.price-wrapper {
+  display: flex;
+  align-items: baseline;
+  color: #e4393c;
+}
+
+.price-symbol {
+  font-size: 22rpx;
+  font-weight: 500;
+  margin-right: 2rpx;
+}
+
+.price-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  font-family: Arial, 'PingFang SC', sans-serif;
+}
+
+.sales-info {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 标签 */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag-text {
+  font-size: 20rpx;
+  color: #999;
+  background: #f7f7f7;
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+}
+
+/* 快捷操作按钮 */
+.quick-actions {
+  padding: 0 16rpx 16rpx;
+  display: flex;
+  gap: 12rpx;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.action-btn.primary {
+  background: #e4393c;
+  color: #fff;
+}
+
+.action-btn:active {
+  background: #c81623;
+}
+
+/* ==================== 加载提示 ==================== */
+.loading-tip {
+  text-align: center;
+  padding: 40rpx 0 60rpx;
+  color: #999;
+  font-size: 24rpx;
+}
+
+.loading-tip text {
+  position: relative;
+  display: inline-block;
+}
+
+.loading-tip text::before,
+.loading-tip text::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60rpx;
+  height: 1rpx;
+  background: #e0e0e0;
+}
+
+.loading-tip text::before {
+  right: 100%;
+  margin-right: 20rpx;
+}
+
+.loading-tip text::after {
+  left: 100%;
+  margin-left: 20rpx;
+}
+
+/* ==================== 其他样式 ==================== */
 .ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -83,76 +349,10 @@ page,view,image,input {
   -webkit-box-orient: vertical;
   word-break: break-all;
 }
-.list1 .goods-info .price {
-  color: #FF3B30;
-  font-size: 34rpx;
-}
-.list1 .goods-info .buy-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.list1 .goods-info .buy-info .num {
-  font-size:24rpx;
-  color:#999999;
-}
-.list1 .goods-info .buy-info .car {
-  position: absolute;
-  right: 16rpx;
-  bottom: 16rpx;
-  width: 50rpx;
-  height: 50rpx;
-}
-.list2-box {
-  margin: 16rpx;
-  width: 718rpx;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.list2 {
-  margin: 16rpx 0;
-  width: 350rpx;
-  background: #fff;
-  border-radius: 30rpx;
-  overflow: hidden;
-  position: relative;
-}
-.list2 .img {
-  width: 350rpx;
-  height: 350rpx;
-}
-.list2 .goods-info {
-  padding: 16rpx;
-}
-.list2 .goods-info .title {
-  color: #333;
-  font-size: 30rpx;
-}
-.list2 .goods-info .price {
-  color: #FF3B30;
-  font-size: 34rpx;
-}
-.list2 .goods-info .buy-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.list2 .goods-info .buy-info .num {
-  font-size:24rpx;
-  color:#999999;
-}
-.list2 .goods-info .buy-info .car {
-  width: 50rpx;
-  height: 50rpx;
-  position: absolute;
-  right: 16rpx;
-  bottom: 16rpx;
-}
 
 .originalPrice {
   color: #aaa;
   text-decoration: line-through;
   margin-left: 20rpx;
-  font-size: 26rpx;
+  font-size: 24rpx;
 }

@@ -9,6 +9,7 @@ Page({
    */
   data: {
     score: 0,
+    growth: 0,
     uid: undefined
   },
 
@@ -33,6 +34,7 @@ Page({
     const res1 = await WXAPI.userAmount(token)
     if (res1.code == 0) {
       this.data.score = res1.data.score
+      this.data.growth = res1.data.growth
     }
     const res2 = await WXAPI.scoreDeductionRules(1);
     if (res2.code == 0) {
@@ -40,6 +42,7 @@ Page({
     }
     this.setData({
       score: this.data.score,
+      growth: this.data.growth,
       deductionRules: this.data.deductionRules,
     })
   },

@@ -72,5 +72,15 @@ Page({
     wx.navigateTo({
       url: "/pages/withdraw/index"
     })
-  }
+  },
+  sign() {
+    wx.navigateTo({
+      url: '/pages/sign/index',
+    })
+  },
+  exchange() {
+    wx.navigateTo({
+      url: '/pages/score-excharge/index',
+    })
+  },
 })

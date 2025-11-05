@@ -92,7 +92,17 @@
     </van-cell-group>
     <van-cell-group wx:if="{{activeIndex == 2}}" border="{{false}}">
       <van-empty wx:if="{{!depositlogs}}" description="暂无押金记录" />
-      <van-cell wx:for="{{depositlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" border="{{false}}" />
+      <van-cell wx:for="{{depositlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}" border="{{false}}">
+        <view slot="">
+          <view class="price"><text>￥</text>{{ item.amount }}</view>
+          <view wx:if="{{ item.status == -1 }}">
+            <van-button type="primary" size="mini" color="#5B7FFF" data-item="{{ item }}" bind:click="payStatusDepositV2">支付押金</van-button>
+          </view>
+          <view wx:if="{{ item.status == 1 }}">
+            <van-button type="primary" size="mini" color="#5B7FFF" data-item="{{ item }}" bind:click="depositBackApplyV2">申请退回</van-button>
+          </view>
+        </view>
+      </van-cell>
     </van-cell-group>
   </view>
 </view>

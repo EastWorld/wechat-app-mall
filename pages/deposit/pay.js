@@ -18,53 +18,64 @@ Page({
   onShow: function () {
 
   },
-  bindSave: function (e) {
-    const that = this;
-    const amount = e.detail.value.amount;
-
-    if (amount == "" || amount * 1 < 0) {
-      wx.showModal({
-        title: '错误',
-        content: '请填写正确的押金金额',
-        showCancel: false
+  async bindSave(e) {
+    const amount = this.data.amount
+    if (!amount) {
+      wx.showToast({
+        title: '请填写正确的押金金额',
+        icon: 'none'
       })
       return
     }
-    WXAPI.payDeposit({
+    wx.showLoading({
+      title: '',
+    })
+    // https://www.yuque.com/apifm/nu0f75/mpsdwi
+    const res= await WXAPI.payDepositV2({
       token: wx.getStorageSync('token'),
-      amount: amount
-    }, 'post').then(res => {
-      if (res.code == 40000) {
-        wx.showModal({
-          title: '请先充值',
-          content: res.msg,
-          showCancel: false,
-          success(res) {
-            wx.navigateTo({
-              url: "/pages/recharge/index"
-            })
-          }
-        })
-        return
-      }
-      if (res.code != 0) {
-        wx.showModal({
-          title: '错误',
-          content: res.msg,
-          showCancel: false
-        })
-        return
-      }
-      wx.showModal({
-        title: '成功',
-        content: '押金支付成功',
-        showCancel: false,
-        success(res) {
-          wx.navigateTo({
-            url: "/pages/asset/index"
-          })
+      amount
+    })
+    wx.hideLoading()
+    if (res.code == 40000) {
+      // 余额不够
+      this.setData({
+        money: res.data,
+        paymentShow: true,
+        nextAction: {
+          type: 5,
+          amount
         }
       })
+      return
+    } else if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    wx.showModal({
+      content: '支付成功',
+      showCancel: false,
+      success: (res) => {
+        wx.redirectTo({
+          url: "/pages/asset/index"
+        })
+      }
     })
-  }
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.redirectTo({
+      url: '/pages/asset/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
+    })
+  },
 })

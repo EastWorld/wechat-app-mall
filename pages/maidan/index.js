@@ -1,6 +1,5 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-const CONFIG = require('../../config.js')
 Page({
   data: {
     payType: 'wxpay'

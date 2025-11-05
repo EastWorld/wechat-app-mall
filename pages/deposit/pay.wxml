@@ -18,25 +18,23 @@
     <view class="card-title">支付押金</view>
     <view class="card-desc">完成押金支付后即可享受服务</view>
     
-    <form bindsubmit="bindSave" report-submit="true">
       <view class="amount-input-wrap">
         <view class="currency-label">¥</view>
         <input 
           name="amount" 
           class="amount-input" 
-          type="digit" 
-          value="{{amount}}" 
+          type="digit"
+          model:value="{{ amount }}" 
           placeholder="请输入押金金额"
           placeholder-class="input-placeholder" />
       </view>
       
-      <button class="pay-btn" formType="submit" hover-class="pay-btn-hover">
+      <button class="pay-btn" bind:tap="bindSave" hover-class="pay-btn-hover">
         <view class="btn-content">
           <text class="btn-icon">💳</text>
           <text class="btn-text">立即支付</text>
         </view>
       </button>
-    </form>
   </view>
 
   <!-- 重要提示 -->
@@ -75,3 +73,12 @@
     </view>
   </view>
 </view>
+
+<payment
+  money="{{ money }}"
+  remark="支付押金"
+  nextAction="{{ nextAction }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

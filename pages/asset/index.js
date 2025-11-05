@@ -147,11 +147,11 @@ Page({
     }
   },
   async depositlogs() {
-    // https://www.yuque.com/apifm/nu0f75/xd6g5h
     wx.showLoading({
       title: '',
     })
-    const res = await WXAPI.depositList({
+    // https://www.yuque.com/apifm/nu0f75/xd6g5h
+    const res = await WXAPI.depositListV2({
       token: wx.getStorageSync('token'),
       page: this.data.page
     })
@@ -247,5 +247,73 @@ Page({
       dateAddEnd: e.detail.value
     })
     this.fetchTabData(0)
+  },
+  async payStatusDepositV2(e) {
+    const item = e.currentTarget.dataset.item
+    wx.showLoading({
+      title: '',
+    })
+    // https://www.yuque.com/apifm/nu0f75/mpsdwi
+    const res= await WXAPI.payStatusDepositV2({
+      token: wx.getStorageSync('token'),
+      id: item.id
+    })
+    wx.hideLoading()
+    if (res.code == 40000) {
+      // 余额不够
+      this.setData({
+        money: res.data,
+        paymentShow: true,
+        nextAction: {
+          type: 5,
+          amount: item.amount
+        }
+      })
+      return
+    } else if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+      return
+    }
+    wx.showModal({
+      content: '支付成功',
+      showCancel: false,
+      success: (res) => {
+        this.page = 1
+        this.depositlogs()
+      }
+    })
+  },
+  async depositBackApplyV2(e) {
+    const item = e.currentTarget.dataset.item
+    wx.showModal({
+      content: '确定要申请退回吗？',
+      complete: async (res) => {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '',
+          })
+          // https://www.yuque.com/apifm/nu0f75/qx1f9u
+          const res= await WXAPI.depositBackApplyV2(wx.getStorageSync('token'), item.id)
+          wx.hideLoading()
+          if (res.code != 0) {
+            wx.showToast({
+              title: res.msg,
+            })
+            return
+          }
+          wx.showModal({
+            content: '已申请，等待管理员处理',
+            showCancel: false,
+            success: (res) => {
+              this.page = 1
+              this.depositlogs()
+            }
+          })
+        }
+      }
+    })
   },
 })

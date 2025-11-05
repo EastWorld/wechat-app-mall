@@ -47,7 +47,6 @@ Page({
     sliderLeft: 0,
 
     withDrawlogs: undefined,
-    depositlogs: undefined,
 
     rechargeOpen: false, // 是否开启充值[预存]功能
     TzCount: 0, //团长数
@@ -252,9 +251,6 @@ Page({
     if (activeIndex == 1) {
       this.withDrawlogs()
     }
-    if (activeIndex == 2) {
-      this.depositlogs()
-    }
   },
   cashLogs() {
     const _this = this
@@ -284,20 +280,6 @@ Page({
       }
     })
   },
-  depositlogs() {
-    const _this = this
-    WXAPI.depositList({
-      token: wx.getStorageSync('token'),
-      page: 1,
-      pageSize: 50
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
-          depositlogs: res.data.result
-        })
-      }
-    })
-  },
 
   recharge: function (e) {
     wx.navigateTo({
@@ -307,11 +289,6 @@ Page({
   withdraw: function (e) {
     wx.navigateTo({
       url: "/pages/withdraw/index"
-    })
-  },
-  payDeposit: function (e) {
-    wx.navigateTo({
-      url: "/pages/deposit/pay"
     })
   },
   tabClick: function (e) {

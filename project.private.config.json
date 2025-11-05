@@ -8,11 +8,25 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/shop/select",
-          "pathName": "pages/shop/select",
+          "name": "pages/asset/index",
+          "pathName": "pages/asset/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/deposit/pay",
+          "pathName": "pages/deposit/pay",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/shop/select",
+          "pathName": "pages/shop/select",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/about/index",

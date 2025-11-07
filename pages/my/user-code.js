@@ -32,8 +32,8 @@ Page({
       this.setData({
         userCode: res.data
       })
-      wxbarcode.barcode('barcode', res.data, 650, 200);
-      wxbarcode.qrcode('qrcode', res.data, 650, 650);
+      wxbarcode.barcode('barcode', res.data, 560, 200);
+      wxbarcode.qrcode('qrcode', res.data, 480, 480);
     }
   },
 })

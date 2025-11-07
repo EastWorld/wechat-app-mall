@@ -7,133 +7,131 @@
     </view>
   </view>
 
-  <form bindsubmit="bindSave">
-    <!-- 快捷导入卡片 -->
-    <view class="quick-import-card" bindtap="chooseInvoiceTitle">
-      <view class="import-icon">📋</view>
-      <view class="import-content">
-        <view class="import-title">快速填写</view>
-        <view class="import-desc">读取微信开票信息</view>
-      </view>
-      <view class="import-arrow">›</view>
+  <!-- 快捷导入卡片 -->
+  <view class="quick-import-card" bindtap="chooseInvoiceTitle">
+    <view class="import-icon">📋</view>
+    <view class="import-content">
+      <view class="import-title">快速填写</view>
+      <view class="import-desc">读取微信开票信息</view>
     </view>
+    <view class="import-arrow">›</view>
+  </view>
 
-    <!-- 主表单卡片 -->
-    <view class="form-card">
-      <view class="card-header">
-        <view class="card-title">
-          <view class="title-icon"></view>
-          <text>发票信息</text>
-        </view>
-      </view>
-
-      <view class="form-content">
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">工厂账号</text>
-            <text class="required">*</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='mobile' type="text" placeholder="api工厂注册的手机号码" placeholder-class="placeholder" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">发票抬头</text>
-            <text class="required">*</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='comName' type="text" placeholder="公司名称" placeholder-class="placeholder" value="{{wxInvoiceInfo.title}}" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">税号</text>
-            <text class="required">*</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='tfn' type="text" placeholder="填写税号" placeholder-class="placeholder" value="{{wxInvoiceInfo.taxNumber}}" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">发票内容</text>
-            <text class="required">*</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='consumption' value="服务费" type="text" placeholder="开票项目说明" placeholder-class="placeholder" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group amount-group">
-          <view class="input-label">
-            <text class="label-text">发票金额</text>
-            <text class="required">*</text>
-          </view>
-          <view class="input-wrapper amount-wrapper">
-            <text class="currency-symbol">¥</text>
-            <input name='amount' type="digit" placeholder="申请开票金额" placeholder-class="placeholder" class="custom-input amount-input" />
-          </view>
-        </view>
-
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">地址与电话</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='address' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" value="{{wxInvoiceInfo.companyAddress}}{{wxInvoiceInfo.telephone}}" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">开户行与账号</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='bank' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group">
-          <view class="input-label">
-            <text class="label-text">电子邮箱</text>
-            <text class="required">*</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='email' type="text" placeholder="发票将通过邮件发送给你" placeholder-class="placeholder" class="custom-input" />
-          </view>
-        </view>
-
-        <view class="input-group last-group">
-          <view class="input-label">
-            <text class="label-text">备注</text>
-          </view>
-          <view class="input-wrapper">
-            <input name='remark' type="text" placeholder="如有特殊说明，请告诉我们" placeholder-class="placeholder" class="custom-input" />
-          </view>
-        </view>
+  <!-- 主表单卡片 -->
+  <view class="form-card">
+    <view class="card-header">
+      <view class="card-title">
+        <view class="title-icon"></view>
+        <text>发票信息</text>
       </view>
     </view>
 
-    <!-- 温馨提示 -->
-    <view class="tips-card">
-      <view class="tips-title">💡 温馨提示</view>
-      <view class="tips-text">• 发票金额不能低于100元</view>
-      <view class="tips-text">• 电子发票将在3-5个工作日内发送到您的邮箱</view>
-    </view>
+    <view class="form-content">
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">工厂账号</text>
+          <text class="required">*</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{mobile}}' type="text" placeholder="api工厂注册的手机号码" placeholder-class="placeholder" class="custom-input" />
+        </view>
+      </view>
 
-    <!-- 底部操作区 -->
-    <view class="bottom-actions">
-      <button class="submit-btn" form-type="submit">提交申请</button>
-      <navigator url="/pages/invoice/list" class="record-link">
-        <text>查看开票记录</text>
-        <text class="link-arrow">›</text>
-      </navigator>
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">发票抬头</text>
+          <text class="required">*</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{comName}}' type="text" placeholder="公司名称" placeholder-class="placeholder" value="{{wxInvoiceInfo.title}}" class="custom-input" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">税号</text>
+          <text class="required">*</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{tfn}}' type="text" placeholder="填写税号" placeholder-class="placeholder" value="{{wxInvoiceInfo.taxNumber}}" class="custom-input" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">发票内容</text>
+          <text class="required">*</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{consumption}}' value="服务费" type="text" placeholder="开票项目说明" placeholder-class="placeholder" class="custom-input" />
+        </view>
+      </view>
+
+      <view class="input-group amount-group">
+        <view class="input-label">
+          <text class="label-text">发票金额</text>
+          <text class="required">*</text>
+        </view>
+        <view class="input-wrapper amount-wrapper">
+          <text class="currency-symbol">¥</text>
+          <input model:value='{{amount}}' type="digit" placeholder="申请开票金额" placeholder-class="placeholder" class="custom-input amount-input" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">地址与电话</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{address}}' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" value="{{wxInvoiceInfo.companyAddress}}{{wxInvoiceInfo.telephone}}" class="custom-input" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">开户行与账号</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{bank}}' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" class="custom-input" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">电子邮箱</text>
+          <text class="required">*</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{email}}' type="text" placeholder="发票将通过邮件发送给你" placeholder-class="placeholder" class="custom-input" />
+        </view>
+      </view>
+
+      <view class="input-group last-group">
+        <view class="input-label">
+          <text class="label-text">备注</text>
+        </view>
+        <view class="input-wrapper">
+          <input model:value='{{remark}}' type="text" placeholder="如有特殊说明，请告诉我们" placeholder-class="placeholder" class="custom-input" />
+        </view>
+      </view>
     </view>
-  </form>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="tips-card">
+    <view class="tips-title">💡 温馨提示</view>
+    <view class="tips-text">• 发票金额不能低于100元</view>
+    <view class="tips-text">• 电子发票将在3-5个工作日内发送到您的邮箱</view>
+  </view>
+
+  <!-- 底部操作区 -->
+  <view class="bottom-actions">
+    <button class="submit-btn" bind:tap="bindSave">提交申请</button>
+    <navigator url="/pages/invoice/list" class="record-link">
+      <text>查看开票记录</text>
+      <text class="link-arrow">›</text>
+    </navigator>
+  </view>
 </view>
 <fuwuxieyi k="invoice_apply" />
 

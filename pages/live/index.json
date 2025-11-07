@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "特卖直播"
+  "navigationBarTitleText": "品质直播",
+  "enablePullDownRefresh": true
 }

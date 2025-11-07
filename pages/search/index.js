@@ -49,6 +49,13 @@ Page({
       url: '/pages/goods/list?name=' + keywords,
     })
   },
+  go2(e) {
+    const idx = e.currentTarget.dataset.idx
+    const keywords = this.data.hot_search_words[idx]
+    wx.navigateTo({
+      url: '/pages/goods/list?name=' + keywords,
+    })
+  },
   searchscan() {
     wx.scanCode({
       scanType: ['barCode', 'qrCode', 'datamatrix', 'pdf417'],

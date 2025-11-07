@@ -38,24 +38,18 @@
 
   <!-- 操作按钮区 -->
   <view class='action-buttons'>
-    <form bindsubmit="recharge" report-submit="true">
-      <button class="action-btn btn-primary" form-type="submit" hover-class="btn-hover">
-        <view class="btn-icon">💰</view>
-        <view class="btn-text">充值</view>
-      </button>
-    </form>
-    <form bindsubmit="payDeposit" report-submit="true">
-      <button class='action-btn btn-primary' form-type="submit" hover-class="btn-hover">
-        <view class="btn-icon">🔒</view>
-        <view class="btn-text">押金</view>
-      </button>
-    </form>
-    <form wx:if="{{ withdrawal == '1' }}" bindsubmit="withdraw" report-submit="true">
-      <button class='action-btn btn-primary' form-type="submit" hover-class="btn-hover">
-        <view class="btn-icon">💸</view>
-        <view class="btn-text">提现</view>
-      </button>
-    </form>
+    <button class="action-btn btn-primary" hover-class="btn-hover" bind:tap="recharge">
+      <view class="btn-icon">💰</view>
+      <view class="btn-text">充值</view>
+    </button>
+    <button class='action-btn btn-primary' hover-class="btn-hover" bind:tap="payDeposit">
+      <view class="btn-icon">🔒</view>
+      <view class="btn-text">押金</view>
+    </button>
+    <button wx:if="{{ withdrawal == '1' }}" class='action-btn btn-primary' hover-class="btn-hover" bind:tap="withdraw">
+      <view class="btn-icon">💸</view>
+      <view class="btn-text">提现</view>
+    </button>
   </view>
 </view>
 

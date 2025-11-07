@@ -18,28 +18,26 @@
     </view>
     
     <!-- 兑换表单 -->
-    <form bindsubmit="bindSave">
-      <view class="exchange-form">
-        <view class="form-item">
-          <text class="form-label">积分券号码</text>
-          <view class="input-wrapper">
-            <input 
-              name="amount" 
-              class="coupon-input" 
-              type="text" 
-              placeholder="请输入积分券号码"
-              placeholder-class="input-placeholder"
-              maxlength="50"
-            />
-          </view>
+    <view class="exchange-form">
+      <view class="form-item">
+        <text class="form-label">积分券号码</text>
+        <view class="input-wrapper">
+          <input 
+            model:value="{{amount}}" 
+            class="coupon-input" 
+            type="text" 
+            placeholder="请输入积分券号码"
+            placeholder-class="input-placeholder"
+            maxlength="50"
+          />
         </view>
-        
-        <!-- 兑换按钮 -->
-        <button class="exchange-btn" formType="submit">
-          <text class="btn-text">立即兑换</text>
-        </button>
       </view>
-    </form>
+      
+      <!-- 兑换按钮 -->
+      <button class="exchange-btn" bind:tap="bindSave">
+        <text class="btn-text">立即兑换</text>
+      </button>
+    </view>
     
     <!-- 使用说明 -->
     <view class="tips-section">

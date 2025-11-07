@@ -17,30 +17,27 @@
 </view>
 
 <view class="container">
-  <form bindsubmit="bindSave">
-    <!-- 兑换卡片 -->
-    <view class="exchange-card">
-      <view class="card-title">
-        <view class="title-icon">💎</view>
-        <view class="title-text">积分兑换成长值</view>
-      </view>
-      <view class="input-wrapper">
-        <view class="input-label">兑换积分</view>
-        <view class="input-box">
-          <input name="score" class="input" type="number" placeholder="请输入兑换积分数量" placeholder-class="placeholder-style" />
-        </view>
-      </view>
-      <view class="exchange-hint">
-        <text class="hint-icon">ℹ️</text>
-        <text class="hint-text">积分可兑换成长值，助您快速升级</text>
+  <!-- 兑换卡片 -->
+  <view class="exchange-card">
+    <view class="card-title">
+      <view class="title-icon">💎</view>
+      <view class="title-text">积分兑换成长值</view>
+    </view>
+    <view class="input-wrapper">
+      <view class="input-label">兑换积分</view>
+      <view class="input-box">
+        <input model:value="{{score2}}" class="input" type="number" placeholder="请输入兑换积分数量" placeholder-class="placeholder-style" />
       </view>
     </view>
-    
-    <!-- 兑换按钮 -->
-    <button class="exchange-btn" formType="submit">
-      <text class="btn-text">立即兑换</text>
-    </button>
-  </form>
+    <view class="exchange-hint">
+      <text class="hint-icon">ℹ️</text>
+      <text class="hint-text">积分可兑换成长值，助您快速升级</text>
+    </view>
+  </view>
+  <!-- 兑换按钮 -->
+  <button class="exchange-btn" bind:tap="bindSave">
+    <text class="btn-text">立即兑换</text>
+  </button>
 </view>
 <van-cell-group wx:if="{{deductionRules}}" title="兑换规则：">
   <van-cell wx:for="{{deductionRules}}" wx:key="id" title="获得 {{ item.money }} 成长值" value="{{ item.loop? '每满': '满' }} {{ item.score }} 积分即可兑换" />

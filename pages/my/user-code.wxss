@@ -1,22 +1,358 @@
-.title {
-  text-align: center;
-  color: #666;
-  margin: 32rpx;
+page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding-bottom: 60rpx;
 }
 
-.van-grid-item__text {
-  color: #e64340 !important;
-  font-size: 28rpx !important;
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.user-code-bar {
-  width: 650rpx;
+/* 顶部装饰 */
+.header-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-1 {
+  width: 300rpx;
+  height: 300rpx;
+  top: -100rpx;
+  right: -50rpx;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 200rpx;
   height: 200rpx;
-  margin-left: 50rpx;
+  top: 150rpx;
+  left: -80rpx;
+  animation-delay: 2s;
+}
+
+.circle-3 {
+  width: 150rpx;
+  height: 150rpx;
+  top: 50rpx;
+  left: 50%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-30rpx) scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* 会员卡片 */
+.membership-card {
+  position: relative;
+  margin: 40rpx 30rpx;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 32rpx;
+  padding: 50rpx 40rpx 60rpx;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.15),
+              0 8rpx 20rpx rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.membership-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.card-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #2c3e50;
+  letter-spacing: 4rpx;
+  margin-bottom: 12rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-subtitle {
+  font-size: 22rpx;
+  color: #95a5a6;
+  letter-spacing: 6rpx;
+  font-weight: 500;
+}
+
+/* 会员码编号 */
+.code-number {
+  text-align: center;
+  margin-bottom: 40rpx;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16rpx;
+  border: 2rpx dashed #d0d7de;
+}
+
+.code-label {
+  font-size: 24rpx;
+  color: #6c757d;
+  margin-bottom: 8rpx;
+}
+
+.code-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #495057;
+  letter-spacing: 4rpx;
+  font-family: 'Courier New', monospace;
+}
+
+/* 二维码容器 */
+.qrcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40rpx 0;
+}
+
+.qrcode-wrapper {
+  position: relative;
+  padding: 30rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08),
+              inset 0 2rpx 4rpx rgba(255, 255, 255, 0.9);
 }
 
 .user-code {
-  width: 650rpx;
-  height: 650rpx;
-  margin-left: 50rpx;
+  width: 480rpx;
+  height: 480rpx;
+  display: block;
+  border-radius: 16rpx;
+}
+
+/* 二维码四角装饰 */
+.qrcode-corners {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  border-color: #667eea;
+  border-style: solid;
+}
+
+.corner-tl {
+  top: 20rpx;
+  left: 20rpx;
+  border-width: 6rpx 0 0 6rpx;
+  border-radius: 24rpx 0 0 0;
+}
+
+.corner-tr {
+  top: 20rpx;
+  right: 20rpx;
+  border-width: 6rpx 6rpx 0 0;
+  border-radius: 0 24rpx 0 0;
+}
+
+.corner-bl {
+  bottom: 20rpx;
+  left: 20rpx;
+  border-width: 0 0 6rpx 6rpx;
+  border-radius: 0 0 0 24rpx;
+}
+
+.corner-br {
+  bottom: 20rpx;
+  right: 20rpx;
+  border-width: 0 6rpx 6rpx 0;
+  border-radius: 0 0 24rpx 0;
+}
+
+.scan-tip {
+  margin-top: 24rpx;
+  font-size: 26rpx;
+  color: #6c757d;
+  letter-spacing: 2rpx;
+}
+
+/* 条形码容器 */
+.barcode-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40rpx;
+  padding: 20rpx;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: inset 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.user-code-bar {
+  width: 560rpx;
+  height: 160rpx;
+  display: block;
+}
+
+/* 资产卡片 */
+.assets-card {
+  margin: 30rpx 30rpx 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 32rpx;
+  padding: 40rpx;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.15),
+              0 8rpx 20rpx rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  position: relative;
+}
+
+.assets-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 32rpx;
+  text-align: center;
+  letter-spacing: 2rpx;
+}
+
+.assets-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.asset-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx;
+}
+
+.asset-divider {
+  width: 2rpx;
+  height: 120rpx;
+  background: linear-gradient(180deg, transparent 0%, #e9ecef 50%, transparent 100%);
+}
+
+.asset-icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+  box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.asset-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.balance-icon {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.points-icon {
+  background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+}
+
+.icon-text {
+  font-size: 40rpx;
+  color: #ffffff;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.asset-value {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8rpx;
+  letter-spacing: 2rpx;
+}
+
+.asset-label {
+  font-size: 24rpx;
+  color: #6c757d;
+  letter-spacing: 1rpx;
+}
+
+/* 底部提示 */
+.bottom-tips {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40rpx 30rpx;
+  padding: 32rpx;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20rpx);
+  border-radius: 24rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+  margin: 0 20rpx;
+}
+
+.tip-icon {
+  font-size: 28rpx;
+  color: #ffffff;
+  margin-right: 8rpx;
+  font-weight: 700;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #ffffff;
+  letter-spacing: 1rpx;
 }

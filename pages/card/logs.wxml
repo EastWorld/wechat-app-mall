@@ -1,2 +1,48 @@
-<van-empty wx:if="{{ !list }}" description="暂无消费记录" />
-<van-cell wx:for="{{ list }}" wx:key="id" title="{{ item.typeStr }}" value="{{ item.amount }} (余额:{{ item.balance }})" label="{{ item.dateAdd }}" />
+<view class="container">
+  <!-- 顶部渐变背景区域 -->
+  <view class="header-banner">
+    <view class="header-content">
+      <view class="header-title">消费明细</view>
+      <view class="header-subtitle">CONSUMPTION DETAILS</view>
+    </view>
+    <view class="header-bg-circle circle-1"></view>
+    <view class="header-bg-circle circle-2"></view>
+  </view>
+
+  <!-- 消费记录列表 -->
+  <view class="records-wrapper">
+    <!-- 空状态 -->
+    <view wx:if="{{ !list }}" class="empty-state">
+      <view class="empty-icon">📋</view>
+      <view class="empty-title">暂无消费记录</view>
+      <view class="empty-desc">您还没有任何消费记录哦</view>
+    </view>
+
+    <!-- 记录列表 -->
+    <view wx:else class="records-list">
+      <view class="record-card" wx:for="{{ list }}" wx:key="id">
+        <view class="card-header">
+          <view class="record-left">
+            <view class="record-icon">
+              <view class="icon-circle">💳</view>
+            </view>
+            <view class="record-info">
+              <view class="record-type">{{ item.typeStr }}</view>
+              <view class="record-date">{{ item.dateAdd }}</view>
+            </view>
+          </view>
+          <view class="record-right">
+            <view class="record-amount">{{ item.amount }}</view>
+          </view>
+        </view>
+        <view class="card-footer">
+          <view class="balance-info">
+            <text class="balance-label">当前余额</text>
+            <text class="balance-value">{{ item.balance }}</text>
+          </view>
+          <view class="card-ornament"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

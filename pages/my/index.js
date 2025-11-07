@@ -17,6 +17,7 @@ Page({
     count_id_no_reputation: 0,
     count_id_no_transfer: 0,
     nick: undefined,
+    cardsExpanded: false, // 会员卡展开状态
   },
 	onLoad() {
     this.readConfigVal()
@@ -265,6 +266,11 @@ Page({
   hideNickModal() {
     this.setData({
       nickShow: false
+    })
+  },
+  toggleCards() {
+    this.setData({
+      cardsExpanded: !this.data.cardsExpanded
     })
   },
 })

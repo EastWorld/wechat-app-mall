@@ -127,11 +127,9 @@
         <button style="float:right;" class="confirm-btn" formType="submit">提交评价</button>
       </view>
     </form>
-    <form bindsubmit="confirmBtnTap" report-submit="true">
-      <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==2}}">
-        <button class="confirm-btn" formType="submit">确认收货</button>
-      </view>
-    </form>
+    <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==2}}">
+      <button class="confirm-btn" bind:tap="confirmBtnTap">确认收货</button>
+    </view>
   </view>
   <view wx:if="{{ orderStores && orderStores.length > 0 }}" class="vw100">
     <van-cell-group title="日期详情">

@@ -12,18 +12,23 @@
       <view class="user-main">
         <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
           <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+          <view class="avatar-border"></view>
         </button>
         <view class="user-detail">
-          <view class="nickname" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</view>
-          <view class="user-id" bind:tap="copyUid">ID: {{ apiUserInfoMap.base.id }}</view>
-          <view wx:if="{{ apiUserInfoMap.userLevel }}" class="user-level">
-            <text class="level-icon">★</text>
-            <text>{{ apiUserInfoMap.userLevel.name }}</text>
+          <view class="nickname-row">
+            <text class="nickname" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</text>
+            <view wx:if="{{ apiUserInfoMap.userLevel }}" class="user-level">
+              <text class="level-icon">👑</text>
+              <text class="level-text">{{ apiUserInfoMap.userLevel.name }}</text>
+            </view>
           </view>
+          <view class="user-id" bind:tap="copyUid">ID: {{ apiUserInfoMap.base.id }}</view>
         </view>
       </view>
       <view class="qr-code-btn" bindtap="goUserCode">
-        <van-icon name="qr" size="64rpx" />
+        <view class="qr-icon-box">
+          <van-icon name="qr" size="52rpx" color="#E4393C" />
+        </view>
         <view class="qr-text">会员码</view>
       </view>
     </view>
@@ -31,35 +36,68 @@
 
   <!-- 资产卡片 -->
   <view class="asset-card">
-    <view class='asset-item' bindtap='goAsset'>
-      <view class="asset-amount">{{balance}}</view>
-      <view class="asset-label">余额</view>
+    <view class="asset-wrapper">
+      <view class='asset-item asset-primary' bindtap='goAsset'>
+        <view class="asset-label">余额(元)</view>
+        <view class="asset-amount-row">
+          <text class="asset-symbol">¥</text>
+          <text class="asset-amount">{{balance}}</text>
+        </view>
+      </view>
+      <view class='asset-item asset-secondary' bindtap='goAsset'>
+        <view class="asset-label">冻结(元)</view>
+        <view class="asset-amount-row">
+          <text class="asset-symbol">¥</text>
+          <text class="asset-amount">{{freeze}}</text>
+        </view>
+      </view>
     </view>
-    <view class='asset-item' bindtap='goAsset'>
-      <view class="asset-amount">{{freeze}}</view>
-      <view class="asset-label">冻结</view>
-    </view>
-    <view class='asset-item' bindtap='goScore'>
-      <view class="asset-amount">{{score}}</view>
-      <view class="asset-label">积分</view>
-    </view>
-    <view class='asset-item' bindtap="gogrowth">
-      <view class="asset-amount">{{growth}}</view>
-      <view class="asset-label">成长值</view>
+    <view class="asset-divider"></view>
+    <view class="asset-wrapper">
+      <view class='asset-item' bindtap='goScore'>
+        <view class="asset-amount">{{score}}</view>
+        <view class="asset-label">积分</view>
+      </view>
+      <view class='asset-item' bindtap="gogrowth">
+        <view class="asset-amount">{{growth}}</view>
+        <view class="asset-label">成长值</view>
+      </view>
     </view>
   </view>
 
   <!-- 会员卡区域 -->
   <view wx:if="{{ myCards }}" class="card-section">
-    <view class="section-title">我的会员卡</view>
-    <navigator wx:for="{{ myCards }}" wx:key="id" url="/pages/card/logs?id={{ item.id }}" class="card-item">
-      <view class="card-info">
-        <view class="card-name">{{ item.cardInfo.name }}</view>
-        <view class="card-expire">{{ item.dateEnd }} 到期</view>
-      </view>
-      <view class="card-amount">剩余: {{ item.amount }}</view>
-      <view class="arrow">›</view>
-    </navigator>
+    <view class="section-title">
+      <text class="title-text">我的会员卡</text>
+      <text class="title-icon">💳</text>
+    </view>
+    <view class="card-list {{ cardsExpanded ? 'expanded' : 'collapsed' }}">
+      <navigator wx:for="{{ cardsExpanded ? myCards : [myCards[0]] }}" wx:key="id" url="/pages/card/logs?id={{ item.id }}" class="card-item card-item-animate">
+        <view class="card-gradient">
+          <view class="card-header">
+            <view class="card-name">{{ item.cardInfo.name }}</view>
+            <view class="card-badge">VIP</view>
+          </view>
+          <view class="card-body">
+            <view class="card-amount-box">
+              <text class="card-amount-label">剩余次数</text>
+              <text class="card-amount-value">{{ item.amount }}</text>
+            </view>
+          </view>
+          <view class="card-footer">
+            <view class="card-expire">
+              <text class="expire-icon">⏰</text>
+              <text>{{ item.dateEnd }} 到期</text>
+            </view>
+            <view class="card-arrow">查看详情 ›</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view wx:if="{{ myCards.length > 1 }}" class="toggle-btn" bindtap="toggleCards">
+      <text class="toggle-text">{{ cardsExpanded ? '收起' : '查看更多(' + (myCards.length - 1) + ')' }}</text>
+      <text class="toggle-icon {{ cardsExpanded ? 'rotated' : '' }}">›</text>
+    </view>
   </view>
 
   <!-- 订单区域 -->

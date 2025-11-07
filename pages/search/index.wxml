@@ -66,7 +66,7 @@
           wx:for="{{ hot_search_words }}" 
           wx:key="*this"
           data-idx="{{ index }}" 
-          bindtap="go"
+          bindtap="go2"
         >
           <view class="hot-badge" wx:if="{{ index < 3 }}">{{ index + 1 }}</view>
           <text class="tag-text">{{ item }}</text>

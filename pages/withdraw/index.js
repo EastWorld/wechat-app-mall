@@ -73,7 +73,7 @@ Page({
     } else {
       this.data.name = ''
     }
-    const res = await WXAPI.withDrawApplyV2({
+    const res = await WXAPI.withDrawApplyV3({
       token: wx.getStorageSync('token'),
       money: amount,
       pwd: this.data.pwd ? this.data.pwd : '',

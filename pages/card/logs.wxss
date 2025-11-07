@@ -1,1 +1,285 @@
 /* pages/card/logs.wxss */
+
+/* ============ 全局容器 ============ */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+/* ============ 顶部Banner区域 ============ */
+.header-banner {
+  position: relative;
+  height: 280rpx;
+  background: linear-gradient(135deg, #E1251B 0%, #E93323 50%, #F54336 100%);
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(225, 37, 27, 0.15);
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  padding: 80rpx 40rpx 40rpx;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2rpx;
+  margin-bottom: 12rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.header-subtitle {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 4rpx;
+  font-weight: 400;
+}
+
+/* 装饰性圆圈 */
+.header-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.circle-1 {
+  width: 400rpx;
+  height: 400rpx;
+  right: -100rpx;
+  top: -150rpx;
+}
+
+.circle-2 {
+  width: 280rpx;
+  height: 280rpx;
+  right: -80rpx;
+  bottom: -120rpx;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============ 记录列表容器 ============ */
+.records-wrapper {
+  margin-top: -40rpx;
+  position: relative;
+  z-index: 3;
+  padding: 0 30rpx 40rpx;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* ============ 卡片样式 ============ */
+.record-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.record-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8rpx;
+  height: 100%;
+  background: linear-gradient(180deg, #E1251B 0%, #E93323 100%);
+}
+
+/* 卡片头部 */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 32rpx 24rpx;
+}
+
+.record-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.record-icon {
+  margin-right: 24rpx;
+}
+
+.icon-circle {
+  width: 88rpx;
+  height: 88rpx;
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(225, 37, 27, 0.08);
+}
+
+.record-info {
+  flex: 1;
+}
+
+.record-type {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 8rpx;
+  letter-spacing: 0.5rpx;
+}
+
+.record-date {
+  font-size: 24rpx;
+  color: #999999;
+  letter-spacing: 0.5rpx;
+}
+
+.record-right {
+  margin-left: 20rpx;
+}
+
+.record-amount {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #E1251B;
+  letter-spacing: 1rpx;
+  font-family: 'DIN Alternate', 'Arial', sans-serif;
+}
+
+/* 卡片底部 */
+.card-footer {
+  background: linear-gradient(90deg, #FAFAFA 0%, #F5F5F5 100%);
+  padding: 24rpx 32rpx;
+  border-top: 1rpx solid #F0F0F0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balance-info {
+  display: flex;
+  align-items: baseline;
+  gap: 16rpx;
+}
+
+.balance-label {
+  font-size: 24rpx;
+  color: #666666;
+  letter-spacing: 0.5rpx;
+}
+
+.balance-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  font-family: 'DIN Alternate', 'Arial', sans-serif;
+}
+
+.card-ornament {
+  width: 60rpx;
+  height: 60rpx;
+  background: linear-gradient(135deg, #E1251B15 0%, #E9332315 100%);
+  border-radius: 50%;
+  position: absolute;
+  right: 20rpx;
+  opacity: 0.4;
+}
+
+/* ============ 空状态样式 ============ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 16rpx;
+  letter-spacing: 1rpx;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #999999;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ============ 动画效果 ============ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10rpx);
+  }
+}
+
+/* 卡片悬停效果（仅适用于支持的平台） */
+.record-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+/* ============ 响应式优化 ============ */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+  }
+  
+  .record-card {
+    background: #1f1f1f;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.3);
+  }
+  
+  .record-type {
+    color: #eeeeee;
+  }
+  
+  .record-date {
+    color: #888888;
+  }
+  
+  .balance-label {
+    color: #999999;
+  }
+  
+  .balance-value {
+    color: #eeeeee;
+  }
+  
+  .card-footer {
+    background: linear-gradient(90deg, #2a2a2a 0%, #252525 100%);
+    border-top-color: #333333;
+  }
+  
+  .empty-state {
+    background: #1f1f1f;
+  }
+  
+  .empty-title {
+    color: #eeeeee;
+  }
+}

@@ -157,7 +157,7 @@ page {
 }
 
 .amount-option {
-  width: calc(50% - 10rpx);
+  width: calc(50% - 15rpx);
   background: linear-gradient(135deg, #FFF8F8 0%, #FFFFFF 100%);
   border: 2rpx solid #FFE5E5;
   border-radius: 16rpx;

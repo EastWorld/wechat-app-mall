@@ -2,7 +2,7 @@
 <view class="page-header">
   <view class="header-title">
     <view class="title-icon">🕒</view>
-    <text class="title-text">浏览历史</text>
+    <text class="title-text">历史购买</text>
     <view class="title-count" wx:if="{{ goods && goods.length > 0 }}">{{ goods.length }}件商品</view>
   </view>
 </view>

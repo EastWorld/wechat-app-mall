@@ -123,7 +123,7 @@ Page({
     wx.showLoading({
       title: '',
     })
-    const res = await WXAPI.withDrawLogs({
+    const res = await WXAPI.withDrawLogsV2({
       token: wx.getStorageSync('token'),
       page: this.data.page
     })
@@ -131,11 +131,11 @@ Page({
     if (res.code == 0) {
       if (this.data.page == 1) {
         this.setData({
-          withDrawlogs: res.data
+          withDrawlogs: res.data.result
         })
       } else {
         this.setData({
-          withDrawlogs: this.data.withDrawlogs.concat(res.data)
+          withDrawlogs: this.data.withDrawlogs.concat(res.data.result)
         })
       }
     } else {
@@ -207,7 +207,7 @@ Page({
     wx.showLoading({
       title: '',
     })
-    const res = await WXAPI.wxpayRequestMerchantTransfer({
+    const res = await WXAPI.wxpayRequestMerchantTransferV2({
       token: wx.getStorageSync('token'),
       number: item.number
     })

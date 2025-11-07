@@ -1,10 +1,136 @@
-<van-cell title="关于我们" is-link url="/pages/about/index" />
-<van-cell title="视频客服" is-link url="/packageStreamMedia/pages/videoCall/videoCall" />
-<van-cell title="意见反馈" is-link url="/pages/my/feedback" />
-<van-cell title="清除缓存" is-link bind:click="clearStorage" />
-<van-cell title="{{ enableDebug ? '关闭调试模式' : '打开调试模式' }}" is-link bind:click="setEnableDebug" />
-<van-cell title="权限与设置" is-link bind:click="openSetting" />
-<van-cell title="当前版本" value="{{version}}" />
-<!-- <view class="btn">
-  <van-button type="danger" block round bind:click="loginOut">退出登录</van-button>
-</view> -->
+<view class="setting-container">
+  <!-- 头部装饰区域 -->
+  <view class="header-section">
+    <view class="header-decoration"></view>
+    <text class="header-title">系统设置</text>
+    <text class="header-subtitle">System Settings</text>
+  </view>
+
+  <!-- 服务与支持 -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon">
+        <text class="icon-text">🛎️</text>
+      </view>
+      <text class="section-title">服务与支持</text>
+    </view>
+    <view class="card-content">
+      <navigator class="setting-item" url="/pages/about/index" hover-class="item-hover">
+        <view class="item-left">
+          <view class="item-icon icon-about">
+            <text class="iconfont">ℹ️</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title">关于我们</text>
+            <text class="item-desc">了解更多信息</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </navigator>
+
+      <navigator class="setting-item" url="/packageStreamMedia/pages/videoCall/videoCall" hover-class="item-hover">
+        <view class="item-left">
+          <view class="item-icon icon-video">
+            <text class="iconfont">📹</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title">视频客服</text>
+            <text class="item-desc">在线视频咨询</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </navigator>
+
+      <navigator class="setting-item" url="/pages/my/feedback" hover-class="item-hover">
+        <view class="item-left">
+          <view class="item-icon icon-feedback">
+            <text class="iconfont">💬</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title">意见反馈</text>
+            <text class="item-desc">您的建议很重要</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 系统管理 -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon">
+        <text class="icon-text">⚙️</text>
+      </view>
+      <text class="section-title">系统管理</text>
+    </view>
+    <view class="card-content">
+      <view class="setting-item" bindtap="clearStorage">
+        <view class="item-left">
+          <view class="item-icon icon-clear">
+            <text class="iconfont">🗑️</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title">清除缓存</text>
+            <text class="item-desc">释放存储空间</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+
+      <view class="setting-item" bindtap="setEnableDebug">
+        <view class="item-left">
+          <view class="item-icon icon-debug">
+            <text class="iconfont">🔧</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title">{{ enableDebug ? '关闭调试模式' : '打开调试模式' }}</text>
+            <text class="item-desc">开发者选项</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+
+      <view class="setting-item" bindtap="openSetting">
+        <view class="item-left">
+          <view class="item-icon icon-permission">
+            <text class="iconfont">🔐</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title">权限与设置</text>
+            <text class="item-desc">管理应用权限</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于版本 -->
+  <view class="section-card version-card">
+    <view class="version-content">
+      <view class="version-icon">✨</view>
+      <view class="version-info">
+        <text class="version-label">当前版本</text>
+        <text class="version-number">{{version}}</text>
+      </view>
+      <view class="version-tag">最新版</view>
+    </view>
+  </view>
+
+  <!-- 底部装饰 -->
+  <view class="footer-decoration">
+    <text class="footer-text">感谢您的使用</text>
+  </view>
+</view>
+
+<!-- 为了兼容性，隐藏原有的van-cell -->
+<view style="display:none;">
+  <van-cell title="关于我们" is-link url="/pages/about/index" />
+  <van-cell title="视频客服" is-link url="/packageStreamMedia/pages/videoCall/videoCall" />
+  <van-cell title="意见反馈" is-link url="/pages/my/feedback" />
+  <van-cell title="清除缓存" is-link bind:click="clearStorage" />
+  <van-cell title="{{ enableDebug ? '关闭调试模式' : '打开调试模式' }}" is-link bind:click="setEnableDebug" />
+  <van-cell title="权限与设置" is-link bind:click="openSetting" />
+  <van-cell title="当前版本" value="{{version}}" />
+</view>

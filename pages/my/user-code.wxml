@@ -1,8 +1,75 @@
+<view class="page-container">
+  <!-- 顶部装饰区域 -->
+  <view class="header-decoration">
+    <view class="decoration-circle circle-1"></view>
+    <view class="decoration-circle circle-2"></view>
+    <view class="decoration-circle circle-3"></view>
+  </view>
 
-<view class="title">{{ userCode }}</view>
-<canvas class="user-code-bar" canvas-id="barcode" />
-<canvas class="user-code" canvas-id="qrcode" />
-<van-grid column-num="2" icon-size="64rpx" square>
-  <van-grid-item icon="balance-o" text="余额 {{ balance }}" icon-color="#e64340" text-class="amount-c" />
-  <van-grid-item icon="points" text="积分 {{ score }}" icon-color="#e64340" text-class="amount-c" />
-</van-grid>
+  <!-- 会员卡片 -->
+  <view class="membership-card">
+    <view class="card-header">
+      <view class="card-title">会员专享码</view>
+      <view class="card-subtitle">MEMBERSHIP CODE</view>
+    </view>
+    
+    <!-- 会员码编号 -->
+    <view class="code-number">
+      <view class="code-label">会员编号</view>
+      <view class="code-value">{{ userCode }}</view>
+    </view>
+    
+    <!-- 二维码区域 -->
+    <view class="qrcode-container">
+      <view class="qrcode-wrapper">
+        <canvas class="user-code" canvas-id="qrcode" />
+        <view class="qrcode-corners">
+          <view class="corner corner-tl"></view>
+          <view class="corner corner-tr"></view>
+          <view class="corner corner-bl"></view>
+          <view class="corner corner-br"></view>
+        </view>
+      </view>
+      <view class="scan-tip">请向商家出示此码</view>
+    </view>
+    
+    <!-- 条形码区域 -->
+    <view class="barcode-container">
+      <canvas class="user-code-bar" canvas-id="barcode" />
+    </view>
+  </view>
+
+  <!-- 资产卡片 -->
+  <view class="assets-card">
+    <view class="assets-title">我的资产</view>
+    <view class="assets-grid">
+      <view class="asset-item">
+        <view class="asset-icon balance-icon">
+          <text class="icon-text">¥</text>
+        </view>
+        <view class="asset-value">{{ balance }}</view>
+        <view class="asset-label">账户余额</view>
+      </view>
+      <view class="asset-divider"></view>
+      <view class="asset-item">
+        <view class="asset-icon points-icon">
+          <text class="icon-text">★</text>
+        </view>
+        <view class="asset-value">{{ score }}</view>
+        <view class="asset-label">积分</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="bottom-tips">
+    <view class="tip-item">
+      <text class="tip-icon">✓</text>
+      <text class="tip-text">支持扫码支付</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-icon">✓</text>
+      <text class="tip-text">积分自动累积</text>
+    </view>
+  </view>
+</view>

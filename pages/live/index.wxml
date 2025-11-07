@@ -1,21 +1,75 @@
-<view class="container">  
+<view class="live-page">
   <block wx:if="{{aliveRooms}}">
-    <view class="miaosha-container">
-      <view class="miaosha-goods-list" wx:for="{{aliveRooms}}" wx:key="id" bindtap="goLiveRoom" data-id="{{item.roomid}}" data-status="{{item.live_status}}">
-        <image src="{{item.share_img}}" class="image" mode="aspectFill" lazy-load="true" />
-        <view class="r">
-          <view class="goods-title">{{item.name}}</view>
-          <view class="label"><van-icon size="30rpx" name="user-o" /><text>{{item.anchor_name}}</text></view>
-          <view class="label"><van-icon size="30rpx" name="underway" /><text>{{item.start_time_str}}</text></view>
+    <view class="live-container">
+      <view class="live-card" wx:for="{{aliveRooms}}" wx:key="id" bindtap="goLiveRoom" data-id="{{item.roomid}}" data-status="{{item.live_status}}">
+        <!-- 直播封面 -->
+        <view class="live-cover">
+          <image src="{{item.share_img}}" class="cover-image" mode="aspectFill" lazy-load="true" />
           
-          <view class="miaosha-price-btn">
-            <van-button wx:if="{{item.live_status == 107 || item.live_status == 106 || item.live_status == 104}}" type="default" size="small" block round plain>已过期</van-button>
-            <van-button wx:elif="{{item.live_status == 102}}" type="danger" size="small" block round>即将开播</van-button>
-            <van-button wx:elif="{{item.live_status == 103}}" type="warning" size="small" block round>直播结束</van-button>
-            <van-button wx:else type="primary" size="small" block round>正在直播</van-button>
+          <!-- 直播状态标签 -->
+          <view class="status-badge status-{{item.live_status}}">
+            <block wx:if="{{item.live_status == 101}}">
+              <view class="status-dot"></view>
+              <text class="status-text">正在直播</text>
+            </block>
+            <block wx:elif="{{item.live_status == 102}}">
+              <text class="status-text">即将开播</text>
+            </block>
+            <block wx:elif="{{item.live_status == 103}}">
+              <text class="status-text">已结束</text>
+            </block>
+            <block wx:else>
+              <text class="status-text">已过期</text>
+            </block>
+          </view>
+
+          <!-- 渐变遮罩 -->
+          <view class="cover-mask"></view>
+        </view>
+
+        <!-- 直播信息 -->
+        <view class="live-info">
+          <view class="live-title">{{item.name}}</view>
+          
+          <view class="live-meta">
+            <view class="meta-item">
+              <van-icon size="28rpx" name="manager-o" color="#666" />
+              <text class="meta-text">{{item.anchor_name}}</text>
+            </view>
+            <view class="meta-item">
+              <van-icon size="28rpx" name="clock-o" color="#666" />
+              <text class="meta-text">{{item.start_time_str}}</text>
+            </view>
+          </view>
+
+          <!-- 操作按钮 -->
+          <view class="live-action">
+            <view wx:if="{{item.live_status == 107 || item.live_status == 106 || item.live_status == 104}}" class="action-btn btn-disabled">
+              <text>已过期</text>
+            </view>
+            <view wx:elif="{{item.live_status == 102}}" class="action-btn btn-upcoming">
+              <van-icon size="28rpx" name="bell" />
+              <text>预约提醒</text>
+            </view>
+            <view wx:elif="{{item.live_status == 103}}" class="action-btn btn-ended">
+              <van-icon size="28rpx" name="replay" />
+              <text>查看回放</text>
+            </view>
+            <view wx:else class="action-btn btn-live">
+              <view class="live-pulse"></view>
+              <text>进入直播间</text>
+            </view>
           </view>
         </view>
       </view>
+    </view>
+  </block>
+
+  <!-- 空状态 -->
+  <block wx:else>
+    <view class="empty-state">
+      <image class="empty-image" src="/images/zw.png" mode="aspectFit" />
+      <text class="empty-text">暂无直播内容</text>
     </view>
   </block>
 </view>

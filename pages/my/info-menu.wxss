@@ -1,1 +1,226 @@
 /* pages/my/info-menu.wxss */
+
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
+  padding-bottom: 40rpx;
+}
+
+/* 顶部装饰背景 */
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 360rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0 0 50% 50% / 0 0 60rpx 60rpx;
+  z-index: 0;
+}
+
+/* 主要内容区域 */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 40rpx 32rpx;
+}
+
+/* 卡片模块 */
+.section-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 32rpx rgba(102, 126, 234, 0.08);
+  transition: all 0.3s ease;
+}
+
+.section-card:active {
+  transform: scale(0.99);
+}
+
+/* 模块标题区域 */
+.section-header {
+  padding: 36rpx 32rpx 24rpx;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
+  border-bottom: 1rpx solid rgba(102, 126, 234, 0.08);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+}
+
+.title-icon {
+  font-size: 44rpx;
+  margin-right: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2c3e50;
+  letter-spacing: 1rpx;
+}
+
+/* 菜单列表 */
+.menu-list {
+  padding: 0;
+}
+
+/* Navigator 包装器 */
+.menu-item-nav {
+  display: block;
+  text-decoration: none;
+}
+
+/* 菜单项 */
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 32rpx;
+  position: relative;
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+.menu-item::after {
+  content: '';
+  position: absolute;
+  left: 96rpx;
+  right: 32rpx;
+  bottom: 0;
+  height: 1rpx;
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
+}
+
+.menu-item:last-child::after {
+  display: none;
+}
+
+/* Hover效果 */
+.menu-item-hover {
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.03) 100%);
+}
+
+/* 左侧内容 */
+.item-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.item-icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.15);
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 6rpx;
+  letter-spacing: 0.5rpx;
+}
+
+.item-subtitle {
+  font-size: 24rpx;
+  color: #8492a6;
+  font-weight: 400;
+}
+
+/* 右侧内容 */
+.item-right {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+}
+
+.item-value {
+  font-size: 26rpx;
+  color: #667eea;
+  font-weight: 500;
+  margin-right: 8rpx;
+}
+
+.arrow {
+  font-size: 40rpx;
+  color: #c0c4cc;
+  font-weight: 300;
+  line-height: 1;
+  transform: translateY(-2rpx);
+}
+
+/* 立即绑定按钮 */
+.bind-btn {
+  padding: 12rpx 32rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 500;
+  border-radius: 40rpx;
+  box-shadow: 0 6rpx 20rpx rgba(102, 126, 234, 0.35);
+  transition: all 0.3s ease;
+  letter-spacing: 1rpx;
+}
+
+.bind-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.25);
+}
+
+/* 响应式优化 */
+@media (prefers-color-scheme: dark) {
+  .page-container {
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+  
+  .section-card {
+    background: #2d2d2d;
+    box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.3);
+  }
+  
+  .section-header {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+    border-bottom-color: rgba(102, 126, 234, 0.15);
+  }
+  
+  .title-text {
+    color: #e4e7ed;
+  }
+  
+  .item-title {
+    color: #e4e7ed;
+  }
+  
+  .item-subtitle {
+    color: #909399;
+  }
+  
+  .menu-item {
+    background: #2d2d2d;
+  }
+  
+  .menu-item-hover {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.08) 100%);
+  }
+}

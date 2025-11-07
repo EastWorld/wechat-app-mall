@@ -1,24 +1,12 @@
-<van-sticky>
-<view class="search-container">
-  <view class="search" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
-    <view class="search-title" src="../../images/actLogo/ytlogo.png"
-      style="height:{{navHeight-navTop-5}}px;line-height:{{navHeight-navTop-5}}px;width:{{132/52*(navHeight-navTop-5)}}px;">
-      {{mallName}}
-    </view>
-    <input placeholder-class="search-placeholder"
-      style="width:{{menuButtonObject.left-18-((132/52)*(navHeight-navTop-5))}}px" type="text" placeholder="输入关键词搜索" disabled
-      value="{{name}}" bindinput="bindinput" bindtap="goSearch"></input>
-  </view>
-</view>
-</van-sticky>
+<van-search placeholder="请输入搜索关键词" shape="round" readonly bindtap="goSearch"></van-search>
 <navigator wx:if="{{shopInfo}}" url="/pages/shop/select">
-  <view class="shops-container">
-    <view class="l">
+  <view class="jd-shop-selector">
+    <view class="jd-shop-info">
       <image src="/images/order-details/icon-address.png"></image>
-      <text>{{shopInfo.name}}</text>
+      <text class="jd-shop-name">{{shopInfo.name}}</text>
     </view>
-    <view class="r">
-      <text>切换门店</text>
+    <view class="jd-shop-change">
+      <text>切换</text>
       <image src="/images/icon/next.png"></image>
     </view>
   </view>
@@ -40,17 +28,19 @@ module.exports = {
   }
 }
 </wxs>
-<view class="swiper-container">
-  <swiper class="swiper1" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
+<view class="jd-banner-container">
+  <swiper class="jd-banner-swiper" indicator-dots="true" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#E4393C" autoplay circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">
-      <image mode="aspectFill" bindtap="tapBanner" data-item="{{ item }}" src="{{item.picUrl}}" />
+      <view class="jd-banner-item">
+        <image mode="aspectFill" bindtap="tapBanner" data-item="{{ item }}" src="{{item.picUrl}}" />
+      </view>
     </swiper-item>
   </swiper>
-  <view wx:if="{{goodsDynamic && show_buy_dynamic == '1' }}" class="goodsDynamic">
-    <swiper class="swiper2" autoplay circular vertical>
+  <view wx:if="{{goodsDynamic && show_buy_dynamic == '1' }}" class="jd-buy-dynamic">
+    <swiper class="jd-dynamic-swiper" autoplay circular vertical>
       <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
         <swiper-item>
-          <view class="goodsDynamic-item">
+          <view class="jd-dynamic-item">
             <image mode="aspectFill" src="{{item.avatarUrl}}"></image>
             <text>{{item.nick}} 购买了 {{item.goodsName}}</text>
           </view>
@@ -59,64 +49,70 @@ module.exports = {
     </swiper>
   </view>
 </view>
-<view class="category-container">
-  <view class="category-box">
-    <view class="category-list" wx:for="{{categories}}" wx:key="id">
-      <view class="category-column" bindtap="tabClick"
-        data-id="{{item.id}}">
-        <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
-        <view class="category-title">{{item.name}}</view>
+<view class="jd-category-container">
+  <view class="jd-category-grid">
+    <view class="jd-category-item" wx:for="{{categories}}" wx:key="id" bindtap="tabClick" data-id="{{item.id}}">
+      <view class="jd-category-icon-wrap">
+        <image mode="aspectFill" src="{{item.icon}}"></image>
       </view>
+      <text class="jd-category-name">{{item.name}}</text>
     </view>
-    <view class="category-list" wx:for="{{cmsCategories}}" wx:key="id">
-      <view class="category-column" bindtap="tabClickCms"
-        data-idx="{{ index }}">
-        <image mode="aspectFill" class="category-imgbox" src="{{item.icon}}"></image>
-        <view class="category-title">{{item.name}}</view>
+    <view class="jd-category-item" wx:for="{{cmsCategories}}" wx:key="id" bindtap="tabClickCms" data-idx="{{ index }}">
+      <view class="jd-category-icon-wrap">
+        <image mode="aspectFill" src="{{item.icon}}"></image>
       </view>
+      <text class="jd-category-name">{{item.name}}</text>
     </view>
   </view>
 </view>
-<view class="notice-box" wx:if="{{noticeList}}">
-  <swiper class="notice_swiper" vertical autoplay circular interval="8000">
+<view class="jd-notice-container" wx:if="{{noticeList}}">
+  <swiper class="jd-notice-swiper" vertical autoplay circular interval="8000">
     <swiper-item wx:for="{{noticeList.dataList}}" wx:key="id">
-      <van-notice-bar wx:if="{{noticeList}}" mode="link" text="{{ item.title }}" background="#FFFFFF"
-        data-id="{{ item.id }}" speed="30" bind:click="goNotice">
-        <image slot="left-icon" class="notice-icon" src="../../images/home/notice.png"></image>
+      <van-notice-bar wx:if="{{noticeList}}" mode="link" text="{{ item.title }}" background="#FFF5F5"
+        data-id="{{ item.id }}" speed="30" bind:click="goNotice" color="#E4393C">
+        <image slot="left-icon" class="jd-notice-icon" src="../../images/home/notice.png"></image>
       </van-notice-bar>
     </swiper-item>
   </swiper>
 </view>
-<view class="container">
-  <image wx:if="{{ adPositionIndexLivePic }}" class="live-banner" src="{{ adPositionIndexLivePic.val }}" mode="widthFix" bindtap="clickAdPositionIndexLive"></image>
+<view class="jd-main-container">
+  <image wx:if="{{ adPositionIndexLivePic }}" class="jd-live-banner" src="{{ adPositionIndexLivePic.val }}" mode="widthFix" bindtap="clickAdPositionIndexLive"></image>
+  
   <!-- 秒杀开始 -->
   <block wx:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
-    <van-divider custom-class="table-text" contentPosition="center">
-      <image class="table-icon-miaosha" src="../../images/home/miaosha.png"></image> 限时秒杀
-    </van-divider>
-    <view class="miaosha-container">
-      <view class="miaosha-goods-list" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap"
+    <view class="jd-section-header">
+      <view class="jd-section-title">
+        <image class="jd-section-icon" src="../../images/home/miaosha.png"></image>
+        <text class="jd-section-name">限时秒杀</text>
+      </view>
+      <view class="jd-section-more">更多 ></view>
+    </view>
+    <view class="jd-seckill-container">
+      <view class="jd-seckill-item" wx:for="{{miaoshaGoods}}" wx:key="id" bindtap="toDetailsTap"
         data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
-        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
-        <view class="r">
-          <view class="goods-title">{{item.name}}</view>
-          <view class="count-down">
+        <view class="jd-seckill-img-wrap">
+          <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
+        </view>
+        <view class="jd-seckill-info">
+          <view class="jd-seckill-title">{{item.name}}</view>
+          <view class="jd-seckill-countdown">
             <van-count-down wx:if="{{item.dateStartInt > 0}}" time="{{ item.dateStartInt }}"
-              format="{{ item.dateStartInt > 86400000 ? '距离开始: DD 天 HH 时 mm 分 ss 秒' : '距离开始: HH 时 mm 分 ss 秒' }}" />
+              format="{{ item.dateStartInt > 86400000 ? '距开始 DD天 HH:mm:ss' : '距开始 HH:mm:ss' }}" />
             <van-count-down wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0}}" time="{{ item.dateEndInt }}"
-              format="{{ item.dateEndInt > 86400000 ? '剩余: DD 天 HH 时 mm 分 ss 秒' : '剩余: HH 时 mm 分 ss 秒' }}" />
+              format="{{ item.dateEndInt > 86400000 ? '剩余 DD天 HH:mm:ss' : '剩余 HH:mm:ss' }}" />
           </view>
-          <view class="miaosha-price-btn">
-            <view class="price">￥{{item.minPrice}} <text>￥{{item.originalPrice}}</text></view>
-            <van-button custom-class="msbtn" wx:if="{{item.dateStartInt > 0}}" type="danger" size="small" round plain
-              disabled>未开始</van-button>
-            <van-button custom-class="msbtn" wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" disabled round>已结束
-            </van-button>
-            <van-button custom-class="msbtn" wx:if="{{item.stores <= 0}}" type="danger" size="small" round disabled>已抢完
-            </van-button>
-            <van-button custom-class="msbtn"
-              wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}" type="danger" size="small"
-              round>马上抢</van-button>
+          <view class="jd-seckill-footer">
+            <view class="jd-seckill-price">
+              <text class="jd-price-symbol">¥</text>
+              <text class="jd-price-num">{{item.minPrice}}</text>
+              <text class="jd-price-del">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="jd-seckill-btn-wrap">
+              <view class="jd-seckill-btn jd-btn-disabled" wx:if="{{item.dateStartInt > 0}}">未开始</view>
+              <view class="jd-seckill-btn jd-btn-disabled" wx:if="{{item.dateEndInt <= 0}}">已结束</view>
+              <view class="jd-seckill-btn jd-btn-disabled" wx:if="{{item.stores <= 0}}">已抢完</view>
+              <view class="jd-seckill-btn jd-btn-active" wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}">马上抢</view>
+            </view>
           </view>
         </view>
       </view>
@@ -124,89 +120,136 @@ module.exports = {
   </block>
   <!-- 秒杀结束 -->
 
-  <view class="space"></view>
-  <van-divider custom-class="table-text" wx:if="{{goodsRecommend.length > 0}}"
-    contentPosition="center">
-    <image class="table-icon-tuijian" src="../../images/home/recommend.png"></image> 爆品推荐
-  </van-divider>
-  <view class="goods-container" wx:if="{{goodsRecommend.length > 0}}">
-    <view class="goods-box" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
-      <view class="img-box">
-        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+  
+  <!-- 爆品推荐开始 -->
+  <block wx:if="{{goodsRecommend.length > 0}}">
+    <view class="jd-section-header">
+      <view class="jd-section-title">
+        <image class="jd-section-icon" src="../../images/home/recommend.png"></image>
+        <text class="jd-section-name">爆品推荐</text>
       </view>
-      <view class="goods-title van-multi-ellipsis--l2">{{item.name}}</view>
-      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="-webkit-line-clamp: 1;">{{item.characteristic}}</view>
-      <view style='display:flex;'>
-        <view class="goods-price">¥ {{item.minPrice}}</view>
-        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price"
-          style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view>
-      </view>
+      <view class="jd-section-more">更多 ></view>
     </view>
-  </view>
-  <view class="space"></view>
-  <view wx-if="{{kanjiaList.length > 0}}"
-    class="kanjia-container">
-    <van-divider custom-class="table-text" contentPosition="center">
-      <image class="table-icon-kanjia" src="../../images/home/kanjia.png"></image> 疯狂砍价
-    </van-divider>
-    <van-card custom-class="kanjia-vcard" wx:for="{{kanjiaList}}" wx:key="id" price="{{item.kanjiaPrice}}"
-      origin-price="{{item.originalPrice}}" desc="{{item.characteristic}}" title="{{item.name}}" thumb="{{item.pic}}">
-      <view slot="footer">
-        <van-button custom-class="kjbtn" type="danger" size="small" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}" bind:click="toDetailsTap">砍价
-        </van-button>
-      </view>
-      <view slot="price-top">
-        <van-progress custom-class="vprogress" percentage="{{item.process}}" color="#FDEDED;" />
-      </view>
-    </van-card>
-  </view>
-  <block wx:if="{{pingtuanList.length > 0}}">
-    <view class='space'></view>
-    <van-divider custom-class="table-text" contentPosition="center">
-      <image class="table-icon-pingtuan" src="../../images/home/pingtuan.png"></image> 全民拼团
-    </van-divider>
-    <view class='tuan'>
-      <view class='tuan-item' wx:for="{{pingtuanList}}" wx:key="id">
-        <view class='tuan-goods-pic'>
-          <image src="{{item.pic}}" mode="aspectFill" lazy-load='{{true}}' />
+    <view class="jd-goods-grid">
+      <view class="jd-goods-card" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
+        <view class="jd-goods-img-wrap">
+          <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
         </view>
-        <view class='tuan-title'>{{item.name}}</view>
-        <view class='tuan-profile'>{{item.characteristic}}</view>
-        <van-tag custom-class="pingtuantag" wx:if="{{item.tags}}" type="danger">{{item.tags}}</van-tag>
-        <view class='tuan-price'>
-          <text class='now'>￥ {{item.pingtuanPrice}}</text>
-          <text class='original'>￥ {{item.originalPrice}}</text>
-        </view>
-        <view class="tuan-btn">
-          <button class="ptbtn" type="warn" size="mini" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">拼团</button>
+        <view class="jd-goods-info">
+          <view class="jd-goods-name">{{item.name}}</view>
+          <view wx:if="{{item.characteristic}}" class="jd-goods-desc">{{item.characteristic}}</view>
+          <view class="jd-goods-price-box">
+            <view class="jd-goods-price">
+              <text class="jd-price-symbol">¥</text>
+              <text class="jd-price-num">{{item.minPrice}}</text>
+            </view>
+            <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</view>
+          </view>
         </view>
       </view>
     </view>
   </block>
-
-  <view class='space'></view>
-  <van-divider custom-class="table-text" contentPosition="center">
-    <image class="table-icon-goodslist" src="../../images/home/goodslist.png"></image> 商品列表
-  </van-divider>
-  <view class="goods-container">
-    <view class="goods-box" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
-      <view class="img-box">
-        <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+  <!-- 爆品推荐结束 -->
+  
+  <!-- 砍价开始 -->
+  <block wx:if="{{kanjiaList.length > 0}}">
+    <view class="jd-section-header">
+      <view class="jd-section-title">
+        <image class="jd-section-icon" src="../../images/home/kanjia.png"></image>
+        <text class="jd-section-name">疯狂砍价</text>
       </view>
-      <view class="goods-title van-multi-ellipsis--l2">{{item.name}}</view>
-      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="-webkit-line-clamp: 1;">{{item.characteristic}}</view>
-      <view class="goods-price-container">
-        <view class="goods-price">¥ {{item.minPrice}}</view>
-        <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price2">¥ {{item.originalPrice}}
+      <view class="jd-section-more">更多 ></view>
+    </view>
+    <view class="jd-kanjia-container">
+      <view class="jd-kanjia-card" wx:for="{{kanjiaList}}" wx:key="id">
+        <view class="jd-kanjia-img-wrap">
+          <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
+        </view>
+        <view class="jd-kanjia-info">
+          <view class="jd-kanjia-title">{{item.name}}</view>
+          <view class="jd-kanjia-desc">{{item.characteristic}}</view>
+          <view class="jd-kanjia-progress">
+            <van-progress custom-class="jd-kanjia-bar" percentage="{{item.process}}" stroke-width="6" color="#E4393C" />
+          </view>
+          <view class="jd-kanjia-footer">
+            <view class="jd-kanjia-price">
+              <text class="jd-price-symbol">¥</text>
+              <text class="jd-price-num">{{item.kanjiaPrice}}</text>
+              <text class="jd-price-del">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="jd-kanjia-btn" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}" bindtap="toDetailsTap">去砍价</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 砍价结束 -->
+  <!-- 拼团开始 -->
+  <block wx:if="{{pingtuanList.length > 0}}">
+    <view class="jd-section-header">
+      <view class="jd-section-title">
+        <image class="jd-section-icon" src="../../images/home/pingtuan.png"></image>
+        <text class="jd-section-name">全民拼团</text>
+      </view>
+      <view class="jd-section-more">更多 ></view>
+    </view>
+    <view class='jd-pingtuan-container'>
+      <view class='jd-pingtuan-card' wx:for="{{pingtuanList}}" wx:key="id">
+        <view class='jd-pingtuan-img-wrap'>
+          <image src="{{item.pic}}" mode="aspectFill" lazy-load='{{true}}' />
+          <view class="jd-pingtuan-tag" wx:if="{{item.tags}}">{{item.tags}}</view>
+        </view>
+        <view class="jd-pingtuan-info">
+          <view class='jd-pingtuan-title'>{{item.name}}</view>
+          <view class='jd-pingtuan-desc'>{{item.characteristic}}</view>
+          <view class="jd-pingtuan-footer">
+            <view class='jd-pingtuan-price'>
+              <text class='jd-price-symbol'>¥</text>
+              <text class='jd-price-num'>{{item.pingtuanPrice}}</text>
+              <text class='jd-price-del'>¥{{item.originalPrice}}</text>
+            </view>
+            <view class="jd-pingtuan-btn" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
+              <text>去拼团</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 拼团结束 -->
+
+  
+  <!-- 商品列表开始 -->
+  <view class="jd-section-header">
+    <view class="jd-section-title">
+      <image class="jd-section-icon" src="../../images/home/goodslist.png"></image>
+      <text class="jd-section-name">为你推荐</text>
+    </view>
+  </view>
+  <view class="jd-goods-grid">
+    <view class="jd-goods-card" wx:for="{{goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
+      <view class="jd-goods-img-wrap">
+        <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="jd-goods-info">
+        <view class="jd-goods-name">{{item.name}}</view>
+        <view wx:if="{{item.characteristic}}" class="jd-goods-desc">{{item.characteristic}}</view>
+        <view class="jd-goods-price-box">
+          <view class="jd-goods-price">
+            <text class="jd-price-symbol">¥</text>
+            <text class="jd-price-num">{{item.minPrice}}</text>
+          </view>
+          <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</view>
         </view>
       </view>
     </view>
   </view>
-  <van-divider wx:if="{{ !loadingMoreHidden }}" contentPosition="center">没有更多啦</van-divider>
+  <van-divider wx:if="{{ !loadingMoreHidden }}" custom-class="jd-end-divider" contentPosition="center">— 已经到底啦 —</van-divider>
 </view>
-<view class='coupons-float' bindtap="goCoupons">
-  <image src="/images/gift.png"></image>
-</view>
+<!-- <view class='jd-coupon-float' bindtap="goCoupons">
+  <image src="/images/coupon-icon.svg"></image>
+  <text>领券</text>
+</view> -->
 
 <van-overlay show="{{ adPositionIndexPop }}">
   <view class="adPositionIndexPop">
@@ -214,6 +257,3 @@ module.exports = {
     <van-icon custom-class="close" name="close" size="64rpx" color="#fff" bind:click="closeAdPositionIndexPop" />
   </view>
 </van-overlay>
-
-<!-- 弹出编辑昵称和头像的框 -->
-<login show="{{ nickPopShow }}" avatarUrl="{{ popavatarUrl }}" name="{{ popnick }}" />

@@ -1,3 +1,344 @@
+/* 页面容器 */
+.live-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f8f8 0%, #ffffff 100%);
+  padding-bottom: 32rpx;
+}
+
+/* 页面头部 */
+.page-header {
+  padding: 48rpx 32rpx 32rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #C81623 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  right: -50rpx;
+  top: -50rpx;
+  width: 300rpx;
+  height: 300rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 12rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 直播列表容器 */
+.live-container {
+  padding: 24rpx 24rpx 0;
+}
+
+/* 直播卡片 */
+.live-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.live-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 直播封面区域 */
+.live-cover {
+  width: 100%;
+  height: 400rpx;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 渐变遮罩 */
+.cover-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+}
+
+/* 状态标签 */
+.status-badge {
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  padding: 12rpx 24rpx;
+  border-radius: 40rpx;
+  backdrop-filter: blur(12rpx);
+  -webkit-backdrop-filter: blur(12rpx);
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 正在直播 */
+.status-badge.status-101 {
+  background: rgba(232, 67, 62, 0.95);
+  color: #ffffff;
+}
+
+/* 即将开播 */
+.status-badge.status-102 {
+  background: rgba(255, 148, 62, 0.95);
+  color: #ffffff;
+}
+
+/* 已结束 */
+.status-badge.status-103 {
+  background: rgba(153, 153, 153, 0.95);
+  color: #ffffff;
+}
+
+/* 已过期 */
+.status-badge.status-104,
+.status-badge.status-106,
+.status-badge.status-107 {
+  background: rgba(204, 204, 204, 0.85);
+  color: #666666;
+}
+
+.status-text {
+  line-height: 1;
+}
+
+/* 直播中圆点动画 */
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.3);
+  }
+}
+
+/* 直播信息区域 */
+.live-info {
+  padding: 28rpx 28rpx 24rpx;
+}
+
+.live-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1.4;
+  margin-bottom: 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 90rpx;
+}
+
+/* 元信息 */
+.live-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.meta-text {
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.2;
+}
+
+/* 操作按钮区域 */
+.live-action {
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.action-btn {
+  height: 80rpx;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 正在直播按钮 */
+.btn-live {
+  background: linear-gradient(135deg, #E4393C 0%, #C81623 100%);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(232, 67, 62, 0.3);
+}
+
+.btn-live:active {
+  transform: scale(0.96);
+}
+
+/* 直播脉冲动画 */
+.live-pulse {
+  width: 16rpx;
+  height: 16rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+.live-pulse::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: ripple 2s ease-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    width: 16rpx;
+    height: 16rpx;
+    opacity: 0.8;
+  }
+  100% {
+    width: 40rpx;
+    height: 40rpx;
+    opacity: 0;
+  }
+}
+
+/* 即将开播按钮 */
+.btn-upcoming {
+  background: linear-gradient(135deg, #FF943E 0%, #FF7F39 100%);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(255, 148, 62, 0.25);
+}
+
+/* 已结束按钮 */
+.btn-ended {
+  background: linear-gradient(135deg, #999999 0%, #777777 100%);
+  color: #ffffff;
+  box-shadow: 0 6rpx 20rpx rgba(153, 153, 153, 0.2);
+}
+
+/* 已过期按钮 */
+.btn-disabled {
+  background: #f5f5f5;
+  color: #cccccc;
+  border: 1rpx solid #e5e5e5;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.empty-image {
+  width: 300rpx;
+  height: 300rpx;
+  opacity: 0.4;
+  margin-bottom: 32rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 响应式优化 */
+@media (prefers-color-scheme: dark) {
+  .live-page {
+    background: #1a1a1a;
+  }
+  
+  .live-card {
+    background: #2a2a2a;
+  }
+  
+  .live-title {
+    color: #e5e5e5;
+  }
+  
+  .meta-text {
+    color: #999999;
+  }
+}
+
+/* 滚动条隐藏 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/* 以下为旧样式保留（备用） */
 .shops-container {
   display: flex;
   justify-content: space-between;
@@ -138,7 +479,6 @@
 }
 .category-list{
   flex:1;
-  /* width:150rpx; */
   margin-top:20rpx;
   text-align: center;
   display: inline-block;
@@ -159,7 +499,6 @@
   margin-top:10rpx;
 }
 
-
 .swiper-container{
   width: 750rpx;
   height: 375rpx;
@@ -173,11 +512,7 @@
   width: 750rpx;
   height: 375rpx;
 }
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  color: transparent;
-}
+
 .type-item-on{
   color:#e64340;
   border-bottom: 1rpx solid #e64340;
@@ -261,12 +596,7 @@
   position: fixed;
   right:15rpx;
   bottom:80rpx;
-  /* width:80rpx;
-  height:80rpx; */
-  /* background-color: #fff; */
   text-align: center;
-  /* border-radius:50%;
-  border: 1rpx solid #ddd; */
 }
 .coupons-float image {
   width:110rpx;
@@ -340,7 +670,8 @@
   padding: 0 32rpx;
   margin-bottom: 16rpx;
 }
-/*秒杀*/
+
+/* 旧的秒杀样式（保留作为备用） */
 .miaosha-container {
   padding: 0;
 }

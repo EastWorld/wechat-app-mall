@@ -1,7 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
-const CONFIG = require('../../config.js')
 const APP = getApp()
 
 Page({
@@ -398,9 +397,6 @@ Page({
       this.setData({
         adPositionIndexPop: res.data
       })
-    } else {
-      // 没有广告位，弹出编辑昵称头像框
-      APP.initNickAvatarUrlPOP(this)
     }
     res = await WXAPI.adPosition('index-live-pic')
     if (res.code == 0) {
@@ -421,16 +417,12 @@ Page({
     this.setData({
       adPositionIndexPop: null
     })
-    // 关闭广告位，弹出编辑昵称头像框
-    APP.initNickAvatarUrlPOP(this)
   },
   clickAdPositionIndexPop() {
     const adPositionIndexPop = this.data.adPositionIndexPop
     this.setData({
       adPositionIndexPop: null
     })
-    // 点击广告位，弹出编辑昵称头像框
-    APP.initNickAvatarUrlPOP(this)
     if (!adPositionIndexPop || !adPositionIndexPop.url) {
       return
     }

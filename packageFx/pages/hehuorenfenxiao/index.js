@@ -46,8 +46,6 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
 
-    withDrawlogs: undefined,
-
     rechargeOpen: false, // 是否开启充值[预存]功能
     TzCount: 0, //团长数
     TyCount: 0, //团员数
@@ -248,9 +246,6 @@ Page({
     if (activeIndex == 0) {
       this.cashLogs()
     }
-    if (activeIndex == 1) {
-      this.withDrawlogs()
-    }
   },
   cashLogs() {
     const _this = this
@@ -262,20 +257,6 @@ Page({
       if (res.code == 0) {
         _this.setData({
           cashlogs: res.data.result
-        })
-      }
-    })
-  },
-  withDrawlogs() {
-    const _this = this
-    WXAPI.withDrawLogs({
-      token: wx.getStorageSync('token'),
-      page: 1,
-      pageSize: 50
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
-          withDrawlogs: res.data
         })
       }
     })

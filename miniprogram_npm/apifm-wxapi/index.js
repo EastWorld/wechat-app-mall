@@ -96,6 +96,7 @@ module.exports =
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 var API_BASE_URL = 'https://api.it120.cc';
 // var API_BASE_URL = 'http://192.168.31.6:8081';
+var COMMON_BASE_URL = 'https://common.apifm.com/'
 var subDomain = '-';
 var merchantId = '0';
 
@@ -1028,6 +1029,21 @@ module.exports = {
   withDrawSetting: function withDrawSetting() {
     return request('/user/withDraw/setting', true, 'get');
   },
+  withDrawApplyV3: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/user/withdrawal/apply', true, 'post', data)
+  },
+  withDrawDetailV2: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/user/withdrawal/detail', true, 'get', data)
+  },
+  withDrawLogsV2: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/user/withdrawal/list', true, 'post', data)
+  },
+  withDrawSettingV2: () => {
+    return request(COMMON_BASE_URL + subDomain + '/user/withdrawal/setting', true, 'get')
+  },
+  wxpayRequestMerchantTransferV2: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/user/withdrawal/requestMerchantTransfer', true, 'get', data);
+  },
   province: function province() {
     return request('/common/region/v2/province', false, 'get');
   },
@@ -1059,28 +1075,28 @@ module.exports = {
     return request('/common/region/v2/search', false, 'post', data);
   },
   provinceV2: () => {
-    return request('https://common.apifm.com/' + subDomain + '/region/province', false, 'get')
+    return request(COMMON_BASE_URL + subDomain + '/region/province', false, 'get')
   },
   cityV2: () => {
-    return request('https://common.apifm.com/' + subDomain + '/region/city', false, 'get')
+    return request(COMMON_BASE_URL + subDomain + '/region/city', false, 'get')
   },
   districtsV2: data => {
-    return request('https://common.apifm.com/' + subDomain + '/region/districts', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/region/districts', false, 'post', data)
   },
   streetsV2: data => {
-    return request('https://common.apifm.com/' + subDomain + '/region/streets', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/region/streets', false, 'post', data)
   },
   nextRegionV2: pid => {
-    return request('https://common.apifm.com/' + subDomain + '/region/child', false, 'get', { pid })
+    return request(COMMON_BASE_URL + subDomain + '/region/child', false, 'get', { pid })
   },
   regionInfoV2: id => {
-    return request('https://common.apifm.com/' + subDomain + '/region/info', false, 'get', { id })
+    return request(COMMON_BASE_URL + subDomain + '/region/info', false, 'get', { id })
   },
   regionInfoBatchV2: ids => {
-    return request('https://common.apifm.com/' + subDomain + '/region/infoBatch', false, 'get', { ids })
+    return request(COMMON_BASE_URL + subDomain + '/region/infoBatch', false, 'get', { ids })
   },
   regionSearchV2: data => {
-    return request('https://common.apifm.com/' + subDomain + '/region/search', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/region/search', false, 'post', data)
   },
   cashLogs: function cashLogs(data) {
     return request('/user/cashLog', true, 'post', data);
@@ -1089,7 +1105,7 @@ module.exports = {
     return request('/user/cashLog/v2', true, 'post', data);
   },
   cashLogsV3: (data) => {
-    return request('https://common.apifm.com/' + subDomain + '/user/cashLog/v2', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/user/cashLog/v2', false, 'post', data)
   },
   statisticsComingOut: function statisticsComingOut(data) {
     return request('/user/statisticsComingOut', true, 'post', data);
@@ -1387,19 +1403,19 @@ module.exports = {
     return request('/deposit/back/apply', true, 'post', { token: token, id: id });
   },
   depositListV2: (data) => {
-    return request('https://common.apifm.com/' + subDomain + '/deposit/list', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/deposit/list', false, 'post', data)
   },
   payDepositV2: (data) => {
-    return request('https://common.apifm.com/' + subDomain + '/deposit/pay', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/deposit/pay', false, 'post', data)
   },
   payStatusDepositV2: (data) => {
-    return request('https://common.apifm.com/' + subDomain + '/deposit/payStatus', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/deposit/payStatus', false, 'post', data)
   },
   depositInfoV2: (token, id) => {
-    return request('https://common.apifm.com/' + subDomain + '/deposit/info', false, 'get', { token, id })
+    return request(COMMON_BASE_URL + subDomain + '/deposit/info', false, 'get', { token, id })
   },
   depositBackApplyV2: (token, id) => {
-    return request('https://common.apifm.com/' + subDomain + '/deposit/back/apply', false, 'post', { token, id })
+    return request(COMMON_BASE_URL + subDomain + '/deposit/back/apply', false, 'post', { token, id })
   },
   shopAreaCities: function shopAreaCities() {
     return request('/shopArea/cities', true, 'get');
@@ -1474,7 +1490,7 @@ module.exports = {
     return request('/user/modify', true, 'post', data);
   },
   modifyUserInfoV2: (data) => {
-    return request('https://common.apifm.com/' + subDomain + '/user/modify', false, 'post', data)
+    return request(COMMON_BASE_URL + subDomain + '/user/modify', false, 'post', data)
   },
   bindSaleman: function bindSaleman(data) {
     return request('/user/bindSaleman', true, 'post', data);

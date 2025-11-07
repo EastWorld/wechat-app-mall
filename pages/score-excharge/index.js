@@ -18,9 +18,9 @@ Page({
   },
   onShow: function() {
   },
-  bindSave: function(e) {
+  bindSave(e) {
     var that = this;
-    var amount = e.detail.value.amount;
+    var amount = this.data.amount;
 
     if (amount == "") {
       wx.showModal({

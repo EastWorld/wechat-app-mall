@@ -1,48 +1,101 @@
-<form catchsubmit="formSubmit">
-  <van-cell title="头像" is-link center>
-    <!-- <van-image
-      round
-      width="64rpx"
-      height="64rpx"
-      src="{{ avatarUrl }}"
-    /> -->
-    <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-      <image class="avatar-img" src="{{ avatarUrl ? avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
-    </button>
-  </van-cell>  
-  <van-field
-    type="nickname"
-    label="昵称"
-    model:value="{{ nick }}"
-    placeholder="请输入昵称"
-    clearable
-    input-align="right"
-  />
-  <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
-    <van-cell title="性别" value="{{ gender }}" is-link />
-  </picker>
-  <van-field
-    model:value="{{ apiUserInfoMap.base.mobile }}"
-    center
-    readonly
-    clearable
-    label="手机号码"
-    use-button-slot
-  >
-    <van-button slot="button" type="primary" size="small" bind:tap="bindMobile">一键绑定</van-button>
-  </van-field>
-  <van-field
-    wx:for="{{apiUserInfoMap.ext}}" wx:for-index='k' wx:key="index"
-    label="{{ k }}"
-    name="{{ k}}"
-    value="{{ item }}"
-    placeholder="请输入信息"
-    clearable
-  />
-  <view class="btn">
-    <van-button type="primary" block form-type="submit">保存</van-button>
+<view class="profile-container">
+  <!-- 头部区域 -->
+  <view class="header-section">
+    <view class="header-bg"></view>
+    <view class="avatar-wrapper">
+      <button class="avatar-button" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar-image" src="{{ avatarUrl ? avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+        <view class="avatar-mask">
+          <text class="avatar-text">更换头像</text>
+        </view>
+      </button>
+    </view>
   </view>
-</form>
+
+  <!-- 基本信息卡片 -->
+  <view class="info-card">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text class="title-text">基本信息</text>
+    </view>
+    
+    <view class="form-item">
+      <view class="item-label">
+        <text class="label-icon">👤</text>
+        <text class="label-text">昵称</text>
+      </view>
+      <input 
+        class="item-input" 
+        type="nickname"
+        model:value="{{ nick }}"
+        placeholder="请输入昵称"
+        placeholder-class="input-placeholder"
+      />
+    </view>
+
+    <view class="divider"></view>
+
+    <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">⚥</text>
+          <text class="label-text">性别</text>
+        </view>
+        <view class="item-value">
+          <text class="value-text">{{ gender || '请选择' }}</text>
+          <text class="arrow-icon">›</text>
+        </view>
+      </view>
+    </picker>
+
+    <view class="divider"></view>
+
+    <view class="form-item">
+      <view class="item-label">
+        <text class="label-icon">📱</text>
+        <text class="label-text">手机号码</text>
+      </view>
+      <view class="mobile-wrapper">
+        <text class="mobile-text">{{ apiUserInfoMap.base.mobile || '未绑定' }}</text>
+        <view class="bind-btn" bind:tap="bindMobile">
+          <text class="bind-text">{{ apiUserInfoMap.base.mobile ? '更换' : '绑定' }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 扩展信息卡片 -->
+  <view class="info-card" wx:if="{{apiUserInfoMap.ext && apiUserInfoMap.ext.length > 0}}">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text class="title-text">扩展信息</text>
+    </view>
+    
+    <block wx:for="{{apiUserInfoMap.ext}}" wx:for-index='k' wx:key="index">
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📝</text>
+          <text class="label-text">{{ k }}</text>
+        </view>
+        <input 
+          class="item-input" 
+          name="{{ k}}"
+          value="{{ item }}"
+          placeholder="请输入信息"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+      <view class="divider" wx:if="{{index < apiUserInfoMap.ext.length - 1}}"></view>
+    </block>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-section">
+    <view class="save-button" bind:tap="formSubmit">
+      <text class="save-text">保存修改</text>
+    </view>
+  </view>
+</view>
 
 <bind-mobile
   title="绑定手机号码"

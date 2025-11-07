@@ -131,7 +131,7 @@ page, view, image, input {
 
 /* 商品卡片 */
 .list2 {
-  width: calc(50% - 12rpx);
+  width: calc(50% - 15rpx);
   background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
   border-radius: 28rpx;
   overflow: hidden;

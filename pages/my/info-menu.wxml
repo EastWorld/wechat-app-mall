@@ -1,12 +1,155 @@
-<van-cell wx:if="{{userMobile}}" title="绑定手机" value="{{ userMobile }}" />
-<van-cell wx:else title="绑定手机" center>
-  <van-button type="primary" size="small" bind:tap="bindMobile">立即绑定</van-button>
-</van-cell>
-<van-cell title="收货地址" is-link url="/pages/select-address/index" />
-<van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwd-pay/modify" />
-<van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwd-pay/set" />
-<van-cell title="我的收藏" is-link url="/pages/goods/fav" />
-<van-cell title="修改资料" is-link url="/pages/my/info" />
+<view class="page-container">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg"></view>
+  
+  <!-- 主要内容区域 -->
+  <view class="content-wrapper">
+    
+    <!-- 账户安全模块 -->
+    <view class="section-card">
+      <view class="section-header">
+        <view class="section-title">
+          <view class="title-icon">🔐</view>
+          <text class="title-text">账户安全</text>
+        </view>
+      </view>
+      
+      <view class="menu-list">
+        <!-- 绑定手机 -->
+        <view class="menu-item" wx:if="{{userMobile}}">
+          <view class="item-left">
+            <view class="item-icon">📱</view>
+            <view class="item-info">
+              <text class="item-title">绑定手机</text>
+              <text class="item-subtitle">已绑定安全手机号</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <text class="item-value">{{ userMobile }}</text>
+          </view>
+        </view>
+        
+        <view class="menu-item" wx:else>
+          <view class="item-left">
+            <view class="item-icon">📱</view>
+            <view class="item-info">
+              <text class="item-title">绑定手机</text>
+              <text class="item-subtitle">保障账户安全</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <view class="bind-btn" bind:tap="bindMobile">立即绑定</view>
+          </view>
+        </view>
+        
+        <!-- 交易密码 -->
+        <navigator class="menu-item-nav" wx:if="{{apiUserInfoMap.base.pwdPay}}" url="/pages/pwd-pay/modify" hover-class="menu-item-hover">
+          <view class="menu-item">
+            <view class="item-left">
+              <view class="item-icon">🔑</view>
+              <view class="item-info">
+                <text class="item-title">交易密码</text>
+                <text class="item-subtitle">保护资金安全</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="item-value">修改密码</text>
+              <text class="arrow">›</text>
+            </view>
+          </view>
+        </navigator>
+        
+        <navigator class="menu-item-nav" wx:else url="/pages/pwd-pay/set" hover-class="menu-item-hover">
+          <view class="menu-item">
+            <view class="item-left">
+              <view class="item-icon">🔑</view>
+              <view class="item-info">
+                <text class="item-title">交易密码</text>
+                <text class="item-subtitle">保护资金安全</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="item-value">立即设置</text>
+              <text class="arrow">›</text>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    
+    <!-- 个人资料模块 -->
+    <view class="section-card">
+      <view class="section-header">
+        <view class="section-title">
+          <view class="title-icon">👤</view>
+          <text class="title-text">个人资料</text>
+        </view>
+      </view>
+      
+      <view class="menu-list">
+        <!-- 修改资料 -->
+        <navigator class="menu-item-nav" url="/pages/my/info" hover-class="menu-item-hover">
+          <view class="menu-item">
+            <view class="item-left">
+              <view class="item-icon">✏️</view>
+              <view class="item-info">
+                <text class="item-title">修改资料</text>
+                <text class="item-subtitle">完善个人信息</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="arrow">›</text>
+            </view>
+          </view>
+        </navigator>
+        
+        <!-- 收货地址 -->
+        <navigator class="menu-item-nav" url="/pages/select-address/index" hover-class="menu-item-hover">
+          <view class="menu-item">
+            <view class="item-left">
+              <view class="item-icon">📍</view>
+              <view class="item-info">
+                <text class="item-title">收货地址</text>
+                <text class="item-subtitle">管理收货地址</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="arrow">›</text>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    
+    <!-- 我的收藏模块 -->
+    <view class="section-card">
+      <view class="section-header">
+        <view class="section-title">
+          <view class="title-icon">⭐</view>
+          <text class="title-text">我的收藏</text>
+        </view>
+      </view>
+      
+      <view class="menu-list">
+        <navigator class="menu-item-nav" url="/pages/goods/fav" hover-class="menu-item-hover">
+          <view class="menu-item">
+            <view class="item-left">
+              <view class="item-icon">❤️</view>
+              <view class="item-info">
+                <text class="item-title">收藏的商品</text>
+                <text class="item-subtitle">查看我的收藏</text>
+              </view>
+            </view>
+            <view class="item-right">
+              <text class="arrow">›</text>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    
+  </view>
+</view>
 
 <bind-mobile
   title="绑定手机号码"

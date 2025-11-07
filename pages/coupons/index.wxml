@@ -1,53 +1,105 @@
+<!-- <view class="page-header">
+  <view class="header-content">
+    <text class="header-title">我的优惠券</text>
+    <text class="header-subtitle">限时领取 · 超值优惠</text>
+  </view>
+</view> -->
+
 <van-sticky>
-  <van-tabs bind:change="tabClick">
-    <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
-  </van-tabs>
+  <view class="tabs-wrapper">
+    <van-tabs bind:change="tabClick" color="#E4393C" title-active-color="#E4393C" line-width="60rpx" line-height="6rpx">
+      <van-tab wx:for="{{tabs}}" wx:key="index" title="{{item}}"></van-tab>
+    </van-tabs>
+  </view>
 </van-sticky>
-<van-cell wx:if="{{ activeIndex == 1 && coupons && coupons.length == 0 }}" custom-class="hecheng" title="合成高品质优惠券" value="合成" is-link />
-<van-empty wx:if="{{ activeIndex != 3 && (!coupons || coupons.length == 0) }}" description="暂无优惠券" />
-<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 0}}">
-  <image class="icon" src="/images/icon/coupons-active.svg"></image>
-  <view class="profile">
-    <view class="name">
-      <view class="t">代金券</view>
-      <view class="n">{{item.name}}</view>
+
+<view class="coupon-list-wrapper">
+  <van-cell wx:if="{{ activeIndex == 1 && coupons && coupons.length == 0 }}" custom-class="hecheng" title="合成高品质优惠券" value="合成" is-link />
+  <van-empty wx:if="{{ activeIndex != 3 && (!coupons || coupons.length == 0) }}" description="暂无优惠券" />
+  
+  <!-- 可领券 -->
+  <view class="coupon-card" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 0}}">
+    <view class="coupon-left">
+      <view class="price-section">
+        <view wx:if="{{ item.moneyType == 0 }}" class="amount-wrapper">
+          <text class="currency">¥</text>
+          <text class="amount">{{item.moneyMin}}</text>
+        </view>
+        <view wx:if="{{ item.moneyType == 1 }}" class="amount-wrapper">
+          <text class="amount">{{item.moneyMin}}</text>
+          <text class="percent">折</text>
+        </view>
+        <view class="threshold">满{{item.moneyHreshold}}元可用</view>
+      </view>
     </view>
-    <view class="price">
-      <view class="tj">满{{item.moneyHreshold}}</view>
-      <view wx:if="{{ item.moneyType == 0 }}" class="amount"><text>￥</text>{{item.moneyMin}}</view>
-      <view wx:if="{{ item.moneyType == 1 }}" class="amount"><text></text>{{item.moneyMin}}<text>%</text></view>
+    <view class="coupon-right">
+      <view class="coupon-content">
+        <view class="coupon-type-tag">代金券</view>
+        <view class="coupon-name">{{item.name}}</view>
+        <view class="coupon-tips">领取即可使用</view>
+      </view>
+      <view class="coupon-action">
+        <view class="action-btn active" bindtap="getCounpon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">立即领取</view>
+      </view>
     </view>
-    <view class="btn" bindtap="getCounpon" data-id="{{item.id}}" data-pwd="{{item.pwd}}">立即领取</view>
+    <view class="coupon-deco"></view>
   </view>
-</view>
-<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 1}}">
-  <image class="icon" src="/images/icon/coupons-active.svg"></image>
-  <view class="profile">
-    <view class="name">
-      <view class="t">代金券</view>
-      <view class="n">{{item.name}}</view>
+  
+  <!-- 已领券 -->
+  <view class="coupon-card owned" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 1}}">
+    <view class="coupon-left gradient-owned">
+      <view class="price-section">
+        <view wx:if="{{ item.moneyType == 0 }}" class="amount-wrapper">
+          <text class="currency">¥</text>
+          <text class="amount">{{item.money}}</text>
+        </view>
+        <view wx:if="{{ item.moneyType == 1 }}" class="amount-wrapper">
+          <text class="amount">{{item.money}}</text>
+          <text class="percent">折</text>
+        </view>
+        <view class="threshold">满{{item.moneyHreshold}}元可用</view>
+      </view>
     </view>
-    <view class="price">
-      <view class="tj">({{item.dateEnd}}到期)  满{{item.moneyHreshold}}</view>
-      <view wx:if="{{ item.moneyType == 0 }}" class="amount"><text>￥</text>{{item.money}}</view>
-      <view wx:if="{{ item.moneyType == 1 }}" class="amount"><text></text>{{item.money}}<text>%</text></view>
+    <view class="coupon-right">
+      <view class="coupon-content">
+        <view class="coupon-type-tag owned-tag">代金券</view>
+        <view class="coupon-name">{{item.name}}</view>
+        <view class="coupon-tips expire-tips">{{item.dateEnd}}到期</view>
+      </view>
+      <view class="coupon-action">
+        <view class="action-btn use-btn" bindtap="touse" data-item="{{ item }}">立即使用</view>
+      </view>
     </view>
-    <view class="btn" bindtap="touse" data-item="{{ item }}">立即使用</view>
+    <view class="coupon-deco"></view>
   </view>
-</view>
-<view class="coupons" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 2}}">
-  <image class="icon" src="/images/icon/coupons-off.svg"></image>
-  <view class="profile">
-    <view class="name">
-      <view class="t disabled1">代金券</view>
-      <view class="n disabled2">{{item.name}}</view>
+  
+  <!-- 失效券 -->
+  <view class="coupon-card disabled" wx:for="{{coupons}}" wx:key="id" wx:if="{{activeIndex == 2}}">
+    <view class="coupon-left gradient-disabled">
+      <view class="price-section">
+        <view wx:if="{{ item.moneyType == 0 }}" class="amount-wrapper">
+          <text class="currency">¥</text>
+          <text class="amount">{{item.money}}</text>
+        </view>
+        <view wx:if="{{ item.moneyType == 1 }}" class="amount-wrapper">
+          <text class="amount">{{item.money}}</text>
+          <text class="percent">折</text>
+        </view>
+        <view class="threshold">满{{item.moneyHreshold}}元可用</view>
+      </view>
     </view>
-    <view class="price">
-      <view class="tj disabled2">满{{item.moneyHreshold}}</view>
-      <view wx:if="{{ item.moneyType == 0 }}" class="amount disabled2"><text class="disabled2">￥</text>{{item.money}}</view>
-      <view wx:if="{{ item.moneyType == 1 }}" class="amount disabled2"><text class="disabled2"></text>{{item.money}}<text class="disabled2">%</text></view>
+    <view class="coupon-right">
+      <view class="coupon-content">
+        <view class="coupon-type-tag disabled-tag">代金券</view>
+        <view class="coupon-name disabled-text">{{item.name}}</view>
+        <view class="coupon-tips disabled-text">已失效</view>
+      </view>
+      <view class="coupon-action">
+        <view class="action-btn disabled-btn">{{ item.statusStr }}</view>
+      </view>
     </view>
-    <view class="btn">{{ item.statusStr }}</view>
+    <view class="coupon-deco"></view>
+    <view class="disabled-mask"></view>
   </view>
 </view>
 <view class="koulingcoupon" wx:if="{{activeIndex == 3}}">

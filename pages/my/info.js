@@ -8,10 +8,10 @@ Page({
     genderArray: [ '男性', '女性'],
     genderIndex: -1
   },
-  onLoad: function (options) {
+  onLoad(e) {
     this.getUserApiInfo()
   },
-  onShow: function () {
+  onShow() {
   },
   bindMobile() {
     this.setData({
@@ -50,8 +50,7 @@ Page({
       this.setData(_data)
     }
   },
-  async formSubmit(e) {
-    console.log(e);
+  async formSubmit() {
     const postData = {
       token: wx.getStorageSync('token'),
       nick: this.data.nick
@@ -65,8 +64,6 @@ Page({
     if (this.data.genderIndex != -1) {
       postData.gender = this.data.genderIndex*1 + 1
     }
-    postData.extJsonStr = JSON.stringify(e.detail.value)
-    console.log(postData);
     // https://www.yuque.com/apifm/nu0f75/ykr2zr
     const res = await WXAPI.modifyUserInfoV2(postData)
     if (res.code != 0) {

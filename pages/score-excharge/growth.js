@@ -46,22 +46,21 @@ Page({
       deductionRules: this.data.deductionRules,
     })
   },
-  async bindSave(e) {
-    const score = e.detail.value.score;
-    if (!score) {
+  async bindSave() {
+    if (!this.data.score2) {
       wx.showToast({
         title: '请输入积分数量',
         icon: 'none'
       })
       return
     }
-    const res = await WXAPI.exchangeScoreToGrowth(wx.getStorageSync('token'), score)
+    const res = await WXAPI.exchangeScoreToGrowth(wx.getStorageSync('token'), this.data.score2)
     if (res.code == 0) {
       wx.showModal({
-        title: '成功',
         content: '恭喜您，成功兑换'+ res.data +'成长值',
         showCancel: false
       })
+      this.initData()
     } else {
       wx.showToast({
         title: res.msg,

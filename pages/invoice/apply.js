@@ -50,7 +50,7 @@ Page({
       imageUrl: wx.getStorageSync('invoice_share_pic')
     }
   },
-  async bindSave(e) {
+  async bindSave() {
     const invoice_subscribe_ids = wx.getStorageSync('invoice_subscribe_ids')
     if (invoice_subscribe_ids) {
       wx.requestSubscribeMessage({
@@ -62,24 +62,24 @@ Page({
           console.error(err)
         },
         complete: (res) => {
-          this._bindSave(e)
+          this._bindSave()
         },
       })
     } else {
-      this._bindSave(e)
+      this._bindSave()
     }
   },
-  async _bindSave(e) {
+  async _bindSave() {
     // 提交保存
-    let comName = e.detail.value.comName;
-    let tfn = e.detail.value.tfn;
-    let mobile = e.detail.value.mobile;
-    let amount = e.detail.value.amount;
-    let consumption = e.detail.value.consumption;
-    let remark = e.detail.value.remark;
-    let email = e.detail.value.email
-    let address = e.detail.value.address;
-    let bank = e.detail.value.bank;
+    let comName = this.data.comName;
+    let tfn = this.data.tfn;
+    let mobile = this.data.mobile;
+    let amount = this.data.amount;
+    let consumption = this.data.consumption;
+    let remark = this.data.remark;
+    let email = this.data.email
+    let address = this.data.address;
+    let bank = this.data.bank;
     if (!mobile) {
       wx.showToast({
         title: '请填写您在工厂注册的手机号码',

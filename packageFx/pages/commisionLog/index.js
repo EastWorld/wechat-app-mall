@@ -36,13 +36,14 @@ Page({
                   return d.orderId == ele.id && d.goodsName == c.goodsName //  FIXME 要么根据销售额，还是别的来匹配返佣记录
                 })
                 if (commisionRecord) {
-                  totalCommision += commisionRecord.money
+                  commisionRecord.money = (commisionRecord.money * 1).toFixed(2)
+                  totalCommision += (commisionRecord.money * 1)
                   c.commisionRecord = commisionRecord
                   ele.buyerUserNick = commisionRecord.nicks ? commisionRecord.nicks : '用户' + commisionRecord.uids
                 }
               })
               ele.goodsList = _goods
-              ele.totalCommision = totalCommision
+              ele.totalCommision = (totalCommision * 1).toFixed(2)
             }
           })
         }

@@ -247,26 +247,199 @@ form {
 }
 
 
-.login-box .logo {
-  width: 200rpx;
-  margin: 64rpx 275rpx;
+/* 绑定手机号容器 */
+.bind-mobile-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  box-sizing: border-box;
 }
-.login-box .line {
-  height: 2rpx;
-  width: 686rpx;
-  background-color: #ebedf0;
-  margin: 0 32rpx;
+
+/* 卡片主体 */
+.bind-mobile-card {
+  width: 100%;
+  max-width: 670rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.08);
+  padding: 80rpx 48rpx 60rpx;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
-.login-box .title {
-  margin: 64rpx 0 0 32rpx;
-  color: #333;
-  font-size: 36rpx;
+
+.bind-mobile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background: linear-gradient(90deg, #e93b3d 0%, #e2231a 100%);
 }
-.login-box .profile {
-  margin: 32rpx 0 0 32rpx;
-  color: #999;
+
+/* 图标区域 */
+.card-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+
+.icon-shield {
+  width: 120rpx;
+  height: 140rpx;
+  background: linear-gradient(135deg, #e93b3d 0%, #e2231a 100%);
+  border-radius: 60rpx 60rpx 20rpx 20rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(233, 59, 61, 0.3);
+}
+
+.shield-inner {
+  width: 56rpx;
+  height: 66rpx;
+  border: 6rpx solid #ffffff;
+  border-radius: 28rpx 28rpx 10rpx 10rpx;
+  position: relative;
+}
+
+.shield-inner::after {
+  content: '';
+  position: absolute;
+  top: 24rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12rpx;
+  height: 24rpx;
+  border: 4rpx solid #ffffff;
+  border-top: none;
+  border-left: none;
+  transform: translateX(-50%) rotate(45deg);
+  margin-top: -8rpx;
+}
+
+/* 标题区域 */
+.card-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 20rpx;
+  letter-spacing: 1rpx;
+}
+
+.card-subtitle {
   font-size: 28rpx;
+  color: #666666;
+  text-align: center;
+  line-height: 44rpx;
+  margin-bottom: 60rpx;
+  padding: 0 20rpx;
 }
-.login-box .btn {
-  margin: 88rpx 32rpx;
+
+/* 功能列表 */
+.feature-list {
+  background: #f8f8f8;
+  border-radius: 16rpx;
+  padding: 32rpx 40rpx;
+  margin-bottom: 60rpx;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.feature-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: linear-gradient(135deg, #e93b3d 0%, #e2231a 100%);
+  border-radius: 50%;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 40rpx;
+}
+
+/* 按钮区域 */
+.bind-btn-wrapper {
+  margin-bottom: 40rpx;
+}
+
+.bind-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(90deg, #e93b3d 0%, #e2231a 100%);
+  border-radius: 48rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(233, 59, 61, 0.3);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.bind-btn::after {
+  border: none;
+}
+
+.bind-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s;
+}
+
+.bind-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(233, 59, 61, 0.4);
+}
+
+.bind-btn-text {
+  font-size: 32rpx;
+  color: #ffffff;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+
+/* 安全提示 */
+.security-tips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx;
+  background: #fff9f0;
+  border-radius: 12rpx;
+  border: 1rpx solid #ffe5cc;
+}
+
+.tips-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 34rpx;
 }

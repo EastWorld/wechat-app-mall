@@ -1,15 +1,226 @@
-.list {
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-bottom: 40rpx;
+}
+
+/* 顶部统计卡片区域 */
+.header-stats {
+  display: flex;
+  padding: 40rpx 30rpx 30rpx;
+  gap: 20rpx;
+}
+
+.stat-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border-radius: 24rpx;
+  padding: 30rpx 24rpx;
   display: flex;
   align-items: center;
-  width: 100vw;
-  padding: 8rpx 32rpx;
-  box-sizing: border-box;
+  gap: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10rpx);
+  transition: all 0.3s ease;
 }
-.list .l {
+
+.stat-icon {
+  font-size: 48rpx;
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+}
+
+.stat-card-left .stat-icon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card-right .stat-icon {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tab包装器 */
+.tabs-wrapper {
+  background: white;
+  border-radius: 24rpx 24rpx 0 0;
+  padding-top: 10rpx;
+}
+
+/* 团队列表 */
+.team-list {
+  padding: 0 30rpx;
+  background: white;
+}
+
+/* 成员卡片 */
+.member-card {
+  display: block;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 24rpx;
+  margin-bottom: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.08);
+  border: 2rpx solid rgba(102, 126, 234, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.member-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(102, 126, 234, 0.1);
+}
+
+.member-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  opacity: 0.8;
+}
+
+/* 成员头部信息 */
+.member-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.avatar-wrapper {
+  position: relative;
+  margin-right: 24rpx;
+}
+
+.avatar {
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.15);
 }
-.list .r {
+
+.avatar-border {
+  position: absolute;
+  top: -4rpx;
+  left: -4rpx;
+  right: -4rpx;
+  bottom: -4rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: -1;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.member-phone {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.arrow-icon {
+  font-size: 48rpx;
+  color: #ddd;
+  font-weight: 300;
+}
+
+/* 业绩统计 */
+.member-stats {
+  display: flex;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-item-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+.stat-item-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-item-value.amount {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-item-value .unit {
+  font-size: 24rpx;
+  font-weight: normal;
+  color: #666;
+}
+
+.stat-divider {
+  width: 2rpx;
+  background: linear-gradient(180deg, rgba(102, 126, 234, 0) 0%, rgba(102, 126, 234, 0.2) 50%, rgba(102, 126, 234, 0) 100%);
+  margin: 0 20rpx;
+}
+
+/* 最近活动 */
+.member-activity {
+  display: flex;
+  align-items: center;
+  background: rgba(102, 126, 234, 0.03);
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  border-left: 4rpx solid #667eea;
+}
+
+.activity-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+
+.activity-text {
+  font-size: 24rpx;
+  color: #666;
   flex: 1;
 }

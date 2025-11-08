@@ -1,29 +1,53 @@
 <view class="container">
-    <view class="top-sec">
-        <view class="a-row">
-            <view class="label">物流单号</view>
-            <view class="text">{{ trackingNumber }}</view>
-        </view>
-        <view class="a-row">
-            <view class="label">物流公司</view>
-            <view class="text">{{ shipperName }}</view>
-        </view>
-    </view>
-    <view class="sec-wrap">
-        <van-empty wx:if="{{ !logisticsTraces || logisticsTraces.length == 0 }}" description="暂无物流信息" />
-        <view class="details-info">
-            <view class="line-box"></view>
-            <view class="a-row" wx:for="{{logisticsTraces}}" wx:key="index">
-                <view class="dot">
-                    <view class="active-dot" hidden="{{index== 0 ? false : true}}"><view class="yuan-red"></view></view>
-                    <view class="default-dot" hidden="{{index== 0 ? true : false}}"></view>
+    <!-- 顶部物流信息卡片 -->
+    <view class="top-header">
+        <view class="header-card">
+            <view class="header-content">
+                <view class="header-icon">
+                    <view class="icon-truck">🚚</view>
                 </view>
-                <view class="info">
-                    <view class="date-box">{{item.AcceptTime}}</view>
-                    <view class="text">{{item.AcceptStation}}</view>
+                <view class="header-info">
+                    <view class="info-row">
+                        <view class="info-label">物流单号</view>
+                        <view class="info-value">{{ trackingNumber }}</view>
+                    </view>
+                    <view class="info-row">
+                        <view class="info-label">物流公司</view>
+                        <view class="info-value">{{ shipperName }}</view>
+                    </view>
                 </view>
             </view>
+        </view>
+    </view>
 
+    <!-- 物流轨迹时间轴 -->
+    <view class="timeline-container">
+        <view class="timeline-header">
+            <view class="timeline-title">物流轨迹</view>
+            <view class="timeline-subtitle">Package Tracking</view>
+        </view>
+
+        <van-empty wx:if="{{ !logisticsTraces || logisticsTraces.length == 0 }}" description="暂无物流信息" />
+
+        <view class="timeline-content" wx:if="{{ logisticsTraces && logisticsTraces.length > 0 }}">
+            <view class="timeline-item {{index === 0 ? 'timeline-item-active' : ''}}" wx:for="{{logisticsTraces}}" wx:key="index">
+                <!-- 时间轴节点 -->
+                <view class="timeline-node">
+                    <view class="node-wrapper">
+                        <view class="node-dot {{index === 0 ? 'node-dot-active' : ''}}">
+                            <view class="dot-inner" wx:if="{{index === 0}}"></view>
+                        </view>
+                        <view class="node-line" wx:if="{{index !== logisticsTraces.length - 1}}"></view>
+                    </view>
+                </view>
+
+                <!-- 内容卡片 -->
+                <view class="timeline-card">
+                    <view class="card-time">{{item.AcceptTime}}</view>
+                    <view class="card-content">{{item.AcceptStation}}</view>
+                    <view class="card-badge" wx:if="{{index === 0}}">最新</view>
+                </view>
+            </view>
         </view>
     </view>
 </view>

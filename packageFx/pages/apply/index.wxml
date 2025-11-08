@@ -1,32 +1,170 @@
-<view class='noApply' wx:if="{{applyStatus == -1}}">
-  <van-empty description="诚邀您成为分销商" />
-  <view class="block-btn">
-    <van-button type="primary" block round bind:click="goForm">免费申请 等待管理员审核</van-button>
+<view class="apply-status-container">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg">
+    <view class="bg-circle circle-1"></view>
+    <view class="bg-circle circle-2"></view>
+    <view class="bg-circle circle-3"></view>
   </view>
-  <view wx:if="{{ setting.canBuy }}" class="block-btn">
-    <van-button type="warning" block round bind:click="buy">直接支付{{ setting.price }}元，立即免审开通</van-button>
-  </view>
-</view>
 
-<view class='noApply' wx:if="{{applyStatus == 0}}">
-    <van-empty description="感谢您的支持，请等待管理员审核" />
-    <view class="block-btn">
-      <van-button type="primary" block round bind:click="goShop">先去逛逛</van-button>
+  <!-- 未申请状态 -->
+  <view class='status-wrapper' wx:if="{{applyStatus == -1}}">
+    <!-- 头部区域 -->
+    <view class="header-section">
+      <view class="icon-wrapper">
+        <view class="icon-circle">
+          <text class="icon-text">💎</text>
+        </view>
+      </view>
+      <view class="title">诚邀您成为分销商</view>
+      <view class="subtitle">开启您的财富之旅</view>
     </view>
-</view>
 
-<view class='noApply' wx:if="{{applyStatus == 1}}">
-  <van-empty description="很遗憾，您的申请没有通过 {{applyInfo.remark}}" />
-  <view class="block-btn">
-    <van-button type="danger" block round bind:click="goShop">回首页</van-button>
+    <!-- 权益卡片 -->
+    <view class="benefits-card">
+      <view class="benefit-title">成为分销商，享专属特权</view>
+      <view class="benefit-list">
+        <view class="benefit-item">
+          <view class="benefit-icon">💰</view>
+          <view class="benefit-content">
+            <view class="benefit-name">推广赚佣金</view>
+            <view class="benefit-desc">分享商品即可获取收益</view>
+          </view>
+        </view>
+        <view class="benefit-item">
+          <view class="benefit-icon">🎁</view>
+          <view class="benefit-content">
+            <view class="benefit-name">专属特权</view>
+            <view class="benefit-desc">享受更多优惠和福利</view>
+          </view>
+        </view>
+        <view class="benefit-item">
+          <view class="benefit-icon">📈</view>
+          <view class="benefit-content">
+            <view class="benefit-name">实时到账</view>
+            <view class="benefit-desc">收益透明可见，快速提现</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 按钮组 -->
+    <view class="action-wrapper">
+      <button class="primary-btn" bindtap="goForm">
+        <text class="btn-text">免费申请</text>
+        <text class="btn-subtitle">等待管理员审核</text>
+      </button>
+      <button wx:if="{{ setting.canBuy }}" class="secondary-btn" bindtap="buy">
+        <text class="btn-text">立即开通 ¥{{ setting.price }}</text>
+        <text class="btn-subtitle">无需审核，即开即用</text>
+      </button>
+    </view>
   </view>
-</view>
 
-<view class='noApply' wx:if="{{applyStatus == 2}}">
-  <van-icon name="checked" color="#07c160" size="240rpx" />
-  <view>恭喜您成为分销商</view>
-  <view class="block-btn" style="margin-top:240rpx;">
-    <van-button type="primary" block round bind:click="goFx">前往分销中心</van-button>
+  <!-- 审核中状态 -->
+  <view class='status-wrapper' wx:if="{{applyStatus == 0}}">
+    <view class="header-section">
+      <view class="icon-wrapper">
+        <view class="icon-circle pending">
+          <text class="icon-text">⏳</text>
+        </view>
+      </view>
+      <view class="title">审核中</view>
+      <view class="subtitle">感谢您的支持，请耐心等待</view>
+    </view>
+
+    <view class="status-card">
+      <view class="status-info">
+        <view class="info-row">
+          <text class="info-label">审核状态</text>
+          <text class="info-value pending-text">待审核</text>
+        </view>
+        <view class="divider"></view>
+        <view class="tips-box">
+          <text class="tips-icon">💡</text>
+          <text class="tips-text">我们会在1-3个工作日内完成审核，请留意通知消息</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-wrapper">
+      <button class="outlined-btn" bindtap="goShop">
+        <text class="btn-text">先去逛逛</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 审核不通过状态 -->
+  <view class='status-wrapper' wx:if="{{applyStatus == 1}}">
+    <view class="header-section">
+      <view class="icon-wrapper">
+        <view class="icon-circle reject">
+          <text class="icon-text">❌</text>
+        </view>
+      </view>
+      <view class="title">审核未通过</view>
+      <view class="subtitle">很遗憾，您的申请未能通过审核</view>
+    </view>
+
+    <view class="status-card reject-card">
+      <view class="status-info">
+        <view class="info-row">
+          <text class="info-label">审核结果</text>
+          <text class="info-value reject-text">未通过</text>
+        </view>
+        <view class="divider"></view>
+        <view wx:if="{{applyInfo.remark}}" class="remark-box">
+          <text class="remark-label">未通过原因</text>
+          <text class="remark-text">{{applyInfo.remark}}</text>
+        </view>
+        <view class="tips-box">
+          <text class="tips-icon">💡</text>
+          <text class="tips-text">如有疑问，请联系客服咨询</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-wrapper">
+      <button class="outlined-btn" bindtap="goShop">
+        <text class="btn-text">返回首页</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 审核通过状态 -->
+  <view class='status-wrapper' wx:if="{{applyStatus == 2}}">
+    <view class="header-section">
+      <view class="icon-wrapper">
+        <view class="icon-circle success">
+          <text class="icon-text">✅</text>
+        </view>
+      </view>
+      <view class="title success-title">恭喜您</view>
+      <view class="subtitle">成功成为分销商</view>
+    </view>
+
+    <view class="status-card success-card">
+      <view class="congrats-content">
+        <view class="congrats-item">
+          <text class="congrats-icon">🎉</text>
+          <text class="congrats-text">您已成为我们的合作伙伴</text>
+        </view>
+        <view class="congrats-item">
+          <text class="congrats-icon">💼</text>
+          <text class="congrats-text">可以开始推广商品赚取佣金了</text>
+        </view>
+        <view class="congrats-item">
+          <text class="congrats-icon">🚀</text>
+          <text class="congrats-text">前往分销中心，开启财富之旅</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-wrapper">
+      <button class="primary-btn single" bindtap="goFx">
+        <text class="btn-text">前往分销中心</text>
+        <text class="btn-arrow">→</text>
+      </button>
+    </view>
   </view>
 </view>
 

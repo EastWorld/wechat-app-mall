@@ -166,6 +166,7 @@ page {
   padding: 0;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
   overflow: hidden;
+  text-align: center;
 }
 
 .asset-wrapper {
@@ -209,6 +210,7 @@ page {
 .asset-amount-row {
   display: flex;
   align-items: baseline;
+  justify-content: center;
 }
 
 .asset-symbol {

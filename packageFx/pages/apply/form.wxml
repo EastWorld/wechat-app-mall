@@ -1,29 +1,93 @@
-<image wx:if="{{ adPositionFxTopPic }}" class="logo" src="{{ adPositionFxTopPic.val }}" mode="widthFix" />
-<van-divider contentPosition="center">申请成为分销商</van-divider>
-<van-cell-group>
-  <van-field
-    wx:if="{{ userDetail && userDetail.referrer }}"
-    label="邀请人"
-    value="{{ userDetail.referrer.nick }}"
-    readonly
-  />
-  <van-field
-    label="姓名"
-    model:value="{{ name }}"
-    clearable
-    required
-    placeholder="请输入真实姓名"
-  />
-  <van-field
-    label="手机"
-    model:value="{{ mobile }}"
-    clearable
-    required
-    type="number"
-    placeholder="请输入手机号码"
-  />
-</van-cell-group>
-<view class="tips">成为分销商后卖出商品，您可以获得佣金</view>
-<view class="btns">
-  <button type="primary" bindtap="bindSave">申请成为分销商</button>
+<view class="apply-container">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg">
+    <view class="bg-circle circle-1"></view>
+    <view class="bg-circle circle-2"></view>
+    <view class="bg-circle circle-3"></view>
+  </view>
+
+  <!-- 头部区域 -->
+  <view class="header-section">
+    <view class="icon-wrapper">
+      <view class="icon-circle">
+        <text class="icon-text">💎</text>
+      </view>
+    </view>
+    <view class="title">申请成为分销商</view>
+    <view class="subtitle">开启您的财富之旅</view>
+  </view>
+
+  <!-- 表单卡片 -->
+  <view class="form-card">
+    <view class="card-inner">
+      <!-- 邀请人信息 -->
+      <view wx:if="{{ userDetail && userDetail.referrer }}" class="referrer-section">
+        <view class="referrer-label">
+          <text class="label-icon">👤</text>
+          <text class="label-text">邀请人</text>
+        </view>
+        <view class="referrer-value">{{ userDetail.referrer.nick }}</view>
+      </view>
+
+      <!-- 表单项 -->
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📝</text>
+          <text class="label-text">真实姓名</text>
+          <text class="required-star">*</text>
+        </view>
+        <input 
+          class="item-input" 
+          model:value="{{ name }}"
+          placeholder="请输入您的真实姓名"
+          placeholder-class="placeholder-style"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📱</text>
+          <text class="label-text">手机号码</text>
+          <text class="required-star">*</text>
+        </view>
+        <input 
+          class="item-input" 
+          model:value="{{ mobile }}"
+          type="number"
+          maxlength="11"
+          placeholder="请输入您的手机号码"
+          placeholder-class="placeholder-style"
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 权益说明 -->
+  <view class="benefits-section">
+    <view class="benefit-item">
+      <view class="benefit-icon">💰</view>
+      <view class="benefit-text">推广商品赚取佣金</view>
+    </view>
+    <view class="benefit-item">
+      <view class="benefit-icon">🎁</view>
+      <view class="benefit-text">专属分销特权</view>
+    </view>
+    <view class="benefit-item">
+      <view class="benefit-icon">📈</view>
+      <view class="benefit-text">收益实时到账</view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-wrapper">
+    <button class="submit-btn" bindtap="bindSave">
+      <text class="btn-text">立即申请</text>
+      <text class="btn-arrow">→</text>
+    </button>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer-tips">
+    <text class="tips-text">提交申请后，我们将尽快审核</text>
+  </view>
 </view>

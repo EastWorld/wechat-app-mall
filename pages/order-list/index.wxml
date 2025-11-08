@@ -1,13 +1,24 @@
 <van-sticky>
-  <van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap">
+  <van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap" color="#E4393C" title-active-color="#E4393C" title-inactive-color="#666666">
     <van-tab wx:for="{{statusType}}" wx:key="index" title="{{item.label}}" info="{{badges[index] ? badges[index] : ''}}" />
   </van-tabs>
 </van-sticky>
+
 <view class="container">
   <van-empty wx:if="{{ !orderList }}" description="暂无订单" />
+  
   <view class="order-list" hidden="{{orderList ? false : true}}">
-    <view class="a-order" wx:for="{{orderList}}" wx:key="index" bind:tap="goOrderDetail" data-item="{{ item }}">
-      <van-cell title="{{item.orderNumber}}" value="{{item.statusStr}}" is-link />
+    <view class="order-card" wx:for="{{orderList}}" wx:key="index">
+      <!-- 订单头部 -->
+      <view class="order-header" bind:tap="goOrderDetail" data-item="{{ item }}">
+        <view class="order-header-left">
+          <view class="order-number">订单号：{{item.orderNumber}}</view>
+          <view class="order-time">{{item.dateAdd}}</view>
+        </view>
+        <view class="order-status">{{item.statusStr}}</view>
+      </view>
+
+      <!-- 商品区域 -->
       <wxs module="goodsDetailPage">
       module.exports = {
         url : function(item) {
@@ -25,30 +36,95 @@
         }
       }
       </wxs>
-      <scroll-view class="goods-img-container" scroll-x="true">
-        <view class="img-box" wx:for="{{goodsMap[item.id]}}" wx:key="index">
-          <navigator url="{{ goodsDetailPage.url(item) }}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
-        </view>
-      </scroll-view>
-      <view class="goods-price">
-        共 {{item.goodsNumber}} 件商品 合计：
-        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
-        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text>
-      </view>
-      <view class="goods-info">
-        <view class="goods-des">
-          <view class="remark" wx:if="{{item.remark && item.remark != ''}}">{{item.remark}}</view>
-          <view>{{item.dateAdd}} </view>
+      
+      <!-- 只有1个商品：左侧图片，右侧商品信息 -->
+      <view wx:if="{{goodsMap[item.id].length == 1}}" class="goods-content-single" bind:tap="goOrderDetail" data-item="{{ item }}">
+        <navigator url="{{ goodsDetailPage.url(goodsMap[item.id][0]) }}" hover-class="none">
+          <image src="{{goodsMap[item.id][0].pic}}" class="goods-image-single" mode="aspectFill"></image>
+        </navigator>
+        <view class="goods-info-single">
+          <view class="goods-name">{{goodsMap[item.id][0].goodsName}}</view>
+          <view class="goods-price-info">
+            <text class="goods-price">¥{{goodsMap[item.id][0].amountSingle}}</text>
+            <text class="goods-quantity">x{{goodsMap[item.id][0].number}}</text>
+          </view>
         </view>
       </view>
-      <view class="price-box">
-        <view class="btn" hidden="{{item.status==0? false : true}}" catch:tap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
-        <view class="btn active" hidden="{{item.status==0? false : true}}" catch:tap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款</view>
-        <view wx:if="{{ item.status == 0 && sphpay_open == '1' }}" class="btn active" catch:tap="wxSphGetpaymentparams" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">视频号支付</view>
-        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" catch:tap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
+
+      <!-- 有2个商品：两个商品图片+右侧价格信息 -->
+      <view wx:elif="{{goodsMap[item.id].length == 2}}" class="goods-content-double">
+        <view class="goods-left">
+          <view class="goods-item-double" wx:for="{{goodsMap[item.id]}}" wx:key="index" wx:for-item="goods">
+            <navigator url="{{ goodsDetailPage.url(goods) }}" hover-class="goods-item-hover">
+              <image src="{{goods.pic}}" class="goods-image-double" mode="aspectFill"></image>
+            </navigator>
+          </view>
+        </view>
+        <view class="goods-right" bind:tap="goOrderDetail" data-item="{{ item }}">
+          <view class="price-info-compact">
+            <view class="goods-count-compact">共{{item.goodsNumber}}件商品</view>
+            <view class="total-price-compact">
+              <text class="label-compact">订单金额</text>
+              <view class="price-amount">
+                <text class="price-symbol-compact">¥</text>
+                <text class="price-value-compact">{{item.amountReal}}</text>
+              </view>
+              <text class="score-value-compact" wx:if="{{item.score > 0}}">+{{item.score}}积分</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 大于2个商品：网格布局 -->
+      <view wx:else class="goods-content" bind:tap="goOrderDetail" data-item="{{ item }}">
+        <view class="goods-grid">
+          <view class="goods-item" wx:for="{{goodsMap[item.id]}}" wx:key="index" wx:for-item="goods">
+            <navigator url="{{ goodsDetailPage.url(goods) }}" hover-class="goods-item-hover">
+              <image src="{{goods.pic}}" class="goods-image" mode="aspectFill"></image>
+            </navigator>
+          </view>
+        </view>
+      </view>
+
+      <!-- 备注信息 -->
+      <view class="order-remark" wx:if="{{item.remark && item.remark != ''}}" bind:tap="goOrderDetail" data-item="{{ item }}">
+        <text class="remark-label">备注：</text>
+        <text class="remark-text">{{item.remark}}</text>
+      </view>
+
+      <!-- 订单底部 - 大于2个商品或单个商品时显示 -->
+      <view class="order-footer" wx:if="{{goodsMap[item.id].length != 2}}">
+        <view class="order-summary" bind:tap="goOrderDetail" data-item="{{ item }}">
+          <text class="goods-count">共{{item.goodsNumber}}件商品</text>
+          <view class="total-price">
+            <text class="label">订单金额：</text>
+            <text class="price-symbol">¥</text>
+            <text class="price-value">{{item.amountReal}}</text>
+            <text class="score-value" wx:if="{{item.score > 0}}">+{{item.score}}积分</text>
+          </view>
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="order-actions">
+          <view class="action-btn btn-default" hidden="{{item.status==0? false : true}}" catch:tap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
+          <view class="action-btn btn-primary" hidden="{{item.status==0? false : true}}" catch:tap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">立即付款</view>
+          <view wx:if="{{ item.status == 0 && sphpay_open == '1' }}" class="action-btn btn-primary" catch:tap="wxSphGetpaymentparams" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">视频号支付</view>
+          <view class="action-btn btn-default" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" catch:tap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
+        </view>
+      </view>
+
+      <!-- 订单底部 - 2个商品时只显示按钮 -->
+      <view class="order-footer" wx:else>
+        <view class="order-actions">
+          <view class="action-btn btn-default" hidden="{{item.status==0? false : true}}" catch:tap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
+          <view class="action-btn btn-primary" hidden="{{item.status==0? false : true}}" catch:tap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">立即付款</view>
+          <view wx:if="{{ item.status == 0 && sphpay_open == '1' }}" class="action-btn btn-primary" catch:tap="wxSphGetpaymentparams" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">视频号支付</view>
+          <view class="action-btn btn-default" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" catch:tap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
+        </view>
       </view>
     </view>
   </view>
+  
   <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>
 

@@ -1,11 +1,36 @@
 <block wx:if="{{ bindMobileStatus == 2 }}">
-  <view class="login-box">
-    <image class="logo" src="/images/wx.jpg" mode="widthFix"></image>
-    <view class="line"></view>
-    <view class="title">申请获取以下权限</view>
-    <view class="profile">授权绑定手机号码</view>
-    <view class="btn">
-      <van-button type="primary" block round bind:tap="bindMobile">绑定手机号码</van-button>
+  <view class="bind-mobile-container">
+    <view class="bind-mobile-card">
+      <view class="card-icon">
+        <view class="icon-shield">
+          <view class="shield-inner"></view>
+        </view>
+      </view>
+      <view class="card-title">请先登录</view>
+      <view class="card-subtitle">为了保障您的交易安全和订单信息准确</view>
+      <view class="feature-list">
+        <view class="feature-item">
+          <view class="feature-dot"></view>
+          <text class="feature-text">接收订单物流信息</text>
+        </view>
+        <view class="feature-item">
+          <view class="feature-dot"></view>
+          <text class="feature-text">保障账户资金安全</text>
+        </view>
+        <view class="feature-item">
+          <view class="feature-dot"></view>
+          <text class="feature-text">提供专属售后服务</text>
+        </view>
+      </view>
+      <view class="bind-btn-wrapper">
+        <button class="bind-btn" bind:tap="bindMobile">
+          <text class="bind-btn-text">手机号快捷登录</text>
+        </button>
+      </view>
+      <view class="security-tips">
+        <view class="tips-icon">🔒</view>
+        <text class="tips-text">您的信息将被加密保护，绝不泄露给第三方</text>
+      </view>
     </view>
   </view>
 </block>

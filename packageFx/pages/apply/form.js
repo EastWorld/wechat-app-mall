@@ -12,8 +12,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.adPosition()
+  onLoad(e) {
   },
   /**
    * 生命周期函数--监听页面显示
@@ -27,14 +26,6 @@ Page({
         })
       }
     })
-  },
-  async adPosition() {
-    const res = await WXAPI.adPosition('fx-top-pic')
-    if (res.code == 0) {
-      this.setData({
-        adPositionFxTopPic: res.data
-      })
-    }
   },
   bindSave(){
     const fx_subscribe_ids = wx.getStorageSync('fx_subscribe_ids')

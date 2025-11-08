@@ -1,29 +1,68 @@
-<van-sticky>
-  <van-tabs active="{{ activeIndex }}" bind:change="tabChange">
-    <van-tab title="直推" info="{{ number1 ? number1 : '' }}" />
-    <van-tab title="间推" info="{{ number2 ? number2 : '' }}" />
-  </van-tabs>
-</van-sticky>
-<van-empty wx:if="{{ !members || members.length == 0 }}" description="暂无团队" />
-<view wx:for="{{members}}" wx:key="id" class="list">
-  <image src="{{ item.avatarUrls }}" mode="aspectFill" class="l"></image>
-  <view class="r">
-    <van-cell
-      title="{{ item.nicks }}"
-      label="{{ item.mobileMasks}}"
-      is-link
-      url="myusers-detail?id={{ item.uids }}"
-    />
-    <van-cell
-      title-style="flex:2"
-      title="成交额"
-      value="¥{{ item.totalPayAmount ? item.totalPayAmount : 0}}"
-    />
-    <van-cell
-      title-style="flex:2"
-      title="订单数"
-      label="最近下单:{{ item.lastOrderDate ? item.lastOrderDate : '-'}}"
-      value="{{ item.totalPayNumber ? item.totalPayNumber : 0}}笔"
-    />
+<view class="page-container">
+  <!-- 顶部统计卡片 -->
+  <view class="header-stats">
+    <view class="stat-card stat-card-left">
+      <view class="stat-icon">👥</view>
+      <view class="stat-info">
+        <view class="stat-label">直推团队</view>
+        <view class="stat-value">{{ number1 || 0 }}</view>
+      </view>
+    </view>
+    <view class="stat-card stat-card-right">
+      <view class="stat-icon">🔗</view>
+      <view class="stat-info">
+        <view class="stat-label">间推团队</view>
+        <view class="stat-value">{{ number2 || 0 }}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Tab切换 -->
+  <van-sticky>
+    <view class="tabs-wrapper">
+      <van-tabs active="{{ activeIndex }}" bind:change="tabChange" color="#1989fa" line-width="60rpx" line-height="6rpx">
+        <van-tab title="直推团队" />
+        <van-tab title="间推团队" />
+      </van-tabs>
+    </view>
+  </van-sticky>
+
+  <!-- 团队成员列表 -->
+  <view class="team-list">
+    <van-empty wx:if="{{ !members || members.length == 0 }}" description="暂无团队成员" image="search" />
+    
+    <navigator wx:for="{{members}}" wx:key="id" url="myusers-detail?id={{ item.uids }}" class="member-card">
+      <!-- 顶部用户信息 -->
+      <view class="member-header">
+        <view class="avatar-wrapper">
+          <image src="{{ item.avatarUrls }}" mode="aspectFill" class="avatar"></image>
+          <view class="avatar-border"></view>
+        </view>
+        <view class="member-info">
+          <view class="member-name">{{ item.nicks }}</view>
+          <view class="member-phone">{{ item.mobileMasks }}</view>
+        </view>
+        <view class="arrow-icon">›</view>
+      </view>
+
+      <!-- 业绩数据 -->
+      <view class="member-stats">
+        <view class="stat-item">
+          <view class="stat-item-label">成交额</view>
+          <view class="stat-item-value amount">¥{{ item.totalPayAmount || 0 }}</view>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <view class="stat-item-label">订单数</view>
+          <view class="stat-item-value">{{ item.totalPayNumber || 0 }}<text class="unit">笔</text></view>
+        </view>
+      </view>
+
+      <!-- 最近活动 -->
+      <view class="member-activity" wx:if="{{ item.lastOrderDate }}">
+        <view class="activity-icon">🕒</view>
+        <view class="activity-text">最近下单：{{ item.lastOrderDate }}</view>
+      </view>
+    </navigator>
   </view>
 </view>

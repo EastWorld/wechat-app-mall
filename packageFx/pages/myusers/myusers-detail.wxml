@@ -1,15 +1,67 @@
-<view class="avatar">
-  <image src="{{ userInfoMap.base.avatarUrl }}" mode="widthFix"></image>
-</view>
-<van-cell-group title="会员信息">
-  <van-cell title="会员编号" value="{{ userInfoMap.base.id }}" />
-  <van-cell title="手机号码" value="{{ userInfoMap.base.mobile }}" />
-  <van-cell title="昵称" value="{{ userInfoMap.base.nick }}" />
-  <van-cell wx:if="{{ userInfoMap.userLevel }}" title="等级" value="{{ userInfoMap.userLevel.name }}" />
-  <van-cell title="分销商">
-    <view>
-      <view wx:if="{{ !userInfoMap.base.isSeller }}">否</view>
-      <van-tag wx:else type="success">是</van-tag>
+<view class="member-detail-container">
+  <!-- 顶部卡片 - 头像和基本信息 -->
+  <view class="top-card">
+    <view class="bg-decoration"></view>
+    <view class="avatar-wrapper">
+      <image class="avatar-image" src="{{ userInfoMap.base.avatarUrl }}" mode="aspectFill"></image>
+      <view class="avatar-border"></view>
     </view>
-  </van-cell>
-</van-cell-group>
+    <view class="member-name">{{ userInfoMap.base.nick }}</view>
+    <view class="member-id">ID: {{ userInfoMap.base.id }}</view>
+    
+    <!-- 分销商徽章 -->
+    <view class="seller-badge" wx:if="{{ userInfoMap.base.isSeller }}">
+      <view class="badge-icon">★</view>
+      <text class="badge-text">认证分销商</text>
+    </view>
+  </view>
+
+  <!-- 详细信息卡片 -->
+  <view class="info-section">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">会员信息</text>
+      <view class="title-line"></view>
+    </view>
+
+    <view class="info-card">
+      <!-- 手机号码 -->
+      <view class="info-item">
+        <view class="item-icon phone-icon">📱</view>
+        <view class="item-content">
+          <view class="item-label">手机号码</view>
+          <view class="item-value">{{ userInfoMap.base.mobile || '-' }}</view>
+        </view>
+      </view>
+
+      <!-- 会员编号 -->
+      <view class="info-item">
+        <view class="item-icon id-icon">🔖</view>
+        <view class="item-content">
+          <view class="item-label">会员编号</view>
+          <view class="item-value">{{ userInfoMap.base.id }}</view>
+        </view>
+      </view>
+
+      <!-- 会员等级 -->
+      <view class="info-item" wx:if="{{ userInfoMap.userLevel }}">
+        <view class="item-icon level-icon">👑</view>
+        <view class="item-content">
+          <view class="item-label">会员等级</view>
+          <view class="item-value level-value">{{ userInfoMap.userLevel.name }}</view>
+        </view>
+      </view>
+
+      <!-- 分销商状态 -->
+      <view class="info-item">
+        <view class="item-icon status-icon">💼</view>
+        <view class="item-content">
+          <view class="item-label">分销商身份</view>
+          <view class="item-value">
+            <text class="status-tag {{ userInfoMap.base.isSeller ? 'active' : 'inactive' }}">{{ userInfoMap.base.isSeller ? '已开通' : '未开通' }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

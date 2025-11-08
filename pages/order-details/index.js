@@ -99,6 +99,9 @@ Page({
       if (res.data.orderStores) {
         orderStores = res.data.orderStores.filter(ele => ele.type == 2)
       }
+      if (!res.data.extJson || Object.keys(res.data.extJson).length == 0) {
+        delete res.data.extJson
+      }
       this.setData({
         orderDetail: res.data,
         orderStores

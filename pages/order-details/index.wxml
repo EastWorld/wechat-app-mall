@@ -1,44 +1,58 @@
 <view class="container">
-  <view class="sec-wrap">
-    <view class="order-status">
-      <view class="icon-box">
-        <image wx:if="{{orderDetail.orderInfo.status==-1}}" class="icon" src="/images/order-details/icon-ddgb.png"></image>
-        <image wx:elif="{{orderDetail.orderInfo.status==0}}" class="icon" src="/images/order-details/icon-ddfk.png"></image>
-        <image wx:elif="{{orderDetail.orderInfo.status==1}}" class="icon" src="/images/order-details/icon-ddfh.png"></image>
-        <image wx:elif="{{orderDetail.orderInfo.status==2}}" class="icon" src="/images/order-details/icon-ddsh.png"></image>
-        <image wx:elif="{{orderDetail.orderInfo.status==3 || orderDetail.orderInfo.status==4}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
+  <!-- 订单状态卡片 -->
+  <view class="status-card">
+    <view class="status-header">
+      <view class="status-icon-wrap">
+        <image wx:if="{{orderDetail.orderInfo.status==-1}}" class="status-icon" src="/images/order-details/icon-ddgb.png"></image>
+        <image wx:elif="{{orderDetail.orderInfo.status==0}}" class="status-icon" src="/images/order-details/icon-ddfk.png"></image>
+        <image wx:elif="{{orderDetail.orderInfo.status==1}}" class="status-icon" src="/images/order-details/icon-ddfh.png"></image>
+        <image wx:elif="{{orderDetail.orderInfo.status==2}}" class="status-icon" src="/images/order-details/icon-ddsh.png"></image>
+        <image wx:elif="{{orderDetail.orderInfo.status==3 || orderDetail.orderInfo.status==4}}" class="status-icon" src="/images/order-details/icon-jycg.png"></image>
       </view>
-      <view class="right-text">
-        <view class="status red">{{orderDetail.orderInfo.statusStr}}</view>
-        <view class="des" hidden="true">请于11时59分59秒内付款，超时订单将自动关闭</view>
+      <view class="status-info">
+        <view class="status-title">{{orderDetail.orderInfo.statusStr}}</view>
+        <view class="order-number-text">订单编号：{{orderDetail.orderInfo.orderNumber}}</view>
       </view>
     </view>
-    <block wx:if="{{orderDetail.logistics}}">
-      <view wx:if="{{orderDetail.logisticsTraces}}" class="wuliu-box">
-        <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
-        </view>
-        <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderDetail.orderInfo.id}}">
-          <view class="order-number">快递单号：{{orderDetail.logistics.trackingNumber}}</view>
-          <block wx:if="{{orderDetail.logisticsTraces}}">
-            <view class="wuliu-text">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}</view>
-            <view class="wuliu-date">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptTime}}</view>
-          </block>
-        </view>
-        <view class="arrow-right">
-          <van-icon name="arrow" />
+  </view>
+
+  <!-- 物流信息卡片 -->
+  <block wx:if="{{orderDetail.logistics}}">
+    <view class="card-section">
+      <view class="card-title">
+        <view class="title-line"></view>
+        <text>物流信息</text>
+      </view>
+      
+      <view wx:if="{{orderDetail.logisticsTraces}}" class="logistics-card" bindtap="wuliuDetailsTap" data-id="{{orderDetail.orderInfo.id}}">
+        <view class="logistics-header">
+          <view class="logistics-icon">
+            <image class="icon-img" src="/images/order-details/icon-wuliu.png"></image>
+          </view>
+          <view class="logistics-info">
+            <view class="tracking-number">{{orderDetail.logistics.trackingNumber}}</view>
+            <view class="logistics-status">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}</view>
+            <view class="logistics-time">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptTime}}</view>
+          </view>
+          <view class="arrow-icon">
+            <van-icon name="arrow" color="#999" />
+          </view>
         </view>
       </view>
-      <view wx:else class="wuliu-box">
-        <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
-        </view>
-        <view class="right-text">
-          <view class="order-number">快递单号：{{orderDetail.logistics.trackingNumber}}</view>
-          <view class="wuliu-text">暂无物流信息</view>
+      
+      <view wx:else class="logistics-card">
+        <view class="logistics-header">
+          <view class="logistics-icon">
+            <image class="icon-img" src="/images/order-details/icon-wuliu.png"></image>
+          </view>
+          <view class="logistics-info">
+            <view class="tracking-number">{{orderDetail.logistics.trackingNumber}}</view>
+            <view class="logistics-status">暂无物流信息</view>
+          </view>
         </view>
       </view>
-      <van-cell-group wx:if="{{ orderDetail.orderLogisticsShippers && orderDetail.orderLogisticsShippers.length > 0 }}">
+
+      <view wx:if="{{ orderDetail.orderLogisticsShippers && orderDetail.orderLogisticsShippers.length > 0 }}" class="multi-logistics">
         <van-cell
           wx:for="{{ orderDetail.orderLogisticsShippers }}"
           wx:key="id"
@@ -48,26 +62,39 @@
           is-link
           url="/pages/wuliu/index?id={{ item.orderId }}&trackingNumber={{ item.trackingNumber }}"
         />
-      </van-cell-group>
-      <view class="address-sec">
-        <view class="icon-box">
-          <image class="icon" src="/images/order-details/icon-address.png"></image>
+      </view>
+
+      <view class="address-card">
+        <view class="address-icon">
+          <image class="icon-img" src="/images/order-details/icon-address.png"></image>
         </view>
-        <view class="right-box">
-          <view class="name-tel">{{orderDetail.logistics.linkMan}} {{orderDetail.logistics.mobile}}</view>
-          <view class="text">
+        <view class="address-info">
+          <view class="address-name">{{orderDetail.logistics.linkMan}} <text class="address-phone">{{orderDetail.logistics.mobile}}</text></view>
+          <view class="address-detail">
             {{orderDetail.logistics.provinceStr}} {{orderDetail.logistics.cityStr}} {{orderDetail.logistics.areaStr}} {{orderDetail.logistics.address}}
           </view>
         </view>
       </view>
-    </block>
+    </view>
+  </block>
+  <!-- 核销码卡片 -->
+  <view wx:if="{{ hxNumberQrcode }}" class="card-section hx-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>核销二维码</text>
+    </view>
+    <view class="hx-card">
+      <view class="hx-tip">出示给店员扫码或长按保存</view>
+      <image class="hx-qrcode" src="{{ hxNumberQrcode }}" mode="widthFix" show-menu-by-longpress></image>
+    </view>
   </view>
-  <view wx:if="{{ hxNumberQrcode }}" class="goods-list">
-    <view class="list-title hx-title">核销码「出示给店员或者长按下载」</view>
-    <image class="hx-canvas" src="{{ hxNumberQrcode }}" mode="widthFix" show-menu-by-longpress></image>
-  </view>
-  <view class="goods-list">
-    <view class="list-title">商品信息</view>
+
+  <!-- 商品信息卡片 -->
+  <view class="card-section goods-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>商品信息</text>
+    </view>
     <wxs module="goodsDetailPage">
     module.exports = {
       url : function(item) {
@@ -86,104 +113,170 @@
     }
     </wxs>
     <form bindsubmit="submitReputation">
-      <block wx:for="{{orderDetail.goods}}" wx:key="id">
-        <van-card
-          num="{{item.number}}"
-          price="{{item.amount}}"
-          desc="{{item.property}}"
-          title="{{item.goodsName}}"
-          thumb="{{item.pic}}"
-          thumb-link="{{ goodsDetailPage.url(item) }}"
-          centered
-          lazy-load
-        />
-        <van-cell-group wx:if="{{orderDetail.orderInfo.status==3}}" title="评价">
-          <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
-          <van-cell title="满意度">
-            <van-rate name="goodReputation{{index}}" value="{{ 5 }}" />
-          </van-cell>
-          <van-field
-            name="goodReputationRemark{{index}}"
-            value="{{ message }}"
-            type="textarea"
-            placeholder="从多个角度评价宝贝，可以帮助更多想买对人"
-            autosize
+      <view class="goods-card">
+        <block wx:for="{{orderDetail.goods}}" wx:key="id">
+          <van-card
+            num="{{item.number}}"
+            price="{{item.amount}}"
+            desc="{{item.property}}"
+            title="{{item.goodsName}}"
+            thumb="{{item.pic}}"
+            thumb-link="{{ goodsDetailPage.url(item) }}"
+            centered
+            lazy-load
           />
-          <view style="margin-top:16rpx;padding-left:16rpx;">
-            <van-uploader
-              accept="image"
-              multiple
-              upload-text="买家秀"
-              image-fit="aspectFill"
-              file-list="{{ picsList[index] }}"
-              data-idx="{{ index }}"
-              bind:after-read="afterPicRead"
-              bind:delete="afterPicDel"
+          <van-cell-group wx:if="{{orderDetail.orderInfo.status==3}}" title="评价" class="reputation-group">
+            <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
+            <van-cell title="满意度">
+              <van-rate name="goodReputation{{index}}" value="{{ 5 }}" />
+            </van-cell>
+            <van-field
+              name="goodReputationRemark{{index}}"
+              value="{{ message }}"
+              type="textarea"
+              placeholder="从多个角度评价宝贝，可以帮助更多想买的人"
+              autosize
             />
-          </view>
-        </van-cell-group>
-      </block>
-      <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==3}}">
-        <button style="float:right;" class="confirm-btn" formType="submit">提交评价</button>
+            <view style="margin-top:16rpx;padding-left:16rpx;">
+              <van-uploader
+                accept="image"
+                multiple
+                upload-text="买家秀"
+                image-fit="aspectFill"
+                file-list="{{ picsList[index] }}"
+                data-idx="{{ index }}"
+                bind:after-read="afterPicRead"
+                bind:delete="afterPicDel"
+              />
+            </view>
+          </van-cell-group>
+        </block>
+      </view>
+      <view class="action-btn-wrap" wx:if="{{orderDetail.orderInfo.status==3}}">
+        <button class="action-btn primary-btn" formType="submit">提交评价</button>
       </view>
     </form>
-    <view class="btn-row" wx:if="{{orderDetail.orderInfo.status==2}}">
-      <button class="confirm-btn" bind:tap="confirmBtnTap">确认收货</button>
+    <view class="action-btn-wrap" wx:if="{{orderDetail.orderInfo.status==2}}">
+      <button class="action-btn primary-btn" bind:tap="confirmBtnTap">确认收货</button>
     </view>
   </view>
-  <view wx:if="{{ orderStores && orderStores.length > 0 }}" class="vw100">
-    <van-cell-group title="日期详情">
-      <van-cell wx:for="{{ orderStores }}" wx:key="id" title="{{ item.remark }} X{{ item.stores }}" value="{{ item.day }}" />
-    </van-cell-group>
-  </view>
-  <view wx:if="{{ orderStores && orderStores.length > 0 }}" class="space"></view>
-  <view class="peisong-way" hidden="true">
-    <view class="row-box">
-      <view class="row-label">配送方式</view>
-      <view class="right-text">顺丰快递</view>
+  <!-- 日期详情 -->
+  <view wx:if="{{ orderStores && orderStores.length > 0 }}" class="card-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>日期详情</text>
     </view>
-    <view class="row-box">
-      <view class="row-label">留言</view>
-      <view class="right-text">
-        <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
+    <view class="info-card">
+      <view class="info-row" wx:for="{{ orderStores }}" wx:key="id">
+        <view class="info-label">{{ item.remark }} ×{{ item.stores }}</view>
+        <view class="info-value">{{ item.day }}</view>
       </view>
     </view>
   </view>
-  <view wx:if="{{orderDetail.goodsCoupons}}" class="goods-info" style="margin-bottom:32rpx;">
-    <view wx:for="{{orderDetail.goodsCoupons}}" wx:key="{{item.id}}" class="row-box">
-      <view wx:if="{{item.type == 0}}" class="row-label">优惠券</view>
-      <view wx:if="{{item.type == 0}}" class="right-text">{{item.coupon}}</view>
-      <image mode="widthFix" wx:if="{{item.type == 1}}" src="{{item.coupon}}" style="max-width:100%;"></image>
+
+  <!-- 优惠券信息 -->
+  <view wx:if="{{orderDetail.goodsCoupons}}" class="card-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>优惠券</text>
+    </view>
+    <view class="coupon-card">
+      <block wx:for="{{orderDetail.goodsCoupons}}" wx:key="{{item.id}}">
+        <view wx:if="{{item.type == 0}}" class="coupon-item">
+          <view class="coupon-label">优惠券</view>
+          <view class="coupon-value">{{item.coupon}}</view>
+        </view>
+        <image mode="widthFix" wx:if="{{item.type == 1}}" src="{{item.coupon}}" class="coupon-image"></image>
+      </block>
     </view>
   </view>
-  <view style="width: 100vw;">
-    <van-cell-group title="订单金额">
-      <van-cell
-        title="商品金额"
-        value="¥ {{orderDetail.orderInfo.amount}}"
-      />
-      <van-cell
-        title="运费"
-        value="¥ {{orderDetail.orderInfo.amountLogistics}}"
-      />
-      <block wx:if="{{ orderDetail.orderAdditionalPrices }}">
-        <van-cell
-          wx:for="{{ orderDetail.orderAdditionalPrices }}" wx:key="id"
-          title="{{ item.name }}"
-          value="{{ '￥' + item.amount }}"
-        />
-      </block>
-      <van-cell
-        title="应付总额"
-        value="¥ {{orderDetail.orderInfo.amountReal}}"
-      />
-    </van-cell-group>
-  </view>
-</view>
 
-<van-cell-group wx:if="{{ shopIotDevices && shopIotDevices.length > 0 }}" title="设备控制">
-  <van-cell wx:for="{{ shopIotDevices }}" wx:key="id" title="{{ item.name }}" value="控制" is-link data-idx="{{ index }}" bind:click="shopIotCmds" />
-</van-cell-group>
+  <!-- 其他信息 (extJson) -->
+  <view wx:if="{{ orderDetail.extJson }}" class="card-section ext-json-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>其他信息</text>
+    </view>
+    <view class="info-card ext-info-card">
+      <block wx:for="{{ orderDetail.extJson }}" wx:key="key" wx:for-index="key">
+        <view class="info-row ext-info-row">
+          <view class="info-label ext-label">
+            <view class="label-icon">✦</view>
+            <text>{{ key }}</text>
+          </view>
+          <view class="info-value ext-value">{{ item }}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 订单金额 -->
+  <view class="card-section amount-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>订单金额</text>
+    </view>
+    <view class="amount-card">
+      <view class="amount-row">
+        <view class="amount-label">商品金额</view>
+        <view class="amount-value">¥ {{orderDetail.orderInfo.amount}}</view>
+      </view>
+      <view class="amount-row">
+        <view class="amount-label">运费</view>
+        <view class="amount-value">¥ {{orderDetail.orderInfo.amountLogistics}}</view>
+      </view>
+      <block wx:if="{{ orderDetail.orderAdditionalPrices }}">
+        <view class="amount-row" wx:for="{{ orderDetail.orderAdditionalPrices }}" wx:key="id">
+          <view class="amount-label">{{ item.name }}</view>
+          <view class="amount-value">¥ {{ item.amount }}</view>
+        </view>
+      </block>
+      <view class="amount-row total-row">
+        <view class="amount-label total-label">应付总额</view>
+        <view class="amount-value total-value">¥ {{orderDetail.orderInfo.amountReal}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 订单记录 -->
+  <view wx:if="{{ orderDetail.logs && orderDetail.logs.length > 0 }}" class="card-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>订单记录</text>
+    </view>
+    <view class="logs-card">
+      <view class="timeline">
+        <view class="timeline-item" wx:for="{{ orderDetail.logs }}" wx:key="id">
+          <view class="timeline-dot"></view>
+          <view class="timeline-line" wx:if="{{ index < orderDetail.logs.length - 1 }}"></view>
+          <view class="timeline-content">
+            <view class="log-operation">{{ item.typeStr }}</view>
+            <view class="log-time">{{ item.dateAdd }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设备控制 -->
+  <view wx:if="{{ shopIotDevices && shopIotDevices.length > 0 }}" class="card-section">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text>设备控制</text>
+    </view>
+    <view class="iot-card">
+      <view class="iot-item" wx:for="{{ shopIotDevices }}" wx:key="id" data-idx="{{ index }}" bind:tap="shopIotCmds">
+        <view class="iot-name">{{ item.name }}</view>
+        <view class="iot-control">
+          <text>控制</text>
+          <van-icon name="arrow" />
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="bottom-safe-area"></view>
+</view>
 <van-action-sheet
   show="{{ cmdListShow }}"
   actions="{{ cmdList }}"

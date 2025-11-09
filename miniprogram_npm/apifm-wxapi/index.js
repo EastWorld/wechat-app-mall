@@ -97,6 +97,7 @@ module.exports =
 var API_BASE_URL = 'https://api.it120.cc';
 // var API_BASE_URL = 'http://192.168.31.6:8081';
 var COMMON_BASE_URL = 'https://common.apifm.com/'
+// var COMMON_BASE_URL = 'http://192.168.31.6:8080/'
 var subDomain = '-';
 var merchantId = '0';
 
@@ -920,6 +921,11 @@ module.exports = {
     return request('/user/amount', true, 'get', {
       token: token
     });
+  },
+  userAmountV2: (token) => {
+    return request(COMMON_BASE_URL + subDomain + '/user/amount', false, 'get', {
+      token
+    })
   },
   orderCreate: function orderCreate(data) {
     return request('/order/create', true, 'post', data);
@@ -1896,6 +1902,12 @@ module.exports = {
     return request('/growth/exchange', true, 'post', {
       token: token, deductionScore: deductionScore
     });
+  },
+  growthLogsV2: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/growthLog/logs', true, 'post', data)
+  },
+  exchangeScoreToGrowthV2: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/growthLog/exchange', true, 'post', data)
   },
   wxaMpLiveRooms: function wxaMpLiveRooms() {
     return request('/wx/live/rooms', true, 'get');

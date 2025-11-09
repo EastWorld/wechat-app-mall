@@ -1,4 +1,3 @@
-const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 
@@ -9,61 +8,71 @@ Page({
    */
   data: {
     growth: 0.00,
-    cashlogs: undefined
+    page: 1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(e) {
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
-        this.initData()
+        this.userAmountV2()
+        this.growthLogsV2()
       } else {
         getApp().loginOK = () => {
-          this.initData()
+          this.userAmountV2()
+          this.growthLogsV2()
         }
       }
     })
   },
   onShow: function () {
   },
-  initData: function () {
-    const _this = this
-    const token = wx.getStorageSync('token')
-    WXAPI.userAmount(token).then(function (res) {
-      if (res.code == 0) {
-        _this.setData({
-          growth: res.data.growth
-        });
-      } else {
-        wx.showToast({
-          title: res.msg,
-          icon: 'none'
-        })
-      }
+  onReachBottom() {
+    this.data.page++
+    this.growthLogsV2()
+  },
+  async userAmountV2() {
+    // https://www.yuque.com/apifm/nu0f75/wrqkcb
+    const res = await WXAPI.userAmountV2(wx.getStorageSync('token'))
+    if (res.code == 0) {
+      this.setData({
+        growth: res.data.growth
+      })
+    }
+  },
+  async growthLogsV2() {
+    wx.showLoading({
+      title: '',
     })
-    // 读取积分明细
-    WXAPI.growthLogs({
-      token: token,
-      page: 1,
-      pageSize: 50
-    }).then(res => {
-      if (res.code == 0) {
-        _this.setData({
+    // https://www.yuque.com/apifm/nu0f75/gpb15y
+    const res = await WXAPI.growthLogsV2({
+      token: wx.getStorageSync('token'),
+      page: this.data.page,
+    })
+    wx.hideLoading()
+    if (res.code == 0) {
+      if (this.data.page == 1) {
+        this.setData({
           cashlogs: res.data.result
         })
+      } else {
+        this.setData({
+          cashlogs: this.data.cashlogs.concat(res.data.result)
+        })
       }
-    })
+    } else {
+      if (this.data.page == 1) {
+        this.setData({
+          cashlogs: null
+        })
+      }
+    }
   },
-  recharge: function (e) {
+  exchangeGrowth: function (e) {
     wx.navigateTo({
-      url: "/pages/recharge/index"
-    })
-  },
-  withdraw: function (e) {
-    wx.navigateTo({
-      url: "/pages/withdraw/index"
+      url: '/pages/score-excharge/growth',
     })
   }
 })

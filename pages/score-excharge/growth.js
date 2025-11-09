@@ -54,7 +54,11 @@ Page({
       })
       return
     }
-    const res = await WXAPI.exchangeScoreToGrowth(wx.getStorageSync('token'), this.data.score2)
+    // https://www.yuque.com/apifm/nu0f75/sq3tzp
+    const res = await WXAPI.exchangeScoreToGrowthV2({
+      token: wx.getStorageSync('token'),
+      deductionScore: this.data.score2
+    })
     if (res.code == 0) {
       wx.showModal({
         content: '恭喜您，成功兑换'+ res.data +'成长值',

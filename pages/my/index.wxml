@@ -267,12 +267,8 @@
   <!-- 其他功能 -->
   <view class="other-section">
     <view class="section-title">其他功能</view>
-    <navigator wx:if="{{ show_quan_exchange_score == 1 }}" url="/pages/score-excharge/index" class="menu-item">
-      <view class="menu-label">积分券兑换积分</view>
-      <text class="arrow">›</text>
-    </navigator>
-    <navigator wx:if="{{ show_score_exchange_growth == 1 }}" url="/pages/score-excharge/growth" class="menu-item">
-      <view class="menu-label">积分兑换成长值</view>
+    <navigator url="/pages/my/info-menu" class="menu-item">
+      <view class="menu-label">个人信息</view>
       <text class="arrow">›</text>
     </navigator>
     <navigator url="/pages/help/index" class="menu-item">
@@ -283,10 +279,6 @@
       <view class="menu-label">联系客服</view>
       <text class="arrow">›</text>
     </view>
-    <navigator url="/pages/my/info-menu" class="menu-item">
-      <view class="menu-label">个人信息</view>
-      <text class="arrow">›</text>
-    </navigator>
     <navigator url="/pages/my/setting" class="menu-item">
       <view class="menu-label">系统设置</view>
       <text class="arrow">›</text>

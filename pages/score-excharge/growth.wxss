@@ -108,6 +108,7 @@ page {
   padding: 40rpx 30rpx;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
   margin-bottom: 30rpx;
+  width: 90%;
 }
 
 .card-title {

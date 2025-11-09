@@ -2,11 +2,23 @@
   <view>当前成长值</view>
   <view>{{growth}}</view>
 </view>
+
+<!-- 积分兑换成长值入口 -->
+<view class="exchange-entry" bind:tap="exchangeGrowth">
+  <view class="exchange-icon">🎁</view>
+  <view class="exchange-content">
+    <view class="exchange-title">用积分兑换成长值</view>
+    <view class="exchange-desc">积分越多，成长越快</view>
+  </view>
+  <view class="exchange-arrow">›</view>
+</view>
+
 <view class='no-data' wx:if="{{!cashlogs}}">暂无成长值明细~</view>
 <view class='cashlogs' wx:if="{{cashlogs}}" wx:for="{{cashlogs}}" wx:key="{{index}}">
   <view class='profile'>
     <view class='typeStr'>{{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}</view>
     <view class='dateAdd'>{{ item.dateAdd }}</view>
+    <view class='growthLeft' wx:if="{{item.growthLeft !== undefined}}">剩余成长值: {{ item.growthLeft }}</view>
   </view>
   <view class='amount' style="color: {{ (item.behavior ==0 ) ? 'red' : 'green' }}"> {{ (item.behavior ==0 ) ? '+' : '' }} {{ item.growth }} </view>
 </view>

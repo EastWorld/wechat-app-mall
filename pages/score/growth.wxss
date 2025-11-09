@@ -119,6 +119,14 @@ page {
   line-height: 32rpx;
 }
 
+/* 剩余成长值 */
+.cashlogs .profile .growthLeft {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 32rpx;
+  margin-top: 4rpx;
+}
+
 /* 成长值金额 */
 .cashlogs .amount {
   flex-shrink: 0;
@@ -127,4 +135,68 @@ page {
   font-size: 36rpx;
   font-weight: bold;
   padding-right: 8rpx;
+}
+
+/* 积分兑换成长值入口 */
+.exchange-entry {
+  display: flex;
+  align-items: center;
+  margin: 30rpx 30rpx 20rpx;
+  padding: 32rpx 30rpx;
+  background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid rgba(233, 59, 61, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exchange-entry::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6rpx;
+  background: linear-gradient(180deg, #e93b3d 0%, #e4393c 100%);
+  border-radius: 0 4rpx 4rpx 0;
+}
+
+.exchange-entry:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.12);
+}
+
+.exchange-icon {
+  font-size: 48rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.exchange-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.exchange-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 44rpx;
+  margin-bottom: 8rpx;
+}
+
+.exchange-desc {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 36rpx;
+}
+
+.exchange-arrow {
+  font-size: 32rpx;
+  color: #ccc;
+  margin-left: 16rpx;
+  flex-shrink: 0;
 }

@@ -1,5 +1,5 @@
 <!-- 启动页容器 -->
-<view class="start-container">
+<view wx:if="{{ banners }}" class="start-container">
   <!-- 轮播图区域 -->
   <swiper class="swiper_box" current="{{ swiperCurrent }}" bindchange="swiperchange" circular="{{true}}" autoplay="{{false}}" interval="5000" duration="500">
     <swiper-item wx:for="{{banners}}" wx:key="id">
@@ -34,4 +34,13 @@
     </view>
     <view class="skip-hint">精彩内容等你探索</view>
   </view>
+</view>
+<view wx:else class="loading-container">
+  <!-- 加载动画容器 -->
+  <view class="loading-spinner-wrapper">
+    <view class="loading-spinner"></view>
+  </view>
+
+  <!-- 加载文字 -->
+  <view class="loading-text">加载中...</view>
 </view>

@@ -217,3 +217,65 @@ swiper-item {
     opacity: 1;
   }
 }
+
+/* 全屏加载效果样式 */
+.loading-container {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 加载动画容器 */
+.loading-spinner-wrapper {
+  width: 120rpx;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60rpx;
+}
+
+/* 旋转加载图标 */
+.loading-spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid rgba(255, 255, 255, 0.1);
+  border-top: 6rpx solid #E93B3D;
+  border-radius: 50%;
+  animation: loading-spin 1.5s linear infinite;
+}
+
+/* 加载文字 */
+.loading-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 28rpx;
+  font-weight: 400;
+  letter-spacing: 2rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+  animation: loading-text-fade 2s ease-in-out infinite;
+}
+
+/* 加载图标旋转动画 */
+@keyframes loading-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 加载文字淡化动画 */
+@keyframes loading-text-fade {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

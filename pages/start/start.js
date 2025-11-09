@@ -2,7 +2,6 @@ const WXAPI = require('apifm-wxapi')
 const CONFIG = require('../../config.js')
 Page({
   data: {
-    banners:[],
     swiperMaxNumber: 0,
     swiperCurrent: 0
   },

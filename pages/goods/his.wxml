@@ -45,7 +45,7 @@
     <view class="empty-icon">🛍️</view>
     <view class="empty-text">暂无浏览记录</view>
     <view class="empty-tip">快去逛逛吧～</view>
-    <navigator url="/pages/index/index" class="empty-btn">去首页看看</navigator>
+    <navigator url="/pages/index/index" open-type="switchTab" class="empty-btn">去首页看看</navigator>
   </view>
 </view>
 

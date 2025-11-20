@@ -6,8 +6,6 @@ APP.configLoadOK = () => {
     
   })
 }
-
-
 Date.prototype.format = function(format) {
   var date = {
          "M+": this.getMonth() + 1,
@@ -29,18 +27,18 @@ Date.prototype.format = function(format) {
   }
   return format;
 }
-
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    aliveRooms: [],
+    useFingerprintEmoji: false   // 新增
   },
   onLoad: function (options) {
     this.wxaMpLiveRooms()
+    this.setData({ useFingerprintEmoji: this.shouldUseFingerprintEmoji() })
   },
   onShow: function () {
 
@@ -81,5 +79,31 @@ Page({
     wx.navigateTo({
       url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomId}`
     })
+  },
+  /* 与 sign 页完全相同的判断逻辑*/
+  shouldUseFingerprintEmoji() {
+    try {
+      const info = wx.getDeviceInfo ? wx.getDeviceInfo() : wx.getSystemInfoSync()
+      const plat = (info.platform || '').toLowerCase()
+      const sys  = info.system || ''
+  
+      if (plat === 'android') {
+        const m = sys.match(/Android\s+(\d+)/)
+        return m ? (parseInt(m[1]) >= 16) : false
+      }
+      if (plat === 'ios') {
+        const m = sys.match(/iOS\s+(\d+)\.(\d+)/)
+        if (!m) return false
+        const major = parseInt(m[1]), minor = parseInt(m[2])
+        return major > 18 || (major === 18 && minor >= 4)
+      }
+      if (plat === 'windows' || plat === 'win32') {
+        const m = sys.match(/Windows\s+(\d+)\s*H(\d+)/)
+        if (!m) return false
+        const build = parseInt(m[1]), h = parseInt(m[2])
+        return build >= 25 && h >= 2
+      }
+    } catch (e) {}
+    return false
   }
 })

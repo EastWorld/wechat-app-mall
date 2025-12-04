@@ -49,7 +49,7 @@ Page({
       title: '',
     })
     // https://www.yuque.com/apifm/nu0f75/stigxd
-    const res = await WXAPI.myBuyGoodsHis({
+    const res = await WXAPI.myBuyGoodsHisV2({
       page: this.data.page,
       nameLike: this.data.name || '',
       dateBuyBegin: this.data.dateBuyBegin || '',
@@ -62,11 +62,11 @@ Page({
     if (res.code == 0) {
       if (this.data.page == 1) {
         this.setData({
-          goods: res.data,
+          goods: res.data.result,
         })
       } else {
         this.setData({
-          goods: this.data.goods.concat(res.data),
+          goods: this.data.goods.concat(res.data.result),
         })
       }
     } else {

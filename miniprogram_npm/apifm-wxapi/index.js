@@ -655,6 +655,14 @@ module.exports = {
       token: token, id: id, goodsId: goodsId
     });
   },
+  myBuyGoodsHisV2: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/his/list', false, 'post', data)
+  },
+  myBuyGoodsHisDeleteV2: (token, id = '', goodsId = '') => {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/his/delete', false, 'post', {
+      token, id, goodsId
+    })
+  },
   goodsFavList: function goodsFavList(data) {
     return request('/shop/goods/fav/list', true, 'post', data);
   },

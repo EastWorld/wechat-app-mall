@@ -68,7 +68,14 @@
   <!-- 空状态 -->
   <block wx:else>
     <view class="empty-state">
-      <image class="empty-image" src="/images/zw.png" mode="aspectFit" />
+      <!-- 高版本系统：emoji -->
+      <text wx:if="{{useFingerprintEmoji}}"
+        class="empty-emoji">🫆</text>
+      <!-- 低版本或未知系统：原图 -->
+      <image wx:else
+        class="empty-image"
+        src="/images/zw.png"
+        mode="aspectFit" />
       <text class="empty-text">暂无直播内容</text>
     </view>
   </block>

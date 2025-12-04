@@ -729,3 +729,13 @@
   font-size: 26rpx;
   text-decoration:line-through;
 }
+.empty-emoji {
+  display: block;          /* 同 image 默认 block */
+  width: 200rpx;           /* 与原图默认尺寸一致，若原图不是 200rpx 请按实际改 */
+  height: 200rpx;
+  margin: 0 auto;
+  font-size: 160rpx;       /* 视觉上填满容器，可微调 */
+  line-height: 200rpx;
+  text-align: center;
+  cursor: pointer;
+}

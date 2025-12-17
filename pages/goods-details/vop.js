@@ -125,14 +125,22 @@ Page({
       return
     }
     const curAddressData = this.data.curAddressData
-    const res = await WXAPI.jdvopGoodsCheckCanBuyV2({
-      token,
-      skuIds: this.data.goodsId,
+    const sku = [
+      {"skuId": this.data.goodsId,"skuNumber": 1}
+    ]
+    const res = await WXAPI.jdvopGoodsCheckCanBuyV3({
+      checkSkuSale: 1,
+      checkAreaLimit: 1,
+      sku: JSON.stringify(sku),
       address: curAddressData.provinceStr + curAddressData.cityStr + curAddressData.areaStr + curAddressData.streetStr + curAddressData.address
     })
     if (res.code == 0) {
       this.setData({
         canPurchase: res.data[0].canPurchase
+      })
+    } else {
+      this.setData({
+        canPurchase: false
       })
     }
   },
@@ -222,9 +230,12 @@ Page({
         })
       }
     }
-    const res = await WXAPI.jdvopGoodsDetailV2(goodsId)
-    if (res.data.info.wxintroduction) {
-      res.data.wxintroduction = JSON.parse(res.data.info.wxintroduction)
+    const res = await WXAPI.jdvopGoodsDetailV3({
+      skuId: goodsId,
+      queryExts: 3
+    })
+    if (res.data.info.introduceWechat) {
+      res.data.wxintroduction = JSON.parse(res.data.info.introduceWechat)
     }
     if (res.code == 0) {
       this.setData(res.data)

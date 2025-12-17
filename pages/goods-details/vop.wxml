@@ -11,7 +11,7 @@
     <view wx:if="{{ imageDomain }}" class="swiper-container" id="swiper-container">
       <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
         <swiper-item wx:for="{{skuImages}}" wx:key="id">
-          <image src="{{imageDomain}}{{item.path}}" class="slide-image" mode="aspectFill" lazy-load="true" />
+          <image src="{{imageDomain}}{{item.shortPath}}" class="slide-image" mode="aspectFill" lazy-load="true" />
         </swiper-item>
       </swiper>
     </view>

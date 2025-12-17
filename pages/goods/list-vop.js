@@ -58,7 +58,7 @@ Page({
     if (this.data.cid2) {
       _data.cid2 = this.data.cid2
     }
-    const res = await WXAPI.jdvopGoodsListV2(_data)
+    const res = await WXAPI.jdvopGoodsListV3(_data)
     wx.hideLoading()
     if (res.code == 0) {
       res.data.result.forEach(ele => {

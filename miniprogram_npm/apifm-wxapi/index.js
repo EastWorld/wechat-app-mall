@@ -457,12 +457,12 @@ module.exports = {
     });
   },
   login_tt: function login_tt(code) {
-    return request('/user/tt/microapp/login', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/user/tt/miniapp/login', false, 'post', {
       code: code
     });
   },
   login_q: function login_q(code) {
-    return request('/user/q/login', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/user/q/login', false, 'post', {
       code: code,
       type: 2
     });
@@ -524,16 +524,16 @@ module.exports = {
     return request('/user/wxapp/register/complex', true, 'post', data);
   },
   register_tt: function register_tt(data) {
-    return request('/user/tt/microapp/register', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/tt/miniapp/register', false, 'post', data);
   },
   registerQ: function registerQ(data) {
-    return request('/user/q/register', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/q/register', false, 'post', data);
   },
   qqAuthorize: function qqAuthorize(data) {
-    return request('/user/q/authorize', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/q/authorize', false, 'post', data);
   },
   qqQrcode: function qqQrcode(content) {
-    return request('/user/q/qrcode', true, 'post', { content: content });
+    return request(COMMON_BASE_URL + subDomain + '/user/q/qrcode', false, 'post', { content: content });
   },
   register_simple: function register_simple(data) {
     return request('/user/wxapp/register/simple', true, 'post', data);
@@ -542,7 +542,7 @@ module.exports = {
     return request('/user/wxapp/authorize', true, 'post', data);
   },
   ttAuthorize: function ttAuthorize(data) {
-    return request('/user/tt/microapp/authorize', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/tt/miniapp/authorize', false, 'post', data);
   },
   register_username: function register_username(data) {
     return request('/user/username/register', true, 'post', data);
@@ -932,7 +932,7 @@ module.exports = {
   bindMobileTta: function bindMobileTta(token, encryptedData, iv) {
     var pwd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
 
-    return request('/user/tt/microapp/bindMobile', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/user/tt/miniapp/bindMobile', false, 'post', {
       token: token, encryptedData: encryptedData, iv: iv, pwd: pwd
     });
   },
@@ -1269,7 +1269,7 @@ module.exports = {
     return request('https://oss.apifm.com/' + subDomain + '/qrcode/wxa/unlimit', true, 'post', data);
   },
   ttaQrcode: function ttaQrcode(paramsJson, expireHours) {
-    return request('/user/tt/microapp/qrcode', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/user/tt/miniapp/qrcode', false, 'post', {
       content: JSON.stringify(paramsJson),
       expireHours: expireHours
     });
@@ -1812,7 +1812,7 @@ module.exports = {
     return request('/user/delete', true, 'post', { token: token });
   },
   dynamicUserCode: function dynamicUserCode(token) {
-    return request('/user/dynamicUserCode', true, 'get', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/user/dynamicUserCode', false, 'get', { token: token });
   },
   userLevelList: function userLevelList(data) {
     return request('/user/level/list', true, 'post', data);

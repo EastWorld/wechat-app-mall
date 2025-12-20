@@ -133,3 +133,12 @@
     <button type="primary" plain bindtap="getCounpon2"> 领取 </button>
   </view>
 </block>
+
+<payment
+  money="{{ money }}"
+  remark="购买代金券 ：{{ money }}"
+  nextAction="{{ nextAction }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

@@ -1,37 +1,16 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     tabs: ['可领', '已领', '失效', '口令'],
     activeIndex: 0,
 
     showPwdPop: false
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (e) {
+  onLoad(e) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  onShow() {
     if (this.data.activeIndex == 0) {
       this.sysCoupons()
     }
@@ -45,9 +24,6 @@ Page({
         }
       }
     })
-  },
-  onReachBottom: function () {
-    
   },
   tabClick: function (e) {
     this.setData({
@@ -101,8 +77,7 @@ Page({
     }
     this.getCounpon(e)
   },
-  getCounpon: function (e) {
-    const that = this
+  getCounpon(e) {
     if (e.currentTarget.dataset.pwd) {
       this.setData({
         pwdCounponId: e.currentTarget.dataset.id,
@@ -121,7 +96,7 @@ Page({
       id: e.currentTarget.dataset.id,
       token: wx.getStorageSync('token'),
       pwd: this.data.couponPwd
-    }).then(function (res) {
+    }).then(res => {
       if (res.code == 2000) {
         wx.navigateTo({
             url: '/pages/login/index',
@@ -130,7 +105,6 @@ Page({
       }
       if (res.code == 20001 || res.code == 20002) {
         wx.showModal({
-          title: '错误',
           content: '来晚了',
           showCancel: false
         })
@@ -138,7 +112,6 @@ Page({
       }
       if (res.code == 20003) {
         wx.showModal({
-          title: '错误',
           content: '你领过了，别贪心哦~',
           showCancel: false
         })
@@ -146,7 +119,6 @@ Page({
       }
       if (res.code == 30001) {
         wx.showModal({
-          title: '错误',
           content: '您的积分不足',
           showCancel: false
         })
@@ -154,9 +126,21 @@ Page({
       }
       if (res.code == 20004) {
         wx.showModal({
-          title: '错误',
           content: '已过期~',
           showCancel: false
+        })
+        return;
+      }
+      if (res.code == 30002) {
+        // 发起微信支付
+        this.setData({
+          money: res.data,
+          paymentShow: true,
+          nextAction: {
+            // https://www.yuque.com/apifm/doc/aetmlb
+            type: 7,
+            couponRuleId: e.currentTarget.dataset.id
+          }
         })
         return;
       }
@@ -167,7 +151,6 @@ Page({
         })
       } else {
         wx.showModal({
-          title: '错误',
           content: res.msg,
           showCancel: false
         })
@@ -333,5 +316,19 @@ Page({
         title: '兑换成功'
       })
     }
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.redirectTo({
+      url: '/pages/asset/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
+    })
   },
 })

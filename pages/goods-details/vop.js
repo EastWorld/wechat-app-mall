@@ -156,6 +156,7 @@ Page({
         tabsHeight:tabsHeight
       })
     }).exec()
+    this.initShippingAddress()
   },
   getTopHeightFunction() {
     var that = this

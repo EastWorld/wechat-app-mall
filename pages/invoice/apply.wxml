@@ -43,7 +43,7 @@
           <text class="required">*</text>
         </view>
         <view class="input-wrapper">
-          <input model:value='{{comName}}' type="text" placeholder="公司名称" placeholder-class="placeholder" value="{{wxInvoiceInfo.title}}" class="custom-input" />
+          <input model:value='{{comName}}' type="text" placeholder="公司名称" placeholder-class="placeholder" class="custom-input" />
         </view>
       </view>
 
@@ -53,7 +53,7 @@
           <text class="required">*</text>
         </view>
         <view class="input-wrapper">
-          <input model:value='{{tfn}}' type="text" placeholder="填写税号" placeholder-class="placeholder" value="{{wxInvoiceInfo.taxNumber}}" class="custom-input" />
+          <input model:value='{{tfn}}' type="text" placeholder="填写税号" placeholder-class="placeholder" class="custom-input" />
         </view>
       </view>
 
@@ -63,7 +63,7 @@
           <text class="required">*</text>
         </view>
         <view class="input-wrapper">
-          <input model:value='{{consumption}}' value="服务费" type="text" placeholder="开票项目说明" placeholder-class="placeholder" class="custom-input" />
+          <input model:value='{{consumption}}' type="text" placeholder="开票项目说明" placeholder-class="placeholder" class="custom-input" />
         </view>
       </view>
 
@@ -83,7 +83,7 @@
           <text class="label-text">地址与电话</text>
         </view>
         <view class="input-wrapper">
-          <input model:value='{{address}}' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" value="{{wxInvoiceInfo.companyAddress}}{{wxInvoiceInfo.telephone}}" class="custom-input" />
+          <input model:value='{{address}}' type="text" placeholder="发票栏目处填写的地址与电话" placeholder-class="placeholder" class="custom-input" />
         </view>
       </view>
 
@@ -92,7 +92,7 @@
           <text class="label-text">开户行与账号</text>
         </view>
         <view class="input-wrapper">
-          <input model:value='{{bank}}' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" value="{{wxInvoiceInfo.bankName}}{{wxInvoiceInfo.bankAccount}}" class="custom-input" />
+          <input model:value='{{bank}}' type="text" placeholder="发票栏目处填写的开户行与账号" placeholder-class="placeholder" class="custom-input" />
         </view>
       </view>
 

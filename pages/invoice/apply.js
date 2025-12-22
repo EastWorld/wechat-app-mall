@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    consumption: '服务费'
   },
 
   /**
@@ -24,7 +25,11 @@ Page({
     wx.chooseInvoiceTitle({
       success: (res) => {
         this.setData({
-          wxInvoiceInfo: res
+          wxInvoiceInfo: res,
+          comName: res.title,
+          tfn: res.taxNumber,
+          address: res.companyAddress + res.telephone,
+          bank: res.bankName + res.bankAccount,
         })
       },
       fail: err => {

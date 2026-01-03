@@ -40,7 +40,12 @@ Page({
     reasonIndex: 0,
 
     files: [],
-    pics: []
+    pics: [],
+    
+    // 快递信息弹窗
+    logisticsDialogShow: false,
+    shipperName: '',
+    trackingNumber: ''
   },
   onLoad: function (e) {
     this.setData({
@@ -257,10 +262,15 @@ Page({
         imageList.push(ele.pic + '_m')
       })
     }
+    let logisticsContent = curRufund.baseInfo.logisticsContent
+    if (logisticsContent) {
+      logisticsContent = JSON.parse(logisticsContent)
+    }
     this.setData({
       popShow: true,
       curRufund,
-      imageList
+      imageList,
+      logisticsContent
     })
   },
   popClose() {
@@ -285,4 +295,73 @@ Page({
       }
     })
   },
+  // 显示快递信息输入弹窗
+  showLogisticsDialog() {
+    this.setData({
+      logisticsDialogShow: true,
+      shipperName: '',
+      trackingNumber: ''
+    })
+  },
+  // 关闭快递信息输入弹窗
+  closeLogisticsDialog() {
+    this.setData({
+      logisticsDialogShow: false,
+      shipperName: '',
+      trackingNumber: ''
+    })
+  },
+  // 提交快递信息
+  async submitLogistics() {
+    const { shipperName, trackingNumber } = this.data
+    
+    // 验证输入
+    if (!shipperName || !shipperName.trim()) {
+      wx.showToast({
+        title: '请输入快递公司名称',
+        icon: 'none'
+      })
+      return
+    }
+    
+    if (!trackingNumber || !trackingNumber.trim()) {
+      wx.showToast({
+        title: '请输入快递单号',
+        icon: 'none'
+      })
+      return
+    }
+    
+    wx.showLoading({
+      title: '提交中...',
+    })
+    // https://www.yuque.com/apifm/nu0f75/eckfsmlf1yhi5fn4
+    const res = await WXAPI.refundApplySetBackLogistics({
+      token: wx.getStorageSync('token'),
+      orderId: this.data.curRufund.baseInfo.orderId,
+      applyId: this.data.curRufund.baseInfo.id,
+      shipperName: shipperName.trim(),
+      trackingNumber: trackingNumber.trim()
+    })
+    
+    wx.hideLoading()
+    
+    if (res.code == 0) {
+      wx.showToast({
+        title: '提交成功',
+        icon: 'success'
+      })
+      // 关闭弹窗
+      this.closeLogisticsDialog()
+      // 刷新售后详情
+      this.orderDetail()
+      // 关闭详情弹窗
+      this.popClose()
+    } else {
+      wx.showToast({
+        title: res.msg || '提交失败',
+        icon: 'none'
+      })
+    }
+  }
 });

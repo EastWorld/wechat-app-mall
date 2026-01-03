@@ -1,148 +1,335 @@
-<van-cell-group wx:if="{{ refundApplyList && refundApplyList.length > 0 }}" title="我的售后">
-  <van-cell wx:for="{{ refundApplyList  }}" wx:key="id"
-    title="{{ item.goodInfo.goodsName }} x{{ item.baseInfo.number }} ￥{{ item.baseInfo.amount }}"
-    icon="{{ item.goodInfo.pic }}_m"
-    label="申请时间:{{ item.baseInfo.dateAdd }}"
-    value="{{ item.baseInfo.statusStr }}"
-    is-link
-    data-idx="{{ index }}"
-    bind:click="refundDetail"
-  >
-  </van-cell>
-</van-cell-group>
-<block>
-  <van-radio-group value="{{ goodsIndex }}">
-    <van-cell-group title="选择需要售后的商品">
-      <van-cell wx:for="{{ goods }}" wx:key="id" title="{{ item.goodsName }}" label="{{ !item.afterSale ? '该商品不支持售后' : '' }}" clickable data-name="{{ index }}" bind:click="goodsClick">
-        <van-radio slot="right-icon" name="{{ index }}" disabled="{{ !item.afterSale }}" />
-      </van-cell>
-    </van-cell-group>
-  </van-radio-group>
-</block>
-<block wx:if="{{ curGoods }}">
-  <van-cell-group title="商品预览">
-    <van-card
-      price="{{ curGoods.amount }}"
-      title="{{ curGoods.goodsName }}"
-      thumb="{{ curGoods.pic }}_m"
-      thumb-mode="aspectFill"
-      centered
-    />
-    <van-cell title="选择数量">
-      <van-stepper value="{{ number }}" integer min="1" max="{{ curGoods.number }}" bind:change="numberChange" />
-    </van-cell>
-  </van-cell-group>
-  <van-radio-group value="{{ type }}" bind:change="typeChange">
-    <van-cell-group title="选择售后类型">
-      <block wx:for="{{typeItems}}" wx:key="*this">
-        <van-cell wx:if="{{ curGoods['afterSale' + index] }}" title="{{ item.name }}" clickable data-name="{{ item.value }}" bind:click="typeClick">
-          <van-radio slot="right-icon" name="{{ item.value }}" />
-        </van-cell>
-      </block>
-    </van-cell-group>
-  </van-radio-group>
-  <van-radio-group wx:if="{{type == 0}}" value="{{ logisticsStatus }}" bind:change="logisticsStatusChange">
-    <van-cell-group title="选择货物状态">
-      <van-cell wx:for="{{logisticsStatusItems}}" wx:key="value" title="{{ item.name }}" clickable data-name="{{ item.value }}" bind:click="logisticsStatusClick">
-        <van-radio slot="right-icon" name="{{ item.value }}" />
-      </van-cell>
-    </van-cell-group>
-  </van-radio-group>
-  <van-radio-group value="{{ reason }}" bind:change="reasonChange">
-    <van-cell-group title="售后原因">
-      <van-cell wx:for="{{reasons}}" wx:key="value" title="{{ item }}" clickable data-name="{{ item }}" bind:click="reasonClick">
-        <van-radio slot="right-icon" name="{{ item }}" />
-      </van-cell>
-    </van-cell-group>
-  </van-radio-group>
-  <!-- <van-field
-    wx:if="{{type != 2}}"
-    label="退款金额"
-    model:value="{{ amount }}"
-    placeholder="请输入申请退款金额"
-    type="digit"
-    input-align="right"
-    clearable
-  /> -->
-  <van-cell-group title="售后说明">
-    <van-field
-      model:value="{{ remark }}"
-      placeholder="请输入退款说明"
-      type="textarea"
-      autosize="{{ autosize }}"
-    />
-  </van-cell-group>
-  <view style="margin-top:16rpx;padding-left:32rpx;">
-    <van-uploader
-      accept="image"
-      multiple
-      upload-text="上传图片"
-      image-fit="aspectFill"
-      file-list="{{ picsList }}"
-      bind:after-read="afterPicRead"
-      bind:delete="afterPicDel"
-    />
-  </view>
-  <button type="warn" bind:tap="bindSave">立即申请售后</button>
-</block>
-
-<van-popup show="{{ popShow }}" position="bottom" round custom-style="max-height: 80vh" bind:close="popClose">
-  <van-card
-    price="{{ curRufund.baseInfo.amount }}"
-    title="{{ curRufund.goodInfo.goodsName }}"
-    num="{{ curRufund.baseInfo.number }}"
-    thumb="{{ curRufund.goodInfo.pic }}_m"
-    thumb-mode="aspectFill"
-    centered
-  />
-  <van-notice-bar
-    wx:if="{{curRufund.baseInfo.status == 0}}"
-    left-icon="volume-o"
-    speed="30"
-    text="已申请，等待商家处理，请耐心等待~"
-  />
-  <van-notice-bar
-    wx:if="{{curRufund.baseInfo.status == 2}}"
-    left-icon="volume-o"
-    speed="30"
-    text="商家已拒绝，如果诉求未得到解决，请联系客服~"
-  />
-  <van-notice-bar
-    wx:if="{{curRufund.baseInfo.status == 3}}"
-    left-icon="volume-o"
-    speed="30"
-    text="商家正在处理中，请耐心等待~"
-  />
-  <van-notice-bar
-    wx:if="{{curRufund.baseInfo.status == 4}}"
-    left-icon="volume-o"
-    speed="30"
-    text="本次售后已处理完成"
-  />
-  <van-cell title="申请时间" value="{{ curRufund.baseInfo.dateAdd }}" />
-  <van-cell title="售后类型" value="{{ curRufund.baseInfo.typeStr }}" />
-  <van-cell title="物流状态" value="{{ curRufund.baseInfo.logisticsStatusStr }}" />
-  <van-cell title="售后原因" value="{{ curRufund.baseInfo.reason }}" />
-  <van-cell wx:if="{{ curRufund.baseInfo.remark }}" title="备注" value="{{ curRufund.baseInfo.remark }}" />
-  <van-cell-group wx:if="{{ curRufund.pics && curRufund.pics.length > 0 }}" title="举证照片">
-    <view class="pic-box">
-      <image
-        wx:for="{{ curRufund.pics }}" wx:key="*this"
-        class="pic" mode="aspectFill"
-        src="{{ item.pic }}_m"
-        data-current="{{ item.pic }}_m"
-        bind:tap="previewImageimageList"
-      ></image>
+<view class="refund-container">
+  <!-- 我的售后记录 -->
+  <view class="refund-history" wx:if="{{ refundApplyList && refundApplyList.length > 0 }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">我的售后</text>
     </view>
-  </van-cell-group>
-  <view style="height: 132rpx;"></view>
-  <van-goods-action>
-    <van-goods-action-icon wx:if="{{ customerServiceType == 'QW' }}" icon="chat-o" text="联系客服" bind:click="customerService" />
-    <van-goods-action-icon wx:else icon="chat-o" text="联系客服" open-type="contact" />
-    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 0}}" text="撤回本次申请" bind:click="refundApplyCancel" />
-    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 1}}" text="您已撤销本次申请" disabled type="warning" />
-    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 2}}" text="商家已取消本次申请" disabled type="warning" />
-    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 3}}" text="商家正在处理中" disabled type="primary" />
-    <van-goods-action-button wx:if="{{curRufund.baseInfo.status == 4}}" text="本次售后已处理完结" disabled type="primary" />
-  </van-goods-action>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{ refundApplyList }}" wx:key="id" data-idx="{{ index }}" bind:tap="refundDetail">
+        <view class="history-goods">
+          <image class="goods-image" src="{{ item.goodInfo.pic }}_m" mode="aspectFill"></image>
+          <view class="goods-info">
+            <view class="goods-name">{{ item.goodInfo.goodsName }}</view>
+            <view class="goods-meta">
+              <text class="goods-num">x{{ item.baseInfo.number }}</text>
+              <text class="goods-price">¥{{ item.baseInfo.amount }}</text>
+            </view>
+            <view class="apply-time">申请时间：{{ item.baseInfo.dateAdd }}</view>
+          </view>
+        </view>
+        <view class="history-status">
+          <text class="status-text">{{ item.baseInfo.statusStr }}</text>
+          <view class="arrow-icon">›</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选择商品 -->
+  <view class="section-card">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">选择需要售后的商品</text>
+    </view>
+    <van-radio-group value="{{ goodsIndex }}">
+      <view class="goods-list">
+        <view class="goods-item {{ !item.afterSale ? 'disabled' : '' }}" wx:for="{{ goods }}" wx:key="id" data-name="{{ index }}" bind:tap="goodsClick">
+          <view class="goods-content">
+            <view class="goods-name-text">{{ item.goodsName }}</view>
+            <view class="not-support" wx:if="{{ !item.afterSale }}">该商品不支持售后</view>
+          </view>
+          <van-radio name="{{ index }}" disabled="{{ !item.afterSale }}" checked-color="#E4393C" />
+        </view>
+      </view>
+    </van-radio-group>
+  </view>
+
+  <!-- 商品预览 -->
+  <view class="section-card" wx:if="{{ curGoods }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">商品信息</text>
+    </view>
+    <view class="goods-preview">
+      <image class="preview-image" src="{{ curGoods.pic }}_m" mode="aspectFill"></image>
+      <view class="preview-info">
+        <view class="preview-name">{{ curGoods.goodsName }}</view>
+        <view class="preview-price">¥{{ curGoods.amount }}</view>
+      </view>
+    </view>
+    <view class="quantity-selector">
+      <text class="selector-label">退货数量</text>
+      <van-stepper value="{{ number }}" integer min="1" max="{{ curGoods.number }}" bind:change="numberChange" button-size="36rpx" input-width="80rpx" />
+    </view>
+  </view>
+
+  <!-- 售后类型 -->
+  <view class="section-card" wx:if="{{ curGoods }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">售后类型</text>
+    </view>
+    <van-radio-group value="{{ type }}" bind:change="typeChange">
+      <view class="option-list">
+        <block wx:for="{{typeItems}}" wx:key="*this">
+          <view class="option-item" wx:if="{{ curGoods['afterSale' + index] }}" data-name="{{ item.value }}" bind:tap="typeClick">
+            <text class="option-text">{{ item.name }}</text>
+            <van-radio name="{{ item.value }}" checked-color="#E4393C" />
+          </view>
+        </block>
+      </view>
+    </van-radio-group>
+  </view>
+
+  <!-- 货物状态 -->
+  <view class="section-card" wx:if="{{ curGoods && type == 0 }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">货物状态</text>
+    </view>
+    <van-radio-group value="{{ logisticsStatus }}" bind:change="logisticsStatusChange">
+      <view class="option-list">
+        <view class="option-item" wx:for="{{logisticsStatusItems}}" wx:key="value" data-name="{{ item.value }}" bind:tap="logisticsStatusClick">
+          <text class="option-text">{{ item.name }}</text>
+          <van-radio name="{{ item.value }}" checked-color="#E4393C" />
+        </view>
+      </view>
+    </van-radio-group>
+  </view>
+
+  <!-- 售后原因 -->
+  <view class="section-card" wx:if="{{ curGoods }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">售后原因</text>
+    </view>
+    <van-radio-group value="{{ reason }}" bind:change="reasonChange">
+      <view class="reason-list">
+        <view class="reason-item" wx:for="{{reasons}}" wx:key="value" data-name="{{ item }}" bind:tap="reasonClick">
+          <text class="reason-text">{{ item }}</text>
+          <van-radio name="{{ item }}" checked-color="#E4393C" />
+        </view>
+      </view>
+    </van-radio-group>
+  </view>
+
+  <!-- 售后说明 -->
+  <view class="section-card" wx:if="{{ curGoods }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">售后说明</text>
+      <text class="title-tip">（选填）</text>
+    </view>
+    <view class="remark-box">
+      <textarea class="remark-input" model:value="{{ remark }}" placeholder="请详细描述您的问题，有助于我们更快处理" placeholder-class="remark-placeholder" maxlength="500" auto-height></textarea>
+    </view>
+  </view>
+
+  <!-- 上传图片 -->
+  <view class="section-card" wx:if="{{ curGoods }}">
+    <view class="section-title">
+      <view class="title-line"></view>
+      <text class="title-text">上传凭证</text>
+      <text class="title-tip">（选填，最多9张）</text>
+    </view>
+    <view class="upload-box">
+      <van-uploader
+        accept="image"
+        multiple
+        max-count="9"
+        upload-text="上传图片"
+        image-fit="aspectFill"
+        file-list="{{ picsList }}"
+        bind:after-read="afterPicRead"
+        bind:delete="afterPicDel"
+      />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-box" wx:if="{{ curGoods }}">
+    <button class="submit-btn" bind:tap="bindSave">提交申请</button>
+  </view>
+
+  <!-- 底部安全区 -->
+  <view class="safe-area"></view>
+</view>
+
+<!-- 售后详情弹窗 -->
+<van-popup show="{{ popShow }}" position="bottom" round custom-style="max-height: 85vh; background: #F5F5F5;" bind:close="popClose">
+  <view class="popup-container">
+    <!-- 标题栏 -->
+    <view class="popup-header">
+      <text class="popup-title">售后详情</text>
+      <view class="popup-close" bind:tap="popClose">✕</view>
+    </view>
+
+    <!-- 商品信息 -->
+    <view class="popup-goods">
+      <image class="popup-goods-image" src="{{ curRufund.goodInfo.pic }}_m" mode="aspectFill"></image>
+      <view class="popup-goods-info">
+        <view class="popup-goods-name">{{ curRufund.goodInfo.goodsName }}</view>
+        <view class="popup-goods-meta">
+          <text class="popup-goods-num">x{{ curRufund.baseInfo.number }}</text>
+          <text class="popup-goods-price">¥{{ curRufund.baseInfo.amount }}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 状态提示 -->
+    <view class="popup-notice {{ curRufund.baseInfo.status == 4 ? 'success' : curRufund.baseInfo.status == 2 ? 'error' : 'info' }}">
+      <view class="notice-icon">
+        <text wx:if="{{curRufund.baseInfo.status == 0}}">⏱</text>
+        <text wx:if="{{curRufund.baseInfo.status == 2}}">✕</text>
+        <text wx:if="{{curRufund.baseInfo.status == 3}}">⚙</text>
+        <text wx:if="{{curRufund.baseInfo.status == 4}}">✓</text>
+      </view>
+      <text class="notice-text" wx:if="{{curRufund.baseInfo.status == 0}}">已申请，等待商家处理，请耐心等待</text>
+      <text class="notice-text" wx:if="{{curRufund.baseInfo.status == 2}}">商家已拒绝，如诉求未解决请联系客服</text>
+      <text class="notice-text" wx:if="{{curRufund.baseInfo.status == 3}}">商家正在处理中，请耐心等待</text>
+      <text class="notice-text" wx:if="{{curRufund.baseInfo.status == 4}}">本次售后已处理完成</text>
+    </view>
+    <!-- 寄回地址信息 -->
+    <view wx:if="{{ curRufund.baseInfo.status2 > 0 }}" class="back-address-card">
+      <view class="address-header">
+        <view class="header-icon">📦</view>
+        <text class="header-title">商品寄回地址</text>
+      </view>
+      <view class="address-content">
+        <view class="address-row">
+          <text class="address-label">收货人：</text>
+          <text class="address-text">{{ logisticsContent.linkMan }}</text>
+        </view>
+        <view class="address-row">
+          <text class="address-label">联系电话：</text>
+          <text class="address-text">{{ logisticsContent.mobile }}</text>
+        </view>
+        <view class="address-row">
+          <text class="address-label">收货地址：</text>
+          <text class="address-text">{{ logisticsContent.address }}</text>
+        </view>
+      </view>
+      
+      <!-- 待填写快递单号 -->
+      <view wx:if="{{ curRufund.baseInfo.status2 == 1 }}" class="logistics-action">
+        <button class="fill-logistics-btn" bind:tap="showLogisticsDialog">填写寄回快递单号</button>
+      </view>
+      
+      <!-- 已填写快递信息 -->
+      <view wx:if="{{ curRufund.baseInfo.status2 == 2 }}" class="logistics-filled">
+        <view class="filled-header">
+          <view class="filled-icon">✓</view>
+          <text class="filled-title">已填写快递信息</text>
+        </view>
+        <view class="filled-content">
+          <view class="filled-row">
+            <text class="filled-label">快递公司：</text>
+            <text class="filled-value">{{ logisticsContent.shipperName }}</text>
+          </view>
+          <view class="filled-row">
+            <text class="filled-label">快递单号：</text>
+            <text class="filled-value">{{ logisticsContent.trackingNumber }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 详细信息 -->
+    <view class="popup-details">
+      <view class="detail-item">
+        <text class="detail-label">申请时间</text>
+        <text class="detail-value">{{ curRufund.baseInfo.dateAdd }}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">售后类型</text>
+        <text class="detail-value">{{ curRufund.baseInfo.typeStr }}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">物流状态</text>
+        <text class="detail-value">{{ curRufund.baseInfo.logisticsStatusStr }}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">售后原因</text>
+        <text class="detail-value">{{ curRufund.baseInfo.reason }}</text>
+      </view>
+      <view class="detail-item" wx:if="{{ curRufund.baseInfo.remark }}">
+        <text class="detail-label">备注说明</text>
+        <text class="detail-value remark">{{ curRufund.baseInfo.remark }}</text>
+      </view>
+    </view>
+
+    <!-- 举证照片 -->
+    <view class="popup-photos" wx:if="{{ curRufund.pics && curRufund.pics.length > 0 }}">
+      <view class="photos-title">举证照片</view>
+      <view class="photos-grid">
+        <image
+          wx:for="{{ curRufund.pics }}" wx:key="*this"
+          class="photo-item" mode="aspectFill"
+          src="{{ item.pic }}_m"
+          data-current="{{ item.pic }}_m"
+          bind:tap="previewImageimageList"
+        ></image>
+      </view>
+    </view>
+
+    <!-- 底部操作 -->
+    <view class="popup-actions">
+      <view wx:if="{{ customerServiceType == 'QW' }}" class="action-service" bind:tap="customerService">
+        <text class="service-icon">💬</text>
+        <text class="service-text">联系客服</text>
+      </view>
+      <view wx:else style="margin-bottom: 32rpx;">
+        <button class="action-btn" open-type="contact" style="background: #F8F8F8;color: #333;">联系客服</button>
+      </view>
+      <view class="action-btn-box">
+        <button class="action-btn cancel" wx:if="{{curRufund.baseInfo.status == 0}}" bind:tap="refundApplyCancel">撤回申请</button>
+        <button class="action-btn disabled" wx:if="{{curRufund.baseInfo.status == 1}}" disabled>您已撤销本次申请</button>
+        <button class="action-btn disabled" wx:if="{{curRufund.baseInfo.status == 2}}" disabled>商家已取消本次申请</button>
+        <button class="action-btn disabled" wx:if="{{curRufund.baseInfo.status == 3}}" disabled>商家正在处理中</button>
+        <button class="action-btn disabled success" wx:if="{{curRufund.baseInfo.status == 4}}" disabled>本次售后已处理完结</button>
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 快递信息输入弹窗 -->
+<van-popup show="{{ logisticsDialogShow }}" position="center" round custom-style="width: 85%; max-width: 600rpx;" bind:close="closeLogisticsDialog">
+  <view class="logistics-dialog">
+    <view class="dialog-header">
+      <text class="dialog-title">填写快递信息</text>
+      <view class="dialog-close" bind:tap="closeLogisticsDialog">✕</view>
+    </view>
+    
+    <view class="dialog-content">
+      <view class="dialog-tip">
+        <text class="tip-icon">💡</text>
+        <text class="tip-text">请填写您寄回商品的快递信息</text>
+      </view>
+      
+      <view class="input-group">
+        <view class="input-label">快递公司</view>
+        <input 
+          class="input-field" 
+          placeholder="请输入快递公司名称" 
+          placeholder-class="input-placeholder"
+          model:value="{{ shipperName }}"
+        />
+      </view>
+      
+      <view class="input-group">
+        <view class="input-label">快递单号</view>
+        <input 
+          class="input-field" 
+          placeholder="请输入快递单号" 
+          placeholder-class="input-placeholder"
+          model:value="{{ trackingNumber }}"
+        />
+      </view>
+    </view>
+    
+    <view class="dialog-actions">
+      <button class="dialog-btn cancel-btn" bind:tap="closeLogisticsDialog">取消</button>
+      <button class="dialog-btn confirm-btn" bind:tap="submitLogistics">确认提交</button>
+    </view>
+  </view>
 </van-popup>

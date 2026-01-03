@@ -177,7 +177,7 @@
         <text class="function-icon">📋</text>
         <view class="function-label">历史购买</view>
       </navigator>
-      <view wx:if="{{canHX}}" class="function-item" bind:click="scanOrderCode">
+      <view wx:if="{{canHX}}" class="function-item" bind:tap="scanOrderCode">
         <text class="function-icon">📷</text>
         <view class="function-label">扫码核销</view>
       </view>
@@ -275,7 +275,7 @@
       <view class="menu-label">帮助中心</view>
       <text class="arrow">›</text>
     </navigator>
-    <view wx:if="{{ customerServiceType == 'QW' }}" class="menu-item" bind:click="customerService">
+    <view wx:if="{{ customerServiceType == 'QW' }}" class="menu-item" bind:tap="customerService">
       <view class="menu-label">联系客服</view>
       <text class="arrow">›</text>
     </view>

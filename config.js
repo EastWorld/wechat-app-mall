@@ -1,6 +1,6 @@
 module.exports = {
-  version: '26.2.14',
-  note: '收货地址列表接口升级', // 这个为版本描述，无需修改
+  version: '26.3.2',
+  note: '下单界面，选择使用优惠券美化，增加兑换优惠券逻辑', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

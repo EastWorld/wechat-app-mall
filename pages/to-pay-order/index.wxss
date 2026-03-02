@@ -443,3 +443,366 @@ form {
   color: #999999;
   line-height: 34rpx;
 }
+
+/* 优惠券选择器 */
+.coupon-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx;
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+  border-radius: 16rpx;
+  margin: 24rpx 0;
+  box-shadow: 0 4rpx 20rpx rgba(228, 57, 60, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.coupon-selector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6rpx;
+  height: 100%;
+  background: linear-gradient(180deg, #E4393C 0%, #F75050 100%);
+}
+
+.coupon-selector:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(228, 57, 60, 0.12);
+}
+
+.coupon-selector-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.coupon-icon {
+  font-size: 48rpx;
+  margin-right: 24rpx;
+}
+
+.coupon-text-wrapper {
+  flex: 1;
+}
+
+.coupon-label {
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 8rpx;
+}
+
+.coupon-selected-text {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 600;
+}
+
+.coupon-selector-right {
+  display: flex;
+  align-items: center;
+}
+
+.coupon-arrow {
+  font-size: 48rpx;
+  color: #CCCCCC;
+  font-weight: 300;
+}
+
+/* 口令兑换提示 */
+.coupon-exchange-tip {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background: linear-gradient(135deg, #FFF9F0 0%, #FFFFFF 100%);
+  border-radius: 16rpx;
+  margin: 24rpx 0;
+  border: 2rpx dashed #FFD700;
+  transition: all 0.3s ease;
+}
+
+.coupon-exchange-tip:active {
+  transform: scale(0.98);
+  background: linear-gradient(135deg, #FFF4E0 0%, #FFFAF0 100%);
+}
+
+.tip-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.tip-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #FF9500;
+  font-weight: 500;
+}
+
+.tip-arrow {
+  font-size: 40rpx;
+  color: #FFD700;
+  font-weight: 300;
+}
+
+/* 优惠券选择弹窗 */
+.coupon-picker-container {
+  background: #FFFFFF;
+  border-radius: 24rpx 24rpx 0 0;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.coupon-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 40rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+  position: relative;
+}
+
+.coupon-picker-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80rpx;
+  height: 6rpx;
+  background: linear-gradient(90deg, #E4393C 0%, #F75050 100%);
+  border-radius: 3rpx;
+}
+
+.picker-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #333333;
+}
+
+.picker-close {
+  font-size: 48rpx;
+  color: #999999;
+  font-weight: 300;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.picker-close:active {
+  background: #F5F5F5;
+}
+
+.coupon-picker-list {
+  box-sizing: border-box;
+  flex: 1;
+  padding: 24rpx;
+  max-height: 60vh;
+}
+
+.coupon-picker-item {
+  margin-bottom: 24rpx;
+}
+
+.picker-coupon-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+  border-radius: 16rpx;
+  border: 2rpx solid #F0F0F0;
+  transition: all 0.3s ease;
+}
+
+.picker-coupon-card.selected {
+  border-color: #E4393C;
+  background: linear-gradient(135deg, #FFF0F0 0%, #FFFFFF 100%);
+  box-shadow: 0 8rpx 24rpx rgba(228, 57, 60, 0.15);
+}
+
+.picker-coupon-card:active {
+  transform: scale(0.98);
+}
+
+.picker-coupon-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 160rpx;
+  padding-right: 32rpx;
+  border-right: 2rpx dashed #E5E5E5;
+}
+
+.picker-amount-wrapper {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 8rpx;
+}
+
+.picker-currency {
+  font-size: 28rpx;
+  color: #E4393C;
+  font-weight: 600;
+  margin-right: 4rpx;
+}
+
+.picker-amount {
+  font-size: 56rpx;
+  color: #E4393C;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.picker-percent {
+  font-size: 32rpx;
+  color: #E4393C;
+  font-weight: 600;
+  margin-left: 4rpx;
+}
+
+.picker-threshold {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.picker-coupon-right {
+  flex: 1;
+  padding-left: 32rpx;
+}
+
+.picker-coupon-name {
+  font-size: 30rpx;
+  color: #333333;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.picker-coupon-desc {
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 1.5;
+}
+
+.picker-check-icon {
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #F75050 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.picker-coupon-card.no-coupon {
+  justify-content: center;
+  background: #F7F8FA;
+  border: 2rpx dashed #E5E5E5;
+}
+
+.picker-coupon-card.no-coupon.selected {
+  background: linear-gradient(135deg, #FFF0F0 0%, #FFFFFF 100%);
+  border-color: #E4393C;
+}
+
+.no-coupon-text {
+  font-size: 28rpx;
+  color: #666666;
+  font-weight: 500;
+}
+
+/* 口令兑换弹窗 */
+.exchange-coupon-container {
+  width: 600rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.exchange-header {
+  padding: 48rpx 40rpx 32rpx;
+  background: linear-gradient(180deg, #FFF5F5 0%, #FFFFFF 100%);
+  text-align: center;
+  position: relative;
+}
+
+.exchange-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80rpx;
+  height: 6rpx;
+  background: linear-gradient(90deg, #E4393C 0%, #F75050 100%);
+  border-radius: 3rpx;
+}
+
+.exchange-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 12rpx;
+}
+
+.exchange-subtitle {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.exchange-form {
+  padding: 40rpx 40rpx 24rpx;
+}
+
+.exchange-actions {
+  display: flex;
+  padding: 0 40rpx 40rpx;
+  gap: 24rpx;
+}
+
+.exchange-btn {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.exchange-btn.cancel {
+  background: #F7F8FA;
+  color: #666666;
+}
+
+.exchange-btn.cancel:active {
+  background: #E5E5E5;
+}
+
+.exchange-btn.confirm {
+  background: linear-gradient(135deg, #E4393C 0%, #F75050 100%);
+  color: #FFFFFF;
+  box-shadow: 0 8rpx 20rpx rgba(228, 57, 60, 0.3);
+}
+
+.exchange-btn.confirm:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.4);
+}

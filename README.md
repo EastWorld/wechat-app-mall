@@ -41,6 +41,7 @@
 - [朋友圈发圈素材小程序](https://github.com/gooking/moments)  / [码云镜像](https://gitee.com/javazj/moments) / [GitCode镜像](https://gitcode.com/gooking2/moments)
 - [小红书企业微展](https://github.com/gooking/xhs-qiyeweizan)  / [码云镜像](https://gitee.com/javazj/xhs-qiyeweizan) / [GitCode镜像](https://gitcode.com/gooking2/xhs-qiyeweizan)
 - [旧物回收、废品回收](https://github.com/gooking/recycle)  / [码云镜像](https://gitee.com/javazj/recycle) / [GitCode镜像](https://gitcode.com/gooking2/recycle)
+- [会员卡（饭卡）储值消费系统](https://github.com/gooking/mealcard)  / [码云镜像](https://gitee.com/javazj/mealcard) / [GitCode镜像](https://gitcode.com/gooking2/mealcard)
 
 ## 联系作者
 

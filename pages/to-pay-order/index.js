@@ -77,7 +77,19 @@ Page({
       }
       return value;
     },
-    cardId: '0' // 使用的次卡ID
+    cardId: '0', // 使用的次卡ID
+    
+    // 优惠券选择弹窗相关
+    couponPickerShow: false,
+    couponPickerShopShow: false,
+    currentShopIndex: -1,
+    currentShopCoupons: [],
+    currentShopSelectedCoupon: null,
+    
+    // 口令兑换相关
+    exchangeCouponShow: false,
+    exchangeNumber: '',
+    exchangePwd: ''
   },
   onShow() {
     if (this.data.pageIsEnd) {
@@ -986,5 +998,161 @@ Page({
     this.setData({
       extRequiredMap
     })
+  },
+  
+  // 显示优惠券选择弹窗
+  showCouponPicker() {
+    this.setData({
+      couponPickerShow: true
+    })
+  },
+  
+  // 关闭优惠券选择弹窗
+  closeCouponPicker() {
+    this.setData({
+      couponPickerShow: false
+    })
+  },
+  
+  // 选择优惠券
+  selectCoupon(e) {
+    const index = e.currentTarget.dataset.index
+    const selectedCoupon = this.data.coupons[index]
+    this.setData({
+      curCoupon: selectedCoupon,
+      curCouponShowText: selectedCoupon.nameExt,
+      couponPickerShow: false
+    })
+    this.processYunfei()
+  },
+  
+  // 选择不使用优惠券
+  selectNoCoupon() {
+    this.setData({
+      curCoupon: null,
+      curCouponShowText: '请选择使用优惠券',
+      couponPickerShow: false
+    })
+    this.processYunfei()
+  },
+  
+  // 显示门店优惠券选择弹窗
+  showCouponPickerShop(e) {
+    const shopIndex = e.currentTarget.dataset.sidx
+    const shopList = this.data.shopList
+    const currentShop = shopList[shopIndex]
+    
+    this.setData({
+      currentShopIndex: shopIndex,
+      currentShopCoupons: currentShop.coupons || [],
+      currentShopSelectedCoupon: currentShop.curCoupon || null,
+      couponPickerShopShow: true
+    })
+  },
+  
+  // 关闭门店优惠券选择弹窗
+  closeCouponPickerShop() {
+    this.setData({
+      couponPickerShopShow: false
+    })
+  },
+  
+  // 选择门店优惠券
+  selectCouponShop(e) {
+    const index = e.currentTarget.dataset.index
+    const selectedCoupon = this.data.currentShopCoupons[index]
+    const shopIndex = this.data.currentShopIndex
+    const shopList = this.data.shopList
+    const curshop = shopList[shopIndex]
+    
+    curshop.curCoupon = selectedCoupon
+    curshop.curCouponShowText = selectedCoupon.nameExt
+    shopList.splice(shopIndex, 1, curshop)
+    
+    this.setData({
+      shopList,
+      couponPickerShopShow: false
+    })
+    this.processYunfei()
+  },
+  
+  // 选择不使用门店优惠券
+  selectNoCouponShop() {
+    const shopIndex = this.data.currentShopIndex
+    const shopList = this.data.shopList
+    const curshop = shopList[shopIndex]
+    
+    curshop.curCoupon = null
+    curshop.curCouponShowText = '请选择使用优惠券'
+    shopList.splice(shopIndex, 1, curshop)
+    
+    this.setData({
+      shopList,
+      couponPickerShopShow: false
+    })
+    this.processYunfei()
+  },
+  
+  // 显示口令兑换弹窗
+  showExchangeCoupon() {
+    this.setData({
+      exchangeCouponShow: true,
+      exchangeNumber: '',
+      exchangePwd: ''
+    })
+  },
+  
+  // 关闭口令兑换弹窗
+  closeExchangeCoupon() {
+    this.setData({
+      exchangeCouponShow: false
+    })
+  },
+  
+  // 确认兑换优惠券
+  async confirmExchangeCoupon() {
+    if (!this.data.exchangeNumber) {
+      wx.showToast({
+        title: '请输入券号',
+        icon: 'none'
+      })
+      return
+    }
+    if (!this.data.exchangePwd) {
+      wx.showToast({
+        title: '请输入密码',
+        icon: 'none'
+      })
+      return
+    }
+    
+    wx.showLoading({
+      title: '兑换中...',
+    })
+    
+    const res = await WXAPI.exchangeCoupons(
+      wx.getStorageSync('token'), 
+      this.data.exchangeNumber, 
+      this.data.exchangePwd
+    )
+    
+    wx.hideLoading()
+    
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+    } else {
+      wx.showToast({
+        title: '兑换成功',
+        icon: 'success'
+      })
+      this.setData({
+        exchangeCouponShow: false
+      })
+      // 重新加载优惠券列表
+      this.processYunfei()
+    }
   },
 })

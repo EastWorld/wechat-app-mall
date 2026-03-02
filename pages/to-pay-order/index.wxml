@@ -57,15 +57,18 @@
         </view>
       </van-card>
       <view class="peisong-way" hidden="{{ shop.hasNoCoupons }}">
-        <view class="row-box" style="border-bottom:none;">
-          <view class="row-label t">使用优惠券</view>
-        </view>
-        <picker data-sidx="{{ shopIndex }}" bindchange="bindChangeCouponShop" range="{{ shop.coupons }}" range-key="nameExt">
-          <view class="row-box" style="border-bottom:none;">      
-            <view class="row-label">{{ shop.curCouponShowText }}</view>
-            <image class="next" src="/images/icon/next.png"></image>
+        <view class="coupon-selector" bindtap="showCouponPickerShop" data-sidx="{{ shopIndex }}">
+          <view class="coupon-selector-left">
+            <view class="coupon-icon">🎫</view>
+            <view class="coupon-text-wrapper">
+              <view class="coupon-label">优惠券</view>
+              <view class="coupon-selected-text">{{ shop.curCouponShowText }}</view>
+            </view>
           </view>
-        </picker>
+          <view class="coupon-selector-right">
+            <view class="coupon-arrow">›</view>
+          </view>
+        </view>
       </view>
     </van-cell-group>
   </block>
@@ -224,16 +227,24 @@
         bind:click-input="dateStartclick"
       />
     </view>
-    <view class="peisong-way" hidden="{{hasNoCoupons}}">
-      <view class="row-box" style="border-bottom:none;">
-        <view class="row-label t">使用优惠券</view>
-      </view>
-      <picker bindchange="bindChangeCoupon" range="{{coupons}}" range-key="nameExt">
-        <view class="row-box" style="border-bottom:none;">      
-          <view class="row-label">{{curCouponShowText}}</view>
-          <image class="next" src="/images/icon/next.png"></image>
+    <view class="peisong-way">
+      <view class="coupon-selector" bindtap="showCouponPicker" hidden="{{hasNoCoupons}}">
+        <view class="coupon-selector-left">
+          <view class="coupon-icon">🎫</view>
+          <view class="coupon-text-wrapper">
+            <view class="coupon-label">优惠券</view>
+            <view class="coupon-selected-text">{{curCouponShowText}}</view>
+          </view>
         </view>
-      </picker>
+        <view class="coupon-selector-right">
+          <view class="coupon-arrow">›</view>
+        </view>
+      </view>
+      <view class="coupon-exchange-tip" bindtap="showExchangeCoupon">
+        <view class="tip-icon">💰</view>
+        <view class="tip-text">没有优惠券？点击使用口令兑换</view>
+        <view class="tip-arrow">›</view>
+      </view>
     </view>
   </view>
 
@@ -327,3 +338,105 @@
   bind:cancel="paymentCancel"
   bind:ok="paymentOk"
 />
+
+<!-- 优惠券选择弹窗 -->
+<van-popup show="{{ couponPickerShow }}" position="bottom" round bind:close="closeCouponPicker">
+  <view class="coupon-picker-container">
+    <view class="coupon-picker-header">
+      <view class="picker-title">选择优惠券</view>
+      <view class="picker-close" bindtap="closeCouponPicker">✕</view>
+    </view>
+    <scroll-view class="coupon-picker-list" scroll-y>
+      <view class="coupon-picker-item" wx:for="{{coupons}}" wx:key="id" bindtap="selectCoupon" data-index="{{index}}">
+        <view class="picker-coupon-card {{ curCoupon && curCoupon.id == item.id ? 'selected' : '' }}">
+          <view class="picker-coupon-left">
+            <view class="picker-amount-wrapper">
+              <text class="picker-currency" wx:if="{{ item.moneyType == 0 }}">¥</text>
+              <text class="picker-amount">{{ item.moneyType == 0 ? item.money : item.money }}</text>
+              <text class="picker-percent" wx:if="{{ item.moneyType == 1 }}">折</text>
+            </view>
+            <view class="picker-threshold">满{{item.moneyHreshold}}元</view>
+          </view>
+          <view class="picker-coupon-right">
+            <view class="picker-coupon-name">{{item.name}}</view>
+            <view class="picker-coupon-desc">{{item.nameExt}}</view>
+          </view>
+          <view class="picker-check-icon" wx:if="{{ curCoupon && curCoupon.id == item.id }}">✓</view>
+        </view>
+      </view>
+      <view class="coupon-picker-item" bindtap="selectNoCoupon">
+        <view class="picker-coupon-card no-coupon {{ !curCoupon ? 'selected' : '' }}">
+          <view class="no-coupon-text">不使用优惠券</view>
+          <view class="picker-check-icon" wx:if="{{ !curCoupon }}">✓</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</van-popup>
+
+<!-- 门店优惠券选择弹窗 -->
+<van-popup show="{{ couponPickerShopShow }}" position="bottom" round bind:close="closeCouponPickerShop">
+  <view class="coupon-picker-container">
+    <view class="coupon-picker-header">
+      <view class="picker-title">选择优惠券</view>
+      <view class="picker-close" bindtap="closeCouponPickerShop">✕</view>
+    </view>
+    <scroll-view class="coupon-picker-list" scroll-y>
+      <view class="coupon-picker-item" wx:for="{{currentShopCoupons}}" wx:key="id" bindtap="selectCouponShop" data-index="{{index}}">
+        <view class="picker-coupon-card {{ currentShopSelectedCoupon && currentShopSelectedCoupon.id == item.id ? 'selected' : '' }}">
+          <view class="picker-coupon-left">
+            <view class="picker-amount-wrapper">
+              <text class="picker-currency" wx:if="{{ item.moneyType == 0 }}">¥</text>
+              <text class="picker-amount">{{ item.moneyType == 0 ? item.money : item.money }}</text>
+              <text class="picker-percent" wx:if="{{ item.moneyType == 1 }}">折</text>
+            </view>
+            <view class="picker-threshold">满{{item.moneyHreshold}}元</view>
+          </view>
+          <view class="picker-coupon-right">
+            <view class="picker-coupon-name">{{item.name}}</view>
+            <view class="picker-coupon-desc">{{item.nameExt}}</view>
+          </view>
+          <view class="picker-check-icon" wx:if="{{ currentShopSelectedCoupon && currentShopSelectedCoupon.id == item.id }}">✓</view>
+        </view>
+      </view>
+      <view class="coupon-picker-item" bindtap="selectNoCouponShop">
+        <view class="picker-coupon-card no-coupon {{ !currentShopSelectedCoupon ? 'selected' : '' }}">
+          <view class="no-coupon-text">不使用优惠券</view>
+          <view class="picker-check-icon" wx:if="{{ !currentShopSelectedCoupon }}">✓</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</van-popup>
+
+<!-- 口令兑换弹窗 -->
+<van-popup show="{{ exchangeCouponShow }}" position="center" round bind:close="closeExchangeCoupon">
+  <view class="exchange-coupon-container">
+    <view class="exchange-header">
+      <view class="exchange-title">口令兑换优惠券</view>
+      <view class="exchange-subtitle">输入券号和密码即可兑换</view>
+    </view>
+    <view class="exchange-form">
+      <van-field
+        label="券号"
+        model:value="{{ exchangeNumber }}"
+        clearable
+        placeholder="请输入券号"
+        border="{{ false }}"
+        custom-style="background: #F7F8FA; border-radius: 12rpx; margin-bottom: 24rpx;"
+      />
+      <van-field
+        label="密码"
+        model:value="{{ exchangePwd }}"
+        clearable
+        placeholder="请输入密码"
+        border="{{ false }}"
+        custom-style="background: #F7F8FA; border-radius: 12rpx;"
+      />
+    </view>
+    <view class="exchange-actions">
+      <view class="exchange-btn cancel" bindtap="closeExchangeCoupon">取消</view>
+      <view class="exchange-btn confirm" bindtap="confirmExchangeCoupon">立即兑换</view>
+    </view>
+  </view>
+</van-popup>

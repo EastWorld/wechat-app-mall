@@ -36,9 +36,9 @@ module.exports = {
       </view>
     </swiper-item>
   </swiper>
-  <view wx:if="{{goodsDynamic && show_buy_dynamic == '1' }}" class="jd-buy-dynamic">
+  <view wx:if="{{ goodsDynamicV2 && show_buy_dynamic == '1' }}" class="jd-buy-dynamic">
     <swiper class="jd-dynamic-swiper" autoplay circular vertical>
-      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
+      <navigator wx:for="{{ goodsDynamicV2 }}" wx:key="index" url="{{ goodsDetailPage.url(item) }}">
         <swiper-item>
           <view class="jd-dynamic-item">
             <image mode="aspectFill" src="{{item.avatarUrl}}"></image>

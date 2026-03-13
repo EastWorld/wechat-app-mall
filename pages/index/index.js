@@ -216,7 +216,7 @@ Page({
     })
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge()
-    this.goodsDynamic()
+    this.goodsDynamicV2()
     this.miaoshaGoods()
     const refreshIndex = wx.getStorageSync('refreshIndex')
     if (refreshIndex) {
@@ -224,11 +224,13 @@ Page({
       wx.removeStorageSync('refreshIndex')
     }
   },
-  async goodsDynamic(){
-    const res = await WXAPI.goodsDynamic(0)
+  async goodsDynamicV2(){
+    const res = await WXAPI.goodsDynamicV2({
+      type: 0
+    })
     if (res.code == 0) {
       this.setData({
-        goodsDynamic: res.data
+        goodsDynamicV2: res.data.result
       })
     }
   },

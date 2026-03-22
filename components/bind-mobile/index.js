@@ -11,6 +11,8 @@ Component({
     title: String,
     alarmText: String,
     show: Boolean,
+    btnTitle: String,
+    successText: String,
   },
 
   /**
@@ -87,7 +89,7 @@ Component({
       }
       if (res.code == 0) {
         wx.showToast({
-          title: '绑定成功'
+          title: this.data.successText || '绑定成功'
         })
         this.data.mobile = res.data
         this.triggerEvent('ok', this.data)

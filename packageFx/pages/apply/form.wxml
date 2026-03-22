@@ -91,3 +91,12 @@
     <text class="tips-text">提交申请后，我们将尽快审核</text>
   </view>
 </view>
+<bind-mobile
+  title="登录后申请"
+  btnTitle="立即登录"
+  successText="登录成功"
+  alarmText="登录之后，申请成为分销商"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>

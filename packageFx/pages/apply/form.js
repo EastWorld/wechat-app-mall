@@ -17,17 +17,29 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    const _this = this
-    WXAPI.userDetail(wx.getStorageSync('token')).then(res => {
-      if (res.code === 0) {
-        _this.setData({
-          userDetail: res.data
-        })
-      }
-    })
+  onShow() {
+    this.userDetail()
   },
-  bindSave(){
+  async userDetail() {
+    // https://www.yuque.com/apifm/nu0f75/zgf8pu
+    wx.showLoading({
+      title: '',
+    })
+    const res = await WXAPI.userDetail(wx.getStorageSync('token'))
+    wx.hideLoading()
+    if (res.code == 0) {
+      this.setData({
+        userDetail: res.data
+      })
+    }
+  },
+  async bindSave(){
+    if (this.data.userDetail && !this.data.userDetail.base.mobile) {
+      this.setData({
+        bindMobileShow: true
+      })
+      return
+    }
     const fx_subscribe_ids = wx.getStorageSync('fx_subscribe_ids')
     if (fx_subscribe_ids) {
       wx.requestSubscribeMessage({
@@ -74,6 +86,18 @@ Page({
       wx.redirectTo({
         url: "/packageFx/pages/apply/index"
       })
+    })
+  },
+  bindMobileOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      bindMobileShow: false
+    })
+    this.userDetail()
+  },
+  bindMobileCancel() {
+    this.setData({
+      bindMobileShow: false
     })
   },
 })

@@ -104,9 +104,8 @@ page {
 }
 
 .title {
-  font-size: 48rpx;
+  font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
   margin-bottom: 16rpx;
   text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
   letter-spacing: 2rpx;

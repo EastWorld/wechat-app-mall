@@ -13,7 +13,7 @@
       text="{{ alarmText }}"
     />
     <view class="btn-box">
-      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
+      <van-button type="primary" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">{{ btnTitle || '立即绑定' }}</van-button>
     </view>
   </view>
 </van-popup>

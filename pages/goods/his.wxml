@@ -66,10 +66,10 @@
           
           <!-- 价格区域 -->
           <view class="price-section">
-            <view class="price-wrapper">
+            <!-- <view class="price-wrapper">
               <text class="price-symbol">¥</text>
               <text class="price-value">{{item.minPrice || '0.00'}}</text>
-            </view>
+            </view> -->
             <view class="sales-info" wx:if="{{item.numberSells}}">
               <text>{{item.numberSells}}人付款</text>
             </view>

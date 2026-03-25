@@ -2432,13 +2432,13 @@ module.exports = {
     return request('/userBank/banks', true, 'get');
   },
   userBankInfo: function userBankInfo(token) {
-    return request('/userBank/info', true, 'get', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/userBank/info', false, 'get', { token: token });
   },
   userBankBind: function userBankBind(data) {
-    return request('/userBank/bind', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/userBank/bind', false, 'post', data);
   },
   userBankUnBind: function userBankUnBind(token) {
-    return request('/userBank/unbind', true, 'post', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/userBank/unbind', false, 'post', { token: token });
   },
   // 京东VOP相关接口
   jdvopGoodsList: function jdvopGoodsList(data) {
@@ -3291,6 +3291,75 @@ module.exports = {
   },
   volcesArkChatCompletionResult: function volcesArkChatCompletionResult(key) {
     return request(COMMON_BASE_URL + subDomain + '/volcesArk/result', false, 'get', { key: key });
+  },
+  fsmSetting: function fsmSetting() {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/setting', false, 'get');
+  },
+  fsmDeviceModels: function fsmDeviceModels() {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/deviceModels', false, 'get');
+  },
+  fsmSaleOrderSubmit: function fsmSaleOrderSubmit(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/saleOrder/submit', false, 'post', data);
+  },
+  fsmSaleOrderLeftNumber: function fsmSaleOrderLeftNumber(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/saleOrder/leftNumber', false, 'get', data);
+  },
+  fsmSaleOrderList: function fsmSaleOrderList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/saleOrder/list', false, 'post', data);
+  },
+  fsmSaleOrderInfo: function fsmSaleOrderInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/saleOrder/info', false, 'get', data);
+  },
+  fsmCheck: function fsmCheck(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/check', false, 'post', data);
+  },
+  installOrderSubmit: function installOrderSubmit(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/installOrder/submit', false, 'post', data);
+  },
+  installOrderList: function installOrderList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/installOrder/list', false, 'post', data);
+  },
+  installOrderInfo: function installOrderInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/installOrder/info', false, 'get', data);
+  },
+  fsmReadProduct: function fsmReadProduct(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/readProduct', false, 'get', data);
+  },
+  fsmRepairSubmit: function fsmRepairSubmit(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/submit', false, 'post', data);
+  },
+  fsmRepairList: function fsmRepairList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/list', false, 'post', data);
+  },
+  fsmRepairInfo: function fsmRepairInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/info', false, 'get', data);
+  },
+  fsmRepairClose: function fsmRepairClose(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/close', false, 'post', data);
+  },
+  fsmRepairAdditionalInformation: function fsmRepairAdditionalInformation(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/additionalInformation', false, 'post', data);
+  },
+  fsmRepairUpload: function fsmRepairUpload(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/upload', false, 'post', data);
+  },
+  compressImage: function compressImage(src, quality) {
+    // https://developers.weixin.qq.com/miniprogram/dev/api/media/image/wx.compressImage.html
+    return new Promise(function (resolve, reject) {
+      wx.compressImage({
+        src: src,
+        quality: quality,
+        success: function success(res) {
+          resolve(res);
+        },
+        fail: function fail(error) {
+          reject(error);
+        }
+      });
+    });
+  },
+  fsmRepairReturnFactory: function fsmRepairReturnFactory(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsmRepair/returnFactory', false, 'post', data);
   }
 };
 

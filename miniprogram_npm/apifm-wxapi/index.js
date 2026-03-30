@@ -552,10 +552,10 @@ module.exports = {
     return request('/user/m/register', true, 'post', data);
   },
   bannerTypes: function bannerTypes() {
-    return request('/banner/types', true, 'get');
+    return request(COMMON_BASE_URL + subDomain + '/banner/types', false, 'get');
   },
   banners: function banners(data) {
-    return request('/banner/list', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/banner/list', false, 'get', data);
   },
   goodsCategory: function goodsCategory() {
     return request('/shop/goods/category/all', true, 'get');
@@ -2333,10 +2333,10 @@ module.exports = {
     return request('/user/paypwd/reset', true, 'post', { mobile: mobile, code: code, pwd: pwd });
   },
   adPosition: function adPosition(key) {
-    return request('/site/adPosition/info', true, 'get', { key: key });
+    return request(COMMON_BASE_URL + subDomain + '/site/adPosition/info', false, 'get', { key: key });
   },
   adPositionBatch: function adPositionBatch(keys) {
-    return request('/site/adPosition/batch', true, 'get', { keys: keys });
+    return request(COMMON_BASE_URL + subDomain + '/site/adPosition/batch', false, 'get', { keys: keys });
   },
   momentsCategory: function momentsCategory() {
     return request('/momentsCategory/list', true, 'get');
@@ -2429,7 +2429,7 @@ module.exports = {
     return request('/tourJourney/list', true, 'get', { type: type, refId: refId });
   },
   userBankSelectBanks: function userBankSelectBanks() {
-    return request('/userBank/banks', true, 'get');
+    return request(COMMON_BASE_URL + subDomain + '/userBank/banks', false, 'get');
   },
   userBankInfo: function userBankInfo(token) {
     return request(COMMON_BASE_URL + subDomain + '/userBank/info', false, 'get', { token: token });
@@ -2847,22 +2847,22 @@ module.exports = {
   },
   // 支付宝小程序
   aliappUserRegister: function aliappUserRegister(data) {
-    return request('/user/aliapp/register', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/aliapp/register', false, 'post', data);
   },
   aliappUserLogin: function aliappUserLogin(data) {
-    return request('/user/aliapp/login', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/aliapp/login', false, 'post', data);
   },
   aliappUserAuthorize: function aliappUserAuthorize(data) {
-    return request('/user/aliapp/authorize', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/aliapp/authorize', false, 'post', data);
   },
   aliappWebUserAuthorize: function aliappWebUserAuthorize(data) {
     return request('/user/aliappweb/authorize', true, 'post', data);
   },
   aliappQrcode: function aliappQrcode(content) {
-    return request('/user/aliapp/qrcode', true, 'post', { content: content });
+    return request(COMMON_BASE_URL + subDomain + '/user/aliapp/qrcode', false, 'post', { content: content });
   },
   aliappMiniappBindMobile: function aliappMiniappBindMobile(data) {
-    return request('/user/aliapp/bindMobile', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/aliapp/bindMobile', false, 'post', data);
   },
   aliappBindMobile: function aliappBindMobile(data) {
     return request('/user/aliapp/bindMobile', true, 'post', data);
@@ -3321,6 +3321,21 @@ module.exports = {
   },
   installOrderInfo: function installOrderInfo(data) {
     return request(COMMON_BASE_URL + subDomain + '/fsm/installOrder/info', false, 'get', data);
+  },
+  installOrderShareBind: function installOrderShareBind(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/installOrder/shareBind', false, 'post', data);
+  },
+  installOrderBind: function installOrderBind(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/installOrder/bind', false, 'post', data);
+  },
+  fsmInstallOrderBindList: function fsmInstallOrderBindList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/fsmInstallOrderBind/list', false, 'post', data);
+  },
+  fsmInstallOrderBindExtendWarranty: function fsmInstallOrderBindExtendWarranty(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/fsmInstallOrderBind/extendWarranty', false, 'post', data);
+  },
+  fsmInstallOrderSubsidyRecord: function fsmInstallOrderSubsidyRecord(data) {
+    return request(COMMON_BASE_URL + subDomain + '/fsm/fsmInstallOrderSubsidyRecord/list', false, 'post', data);
   },
   fsmReadProduct: function fsmReadProduct(data) {
     return request(COMMON_BASE_URL + subDomain + '/fsm/readProduct', false, 'get', data);

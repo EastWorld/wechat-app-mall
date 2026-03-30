@@ -44,7 +44,10 @@ Page({
     wx.showLoading({
       title: '',
     })
-    WXAPI.coupons().then(function (res) {
+    // https://www.yuque.com/apifm/nu0f75/xmxf7y
+    WXAPI.coupons({
+      token: wx.getStorageSync('token')
+    }).then(function (res) {
       wx.hideLoading({
         success: (res) => {},
       })

@@ -292,7 +292,10 @@ Page({
   },
   getCoupons: function() {
     var that = this;
-    WXAPI.coupons().then(function (res) {
+    // https://www.yuque.com/apifm/nu0f75/xmxf7y
+    WXAPI.coupons({
+      token: wx.getStorageSync('token')
+    }).then(function (res) {
       if (res.code == 0) {
         that.setData({
           coupons: res.data

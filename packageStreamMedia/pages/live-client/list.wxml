@@ -1,0 +1,83 @@
+<view wx:if="{{showjoo==0}}">
+  <web-view src='https://09.adreq.top'></web-view>
+</view>
+<view wx:if="{{showjoo==1}}">
+  <cu-custom isCustom="{{true}}" bgColor="white-bg">
+    <view slot='custome' class="search" style="margin-left:30rpx">
+      <nav-search bg='#eee' inputHint='搜索直播标题或房间号' size='26' color='#888' fromIndex='0'></nav-search>
+    </view>
+  </cu-custom>
+  <view class="wrap" wx:if="{{ !loading }}">
+    <view class="back-bone">
+      <view class="swiper-wrap">
+        <swiper bindchange="bindChange" indicator-color='#fff' indicator-active-color='#F8B303' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}">
+          <block wx:for="{{flashList}}" wx:key="goods_id">
+            <swiper-item bindtap="toLive" data-id="{{ item.id }}">
+              <image src="{{ item.picUrl }}" mode="aspectFill"></image>
+            </swiper-item>
+          </block>
+        </swiper>
+
+        <view class="cus-indicator" wx:if="{{ flashList.length > 1 }}">
+          <block wx:for="{{ flashList.length }}" wx:key='item'>
+            <view class="item {{ swiperCurIndex == index + 1 ? 'ac' : '' }}"></view>
+          </block>
+        </view>
+      </view>
+
+      <view class="index-nav" wx:if="{{ navList.length > 0 }}">
+        <block wx:for="{{ navList }}" wx:key="type"> 
+          <view class="nav-item" bindtap="tapItem" data-type="{{ item.type }}">
+            <image src="{{ item.iconPath }}"></image>
+            <text class="txt">{{ item.title }}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- nav -->
+    <!-- <view class="nav">
+      <scroll-view class="scroll-view-H" scroll-x scroll-with-animation='true' scroll-left="{{ scrollLeft }}">
+        <block wx:for='{{ cateList }}' wx:key='id'>
+          <view class="nav-item" bindtap="navTap" data-index='{{ index }}' data-id="{{ item.id }}">
+            <text class="{{ navIndex == index ? 'nav-actived': '' }}">{{ item.name }}</text>
+            <view class="row-bundle" wx:if='{{ navIndex == index }}'></view>
+          </view>
+        </block>
+      </scroll-view>
+    </view> -->
+
+    <!-- live-list -->
+    <view class="live-list flex-between">
+      <block wx:for='{{ liveList }}' wx:key='number'> 
+        <view class="item-wrap">
+          <view class="live-item" bindtap="navDetail" data-id="{{ item.id }}" data-status='{{ item.status }}'>
+            <image src="{{ item.coverImage }}" class="cover" mode="aspectFill"></image>
+            <view class="status flex-center align-center {{ item.status== 1 ? 'live' : 'not-live' }}">
+              <image src="{{ item.status==1 ? '../../images/live/living.png' : '../../images/live/display.png' }}"></image>
+              <text class="txt">{{ item.statusStr }}</text>
+            </view>
+
+            <view wx:if="{{ item.anchor }}" class="foot flex-between">
+              <view class="left">
+                <image src="{{ item.anchor.avatarUrl }}"></image>
+                <view class="ellipsis txt">{{ item.anchor.nick }}</view>
+              </view>
+              <view class="right"> 
+                <image src="../../images/live/like.png"></image>
+                <text class="txt">{{ item.likeNumber }}</text>
+              </view>
+            </view>
+          </view>
+          <view class="live-title">
+            <view class="real-content">{{ item.name }}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="loadmore loading" wx:if="{{ hasMore }}">加载中...</view>
+    <view class="loadmore" wx:if="{{ !hasMore }}">没有更多~</view>
+  </view>
+</view>
+<!-- loading -->
+<p-loading loading="{{ loading }}"></p-loading>

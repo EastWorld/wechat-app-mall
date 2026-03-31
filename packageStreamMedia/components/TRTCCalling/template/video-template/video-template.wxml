@@ -1,0 +1,47 @@
+<template name="video-template">
+	<live-pusher
+		class="pusher-video"
+		id="pusher"
+		autopush="{{true}}"
+		url="{{pusherConfig.pushUrl}}"
+		enable-camera="{{pusherConfig.enableCamera}}"
+		audio-volume-type="voicecall"
+		beauty="5"
+		enable-mic="{{true}}"
+		bindstatechange="_pusherStateChangeHandler"
+		bindaudiovolumenotify="_pusherAudioVolumeNotify"
+	/>
+	<view wx:for="{{streamList}}" wx:key="streamID" class="view-container player-container">
+		<live-player
+			class="{{'player'+streamList.length}}"
+			id="{{item.streamID}}"
+			data-userid="{{item.userID}}"
+			data-streamid="{{item.streamID}}"
+			data-streamtype="{{item.streamType}}"
+			src= "{{item.src}}"
+			mode= "RTC"
+			object-fit="fillCrop"
+			autoplay= "{{true}}"
+			mute-video="{{item.muteVideo}}"
+			mute-audio="{{item.muteAudio}}"
+			min-cache= "0.2"
+			max-cache= "0.8"
+			sound-mode= "{{soundMode}}"
+			auto-pause-if-navigate= "{{item.autoPauseIfNavigate}}"
+			auto-pause-if-open-native= "{{item.autoPauseIfOpenNative}}"
+			bindstatechange="_playerStateChange"
+			bindaudiovolumenotify  ="_playerAudioVolumeNotify"
+		/>
+	</view>
+	<view class="handle-btns">
+		<view class="btn-normal" bindtap="_toggleAudio">
+			<image class="btn-image" src="{{pusherConfig.enableMic? './static/audio-true.png': './static/audio-false.png'}} "></image>
+		</view>
+		<view class="btn-hangup" bindtap="_hangUp">
+			<image class="btn-image" src="./static/hangup.png"></image>
+		</view>
+		<view class="btn-normal" bindtap="_toggleSoundMode">
+			<image class="btn-image" src="{{soundMode === 'ear' ? './static/phone.png': './static/speaker-true.png'}} "></image>
+		</view>
+	</view>
+</template>

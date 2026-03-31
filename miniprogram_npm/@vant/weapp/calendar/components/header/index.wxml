@@ -1,0 +1,16 @@
+<view class="van-calendar__header">
+  <block wx:if="{{ showTitle }}">
+    <view class="van-calendar__header-title"><slot name="title"></slot></view>
+    <view class="van-calendar__header-title">{{ title }}</view>
+  </block>
+
+  <view wx:if="{{ showSubtitle }}" class="van-calendar__header-subtitle" bind:tap="onClickSubtitle">
+    {{ subtitle }}
+  </view>
+
+  <view class="van-calendar__weekdays">
+    <view wx:for="{{ weekdays }}" wx:key="index" class="van-calendar__weekday">
+      {{ item }}
+    </view>
+  </view>
+</view>

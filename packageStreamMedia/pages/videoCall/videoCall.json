@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "TRTCCalling": "../../components/TRTCCalling/TRTCCalling"
+  },
+  "navigationStyle": "custom",
+  "disableScroll": true
+}

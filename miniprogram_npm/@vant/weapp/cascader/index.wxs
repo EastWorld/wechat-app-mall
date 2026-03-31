@@ -1,0 +1,24 @@
+var utils = require('../wxs/utils.wxs');
+var style = require('../wxs/style.wxs');
+
+function isSelected(tab, valueKey, option) {
+  return tab.selected && tab.selected[valueKey] === option[valueKey]
+}
+
+function optionClass(tab, valueKey, option) {
+  return utils.bem('cascader__option', { selected: isSelected(tab, valueKey, option), disabled: option.disabled })
+}
+
+function optionStyle(data) {
+  var color = data.option.color || (isSelected(data.tab, data.valueKey, data.option) ? data.activeColor : undefined);
+  return style({
+    color
+  });
+}
+
+
+module.exports = {
+  isSelected: isSelected,
+  optionClass: optionClass,
+  optionStyle: optionStyle,
+};

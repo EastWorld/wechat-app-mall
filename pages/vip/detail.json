@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "会员等级详情",
+  "usingComponents": {
+    "vip-success": "/components/vip-success/index"
+  }
+}

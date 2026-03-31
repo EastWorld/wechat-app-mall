@@ -1,18 +1,9 @@
 const app = getApp();
-const WxParse = require('../../wxParse/wxParse.js');
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
   
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     var that = this;
     WXAPI.noticeDetail(options.id).then(function (res) {
@@ -20,57 +11,32 @@ Page({
         that.setData({
           notice: res.data
         });
-        WxParse.wxParse('article', 'html', res.data.content, that, 5);
       }
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  onShareAppMessage() {
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  onShareTimeline() {    
+    return {
+      title: this.data.notice.title,
+      query: 'id=' + this.data.notice.id,
+      imageUrl: wx.getStorageSync('share_pic')
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  subscribe() {
+    const notice_subscribe_ids = wx.getStorageSync('notice_subscribe_ids')
+    if (notice_subscribe_ids) {
+      wx.requestSubscribeMessage({
+        tmplIds: notice_subscribe_ids.split(','),
+        success(res) {
+          wx.showToast({
+            title: '订阅成功',
+          })
+        },
+        fail(err) {
+          console.error(err)
+        },
+      })
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

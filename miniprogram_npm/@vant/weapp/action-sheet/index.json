@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-icon": "../icon/index",
+    "van-popup": "../popup/index",
+    "van-loading": "../loading/index"
+  }
+}

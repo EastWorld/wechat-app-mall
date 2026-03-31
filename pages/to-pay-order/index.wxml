@@ -1,80 +1,442 @@
-<view class="container">
-     <form bindsubmit="createOrder" report-submit="true">
-     <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
-        <view class="add-address" hidden="{{curAddressData}}">
-            <view class="title" bindtap="addAddress">新增收货地址</view>
+<block wx:if="{{ bindMobileStatus == 2 }}">
+  <view class="bind-mobile-container">
+    <view class="bind-mobile-card">
+      <view class="card-icon">
+        <view class="icon-shield">
+          <view class="shield-inner"></view>
         </view>
-        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
-            <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
-            <view class="addr-text">{{curAddressData.address}}</view>
+      </view>
+      <view class="card-title">请先登录</view>
+      <view class="card-subtitle">为了保障您的交易安全和订单信息准确</view>
+      <view class="feature-list">
+        <view class="feature-item">
+          <view class="feature-dot"></view>
+          <text class="feature-text">接收订单物流信息</text>
         </view>
-     </view>
-     <view class="goods-list">
-        <view class="list-title">商品列表</view>
-        <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
-            <view class="img-box">
-                <image src="{{item.pic}}" class="img" />
-            </view>
-            <view class="text-box">
-                <view class="arow arow01">
-                    <view class="goods-name">{{item.name}}</view>
-                    <view class="goods-price">¥ {{item.price}}</view>
-                </view>
-                <view class="arow">
-                    <view class="goods-label">{{item.label}}</view>
-                    <view class="goods-num">x {{item.number}}</view>
-                </view>
-            </view>
+        <view class="feature-item">
+          <view class="feature-dot"></view>
+          <text class="feature-text">保障账户资金安全</text>
         </view>
-     </view>
-     <view class="peisong-way">
-        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
-            <view class="row-label">配送方式</view>
-            <view class="right-text" wx:if="{{yunPrice > 0}}">快递</view>
-            <view class="right-text" wx:if="{{yunPrice == 0}}">包邮</view>
+        <view class="feature-item">
+          <view class="feature-dot"></view>
+          <text class="feature-text">提供专属售后服务</text>
         </view>
-        <view class="row-box">
-            <view class="row-label">备注</view>
-            <view class="right-text">
-                <input name="remark" type="text" class="liuyan" placeholder="如需备注请输入" />
-            </view>
-        </view>
-     </view>
-     <view class="peisong-way" hidden="{{hasNoCoupons}}">
-        <view class="row-box" style="border-bottom:none;">
-            <view class="row-label">选择使用优惠券</view>
-        </view>
-        <view class="row-box" style="border-bottom:none;">
-          <picker-view indicator-style="height: 50rpx;" style="width: 100%; height: 150rpx;" value="0" bindchange="bindChangeCoupon">
-            <picker-view-column>
-              <view style="line-height: 50px">不使用优惠券</view>
-              <view wx:for="{{coupons}}" wx:key="id" style="line-height: 50px">{{item.money}}元 {{item.name}}</view>
-            </picker-view-column>
-          </picker-view>
-        </view>
-     </view>
-
-
-     <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && yunPrice > 0) || (!hasNoCoupons)}}">
-        <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
-            <view class="row-label">商品金额</view>
-            <view class="right-text">¥ {{allGoodsPrice}}</view>
-        </view>
-        <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
-            <view class="row-label">运费</view>
-            <view class="right-text">+ ¥ {{yunPrice}}</view>
-        </view>
-        <view class="row-box" wx:if="{{!hasNoCoupons}}">
-            <view class="row-label">优惠券</view>
-            <view class="right-text">- ¥ {{youhuijine}}</view>
-        </view>
-     </view>
-
-     <view class="jiesuan-box">
-        <view class="left-price">
-            <view class="total">合计：¥ {{allGoodsAndYunPrice - youhuijine}} + {{totalScoreToPay}} 积分</view>
-        </view>
-        <button class="to-pay-btn" formType="submit">提交订单</button>
+      </view>
+      <view class="bind-btn-wrapper">
+        <button class="bind-btn" bind:tap="bindMobile">
+          <text class="bind-btn-text">手机号快捷登录</text>
+        </button>
+      </view>
+      <view class="security-tips">
+        <view class="tips-icon">🔒</view>
+        <text class="tips-text">您的信息将被加密保护，绝不泄露给第三方</text>
+      </view>
     </view>
-    </form>
-</view>
+  </view>
+</block>
+<block wx:if="{{ bindMobileStatus == 1 }}">
+  <block wx:if="{{ orderType != 'buyNow' }}"> <!-- 购物车 -->
+    <van-cell-group wx:for="{{shopList}}" wx:for-item="shop" wx:for-index="shopIndex" wx:key="id" title="{{ shop.name }}">
+      <van-card
+        wx:for="{{goodsList}}" wx:key="index"
+        wx:if="{{ item.shopId == shop.id }}"
+        num="{{item.number}}"
+        price="{{item.price}}"
+        title="{{item.name}}"
+        thumb="{{ item.pic }}"
+        centered
+        >
+        <view slot="desc">
+          {{item.label}}
+          <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+            {{option.optionName}}:{{option.optionValueName}}
+          </block>
+          <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+            {{option.pname}}:{{option.name}}
+          </block>
+        </view>
+      </van-card>
+      <view class="peisong-way" hidden="{{ shop.hasNoCoupons }}">
+        <view class="coupon-selector" bindtap="showCouponPickerShop" data-sidx="{{ shopIndex }}">
+          <view class="coupon-selector-left">
+            <view class="coupon-icon">🎫</view>
+            <view class="coupon-text-wrapper">
+              <view class="coupon-label">优惠券</view>
+              <view class="coupon-selected-text">{{ shop.curCouponShowText }}</view>
+            </view>
+          </view>
+          <view class="coupon-selector-right">
+            <view class="coupon-arrow">›</view>
+          </view>
+        </view>
+      </view>
+    </van-cell-group>
+  </block>
+  <block wx:else> <!-- 立即购买 -->
+    <van-card
+      wx:for="{{goodsList}}" wx:key="index"
+      num="{{item.number}}"
+      price="{{item.price}}"
+      title="{{item.name}}"
+      thumb="{{ item.pic }}"
+      centered
+      >
+      <view slot="desc">
+        {{item.label}}
+        <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+          {{option.optionName}}:{{option.optionValueName}}
+        </block>
+        <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+          {{option.pname}}:{{option.name}}
+        </block>
+      </view>
+    </van-card>
+  </block>
+  <view class="container-box cell-group">
+    <view class="peisong-way">
+      <van-cell wx:if="{{shopCarType == 0 && isNeedLogistics > 0}}" title="配送方式">
+        <view slot="">
+          <radio-group bindchange="radioChange">
+            <label class="radio">
+              <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
+            </label>
+            <label class="radio">
+              <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
+            </label>
+          </radio-group>
+        </view>
+      </van-cell>
+      <van-cell wx:if="{{shopCarType == 1}}" title="配送地址" />
+      <picker wx:if="{{peisongType == 'zq' && shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
+        <van-cell title="选择自提门店" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
+      </picker>
+      <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
+      <van-cell wx:if="{{peisongType == 'zq' && shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
+      
+      <view class="address-box" wx:if="{{peisongType == 'kd' && isNeedLogistics > 0}}">
+        <van-cell wx:if="{{!curAddressData}}" icon="add-o" title="新增收货地址" is-link bind:click="addAddress" />
+        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
+          <view class="l">
+            <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>
+            <view class="addr-text">{{curAddressData.address}}</view>
+          </view>
+          <view class="r">
+            <image class="next" src="/images/icon/next.png"></image>
+          </view>
+        </view>
+      </view>
+      <van-field
+        wx:if="{{peisongType == 'zq'}}"
+        size="large"
+        model:value="{{ name }}"
+        label="联系人"
+        clearable
+        required
+        placeholder="请输入联系人"
+      />
+      <van-field
+        wx:if="{{peisongType == 'zq'}}"
+        size="large"
+        model:value="{{ mobile }}"
+        label="联系电话"
+        type="number"
+        clearable
+        required
+        placeholder="请输入手机号码">
+        <van-button slot="button" size="small" type="danger" bind:tap="bindMobile">自动获取</van-button>
+      </van-field>
+      <block wx:if="{{ extRequired && extRequired.length > 0 }}">
+        <van-field
+          wx:for="{{ extRequired }}" wx:key="*this"
+          size="large"
+          label="{{ item }}"
+          required
+          placeholder="请输入{{ item }}"
+          data-name="{{ item }}"
+          bind:change="extRequiredChange"
+        />
+      </block>
+      <view wx:if="{{shopCarType == 0}}" class="row-box">
+        <view class="row-label">备注</view>
+        <view class="right-text">
+          <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入" />
+        </view>
+      </view>
+      <van-cell wx:if="{{ orderPeriod_open == 1 }}" title="订阅">
+        <view slot="">
+          <radio-group bindchange="dyChange">
+            <label class="radio">
+              <radio value="1" checked="{{ dyopen == 1 }}" /> 开启
+            </label>
+            <label class="radio">
+              <radio value="0" checked="{{ dyopen == 0 }}" /> 关闭
+            </label>
+          </radio-group>
+        </view>
+      </van-cell>
+      <van-cell wx:if="{{ dyopen == 1 }}" title="订阅周期">
+        <view slot="">
+          <radio-group bindchange="dyunitChange">
+            <label class="radio">
+              <radio value="0" checked="{{ dyunit == 0 }}" /> 天
+            </label>
+            <label class="radio">
+              <radio value="1" checked="{{ dyunit == 1 }}" /> 月
+            </label>
+            <label class="radio">
+              <radio value="2" checked="{{ dyunit == 2 }}" /> 年
+            </label>
+          </radio-group>
+        </view>
+      </van-cell>
+      <van-field
+        wx:if="{{ dyopen == 1 }}"
+        label="订阅间隔"
+        model:value="{{ dyduration }}"
+        type="number"
+        placeholder="请输入数字"
+        input-align="right"
+        use-button-slot
+      >
+        <view slot="button">
+          {{ dyunit == 0 ? '天': '' }}
+          {{ dyunit == 1 ? '月': '' }}
+          {{ dyunit == 2 ? '年': '' }}
+        </view>
+      </van-field>
+      <van-field
+        wx:if="{{ dyopen == 1 }}"
+        label="订阅次数"
+        model:value="{{ dytimes }}"
+        type="number"
+        placeholder="请输入数字"
+        input-align="right"
+        use-button-slot
+      >
+        <view slot="button">次</view>
+      </van-field>
+      <van-field
+        wx:if="{{ dyopen == 1 }}"
+        label="首次扣费"
+        is-link
+        readonly
+        value="{{ dateStart }}"
+        type="number"
+        placeholder="请输入数字"
+        input-align="right"
+        bind:click-input="dateStartclick"
+      />
+    </view>
+    <view class="peisong-way">
+      <view class="coupon-selector" bindtap="showCouponPicker" hidden="{{hasNoCoupons}}">
+        <view class="coupon-selector-left">
+          <view class="coupon-icon">🎫</view>
+          <view class="coupon-text-wrapper">
+            <view class="coupon-label">优惠券</view>
+            <view class="coupon-selected-text">{{curCouponShowText}}</view>
+          </view>
+        </view>
+        <view class="coupon-selector-right">
+          <view class="coupon-arrow">›</view>
+        </view>
+      </view>
+      <view class="coupon-exchange-tip" bindtap="showExchangeCoupon">
+        <view class="tip-icon">💰</view>
+        <view class="tip-text">没有优惠券？点击使用口令兑换</view>
+        <view class="tip-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选择积分抵扣 -->
+  <van-radio-group wx:if="{{ scoreDeductionRules && scoreDeductionRules.length > 0 }}" value="{{ deductionScore }}" bind:change="deductionScoreChange">
+    <van-cell-group title="积分抵扣">
+      <van-cell title="不使用积分" clickable data-name="-1" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="-1" />
+      </van-cell>
+      <van-cell title="自动抵扣" clickable data-name="0" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="0" />
+      </van-cell>
+      <van-cell wx:for="{{scoreDeductionRules}}" wx:key="id" title="使用{{ item.score }}积分抵扣¥{{ item.money }}" clickable data-name="{{ item.score }}" bind:click="deductionScoreClick">
+        <van-radio slot="right-icon" name="{{ item.score }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+
+  <van-radio-group wx:if="{{ myCards }}" value="{{ cardId }}" bind:change="cardChange">
+    <van-cell-group title="使用水卡支付">
+      <van-cell title="不使用水卡" clickable data-name="0" bind:click="cardClick">
+        <van-radio slot="right-icon" name="0" />
+      </van-cell>
+      <van-cell wx:for="{{ myCards }}" wx:key="id" title="{{ item.cardInfo.name }} - 剩余：{{ item.amount }}桶" clickable data-name="{{ item.id }}" bind:click="cardClick">
+        <van-radio slot="right-icon" name="{{ item.id }}" />
+      </van-cell>
+    </van-cell-group>
+  </van-radio-group>
+
+  <van-cell-group wx:if="{{ yunPrice || deductionMoney || couponAmount || balance }}" title="小计">
+    <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
+    <van-cell wx:if="{{ amountLogistics2 }}" title="附加运费" value="¥{{ amountLogistics2 }}" />
+    <block wx:if="{{ goodsAdditionalPriceMap }}">
+      <van-cell
+        wx:for="{{ goodsAdditionalPriceMap }}" wx:key="id"
+        title="{{ index }}"
+        value="¥{{ item }}"
+      />
+    </block>
+    <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />
+    <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-¥{{couponAmount}}" />
+    <van-cell wx:if="{{order_pay_user_balance == '1' && balance}}" title="账户余额" value="¥{{balance}}" />
+    <van-cell wx:if="{{order_pay_user_balance == '1' && userScore}}" title="可用积分" value="{{userScore}}" />
+  </van-cell-group>
+  <view class="bottom-box"></view>
+  <van-submit-bar
+    wx:if="{{ yunPrice >= 99999 }}"
+    price="{{ (allGoodsAndYunPrice - yunPrice)*100 }}"
+    suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
+    button-text="该地区禁售"
+    disabled
+  />
+  <van-submit-bar
+    wx:else
+    price="{{ allGoodsAndYunPrice*100 }}"
+    suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}"
+    button-text="提交订单"
+    loading="{{ btnLoading }}"
+    bind:submit="goCreateOrder"
+  />
+</block>
+
+<van-popup
+  show="{{ dateStartpop }}"
+  position="bottom"
+>
+  <van-datetime-picker
+    type="datetime"
+    value="{{ currentDate }}"
+    min-date="{{ minDate }}"
+    max-date="{{ maxDate }}"
+    formatter="{{ formatter }}"
+    bind:confirm="dateStartconfirm"
+    bind:cancel="dateStartcancel"
+  />
+</van-popup>
+
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>
+
+<payment
+  money="{{ money }}"
+  remark="支付订单 ：{{ orderId }}"
+  nextAction="{{ nextAction }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>
+
+<!-- 优惠券选择弹窗 -->
+<van-popup show="{{ couponPickerShow }}" position="bottom" round bind:close="closeCouponPicker">
+  <view class="coupon-picker-container">
+    <view class="coupon-picker-header">
+      <view class="picker-title">选择优惠券</view>
+      <view class="picker-close" bindtap="closeCouponPicker">✕</view>
+    </view>
+    <scroll-view class="coupon-picker-list" scroll-y>
+      <view class="coupon-picker-item" wx:for="{{coupons}}" wx:key="id" bindtap="selectCoupon" data-index="{{index}}">
+        <view class="picker-coupon-card {{ curCoupon && curCoupon.id == item.id ? 'selected' : '' }}">
+          <view class="picker-coupon-left">
+            <view class="picker-amount-wrapper">
+              <text class="picker-currency" wx:if="{{ item.moneyType == 0 }}">¥</text>
+              <text class="picker-amount">{{ item.moneyType == 0 ? item.money : item.money }}</text>
+              <text class="picker-percent" wx:if="{{ item.moneyType == 1 }}">折</text>
+            </view>
+            <view class="picker-threshold">满{{item.moneyHreshold}}元</view>
+          </view>
+          <view class="picker-coupon-right">
+            <view class="picker-coupon-name">{{item.name}}</view>
+            <view class="picker-coupon-desc">{{item.nameExt}}</view>
+          </view>
+          <view class="picker-check-icon" wx:if="{{ curCoupon && curCoupon.id == item.id }}">✓</view>
+        </view>
+      </view>
+      <view class="coupon-picker-item" bindtap="selectNoCoupon">
+        <view class="picker-coupon-card no-coupon {{ !curCoupon ? 'selected' : '' }}">
+          <view class="no-coupon-text">不使用优惠券</view>
+          <view class="picker-check-icon" wx:if="{{ !curCoupon }}">✓</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</van-popup>
+
+<!-- 门店优惠券选择弹窗 -->
+<van-popup show="{{ couponPickerShopShow }}" position="bottom" round bind:close="closeCouponPickerShop">
+  <view class="coupon-picker-container">
+    <view class="coupon-picker-header">
+      <view class="picker-title">选择优惠券</view>
+      <view class="picker-close" bindtap="closeCouponPickerShop">✕</view>
+    </view>
+    <scroll-view class="coupon-picker-list" scroll-y>
+      <view class="coupon-picker-item" wx:for="{{currentShopCoupons}}" wx:key="id" bindtap="selectCouponShop" data-index="{{index}}">
+        <view class="picker-coupon-card {{ currentShopSelectedCoupon && currentShopSelectedCoupon.id == item.id ? 'selected' : '' }}">
+          <view class="picker-coupon-left">
+            <view class="picker-amount-wrapper">
+              <text class="picker-currency" wx:if="{{ item.moneyType == 0 }}">¥</text>
+              <text class="picker-amount">{{ item.moneyType == 0 ? item.money : item.money }}</text>
+              <text class="picker-percent" wx:if="{{ item.moneyType == 1 }}">折</text>
+            </view>
+            <view class="picker-threshold">满{{item.moneyHreshold}}元</view>
+          </view>
+          <view class="picker-coupon-right">
+            <view class="picker-coupon-name">{{item.name}}</view>
+            <view class="picker-coupon-desc">{{item.nameExt}}</view>
+          </view>
+          <view class="picker-check-icon" wx:if="{{ currentShopSelectedCoupon && currentShopSelectedCoupon.id == item.id }}">✓</view>
+        </view>
+      </view>
+      <view class="coupon-picker-item" bindtap="selectNoCouponShop">
+        <view class="picker-coupon-card no-coupon {{ !currentShopSelectedCoupon ? 'selected' : '' }}">
+          <view class="no-coupon-text">不使用优惠券</view>
+          <view class="picker-check-icon" wx:if="{{ !currentShopSelectedCoupon }}">✓</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</van-popup>
+
+<!-- 口令兑换弹窗 -->
+<van-popup show="{{ exchangeCouponShow }}" position="center" round bind:close="closeExchangeCoupon">
+  <view class="exchange-coupon-container">
+    <view class="exchange-header">
+      <view class="exchange-title">口令兑换优惠券</view>
+      <view class="exchange-subtitle">输入券号和密码即可兑换</view>
+    </view>
+    <view class="exchange-form">
+      <van-field
+        label="券号"
+        model:value="{{ exchangeNumber }}"
+        clearable
+        placeholder="请输入券号"
+        border="{{ false }}"
+        custom-style="background: #F7F8FA; border-radius: 12rpx; margin-bottom: 24rpx;"
+      />
+      <van-field
+        label="密码"
+        model:value="{{ exchangePwd }}"
+        clearable
+        placeholder="请输入密码"
+        border="{{ false }}"
+        custom-style="background: #F7F8FA; border-radius: 12rpx;"
+      />
+    </view>
+    <view class="exchange-actions">
+      <view class="exchange-btn cancel" bindtap="closeExchangeCoupon">取消</view>
+      <view class="exchange-btn confirm" bindtap="confirmExchangeCoupon">立即兑换</view>
+    </view>
+  </view>
+</van-popup>

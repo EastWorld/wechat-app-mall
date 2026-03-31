@@ -1,0 +1,56 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<button
+  id="{{ id || buttonId }}"
+  data-detail="{{ dataset }}"
+  class="custom-class {{ utils.bem('button', [type, size, { block, round, plain, square, loading, disabled, hairline, unclickable: disabled || loading }]) }} {{ hairline ? 'van-hairline--surround' : '' }}"
+  hover-class="{{ disabled || loading ? '' : 'van-button--active hover-class'}}"
+  lang="{{ lang }}"
+  form-type="{{ formType }}"
+  style="{{ computed.rootStyle({ plain, color, customStyle }) }}"
+  open-type="{{ disabled || loading || (canIUseGetUserProfile && openType === 'getUserInfo') ? '' : openType }}"
+  business-id="{{ businessId }}"
+  session-from="{{ sessionFrom }}"
+  send-message-title="{{ sendMessageTitle }}"
+  send-message-path="{{ sendMessagePath }}"
+  send-message-img="{{ sendMessageImg }}"
+  show-message-card="{{ showMessageCard }}"
+  app-parameter="{{ appParameter }}"
+  aria-label="{{ ariaLabel }}"
+  bindtap="{{ disabled || loading ? '' : 'onClick' }}"
+  bindgetuserinfo="onGetUserInfo"
+  bindcontact="onContact"
+  bindgetphonenumber="onGetPhoneNumber"
+  bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
+  bindagreeprivacyauthorization="onAgreePrivacyAuthorization"
+  binderror="onError"
+  bindlaunchapp="onLaunchApp"
+  bindopensetting="onOpenSetting"
+  bindchooseavatar="onChooseAvatar"
+>
+  <block wx:if="{{ loading }}">
+    <van-loading
+      custom-class="loading-class"
+      size="{{ loadingSize }}"
+      type="{{ loadingType }}"
+      color="{{ computed.loadingColor({ type, color, plain }) }}"
+    />
+    <view wx:if="{{ loadingText }}" class="van-button__loading-text">
+      {{ loadingText }}
+    </view>
+  </block>
+  <block wx:else>
+    <van-icon
+      wx:if="{{ icon }}"
+      size="1.2em"
+      name="{{ icon }}"
+      class-prefix="{{ classPrefix }}"
+      class="van-button__icon"
+      custom-style="line-height: inherit;"
+    />
+    <view class="van-button__text">
+      <slot />
+    </view>
+  </block>
+</button>

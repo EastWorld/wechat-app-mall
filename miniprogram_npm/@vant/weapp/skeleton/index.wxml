@@ -1,0 +1,29 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<view
+  wx:if="{{ loading }}"
+  class="custom-class {{ utils.bem('skeleton', [{animate}]) }}"
+>
+  <view
+    wx:if="{{ avatar }}"
+    class="avatar-class {{ utils.bem('skeleton__avatar', [avatarShape])}}"
+    style="{{ 'width:' + avatarSize + ';height:' + avatarSize }}"
+  />
+  <view class="{{ utils.bem('skeleton__content')}}">
+    <view
+      wx:if="{{ title }}"
+      class="title-class {{ utils.bem('skeleton__title') }}"
+      style="{{ 'width:' + titleWidth }}"
+    />
+    <view
+      wx:for="{{ rowArray }}"
+      wx:key="index"
+      wx:for-index="index"
+      class="row-class {{ utils.bem('skeleton__row') }}"
+      style="{{ 'width:' + (isArray ? rowWidth[index] : rowWidth) }}"
+    />
+  </view>
+</view>
+<view wx:else class="{{ utils.bem('skeleton__content')}}">
+  <slot />
+</view>

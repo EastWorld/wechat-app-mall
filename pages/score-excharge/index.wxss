@@ -1,87 +1,335 @@
-page{
-    height: 100%;
+/* 页面整体样式 - 京东风格 */
+page {
+  height: 100%;
+  background: linear-gradient(180deg, #FFF1F0 0%, #FFFFFF 50%);
 }
-.container{
-    background-color: #f5f5f9;
-    justify-content: initial;
+
+.exchange-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
-.form-box{
-    width:100%;
-    background-color: #fff;
-    margin-top: 20rpx;
+
+/* 头部装饰区域 - 京东红色系 */
+.header-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  pointer-events: none;
+  overflow: hidden;
 }
-.row-wrap{
-    width: 720rpx;
-    height: 88rpx;
-    line-height: 88rpx;
-    margin-left: 30rpx;
-    border-bottom: 1rpx solid #eee;
-    display: flex;
-    font-size: 28rpx;
-    /*justify-content: space-between;*/
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
 }
-.row-wrap .label{
-    width: 160rpx;
-    color: #000
+
+.decoration-circle.circle1 {
+  width: 260rpx;
+  height: 260rpx;
+  background: linear-gradient(135deg, #E1251B, #FF4747);
+  top: -130rpx;
+  right: -80rpx;
 }
-.row-wrap .label-right{
-    flex: 1;
-    height: 88rpx;
-    line-height: 88rpx;
+
+.decoration-circle.circle2 {
+  width: 180rpx;
+  height: 180rpx;
+  background: linear-gradient(135deg, #E1251B, #FF6B6B);
+  top: 100rpx;
+  left: -60rpx;
 }
-.row-wrap .label-right input{
-    height: 100%;
-    font-size: 28rpx;
-    padding-right: 30rpx;
+
+.decoration-circle.circle3 {
+  width: 140rpx;
+  height: 140rpx;
+  background: linear-gradient(135deg, #FF4747, #FF8989);
+  top: 260rpx;
+  right: 120rpx;
 }
-.row-wrap .right-box{
-    margin-right: 30rpx; 
+
+/* 主要内容区域 */
+.exchange-content {
+  padding: 80rpx 32rpx 40rpx;
+  position: relative;
+  z-index: 1;
 }
-.arrow-right{
-    width: 15rpx;
-    height: 24rpx;
+
+/* 标题区域 - 京东风格 */
+.title-section {
+  text-align: center;
+  margin-bottom: 60rpx;
 }
-.save-btn,
-.cancel-btn{
-    width: 690rpx;
-    height: 80rpx;
-    line-height: 80rpx;
-    text-align: center;
-    margin-top:30rpx; 
-    border-radius: 6rpx;
-    box-sizing: border-box;
+
+.icon-wrapper {
+  width: 120rpx;
+  height: 120rpx;
+  background: linear-gradient(135deg, #E1251B 0%, #FF4747 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32rpx;
+  box-shadow: 0 12rpx 32rpx rgba(225, 37, 27, 0.35);
+  position: relative;
 }
-.save-btn{
-    background-color: #e64340;
-    color:#fff;
+
+.icon-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 140rpx;
+  height: 140rpx;
+  border: 2rpx solid rgba(225, 37, 27, 0.2);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
 }
-button[type="default"]{
-    background-color: #ffffff;
-    color:#000;
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.5;
+  }
 }
-.addr-details{
-    height: auto;
-    padding: 30rpx 0;
-    margin-left:30rpx;
-    border-bottom: 1rpx solid #eee;
-    display: flex;
-    font-size: 28rpx;
+
+.gift-icon {
+  width: 60rpx;
+  height: 60rpx;
+  filter: brightness(0) invert(1);
 }
-.addr-details .label{
-    margin:auto 0 auto 0;
-    width: 160rpx;
-    color: #000
+
+.main-title {
+  display: block;
+  font-weight: 700;
+  font-size: 52rpx;
+  color: #333333;
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
 }
-.addr-details textarea{
-    box-sizing: border-box;
-    width: 480rpx;
-    overflow: scroll;
+
+.sub-title {
+  display: block;
+  font-size: 28rpx;
+  color: #999999;
+  line-height: 40rpx;
 }
-picker {
-    min-width: 20rpx;
-    height: 100%;
-    margin-right: 20rpx;
+
+/* 兑换表单 - 京东卡片风格 */
+.exchange-form {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 48rpx 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+  position: relative;
 }
-.hui{
-    color: #777;
+
+.exchange-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, #E1251B 0%, #FF4747 100%);
+  border-radius: 24rpx 24rpx 0 0;
+}
+
+.form-item {
+  margin-bottom: 48rpx;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 30rpx;
+  color: #333333;
+  margin-bottom: 24rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.form-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 28rpx;
+  background: linear-gradient(180deg, #E1251B, #FF4747);
+  border-radius: 3rpx;
+}
+
+.input-wrapper {
+  position: relative;
+  background: #F8F9FA;
+  border-radius: 16rpx;
+  border: 2rpx solid #E9ECEF;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.input-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 4rpx;
+  background: linear-gradient(90deg, #E1251B, #FF4747);
+  transition: width 0.3s ease;
+}
+
+/* 聚焦状态 */
+.coupon-input:focus {
+  background: #FFFFFF;
+}
+
+.input-wrapper:focus-within {
+  border-color: #E1251B;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 6rpx rgba(225, 37, 27, 0.08);
+}
+
+.input-wrapper:focus-within::after {
+  width: 100%;
+}
+
+.coupon-input {
+  width: 100%;
+  height: 96rpx;
+  padding: 0 32rpx;
+  font-size: 32rpx;
+  color: #333333;
+  background: transparent;
+  border: none;
+  line-height: 96rpx;
+}
+
+.input-placeholder {
+  color: #BBBBBB;
+  font-size: 28rpx;
+}
+
+/* 兑换按钮 - 京东红 */
+.exchange-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #E1251B 0%, #FF4747 100%);
+  border-radius: 48rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(225, 37, 27, 0.35);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exchange-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.exchange-btn:active::before {
+  left: 100%;
+}
+
+.exchange-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 16rpx rgba(225, 37, 27, 0.3);
+}
+
+.exchange-btn::after {
+  border: none;
+}
+
+.btn-text {
+  font-weight: 600;
+  font-size: 34rpx;
+  color: #FFFFFF;
+  letter-spacing: 4rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 使用说明 - 京东风格 */
+.tips-section {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.tips-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #F5F5F5;
+}
+
+.info-icon {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E1251B, #FF4747);
+  color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: bold;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+}
+
+.tips-title {
+  font-weight: 600;
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.tips-list {
+  padding-left: 8rpx;
+}
+
+.tips-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+  padding-left: 12rpx;
+}
+
+.tips-item:last-child {
+  margin-bottom: 0;
+}
+
+.tips-dot {
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #E1251B;
+  margin-right: 16rpx;
+  line-height: 40rpx;
+  flex-shrink: 0;
+}
+
+.tips-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 40rpx;
 }

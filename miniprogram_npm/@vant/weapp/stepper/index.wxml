@@ -1,0 +1,43 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<view class="{{ utils.bem('stepper', [theme]) }} custom-class">
+  <view
+    wx:if="{{ showMinus }}"
+    data-type="minus"
+    style="{{ computed.buttonStyle({ buttonSize }) }}"
+    class="minus-class {{ utils.bem('stepper__minus', { disabled: disabled || disableMinus || currentValue <= min }) }}"
+    hover-class="van-stepper__minus--hover"
+    hover-stay-time="70"
+    bind:tap="onTap"
+    bind:touchstart="onTouchStart"
+    bind:touchend="onTouchEnd"
+  >
+    <slot name="minus" />
+  </view>
+  <input
+    type="{{ integer ? 'number' : 'digit' }}"
+    class="input-class {{ utils.bem('stepper__input', { disabled: disabled || disableInput }) }}"
+    style="{{ computed.inputStyle({ buttonSize, inputWidth }) }}"
+    value="{{ currentValue }}"
+    focus="{{ focus }}"
+    disabled="{{ disabled || disableInput }}"
+    always-embed="{{ alwaysEmbed }}"
+    bindinput="onInput"
+    bind:focus="onFocus"
+    bind:blur="onBlur"
+  />
+  <view
+    wx:if="{{ showPlus }}"
+    data-type="plus"
+    style="{{ computed.buttonStyle({ buttonSize }) }}"
+    class="plus-class {{ utils.bem('stepper__plus', { disabled: disabled || disablePlus || currentValue >= max }) }}"
+    hover-class="van-stepper__plus--hover"
+    hover-stay-time="70"
+    bind:tap="onTap"
+    bind:touchstart="onTouchStart"
+    bind:touchend="onTouchEnd"
+  >
+    <slot name="plus" />
+  </view>
+</view>

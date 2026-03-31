@@ -1,0 +1,6 @@
+1. app.json, usingComponents "login": "/components/login/index",
+2. 在需要的页面上加这句代码即可
+    <login show="{{ true }}" avatarUrl="123.jpg" name="张三" />
+    show 控制弹框是否显示
+    avatarUrl 回显的头像
+    name 回显的昵称

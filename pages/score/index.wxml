@@ -1,12 +1,66 @@
-<view class="score">
-  <view>可用积分</view>
-  <view>{{score}}</view>
-</view>
-<view class='no-data' wx:if="{{!cashlogs}}">暂无积分明细~</view>
-<view class='cashlogs' wx:if="{{cashlogs}}" wx:for-items="{{cashlogs}}" wx:key="{{index}}">
-  <view class='profile'>
-    <view class='typeStr'>{{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}</view>
-    <view class='dateAdd'>{{ item.dateAdd }}</view>
+<view class="page-container">
+  <!-- 顶部积分卡片 -->
+  <view class="score-header">
+    <view class="score-bg">
+      <view class="score-title">我的积分</view>
+      <view class="score-value">{{score}}</view>
+      <view class="score-desc">积分可兑换精美礼品</view>
+    </view>
   </view>
-  <view class='amount' style="color: {{ (item.behavior ==0 ) ? 'red' : 'green' }}"> {{ (item.behavior ==0 ) ? '+' : '-' }} {{ item.score }} </view>
+
+  <!-- 获取积分途径 -->
+  <view class="score-ways">
+    <view class="section-title">
+      <view class="title-text">获取积分</view>
+      <view class="title-line"></view>
+    </view>
+    <view class="ways-grid">
+      <view class="way-item" bindtap="sign">
+        <view class="way-icon sign-icon">
+          <text class="icon-text">签</text>
+        </view>
+        <view class="way-title">每日签到</view>
+        <view class="way-desc">签到得积分</view>
+      </view>
+      <view class="way-item" bindtap="exchange">
+        <view class="way-icon coupon-icon">
+          <text class="icon-text">券</text>
+        </view>
+        <view class="way-title">积分券兑换</view>
+        <view class="way-desc">券兑积分</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分明细 -->
+  <view class="score-logs">
+    <view class="section-title">
+      <view class="title-text">积分明细</view>
+      <view class="title-line"></view>
+    </view>
+    
+    <view class='no-data' wx:if="{{!cashlogs}}">
+      <view class="no-data-icon">📋</view>
+      <view class="no-data-text">暂无积分明细</view>
+    </view>
+    
+    <view class='log-list' wx:if="{{cashlogs}}">
+      <view class='log-item' wx:for="{{cashlogs}}" wx:key="{{index}}">
+        <view class='log-left'>
+          <view class="log-icon" style="background: {{ (item.behavior ==0 ) ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}">
+            <text class="log-icon-text">{{ (item.behavior ==0 ) ? '得' : '用' }}</text>
+          </view>
+          <view class='log-info'>
+            <view class='log-title'>{{ item.typeStr }}</view>
+            <view class='log-remark' wx:if="{{item.remark}}">{{ item.remark }}</view>
+            <view class='log-time'>{{ item.dateAdd }}</view>
+          </view>
+        </view>
+        <view class='log-amount' style="color: {{ (item.behavior ==0 ) ? '#FF6B6B' : '#51C873' }}">
+          <text class="amount-symbol">{{ (item.behavior ==0 ) ? '+' : '-' }}</text>
+          <text class="amount-value">{{ item.score }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

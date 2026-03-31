@@ -1,0 +1,161 @@
+<live-pusher id="pusher" beauty='{{ beauty }}' url="{{ liveRoomsInfo.roomInfo.pushUrl }}"
+ mode="FHD" autopush="true" style='width:100vw;height:100vh' waiting-image="https://mc.qcloudimg.com/static/img/daeed8616ac5df256c0591c22a65c4d3/pause_publish.jpg" />
+
+<cover-view style="width:100vw;height:100vh" class="outer" catchtap="hidePeoples">
+  <cover-view style="height:{{ customBarHeight }}px" class="back">
+    <cover-view class="icon" bindtap="backTap">
+      <cover-image src="../../images/back.png" class="back-icon"></cover-image>
+    </cover-view>
+  </cover-view>
+ 
+  <!-- 直播信息 -->
+  <cover-view class="anchor-info">
+    <cover-view class="left">
+      <cover-image wx:if="{{ apiUserInfoMap.base.avatarUrl }}" src='{{ apiUserInfoMap.base.avatarUrl }}' class="avatar"></cover-image>
+      <cover-view class="mid">
+        <cover-view>{{ apiUserInfoMap.base.nick }}</cover-view>
+        <!-- <cover-view>{{ apiUserInfoMap.base.province}} {{ apiUserInfoMap.base.city}}</cover-view> -->
+      </cover-view>
+      <cover-view class="ops flex" catchtap="">
+        <cover-image src="../../images/rotate.png" class="c-img" catchtap="rotateTap"></cover-image>
+        <cover-image src="../../images/meiyan2.png" class="c-img" catchtap="showBeautySelect"></cover-image>
+      </cover-view>
+    </cover-view>
+    <cover-view class="right">
+      <cover-view class="txt">房间号: {{ liveRoomsInfo.roomInfo.id }}</cover-view>
+    </cover-view>
+  </cover-view>
+
+
+   <!-- 在线人数 -->
+    <cover-view class="watcher">
+      在线人数: {{ onlineNumber }}
+    </cover-view>
+
+    <!-- 主推商品 -->
+    <cover-view wx:if="{{ mainlyGoods }}" class="main-goods" catchtap="toDetail" data-id="{{ mainlyGoods.id }}">
+      <cover-image src="{{ mainlyGoods.pic }}" style="width:168rpx;height:168rpx;border-radius:15rpx;"></cover-image>
+    </cover-view>
+
+   <!-- 提示进入直播间 -->
+    <cover-view wx:if="{{ showTips }}" class="tips">
+      <cover-image src="{{showTipsAvatarUrl}}" class="avatar-img"></cover-image>
+      <cover-view>{{ showTipsMsg }}</cover-view>
+    </cover-view>
+
+  <!-- 弹幕 -->
+  <cover-view class="barrage" catchtouchmove="preventDefault" scroll-top="{{ scrollTop }}">
+    <cover-view class="item-outer">
+      <block wx:for='{{ barrageList }}' wx:key="index">
+        <cover-view class="barrage-item">
+          <cover-view class="item-wrap">
+            <cover-image wx:if="{{ item.avatarUrl }}" src="{{ item.avatarUrl }}" class="avatar"></cover-image>
+            <cover-view class="item-nickname" style="top:{{  systemInfo.platform == 'android' ? 2 : 0 }}px;color:{{ item.color }};vertical-align:{{ systemInfo.platform == 'android' ? 'bottom' : 'middle' }}">{{ item.nick }}</cover-view>
+            <cover-view class="item-words" style="vertical-align:{{ systemInfo.platform == 'android' ? 'bottom' : 'middle' }}">{{ item.msg}}</cover-view>
+          </cover-view>
+        </cover-view>
+      </block>
+    </cover-view>
+  </cover-view>
+
+  <cover-view class="footer" wx:if="{{ !showInput }}">
+
+    <cover-view class="item0" catchtap="showGoods">
+      <cover-image src="../../images/goods.png" class="goods"></cover-image>
+      <!-- <cover-view class="txt">宝贝</cover-view> -->
+    </cover-view>
+
+    <cover-view class="item1" catchtap="handleInteractionTap">
+      <cover-image class="cmt-icon" src="../../images/chat.png"></cover-image>
+      <cover-view class="txt">跟大家互动吧...</cover-view>
+    </cover-view>
+
+      <cover-view class="item2">
+        <button class="icon-wrap" open-type="share">
+          <cover-image src="../../images/forward.png" class="icons"></cover-image>
+        </button>
+        <!-- <cover-view class="txt">分享</cover-view> -->
+      </cover-view>
+
+    <cover-view class="item2"  catchtap="showPeoples">
+      <cover-view class="icon-wrap"style="background: #B17068">
+        <cover-image src="../../images/people.png" class="icons"></cover-image>
+      </cover-view>
+      <!-- <cover-view class="txt">人员</cover-view> -->
+    </cover-view>
+
+    <!-- <cover-view class="item2 item3"  catchtap="showSet">
+      <cover-view class="icon-wrap"  style="background: #17abe3">
+        <cover-image src="/images/shezhi.png" class="icons"></cover-image>
+      </cover-view>
+      <cover-view class="txt">设置</cover-view>
+    </cover-view> -->
+  </cover-view> 
+
+</cover-view>
+
+ <!-- 输入 -->
+  <!-- 发送弹幕的icon -->
+  <cover-view class="left-input" wx:if='{{ showInput }}'>
+    <cover-image class="icon" src="../../images/chat02.png"></cover-image>
+  </cover-view>
+
+  <!-- line -->
+  <cover-view class="line-wrap" wx:if='{{ showInput }}'>
+    <cover-image class="line-icon" src="../../images/line.png"></cover-image>
+  </cover-view>
+
+  <!-- send barrage -->
+  <input cursor-spacing='0' bindkeyboardheightchange="keyboardEvent"  wx:if='{{ showInput }}' focus="{{ focus }}" placeholder-class="holder-class" placeholder='说点什么吧...'  value="{{ inputVal }}" class="send-barrage" confirm-type='send' bindconfirm="onComment" bindinput="bindInput"></input>
+
+  <!-- <cover-view wx:if='{{ showInput }}' class="send-btn" catchtap="onComment">
+    发送
+  </cover-view> -->
+
+<!-- 点击人员列表 -->
+<cover-view class="goods-list {{ showPeopleInfo ? 'open' : 'close' }}"> 
+  <cover-view class="title flex-between">
+    <cover-view>全部人员</cover-view>
+    <cover-image src="../../images/people.png" class="img" catchtap=""></cover-image>
+  </cover-view>
+
+  <cover-view class="item-list">
+    <block wx:for='{{ peoplelist }}' wx:key='id'>
+      <cover-view class="item flex">
+        <cover-image wx:if="{{item.avatarUrl}}" src="{{ item.avatarUrl }}" class="goods-img"></cover-image>
+        <cover-view class="info flex">
+          <cover-view>{{ item.nick }} </cover-view>
+          <cover-view>{{ item.ip }}</cover-view>
+          <cover-view>{{ item.ip }}</cover-view>
+        </cover-view>
+        <button class="btn" catchtap="lahei" data-uid="{{ item.uid }}">踢出</button>
+      </cover-view>
+    </block>
+  </cover-view>
+</cover-view>
+
+<!-- 点击宝贝弹出的商品列表 -->
+<cover-view class="goods-list {{ showGoodsInfo ? 'open' : 'close' }}">
+  <cover-view class="title flex-between">
+    <cover-view>全部商品</cover-view>
+  </cover-view> 
+
+  <cover-view class="item-list">
+    <block wx:for='{{ liveRoomsInfo.goodsList }}' wx:key='{{ item.id }}'>
+      <cover-view class="item flex">
+        <cover-image src="{{ item.pic }}" class="goods-img"></cover-image>
+        <cover-view class="info flex">
+          <cover-view class="goods-title">{{ item.name }}</cover-view>
+          <cover-view class="price">￥{{ item.minPrice }}</cover-view>
+        </cover-view>
+        <button class="btn" catchtap="navPurchase" data-idx="{{ index }}">主推</button>
+      </cover-view>
+    </block>
+  </cover-view>
+  <cover-view class="goods-empty" wx:if="{{ !liveRoomsInfo.goodsList }}">暂无商品~</cover-view> 
+
+</cover-view>
+
+<cover-view wx:if="{{ showSelect09 }}" class="beauty-select">
+  <cover-view class="item" wx:for="{{ 10 }}" wx:key="*this" data-num="{{ item }}" bindtap="select09">{{ item }}</cover-view>
+</cover-view>

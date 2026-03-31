@@ -1,0 +1,15 @@
+.notagree {
+	padding: 64rpx;
+}
+.title {
+  font-size: 100rpx;
+  font-weight: bold;
+}
+.profile {
+  margin-top: 64rpx;
+  color: #666;
+  line-height: 48rpx;
+}
+.img {
+  margin-top: 64rpx;
+}

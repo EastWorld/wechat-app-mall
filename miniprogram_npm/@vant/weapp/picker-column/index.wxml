@@ -1,0 +1,23 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<view
+  class="van-picker-column custom-class"
+  style="{{ computed.rootStyle({ itemHeight, visibleItemCount }) }}"
+  bind:touchstart="onTouchStart"
+  catch:touchmove="onTouchMove"
+  bind:touchend="onTouchEnd"
+  bind:touchcancel="onTouchEnd"
+>
+  <view style="{{ computed.wrapperStyle({ offset, itemHeight, visibleItemCount, duration }) }}">
+    <view
+      wx:for="{{ options }}"
+      wx:for-item="option"
+      wx:key="index"
+      data-index="{{ index }}"
+      style="height: {{ itemHeight }}px"
+      class="van-ellipsis {{ utils.bem('picker-column__item', { disabled: option && option.disabled, selected: index === currentIndex }) }} {{ index === currentIndex ? 'active-class' : '' }}"
+      bindtap="onClickItem"
+    >{{ computed.optionText(option, valueKey) }}</view>
+  </view>
+</view>

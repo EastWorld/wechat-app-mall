@@ -1,0 +1,99 @@
+<view class="page-container">
+  <!-- 头部标题区 -->
+  <view class="header-section">
+    <view class="header-title">推广订单</view>
+    <view class="header-subtitle">Promotion Orders</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!orderList || orderList.length == 0}}" class="empty-container">
+    <van-empty description="暂无推广订单" />
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="order-list" wx:if="{{orderList && orderList.length > 0}}">
+    <view class="order-card" wx:for="{{orderList}}" wx:key="index">
+      
+      <!-- 订单头部 -->
+      <view class="order-header">
+        <view class="order-header-left">
+          <view class="order-number">订单号 {{item.orderNumber}}</view>
+          <view class="order-user">
+            <text class="user-icon">👤</text>
+            <text>{{item.buyerUserNick}}</text>
+          </view>
+        </view>
+        <view class="order-status {{item.status == -1 ? 'status-cancel' : ''}}">
+          {{item.statusStr}}
+        </view>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="goods-section">
+        <view class="goods-item" wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="g">
+          <image class="goods-image" src="{{g.pic}}" mode="aspectFill"></image>
+          <view class="goods-content">
+            <view class="goods-title">{{g.goodsName}}</view>
+            <view class="goods-bottom">
+              <view class="goods-price-box">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{g.amountSingle}}</text>
+                <text class="goods-num">×{{g.number}}</text>
+              </view>
+            </view>
+            <!-- 佣金标签 -->
+            <view class="commission-tag {{g.commisionRecord.isSettlement ? 'settled' : 'pending'}}">
+              <view class="commission-rate">{{g.commisionRecord.bili}}% 返佣</view>
+              <view class="commission-amount">
+                <text class="amount-icon">💰</text>
+                <text>{{g.commisionRecord.money}} {{g.commisionRecord.unit==0?'元':'积分'}}</text>
+              </view>
+              <view class="settlement-status">
+                <text wx:if="{{g.commisionRecord.isSettlement}}" class="status-settled">已结算</text>
+                <text wx:elif="{{ item.status != -1 }}" class="status-pending">待结算</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 订单统计信息 -->
+      <view class="order-summary">
+        <view class="summary-row">
+          <text class="summary-label">商品数量</text>
+          <text class="summary-value">{{item.goodsNumber}} 件</text>
+        </view>
+        <view class="summary-row total">
+          <text class="summary-label">订单金额</text>
+          <text class="summary-price">
+            <text wx:if="{{item.score <= 0}}">¥{{item.amountReal}}</text>
+            <text wx:if="{{item.score > 0}}">¥{{item.amountReal}} + {{item.score}}积分</text>
+          </text>
+        </view>
+        <view class="summary-row commission">
+          <text class="summary-label">累计佣金</text>
+          <text class="commission-value">¥{{item.totalCommision}}</text>
+        </view>
+      </view>
+
+      <!-- 底部信息 -->
+      <view class="order-footer">
+        <view class="footer-info">
+          <text class="footer-icon">🕒</text>
+          <text class="footer-text">{{item.dateAdd}}</text>
+        </view>
+        <view wx:if="{{ userInviter[item.goodsList[0].commisionRecord.uids] }}" class="footer-info seller">
+          <text class="footer-icon">👨‍💼</text>
+          <text class="footer-text">销售员：{{userInviter[item.goodsList[0].commisionRecord.uids].nick}}</text>
+        </view>
+        <view wx:if="{{item.remark && item.remark != ''}}" class="order-remark">
+          <text class="remark-icon">📝</text>
+          <text>{{item.remark}}</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
+</view>

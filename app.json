@@ -1,61 +1,217 @@
 {
-  "pages":[
+  "pages": [
     "pages/start/start",
+    "pages/test/wifi",
+    "pages/shop/select",
     "pages/index/index",
+    "pages/notice/index",
+    "pages/notice/show",
+    "pages/category/category",
+    "pages/goods/list",
+    "pages/goods/list-vop",
+    "pages/goods/fav",
+    "pages/goods/his",
     "pages/goods-details/index",
+    "pages/goods-details/vop",
+    "pages/goods-details/day",
+    "pages/goods-details/times01",
+    "pages/goods-details/times02",
     "pages/shop-cart/index",
     "pages/to-pay-order/index",
     "pages/select-address/index",
     "pages/address-add/index",
     "pages/order-list/index",
     "pages/order-details/index",
+    "pages/order-details/scan-result",
+    "pages/order/refundApply",
     "pages/wuliu/index",
-    "pages/mycoupons/index",
     "pages/my/index",
-    "pages/notice/show",
-    "pages/recharge/index",
     "pages/withdraw/index",
-    "pages/kanjia/index",
-    "pages/authorize/index",
     "pages/score-excharge/index",
+    "pages/score-excharge/growth",
     "pages/asset/index",
+    "pages/recharge/index",
     "pages/score/index",
+    "pages/score/growth",
     "pages/sign/index",
-    "pages/fetch-coupon/index",
-    "pages/category/category"
+    "pages/maidan/index",
+    "pages/coupons/index",
+    "pages/coupons/merge",
+    "pages/invoice/list",
+    "pages/invoice/apply",
+    "pages/deposit/pay",
+    "pages/live/index",
+    "pages/help/detail",
+    "pages/help/index",
+    "pages/cms/list",
+    "pages/about/index",
+    "pages/idCheck/index",
+    "pages/peisong/detail",
+    "pages/peisong/orders",
+    "pages/peisong/statistics",
+    "pages/pwd-pay/reset",
+    "pages/pwd-pay/modify",
+    "pages/pwd-pay/set",
+    "pages/my/feedback",
+    "pages/search/index",
+    "pages/my/info",
+    "pages/my/setting",
+    "pages/my/info-menu",
+    "pages/recycle/index",
+    "pages/recycle/orders",
+    "pages/recycle/order-detail",
+    "pages/card/logs",
+    "pages/notagree/index",
+    "pages/my/user-code",
+    "pages/raffle/index",
+    "pages/login/index",
+    "pages/vip/index",
+    "pages/vip/detail",
+    "pages/vip/history"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseAddress",
+    "chooseLocation"
+  ],
+  "subpackages": [
+    {
+      "root": "packageStreamMedia",
+      "name": "packageStreamMedia",
+      "pages": [
+        "pages/videoCall/videoCall",
+        "pages/live-anchor/index",
+        "pages/live-anchor/list",
+        "pages/live-client/list",
+        "pages/live-client/client"
+      ]
+    },
+    {
+      "root": "packageCps",
+      "name": "packageCps",
+      "pages": [
+        "pages/goods-details/cps-jd",
+        "pages/goods-details/cps-pdd",
+        "pages/goods-details/cps-taobao",
+        "pages/order-list/cps"
+      ]
+    },
+    {
+      "root": "packageFx",
+      "name": "packageFx",
+      "pages": [
+        "pages/index/index",
+        "pages/hehuorenfenxiao/index",
+        "pages/hehuorenfenxiao/fxmember",
+        "pages/apply/index",
+        "pages/apply/form",
+        "pages/myusers/index",
+        "pages/commisionLog/index",
+        "pages/report/team",
+        "pages/report/city",
+        "pages/myusers/myusers-detail"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black",
-    "onReachBottomDistance":50
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 50
   },
   "tabBar": {
     "color": "#6e6d6b",
     "selectedColor": "#e64340",
     "borderStyle": "white",
     "backgroundColor": "#fff",
-    "list": [{
-     "pagePath": "pages/index/index",
-      "iconPath": "images/nav/home-off.png",
-      "selectedIconPath": "images/nav/home-on.png",
-      "text": "首页"
-    },
-    {
-      "pagePath": "pages/shop-cart/index",
-      "iconPath": "images/nav/cart-off.png",
-      "selectedIconPath": "images/nav/cart-on.png",
-      "text": "购物车"
-    },    
-    {
-      "pagePath": "pages/my/index",
-      "iconPath": "images/nav/my-off.png",
-      "selectedIconPath": "images/nav/my-on.png",
-      "text": "我的"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/nav/home-off.png",
+        "selectedIconPath": "images/nav/home-on.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "images/nav/fl-off.png",
+        "selectedIconPath": "images/nav/fl-on.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/coupons/index",
+        "iconPath": "images/nav/coupon-off.png",
+        "selectedIconPath": "images/nav/coupon-on.png",
+        "text": "优惠券"
+      },
+      {
+        "pagePath": "pages/shop-cart/index",
+        "iconPath": "images/nav/cart-off.png",
+        "selectedIconPath": "images/nav/cart-on.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "images/nav/my-off.png",
+        "selectedIconPath": "images/nav/my-on.png",
+        "text": "我的"
+      }
+    ]
   },
-  "navigateToMiniProgramAppIdList": [
-    "wx56c8f077de74b07c"
-  ]
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取离你最近的门店"
+    }
+  },
+  "usingComponents": {
+    "fuwuxieyi": "/components/fuwuxieyi/index",
+    "goods-pop": "/components/goods-pop/index",
+    "login": "/components/login/index",
+    "bind-mobile": "/components/bind-mobile/index",
+    "payment": "/components/payment/index",
+    "mp-html": "mp-html",
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-count-down": "@vant/weapp/count-down/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-progress": "@vant/weapp/progress/index",
+    "van-submit-bar": "@vant/weapp/submit-bar/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-sidebar": "@vant/weapp/sidebar/index",
+    "van-sidebar-item": "@vant/weapp/sidebar-item/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-goods-action": "@vant/weapp/goods-action/index",
+    "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
+    "van-goods-action-button": "@vant/weapp/goods-action-button/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-rate": "@vant/weapp/rate/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-overlay": "@vant/weapp/overlay/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-area": "@vant/weapp/area/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index"
+  },
+  "sitemapLocation": "sitemap.json"
 }

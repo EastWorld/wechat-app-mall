@@ -1,0 +1,47 @@
+<van-sticky>
+  <van-tabs active="{{ tabIndex }}" bind:change="tabChange">
+    <van-tab title="京东" />
+    <van-tab title="拼多多" />
+  </van-tabs>
+</van-sticky>
+<van-empty wx:if="{{ !list }}" description="暂无订单" />
+<block wx:if="{{ tabIndex == 0 }}">
+  <van-card
+    wx:for="{{list}}" wx:key="id"
+    num="{{ item.skuNum }}"
+    price="{{ item.estimateCosPrice }}"
+    title="{{ item.skuName }}"
+    thumb="{{ item.imageUrl }}"
+    tag="{{ item.validCodeStr }}"
+    centered
+  >
+    <view slot="desc">
+      <view>订单号 {{ item.orderId }}</view>
+      <view>商品编号 {{ item.skuId }}</view>
+      <view>下单时间 {{ item.orderTime }}</view>
+    </view>
+    <view slot="footer">
+      <van-button wx:if="{{ item.validCode == 17 && !item.recycleOrderId }}" type="danger" size="mini" data-type="1" data-orderid="{{ item.id }}" data-platform="jd" bind:click="huishou">回收</van-button>
+    </view>
+  </van-card>
+</block>
+<block wx:if="{{ tabIndex == 1 }}">
+  <van-card
+    wx:for="{{list}}" wx:key="id"
+    num="{{ item.goodsNum }}"
+    price="{{ item.orderAmount }}"
+    title="{{ item.goodsName }}"
+    thumb="{{ item.imageUrl }}"
+    tag="{{ item.statusStr }}"
+    centered
+  >
+    <view slot="desc">
+      <view>订单号 {{ item.orderSn }}</view>
+      <view>商品编号 {{ item.goodsId }}</view>
+      <view>下单时间 {{ item.datePay }}</view>
+    </view>
+    <view slot="footer">
+      <van-button wx:if="{{ (item.status == 2 || item.status == 3 || item.status == 5) && !item.recycleOrderId }}" type="danger" size="mini" data-type="1" data-orderid="{{ item.id }}" data-platform="pdd" bind:click="huishou">回收</van-button>
+    </view>
+  </van-card>
+</block>

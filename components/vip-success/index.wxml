@@ -1,0 +1,29 @@
+<view class="success-modal" wx:if="{{show}}" catchtap="handleMaskClick">
+  <view class="modal-content" catchtap="stopPropagation">
+    <!-- 烟花效果背景 -->
+    <view class="fireworks">
+      <view class="firework" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"></view>
+    </view>
+    
+    <!-- 主内容 -->
+    <view class="success-icon">
+      <view class="icon-circle">
+        <van-icon name="passed" color="#fff" size="60px" />
+      </view>
+    </view>
+    
+    <view class="success-title">🎉 恭喜您</view>
+    <view class="success-desc">成功升级为</view>
+    <view class="level-name">{{levelName}}</view>
+    
+    <view class="benefits-preview" wx:if="{{benefits.length > 0}}">
+      <view class="benefit-tag" wx:for="{{benefits}}" wx:key="index">
+        {{item}}
+      </view>
+    </view>
+    
+    <view class="confirm-btn" bindtap="handleConfirm">
+      确定
+    </view>
+  </view>
+</view>

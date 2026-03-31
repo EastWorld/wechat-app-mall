@@ -1,0 +1,42 @@
+<van-sticky>
+  <view class="header">
+    <view class="search">
+      <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+      <image src="/images/icon/search.svg" bindtap="search"></image>
+    </view>
+    <!-- <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image> -->
+  </view>
+  <view class="filters">
+    <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
+    <view class="item {{orderBy=='winsdate_desc'?'active':''}}" data-val="winsdate_desc" bindtap="filter">新品</view>
+    <view class="item {{orderBy=='sale_desc'?'active':''}}" data-val="sale_desc" bindtap="filter">销量</view>
+    <view class="item {{orderBy=='price_asc'?'active':''}}" data-val="price_asc" bindtap="filter">价格</view>
+  </view>
+</van-sticky>
+<van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
+<block wx:if="{{listType == 1}}">
+  <view class="list1" wx:for="{{goods}}" wx:key="id">
+    <navigator url="/pages/goods-details/vop?id={{item.skuId}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <view class="goods-info">
+      <view class="title ellipsis"><navigator url="/pages/goods-details/vop?id={{item.skuId}}">{{item.skuName}}</navigator></view>
+      <view class="price" style="margin-top: 24rpx;">¥ {{item.priceSale}}</view>
+      <!-- <view class="buy-info">
+        <view class="num">已售出{{item.numberSells}}件</view>
+        <image class="car" src="/images/icon/car.svg" data-id="{{item.skuId}}" bindtap="addShopCar"></image>
+      </view> -->
+    </view>
+  </view>
+</block>
+<view wx:if="{{listType == 2}}" class="list2-box">
+  <view class="list2" wx:for="{{goods}}" wx:key="id">
+    <navigator url="/pages/goods-details/vop?id={{item.skuId}}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <view class="goods-info">
+      <view class="title"><navigator url="/pages/goods-details/vop?id={{item.skuId}}">{{item.skuName}}</navigator></view>
+      <view class="price">¥ {{item.priceSale}}</view>
+      <!-- <view class="buy-info">
+        <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
+        <image class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
+      </view> -->
+    </view>
+  </view>
+</view>

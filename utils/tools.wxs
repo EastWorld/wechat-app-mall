@@ -1,0 +1,9 @@
+// 页面上使用的公共类
+// <wxs src="../../utils/tools.wxs" module="tools" />
+// tools.tofix2(12.33333)
+module.exports = {
+  msg: 'wxs-tools',
+  tofix2: function(num) {
+    return num.toFixed(2)
+  }
+};

@@ -1,0 +1,10 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<view
+  class="{{ border ? 'van-hairline--top-bottom' : '' }} {{ utils.bem('tabbar', { fixed, safe: safeAreaInsetBottom }) }} custom-class"
+  style="{{ zIndex ? 'z-index: ' + zIndex : '' }}"
+>
+  <slot />
+</view>
+
+<view wx:if="{{ fixed && placeholder }}" style="height: {{ height }}px;"></view>

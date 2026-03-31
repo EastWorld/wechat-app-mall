@@ -1,0 +1,5 @@
+<van-tabs wx:if="{{ status != -1 && status != 1 }}" active="{{ active }}" bind:change="tabClick">
+  <van-tab wx:for="{{ tabs }}" wx:key="*this" title="{{ item }}"></van-tab>
+</van-tabs>
+<van-empty wx:if="{{ !orderList }}" description="暂无订单" />
+<van-cell title-width="520rpx;" wx:for="{{orderList}}" wx:key="index" title="{{item.orderNumber}}" label="下单时间: {{item.dateAdd}}" value="{{item.statusStr}}" is-link	url="/pages/peisong/detail?peisongOrderId={{item.id}}" />

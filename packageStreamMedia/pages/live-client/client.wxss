@@ -1,0 +1,485 @@
+page {
+  height: 100%;
+  overflow: hidden;
+}
+
+.watcher {
+  color: #fff;
+  margin-top: 15rpx;
+  text-align: right;
+  font-size: 20rpx;
+  padding-right: 50rpx;
+}
+
+.tips {
+  position: absolute;
+  top: 598rpx;
+  left: 0;
+  width: 80%;
+  height: 66rpx;
+  line-height: 66rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 0 33rpx 33rpx 0;
+  color: #fff;
+  font-size: 24rpx;
+  background: #EF7471;
+  opacity: .4;
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tips .avatar-img {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+live-player {
+  z-index: 99;
+  position: relative;
+}
+
+.outer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+
+.outer .back {
+  width: 140rpx;
+  position: relative;
+}
+
+.outer .back .icon {
+  position: absolute;
+  left: 24rpx;
+  bottom: 8rpx;
+  width: 50rpx;
+  height: 50rpx;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1rpx solid rgba(204, 204, 204, 1);
+  border-radius: 50%;
+}
+
+.outer .back .icon .back-icon {
+  transform: scale(0.6);
+}
+
+.outer .anchor-info {
+  margin-top: 50rpx;
+  padding: 0 30rpx;
+  height: 70rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.outer .anchor-info .left {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 34rpx;
+  /* min-width: 300rpx; */
+}
+
+.outer .anchor-info .left .avatar {
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 50%;
+  margin-left: 6rpx;
+}
+
+.outer .anchor-info .left .mid {
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: #fff;
+  margin-left: 6rpx;
+  margin-right: 14rpx;
+  overflow: hidden;
+}
+
+.outer .anchor-info .left .mid .nickname {
+  max-width: 180rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outer .anchor-info .left .follow {
+  width: 128rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  margin-right: 6rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 12rpx 0 2rpx;
+  background: linear-gradient(90deg, rgba(254, 104, 137, 1), rgba(255, 121, 108, 1));
+  background: rgba(254, 104, 137, 1);
+}
+
+.outer .anchor-info .left .follow  .add {
+  width: 22rpx;
+  height: 22rpx;
+  margin-left: 6rpx;
+  margin-right: 10rpx;
+}
+
+.outer .anchor-info .left .follow .txt {
+  font-size: 30rpx;
+  color: #fff;
+}
+
+.follow-icon-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40rpx;
+  height: 40rpx;
+  background: #fff;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  margin-left: 4rpx;
+}
+
+.outer .anchor-info .right {
+  min-width: 174rpx;
+  height: 40rpx;
+  border-radius: 20rpx;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+.outer .anchor-info .right .txt {
+  font-size: 24rpx;
+  color: #fff;
+  margin-left: 15rpx;
+}
+
+.outer .footer {
+  position: absolute;
+  bottom: 20rpx;
+  right: 24rpx;
+  left: 24rpx;
+  height: auto;
+  min-height: 100rpx;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+.outer .footer .item0 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.outer .footer .item0 .goods {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.outer .footer .item0 .txt {
+  font-size: 24rpx;
+  color: #fff;
+  margin-top: 8rpx;
+}
+
+.outer .footer .item1 {
+  width: 400rpx;
+  height: 70rpx;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 34rpx;
+  margin: 0 30rpx 0 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.outer .footer .item1 .cmt-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin: 0 20rpx;
+}
+
+.outer .footer .item1 .txt {
+  color: #fff;
+  font-size: 28rpx;
+}
+
+.outer .footer .item2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 12rpx;
+}
+
+.outer .footer .item2 .icon-wrap {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.outer .footer .item2 .icon-wrap .icons {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.outer .footer .item2  .txt {
+  font-size: 24rpx;
+  color: #fff;
+  margin-top: 8rpx;
+}
+
+.outer .barrage {
+  position: absolute;
+  width: 520rpx;
+  height: 500rpx;
+  bottom: 140rpx;
+  overflow-y: scroll;
+  background: transparent;
+  /* background: green; */
+}
+
+.outer .barrage .barrage-item {
+  padding: 5rpx 20rpx;
+  border-radius: 10rpx;
+}
+
+.outer .barrage .barrage-item  .item-wrap {
+  border-radius: 15rpx;
+  display: inline-block;
+  padding: 6rpx;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.outer .barrage .barrage-item  .item-wrap .avatar {
+  width: 46rpx;
+  height: 46rpx;
+  display: inline-block;
+  margin-right: 4rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.outer .barrage .barrage-item  .item-wrap .item-nickname {
+  max-width: 86rpx;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  position: relative;
+}
+
+.outer .barrage .barrage-item  .item-wrap .item-words {
+  width:450rpx;
+  display: inline-block;
+  margin-left: 15rpx;
+  word-break: break-all;
+  white-space: nowrap;
+  color: #fff;
+  overflow-x: scroll;
+  vertical-align: middle;
+  font-size: 26rpx;
+  text-overflow:ellipsis;
+  word-wrap:break-word;
+  white-space:pre-wrap;
+}
+
+.left-input {
+  width: 12%;
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  bottom: 2rpx;
+  background: #fff;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-input .icon {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.line-wrap {
+  position: absolute;
+  z-index: 9999;
+  left: 11%;
+  bottom: 2rpx;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.line-wrap .line-icon {
+  width: 1px;
+  height: 50rpx;
+}
+
+.send-barrage {
+  z-index: 9999;
+  position: absolute;
+  left: 12%;
+  bottom: 2rpx;
+  height: 50px;
+  line-height: 50px;
+  width: 88%;
+  box-sizing: border-box;
+  padding: 0 8rpx;
+  background: #fff;
+  color: 28rpx;
+}
+
+.send-btn {
+  position: absolute;
+  z-index: 9999;
+  bottom: 2rpx;
+  right: 0;
+  height: 50px;
+  line-height: 50px;
+  font-size: 32rpx;
+  width: 20%;
+  text-align: center;
+  background: #b25f4a;
+  color: #fff;
+}
+
+.hover-class {
+  color: #dfdfdf;
+}
+
+.goods-list {
+  position: absolute;
+  z-index: 99999;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10rpx 10rpx 0 0;
+  height: 900rpx;
+  overflow: hidden;
+}
+
+.goods-list .goods-empty {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 300rpx;
+  z-index: 99999;
+  line-height: 100rpx;
+  text-align: center;
+  color: #888;
+  font-size: 26rpx;
+}
+
+.open {
+  transition: all 0.3s ease-out;
+  transform: translateY(0);
+}
+
+.close {
+  transition: all 0.3s ease-out;
+  transform: translateY(900rpx);
+}
+
+.goods-list .title {
+  padding: 0 24rpx;
+  position: absolute;
+  left: 0;
+  top: 32rpx;
+  right: 0;
+  min-height: 68rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.goods-list .title .img {
+  width: 59rpx;
+  height: 53rpx;
+}
+
+.goods-list .item-list {
+  margin: 100rpx 24rpx 0;
+  overflow-y: scroll;
+  max-height: 900rpx;
+}
+
+.goods-list .item-list .item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #ccc;
+  position: relative;
+}
+
+.goods-list .item-list .item .goods-img {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 10rpx;
+  margin-right: 15rpx;
+}
+
+.goods-list .item-list .item .info {
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10rpx 0;
+}
+
+.goods-list .item-list .item .info .price {
+  color: #ff605a;
+  font-size: 30rpx;
+}
+
+.goods-list .item-list .item .info .goods-title {
+  width: 360rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goods-list .item-list .item .btn {
+  position: absolute;
+  right: 0;
+  bottom: 10rpx;
+  width: 120rpx;
+  height: 50rpx;
+  font-size: 26rpx;
+  border-radius: 60rpx;
+  line-height: 50rpx;
+  background: #ff605a;
+  color: #fff;
+}
+
+.like-box {
+  position: absolute;
+  right: 40rpx;
+  padding: 0 15rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 20rpx;
+  bottom: 118rpx;
+  font-size: 20rpx;
+  background: #f34861;
+  color: #fff;
+}
+
+.main-goods {
+  position: absolute;
+  top: 260rpx;
+  left: 24rpx;
+  z-index: 99;
+}

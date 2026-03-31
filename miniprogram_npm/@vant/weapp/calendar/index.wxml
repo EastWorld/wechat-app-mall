@@ -1,0 +1,27 @@
+<wxs src="./index.wxs" module="computed" />
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<import src="./calendar.wxml" />
+
+<van-popup
+  wx:if="{{ poppable }}"
+  custom-class="van-calendar__popup--{{ position }}"
+  close-icon-class="van-calendar__close-icon"
+  show="{{ show }}"
+  round="{{ round }}"
+  position="{{ position }}"
+  closeable="{{ showTitle || showSubtitle }}"
+  close-on-click-overlay="{{ closeOnClickOverlay }}"
+  safe-area-inset-bottom="{{ safeAreaInsetBottom }}"
+  root-portal="{{ rootPortal }}"
+  bind:enter="onOpen"
+  bind:close="onClose"
+  bind:after-enter="onOpened"
+  bind:after-leave="onClosed"
+>
+  <include src="./calendar.wxml" />
+</van-popup>
+
+<include wx:else src="./calendar.wxml" />
+
+<van-toast id="van-toast" />

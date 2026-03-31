@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- 优惠券主体 -->
+  <path d="M56 18H8C6.9 18 6 18.9 6 20V28C6 28 9 28 9 32C9 36 6 36 6 36V44C6 45.1 6.9 46 8 46H56C57.1 46 58 45.1 58 44V36C58 36 55 36 55 32C55 28 58 28 58 28V20C58 18.9 57.1 18 56 18Z" fill="white"/>
+  <!-- 虚线 -->
+  <line x1="28" y1="22" x2="28" y2="26" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <line x1="28" y1="30" x2="28" y2="34" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <line x1="28" y1="38" x2="28" y2="42" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <!-- 折扣标记 -->
+  <path d="M42 28L38 24L34 28L38 32L42 28Z" fill="white" opacity="0.8"/>
+</svg>
+

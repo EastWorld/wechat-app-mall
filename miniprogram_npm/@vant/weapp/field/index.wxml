@@ -1,0 +1,56 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<van-cell
+  size="{{ size }}"
+  icon="{{ leftIcon }}"
+  center="{{ center }}"
+  border="{{ border }}"
+  is-link="{{ isLink }}"
+  required="{{ required }}"
+  clickable="{{ clickable }}"
+  title-width="{{ titleWidth }}"
+  title-style="margin-right: 12px;"
+  custom-style="{{ customStyle }}"
+  arrow-direction="{{ arrowDirection }}"
+  custom-class="custom-class van-field"
+>
+  <slot name="left-icon" slot="icon" />
+  <label for="{{ name }}" wx:if="{{ label }}" class="label-class {{ utils.bem('field__label', { disabled }) }}" slot="title">
+    {{ label }}
+  </label>
+  <slot wx:else name="label" slot="title" />
+  <view class="{{ utils.bem('field__body', [type]) }}">
+    <view class="{{ utils.bem('field__control', [inputAlign, 'custom']) }}" bindtap="onClickInput">
+      <slot name="input" />
+    </view>
+    <include wx:if="{{ type === 'textarea' }}" src="./textarea.wxml" />
+    <include wx:else src="./input.wxml" />
+
+    <van-icon
+      wx:if="{{ showClear }}"
+      name="{{ clearIcon }}"
+      class="van-field__clear-root van-field__icon-root"
+      catch:touchstart="onClear"
+    />
+    <view class="van-field__icon-container" bind:tap="onClickIcon">
+      <van-icon
+        wx:if="{{ rightIcon || icon }}"
+        name="{{ rightIcon || icon }}"
+        class="van-field__icon-root {{ iconClass }}"
+        custom-class="right-icon-class"
+      />
+      <slot name="right-icon" />
+      <slot name="icon" />
+    </view>
+    <view class="van-field__button">
+      <slot name="button" />
+    </view>
+  </view>
+  <label for="{{ name }}" wx:if="{{ showWordLimit && maxlength }}" class="van-field__word-limit">
+    <view class="{{ utils.bem('field__word-num', { full: value.length >= maxlength }) }}">{{ value.length >= maxlength ? maxlength : value.length }}</view>/{{ maxlength }}
+  </label>
+  <label for="{{ name }}"  wx:if="{{ errorMessage }}" class="{{ utils.bem('field__error-message', [errorMessageAlign, { disabled, error }]) }}">
+    {{ errorMessage }}
+  </label>
+</van-cell>

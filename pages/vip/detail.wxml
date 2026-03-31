@@ -1,0 +1,117 @@
+<view class="detail-container">
+  <!-- 顶部等级信息 -->
+  <view class="level-header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="level-badge-large">
+        <van-icon name="vip-card-o" size="90rpx" color="#eee" />
+      </view>
+      <text class="level-name">{{levelDetail.info.name}}</text>
+      <text class="level-desc">LV{{levelDetail.info.level}}</text>
+    </view>
+  </view>
+
+  <!-- 权益列表 -->
+  <view class="benefits-section">
+    <view class="section-title">会员权益</view>
+    <view class="benefits-grid">
+      <view class="benefit-card" wx:if="{{levelDetail.info.rebate < 10}}">
+        <view class="benefit-icon">
+          <van-icon name="discount" color="#667eea" size="32px" />
+        </view>
+        <text class="benefit-title">购物折扣</text>
+        <text class="benefit-value">{{levelDetail.info.rebate}}折</text>
+      </view>
+      
+      <view class="benefit-card" wx:if="{{levelDetail.info.upgradeSendScore > 0}}">
+        <view class="benefit-icon">
+          <van-icon name="gift-o" color="#667eea" size="32px" />
+        </view>
+        <text class="benefit-title">升级赠送</text>
+        <text class="benefit-value">{{levelDetail.info.upgradeSendScore}}积分</text>
+      </view>
+      
+      <view class="benefit-card" wx:if="{{levelDetail.info.sendPerMonthScore > 0}}">
+        <view class="benefit-icon">
+          <van-icon name="gold-coin-o" color="#667eea" size="32px" />
+        </view>
+        <text class="benefit-title">每月赠送</text>
+        <text class="benefit-value">{{levelDetail.info.sendPerMonthScore}}积分</text>
+      </view>
+      
+      <view class="benefit-card" wx:if="{{levelDetail.info.sendPerMonthCoupons}}">
+        <view class="benefit-icon">
+          <van-icon name="coupon-o" color="#667eea" size="32px" />
+        </view>
+        <text class="benefit-title">专享优惠券</text>
+        <text class="benefit-value">每月赠送</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 扩展信息 -->
+  <view class="ext-section" wx:if="{{extJsonKeys.length > 0}}">
+    <view class="section-title">更多权益</view>
+    <view class="ext-list">
+      <view class="ext-item" wx:for="{{extJsonKeys}}" wx:key="index">
+        <text class="ext-label">{{item.key}}</text>
+        <text class="ext-value">{{item.value}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 购买选项 -->
+  <view class="price-section">
+    <view class="section-title">选择购买时长</view>
+    <view class="price-list" wx:if="{{priceList.length > 0}}">
+      <view 
+        class="price-item {{selectedPrice && selectedPrice.id === item.id ? 'active' : ''}}"
+        wx:for="{{priceList}}"
+        wx:key="id"
+        bindtap="selectPrice"
+        data-item="{{item}}"
+      >
+        <view class="price-duration">
+          <text class="duration-num">{{item.duration}}</text>
+          <text class="duration-unit">{{item.unitStr}}</text>
+        </view>
+        <view class="price-amount">
+          <text class="price-symbol">¥</text>
+          <text class="price-num">{{item.price}}</text>
+        </view>
+        <view class="price-check" wx:if="{{selectedPrice && selectedPrice.id === item.id}}">
+          <van-icon name="success" color="#fff" size="16px" />
+        </view>
+      </view>
+    </view>
+    <view class="empty-price" wx:else>
+      <van-icon name="info-o" color="#999" size="32px" />
+      <text class="empty-text">当前等级暂不开放升级</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="price-info">
+      <text class="price-label">需支付</text>
+      <text class="price-total">¥{{selectedPrice ? selectedPrice.price : 0}}</text>
+    </view>
+    <view class="buy-btn" bindtap="handleBuy">立即升级</view>
+  </view>
+  <!-- 成功弹窗 -->
+  <vip-success
+    show="{{successShow}}"
+    levelName="{{levelDetail.info.name}}"
+    benefits="{{successBenefits}}"
+    bind:confirm="handleSuccessConfirm"
+  />
+</view>
+<!-- 支付组件 -->
+<payment
+  money="{{ money }}"
+  remark="升级会员 ：{{ money }}"
+  nextAction="{{ nextAction }}"
+  show="{{ paymentShow }}"
+  bind:cancel="paymentCancel"
+  bind:ok="paymentOk"
+/>

@@ -1,0 +1,67 @@
+<van-sticky>
+  <view class="header">
+    <view class="search">
+      <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+      <image src="/images/icon/search.svg" bindtap="search"></image>
+    </view>
+    <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image>
+  </view>
+  <view class="filters">
+    <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
+    <view class="item {{orderBy=='addedDown'?'active':''}}" data-val="addedDown" bindtap="filter">新品</view>
+    <view class="item {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">销量</view>
+    <view class="item {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">价格</view>
+  </view>
+</van-sticky>
+<van-empty wx:if="{{ !goods || goods.length == 0 }}" description="暂无商品" />
+<wxs module="goodsDetailPage">
+module.exports = {
+  url : function(item) {
+    if (item.supplyType == 'cps_jd') {
+      return '/packageCps/pages/goods-details/cps-jd?id=' + item.id
+    } else if (item.supplyType == 'vop_jd') {
+      return '/pages/goods-details/vop?id=' + item.yyId + '&goodsId=' + item.id
+    } else if (item.supplyType == 'cps_pdd') {
+      return '/packageCps/pages/goods-details/cps-pdd?id=' + item.id
+    } else if (item.supplyType == 'cps_taobao') {
+      return '/packageCps/pages/goods-details/cps-taobao?id=' + item.id
+    } else {
+      return '/pages/goods-details/index?id=' + item.id
+    }
+  }
+}
+</wxs>
+<block wx:if="{{listType == 1}}">
+  <view class="list1" wx:for="{{goods}}" wx:key="id">
+    <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <view class="goods-info">
+      <view class="title ellipsis"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0;-webkit-line-clamp: 1;">{{item.characteristic}}</view>
+      <view class="price">¥ {{item.minPrice}}<text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}
+        </text></view>
+      <view wx:if="{{ item.supplyType != 'vop_jd' }}" class="buy-info">
+        <view wx:if="{{ show_seller_number == '1' }}" class="num">已售出{{item.numberSells}}件</view>
+        <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" class="car" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+        <van-icon wx:else class="car" name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+      </view>
+    </view>
+  </view>
+</block>
+<view wx:if="{{listType == 2}}" class="list2-box">
+  <view class="list2" wx:for="{{goods}}" wx:key="id">
+    <navigator url="{{ goodsDetailPage.url(item) }}"><image class="img" mode="aspectFill" src="{{item.pic}}"></image></navigator>
+    <view class="goods-info">
+      <view class="title van-multi-ellipsis--l2"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
+      <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0;-webkit-line-clamp: 1;">{{item.characteristic}}</view>
+      <view class="price">¥ {{item.minPrice}}<text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}
+        </text></view>
+      <view wx:if="{{ item.supplyType != 'vop_jd' }}" class="buy-info">
+        <view wx:if="{{ show_seller_number == '1' }}" class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
+        <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" class="car" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+        <van-icon wx:else class="car" name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+      </view>
+    </view>
+  </view>
+</view>
+
+<goods-pop skuCurGoodsBaseInfo="{{ skuCurGoods }}" />

@@ -1,39 +1,93 @@
-<view class="container">
-  <button wx:if="{{!addressData}}" type="primary" class="save-btn" bindtap="readFromWx">读取微信地址</button>
-    <form bindsubmit="bindSave" report-submit="true">
-    <view class="form-box">
-        <view class="row-wrap">
-            <view class="label">联系人</view>
-            <view class="label-right">
-                <input name="linkMan" class="input" type="text" placeholder="姓名" value="{{addressData.linkMan}}{{wxaddress.userName}}"/>
-            </view>
+<view class="page-container">
+  <!-- 快捷功能 -->
+  <block wx:if="{{!id && provinces}}">
+    <view class="quick-action-card">
+      <view class="quick-action-btn" bindtap="readFromWx">
+        <view class="quick-icon">📍</view>
+        <view class="quick-text">
+          <view class="quick-title">一键导入</view>
+          <view class="quick-desc">使用微信收货地址</view>
         </view>
-        <view class="row-wrap">
-            <view class="label">手机号码</view>
-            <view class="label-right">
-                <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}{{wxaddress.telNumber}}"/>
-            </view>
-        </view>
-        <view class="row-wrap" bindtap="selectCity">
-            <view class="label">选择地区</view>
-            <picker mode="multiSelector" range="{{pickerRegionRange}}" range-key="name" value="{{pickerSelect}}" bindchange="bindchange" bindcolumnchange="bindcolumnchange">
-              {{showRegionStr}}
-            </picker>
-        </view>
-        <view class="addr-details">
-            <view class="label">详细地址</view>
-            <view class="label-right">
-                <textarea name="address" auto-height placeholder="街道门牌信息"  value="{{addressData.address}}{{wxaddress.detailInfo}}"/>
-            </view>
-        </view>
-        <view class="row-wrap">
-            <view class="label">邮政编号</view>
-            <view class="label-right">
-                <input name="code" class="input" type="text" value="{{addressData.code}}{{wxaddress.postalCode}}"/>
-            </view>
-        </view>
+        <view class="quick-arrow">›</view>
+      </view>
     </view>
-    <button type="warn" class="save-btn" formType="submit">保存</button>    
-    <button type="default" class="save-btn" bindtap="deleteAddress" data-id="{{addressData.id}}" wx:if="{{addressData}}">删除该地址</button>
-    </form>
+  </block>
+
+  <!-- 地址信息卡片 -->
+  <view class="form-card">
+    <view class="card-title">
+      <view class="title-icon">📮</view>
+      <text>收货地址</text>
+    </view>
+    
+    <view class="form-section">
+      <picker bindchange="provinceChange" value="{{pIndex}}" range="{{provinces}}" range-key="name">
+        <van-cell custom-class="custom-cell" title="省份" value="{{provinces[pIndex].name}}" is-link />
+      </picker>
+      <picker wx:if="{{cities}}" bindchange="cityChange" value="{{cIndex}}" range="{{cities}}" range-key="name">
+        <van-cell custom-class="custom-cell" title="城市" value="{{cities[cIndex].name}}" is-link />
+      </picker>
+      <picker wx:if="{{areas}}" bindchange="areaChange" value="{{aIndex}}" range="{{areas}}" range-key="name">
+        <van-cell custom-class="custom-cell" title="区县" value="{{areas[aIndex].name}}" is-link />
+      </picker>
+      <picker wx:if="{{streets}}" bindchange="streetChange" value="{{sIndex}}" range="{{streets}}" range-key="name">
+        <van-cell custom-class="custom-cell" title="街道/镇" value="{{streets[sIndex].name}}" is-link />
+      </picker>
+      <picker wx:if="{{communities}}" bindchange="communityChange" value="{{ccIndex}}" range="{{communities}}" range-key="name">
+        <van-cell custom-class="custom-cell" title="社区/村委会" value="{{communities[ccIndex].name}}" is-link />
+      </picker>
+      <van-field
+        custom-class="custom-field"
+        label="详细地址"
+        model:value="{{ address }}"
+        placeholder="如街道、楼栋号、门牌号等"
+        input-align="right"
+        clearable
+        type="textarea"
+        autosize
+      />
+      <van-cell wx:if="{{ shipping_address_gps == '1' }}" custom-class="custom-cell" title="GPS定位" value="{{ addressData.latitude ? '已定位' : '点击定位' }}" is-link bind:click="chooseLocation" />
+    </view>
+  </view>
+
+  <!-- 联系人信息卡片 -->
+  <view class="form-card">
+    <view class="card-title">
+      <view class="title-icon">👤</view>
+      <text>联系人信息</text>
+    </view>
+    
+    <view class="form-section">
+      <van-field
+        custom-class="custom-field"
+        label="收货人"
+        model:value="{{ linkMan }}"
+        placeholder="请输入收货人姓名"
+        input-align="right"
+        clearable
+      />
+      <van-field
+        custom-class="custom-field"
+        label="手机号码"
+        model:value="{{ mobile }}"
+        placeholder="请输入11位手机号"
+        input-align="right"
+        type="number"
+        clearable
+      />
+    </view>
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view class="bottom-actions">
+    <button class="save-btn primary-btn" bindtap="bindSave">
+      <text class="btn-text">保存地址</text>
+    </button>
+    <button class="save-btn danger-btn" bindtap="deleteAddress" data-id="{{id}}" wx:if="{{id}}">
+      <text class="btn-text">删除地址</text>
+    </button>
+  </view>
+  
+  <!-- 底部安全区域 -->
+  <view class="safe-area-bottom"></view>
 </view>

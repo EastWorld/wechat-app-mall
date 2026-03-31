@@ -1,0 +1,18 @@
+<van-field
+  label="交易密码"
+  password
+  model:value="{{ pwd }}"
+  placeholder="请输入交易密码"
+  clearable
+/>
+<van-field
+  label="再次输入"
+  password
+  model:value="{{ pwd2 }}"
+  placeholder="请再次输入交易密码"
+  clearable
+/>
+<van-cell icon="info-o" title="温馨提示" label="为了保障您的资金安全，余额支付、优惠买单、申请提现的时候可能会需要交易密码" />
+<view class="block-btn btn">
+  <van-button type="primary" block bind:click="submit">设置交易密码</van-button>
+</view>

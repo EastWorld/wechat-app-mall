@@ -1,0 +1,243 @@
+page {
+  background: #f5f5f5;
+}
+page,view,image,input {
+  display: block;
+  box-sizing: border-box;
+}
+.header {
+  padding: 32rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+.header .search {
+  position: relative;
+  width: 750rpx;
+  height: 66rpx;
+}
+.header .search input {
+  border: 1rpx solid #e3e3e3;
+  width: 100%;
+  height: 100%;
+  border-radius: 30rpx;
+  padding-left: 60rpx; 
+}
+.header .search image {
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: 16rpx;
+  right: 40rpx;
+  z-index: 9999;
+}
+.header .show-type {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+}
+.line {
+  width: 100vw;
+  height: 2rpx;
+  background: #dfdfdf;
+}
+.filters {
+  width: 100vw;
+  height: 88rpx;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+}
+.filters .item {
+  line-height: 88rpx;
+}
+.filters .active {
+  color:#fa1e26;
+}
+.list1 {
+  margin: 16rpx;
+  width: 718rpx;
+  height: 220rpx;
+  display: flex;
+  background: #fff;
+  border-radius: 30rpx;
+  overflow: hidden;
+  position: relative;
+}
+.list1 .img {
+  width: 220rpx;
+  height: 220rpx;
+  flex-shrink: 0;
+}
+.list1 .goods-info {
+  padding: 16rpx 32rpx 0 24rpx;
+  width: 100%;
+}
+.list1 .goods-info .title {
+  color: #333;
+  font-size: 30rpx;
+}
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.list1 .goods-info .price {
+  color: #FF3B30;
+  font-size: 34rpx;
+}
+.list1 .goods-info .buy-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list1 .goods-info .buy-info .num {
+  font-size:24rpx;
+  color:#999999;
+}
+.list1 .goods-info .buy-info .car {
+  position: absolute;
+  right: 16rpx;
+  bottom: 16rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.list2-box {
+  margin: 16rpx;
+  width: 718rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.list2 {
+  margin: 16rpx 0;
+  width: 350rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  overflow: hidden;
+  position: relative;
+}
+.list2 .img {
+  width: 350rpx;
+  height: 350rpx;
+}
+.list2 .goods-info {
+  padding: 16rpx;
+}
+.list2 .goods-info .title {
+  color: #333;
+  font-size: 30rpx;
+}
+.list2 .goods-info .price {
+  color: #FF3B30;
+  font-size: 34rpx;
+}
+.list2 .goods-info .buy-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list2 .goods-info .buy-info .num {
+  font-size:24rpx;
+  color:#999999;
+}
+.list2 .goods-info .buy-info .car {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 16rpx;
+  bottom: 16rpx;
+}
+
+
+.sku-mask {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.sku-container {
+  position: fixed;
+  width: 100vw;
+  bottom: 90rpx;
+  left: 0;
+  background: #fff;
+  padding: 32rpx 32rpx 0 32rpx;
+}
+.sku-container .close {
+  position: absolute;
+  width: 54rpx;
+  height: 54rpx;
+  top: 16rpx;
+  right: 16rpx;
+  /* border: 1rpx solid #666;
+  border-radius: 50%; */
+}
+.sku-container .sku {
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 24rpx;
+  margin-bottom: 16rpx;
+}
+.sku-container .sku .t {
+  color: #333;
+}
+.sku-container .sku .items {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sku-container .sku .items text {
+  padding: 8rpx;
+  border: 1rpx solid #999;
+  color: #999;
+  margin: 24rpx 24rpx 0 0;
+  font-size: 26rpx;
+  border-radius: 12rpx;
+}
+.sku-container .sku .items text.active {
+  border: 1rpx solid #e64340;
+  color: #e64340;
+}
+.sku-container .num {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.sku-container .num .t {
+  color: #333;
+}
+.sku-container .num .num-box {
+  display: flex;
+}
+.sku-container .num .num-box .a {
+  width: 64rpx;
+  height: 64rpx;
+  border: 1rpx solid #999;
+  text-align: center;
+  line-height: 64rpx;
+  font-size: 46rpx;
+  color: #666;
+}
+.sku-container .num .num-box .b {
+  color: #333;
+  line-height: 64rpx;
+  padding: 0 32rpx;
+  border-top: 1rpx solid #999;
+  border-bottom: 1rpx solid #999;
+}
+.sku-btn {
+  width: 100vw;
+  height: 90rpx;
+  line-height: 90rpx;
+  background: #e64340;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}

@@ -1,111 +1,63 @@
-const wxpay = require('../../utils/pay.js')
-const WXAPI = require('../../wxapi/main')
-import drawQrcode from '../../utils/weapp.qrcode.min.js'
-const app = getApp()
+const WXAPI = require('apifm-wxapi')
+const CONFIG = require('../../config.js')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    uid: undefined,
-    showalipay: false,
-    rechargeSendRules: undefined
-  },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let recharge_amount_min = app.globalData.recharge_amount_min;
+  },
+  onLoad(e) {
+    // 读取系统参数
+    this.readConfigVal()
+    getApp().configLoadOK = () => {
+      this.readConfigVal()
+    }
+    this.rechargeSendRules()
+  },
+  onShow: function () {
+
+  },
+  readConfigVal() {
+    let recharge_amount_min = wx.getStorageSync('recharge_amount_min')
     if (!recharge_amount_min) {
       recharge_amount_min = 0;
     }
     this.setData({
-      uid: wx.getStorageSync('uid'),
-      recharge_amount_min: recharge_amount_min
-    });
+      recharge_amount_min: recharge_amount_min,
+      needBindMobile: wx.getStorageSync('needBindMobile'),
+    })
   },
-
+  async rechargeSendRules() {
+    const res = await WXAPI.rechargeSendRules()
+    if (res.code == 0) {
+      this.setData({
+        rechargeSendRules: res.data
+      })
+    }
+  },
   /**
      * 点击充值优惠的充值送
      */
-  rechargeAmount: function (e) {
+  async rechargeAmount(e) {
+    // 判断是否需要绑定手机号码
+    // https://www.yuque.com/apifm/nu0f75/zgf8pu
+    if (this.data.needBindMobile == 1) {
+      const resUserDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
+      if (resUserDetail.code == 0 && !resUserDetail.data.base.mobile) {
+        this.setData({
+          bindMobileShow: true
+        })
+        return
+      }
+    }
     var confine = e.currentTarget.dataset.confine;
     var amount = confine;
     this.setData({
-      amount: amount
-    });
-    wxpay.wxpay(app, amount, 0, "/pages/my/index");
-  },
-
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    const _this = this
-    WXAPI.rechargeSendRules().then(res => {
-      if (res.code === 0) {
-        _this.setData({
-          rechargeSendRules: res.data
-        });
-      }
+      amount,
+      paymentShow: true
     })
-
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  bindSave: function (e) {
-    WXAPI.addTempleMsgFormid({
-      token: wx.getStorageSync('token'),
-      type: 'form',
-      formId: e.detail.formId
-    })
-    var that = this;
-    var amount = e.detail.value.amount;
-
-    if (amount == "" || amount * 1 < 0) {
+  async bindSave() {
+    const amount = this.data.amount;
+    if (!amount || amount * 1 < 0) {
       wx.showModal({
         title: '错误',
         content: '请填写正确的充值金额',
@@ -113,68 +65,53 @@ Page({
       })
       return
     }
-    if (amount * 1 < that.data.recharge_amount_min * 1) {
+    if (amount * 1 < this.data.recharge_amount_min * 1) {
       wx.showModal({
         title: '错误',
-        content: '单次充值金额至少' + that.data.recharge_amount_min + '元',
+        content: '单次充值金额至少' + this.data.recharge_amount_min + '元',
         showCancel: false
       })
       return
     }
-    that.setData({
-      showalipay: e.detail.value.type == 'alipay'
-    })
-    if (e.detail.value.type == 'wx') {
-      // 微信充值
-      wxpay.wxpay(app, amount, 0, "/pages/my/index");
-    } else {
-      // 支付宝充值
-      WXAPI.alipay({
-        token: wx.getStorageSync('token'),
-        money: amount
-      }, 'post').then(res => {
-        if (res.code != 0) {
-          wx.showModal({
-            title: '错误',
-            content: res.msg,
-            showCancel: false
-          })
-          return
-        }
-        drawQrcode({
-          width: 200,
-          height: 200,
-          canvasId: 'myQrcode',
-          text: res.data,
-          _this: that
+    // 判断是否需要绑定手机号码
+    // https://www.yuque.com/apifm/nu0f75/zgf8pu
+    if (this.data.needBindMobile == 1) {
+      console.log(123);
+      const resUserDetail = await WXAPI.userDetail(wx.getStorageSync('token'))
+      if (resUserDetail.code == 0 && !resUserDetail.data.base.mobile) {
+        this.setData({
+          bindMobileShow: true
         })
-      })
-    }
-  },
-  saveToMobile: function () {
-    wx.canvasToTempFilePath({
-      canvasId: 'myQrcode',
-      success: function (res) {
-        let tempFilePath = res.tempFilePath
-        wx.saveImageToPhotosAlbum({
-          filePath: tempFilePath,
-          success: (res) => {
-            wx.showModal({
-              content: '已保存到手机相册',
-              showCancel: false,
-              confirmText: '知道了',
-              confirmColor: '#333'
-            })
-          },
-          fail: (res) => {
-            wx.showToast({
-              title: res.errMsg,
-              icon: 'none',
-              duration: 2000
-            })
-          }
-        })
+        return
       }
+    }
+    this.setData({
+      paymentShow: true
     })
-  }
+  },
+  bindMobileOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      bindMobileShow: false
+    })
+  },
+  bindMobileCancel() {
+    this.setData({
+      bindMobileShow: false
+    })
+  },
+  paymentOk(e) {
+    console.log(e.detail); // 这里是组件里data的数据
+    this.setData({
+      paymentShow: false
+    })
+    wx.switchTab({
+      url: '/pages/my/index',
+    })
+  },
+  paymentCancel() {
+    this.setData({
+      paymentShow: false
+    })
+  },
 })

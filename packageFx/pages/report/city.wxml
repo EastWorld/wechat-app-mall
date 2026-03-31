@@ -1,0 +1,8 @@
+<van-empty wx:if="{{ !members || members.length == 0 }}" description="暂无记录" />
+<van-cell
+  wx:for="{{members}}" wx:key="id"
+  size="large"
+  title="月份{{ item.month }}"
+  label="目标¥{{ item.standardSaleroom}}"
+  value="¥{{ item.curSaleroom}}"
+/>

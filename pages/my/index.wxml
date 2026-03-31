@@ -1,73 +1,381 @@
-<view class="container">
-	<view class="userinfo">
-		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-	</view>
-  <view class="asset">
-    <view class='item' bindtap='goAsset'>
-      <view>{{balance}}</view>
-      <view>可用余额</view>
+<view class="page-container">
+  <!-- 头部用户信息区域 -->
+  <view class="header-section">
+    <view wx:if="{{ !apiUserInfoMap }}" class="login-container">
+      <view class="login-tips">欢迎来到商城</view>
+      <view class="login-btn" bindtap="login">
+        <text>立即登录</text>
+      </view>
     </view>
-    <view class='item right' bindtap='goScore'>
-      <view>{{score}}</view>
-      <view>剩余积分</view>
+    
+    <view wx:else class="user-info-container">
+      <view class="user-main">
+        <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image class="avatar" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+          <view class="avatar-border"></view>
+        </button>
+        <view class="user-detail">
+          <view class="nickname-row">
+            <text class="nickname" bindtap="editNick">{{ apiUserInfoMap.base.nick ? apiUserInfoMap.base.nick : '点击设置昵称' }}</text>
+          </view>
+          <view class="user-id" bind:tap="copyUid">ID: {{ apiUserInfoMap.base.id }}</view>
+        </view>
+      </view>
+      <view class="qr-code-btn" bindtap="goUserCode">
+        <view class="qr-icon-box">
+          <van-icon name="qr" size="52rpx" color="#E4393C" />
+        </view>
+        <view class="qr-text">会员码</view>
+      </view>
     </view>
-  </view>
-  <view style="height:10rpx;background: #eee;width:100%;"></view>
-  <view class="my-item">
-    <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
-  </view>
-  <view class='order-shortcut'>
-    <view class='item' bindtap='goOrder' data-type="0">
-      <image class="icon" src="/images/order/topay.png" background-size="cover"></image>
-      <view class='text'>待付款</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="1">
-      <image class="icon" src="/images/order/fahuo.png" background-size="cover"></image>
-      <view class='text'>待发货</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="2">
-      <image class="icon" src="/images/order/shouhuo.png" background-size="cover"></image>
-      <view class='text'>待收货</view>
-    </view>
-    <view class='item' bindtap='goOrder' data-type="3">
-      <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
-      <view class='text'>待评价</view>
-    </view>
-  </view>
-  <view style="height:10rpx;background: #eee;width:100%;"></view>
-  <view class="my-item">
-    <navigator url="/pages/asset/index" hover-class="navigator-hover">资金明细</navigator>
-  </view>
-  <view class="my-item">
-    <navigator url="/pages/sign/index" hover-class="navigator-hover">每日签到</navigator>
-  </view>
-  <view class="my-item">
-    <navigator url="/pages/score-excharge/index" hover-class="navigator-hover">积分兑换</navigator>
-  </view>  
-  <view class="my-item">
-    <navigator url="/pages/select-address/index" hover-class="navigator-hover">收货地址</navigator>
-  </view>
-  <view class="my-item">
-    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">优惠券</navigator>
-  </view>
-  <view wx:if="{{!userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
-  </view>
-  <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
-    {{userMobile}}
-  </view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="about" bindtap="aboutUs">
-    关于我们
+    
+    <!-- 会员等级卡片 -->
+    <navigator url="/pages/vip/index" class="vip-card-wrapper">
+      <!-- 已开通会员 -->
+      <view wx:if="{{ apiUserInfoMap.userLevel }}" class="vip-card vip-card-active vip-level-{{ apiUserInfoMap.userLevel.level || 1 }}">
+        <view class="vip-card-bg">
+          <view class="vip-shine"></view>
+          <view class="vip-shine vip-shine-2"></view>
+          <view class="vip-decoration vip-decoration-1"></view>
+          <view class="vip-decoration vip-decoration-2"></view>
+        </view>
+        <view class="vip-card-content">
+          <view class="vip-main-info">
+            <view class="vip-badge-wrapper">
+              <view class="vip-badge">
+                <text class="vip-badge-icon">{{ vipLevelConfig[apiUserInfoMap.userLevel.level] ? vipLevelConfig[apiUserInfoMap.userLevel.level].icon : '👑' }}</text>
+              </view>
+              <view class="vip-badge-glow"></view>
+            </view>
+            <view class="vip-text-info">
+              <view class="vip-name-row">
+                <text class="vip-level-name">{{ apiUserInfoMap.userLevel.name }}</text>
+                <text class="vip-level-tag">VIP{{ apiUserInfoMap.userLevel.level || '' }}</text>
+              </view>
+              <view class="vip-desc">专属特权 · 尊享服务</view>
+            </view>
+          </view>
+          <view class="vip-action-btn">
+            <text class="vip-action-text">会员中心</text>
+            <text class="vip-action-arrow">›</text>
+          </view>
+        </view>
+        <view class="vip-card-footer">
+          <view class="vip-expire-info">
+            <text class="vip-expire-icon">⏰</text>
+            <text class="vip-expire-text">有效期至 {{ apiUserInfoMap.base.levelExpire || '长期有效' }}</text>
+          </view>
+          <!-- <view class="vip-upgrade-hint" wx:if="{{ apiUserInfoMap.userLevel.canUpgrade }}">
+            <text class="upgrade-hint-text">升级更高等级 ›</text>
+          </view> -->
+        </view>
+      </view>
+      
+      <!-- 未开通会员 -->
+      <view wx:else class="vip-card vip-card-inactive">
+        <view class="vip-card-bg">
+          <view class="vip-pattern"></view>
+        </view>
+        <view class="vip-card-content">
+          <view class="vip-main-info">
+            <view class="vip-badge-wrapper vip-badge-inactive">
+              <van-icon name="vip-card-o" size="64rpx" color="#666" />
+            </view>
+            <view class="vip-text-info">
+              <view class="vip-name-row">
+                <text class="vip-level-name vip-inactive-name">普通用户</text>
+              </view>
+              <view class="vip-desc vip-inactive-desc">开通会员，尊享多重特权</view>
+            </view>
+          </view>
+          <view class="vip-open-btn">
+            <text class="vip-open-text">立即开通</text>
+          </view>
+        </view>
+        <view class="vip-card-footer vip-benefits-preview">
+          <view class="benefit-item">
+            <text class="benefit-icon">🎁</text>
+            <text class="benefit-text">专属折扣</text>
+          </view>
+          <view class="benefit-item">
+            <text class="benefit-icon">⚡</text>
+            <text class="benefit-text">赠送积分</text>
+          </view>
+          <view class="benefit-item">
+            <text class="benefit-icon">🚀</text>
+            <text class="benefit-text">优先发货</text>
+          </view>
+          <view class="benefit-item">
+            <text class="benefit-icon">🎫</text>
+            <text class="benefit-text">专属优惠券</text>
+          </view>
+        </view>
+      </view>
+    </navigator>
   </view>
 
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="my-item" style="border:none;padding:0rpx;margin:0rpx;background:none;border:none;height:auto;line-height:auto;">
-    <button type="warn" bindtap="relogin">重新授权登录</button>
+  <!-- 资产卡片 -->
+  <view class="asset-card">
+    <view class="asset-wrapper">
+      <view class='asset-item asset-primary' bindtap='goAsset'>
+        <view class="asset-label">余额(元)</view>
+        <view class="asset-amount-row">
+          <text class="asset-symbol">¥</text>
+          <text class="asset-amount">{{balance}}</text>
+        </view>
+      </view>
+      <view class='asset-item asset-secondary' bindtap='goAsset'>
+        <view class="asset-label">冻结(元)</view>
+        <view class="asset-amount-row">
+          <text class="asset-symbol">¥</text>
+          <text class="asset-amount">{{freeze}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="asset-divider"></view>
+    <view class="asset-wrapper">
+      <view class='asset-item' bindtap='goScore'>
+        <view class="asset-amount">{{score}}</view>
+        <view class="asset-label">积分</view>
+      </view>
+      <view class='asset-item' bindtap="gogrowth">
+        <view class="asset-amount">{{growth}}</view>
+        <view class="asset-label">成长值</view>
+      </view>
+    </view>
   </view>
-  
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
-  <view class="version">Powered by EastWorld v {{version}}</view>
-  <view style="height:20rpx;background: #eee;width:100%;"></view>
+
+  <!-- 会员卡区域 -->
+  <view wx:if="{{ myCards }}" class="card-section">
+    <view class="section-title">
+      <text class="title-text">我的会员卡</text>
+      <text class="title-icon">💳</text>
+    </view>
+    <view class="card-list {{ cardsExpanded ? 'expanded' : 'collapsed' }}">
+      <navigator wx:for="{{ cardsExpanded ? myCards : [myCards[0]] }}" wx:key="id" url="/pages/card/logs?id={{ item.id }}" class="card-item card-item-animate">
+        <view class="card-gradient">
+          <view class="card-header">
+            <view class="card-name">{{ item.cardInfo.name }}</view>
+            <view class="card-badge">VIP</view>
+          </view>
+          <view class="card-body">
+            <view class="card-amount-box">
+              <text class="card-amount-label">剩余次数</text>
+              <text class="card-amount-value">{{ item.amount }}</text>
+            </view>
+          </view>
+          <view class="card-footer">
+            <view class="card-expire">
+              <text class="expire-icon">⏰</text>
+              <text>{{ item.dateEnd }} 到期</text>
+            </view>
+            <view class="card-arrow">查看详情 ›</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view wx:if="{{ myCards.length > 1 }}" class="toggle-btn" bindtap="toggleCards">
+      <text class="toggle-text">{{ cardsExpanded ? '收起' : '查看更多(' + (myCards.length - 1) + ')' }}</text>
+      <text class="toggle-icon {{ cardsExpanded ? 'rotated' : '' }}">›</text>
+    </view>
+  </view>
+
+  <!-- 订单区域 -->
+  <view class="order-section">
+    <view class="section-header">
+      <view class="section-title">我的订单</view>
+      <navigator url="/pages/order-list/index" class="more-link">
+        <text>查看全部</text>
+        <text class="arrow">›</text>
+      </navigator>
+    </view>
+    <view class="order-grid">
+      <view class="order-item" bindtap='goOrder' data-type="0">
+        <view class="order-icon-wrapper">
+          <text class="order-icon">💰</text>
+          <view wx:if="{{count_id_no_pay}}" class="order-badge">{{count_id_no_pay}}</view>
+        </view>
+        <view class="order-label">待付款</view>
+      </view>
+      <view class="order-item" bindtap='goOrder' data-type="1">
+        <view class="order-icon-wrapper">
+          <text class="order-icon">📦</text>
+          <view wx:if="{{count_id_no_transfer}}" class="order-badge">{{count_id_no_transfer}}</view>
+        </view>
+        <view class="order-label">待发货</view>
+      </view>
+      <view class="order-item" bindtap='goOrder' data-type="2">
+        <view class="order-icon-wrapper">
+          <text class="order-icon">🚚</text>
+          <view wx:if="{{count_id_no_confirm}}" class="order-badge">{{count_id_no_confirm}}</view>
+        </view>
+        <view class="order-label">待收货</view>
+      </view>
+      <view class="order-item" bindtap='goOrder' data-type="3">
+        <view class="order-icon-wrapper">
+          <text class="order-icon">⭐</text>
+          <view wx:if="{{count_id_no_reputation}}" class="order-badge">{{count_id_no_reputation}}</view>
+        </view>
+        <view class="order-label">待评价</view>
+      </view>
+      <view class="order-item" bindtap='goOrder' data-type="99">
+        <view class="order-icon-wrapper">
+          <text class="order-icon">🛠</text>
+        </view>
+        <view class="order-label">售后</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- CPS订单 -->
+  <navigator wx:if="{{ cps_open == '1' }}" url="/packageCps/pages/order-list/cps" class="menu-card">
+    <view class="menu-item">
+      <view class="menu-label">CPS订单</view>
+      <view class="menu-right">
+        <text class="menu-value">管理</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </navigator>
+
+  <!-- 回收订单 -->
+  <navigator wx:if="{{ recycle_open == '1' }}" url="/pages/recycle/orders" class="menu-card">
+    <view class="menu-item">
+      <view class="menu-label">回收订单</view>
+      <view class="menu-right">
+        <text class="menu-value">管理</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </navigator>
+
+  <!-- 常用功能 -->
+  <view class="function-section">
+    <view class="section-title">常用功能</view>
+    <view class="function-grid">
+      <navigator url="/pages/goods/his" class="function-item">
+        <text class="function-icon">📋</text>
+        <view class="function-label">历史购买</view>
+      </navigator>
+      <view wx:if="{{canHX}}" class="function-item" bind:tap="scanOrderCode">
+        <text class="function-icon">📷</text>
+        <view class="function-label">扫码核销</view>
+      </view>
+      <navigator url="/pages/maidan/index" class="function-item">
+        <text class="function-icon">💳</text>
+        <view class="function-label">优惠买单</view>
+      </navigator>
+      <navigator url="/pages/asset/index" class="function-item">
+        <text class="function-icon">📊</text>
+        <view class="function-label">资金明细</view>
+      </navigator>
+      <navigator wx:if="{{ invoice_open == 1 }}" url="/pages/invoice/apply" class="function-item">
+        <text class="function-icon">🧾</text>
+        <view class="function-label">申请发票</view>
+      </navigator>
+      <navigator wx:if="{{ invoice_open == 1 }}" url="/pages/invoice/list" class="function-item">
+        <text class="function-icon">📄</text>
+        <view class="function-label">开票记录</view>
+      </navigator>
+      <navigator url="/pages/coupons/index" open-type="switchTab" class="function-item">
+        <text class="function-icon">🎫</text>
+        <view class="function-label">优惠券</view>
+      </navigator>
+      <navigator wx:if="{{ show_score_sign == 1 }}" url="/pages/sign/index" class="function-item">
+        <text class="function-icon">📅</text>
+        <view class="function-label">签到赚积分</view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 配送员工作台 -->
+  <view wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type != 0}}" class="work-section">
+    <view class="section-title">配送员工作台</view>
+    <view class="menu-item">
+      <view class="menu-label">工作状态 ({{apiUserInfoMap.peisongMember.statusStr}})</view>
+      <view class="menu-right">
+        <switch checked="{{ memberChecked }}" bind:change="memberCheckedChange" color="#E4393C" />
+      </view>
+    </view>
+    <navigator url="/pages/peisong/orders" class="menu-item">
+      <view class="menu-label">我的配送单</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator wx:if="{{apiUserInfoMap.peisongMember.type != 2}}" url="/pages/peisong/orders?status=-1" class="menu-item">
+      <view class="menu-label">抢单任务大厅</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator wx:if="{{apiUserInfoMap.peisongMember && apiUserInfoMap.peisongMember.type == 2}}" url="/pages/peisong/orders?status=1" class="menu-item">
+      <view class="menu-label">管理员派单管理</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator url="/pages/peisong/statistics" class="menu-item">
+      <view class="menu-label">业绩统计</view>
+      <text class="arrow">›</text>
+    </navigator>
+  </view>
+
+  <!-- 分销中心 -->
+  <view wx:if="{{ fx_type == 'hehuoren' }}" class="menu-card">
+    <navigator url="/packageFx/pages/hehuorenfenxiao/index" class="menu-item">
+      <view class="menu-label">分销中心</view>
+      <text class="arrow">›</text>
+    </navigator>
+  </view>
+
+  <!-- 三级分销 -->
+  <view wx:elif="{{ show_3_seller == 1 }}" class="distribution-section">
+    <view class="section-title">三级分销</view>
+    <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/packageFx/pages/apply/index" class="menu-item">
+      <view class="menu-label">成为分销商</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator wx:else url="/packageFx/pages/index/index" class="menu-item">
+      <view class="menu-label">分销中心</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/packageFx/pages/myusers/index" class="menu-item">
+      <view class="menu-label">我的团队</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator wx:if="{{apiUserInfoMap.base.isSeller}}" url="/packageFx/pages/commisionLog/index" class="menu-item">
+      <view class="menu-label">推广订单</view>
+      <text class="arrow">›</text>
+    </navigator>
+  </view>
+
+  <!-- 其他功能 -->
+  <view class="other-section">
+    <view class="section-title">其他功能</view>
+    <navigator url="/pages/my/info-menu" class="menu-item">
+      <view class="menu-label">个人信息</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator url="/pages/help/index" class="menu-item">
+      <view class="menu-label">帮助中心</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <view wx:if="{{ customerServiceType == 'QW' }}" class="menu-item" bind:tap="customerService">
+      <view class="menu-label">联系客服</view>
+      <text class="arrow">›</text>
+    </view>
+    <navigator url="/pages/my/setting" class="menu-item">
+      <view class="menu-label">系统设置</view>
+      <text class="arrow">›</text>
+    </navigator>
+  </view>
+</view>
+
+<!-- 修改昵称弹窗 -->
+<view wx:if="{{ nickShow }}" class="modal-mask">
+  <view class="modal-content" catchtap="">
+    <view class="modal-header">修改昵称</view>
+    <view class="modal-body">
+      <input class="nick-input" model:value="{{ nick }}" type="nickname" placeholder="请输入昵称" placeholder-class="input-placeholder" />
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn cancel-btn" catchtap="hideNickModal">取消</view>
+      <view class="modal-btn confirm-btn" catchtap="_editNick">确定</view>
+    </view>
+  </view>
 </view>

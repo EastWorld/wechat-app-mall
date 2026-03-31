@@ -1,0 +1,55 @@
+<wxs src="./index.wxs" module="utils" />
+
+<view wx:if="{{ showHeader }}" class="van-cascader__header">
+  <slot name="title" wx:if="{{ useTitleSlot }}"></slot>
+  <text class="van-cascader__title" wx:else>{{ title }}</text>
+  <van-icon
+    wx:if="{{ closeable }}"
+    name="{{ closeIcon }}"
+    class="van-cascader__close-icon"
+    bind:tap="onClose"
+  />
+</view>
+
+<van-tabs
+  active="{{ activeTab }}"
+  custom-class="van-cascader__tabs"
+  wrap-class="van-cascader__tabs-wrap"
+  tab-class="van-cascader__tab"
+  color="{{ activeColor }}"
+  border="{{ false }}"
+  swipeable="{{ swipeable }}"
+  ellipsis="{{ ellipsis }}"
+  bind:click="onClickTab"
+>
+  <van-tab
+    wx:for="{{ tabs }}"
+    wx:for-item="tab"
+    wx:for-index="tabIndex"
+    wx:key="tabIndex"
+    title="{{ tab.selected ? tab.selected[textKey] : placeholder }}"
+    style="width: 100%;"
+    title-style="{{ !tab.selected ? 'color: #969799;font-weight:normal;' : '' }}"
+  >
+    <!-- 暂不支持 -->
+    <!-- <slot name="options-top"></slot> -->
+
+    <view class="van-cascader__options">
+      <view
+        wx:for="{{ tab.options }}"
+        wx:for-item="option"
+        wx:key="index"
+        class="{{ option.className }} {{ utils.optionClass(tab, valueKey, option) }}"
+        style="{{ utils.optionStyle({ tab, valueKey, option, activeColor }) }}"
+        data-option="{{ option }}"
+        data-tab-index="{{ tabIndex }}"
+        bind:tap="onSelect"
+      >
+        <text>{{ option[textKey] }}</text>
+        <van-icon wx:if="{{ utils.isSelected(tab, valueKey, option) }}" name="success" size="18" />
+      </view>
+    </view>
+    <!-- 暂不支持 -->
+    <!-- <slot name="options-bottom"></slot> -->
+  </van-tab>
+</van-tabs>

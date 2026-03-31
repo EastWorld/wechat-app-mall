@@ -1,0 +1,45 @@
+<van-card
+  price="{{ orderInfo.amount }}"
+  title="{{ orderInfo.name }}"
+  thumb="{{ orderInfo.pic }}"
+  centered
+/>
+<van-cell title="订单号" value="{{ orderInfo.orderNumber }}" />
+<van-cell title="回收价格" value="{{ orderInfo.amountRecycle }}" />
+<van-cell wx:if="{{ orderInfo.score }}" title="回收积分" value="{{ orderInfo.score }}" />
+<van-cell wx:if="{{ orderInfo.remark }}" title="备注" value="{{ orderInfo.remark }}" />
+<van-cell title="状态" value="{{ orderInfo.statusStr }}" value-class="statusStr" />
+<van-cell title="申请时间" value="{{ orderInfo.dateAdd }}" />
+<van-cell wx:if="{{ orderInfo.dateUpdate }}" title="更新时间" value="{{ orderInfo.dateUpdate }}" />
+
+<van-cell-group title="回收点">
+  <van-cell title="回收方式" value="{{ orderInfo.logisticsType == 0 ? '自己货物送至回收点' : '快递至回收点' }}" />
+  <van-cell wx:if="{{shopInfodetail}}" title="联系人" value="{{shopInfodetail.info.linkMan}}" />
+  <van-cell wx:if="{{shopInfodetail}}" title="电话" value="{{shopInfodetail.info.linkPhone}}" is-link bind:click="callMobile" />
+  <van-cell wx:if="{{shopInfodetail}}" title="地址" title-width="64rpx" value="{{shopInfodetail.info.address}}" is-link bind:click="goMap" />
+</van-cell-group>
+
+<van-cell-group wx:if="{{ orderInfo.logisticsType == 1 && (orderInfo.status == 2 || orderInfo.status == 3) }}" title="快递信息">
+  <van-cell title="快递公司" value="{{orderInfo.shipperName}}" />
+  <van-cell title="快递单号" value="{{orderInfo.trackingNumber}}" />
+</van-cell-group>
+
+<view wx:if="{{ orderInfo.logisticsType == 0}}" class="hx-qrcode">
+  <view class="t">核销码</view>
+  <view class="t2">工作人员扫描该码完成回收</view>
+  <canvas class="hx-canvas" canvas-id="qrcode" />
+</view>
+
+<view wx:if="{{ orderInfo.logisticsType == 1 && (orderInfo.status == 1 || orderInfo.status == 2) }}" class="btn">
+  <van-button type="primary" block bind:click="fahuo">填写快递信息</van-button>
+</view>
+
+<van-popup show="{{ popupShow }}" position="bottom" round bind:close="popupClose" custom-style="padding-top:32rpx;">
+  <van-field label="快递公司" model:value="{{ shipperName }}" placeholder="填写快递公司" clearable />
+  <van-field label="快递单号" model:value="{{ trackingNumber }}" placeholder="填写快递单号" clearable use-button-slot>
+    <van-icon slot="button" name="scan" size="48rpx" color="green" bind:click="trackingNumberScan" />
+  </van-field>
+  <view class="submit-btn-box">
+    <van-button type="primary" block loading="{{submitButtonLoading}}" bind:click="submit">确认</van-button>
+  </view>
+</van-popup>

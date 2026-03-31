@@ -1,0 +1,202 @@
+/* 页面整体背景 */
+page {
+  background: #f5f5f5;
+}
+
+/* 顶部成长值展示区 - 京东风格渐变红 */
+.score {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 750rpx;
+  padding: 60rpx 0 80rpx;
+  background: linear-gradient(135deg, #e93b3d 0%, #e4393c 50%, #d42727 100%);
+  box-shadow: 0 4rpx 20rpx rgba(228, 57, 60, 0.3);
+  overflow: hidden;
+}
+
+/* 顶部装饰圆 */
+.score::before {
+  content: '';
+  position: absolute;
+  width: 400rpx;
+  height: 400rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: -200rpx;
+  right: -100rpx;
+}
+
+.score::after {
+  content: '';
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  bottom: -150rpx;
+  left: -80rpx;
+}
+
+.score view:first-child {
+  position: relative;
+  z-index: 1;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16rpx;
+  letter-spacing: 1rpx;
+}
+
+.score view:last-child {
+  position: relative;
+  z-index: 1;
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #fff;
+  line-height: 90rpx;
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 空数据提示 */
+.no-data {
+  margin-top: 200rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 明细列表容器 */
+.cashlogs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 列表项左侧装饰条 */
+.cashlogs::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 60%;
+  background: linear-gradient(180deg, #e93b3d 0%, #e4393c 100%);
+  border-radius: 0 4rpx 4rpx 0;
+}
+
+/* 明细信息区域 */
+.cashlogs .profile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 24rpx;
+}
+
+/* 类型描述文字 */
+.cashlogs .profile .typeStr {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 12rpx;
+  line-height: 40rpx;
+}
+
+/* 日期时间 */
+.cashlogs .profile .dateAdd {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 32rpx;
+}
+
+/* 剩余成长值 */
+.cashlogs .profile .growthLeft {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 32rpx;
+  margin-top: 4rpx;
+}
+
+/* 成长值金额 */
+.cashlogs .amount {
+  flex-shrink: 0;
+  min-width: 120rpx;
+  text-align: right;
+  font-size: 36rpx;
+  font-weight: bold;
+  padding-right: 8rpx;
+}
+
+/* 积分兑换成长值入口 */
+.exchange-entry {
+  display: flex;
+  align-items: center;
+  margin: 30rpx 30rpx 20rpx;
+  padding: 32rpx 30rpx;
+  background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid rgba(233, 59, 61, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exchange-entry::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6rpx;
+  background: linear-gradient(180deg, #e93b3d 0%, #e4393c 100%);
+  border-radius: 0 4rpx 4rpx 0;
+}
+
+.exchange-entry:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.12);
+}
+
+.exchange-icon {
+  font-size: 48rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.exchange-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.exchange-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 44rpx;
+  margin-bottom: 8rpx;
+}
+
+.exchange-desc {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 36rpx;
+}
+
+.exchange-arrow {
+  font-size: 32rpx;
+  color: #ccc;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+}

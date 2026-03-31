@@ -1,0 +1,15 @@
+<view class="box">
+  <view class="title">本次操作需要先登陆</view>
+  <view class="btn">
+    <van-button wx:if="{{ checked }}" block round open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">手机号安全登录</van-button>
+    <van-button wx:else block round bind:click="showModal2">手机号安全登录</van-button>
+  </view>
+  <view class="btn">
+    <van-button type="primary" block round bind:click="loginOne">一键登录</van-button>
+  </view>
+</view>
+<view class="xieyi">
+  <van-checkbox value="{{ checked }}" bind:change="xieyiChange">阅读并同意</van-checkbox>
+  <text data-key="yhxy" bind:tap="goxieyi">《用户协议》</text>、
+  <text data-key="ysxy" bind:tap="goxieyi">《隐私协议》</text>
+</view>

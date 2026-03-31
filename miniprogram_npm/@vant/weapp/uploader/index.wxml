@@ -1,0 +1,85 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<view class="van-uploader">
+  <view class="van-uploader__wrapper">
+    <!-- 预览样式 -->
+    <view
+      wx:if="{{ previewImage }}"
+      wx:for="{{ lists }}"
+      wx:key="index"
+      class="van-uploader__preview"
+      data-index="{{ index }}"
+      bindtap="onClickPreview"
+    >
+      <image
+        wx:if="{{ item.isImage }}"
+        mode="{{ imageFit }}"
+        src="{{ item.thumb || item.url }}"
+        alt="{{ item.name || ('图片' + index) }}"
+        class="van-uploader__preview-image"
+        style="{{ computed.sizeStyle({ previewSize }) }}"
+        data-index="{{ index }}"
+        bindtap="onPreviewImage"
+      />
+      <video
+        wx:elif="{{ item.isVideo }}"
+        src="{{ item.url }}"
+        title="{{ item.name || ('视频' + index) }}"
+        poster="{{ item.thumb }}"
+        autoplay="{{ item.autoplay }}"
+        object-fit="{{videoFit}}"
+        referrer-policy="{{ referrerPolicy }}"
+        class="van-uploader__preview-image"
+        style="{{ computed.sizeStyle({ previewSize }) }}"
+        data-index="{{ index }}"
+        bindtap="onPreviewVideo"
+      >
+      </video>
+      <view
+        wx:else
+        class="van-uploader__file"
+        style="{{ computed.sizeStyle({ previewSize }) }}"
+        data-index="{{ index }}"
+        bindtap="onPreviewFile"
+      >
+        <van-icon name="description" class="van-uploader__file-icon" />
+        <view class="van-uploader__file-name van-ellipsis">{{ item.name || item.url }}</view>
+      </view>
+      <view
+        wx:if="{{ item.status === 'uploading' || item.status === 'failed' }}"
+        class="van-uploader__mask"
+      >
+       <van-icon wx:if="{{ item.status === 'failed' }}" name="close" class="van-uploader__mask-icon" />
+       <van-loading wx:else custom-class="van-uploader__loading" />
+       <text wx:if="{{ item.message }}" class="van-uploader__mask-message">{{ item.message }}</text>
+      </view>
+      <view
+        wx:if="{{ deletable && item.deletable }}"
+        data-index="{{ index }}"
+        class="van-uploader__preview-delete"
+        catch:tap="deleteItem"
+      >
+        <van-icon name="cross" class="van-uploader__preview-delete-icon" />
+      </view>
+    </view>
+
+    <!-- 上传样式 -->
+    <block wx:if="{{ isInCount }}">
+      <view class="van-uploader__slot" bindtap="startUpload">
+        <slot />
+      </view>
+
+      <!-- 默认上传样式 -->
+      <view
+        wx:if="{{ showUpload }}"
+        class="van-uploader__upload {{ disabled ? 'van-uploader__upload--disabled': ''}}"
+        style="{{ computed.sizeStyle({ previewSize }) }}"
+        bindtap="startUpload"
+      >
+        <van-icon name="{{ uploadIcon }}" class="van-uploader__upload-icon" />
+        <text wx:if="{{ uploadText }}" class="van-uploader__upload-text">{{ uploadText }}</text>
+      </view>
+    </block>
+  </view>
+</view>

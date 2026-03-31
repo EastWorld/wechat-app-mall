@@ -1,0 +1,55 @@
+<van-card
+  wx:if="{{ platform == 'jd' }}"
+  num="{{ orderInfo.skuNum }}"
+  price="{{ orderInfo.actualCosPrice }}"
+  title="{{ orderInfo.skuName }}"
+  thumb="{{ orderInfo.imageUrl }}"
+  centered
+/>
+<van-card
+  wx:if="{{ platform == 'pdd' }}"
+  num="{{ orderInfo.goodsNum }}"
+  price="{{ orderInfo.orderAmount }}"
+  title="{{ orderInfo.goodsName }}"
+  thumb="{{ orderInfo.imageUrl }}"
+  centered
+/>
+<van-field
+  model:value="{{ amountRecycle }}"
+  label="回收价格"
+  type="digit"
+  clearable
+  required
+  input-align="right"
+  placeholder="填写你预期的回收价格"
+/>
+<van-field
+  model:value="{{ remark }}"
+  label="备注"
+  clearable
+  input-align="right"
+  placeholder="填写备注信息"
+/>
+<van-cell-group title="回收点">
+  <picker bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
+    <van-cell title="选择回收点" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
+  </picker>
+  <van-cell wx:if="{{shopIndex != -1 && shops[shopIndex].distance}}" title="距你" value="{{shops[shopIndex].distance}}km" />
+  <van-cell wx:if="{{shopIndex != -1 && shops[shopIndex].linkMan}}" title="联系人" value="{{shops[shopIndex].linkMan}}" />
+  <van-cell wx:if="{{shopIndex != -1}}" title="电话" value="{{shops[shopIndex].linkPhone}}" is-link bind:click="callMobile" />
+  <van-cell wx:if="{{shopIndex != -1}}" title="地址" title-width="64rpx" value="{{shops[shopIndex].address}}" is-link bind:click="goMap" />
+</van-cell-group>
+
+<van-radio-group value="{{ logisticsType }}" bind:change="logisticsTypeChange">
+  <van-cell-group title="回收方式">
+    <van-cell title="自己送到回收点" clickable data-name="0" bind:click="logisticsTypeClick">
+      <van-radio slot="right-icon" name="0" />
+    </van-cell>
+    <van-cell title="快递至回收点" clickable data-name="1" bind:click="logisticsTypeClick">
+      <van-radio slot="right-icon" name="1" />
+    </van-cell>
+  </van-cell-group>
+</van-radio-group>
+<view class="btn">
+  <van-button type="primary" block bind:click="submit">申请回收</van-button>
+</view>

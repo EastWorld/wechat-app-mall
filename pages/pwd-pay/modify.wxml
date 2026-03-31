@@ -1,0 +1,26 @@
+<van-field
+  label="原密码"
+  password
+  model:value="{{ pwdOld }}"
+  placeholder="请输入原来的交易密码"
+  clearable
+/>
+<van-field
+  label="新密码"
+  password
+  model:value="{{ pwd }}"
+  placeholder="请输入新的交易密码"
+  clearable
+/>
+<van-field
+  label="再次输入"
+  password
+  model:value="{{ pwd2 }}"
+  placeholder="请再次输入新的交易密码"
+  clearable
+/>
+<van-cell icon="info-o" title="温馨提示" label="为了保障您的资金安全，余额支付、优惠买单、申请提现的时候可能会需要交易密码" />
+<view class="block-btn btn">
+  <van-button type="primary" block bind:click="submit">修改交易密码</van-button>
+  <van-cell icon="question-o" title="忘记交易密码？" value="重置" is-link url="/pages/pwd-pay/reset" />
+</view>

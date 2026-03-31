@@ -1,0 +1,20 @@
+<wxs src="./index.wxs" module="computed" />
+
+<van-picker
+  class="van-area__picker"
+  active-class="active-class"
+  toolbar-class="toolbar-class"
+  column-class="column-class"
+  show-toolbar="{{ showToolbar }}"
+  value-key="name"
+  title="{{ title }}"
+  loading="{{ loading }}"
+  columns="{{ computed.displayColumns(columns, columnsNum) }}"
+  item-height="{{ itemHeight }}"
+  visible-item-count="{{ visibleItemCount }}"
+  cancel-button-text="{{ cancelButtonText }}"
+  confirm-button-text="{{ confirmButtonText }}"
+  bind:change="onChange"
+  bind:confirm="onConfirm"
+  bind:cancel="onCancel"
+/>

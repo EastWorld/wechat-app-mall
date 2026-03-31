@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "we-canvas": "../index/index"
+    }
+}

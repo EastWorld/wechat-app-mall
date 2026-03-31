@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  padding: 8rpx 32rpx;
+  box-sizing: border-box;
+}
+.list .l {
+  width: 88rpx;
+  height: 88rpx;
+}
+.list .r {
+  flex: 1;
+}

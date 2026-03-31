@@ -1,0 +1,20 @@
+<van-empty wx:if="{{ !list }}" description="暂无订单" />
+<van-card
+  wx:for="{{list}}" wx:key="id"
+  origin-price="{{ item.amount }}"
+  price="{{ item.amountRecycle }}"
+  title="{{ item.name }}"
+  thumb="{{ item.pic }}"
+  tag="{{ item.statusStr }}"
+  centered
+>
+  <view slot="desc">
+    <view>订单号 {{ item.orderNumber }}</view>
+    <view>回收时间 {{ item.dateAdd }}</view>
+  </view>
+  <view slot="footer">
+    <van-button type="primary" size="mini" data-id="{{ item.id }}" bind:click="detail">详情</van-button>
+    <van-button wx:if="{{ item.status == 0 }}" custom-class="btn" type="warning" size="mini" data-id="{{ item.id }}" bind:click="recycleOrderClose">取消</van-button>
+    <van-button wx:if="{{ item.status < 1 }}" custom-class="btn" type="danger" size="mini" data-id="{{ item.id }}" bind:click="recycleOrderDelete">删除</van-button>
+  </view>
+</van-card>

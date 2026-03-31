@@ -1,0 +1,60 @@
+page {
+  background-color: #f3f4f5;
+}
+.no-order {
+  margin-top: 96rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-order image {
+  width: 294rpx;
+  height: 310rpx;
+}
+
+.no-order view {
+  margin-top: 30rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 30rpx;
+  color: #333;
+  letter-spacing: 0;
+}
+
+.cashlogs {
+  width: 702rpx;
+  margin-top: 24rpx;  
+  margin-left: 24rpx;  
+  height: 148rpx;
+  background: #FFFFFF;
+  box-shadow: 0 0 16rpx 0 rgba(36,44,69,0.20);
+  border-radius: 8rpx;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cashlogs .profile {
+  display: flex;
+  flex-direction: column;
+  margin-left: 24rpx;
+}
+.cashlogs .amount {
+  font-size: 24rpx;
+  color: #FEB21C;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+.cashlogs .profile .typeStr {
+  font-size: 30rpx;
+  color: #333333;
+}
+.cashlogs .profile .dateAdd {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.bottom {
+  width: 100vw;
+  height: 24rpx;
+}

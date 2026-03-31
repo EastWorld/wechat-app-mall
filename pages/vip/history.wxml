@@ -1,0 +1,51 @@
+<view class="history-container">
+  <!-- 购买记录列表 -->
+  <view class="record-list">
+    <view class="record-item" wx:for="{{recordList}}" wx:key="id">
+      <view class="record-header">
+        <view class="level-info">
+          <view class="level-icon">
+            <van-icon name="vip-card-o" color="#667eea" size="20px" />
+          </view>
+          <text class="level-name">{{item.levelName}}</text>
+        </view>
+        <view class="record-amount">
+          <text class="amount-symbol">¥</text>
+          <text class="amount-num">{{item.money}}</text>
+        </view>
+      </view>
+      
+      <view class="record-body">
+        <view class="record-info-item">
+          <text class="info-label">订单号</text>
+          <text class="info-value">{{item.orderNumber}}</text>
+        </view>
+        <view class="record-info-item">
+          <text class="info-label">购买时间</text>
+          <text class="info-value">{{item.dateAdd}}</text>
+        </view>
+        <view class="record-info-item" wx:if="{{item.remark}}">
+          <text class="info-label">备注</text>
+          <text class="info-value">{{item.remark}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class='no-data' wx:if="{{ !recordList || recordList.length === 0 }}">暂无购买记录~</view>
+
+  <!-- 加载状态 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <van-loading type="spinner" size="24px">加载中...</van-loading>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="loadmore-wrap" wx:if="{{hasMore && !loading}}">
+    <text class="loadmore-text" bindtap="loadMore">加载更多</text>
+  </view>
+
+  <view class="no-more" wx:if="{{!hasMore && recordList.length > 0}}">
+    <text>没有更多了</text>
+  </view>
+</view>

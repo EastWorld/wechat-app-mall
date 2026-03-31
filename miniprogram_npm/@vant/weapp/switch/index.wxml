@@ -1,0 +1,16 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<view
+  class="{{ utils.bem('switch', { on: checked === activeValue, disabled }) }} custom-class"
+  style="{{ computed.rootStyle({ size, checked, activeColor, inactiveColor, activeValue }) }}"
+  bind:tap="onClick"
+>
+  <view class="van-switch__node node-class">
+    <van-loading
+      wx:if="{{ loading }}"
+      color="{{ computed.loadingColor({ checked, activeColor, inactiveColor, activeValue }) }}"
+      custom-class="van-switch__loading"
+    />
+  </view>
+</view>

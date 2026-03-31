@@ -1,13 +1,85 @@
-@import 'weui/weui.wxss';
+@import "/miniprogram_npm/@vant/weapp/common/index.wxss";
 
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-} 
-.wxParse-img {
-  display: block !important;
+}
+.space {
+  height:20rpx;
+  background-color: #F2f2f2;
+}
+.safeAreaOldPaddingBttom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safeAreaNewPaddingBttom{
+  padding-bottom: constant(safe-area-inset-bottom);  
+}
+
+.safeAreaOldMarginBttom {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+.safeAreaNewMarginBttom{
+  margin-bottom: constant(safe-area-inset-bottom);  
+}
+
+.no-data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no-data .line {
+  width:132rpx;
+  height:2rpx;
+  background: #999;
+}
+.no-data .txt {
+  font-size:26rpx;
+  color:rgba(153,153,153,1);
+  margin: 0 16rpx;
+}
+.ad-img {
+  width: 100vw;
+}
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 6rpx;
+  color: #fff;
+  font-size: 18rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e64340;
+  border: 1rpx solid #fff;
+  border-radius: 50%;
+}
+.vw100 {
+  width: 100vw !important;
+}
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+}
+.block-btn {
+  padding: 0 32rpx;
+}
+
+.safe-bottom-box {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) / 2);
+  left: 0;
+  width: 100vw;
+}
+.characteristic {
+  padding: 0 24rpx;
+  font-size: 24rpx;
+  color: #999;
 }

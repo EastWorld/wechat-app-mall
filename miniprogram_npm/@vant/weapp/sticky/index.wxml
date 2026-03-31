@@ -1,0 +1,8 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<view class="custom-class van-sticky" style="{{ computed.containerStyle({ fixed, height, zIndex }) }}">
+  <view class="{{ utils.bem('sticky-wrap', { fixed }) }}" style="{{ computed.wrapStyle({ fixed, offsetTop, transform, zIndex }) }}">
+    <slot />
+  </view>
+</view>

@@ -1,0 +1,93 @@
+<view class="vip-container">
+  <!-- 顶部背景 -->
+  <view class="vip-header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="current-level" wx:if="{{userLevel}}">
+        <view class="level-badge">
+          <van-icon name="vip-card-o" size="72rpx" color="#eee" />
+        </view>
+        <view class="level-info">
+          <text class="level-name">{{userLevel.name}}</text>
+          <text class="level-desc">当前等级</text>
+        </view>
+      </view>
+      <view class="current-level" wx:else>
+        <view class="level-badge">
+          <van-icon name="vip-card-o" size="72rpx" color="#eee" />
+        </view>
+        <view class="level-info">
+          <text class="level-name">普通会员</text>
+          <text class="level-desc">升级享更多权益</text>
+        </view>
+      </view>
+      
+      <view class="history-btn" bindtap="goBuyHistory">
+        <text>购买记录</text>
+        <van-icon name="arrow" size="14px" color="#fff" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 会员等级列表 -->
+  <view class="level-list">
+    <view class="section-title">
+      <text class="title-text">会员等级</text>
+      <text class="title-desc">选择适合您的会员等级</text>
+    </view>
+
+    <view class="level-cards" wx:if="{{levelList.length > 0}}">
+      <view 
+        class="level-card {{userLevel && item.id === userLevel.id ? 'current' : ''}}" 
+        wx:for="{{levelList}}" 
+        wx:key="id"
+        bindtap="goLevelDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="card-header">
+          <view class="level-title">
+            <text class="name">{{item.name}}</text>
+            <view class="current-tag" wx:if="{{userLevel && item.id === userLevel.id}}">当前</view>
+          </view>
+          <view class="level-badge-small">
+            <text class="level-num">LV{{item.level}}</text>
+          </view>
+        </view>
+
+        <view class="card-benefits">
+          <view class="benefit-item" wx:if="{{item.rebate < 10}}">
+            <van-icon name="discount" color="#ff6b35" size="16px" />
+            <text>{{item.rebate}}折优惠</text>
+          </view>
+          <view class="benefit-item" wx:if="{{item.upgradeSendScore > 0}}">
+            <van-icon name="gift-o" color="#ff6b35" size="16px" />
+            <text>升级送{{item.upgradeSendScore}}积分</text>
+          </view>
+          <view class="benefit-item" wx:if="{{item.sendPerMonthScore > 0}}">
+            <van-icon name="gold-coin-o" color="#ff6b35" size="16px" />
+            <text>每月送{{item.sendPerMonthScore}}积分</text>
+          </view>
+          <view class="benefit-item" wx:if="{{item.sendPerMonthCoupons}}">
+            <van-icon name="coupon-o" color="#ff6b35" size="16px" />
+            <text>每月赠送专享优惠券</text>
+          </view>
+        </view>
+
+        <view class="card-footer">
+          <text class="view-detail">查看详情</text>
+          <van-icon name="arrow" size="14px" color="#999" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-wrap" wx:if="{{!loading && levelList.length === 0}}">
+      <text class="empty-text">暂无会员等级</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <van-loading type="spinner" size="24px">加载中...</van-loading>
+  </view>
+</view>

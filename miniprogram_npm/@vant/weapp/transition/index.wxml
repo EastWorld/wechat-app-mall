@@ -1,0 +1,10 @@
+<wxs src="./index.wxs" module="computed" />
+
+<view
+  wx:if="{{ inited }}"
+  class="van-transition custom-class {{ classes }}"
+  style="{{ computed.rootStyle({ currentDuration, display, customStyle }) }}"
+  bind:transitionend="onTransitionEnd"
+>
+  <slot />
+</view>

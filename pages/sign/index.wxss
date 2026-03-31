@@ -1,1 +1,28 @@
-@import '../../template/calendar/index.wxss';
+.todo-dot-bottom {
+  color: red !important;
+}
+.zwqd-box {
+  text-align: center;
+  margin: auto;
+  margin-top: 32rpx;
+}
+.zwqd-box image {
+  width: 140rpx;
+  height: 140rpx;
+  margin: auto;
+}
+.zwqd-box view {
+  margin-top: 16rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+.emoji-icon {
+  display: block;          /* 同 image 默认 block */
+  width: 140rpx;
+  height: 140rpx;
+  margin: auto;
+  font-size: 110rpx;       /* 视觉上与 140rpx 图片接近，可自行微调 */
+  line-height: 140rpx;
+  text-align: center;
+  cursor: pointer;
+}

@@ -4,158 +4,69 @@
 
 使用说明和常见问题，可参阅下面的说明，如还有疑问，可访问工厂官网 [https://www.it120.cc/](https://www.it120.cc/) 寻求帮助！
 
+新增直播带货支持，具体详见使用说明
+
+# 今日头条/抖音小程序版本
+
+本项目的今日头条/抖音小程序版本，请移步至下面的地址：
+
+[https://github.com/EastWorld/tt-app-mall](https://github.com/EastWorld/tt-app-mall)
+
 ## 扫码体验
 
-<p>
-<img src="https://cdn.it120.cc/apifactory/2017/09/15/487409738ebb80c44eda01c46d59b20c.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/12/28/86af021ee227269eae3ac7cfe2bd6e9d.jpeg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/04/01/b7b8f5a0fcfc72454ade8510ab929717.jpg" width="200px">
-<img src="https://cdn.it120.cc/apifactory/2018/04/04/570e9a77dbc9cacda176e98a4f2778c5.jpg" width="200px">
-</p>
+<img src="https://dcdn.it120.cc/2022/12/31/0215c085-d4d1-43e4-bd7d-0e7336eaa661.jpeg" width="200px">
 
-## 接口 & 后台声明
+## 详细配置/使用教程
 
-本项目为小程序商城纯前端项目，由于人力和精力所限，本项目并未有开发配套的后台系统，而是直接使用了 [api 工厂](https://www.it120.cc/) 提供的免费接口和后台，可以完全满足本项目的所有功能需求。
+[https://www.it120.cc/help/ikfe2k.html](https://www.it120.cc/help/ikfe2k.html)
 
-- [接口 SDK](https://github.com/gooking/wxapi)
+**遇到使用问题？**
 
-- [免费后台](https://www.it120.cc/user)
+[点击这里找答案，可用关键词搜索](https://www.it120.cc/help/index.html)
 
-- [WeUI](https://github.com/Tencent/weui-wxss/)
+## 其他优秀开源模板推荐
+- [天使童装](https://github.com/EastWorld/wechat-app-mall)   /  [码云镜像](https://gitee.com/javazj/wechat-app-mall)  /  [GitCode镜像](https://gitcode.com/gooking2/wechat-app-mall)
+- [天使童装（uni-app版本）](https://github.com/gooking/uni-app-mall)  /   [码云镜像](https://gitee.com/javazj/uni-app-mall)  /  [GitCode镜像](https://gitcode.com/gooking2/uni-app-mall)
+- [简约精品商城（uni-app版本）](https://github.com/gooking/uni-app--mini-mall)  /   [码云镜像](https://gitee.com/javazj/uni-app--mini-mall)  /   [GitCode镜像](https://gitcode.com/gooking2/uni-app--mini-mall)
+- [舔果果小铺（升级版）](https://github.com/gooking/TianguoguoXiaopu)
+- [面馆风格小程序](https://gitee.com/javazj/noodle_shop_procedures)
+- [AI名片](https://github.com/gooking/visitingCard)  /   [码云镜像](https://gitee.com/javazj/visitingCard)  /   [GitCode镜像](https://gitcode.com/gooking2/visitingCard)
+- [仿海底捞订座排队 (uni-app)](https://github.com/gooking/dingzuopaidui)  /   [码云镜像](https://gitee.com/javazj/dingzuopaidui)  /   [GitCode镜像](https://gitcode.com/gooking2/dingzuopaidui)
+- [H5版本商城/餐饮](https://github.com/gooking/vueMinishop)  /  [码云镜像](https://gitee.com/javazj/vueMinishop) /  [GitCode镜像](https://gitcode.com/gooking2/vueMinishop)
+- [餐饮点餐](https://github.com/woniudiancang/bee)  / [码云镜像](https://gitee.com/woniudiancang/bee) / [GitCode镜像](https://gitcode.com/gooking2/bee)
+- [企业微展](https://github.com/gooking/qiyeweizan)  / [码云镜像](https://gitee.com/javazj/qiyeweizan) / [GitCode镜像](https://gitcode.com/gooking2/qiyeweizan)
+- [无人棋牌室](https://github.com/gooking/wurenqipai)  / [码云镜像](https://gitee.com/javazj/wurenqipai) / [GitCode镜像](https://gitcode.com/gooking2/wurenqipai)
+- [酒店客房服务小程序](https://github.com/gooking/hotelRoomService)  / [码云镜像](https://gitee.com/javazj/hotelRoomService) / [GitCode镜像](https://gitcode.com/gooking2/hotelRoomService)
+- [面包店风格小程序](https://github.com/gooking/bread)  / [码云镜像](https://gitee.com/javazj/bread) / [GitCode镜像](https://gitcode.com/gooking2/bread)
+- [朋友圈发圈素材小程序](https://github.com/gooking/moments)  / [码云镜像](https://gitee.com/javazj/moments) / [GitCode镜像](https://gitcode.com/gooking2/moments)
+- [小红书企业微展](https://github.com/gooking/xhs-qiyeweizan)  / [码云镜像](https://gitee.com/javazj/xhs-qiyeweizan) / [GitCode镜像](https://gitcode.com/gooking2/xhs-qiyeweizan)
+- [旧物回收、废品回收](https://github.com/gooking/recycle)  / [码云镜像](https://gitee.com/javazj/recycle) / [GitCode镜像](https://gitcode.com/gooking2/recycle)
+- [会员卡（饭卡）储值消费系统](https://github.com/gooking/mealcard)  / [码云镜像](https://gitee.com/javazj/mealcard) / [GitCode镜像](https://gitcode.com/gooking2/mealcard)
 
-## 关于分类页面
+## 联系作者
 
-感谢 @yrx0910 编写并提交了分类页面；
+| 微信好友 | QQ好友 |
+| :------: | :------: |
+| <img src="https://dcdn.it120.cc/2021/09/13/61a80363-9085-4a10-9447-e276a3d40ab3.jpeg" width="200px"> | <img src="https://dcdn.it120.cc/2021/09/13/08a598d8-8186-4159-9930-2e4908accc5e.png" width="200px"> |
 
-不过新增的分类页面视觉美观度上稍欠缺，所以，项目模块并未开启分类页面；
+## 本项目使用了下面的组件，在此鸣谢
 
-期待后面可以有朋友协助美化~
+- [接口 SDK](https://github.com/gooking/apifm-wxapi)
 
-如果您先体验分类页面，可以在 app.json 中放开分类底部菜单的入口:
+- [api工厂](https://admin.s2m.cc)
 
-```java
-{
-  "pagePath": "pages/category/category",
-  "iconPath": "images/nav/ic_catefory_normal.png",
-  "selectedIconPath": "images/nav/ic_catefory_pressed.png",
-  "text": "分类"
-}
-```
+- [vant-weapp](https://youzan.github.io/vant-weapp)
 
-## 使用说明
+- [小程序富文本插件（html 渲染）](https://github.com/jin-yufeng/mp-html)
 
-1、申请后台账号/获取专属域名
+- [小程序海报组件-生成朋友圈分享海报并生成图片](https://github.com/jasondu/wxa-plugin-canvas)
 
-2、开通商城模块
+- [Apache ECharts](https://github.com/ecomfe/echarts-for-weixin)
 
-<img src="https://cdn.it120.cc/apifactory/2018/11/14/b61fe6ffb2460f7e4554758b394814f5.png">
+底部ICON图标使用：
+https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=18904
 
-3、修改根目录下 config.js 文件
-
-```javascript
-module.exports = {
-  version: "5.0",
-  note: "优化接口调用流程",
-  subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
-  appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用
-  shareProfile: "百款精品商品，总有一款适合您" // 首页转发的时候话术
-};
-/*
-根据自己需要修改下单时候的模板消息内容设置，可增加关闭订单、收货时候模板消息提醒；
-1、/pages/to-pay-order/index.js 中已添加关闭订单、商家发货后提醒消费者；
-2、/pages/order-details/index.js 中已添加用户确认收货后提供用户参与评价；评价后提醒消费者好评奖励积分已到账；
-3、请自行修改上面几处的模板消息ID，参数为您自己的变量设置即可。  
-*/
-```
-
-4、[设置小程序合法服务器域名](https://www.it120.cc/info/faq/10469)
-
-5、重启您的小程序开发工具，完成
-
-6、如何在后台管理小程序启动图和首页头部的轮播 banner 图片
-
-```javascript
-这两个功能都是使用后台 “系统设置” --> “banner” 管理功能来实现的；
-后台发布banner的时候，自定义类型请分别填写  app  和  index；
-小程序会自动读取类型为 app 的banner图片作为启动展示图片；
-小程序会自动读取类型为 index 的banner图片作为首页头部的轮播图；
-```
-
-## 常见问题
-
-- [如何修改小程序商城的标题？](https://www.it120.cc/info/wechat-app-mall/10478)
-
-- “无法登录” / Token 无效 ？
-
-  1. config.js 里面的 subDomain 改成你自己的，保存；
-  2. 登录你的小程序后台（MP 那个地址），Request 域名处增加 api.it120.cc
-  3. 确保小程序后台（MP 那个地址） 的 appid，工厂后台填写的 appid ，开发工具右上角 “项目详情” 打开后显示的 appid ，这 3 个 appid 是一模一样的；
-  4. 开发工具上点击 “清除缓存” —> “编译”
-
-- 登录后台发布您自己的商品
-
-- [如何给 Banner 增加链接，点击打开某个商品？](https://www.it120.cc/info/wechat-app-mall/10477)
-
-- 工厂后台设置 appid、secret、微信支付商户号和秘钥时候的 token 怎么填？
-
-  **不要填！**
-
-  **不要填！**
-
-  **不要填！**
-
-  **重要的事情说三遍，这个小程序用不到，是给服务号使用的，所以大家空着不要填**
-
-- 微信支付时候，提示 50000 错误，不能获取到预支付 id
-
-  > 这个错误是无法获取到微信支付的预支付信息
-
-  - 可能是你没有在后台配置您的微信支付商户号和秘钥，或者配置错误
-  - 可能是你配置的微信支付不是当前小程序申请的（微信支付目前无法跨小程序调用）
-  - 确保微信开发工具上面登录的 APPID 和你在后台配置的 APPID 是同一个
-
-- 能否帮我免费添加功能？
-
-  可以！
-
-  <img src="https://cdn.it120.cc/apifactory/2017/07/29/18ae9b8aaedcd747fc5f1c3fa8bc0fe4.png" width="300px">
-
-  1. 点击页面顶部的 Star ，关注后，项目有最新动态 github 会提醒您，不错过重要更新；
-  2. 点击页面顶部的 Fork， 将您需要增加的功能完成 小程序 端界面的调整，然后在 github 上请求将您的代码合并到 EastWorld；
-  3. 您的代码合并请求审核通过后，我们将会为您完善配套的后台功能；
-  4. 开源项目离不开您的支持和代码共享，我们一起把 EastWorld 项目长期维护下去；
-
-- 下单的时候没有地方填写收货地址？
-
-  1. 添加一个“物流模板”，只有需要快递的商品才会提示用户填写收货地址
-  2. 发布商品的时候，选择刚才添加的“物流模板”
-  3. 重新下单，将会需要用户输入收货地址
-
-- 后台设置 appid 和 secret 的时候提示不正确？
-
-  1. 请确认您填写的 appid 和 secret 是否正确
-  2. 输入的时候确保没有空格（复制的时候可能会多复制了空格）
-  3. 在微信后台设置服务器 IP 地址白名单（106.14.43.122）
-
-- 如何使用退款功能？
-
-  1. 后台支持针对订单指定退款多少金额；
-  2. 可选择退款至用户可用余额或者按照用户支付原路退还第三方或者银行卡；
-  3. 如果选用原路退还，需要在商户号和秘钥设置的地方上传您的微信支付证书文件（PK12 格式文件）
-
-- 如何设置满多少包邮？
-
-  1. 后台系统设置 -- 系统参数，增加系统参数；
-  2. 参数名 free_shipping_for_purchases （注意不要有空格）
-  3. 参数值填写您希望的买满金额即可
-
-- 如何修改或者关闭订单超过 30 分钟未付款自动关闭？
-
-  1. 创建订单接口增加 expireMinutes 参数；
-  2. 代表多少分钟未支付自动关闭本订单，传 0 不自动关闭订单；
-
-- [更多问题？](https://www.it120.cc/info/all)
-
+  
 ## 如何升级到最新版
 
 - 小程序程序的修改和您后台的数据是独立的，所以不用担心您会丢失数据

@@ -1,4 +1,3 @@
-/**index.wxss**/
 @import "../template-cart/template-cart.wxss";
 page{
   min-height: 100%;
@@ -12,4 +11,7 @@ page{
   position: fixed;
   bottom: 0;
   left: 0;
+}
+.vtabs{
+  width: 100vw;
 }

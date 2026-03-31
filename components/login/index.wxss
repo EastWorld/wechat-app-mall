@@ -1,0 +1,50 @@
+.btn-add-box-popup {
+  width: 600rpx;
+}
+.t-box {
+  margin-top: 32rpx;
+  height: 100rpx;
+  position: relative;
+}
+.t {
+  line-height: 100rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+.jump {
+  position: absolute;
+  top: 0;
+  right: 48rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  color: #bbb;
+}
+.avatar {
+  margin-top: 32rpx;
+  width: 240rpx;
+  height: 240rpx;
+  padding: 0;
+  border-radius: 50%;
+}
+.avatar-img {
+  width: 240rpx;
+  height: 240rpx;
+}
+.nick-box {
+  padding: 32rpx 0;
+}
+.btn-group {
+  padding: 32rpx;
+}
+.abc-box {
+  position: relative;
+}
+.abc-box .trip {
+  position: absolute;
+  width: 100%;
+  bottom: 32rpx;
+  left: 0;
+  font-size: 24rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}

@@ -1,0 +1,133 @@
+<view class='wrap' >
+  <!-- 直播播放组件 官方提供 -->
+  <live-player wx:if="{{ liveRoomsInfo.roomInfo.pullUrlRtmp }}" src="{{ liveRoomsInfo.roomInfo.pullUrlRtmp }}" id='player' autoplay bindstatechange="statechange" binderror="error" 
+  style='width:100vw;height:100vh;' picture-in-picture-mode="push" object-fit="fillCrop" 
+  auto-pause-if-navigate="false" auto-pause-if-open-native="false"/>
+   <!-- canvas实现点赞效果 使用组件 -->
+
+  <like-dz count="{{count}}"></like-dz>
+  
+  <cover-view style="width:100vw;height:100vh" class="outer" catchtap="hideGoods">
+    <!-- 返回图标 -->
+    <cover-view style="height:{{ customBarHeight }}px" class="back">
+      <cover-view class="icon" bindtap="backTap">
+        <cover-image src="../../images/back.png" class="back-icon"></cover-image>
+      </cover-view>
+    </cover-view>
+     <!-- 主播信息 -->
+    <cover-view class="anchor-info">
+      <cover-view class="left">
+        <cover-image wx:if="{{ liveRoomsInfo.anchor.avatarUrl }}" src='{{ liveRoomsInfo.anchor.avatarUrl }}' class="avatar"></cover-image>
+        <cover-view class="mid">
+          <cover-view class="nickname">{{ liveRoomsInfo.anchor.nick }}</cover-view>
+          <!-- <cover-view>{{ info.province }}{{ info.city }}</cover-view> -->
+        </cover-view>
+        <!-- <cover-view class="follow" catchtap="followTap" wx:if="{{ !follow }}">
+          <cover-view class="follow-icon-wrap">
+            <cover-image src="../../images/add.png" class="add"></cover-image>
+          </cover-view>
+          <cover-view class="txt">关注</cover-view>
+        </cover-view> -->
+      </cover-view>
+      <cover-view class="right">
+        <cover-view class="txt">房间号: {{ liveRoomsInfo.roomInfo.id }}</cover-view>
+      </cover-view>
+    </cover-view>
+    <!-- 观看人数 -->
+    <cover-view class="watcher">
+      观看人数: {{ viewNumber }}
+    </cover-view>
+
+    <!-- 主推商品链接 -->
+    <cover-view wx:if="{{ mainlyGoods }}" class="main-goods" catchtap="toDetail" data-id="{{ mainlyGoods.id }}">
+      <cover-image src="{{ mainlyGoods.pic }}" style="width:168rpx;height:168rpx;border-radius:15rpx;"></cover-image>
+    </cover-view>
+    <!-- 提示sb进入直播间 -->
+    <cover-view wx:if="{{ showTips }}" class="tips">
+      <cover-image src="{{showTipsAvatarUrl}}" class="avatar-img"></cover-image>
+      <cover-view>{{ showTipsMsg }}</cover-view>
+    </cover-view>
+    <!-- 弹幕 -->
+    <cover-view class="barrage" catchtouchmove="preventDefault" scroll-top="{{ scrollTop }}">
+      <cover-view class="item-outer">
+        <block wx:for='{{ barrageList }}' wx:key="index">
+          <cover-view class="barrage-item">
+            <cover-view class="item-wrap">
+              <cover-image wx:if="{{ item.avatarUrl }}" src="{{ item.avatarUrl }}" class="avatar"></cover-image>
+              <cover-view class="item-nickname" style="top:{{  systemInfo.platform == 'android' ? 2 : 0 }}px;color:{{ item.color }};vertical-align:{{ systemInfo.platform == 'android' ? 'bottom' : 'middle' }}">{{ item.nick }}</cover-view>
+              <cover-view class="item-words" style="vertical-align:{{ systemInfo.platform == 'android' ? 'bottom' : 'middle' }}">{{ item.msg}}</cover-view>
+            </cover-view>
+          </cover-view>
+        </block>
+      </cover-view>
+    </cover-view>
+    <!-- footer -->
+    <cover-view class="footer" wx:if="{{ !showInput }}">
+      <cover-view class="item0" catchtap="showGoods">
+        <cover-image src="../../images/goods.png" class="goods"></cover-image>
+        <!-- <cover-view class="txt">宝贝</cover-view> -->
+      </cover-view>
+
+      <cover-view class="item1" catchtap="handleInteractionTap">
+        <cover-image class="cmt-icon" src="../../images/chat.png"></cover-image>
+        <cover-view class="txt">跟主播互动吧...</cover-view>
+      </cover-view>
+
+      <cover-view class="item2">
+        <button class="icon-wrap" open-type="share">
+          <cover-image src="../../images/forward.png" class="icons"></cover-image>
+        </button>
+        <!-- <cover-view class="txt">分享</cover-view> -->
+      </cover-view>
+
+      <cover-view class="item2 item3" catchtap="handleLikeClick">
+        <cover-view class="icon-wrap" style="background: #B17068">
+          <cover-image src="../../images/fabulous.png" class="icons"></cover-image>
+        </cover-view>
+        <!-- <cover-view class="txt">点赞</cover-view> -->
+      </cover-view>
+    </cover-view>
+
+    <cover-view class="like-box" wx:if="{{ likeNumber > 0}}">{{ likeNumber }}</cover-view>
+  </cover-view>
+  
+  <!-- 输入 -->
+  <!-- 发送弹幕的icon -->
+  <cover-view class="left-input" wx:if='{{ showInput }}'>
+    <cover-image class="icon" src="../../images/chat02.png"></cover-image>
+  </cover-view>
+
+  <!-- line -->
+  <cover-view class="line-wrap" wx:if='{{ showInput }}'>
+    <cover-image class="line-icon" src="../../images/line.png"></cover-image>
+  </cover-view>
+
+  <!-- send barrage -->
+   <input cursor-spacing='0' bindkeyboardheightchange="keyboardEvent"  wx:if='{{ showInput }}' focus="{{ focus }}" placeholder-class="holder-class" placeholder='说点什么吧...'  value="{{ inputVal }}" class="send-barrage" type='text' confirm-type='send' bindconfirm="onComment" bindinput="bindInput"></input>
+
+  <!-- <cover-view wx:if='{{ showInput }}' class="send-btn" catchtap="onComment">
+    发送
+  </cover-view> -->
+
+  <!-- 点击宝贝弹出的商品列表 -->
+  <cover-view class="goods-list {{ showGoodsInfo ? 'open' : 'close' }}">
+    <cover-view class="title flex-between">
+      <cover-view>全部商品</cover-view>
+    </cover-view>
+
+    <cover-view class="item-list">
+      <block wx:for='{{ liveRoomsInfo.goodsList }}' wx:key='id'>
+        <cover-view class="item flex">
+          <cover-image src="{{ item.pic }}" class="goods-img"></cover-image>
+          <cover-view class="info flex">
+            <cover-view class="goods-title">{{ item.name }}</cover-view>
+            <cover-view class="price">￥{{ item.minPrice }}</cover-view>
+          </cover-view>
+          <button class="btn" catchtap="toDetail" data-id="{{ item.id }}">去购买</button>
+        </cover-view>
+      </block>
+    </cover-view>
+    <cover-view class="goods-empty" wx:if="{{ !liveRoomsInfo.goodsList }}">暂无商品~</cover-view> 
+
+  </cover-view>
+</view>

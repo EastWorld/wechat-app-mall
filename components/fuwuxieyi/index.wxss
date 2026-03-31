@@ -1,0 +1,32 @@
+.btn-add-box-popup .t {
+  font-size: 36rpx;
+  text-align: center;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-weight: bold;
+}
+.btn-add-box-popup .bd {
+  padding: 0 32rpx;
+  padding-bottom: 32rpx;
+}
+.btn-add-box-popup .del-btn {
+  margin-top: 32rpx;
+}
+
+.content {
+	width: 600rpx;
+	padding: 32rpx;
+	font-size: 32rpx;
+	line-height: 54rpx;
+}
+.link {
+	color: #10AEFF;
+}
+.btn-group {
+  padding: 32rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.mt32 {
+	margin-top: 32rpx;
+}

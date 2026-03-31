@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-popup": "../popup/index",
+    "van-cell": "../cell/index",
+    "van-icon": "../icon/index"
+  }
+}

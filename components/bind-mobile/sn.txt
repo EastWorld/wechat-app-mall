@@ -1,0 +1,24 @@
+app.json usingComponents 加上
+"bind-mobile": "/components/bind-mobile/index",
+
+
+在需要的页面上加这句代码即可
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>
+
+bindMobileOk(e) {
+  console.log(e.detail); // 这里是组件里data的数据
+  this.setData({
+    bindMobileShow: false
+  })
+},
+bindMobileCancel() {
+  this.setData({
+    bindMobileShow: false
+  })
+},

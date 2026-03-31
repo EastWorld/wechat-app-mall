@@ -1,0 +1,18 @@
+<van-popup show="{{ s }}" custom-class="btn-add-box-popup" round close-on-click-overlay="{{ false }}">
+  <view class="t">用户协议及隐私政策</view>
+  <view class="content">
+    您在使用我们的服务时，我们可能会收集和
+    使用您的相关信息。我们希望通过本
+    <text class="link" data-k="yhxy" bindtap="goYstk">《用户协议》</text>
+    及<text class="link" data-k="ysxy" bindtap="goYstk">《隐私协议》</text>向您说明，在使用我
+    们的服务时，我们如何收集、使用、储存和
+    分享这些信息，以及我们为您提供的访问、
+    更新、控制和保护这些信息的方式。本<text class="link" data-k="yhxy" bindtap="goYstk">《用户协议》</text>及
+    <text class="link" data-k="ysxy" bindtap="goYstk">《隐私协议》</text>，希望您仔细闭读，
+    充分理解协议中的内容后再点击同意。
+  </view>
+  <view class="btn-group">
+    <van-button type="primary" block size="small" bind:click="aggree">同意</van-button>
+    <van-button type="danger" block size="small" bind:click="notagree">不同意</van-button>
+  </view>
+</van-popup>

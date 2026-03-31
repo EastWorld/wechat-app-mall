@@ -1,0 +1,106 @@
+<view class="profile-container">
+  <!-- 头部区域 -->
+  <view class="header-section">
+    <view class="header-bg"></view>
+    <view class="avatar-wrapper">
+      <button class="avatar-button" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar-image" src="{{ avatarUrl ? avatarUrl : '/images/default.png' }}" mode="aspectFill"></image>
+        <view class="avatar-mask">
+          <text class="avatar-text">更换头像</text>
+        </view>
+      </button>
+    </view>
+  </view>
+
+  <!-- 基本信息卡片 -->
+  <view class="info-card">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text class="title-text">基本信息</text>
+    </view>
+    
+    <view class="form-item">
+      <view class="item-label">
+        <text class="label-icon">👤</text>
+        <text class="label-text">昵称</text>
+      </view>
+      <input 
+        class="item-input" 
+        type="nickname"
+        model:value="{{ nick }}"
+        placeholder="请输入昵称"
+        placeholder-class="input-placeholder"
+      />
+    </view>
+
+    <view class="divider"></view>
+
+    <picker bindchange="bindPickerChange" value="{{ genderIndex }}" range="{{genderArray}}">
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">⚥</text>
+          <text class="label-text">性别</text>
+        </view>
+        <view class="item-value">
+          <text class="value-text">{{ gender || '请选择' }}</text>
+          <text class="arrow-icon">›</text>
+        </view>
+      </view>
+    </picker>
+
+    <view class="divider"></view>
+
+    <view class="form-item">
+      <view class="item-label">
+        <text class="label-icon">📱</text>
+        <text class="label-text">手机号码</text>
+      </view>
+      <view class="mobile-wrapper">
+        <text class="mobile-text">{{ apiUserInfoMap.base.mobile || '未绑定' }}</text>
+        <view class="bind-btn" bind:tap="bindMobile">
+          <text class="bind-text">{{ apiUserInfoMap.base.mobile ? '更换' : '绑定' }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 扩展信息卡片 -->
+  <view class="info-card" wx:if="{{apiUserInfoMap.ext && apiUserInfoMap.ext.length > 0}}">
+    <view class="card-title">
+      <view class="title-line"></view>
+      <text class="title-text">扩展信息</text>
+    </view>
+    
+    <block wx:for="{{apiUserInfoMap.ext}}" wx:for-index='k' wx:key="index">
+      <view class="form-item">
+        <view class="item-label">
+          <text class="label-icon">📝</text>
+          <text class="label-text">{{ k }}</text>
+        </view>
+        <input 
+          class="item-input" 
+          name="{{ k}}"
+          value="{{ item }}"
+          placeholder="请输入信息"
+          placeholder-class="input-placeholder"
+        />
+      </view>
+      <view class="divider" wx:if="{{index < apiUserInfoMap.ext.length - 1}}"></view>
+    </block>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-section">
+    <view class="save-button" bind:tap="formSubmit">
+      <text class="save-text">保存修改</text>
+    </view>
+  </view>
+</view>
+
+<bind-mobile
+  title="绑定手机号码"
+  alarmText="为保障您的资金安全，请先绑定手机号码"
+  show="{{ bindMobileShow }}"
+  bind:cancel="bindMobileCancel"
+  bind:ok="bindMobileOk"
+/>

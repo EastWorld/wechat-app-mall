@@ -1,0 +1,17 @@
+<!--pages/packageA/pages/vip/fxmember.wxml-->
+<view>
+  <view wx:for="{{memberList.result}}" class="listItem">
+    <view style="display:flex;align-items:center">
+      <view><image style="width: 58rpx;height: 58rpx;border-radius:100%" src="{{item.avatarUrl}}" alt=""/></view>
+      <view class="nickName">{{item.nick}}</view>
+    </view>
+    <view style="display:flex;justify-content: space-between;margin-top:5px">
+      <view class="t1">销售情况：<span class="t2">{{memberList.statisticsCommisionMap[item.uid].number?memberList.statisticsCommisionMap[item.uid].number:0}}单</span></view>
+      <view class="t1">累计收益：<span class="t2">{{memberList.statisticsCommisionMap[item.uid].amount?memberList.statisticsCommisionMap[item.uid].amount:0}}元</span></view>
+    </view>
+  </view>
+
+  <view wx:if="{{!memberList.result}}">
+    <van-empty description="{{description}}" />
+  </view>
+</view>

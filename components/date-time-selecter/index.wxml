@@ -1,0 +1,32 @@
+<van-popup
+  show="{{ show }}"
+  position="bottom"
+  round
+  closeable
+  bind:close="closeSku"
+>
+  <view class="pop-main">
+    <view class="title">{{ title }}</view>
+    <van-notice-bar
+      wx:if="{{ alarmText }}"
+      left-icon="volume-o"
+      text="{{ alarmText }}"
+    />
+    <view class="main">
+      <scroll-view class="l" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ day }}">
+        <van-sidebar custom-class="ll" active-key="{{ activeKey }}">
+          <van-sidebar-item wx:for="{{ days }}" wx:key="display" id="{{item.day}}" title="{{ item.display }}" data-idx="{{index}}" bindtap="dayClick" />
+        </van-sidebar>
+      </scroll-view>
+      <scroll-view class="r" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ timeSelected }}">
+        <view wx:for="{{ times }}" wx:key="*this" class="time-box" data-idx="{{ index }}" bindtap="timeClick">
+          <view class="time-l {{ index == timeSelectIndex ? 'time-l-active' : '' }}">{{ item }}</view>
+          <view wx:if="{{ index == timeSelectIndex }}" class="time-r"><van-icon name="checked" color="#07c160" /></view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="btn-box">
+      <van-button type="primary" block round bind:click="submit">确定</van-button>
+    </view>
+  </view>
+</van-popup>

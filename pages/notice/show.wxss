@@ -1,15 +1,18 @@
-@import "/wxParse/wxParse.wxss";
-
 .notice {
-  width: 720rpx;
-  padding: 15rpx;
-  font-size: 14px;
+  padding: 32rpx;
+  font-size: 26rpx;
+  color: #333;
 }
 .title {
-  color:chocolate;
-  margin-bottom: 30rpx;
-  text-align: center;
+  width: 100%;
+  font-weight: bold;
+  border-bottom: 1rpx solid #eaeaea;
+  padding-bottom: 32rpx;
 }
 .text {
-  line-height: 30px;
+  margin-top: 32rpx;
+  line-height: 64rpx;
+}
+.text image {
+  max-width: 100%;
 }

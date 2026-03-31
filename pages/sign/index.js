@@ -1,124 +1,104 @@
-import initCalendar from '../../template/calendar/index';
-import { setTodoLabels } from '../../template/calendar/index';
-const WXAPI = require('../../wxapi/main')
+const WXAPI = require('apifm-wxapi')
+const AUTH = require('../../utils/auth')
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    minDate: new Date().getTime(),
+    maxDate: new Date().getTime(),
+    formatter(day) {
+      return day;
+    },
+    useFingerprintEmoji: false   // 默认用图片，支持Unicode 16及以上的操作系统才用指纹emoji（🫆）
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this.scoreSignLogs()
+    this.setData({ useFingerprintEmoji: this.shouldUseFingerprintEmoji() });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    initCalendar({
-      afterTapDay: (currentSelect, allSelectedDays) => {
-        // 不是今天，直接 return 
-        const myDate = new Date();
-        // console.log('y:', myDate.getFullYear())
-        // console.log('m:', myDate.getMonth() + 1)
-        // console.log('d:', myDate.getDate())
-        if (myDate.getFullYear() != currentSelect.year ||
-          (myDate.getMonth() + 1) != currentSelect.month ||
-          myDate.getDate() != currentSelect.day) {
-          return
-        }
-        if (currentSelect.hasTodo) {
-          wx.showToast({
-            title: '今天已签到',
-            icon: 'none'
-          })
-          return
-        }
-        WXAPI.scoreSign(wx.getStorageSync('token')).then(r => {
-          wx.showToast({
-            title: '签到成功',
-            icon: 'none'
-          })
-          setTodoLabels({
-            pos: 'bottom',
-            dotColor: '#40',
-            days: [{
-              year: currentSelect.year,
-              month: currentSelect.month,
-              day: currentSelect.day,
-              todoText: '已签到'
-            }],
-          });
-        })
+  onShow: function() {
+    AUTH.checkHasLogined().then(isLogined => {
+      if (!isLogined) {
+        AUTH.login(this)
       }
-    });
-    WXAPI.scoreSignLogs({
+    })
+  },
+  async scoreSignLogs() {
+    const res = await WXAPI.scoreSignLogs({
       token: wx.getStorageSync('token')
-    }).then(res => {
-      if (res.code == 0) {
-        res.data.result.forEach(ele => {
-          const _data = ele.dateAdd.split(" ")[0]
-          setTodoLabels({
-            pos: 'bottom',
-            dotColor: '#40',
-            days: [{
-              year: parseInt(_data.split("-")[0]),
-              month: parseInt(_data.split("-")[1]),
-              day: parseInt(_data.split("-")[2]),
-              todoText: '已签到'
-            }],
-          });
-        })
+    })
+    if (res.code == 0) {
+      this.setData({
+        scoreSignLogs: res.data.result,
+        formatter(day) {
+          const _log = res.data.result.find(ele => {
+            const year = day.date.getYear() + 1900
+            let month = day.date.getMonth() + 1
+            month = month + ''
+            if (month.length == 1) {
+              month = '0' + month
+            }
+            let date = day.date.getDate() + ''
+            if (date.length == 1) {
+              date = '0' + date
+            }
+            return ele.dateAdd.indexOf(`${year}-${month}-${date}`) == 0
+          })
+          if (_log) {
+            day.bottomInfo = '已签到'
+          }
+          return day;
+        }
+      })
+    }
+  },
+  async sign() {
+    const res = await WXAPI.scoreSign(wx.getStorageSync('token'))
+    if (res.code == 10000) {
+      wx.showToast({
+        title: '签到成功',
+        icon: 'success'
+      })
+      this.scoreSignLogs()
+      return
+    }
+    if (res.code != 0) {
+      wx.showToast({
+        title: res.msg,
+        icon: 'none'
+      })
+    } else {
+      wx.showToast({
+        title: '签到成功',
+        icon: 'success'
+      })
+      this.scoreSignLogs()
+    }
+  },
+  /* 简单版判断：满足 Win11-25H2 及以上 / Android16+ / iOS18.4+ 返回 true */
+  shouldUseFingerprintEmoji() {
+    try {
+      const info = wx.getDeviceInfo ? wx.getDeviceInfo() : wx.getSystemInfoSync();
+      const plat = (info.platform || '').toLowerCase();
+      const sys  = info.system || '';
+
+      if (plat === 'android') {
+        const m = sys.match(/Android\s+(\d+)/);
+        return m ? (parseInt(m[1]) >= 16) : false;
       }
-    })    
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+      if (plat === 'ios') {
+        const m = sys.match(/iOS\s+(\d+)\.(\d+)/);
+        if (!m) return false;
+        const major = parseInt(m[1]);
+        const minor = parseInt(m[2]);
+        return major > 18 || (major === 18 && minor >= 4);
+      }
+      if (plat === 'windows' || plat === 'win32') {   // 开发者工具里 platform 可能是 windows
+        const m = sys.match(/Windows\s+(\d+)\s*H(\d+)/);
+        if (!m) return false;
+        const build = parseInt(m[1]);
+        const h     = parseInt(m[2]);
+        return build >= 25 && h >= 2;   // 25H2 及以上
+      }
+    } catch (e) { /* 忽略错误，统一走图片 */ }
+    return false;   // 其余系统或解析失败都用 png
   }
 })

@@ -1,0 +1,5 @@
+.content {
+  padding: 32rpx;
+  color: #333;
+  line-height: 64rpx;
+}

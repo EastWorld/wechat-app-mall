@@ -1,0 +1,9 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="./index.wxs" module="computed" />
+
+<view
+  class="custom-class {{ utils.bem('divider', [{ dashed, hairline }, contentPosition]) }}"
+  style="{{ computed.rootStyle({ borderColor, textColor, fontSize, customStyle }) }}"
+>
+  <slot />
+</view>

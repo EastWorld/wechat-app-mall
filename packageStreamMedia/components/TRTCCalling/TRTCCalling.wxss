@@ -1,0 +1,10 @@
+@import "./template/audio-template/audio-template.wxss";
+@import "./template/video-template/video-template.wxss";
+
+.TRTCCaling-container {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-image: url(https://mc.qcloudimg.com/static/img/7da57e0050d308e2e1b1e31afbc42929/bg.png);
+	margin: 0;
+}

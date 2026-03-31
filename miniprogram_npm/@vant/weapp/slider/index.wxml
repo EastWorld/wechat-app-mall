@@ -1,0 +1,68 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+<wxs src="../wxs/style.wxs" module="style" />
+
+<view
+  class="custom-class {{ utils.bem('slider', { disabled, vertical }) }}"
+  style="{{ wrapperStyle }}"
+  bind:tap="onClick"
+>
+  <view
+    class="{{ utils.bem('slider__bar') }}"
+    style="{{ barStyle }}; {{ style({ backgroundColor: activeColor }) }}"
+  >
+    <view
+      wx:if="{{ range }}"
+      class="{{ utils.bem('slider__button-wrapper-left') }}"
+      data-index="{{ 0 }}"
+      bind:touchstart="onTouchStart"
+      catch:touchmove="onTouchMove"
+      bind:touchend="onTouchEnd"
+      bind:touchcancel="onTouchEnd"
+    >
+      <slot
+        wx:if="{{ useButtonSlot }}"
+        name="left-button"
+      />
+      <view
+        wx:else
+        class="{{ utils.bem('slider__button') }}"
+      />
+    </view>
+    <view
+      wx:if="{{ range }}"
+      class="{{ utils.bem('slider__button-wrapper-right') }}"
+      data-index="{{ 1 }}"
+      bind:touchstart="onTouchStart"
+      catch:touchmove="onTouchMove"
+      bind:touchend="onTouchEnd"
+      bind:touchcancel="onTouchEnd"
+    >
+      <slot
+        wx:if="{{ useButtonSlot }}"
+        name="right-button"
+      />
+      <view
+        wx:else
+        class="{{ utils.bem('slider__button') }}"
+      />
+    </view>
+
+    <view
+      wx:if="{{ !range }}"
+      class="{{ utils.bem('slider__button-wrapper') }}"
+      bind:touchstart="onTouchStart"
+      catch:touchmove="onTouchMove"
+      bind:touchend="onTouchEnd"
+      bind:touchcancel="onTouchEnd"
+    >
+      <slot
+        wx:if="{{ useButtonSlot }}"
+        name="button"
+      />
+      <view
+        wx:else
+        class="{{ utils.bem('slider__button') }}"
+      />
+    </view>
+  </view>
+</view>

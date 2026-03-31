@@ -1,0 +1,2 @@
+<van-empty wx:if="{{!cmsArticles}}" description="暂无记录" />
+<van-cell wx:for="{{cmsArticles}}" wx:key="id" title="{{item.title}}" is-link url="/pages/help/detail?id={{item.id}}" />

@@ -1,0 +1,741 @@
+/* 页面容器 */
+.live-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f8f8 0%, #ffffff 100%);
+  padding-bottom: 32rpx;
+}
+
+/* 页面头部 */
+.page-header {
+  padding: 48rpx 32rpx 32rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #C81623 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  right: -50rpx;
+  top: -50rpx;
+  width: 300rpx;
+  height: 300rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 12rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 直播列表容器 */
+.live-container {
+  padding: 24rpx 24rpx 0;
+}
+
+/* 直播卡片 */
+.live-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.live-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 直播封面区域 */
+.live-cover {
+  width: 100%;
+  height: 400rpx;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 渐变遮罩 */
+.cover-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+}
+
+/* 状态标签 */
+.status-badge {
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  padding: 12rpx 24rpx;
+  border-radius: 40rpx;
+  backdrop-filter: blur(12rpx);
+  -webkit-backdrop-filter: blur(12rpx);
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 正在直播 */
+.status-badge.status-101 {
+  background: rgba(232, 67, 62, 0.95);
+  color: #ffffff;
+}
+
+/* 即将开播 */
+.status-badge.status-102 {
+  background: rgba(255, 148, 62, 0.95);
+  color: #ffffff;
+}
+
+/* 已结束 */
+.status-badge.status-103 {
+  background: rgba(153, 153, 153, 0.95);
+  color: #ffffff;
+}
+
+/* 已过期 */
+.status-badge.status-104,
+.status-badge.status-106,
+.status-badge.status-107 {
+  background: rgba(204, 204, 204, 0.85);
+  color: #666666;
+}
+
+.status-text {
+  line-height: 1;
+}
+
+/* 直播中圆点动画 */
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.3);
+  }
+}
+
+/* 直播信息区域 */
+.live-info {
+  padding: 28rpx 28rpx 24rpx;
+}
+
+.live-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1.4;
+  margin-bottom: 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 90rpx;
+}
+
+/* 元信息 */
+.live-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.meta-text {
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.2;
+}
+
+/* 操作按钮区域 */
+.live-action {
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.action-btn {
+  height: 80rpx;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 正在直播按钮 */
+.btn-live {
+  background: linear-gradient(135deg, #E4393C 0%, #C81623 100%);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(232, 67, 62, 0.3);
+}
+
+.btn-live:active {
+  transform: scale(0.96);
+}
+
+/* 直播脉冲动画 */
+.live-pulse {
+  width: 16rpx;
+  height: 16rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+.live-pulse::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: ripple 2s ease-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    width: 16rpx;
+    height: 16rpx;
+    opacity: 0.8;
+  }
+  100% {
+    width: 40rpx;
+    height: 40rpx;
+    opacity: 0;
+  }
+}
+
+/* 即将开播按钮 */
+.btn-upcoming {
+  background: linear-gradient(135deg, #FF943E 0%, #FF7F39 100%);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(255, 148, 62, 0.25);
+}
+
+/* 已结束按钮 */
+.btn-ended {
+  background: linear-gradient(135deg, #999999 0%, #777777 100%);
+  color: #ffffff;
+  box-shadow: 0 6rpx 20rpx rgba(153, 153, 153, 0.2);
+}
+
+/* 已过期按钮 */
+.btn-disabled {
+  background: #f5f5f5;
+  color: #cccccc;
+  border: 1rpx solid #e5e5e5;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.empty-image {
+  width: 300rpx;
+  height: 300rpx;
+  opacity: 0.4;
+  margin-bottom: 32rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 响应式优化 */
+@media (prefers-color-scheme: dark) {
+  .live-page {
+    background: #1a1a1a;
+  }
+  
+  .live-card {
+    background: #2a2a2a;
+  }
+  
+  .live-title {
+    color: #e5e5e5;
+  }
+  
+  .meta-text {
+    color: #999999;
+  }
+}
+
+/* 滚动条隐藏 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/* 以下为旧样式保留（备用） */
+.shops-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16rpx;
+}
+.shops-container .l {
+  display: flex;
+  align-items: center;
+}
+.shops-container .l text {
+  color: #666;
+  margin-left: 16rpx;
+}
+.shops-container .l image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.shops-container .r {
+  display: flex;
+  align-items: center;
+}
+.shops-container .r text {
+  color: #666;
+}
+.shops-container .r image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.search {
+  position: absolute;
+  top: 32rpx;
+  left: 25rpx;
+  width: 700rpx;
+  height: 66rpx;
+  display: block;
+  box-sizing: border-box;
+}
+.search input {
+  display: block;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1rpx solid #e3e3e3;
+  width: 700rpx;
+  height: 66rpx;
+  border-radius: 30rpx;
+  padding-left: 32rpx; 
+}
+.search image {
+  width: 35rpx;
+  height: 35rpx;
+  position: absolute;
+  top: 16rpx;
+  right: 32rpx;
+  z-index: 99;
+}
+.goodsDynamic {
+  position: absolute;
+  top: 110rpx;
+  left: 25rpx;
+  width: 650rpx;
+  height:66rpx;
+  line-height:66rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;  
+  padding: 0 16rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;  
+}
+.goodsDynamic .swiper2 {
+  width: 100%;
+  height: 100%;
+}
+.goodsDynamic-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.goodsDynamic-item image {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.goodsDynamic-item text {
+  margin-left: 8rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.notice-box {
+  display: flex;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 88rpx;
+  line-height: 88rpx;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 32rpx;
+  border-bottom: 1rpx solid #efeff4;
+}
+.notice{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600rpx;
+}
+.notice_icon {
+  margin-left:20rpx;
+  width:30rpx;
+  height:30rpx;
+}
+.notice_swiper{
+  height: 88rpx;
+  width: 600rpx;
+}
+.notice_itemr {
+  padding-left: 16rpx;
+  font-size: 24rpx;
+  overflow: hidden;
+  color: #e64340;
+}
+.notice-box .more {
+  color: #666;
+  font-size: 24rpx;
+}
+
+.container {
+  background-color: #fff;
+  min-height: 100%;
+  display: block;
+}
+.category-box {  
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+}
+.category-list{
+  flex:1;
+  margin-top:20rpx;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+}
+.category-column{
+  width:100%;
+  margin-top:20rpx;
+  overflow: hidden;
+}
+.category-imgbox{
+  width:90rpx;
+  height:90rpx;
+}
+.category-title{
+  font-size: 24rpx;
+  text-align:center;
+  margin-top:10rpx;
+}
+
+.swiper-container{
+  width: 750rpx;
+  height: 375rpx;
+  position: relative;  
+}
+.swiper-container .swiper1 {
+  width: 750rpx;
+  height: 375rpx;
+}
+.swiper-container .swiper1 image {
+  width: 750rpx;
+  height: 375rpx;
+}
+
+.type-item-on{
+  color:#e64340;
+  border-bottom: 1rpx solid #e64340;
+}
+.goods-container{
+  display: flex;
+  justify-content: space-between;  
+  flex-wrap:wrap;
+  box-sizing: content-box;
+  padding: 24rpx;
+  background-color: #F2f2f2;
+}
+.goods-box{
+  width: 339rpx;
+  height: 472rpx;
+  background-color: #fff;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+  border-radius:5px;
+}
+.goods-box .img-box{
+  width: 339rpx;
+  height: 339rpx;
+  overflow: hidden;
+}
+.goods-box .img-box image{
+   width: 339rpx;
+   height: 339rpx;
+}
+.goods-box .goods-title{
+  width: 280rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 24rpx;
+  padding: 24rpx 0 0rpx 0;
+  color:#000;
+  margin-left: 24rpx;
+}
+.goods-box .goods-price{
+  width: 280rpx;
+  overflow: hidden;
+  font-size: 24rpx;
+  padding: 24rpx 0;
+  color:#e64340;
+  margin-left: 24rpx;
+}
+
+.pos-fiexd{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.coupons{
+  margin-top:10rpx;
+  width: 100%;
+  height: 180rpx;
+  overflow: hidden;
+}
+.coupons-scroll{
+  white-space: nowrap;
+  height: 180rpx;
+  width: 100%;
+  background-color: #fff;
+}
+.coupons-item{
+  width:300rpx;
+  height: 180rpx;
+  margin: 10rpx;
+  padding-top: 20rpx;
+  padding-left: 15rpx;
+  background-color: #f1a83b;
+  box-sizing: content-box;
+  font-size: 20rpx;
+  line-height: 35rpx;
+  overflow: hidden;
+  color: #fff;
+  display: inline-block;
+}
+.coupons-float {
+  position: fixed;
+  right:15rpx;
+  bottom:80rpx;
+  text-align: center;
+}
+.coupons-float image {
+  width:110rpx;
+  height:110rpx;
+  margin-top: 10rpx;
+}
+.tuan {
+  width:750rpx;
+  background-color: #F2f2f2;
+  padding-top:10rpx;
+}
+.tuan-item {
+  width:720rpx;
+  margin: auto;
+  margin-top: 20rpx;
+  background-color: #FFF;
+  position: relative;
+}
+.tuan-goods-pic {
+  width:720rpx;
+  height: 250rpx;
+  overflow: hidden;
+}
+.tuan-goods-pic image {
+  width:720rpx;
+}
+.tuan-title {
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  font-size:30rpx;
+  font-weight: 400;
+}
+.tuan-profile {
+  margin-left: 20rpx;
+  font-size:28rpx;
+  color:#999;
+}
+.tuan-price {
+  margin-left: 20rpx;
+}
+.tuan-price .now {
+  font-size:36rpx;
+  color:#e64340;
+}
+.tuan-price .original {
+  margin-left: 20rpx;
+  font-size:26rpx;
+  color:#999;
+  text-decoration:line-through;
+}
+.tuan-btn {
+  position: absolute;
+  right:30rpx;
+  bottom: 10rpx;
+}
+.category-goods-title {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+  border-bottom: 1rpx solid #efeff4;
+}
+.category-goods-title .more {
+  color: #666;
+  font-size: 24rpx;
+  margin-right: 32rpx;
+}
+.progress {
+  width: 686rpx;
+  padding: 0 32rpx;
+  margin-bottom: 16rpx;
+}
+
+/* 旧的秒杀样式（保留作为备用） */
+.miaosha-container {
+  padding: 0;
+}
+.miaosha-goods-list {
+  margin: 20rpx;
+  background: #f6f6f6;
+  border-radius: 16rpx;
+  display: flex;
+  padding: 20rpx;
+}
+.miaosha-goods-list .image {
+  width: 260rpx;
+  height: 260rpx;
+  flex-shrink: 0;
+  border-radius: 16rpx;
+}
+.miaosha-goods-list .r {
+  margin-left: 32rpx;  
+}
+.miaosha-goods-list .r .goods-title {
+  color: #333;
+  font-size: 28rpx;
+}
+.miaosha-goods-list .r .label {
+  color: #e64340;
+  font-size: 24rpx;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 8rpx;
+}
+.miaosha-goods-list .r .label text {
+  margin-left: 8rpx;
+}
+.miaosha-goods-list .count-down {
+  background: #e64340;
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  margin-top: 12rpx;
+}
+.van-count-down {
+  color: #fff !important;
+  font-size: 26rpx !important;
+  text-align: center;
+}
+.miaosha-price-btn {
+  padding-top: 32rpx;
+}
+.miaosha-price-btn .price {
+  color: #e64340;
+  font-size: 40rpx;
+  margin-top: 12rpx;
+}
+.miaosha-price-btn .price text {
+  color: #666666;
+  font-size: 26rpx;
+  text-decoration:line-through;
+}
+.empty-emoji {
+  display: block;          /* 同 image 默认 block */
+  width: 200rpx;           /* 与原图默认尺寸一致，若原图不是 200rpx 请按实际改 */
+  height: 200rpx;
+  margin: 0 auto;
+  font-size: 160rpx;       /* 视觉上填满容器，可微调 */
+  line-height: 200rpx;
+  text-align: center;
+  cursor: pointer;
+}

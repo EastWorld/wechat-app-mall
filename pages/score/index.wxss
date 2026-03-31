@@ -1,35 +1,279 @@
-.score {
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40rpx;
+}
+
+/* 顶部积分卡片 - 京东红色渐变 */
+.score-header {
+  padding: 40rpx 30rpx 60rpx;
+  background: linear-gradient(135deg, #E4393C 0%, #FF6B6B 100%);
+  position: relative;
+}
+
+.score-bg {
+  text-align: center;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.score-title {
+  font-size: 28rpx;
+  opacity: 0.95;
+  margin-bottom: 20rpx;
+  font-weight: 400;
+  letter-spacing: 2rpx;
+}
+
+.score-value {
+  font-size: 88rpx;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 10rpx;
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+.score-desc {
+  font-size: 24rpx;
+  opacity: 0.9;
+  margin-top: 10rpx;
+}
+
+/* 获取积分途径区域 */
+.score-ways {
+  margin: -30rpx 30rpx 30rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.title-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.title-text::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 28rpx;
+  background: linear-gradient(180deg, #E4393C 0%, #FF6B6B 100%);
+  border-radius: 3rpx;
+}
+
+.title-line {
+  flex: 1;
+  height: 1rpx;
+  background: linear-gradient(to right, #eee 0%, transparent 100%);
+  margin-left: 20rpx;
+}
+
+.ways-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.way-item {
+  flex: 1;
+  background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+  border-radius: 16rpx;
+  padding: 40rpx 20rpx 30rpx;
+  text-align: center;
+  border: 2rpx solid #f0f0f0;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.way-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(228, 57, 60, 0.05) 0%, rgba(255, 107, 107, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.way-item:active::before {
+  opacity: 1;
+}
+
+.way-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  margin: 0 auto 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sign-icon {
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  box-shadow: 0 8rpx 20rpx rgba(228, 57, 60, 0.3);
+}
+
+.coupon-icon {
+  background: linear-gradient(135deg, #FFA726 0%, #FF6F00 100%);
+  box-shadow: 0 8rpx 20rpx rgba(255, 167, 38, 0.3);
+}
+
+.icon-text {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.way-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.way-desc {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 积分明细区域 */
+.score-logs {
+  margin: 0 30rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 空数据样式 */
+.no-data {
+  text-align: center;
+  padding: 80rpx 0;
+}
+
+.no-data-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.3;
+}
+
+.no-data-text {
+  font-size: 28rpx;
+  color: #ccc;
+}
+
+/* 积分明细列表 */
+.log-list {
+  margin-top: 10rpx;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+  position: relative;
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.log-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.log-icon-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.log-info {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  width: 750rpx;  
-  padding-top:50rpx;
-  height: 150rpx;
-  background-color: #e85654;
-  text-align: center;
-  font-size: 14px;
-  line-height: 30px;
-  color:#fff;
+  gap: 8rpx;
 }
 
-.no-data {
-  margin-top: 100rpx;
-  text-align: center;
-  font-size: 13px;
-  color:#ccc;
+.log-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.cashlogs {
+.log-remark {
+  font-size: 24rpx;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-time {
+  font-size: 22rpx;
+  color: #bbb;
+}
+
+.log-amount {
+  font-size: 32rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-left: 20rpx;
   display: flex;
-  font-size: 12px;
-  margin-top: 20rpx;
-  padding-bottom: 20rpx;
-  border-bottom: 1px solid #eee;
-  line-height: 20px;
+  align-items: baseline;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 }
-.cashlogs .profile {
-  width:600rpx;
-  padding-left: 30rpx;
+
+.amount-symbol {
+  font-size: 24rpx;
+  margin-right: 2rpx;
 }
-.cashlogs .amount {
-  width:150rpx;
+
+.amount-value {
+  font-size: 36rpx;
 }

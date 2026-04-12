@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="icon-wrap">
+    <text class="big-icon">🚨</text>
+  </view>
+  <text class="title">请再次确认</text>
+  <text class="subtitle">注销账号是不可逆操作，请慎重考虑</text>
+
+  <view class="confirm-card">
+    <view class="confirm-row">
+      <text class="confirm-label">注销后能否恢复？</text>
+      <text class="confirm-value danger">不能，永久删除</text>
+    </view>
+    <view class="confirm-row">
+      <text class="confirm-label">数据能否找回？</text>
+      <text class="confirm-value danger">不能，物理删除</text>
+    </view>
+    <view class="confirm-row">
+      <text class="confirm-label">能否重新注册？</text>
+      <text class="confirm-value">可以，但历史数据不会恢复</text>
+    </view>
+    <view class="confirm-row last">
+      <text class="confirm-label">退出登录是否影响数据？</text>
+      <text class="confirm-value safe">不影响，数据完整保留</text>
+    </view>
+  </view>
+
+  <view class="alt-box">
+    <text class="alt-title">推荐替代方案</text>
+    <text class="alt-desc">如果您只是不想继续使用，可以选择退出登录。您的账号和数据将完整保留，随时可以重新登录使用。</text>
+    <view class="btn-logout" bindtap="loginOut">退出登录（保留数据）</view>
+  </view>
+
+  <view class="btn-group">
+    <view class="btn btn-primary" bindtap="goBack">取消，保留账号</view>
+    <view class="btn btn-danger-outline" bindtap="goNext">仍要继续注销</view>
+  </view>
+</view>

@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="icon-wrap">
+    <text class="big-icon">🔐</text>
+  </view>
+  <text class="title">最终确认注销</text>
+  <text class="subtitle">请在下方输入"注销"以确认您的操作</text>
+
+  <view class="input-wrap">
+    <input
+      class="confirm-input"
+      placeholder="请输入'注销'"
+      placeholder-class="input-placeholder"
+      model:value="{{inputVal}}"
+      maxlength="2"
+    />
+    <text class="input-hint {{inputVal === '注销' ? 'hint-ok' : ''}}">
+      {{inputVal === '注销' ? '✓ 验证通过' : '请输入两个字：注销'}}
+    </text>
+  </view>
+
+  <view class="warn-final">
+    <text class="warn-final-text">点击下方按钮后，账号将被立即永久删除，无法撤销。</text>
+  </view>
+
+  <view class="btn-group">
+    <view class="btn btn-primary" bindtap="goBack">取消</view>
+    <view class="btn {{inputVal === '注销' ? 'btn-danger' : 'btn-disabled'}}" bindtap="confirmDelete">
+      {{deleting ? '注销中...' : '确认永久注销账号'}}
+    </view>
+  </view>
+</view>

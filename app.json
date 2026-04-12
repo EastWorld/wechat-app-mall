@@ -56,6 +56,9 @@
     "pages/search/index",
     "pages/my/info",
     "pages/my/setting",
+    "pages/my/deactivate/step1",
+    "pages/my/deactivate/step2",
+    "pages/my/deactivate/step3",
     "pages/my/info-menu",
     "pages/recycle/index",
     "pages/recycle/orders",
@@ -67,7 +70,8 @@
     "pages/login/index",
     "pages/vip/index",
     "pages/vip/detail",
-    "pages/vip/history"
+    "pages/vip/history",
+    "pages/huodong/index"
   ],
   "requiredPrivateInfos": [
     "getLocation",

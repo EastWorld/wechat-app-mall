@@ -312,3 +312,182 @@ navigator {
 navigator.setting-item {
   color: inherit;
 }
+
+/* 注销账号卡片 */
+.danger-card {
+  margin-top: 0;
+  border: 2rpx solid rgba(255, 77, 79, 0.2);
+}
+
+.icon-danger {
+  background: linear-gradient(135deg, #fff1f0 0%, #ffccc7 100%);
+}
+
+.danger-title {
+  color: #ff4d4f !important;
+}
+
+/* 弹窗遮罩 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 弹窗主体 */
+.modal-box {
+  width: 640rpx;
+  background: #ffffff;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  padding: 48rpx 40rpx 32rpx;
+  text-align: center;
+  background: linear-gradient(135deg, #fff1f0 0%, #fff7f7 100%);
+}
+
+.danger-header {
+  border-bottom: 2rpx solid #ffccc7;
+}
+
+.modal-warning-icon {
+  display: block;
+  font-size: 72rpx;
+  margin-bottom: 16rpx;
+}
+
+.modal-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #ff4d4f;
+  letter-spacing: 2rpx;
+}
+
+.modal-body {
+  padding: 40rpx;
+}
+
+.modal-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 1.6;
+  margin-bottom: 24rpx;
+}
+
+.modal-sub-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.6;
+  margin-bottom: 24rpx;
+}
+
+.final-warn {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #ff4d4f;
+  text-align: center;
+}
+
+/* 风险列表 */
+.risk-list {
+  background: #fff8f8;
+  border-radius: 16rpx;
+  padding: 24rpx 28rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid #ffccc7;
+}
+
+.risk-item {
+  font-size: 26rpx;
+  color: #555555;
+  padding: 10rpx 0;
+  line-height: 1.5;
+}
+
+.modal-warn-text {
+  display: block;
+  font-size: 26rpx;
+  color: #ff4d4f;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 温馨提示 */
+.confirm-tip {
+  background: #f0f9ff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border-left: 6rpx solid #1890ff;
+}
+
+.confirm-tip-text {
+  font-size: 24rpx;
+  color: #1890ff;
+  line-height: 1.6;
+}
+
+/* 弹窗按钮区 */
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  padding: 0 40rpx 40rpx;
+  gap: 20rpx;
+}
+
+.modal-footer.column {
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel {
+  background: #f5f5f5;
+  color: #666666;
+}
+
+.btn-cancel-full {
+  background: #f5f5f5;
+  color: #333333;
+  font-size: 30rpx;
+}
+
+.btn-danger-outline {
+  background: #fff1f0;
+  color: #ff4d4f;
+  border: 2rpx solid #ffccc7;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%);
+  color: #ffffff;
+  font-size: 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 77, 79, 0.4);
+}
+
+.btn-disabled {
+  opacity: 0.6;
+}

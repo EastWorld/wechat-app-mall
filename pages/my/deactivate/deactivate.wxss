@@ -1,0 +1,265 @@
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding: 60rpx 40rpx 80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-wrap {
+  margin-bottom: 32rpx;
+}
+
+.big-icon {
+  font-size: 100rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #888;
+  text-align: center;
+  margin-bottom: 48rpx;
+  line-height: 1.6;
+}
+
+/* 风险列表卡片 */
+.risk-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 8rpx 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
+  margin-bottom: 32rpx;
+}
+
+.risk-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.risk-item.last {
+  border-bottom: none;
+}
+
+.risk-icon {
+  font-size: 44rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.risk-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.risk-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6rpx;
+}
+
+.risk-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 提示框 */
+.tip-box {
+  width: 100%;
+  background: #fffbe6;
+  border-radius: 16rpx;
+  padding: 24rpx 28rpx;
+  border-left: 6rpx solid #faad14;
+  margin-bottom: 48rpx;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: #7d5a00;
+  line-height: 1.6;
+}
+
+/* 确认对比卡片 */
+.confirm-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 8rpx 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
+  margin-bottom: 32rpx;
+}
+
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.confirm-row.last {
+  border-bottom: none;
+}
+
+.confirm-label {
+  font-size: 26rpx;
+  color: #555;
+  flex: 1;
+}
+
+.confirm-value {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+  text-align: right;
+}
+
+.confirm-value.danger {
+  color: #ff4d4f;
+}
+
+.confirm-value.safe {
+  color: #52c41a;
+}
+
+/* 替代方案 */
+.alt-box {
+  width: 100%;
+  background: #f0f9ff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin-bottom: 48rpx;
+  border: 1rpx solid #bae7ff;
+}
+
+.alt-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1890ff;
+  margin-bottom: 12rpx;
+}
+
+.alt-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 24rpx;
+}
+
+.btn-logout {
+  background: #1890ff;
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 40rpx;
+}
+
+/* 输入框 */
+.input-wrap {
+  width: 100%;
+  margin-bottom: 32rpx;
+}
+
+.confirm-input {
+  width: 100%;
+  height: 96rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  border: 2rpx solid #ffccc7;
+  padding: 0 32rpx;
+  font-size: 36rpx;
+  text-align: center;
+  color: #ff4d4f;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.input-placeholder {
+  color: #ccc;
+  font-size: 28rpx;
+  font-weight: 400;
+}
+
+.input-hint {
+  display: block;
+  font-size: 24rpx;
+  color: #aaa;
+  text-align: center;
+  margin-top: 16rpx;
+}
+
+.input-hint.hint-ok {
+  color: #52c41a;
+}
+
+.warn-final {
+  width: 100%;
+  background: #fff1f0;
+  border-radius: 16rpx;
+  padding: 24rpx 28rpx;
+  border: 1rpx solid #ffccc7;
+  margin-bottom: 48rpx;
+}
+
+.warn-final-text {
+  font-size: 26rpx;
+  color: #ff4d4f;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* 按钮组 */
+.btn-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.btn {
+  width: 100%;
+  height: 96rpx;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.btn-danger-outline {
+  background: #fff1f0;
+  color: #ff4d4f;
+  border: 2rpx solid #ffccc7;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx rgba(255,77,79,0.4);
+}
+
+.btn-disabled {
+  background: #f5f5f5;
+  color: #ccc;
+}

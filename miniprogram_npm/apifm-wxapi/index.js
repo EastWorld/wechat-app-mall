@@ -3375,7 +3375,10 @@ module.exports = {
   },
   fsmRepairReturnFactory: function fsmRepairReturnFactory(data) {
     return request(COMMON_BASE_URL + subDomain + '/fsmRepair/returnFactory', false, 'post', data);
-  }
+  },
+  activityMallInfoInfo: (data) => {
+    return request(COMMON_BASE_URL + subDomain + '/activityMallInfo/info', false, 'get', data)
+  },
 };
 
 /***/ })

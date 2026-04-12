@@ -1,0 +1,61 @@
+<view class="page">
+  <view class="icon-wrap">
+    <text class="big-icon">⚠️</text>
+  </view>
+  <text class="title">注销账号前，请仔细阅读</text>
+  <text class="subtitle">注销后，以下数据将被永久删除且无法恢复</text>
+
+  <view class="risk-card">
+    <view class="risk-item">
+      <text class="risk-icon">👤</text>
+      <view class="risk-info">
+        <text class="risk-title">个人信息</text>
+        <text class="risk-desc">头像、昵称、手机号等账号信息</text>
+      </view>
+    </view>
+    <view class="risk-item">
+      <text class="risk-icon">📦</text>
+      <view class="risk-info">
+        <text class="risk-title">订单记录</text>
+        <text class="risk-desc">所有历史订单及售后记录</text>
+      </view>
+    </view>
+    <view class="risk-item">
+      <text class="risk-icon">💰</text>
+      <view class="risk-info">
+        <text class="risk-title">账户资产</text>
+        <text class="risk-desc">余额、积分、成长值等全部清零</text>
+      </view>
+    </view>
+    <view class="risk-item">
+      <text class="risk-icon">🎫</text>
+      <view class="risk-info">
+        <text class="risk-title">优惠权益</text>
+        <text class="risk-desc">优惠券、会员资格及专属权益</text>
+      </view>
+    </view>
+    <view class="risk-item">
+      <text class="risk-icon">📝</text>
+      <view class="risk-info">
+        <text class="risk-title">内容数据</text>
+        <text class="risk-desc">发布的文章、评价、留言等</text>
+      </view>
+    </view>
+    <view class="risk-item last">
+      <text class="risk-icon">🔗</text>
+      <view class="risk-info">
+        <text class="risk-title">所有关联数据</text>
+        <text class="risk-desc">与账号相关的一切数据将被物理删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="tip-box">
+    <text class="tip-text">💡 如果只是暂时不想使用，建议直接退出登录，账号数据会完整保留。</text>
+  </view>
+
+  <view class="btn-group">
+    <view class="btn btn-primary" bindtap="goBack">我再想想，保留账号</view>
+    <view class="btn btn-danger-outline" bindtap="goNext">我已了解风险，继续注销</view>
+  </view>
+</view>

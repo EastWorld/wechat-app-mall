@@ -1,0 +1,130 @@
+<!-- 活动商城页面 -->
+<view class="page">
+
+  <!-- 顶部轮播 -->
+  <swiper wx:if="{{banners.length}}" class="banner-swiper" circular indicator-dots autoplay interval="3000" duration="500"
+    indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#ffffff">
+    <swiper-item wx:for="{{banners}}" wx:key="index">
+      <image class="banner-img" mode="aspectFill" src="{{item.pic}}" />
+      <view class="banner-tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 活动标题区 -->
+  <view class="activity-header" wx:if="{{activityInfo.title}}">
+    <view class="activity-title-box">
+      <view class="title-deco"></view>
+      <text class="activity-title">{{activityInfo.title}}</text>
+      <view class="title-deco title-deco--right"></view>
+    </view>
+    <text class="activity-subtitle" wx:if="{{activityInfo.titleSub}}">{{activityInfo.titleSub}}</text>
+    <view class="activity-meta" wx:if="{{activityInfo.dateStart || activityInfo.address}}">
+      <view class="meta-item" wx:if="{{activityInfo.dateStart}}">
+        <text class="meta-label">活动时间</text>
+        <text class="meta-value">{{activityInfo.dateRange}}</text>
+      </view>
+      <view class="meta-divider" wx:if="{{activityInfo.dateStart && activityInfo.address}}"></view>
+      <view class="meta-item" wx:if="{{activityInfo.address}}">
+        <text class="meta-label">活动地点</text>
+        <text class="meta-value">{{activityInfo.address}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优惠券区域 -->
+  <view class="section-block" wx:if="{{coupons.length}}">
+    <view class="section-header">
+      <view class="section-title-line"></view>
+      <text class="section-title">专属优惠券</text>
+      <text class="section-desc">限时领取，先到先得</text>
+    </view>
+    <scroll-view class="coupon-scroll" scroll-x="true">
+      <view class="coupon-list">
+        <view class="coupon-card {{item.received ? 'coupon-received' : ''}}"
+          wx:for="{{coupons}}" wx:key="id"
+          bindtap="receiveCoupon" data-index="{{index}}">
+          <view class="coupon-left">
+            <!-- 固定金额 -->
+            <view class="coupon-amount" wx:if="{{item.moneyType === 0}}">
+              <text class="coupon-symbol">¥</text>
+              <text class="coupon-value">{{item.moneyMin}}</text>
+              <text class="coupon-superscript" wx:if="{{item.isRange}}">起</text>
+            </view>
+            <!-- 折扣 -->
+            <view class="coupon-amount" wx:else>
+              <text class="coupon-value coupon-value--pct">{{item.moneyMin}}</text>
+              <text class="coupon-superscript" wx:if="{{item.isRange}}">起</text>
+              <text class="coupon-symbol coupon-symbol--pct">折</text>
+            </view>
+            <text class="coupon-condition" wx:if="{{item.moneyHreshold}}">满{{item.moneyHreshold}}元可用</text>
+            <text class="coupon-condition" wx:else>无门槛</text>
+          </view>
+          <view class="coupon-divider">
+            <view class="coupon-circle coupon-circle--top"></view>
+            <view class="coupon-dashes"></view>
+            <view class="coupon-circle coupon-circle--bottom"></view>
+          </view>
+          <view class="coupon-right">
+            <text class="coupon-name">{{item.name}}</text>
+            <text class="coupon-expire">{{item.expire}}</text>
+            <view class="coupon-tags" wx:if="{{item.needAmount || item.needScore || item.needSignedContinuous || item.isPwd}}">
+              <text class="coupon-tag" wx:if="{{item.needAmount}}">付{{item.needAmount}}元得</text>
+              <text class="coupon-tag" wx:if="{{item.needScore}}">{{item.needScore}}积分兑</text>
+              <text class="coupon-tag" wx:if="{{item.needSignedContinuous}}">连签{{item.needSignedContinuous}}天</text>
+              <text class="coupon-tag coupon-tag--pwd" wx:if="{{item.isPwd}}">口令券</text>
+            </view>
+            <view class="coupon-btn {{item.received ? 'btn-received' : ''}}">
+              {{item.received ? '已领取' : '立即领取'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 活动商品 -->
+  <view class="section-block" wx:if="{{showGoods.length}}">
+    <view class="section-header">
+      <view class="section-title-line"></view>
+      <text class="section-title">活动商品</text>
+      <text class="section-desc">精选好物，限时特惠</text>
+    </view>
+    <view class="goods-grid">
+      <view class="goods-card" wx:for="{{showGoods}}" wx:key="id"
+        bindtap="goGoodsDetail" data-id="{{item.id}}">
+        <view class="goods-img-wrap">
+          <image class="goods-img" mode="aspectFill" src="{{item.pic}}" lazy-load />
+          <view class="goods-badge" wx:if="{{item.isMiaosha}}">秒杀</view>
+        </view>
+        <view class="goods-info">
+          <text class="goods-name">{{item.name}}</text>
+          <view class="goods-price-row">
+            <view class="goods-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.minPrice}}</text>
+            </view>
+            <text class="price-origin" wx:if="{{item.originalPrice && item.originalPrice != item.minPrice}}">¥{{item.originalPrice}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 查看更多 -->
+    <view class="more-btn" wx:if="{{hasMore}}" bindtap="expandGoods">
+      <text class="more-text">查看更多商品</text>
+      <text class="more-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 免责声明 -->
+  <view class="disclaimer-block" wx:if="{{disclaimers.length}}">
+    <view class="disclaimer-header">
+      <text class="disclaimer-icon">📋</text>
+      <text class="disclaimer-title">免责声明</text>
+    </view>
+    <view class="disclaimer-content">
+      <text class="disclaimer-text" wx:for="{{disclaimers}}" wx:key="index">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="footer-space"></view>
+</view>

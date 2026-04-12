@@ -118,9 +118,22 @@
     </view>
   </view>
 
-  <!-- 底部装饰 -->
-  <view class="footer-decoration">
-    <text class="footer-text">感谢您的使用</text>
+  <!-- 账号注销 -->
+  <view class="section-card danger-card">
+    <view class="card-content">
+      <navigator class="setting-item" url="/pages/my/deactivate/step1" hover-class="item-hover">
+        <view class="item-left">
+          <view class="item-icon icon-danger">
+            <text class="iconfont">⚠️</text>
+          </view>
+          <view class="item-info">
+            <text class="item-title danger-title">注销账号</text>
+            <text class="item-desc">删除账号及所有数据</text>
+          </view>
+        </view>
+        <text class="item-arrow">›</text>
+      </navigator>
+    </view>
   </view>
 </view>
 

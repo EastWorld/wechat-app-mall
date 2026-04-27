@@ -9,7 +9,8 @@ Page({
     listType: 1, // 1为1个商品一行，2为2个商品一行    
     name: '', // 搜索关键词
     orderBy: '', // 排序规则
-    page: 1 // 读取第几页
+    page: 1, // 读取第几页
+    recommendStatus: '', // 推荐状态
   },
 
   /**
@@ -18,7 +19,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       name: options.name,
-      categoryId: options.categoryId
+      categoryId: options.categoryId,
+      recommendStatus: options.recommendStatus || ''
     })
     this.search()
     this.readConfigVal()
@@ -50,6 +52,7 @@ Page({
       orderBy: this.data.orderBy,
       page: this.data.page,
       pageSize: 20,
+      recommendStatus: this.data.recommendStatus || ''
     }
     if (this.data.name) {
       _data.k = this.data.name
@@ -57,6 +60,7 @@ Page({
     if (this.data.categoryId) {
       _data.categoryId = this.data.categoryId
     }
+    // https://www.yuque.com/apifm/nu0f75/wg5t98
     const res = await WXAPI.goodsv2(_data)
     wx.hideLoading()
     if (res.code == 0) {

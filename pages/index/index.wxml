@@ -128,7 +128,7 @@ module.exports = {
         <image class="jd-section-icon" src="../../images/home/recommend.png"></image>
         <text class="jd-section-name">爆品推荐</text>
       </view>
-      <view class="jd-section-more">更多 ></view>
+      <view class="jd-section-more" bind:tap="moretuijian">更多 ></view>
     </view>
     <view class="jd-goods-grid">
       <view class="jd-goods-card" wx:for="{{goodsRecommend}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">

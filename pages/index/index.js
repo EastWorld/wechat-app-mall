@@ -447,4 +447,9 @@ Page({
       })
     }
   },
+  moretuijian() {
+    wx.navigateTo({
+      url: '/pages/goods/list?recommendStatus=1',
+    })
+  },
 })

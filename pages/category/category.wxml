@@ -2,13 +2,40 @@
   <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
 </van-search>
 <view class="main">
-  <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
+  <!-- categorySecondPos == 1：左侧展开折叠二级分类 -->
+  <scroll-view wx:if="{{ categorySecondPos == 1 }}" class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
+    <view
+      wx:for="{{firstCategories}}" wx:key="id"
+      class="sidebar-item {{ activeCategory == index ? 'sidebar-item-active' : '' }}"
+      data-idx="{{index}}"
+      bindtap="onCategoryClick"
+    >
+      <view class="sidebar-item-title">
+        <text>{{ item.name }}</text>
+        <text wx:if="{{ item.childs && item.childs.length > 0 }}" class="sidebar-item-arrow {{ activeCategory == index ? 'sidebar-item-arrow-open' : '' }}">›</text>
+      </view>
+      <!-- 展开时显示二级分类 -->
+      <view wx:if="{{ activeCategory == index && item.childs && item.childs.length > 0 }}" class="second-category-list">
+        <view
+          wx:for="{{ item.childs }}" wx:for-item="child" wx:key="id"
+          class="second-category-item {{ secondCategoryId == child.id ? 'second-category-item-active' : '' }}"
+          data-id="{{ child.id }}"
+          catchtap="onSecondCategoryClickLeft"
+        >{{ child.name }}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- categorySecondPos == 0：原有左侧 sidebar -->
+  <scroll-view wx:if="{{ categorySecondPos != 1 }}" class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
     <van-sidebar custom-class="sidebar-l" active-key="{{ activeCategory }}">
       <van-sidebar-item wx:if="{{item.level == 1}}" id="category{{item.id}}" wx:for="{{firstCategories}}" wx:key="id" data-idx="{{index}}" bindtap="onCategoryClick" title="{{ item.name }}" />
     </van-sidebar>
   </scroll-view>
+
   <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
-    <van-tabs wx:if="{{ categoryMod != 2 && categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick" ellipsis="{{ false }}">
+    <!-- categorySecondPos == 0：右侧顶部显示二级分类 tabs -->
+    <van-tabs wx:if="{{ categorySecondPos != 1 && categoryMod != 2 && categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="llargada" bind:change="onSecondCategoryClick" ellipsis="{{ false }}">
       <van-tab title="全部"></van-tab>
       <van-tab wx:for="{{categorySelected.childs}}" wx:key="id" title="{{ item.name }}"></van-tab>
     </van-tabs>

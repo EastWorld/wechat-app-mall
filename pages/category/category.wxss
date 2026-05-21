@@ -64,3 +64,66 @@ page {
 .title-class-apifm {
   word-break: break-all;
 }
+
+/* categorySecondPos == 1：左侧自定义展开折叠 sidebar */
+.sidebar-item {
+  position: relative;
+  padding: 28rpx 16rpx;
+  font-size: 26rpx;
+  color: #333;
+  text-align: left;
+  background: #f7f7f7;
+  border-bottom: 1rpx solid #eee;
+}
+.sidebar-item-active {
+  background: #fff;
+  color: #e64340;
+  font-weight: bold;
+}
+.sidebar-item-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6rpx;
+  background: #e64340;
+  border-radius: 0 4rpx 4rpx 0;
+}
+.sidebar-item-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1.4;
+  word-break: break-all;
+}
+.sidebar-item-arrow {
+  flex-shrink: 0;
+  margin-left: 4rpx;
+  font-size: 28rpx;
+  color: #999;
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+.sidebar-item-active .sidebar-item-arrow {
+  color: #e64340;
+}
+.sidebar-item-arrow-open {
+  transform: rotate(90deg);
+}
+.second-category-list {
+  margin-top: 12rpx;
+}
+.second-category-item {
+  padding: 16rpx 8rpx;
+  font-size: 24rpx;
+  color: #666;
+  font-weight: normal;
+  border-top: 1rpx solid #f0f0f0;
+  background: #fafafa;
+}
+.second-category-item-active {
+  color: #e64340;
+  background: #fff5f5;
+}

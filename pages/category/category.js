@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js') // TOOLS.showTabBarBadge();
+const CONFIG = require('../../config.js')
 
 Page({
   /**
@@ -29,7 +30,8 @@ Page({
       withShareTicket: true
     })
     this.setData({
-      categoryMod: wx.getStorageSync('categoryMod')
+      categoryMod: wx.getStorageSync('categoryMod'),
+      categorySecondPos: CONFIG.categorySecondPos,
     })
     this.categories();
   },
@@ -130,7 +132,35 @@ Page({
     }
   },
   async onCategoryClick(e) {
-    const idx = e.target.dataset.idx
+    const idx = e.currentTarget.dataset.idx
+    // categorySecondPos == 1 时，再次点击同一项折叠（收起），不同项展开
+    if (this.data.categorySecondPos == 1) {
+      if (idx == this.data.activeCategory) {
+        // 再次点击折叠，但仍保持选中（不切换到 -1，避免无选中态）
+        // 如需折叠可取消注释下面两行
+        // this.setData({ activeCategory: -1 })
+        // return
+        this.setData({ scrolltop: 0 })
+        return
+      }
+      const categorySelected = this.data.firstCategories[idx]
+      const res = await WXAPI.adPosition('category_' + categorySelected.id)
+      let adPosition = null
+      if (res.code === 0) {
+        adPosition = res.data
+      }
+      this.setData({
+        page: 1,
+        secondCategoryId: '',
+        activeCategory: idx,
+        categorySelected,
+        scrolltop: 0,
+        adPosition
+      })
+      this.getGoodsList()
+      return
+    }
+    // categorySecondPos == 0 原有逻辑
     if (idx == this.data.activeCategory) {
       this.setData({
         scrolltop: 0,
@@ -165,6 +195,18 @@ Page({
       secondCategoryId
     });
     this.getGoodsList();
+  },
+  // categorySecondPos == 1 时，左侧二级分类点击
+  onSecondCategoryClickLeft(e) {
+    const id = e.currentTarget.dataset.id
+    // 点击已选中的二级分类，切换回全部
+    const secondCategoryId = (this.data.secondCategoryId == id) ? '' : id
+    this.setData({
+      page: 1,
+      secondCategoryId,
+      scrolltop: 0
+    })
+    this.getGoodsList()
   },
   bindconfirm(e) {
     this.setData({

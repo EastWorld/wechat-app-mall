@@ -1,0 +1,552 @@
+/* ===== 整体页面 ===== */
+page {
+  background: #0f0f23;
+  min-height: 100vh;
+}
+
+.page-wrap {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40rpx;
+}
+
+/* ===== 顶部标题栏 ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 32rpx 16rpx;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.bomb-icon {
+  font-size: 44rpx;
+}
+
+.title-text {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2rpx;
+  text-shadow: 0 0 20rpx rgba(255, 100, 50, 0.8);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.btn-log {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 40rpx;
+  padding: 10rpx 24rpx;
+  color: #fff;
+  font-size: 26rpx;
+}
+
+/* ===== 信息栏 ===== */
+.info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 8rpx 24rpx 16rpx;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  border-radius: 20rpx;
+  padding: 20rpx 0;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.info-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #7ee8fa;
+}
+
+.info-value.danger {
+  color: #ff6b6b;
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.info-divider {
+  width: 1rpx;
+  height: 50rpx;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== 游戏区域 ===== */
+.game-area {
+  flex: 1;
+  padding: 0 20rpx;
+}
+
+/* 未开始 */
+.idle-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 40rpx;
+  gap: 32rpx;
+}
+
+.idle-bomb {
+  width: 180rpx;
+  height: 180rpx;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20rpx); }
+}
+
+.idle-tip {
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.btn-start {
+  background: linear-gradient(135deg, #ff6b35, #f7c59f);
+  border-radius: 60rpx;
+  padding: 24rpx 80rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 8rpx 30rpx rgba(255, 107, 53, 0.5);
+  letter-spacing: 2rpx;
+}
+
+/* ===== 格子区域 ===== */
+.cells-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8rpx 0;
+  box-sizing: border-box;
+}
+
+/* 每个格子占 10%，用 padding-top 撑出正方形，内边距做间距 */
+.cell {
+  width: 10%;
+  box-sizing: border-box;
+  padding: 4rpx;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: visible;
+}
+
+/* 内层：承载背景、边框、圆角等视觉样式 */
+.cell-inner {
+  flex: 1;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  min-height: 52rpx;
+}
+
+/* 激活状态 */
+.cell-active {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+  border: 1rpx solid rgba(126, 232, 250, 0.4);
+  box-shadow: 0 0 10rpx rgba(126, 232, 250, 0.15);
+}
+
+.cell-active:active {
+  transform: scale(0.88);
+  background: linear-gradient(135deg, #0f3460, #533483);
+  box-shadow: 0 0 20rpx rgba(126, 232, 250, 0.5);
+}
+
+/* 置灰状态 */
+.cell-gray {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1rpx solid rgba(255, 255, 255, 0.06);
+  animation: fadeGray 0.3s ease forwards;
+}
+
+@keyframes fadeGray {
+  from {
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    border-color: rgba(126, 232, 250, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.85);
+  }
+  to {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+    transform: scale(1);
+  }
+}
+
+/* 已选中（猜过的） */
+.cell-selected {
+  background: linear-gradient(135deg, #533483, #e94560);
+  border: 1rpx solid rgba(233, 69, 96, 0.6);
+  box-shadow: 0 0 16rpx rgba(233, 69, 96, 0.5);
+}
+
+.cell-num {
+  font-size: 20rpx;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1;
+}
+
+.cell-gray .cell-num {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.cell-selected .cell-num {
+  color: #fff;
+}
+
+/* ===== 底部操作 ===== */
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 24rpx 32rpx 0;
+}
+
+.btn-restart {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 60rpx;
+  padding: 18rpx 60rpx;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== 规则弹窗 ===== */
+.rule-popup {
+  padding: 40rpx 40rpx 20rpx;
+}
+
+.popup-title {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 32rpx;
+}
+
+.rule-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 28rpx;
+  line-height: 1.7;
+}
+
+.rule-num {
+  color: #7ee8fa;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 30rpx;
+}
+
+.rule-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding-bottom: 20rpx;
+}
+
+.btn-start-rule {
+  background: linear-gradient(135deg, #ff6b35, #f7c59f);
+  border-radius: 60rpx;
+  padding: 26rpx 0;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 8rpx 30rpx rgba(255, 107, 53, 0.4);
+}
+
+.btn-close-rule {
+  text-align: center;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 16rpx 0;
+}
+
+/* ===== 结果弹窗 ===== */
+.result-popup {
+  width: 580rpx;
+  border-radius: 32rpx;
+  padding: 60rpx 40rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-win {
+  background: linear-gradient(160deg, #1a1a3e, #0f3460, #533483);
+  border: 2rpx solid rgba(126, 232, 250, 0.3);
+  box-shadow: 0 0 60rpx rgba(126, 232, 250, 0.2);
+}
+
+.result-lose {
+  background: linear-gradient(160deg, #1a1a3e, #2d1b1b, #3d1515);
+  border: 2rpx solid rgba(233, 69, 96, 0.3);
+  box-shadow: 0 0 60rpx rgba(233, 69, 96, 0.2);
+}
+
+.result-firework {
+  position: absolute;
+  top: -20rpx;
+  right: 20rpx;
+  font-size: 80rpx;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.result-icon {
+  font-size: 100rpx;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.result-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 20rpx rgba(255, 255, 255, 0.5);
+}
+
+.result-desc {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.result-score {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 40rpx;
+  padding: 16rpx 40rpx;
+  margin-top: 8rpx;
+}
+
+.score-label {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.score-value {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 16rpx rgba(255, 215, 0, 0.6);
+}
+
+.result-btns {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 16rpx;
+  width: 100%;
+}
+
+.btn-again {
+  flex: 1;
+  background: linear-gradient(135deg, #ff6b35, #f7c59f);
+  border-radius: 60rpx;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 6rpx 20rpx rgba(255, 107, 53, 0.4);
+}
+
+.btn-close-result {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 60rpx;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+/* ===== 记录弹窗 ===== */
+.logs-popup {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.logs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 32rpx 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.logs-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.logs-scroll {
+  flex: 1;
+  padding: 16rpx 24rpx;
+  box-sizing: border-box;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.log-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.log-status {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* status: 0进行中 1输 2赢 3超时 */
+.log-status-0 { background: #1989fa; }
+.log-status-1 { background: #ee0a24; }
+.log-status-2 { background: #07c160; }
+.log-status-3 { background: #ff976a; }
+
+.log-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.log-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.log-guess {
+  font-size: 26rpx;
+  color: #555;
+}
+
+.log-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6rpx;
+}
+
+.log-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.log-score-label {
+  font-size: 22rpx;
+  color: #aaa;
+}
+
+.log-score-use {
+  font-size: 26rpx;
+  color: #ee0a24;
+  font-weight: bold;
+}
+
+.log-score-win {
+  font-size: 26rpx;
+  color: #07c160;
+  font-weight: bold;
+}
+
+.load-more, .no-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx 0;
+  color: #aaa;
+  font-size: 26rpx;
+}

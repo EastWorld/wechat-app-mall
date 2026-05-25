@@ -141,6 +141,30 @@
   box-shadow: 0 8rpx 20rpx rgba(255, 167, 38, 0.3);
 }
 
+.bomb-icon {
+  background: linear-gradient(135deg, #1a1a3e 0%, #533483 100%);
+  box-shadow: 0 8rpx 20rpx rgba(83, 52, 131, 0.4);
+}
+
+/* 炸弹入口角标 */
+.way-item-bomb {
+  position: relative;
+}
+
+.way-badge {
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  background: linear-gradient(135deg, #ff6b35, #e94560);
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: bold;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  line-height: 1.4;
+  box-shadow: 0 2rpx 8rpx rgba(233, 69, 96, 0.4);
+}
+
 .icon-text {
   font-size: 40rpx;
   font-weight: bold;

@@ -834,47 +834,47 @@ module.exports = {
     });
   },
   pingtuanSet: function pingtuanSet(goodsId) {
-    return request('/shop/goods/pingtuan/set', true, 'get', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/set', false, 'get', {
       goodsId: goodsId
     });
   },
   pingtuanSets: function pingtuanSets(goodsIdArray) {
-    return request('/shop/goods/pingtuan/sets', true, 'get', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/sets', false, 'get', {
       goodsId: goodsIdArray.join()
     });
   },
   goodsDefaultPingtuan: function goodsDefaultPingtuan(goodsId) {
-    return request('/shop/goods/pingtuan/default', true, 'get', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/default', false, 'get', {
       goodsId: goodsId
     });
   },
   pingtuanMultilevel: function pingtuanMultilevel(goodsId) {
-    return request('/shop/goods/pingtuanMultilevel', true, 'get', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/pingtuanMultilevel', true, 'get', {
       goodsId: goodsId
     });
   },
   pingtuanOpen: function pingtuanOpen(token, goodsId) {
     var extJsonStr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    return request('/shop/goods/pingtuan/open', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/open', false, 'post', {
       goodsId: goodsId,
       token: token,
       extJsonStr: extJsonStr
     });
   },
   pingtuanTuanInfo: function pingtuanTuanInfo(tuanId) {
-    return request('/shop/goods/pingtuan/tuanInfo', true, 'get', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/tuanInfo', false, 'get', {
       tuanId: tuanId
     });
   },
   pingtuanList: function pingtuanList(data) {
-    return request('/shop/goods/pingtuan/list/v2', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/list/v2', false, 'post', data);
   },
   pingtuanJoinUsers: function pingtuanJoinUsers(tuanId) {
-    return request('/shop/goods/pingtuan/joiner', true, 'get', { tuanId: tuanId });
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/joiner', false, 'get', { tuanId: tuanId });
   },
   pingtuanMyJoined: function pingtuanMyJoined(data) {
-    return request('/shop/goods/pingtuan/my-join-list', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/pingtuan/my-join-list', false, 'post', data);
   },
   friendlyPartnerList: function friendlyPartnerList() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -1552,7 +1552,7 @@ module.exports = {
     return request('/shop/subshop/apply', true, 'post', data);
   },
   pickPoints: function pickPoints(data) {
-    return request('/shop/subshop/pickPoints', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/subshop/pickPoints', false, 'post', data);
   },
   shopReputationList: function shopReputationList(data) {
     return request('/shop/subshop/listReputation', true, 'post', data);
@@ -2389,6 +2389,9 @@ module.exports = {
   partnerBuyTeamLeader: function partnerBuyTeamLeader(token) {
     return request('/partner/buy', true, 'post', { token: token });
   },
+  partnerBuyyPartner: function partnerBuyyPartner(token) {
+    return request('/partner/buyPartner', true, 'post', { token: token });
+  },
   partnerMembersStatistics: function partnerMembersStatistics(token) {
     return request(COMMON_BASE_URL + subDomain + '/partner/members/statistics', false, 'get', { token: token });
   },
@@ -2423,7 +2426,7 @@ module.exports = {
     return request('/websocket/rest/liveRoom/kickOut', false, 'post', { token: token, roomId: roomId, uid: uid });
   },
   mockApi: function mockApi(groupName, apiName, method) {
-    return request('/mock/' + groupName + '/' + apiName, true, method);
+    return request(COMMON_BASE_URL + subDomain + ('/mock/' + groupName + '/' + apiName), false, method);
   },
   tourJourneyList: function tourJourneyList(type, refId) {
     return request('/tourJourney/list', true, 'get', { type: type, refId: refId });
@@ -3376,9 +3379,180 @@ module.exports = {
   fsmRepairReturnFactory: function fsmRepairReturnFactory(data) {
     return request(COMMON_BASE_URL + subDomain + '/fsmRepair/returnFactory', false, 'post', data);
   },
-  activityMallInfoInfo: (data) => {
-    return request(COMMON_BASE_URL + subDomain + '/activityMallInfo/info', false, 'get', data)
+  activityMallInfoInfo: function activityMallInfoInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/activityMallInfo/info', false, 'get', data);
   },
+  coachInfoList: function coachInfoList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/coachInfo/list', false, 'post', data);
+  },
+  coachInfoListReputation: function coachInfoListReputation(data) {
+    return request(COMMON_BASE_URL + subDomain + '/coachInfo/listReputation', false, 'post', data);
+  },
+  coachInfoMy: function coachInfoMy(data) {
+    return request(COMMON_BASE_URL + subDomain + '/coachInfo/my', false, 'get', data);
+  },
+  coachStudentList: function coachStudentList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/coachStudent/list', false, 'post', data);
+  },
+  coachStudentDetail: function coachStudentDetail(data) {
+    return request(COMMON_BASE_URL + subDomain + '/coachStudent/detail', false, 'get', data);
+  },
+  trainingList: function trainingList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/list', false, 'post', data);
+  },
+  trainingSet: function trainingSet(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/set', false, 'post', data);
+  },
+  trainingDel: function trainingDel(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/del', false, 'post', data);
+  },
+  trainingItems: function trainingItems() {
+    return request(COMMON_BASE_URL + subDomain + '/training/items', false, 'get');
+  },
+  trainingEnrollment: function trainingEnrollment(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/enrollment', false, 'get', data);
+  },
+  trainingEnrollmentSet: function trainingEnrollmentSet(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/enrollment/set', false, 'post', data);
+  },
+  trainingComplete: function trainingComplete(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/complete', false, 'post', data);
+  },
+  trainingPhased: function trainingPhased(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/phased', false, 'post', data);
+  },
+  trainingPhasedSet: function trainingPhasedSet(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/phased/set', false, 'post', data);
+  },
+  trainingOpposition: function trainingOpposition(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/opposition', false, 'post', data);
+  },
+  trainingOppositionSet: function trainingOppositionSet(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/opposition/set', false, 'post', data);
+  },
+  trainingMatch: function trainingMatch(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/match', false, 'post', data);
+  },
+  trainingMatchSet: function trainingMatchSet(data) {
+    return request(COMMON_BASE_URL + subDomain + '/training/match/set', false, 'post', data);
+  },
+  workSignList: function workSignList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workSign/list', false, 'post', data);
+  },
+  workSignSign: function workSignSign(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workSign/sign', false, 'post', data);
+  },
+  riskAliyunGreenCheckText: function riskAliyunGreenCheckText(data) {
+    return request(COMMON_BASE_URL + subDomain + '/riskAliyunGreen/check/text', false, 'post', data);
+  },
+  riskAliyunGreenCheckPic: function riskAliyunGreenCheckPic(data) {
+    return request(COMMON_BASE_URL + subDomain + '/riskAliyunGreen/check/pic', false, 'post', data);
+  },
+  vodBaseAuthAndAddress: function vodBaseAuthAndAddress(data) {
+    return request(COMMON_BASE_URL + subDomain + '/vodBase/authAndAddress', false, 'post', data);
+  },
+  tournamentList: function tournamentList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/list', false, 'post', data);
+  },
+  tournamentInfo: function tournamentInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/info', false, 'get', data);
+  },
+  tournamentSchedule: function tournamentSchedule(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/schedule', false, 'post', data);
+  },
+  tournamentInfoSchedule: function tournamentInfoSchedule(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/infoSchedule', false, 'get', data);
+  },
+  tournamentMembers: function tournamentMembers(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/members', false, 'post', data);
+  },
+  tournamentJoin: function tournamentJoin(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/join', false, 'post', data);
+  },
+  tournamentDrawNumbers: function tournamentDrawNumbers(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/draw', false, 'post', data);
+  },
+  tournamentMatchChart: function tournamentMatchChart(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/matchChart', false, 'get', data);
+  },
+  tournamentSubmitScore: function tournamentSubmitScore(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/submitScore', false, 'post', data);
+  },
+  tournamentUpdateScore: function tournamentUpdateScore(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/updateScore', false, 'post', data);
+  },
+  teacherInfoMy: function teacherInfoMy(data) {
+    return request(COMMON_BASE_URL + subDomain + '/teacherInfo/my', false, 'get', data);
+  },
+  teacherStudentList: function teacherStudentList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/teacherStudent/list', false, 'post', data);
+  },
+  teacherStudentSignLogsList: function teacherStudentSignLogsList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/teacherStudent/myStudentSignLogs', false, 'post', data);
+  },
+  roomInfoList: function roomInfoList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/roomInfo/list', false, 'post', data);
+  },
+  roomInfoInfo: function roomInfoInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/roomInfo/info', false, 'get', data);
+  },
+  roomInfoSave: function roomInfoSave(data) {
+    return request(COMMON_BASE_URL + subDomain + '/roomInfo/save', false, 'post', data);
+  },
+  roomInfoDel: function roomInfoDel(data) {
+    return request(COMMON_BASE_URL + subDomain + '/roomInfo/del', false, 'post', data);
+  },
+  workDietList: function workDietList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workDiet/list', false, 'post', data);
+  },
+  workDietInfo: function workDietInfo(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workDiet/info', false, 'get', data);
+  },
+  workDietSave: function workDietSave(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workDiet/save', false, 'post', data);
+  },
+  workDietDel: function workDietDel(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workDiet/del', false, 'post', data);
+  },
+  workManageOtherList: function workManageOtherList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workManageOther/list', false, 'post', data);
+  },
+  workManageOtherAdd: function workManageOtherAdd(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workManageOther/add', false, 'post', data);
+  },
+  workManageOtherDel: function workManageOtherDel(data) {
+    return request(COMMON_BASE_URL + subDomain + '/workManageOther/del', false, 'post', data);
+  },
+  parentInfoMy: function parentInfoMy(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentInfo/my', false, 'get', data);
+  },
+  parentInfoJoinKey: function parentInfoJoinKey(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentInfo/joinKey', false, 'get', data);
+  },
+  parentInfoJoin: function parentInfoJoin(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentInfo/join', false, 'post', data);
+  },
+  parentStudentList: function parentStudentList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentStudent/list', false, 'post', data);
+  },
+  parentStudentSignLogsList: function parentStudentSignLogsList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentStudent/myStudentSignLogs', false, 'post', data);
+  },
+  parentStudentDetail: function parentStudentDetail(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentStudent/detail', false, 'get', data);
+  },
+  parentStudentMyParents: function parentStudentMyParents(data) {
+    return request(COMMON_BASE_URL + subDomain + '/parentStudent/myParents', false, 'post', data);
+  },
+  gameNumberBombBegin: function gameNumberBombBegin(data) {
+    return request(COMMON_BASE_URL + subDomain + '/gameNumberBomb/begin', false, 'post', data);
+  },
+  gameNumberBombGuess: function gameNumberBombGuess(data) {
+    return request(COMMON_BASE_URL + subDomain + '/gameNumberBomb/guess', false, 'post', data);
+  },
+  gameNumberBombLogs: function gameNumberBombLogs(data) {
+    return request(COMMON_BASE_URL + subDomain + '/gameNumberBomb/logs', false, 'post', data);
+  }
 };
 
 /***/ })

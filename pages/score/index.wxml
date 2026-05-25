@@ -29,6 +29,14 @@
         <view class="way-title">积分券兑换</view>
         <view class="way-desc">券兑积分</view>
       </view>
+      <view class="way-item way-item-bomb" bindtap="goNumberBomb">
+        <view class="way-badge">赚积分</view>
+        <view class="way-icon bomb-icon">
+          <text class="icon-text">💣</text>
+        </view>
+        <view class="way-title">炸弹数字人</view>
+        <view class="way-desc">猜中赢积分</view>
+      </view>
     </view>
   </view>
 

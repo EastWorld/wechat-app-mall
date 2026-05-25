@@ -83,4 +83,9 @@ Page({
       url: '/pages/score-excharge/index',
     })
   },
+  goNumberBomb() {
+    wx.navigateTo({
+      url: '/game/numberBomb/index',
+    })
+  },
 })

@@ -80,6 +80,13 @@
   ],
   "subpackages": [
     {
+      "root": "game",
+      "name": "game",
+      "pages": [
+        "numberBomb/index"
+      ]
+    },
+    {
       "root": "packageStreamMedia",
       "name": "packageStreamMedia",
       "pages": [

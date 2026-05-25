@@ -1,0 +1,202 @@
+<view class="page-wrap">
+
+  <!-- 顶部标题栏 -->
+  <view class="header">
+    <view class="header-title">
+      <text class="bomb-icon">💣</text>
+      <text class="title-text">炸弹数字人</text>
+    </view>
+    <view class="header-actions">
+      <view class="btn-log" bindtap="openLogs">
+        <van-icon name="records" size="18px" color="#fff" />
+        <text>记录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏信息栏 -->
+  <view class="info-bar" wx:if="{{gameStatus === 'playing'}}">
+    <view class="info-item">
+      <text class="info-label">剩余次数</text>
+      <text class="info-value {{remainGuess <= 5 ? 'danger' : ''}}">{{remainGuess}}</text>
+    </view>
+    <view class="info-divider"></view>
+    <view class="info-item">
+      <text class="info-label">已猜次数</text>
+      <text class="info-value">{{guessCount}}</text>
+    </view>
+    <view class="info-divider"></view>
+    <view class="info-item">
+      <text class="info-label">数字范围</text>
+      <text class="info-value">1 ~ {{setting.maxNumber}}</text>
+    </view>
+  </view>
+
+  <!-- 游戏区域 -->
+  <view class="game-area">
+
+    <!-- 未开始状态 -->
+    <view class="idle-area" wx:if="{{gameStatus === 'idle'}}">
+      <image class="idle-bomb" src="/images/gift.png" mode="aspectFit" />
+      <text class="idle-tip">炸弹藏在数字里，你能找到它吗？</text>
+      <view class="btn-start" bindtap="startGame">
+        <text>🚀 开始游戏</text>
+      </view>
+    </view>
+
+    <!-- 游戏中 / 结束状态 -->
+    <view class="cells-wrap" wx:if="{{gameStatus !== 'idle'}}">
+      <view
+        wx:for="{{cells}}"
+        wx:key="num"
+        class="cell"
+        bindtap="onCellTap"
+        data-index="{{index}}"
+      >
+        <view class="cell-inner cell-{{item.status}}">
+          <text class="cell-num">{{item.num}}</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="footer" wx:if="{{gameStatus === 'playing'}}">
+    <view class="btn-restart" bindtap="startGame">重新开局</view>
+  </view>
+  <view class="footer" wx:if="{{gameStatus === 'win' || gameStatus === 'lose'}}">
+    <view class="btn-restart" bindtap="playAgain">再来一局</view>
+  </view>
+
+  <!-- ===== 规则弹窗 ===== -->
+  <van-popup
+    show="{{showRule}}"
+    round
+    position="bottom"
+    custom-style="background: #1a1a2e; padding-bottom: env(safe-area-inset-bottom);"
+    bind:close="closeRule"
+  >
+    <view class="rule-popup">
+      <view class="popup-title">
+        <text class="bomb-icon">💣</text>
+        <text>游戏规则</text>
+      </view>
+      <view class="rule-content">
+        <view class="rule-item">
+          <text class="rule-num">①</text>
+          <text>系统在数字范围内随机藏一颗炸弹，你需要猜出它在哪个数字。</text>
+        </view>
+        <view class="rule-item">
+          <text class="rule-num">②</text>
+          <text>点击格子猜数字，猜大了或猜小了，对应范围的数字会自动变灰排除。</text>
+        </view>
+        <view class="rule-item">
+          <text class="rule-num">③</text>
+          <text>在有限次数内猜中，即为获胜！</text>
+        </view>
+        <view class="rule-item" wx:if="{{setting}}">
+          <text class="rule-num">④</text>
+          <text>每局消耗 {{setting.useScore}} 积分，猜中可获得 {{setting.winScore}} 积分奖励。</text>
+        </view>
+        <view class="rule-item" wx:if="{{!setting}}">
+          <text class="rule-num">④</text>
+          <text>猜中可获得积分奖励，快来挑战吧！</text>
+        </view>
+      </view>
+      <view class="rule-btns">
+        <view class="btn-start-rule" bindtap="startGame">🚀 立即开局</view>
+        <view class="btn-close-rule" bindtap="closeRule">稍后再说</view>
+      </view>
+    </view>
+  </van-popup>
+
+  <!-- ===== 结果弹窗 ===== -->
+  <van-popup
+    show="{{showResult}}"
+    round
+    custom-style="background: transparent; overflow: visible;"
+  >
+    <view class="result-popup {{resultType === 'win' ? 'result-win' : 'result-lose'}}">
+
+      <!-- 胜利 -->
+      <block wx:if="{{resultType === 'win'}}">
+        <view class="result-firework">🎆</view>
+        <view class="result-icon">🏆</view>
+        <view class="result-title">恭喜获胜！</view>
+        <view class="result-desc">你用 {{guessCount}} 次找到了炸弹</view>
+        <view class="result-score" wx:if="{{winScore > 0}}">
+          <text class="score-label">获得积分</text>
+          <text class="score-value">+{{winScore}}</text>
+        </view>
+        <view class="result-score" wx:else>
+          <text class="score-label">挑战成功，继续加油！</text>
+        </view>
+      </block>
+
+      <!-- 失败 -->
+      <block wx:if="{{resultType === 'lose'}}">
+        <view class="result-icon">💥</view>
+        <view class="result-title">很遗憾...</view>
+        <view class="result-desc">{{resultMsg}}</view>
+        <view class="result-score">
+          <text class="score-label">下次一定能找到它！</text>
+        </view>
+      </block>
+
+      <view class="result-btns">
+        <view class="btn-again" bindtap="playAgain">再来一局</view>
+        <view class="btn-close-result" bindtap="closeResult">关闭</view>
+      </view>
+    </view>
+  </van-popup>
+
+  <!-- ===== 游戏记录弹窗 ===== -->
+  <van-popup
+    show="{{showLogs}}"
+    round
+    position="bottom"
+    custom-style="height: 70vh; background: #f5f5f5; padding-bottom: env(safe-area-inset-bottom);"
+    bind:close="closeLogs"
+  >
+    <view class="logs-popup">
+      <view class="logs-header">
+        <text class="logs-title">游戏记录</text>
+        <van-icon name="cross" size="20px" color="#666" bindtap="closeLogs" />
+      </view>
+
+      <scroll-view scroll-y class="logs-scroll" bindscrolltolower="loadMoreLogs">
+        <van-empty wx:if="{{logs.length === 0 && !logsLoading}}" description="暂无游戏记录" />
+
+        <view wx:for="{{logs}}" wx:key="id" class="log-item">
+          <view class="log-left">
+            <view class="log-status log-status-{{item.status}}">{{item.statusShort}}</view>
+            <view class="log-info">
+              <text class="log-date">{{item.dateAdd}}</text>
+              <text class="log-guess">共猜了 {{item.guessTime}} 次</text>
+            </view>
+          </view>
+          <view class="log-right">
+            <view class="log-score-row" wx:if="{{item.useScore > 0}}">
+              <text class="log-score-label">消耗</text>
+              <text class="log-score-use">-{{item.useScore}} 积分</text>
+            </view>
+            <view class="log-score-row" wx:if="{{item.winScore > 0}}">
+              <text class="log-score-label">获得</text>
+              <text class="log-score-win">+{{item.winScore}} 积分</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="load-more" wx:if="{{logsLoading}}">
+          <van-loading size="20px" color="#e64340" />
+          <text>加载中...</text>
+        </view>
+        <view class="no-more" wx:elif="{{logsPage >= logsTotalPage && logs.length > 0}}">
+          <text>已经到底啦</text>
+        </view>
+      </scroll-view>
+    </view>
+  </van-popup>
+
+</view>

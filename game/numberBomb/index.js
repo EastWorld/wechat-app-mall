@@ -282,14 +282,14 @@ Page({
   },
   onShareAppMessage: function() {    
     return {
-      title: '炸弹数字人 - 猜中赢积分',
+      title: '炸弹数字王 - 猜中赢积分',
       path: '/game/numberBomb/index?inviter_id=' + (wx.getStorageSync('uid') || ''),
       imageUrl: wx.getStorageSync('gameNumberBomb_share_pic')
     }
   },
   onShareTimeline() {    
     return {
-      title: '炸弹数字人 - 猜中赢积分',
+      title: '炸弹数字王 - 猜中赢积分',
       query: 'inviter_id=' + (wx.getStorageSync('uid') || ''),
       imageUrl: wx.getStorageSync('gameNumberBomb_share_pic')
     }

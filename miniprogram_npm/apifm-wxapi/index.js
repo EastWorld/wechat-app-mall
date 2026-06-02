@@ -514,7 +514,7 @@ module.exports = {
     });
   },
   resetPwdUseEmailCode: function resetPwdUseEmailCode(email, pwd, code) {
-    return request('/user/email/reset-pwd', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/user/email/reset-pwd', false, 'post', {
       email: email, pwd: pwd, code: code
     });
   },
@@ -882,6 +882,9 @@ module.exports = {
     return request('/friendly-partner/list', true, 'post', {
       type: type
     });
+  },
+  friendlyPartnerListV2: function friendlyPartnerListV2(data) {
+    return request(COMMON_BASE_URL + subDomain + '/friendly-partner/list', false, 'post', data);
   },
   friendList: function friendList(data) {
     return request('/user/friend/list', true, 'post', data);
@@ -1382,7 +1385,7 @@ module.exports = {
     return request('/dfs/upload/list/v2', true, 'post', data);
   },
   galleryList: function galleryList(data) {
-    return request('/dfs/gallery', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/dfs/gallery', false, 'post', data);
   },
   refundApply: function refundApply(data) {
     return request('/order/refundApply/apply', true, 'post', data);
@@ -1711,10 +1714,10 @@ module.exports = {
     return request('/verification/sms/check', true, 'post', { mobile: mobile, code: code });
   },
   mailValidateCode: function mailValidateCode(mail) {
-    return request('/verification/mail/get', true, 'get', { mail: mail });
+    return request(COMMON_BASE_URL + subDomain + '/verification/mail/get', false, 'get', { mail: mail });
   },
   mailValidateCodeCheck: function mailValidateCodeCheck(mail, code) {
-    return request('/verification/mail/check', true, 'post', { mail: mail, code: code });
+    return request(COMMON_BASE_URL + subDomain + '/verification/mail/check', false, 'post', { mail: mail, code: code });
   },
   mapDistance: function mapDistance(lat1, lng1, lat2, lng2) {
     return request('/common/map/distance', false, 'get', { lat1: lat1, lng1: lng1, lat2: lat2, lng2: lng2 });
@@ -1988,15 +1991,15 @@ module.exports = {
     return request(COMMON_BASE_URL + subDomain + '/yuyue/fav/check', false, 'get', data);
   },
   register_email: function register_email(data) {
-    return request('/user/email/register', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/email/register', false, 'post', data);
   },
   login_email: function login_email(data) {
-    return request('/user/email/login', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/email/login', false, 'post', data);
   },
   bindEmail: function bindEmail(token, email, code) {
     var pwd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
 
-    return request('/user/email/bindEmail', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/user/email/bindEmail', false, 'post', {
       token: token, email: email, code: code, pwd: pwd
     });
   },
@@ -2378,19 +2381,19 @@ module.exports = {
     return request('/channelData/pull', true, 'get', { key: key });
   },
   bindPartner: function bindPartner(token, partnerId) {
-    return request('/user/bindPartner', true, 'post', { token: token, uid: partnerId });
+    return request(COMMON_BASE_URL + subDomain + '/user/bindPartner', false, 'post', { token: token, uid: partnerId });
   },
   partnerSetting: function partnerSetting() {
-    return request('/partner/setting', true, 'get');
+    return request(COMMON_BASE_URL + subDomain + '/partner/setting', false, 'get');
   },
   partnerBindTeamLeader: function partnerBindTeamLeader(token, uid) {
-    return request('/partner/bindTeamLeader', true, 'post', { token: token, uid: uid });
+    return request(COMMON_BASE_URL + subDomain + '/partner/bindTeamLeader', false, 'post', { token: token, uid: uid });
   },
   partnerBuyTeamLeader: function partnerBuyTeamLeader(token) {
-    return request('/partner/buy', true, 'post', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/partner/buy', false, 'post', { token: token });
   },
   partnerBuyyPartner: function partnerBuyyPartner(token) {
-    return request('/partner/buyPartner', true, 'post', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/partner/buyPartner', false, 'post', { token: token });
   },
   partnerMembersStatistics: function partnerMembersStatistics(token) {
     return request(COMMON_BASE_URL + subDomain + '/partner/members/statistics', false, 'get', { token: token });

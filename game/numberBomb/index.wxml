@@ -4,7 +4,7 @@
   <view class="header">
     <view class="header-title">
       <text class="bomb-icon">💣</text>
-      <text class="title-text">炸弹数字人</text>
+      <text class="title-text">炸弹数字王</text>
     </view>
     <view class="header-actions">
       <view class="btn-log" bindtap="openLogs">

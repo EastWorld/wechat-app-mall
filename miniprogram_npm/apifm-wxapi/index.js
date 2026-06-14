@@ -710,34 +710,34 @@ module.exports = {
     return request('/shop/goods/fav/list', true, 'post', data);
   },
   goodsFavListV2: function goodsFavListV2(data) {
-    return request('/shop/goods/fav/list/v2', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/list/v2', false, 'post', data);
   },
   goodsFavPut: function goodsFavPut(token, goodsId) {
-    return request('/shop/goods/fav/add', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/add', false, 'post', {
       token: token, goodsId: goodsId
     });
   },
   goodsFavAdd: function goodsFavAdd(data) {
-    return request('/shop/goods/fav/add', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/add', false, 'post', data);
   },
   goodsFavCheck: function goodsFavCheck(token, goodsId) {
-    return request('/shop/goods/fav/check', true, 'get', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/check', false, 'get', {
       token: token, goodsId: goodsId
     });
   },
   goodsFavCheckV2: function goodsFavCheckV2(data) {
-    return request('/shop/goods/fav/check', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/check', false, 'get', data);
   },
   goodsFavDelete: function goodsFavDelete(token) {
     var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var goodsId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    return request('/shop/goods/fav/delete', true, 'post', {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/delete', false, 'post', {
       token: token, id: id, goodsId: goodsId
     });
   },
   goodsFavDeleteV2: function goodsFavDeleteV2(data) {
-    return request('/shop/goods/fav/delete', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/fav/delete', false, 'post', data);
   },
   goodsSeckillGrab: function goodsSeckillGrab(token, goodsId, seconds) {
     return request('/goods/seckill/grab', true, 'post', { token: token, goodsId: goodsId, seconds: seconds });
@@ -1705,13 +1705,13 @@ module.exports = {
     var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var picCode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    return request('/verification/sms/get', true, 'get', { mobile: mobile, key: key, picCode: picCode });
+    return request(COMMON_BASE_URL + subDomain + '/verification/sms/get', false, 'get', { mobile: mobile, key: key, picCode: picCode });
   },
   smsValidateCodeByToken: function smsValidateCodeByToken(token) {
-    return request('/verification/sms/get-by-token', true, 'get', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/verification/sms/get-by-token', false, 'get', { token: token });
   },
   smsValidateCodeCheck: function smsValidateCodeCheck(mobile, code) {
-    return request('/verification/sms/check', true, 'post', { mobile: mobile, code: code });
+    return request(COMMON_BASE_URL + subDomain + '/verification/sms/check', false, 'post', { mobile: mobile, code: code });
   },
   mailValidateCode: function mailValidateCode(mail) {
     return request(COMMON_BASE_URL + subDomain + '/verification/mail/get', false, 'get', { mail: mail });
@@ -2291,10 +2291,10 @@ module.exports = {
     return request('/shop/goods/times/items', true, 'post', { day: day, goodsId: goodsId, propertyChildIds: propertyChildIds });
   },
   goodsBrandList: function goodsBrandList(data) {
-    return request('/shop/goods/brand/list', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/brand/list', false, 'post', data);
   },
   goodsBrandDetail: function goodsBrandDetail(id) {
-    return request('/shop/goods/brand/detail', true, 'get', { id: id });
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/brand/detail', false, 'get', { id: id });
   },
   wxappServiceLogin: function wxappServiceLogin(data) {
     return request('/user/wxappService/login', true, 'post', data);
@@ -2400,6 +2400,15 @@ module.exports = {
   },
   partnerMembers: function partnerMembers(data) {
     return request(COMMON_BASE_URL + subDomain + '/partner/members', false, 'post', data);
+  },
+  partnerWithdrawalLogList: function partnerWithdrawalLogList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/partner/withdrawalLog/list', false, 'post', data);
+  },
+  partnerWithdrawalLogSuccess: function partnerWithdrawalLogSuccess(data) {
+    return request(COMMON_BASE_URL + subDomain + '/partner/withdrawalLog/success', false, 'post', data);
+  },
+  partnerWithdrawalLogRefuse: function partnerWithdrawalLogRefuse(data) {
+    return request(COMMON_BASE_URL + subDomain + '/partner/withdrawalLog/refuse', false, 'post', data);
   },
   myLiveRooms: function myLiveRooms(data) {
     return request('/liveRooms/my', true, 'post', data);
@@ -3397,6 +3406,9 @@ module.exports = {
   coachStudentList: function coachStudentList(data) {
     return request(COMMON_BASE_URL + subDomain + '/coachStudent/list', false, 'post', data);
   },
+  coachStudentMyCoachs: function coachStudentMyCoachs(data) {
+    return request(COMMON_BASE_URL + subDomain + '/coachStudent/myCoachs', false, 'post', data);
+  },
   coachStudentDetail: function coachStudentDetail(data) {
     return request(COMMON_BASE_URL + subDomain + '/coachStudent/detail', false, 'get', data);
   },
@@ -3484,6 +3496,12 @@ module.exports = {
   tournamentUpdateScore: function tournamentUpdateScore(data) {
     return request(COMMON_BASE_URL + subDomain + '/tournament/updateScore', false, 'post', data);
   },
+  tournamentMyJoinList: function tournamentMyJoinList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/myJoinList', false, 'post', data);
+  },
+  tournamentSetTable: function tournamentSetTable(data) {
+    return request(COMMON_BASE_URL + subDomain + '/tournament/setTable', false, 'post', data);
+  },
   teacherInfoMy: function teacherInfoMy(data) {
     return request(COMMON_BASE_URL + subDomain + '/teacherInfo/my', false, 'get', data);
   },
@@ -3555,6 +3573,18 @@ module.exports = {
   },
   gameNumberBombLogs: function gameNumberBombLogs(data) {
     return request(COMMON_BASE_URL + subDomain + '/gameNumberBomb/logs', false, 'post', data);
+  },
+  goodsBrandFavList: function goodsBrandFavList(data) {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/brand/fav/list', false, 'post', data);
+  },
+  goodsBrandFavAdd: function goodsBrandFavAdd(data) {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/brand/fav/add', false, 'post', data);
+  },
+  goodsBrandFavCheck: function goodsBrandFavCheck(data) {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/brand/fav/check', false, 'get', data);
+  },
+  goodsBrandFavDelete: function goodsBrandFavDelete(data) {
+    return request(COMMON_BASE_URL + subDomain + '/shop/goods/brand/fav/delete', false, 'post', data);
   }
 };
 

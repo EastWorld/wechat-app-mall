@@ -71,7 +71,8 @@
     "pages/vip/index",
     "pages/vip/detail",
     "pages/vip/history",
-    "pages/huodong/index"
+    "pages/huodong/index",
+    "pages/qingdan/index"
   ],
   "requiredPrivateInfos": [
     "getLocation",

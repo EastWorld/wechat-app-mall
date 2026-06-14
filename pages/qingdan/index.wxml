@@ -1,0 +1,235 @@
+<!-- 个人全能清单 -->
+<view class="qd-page">
+
+  <!-- 顶部 Hero 区：分类概览 -->
+  <view class="qd-hero" style="background: {{currentCategory.gradient}};">
+    <view class="qd-hero-mask"></view>
+    <view class="qd-hero-content">
+      <view class="qd-hero-title-row">
+        <text class="qd-hero-icon">{{currentCategory.icon}}</text>
+        <view class="qd-hero-text">
+          <text class="qd-hero-name">{{currentCategory.name}}清单</text>
+          <text class="qd-hero-desc">{{currentCategory.desc}}</text>
+        </view>
+      </view>
+
+      <!-- 进度条（待办/购物/旅行 显示完成率） -->
+      <view class="qd-progress-wrap" wx:if="{{currentKey == 'todo' || currentKey == 'shopping' || currentKey == 'travel'}}">
+        <view class="qd-progress-bar">
+          <view class="qd-progress-inner" style="width: {{progress}}%"></view>
+        </view>
+        <view class="qd-progress-meta">
+          <text>已完成 {{doneCount}} / 共 {{total}} 项</text>
+          <text class="qd-progress-pct">{{progress}}%</text>
+        </view>
+      </view>
+
+      <!-- 备忘/观影 显示总数 -->
+      <view class="qd-progress-wrap" wx:else>
+        <view class="qd-progress-meta qd-meta-only">
+          <text>共记录 {{total}} 条</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类切换 Tab -->
+  <scroll-view class="qd-tabs" scroll-x="true" enhanced show-scrollbar="{{false}}">
+    <view class="qd-tabs-inner">
+      <view wx:for="{{categories}}" wx:key="key"
+            class="qd-tab {{item.key === currentKey ? 'active' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="switchCategory"
+            style="--cat-color: {{item.color}};">
+        <text class="qd-tab-icon">{{item.icon}}</text>
+        <text class="qd-tab-name">{{item.name}}</text>
+        <text class="qd-tab-num">{{ overview[index] ? overview[index].total : '' }}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 搜索 -->
+  <view class="qd-search">
+    <view class="qd-search-box">
+      <van-icon name="search" size="32rpx" color="#9aa0b0" custom-class="qd-search-ico" />
+      <input class="qd-search-input"
+             placeholder="搜索清单内容"
+             placeholder-class="qd-search-ph"
+             value="{{keyword}}"
+             bindinput="onSearch"
+             confirm-type="search" />
+      <view wx:if="{{keyword}}" class="qd-search-clear" catchtap="onSearchClear">
+        <van-icon name="clear" size="32rpx" color="#c0c5d2" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 列表区 -->
+  <view class="qd-list">
+
+    <!-- 空状态 -->
+    <view class="qd-empty" wx:if="{{!loading && displayList.length == 0}}">
+      <view class="qd-empty-emoji">{{currentCategory.icon}}</view>
+      <text class="qd-empty-title">还没有{{currentCategory.name}}清单</text>
+      <text class="qd-empty-desc">点击下方按钮，立即添加第一条记录</text>
+    </view>
+
+    <!-- 卡片 -->
+    <view wx:for="{{displayList}}" wx:key="id"
+          class="qd-card {{item.isTop ? 'is-top' : ''}} {{item.isHighlight ? 'is-highlight' : ''}} {{item.done ? 'is-done' : ''}}"
+          style="--cat-color: {{currentCategory.color}};">
+      <!-- 顶部标签条 -->
+      <view class="qd-card-top">
+        <view class="qd-card-tags">
+          <view class="qd-tag qd-tag-top" wx:if="{{item.isTop}}">
+            <van-icon name="bullhorn-o" size="22rpx" /> 置顶
+          </view>
+          <view class="qd-tag qd-tag-mark" wx:if="{{item.isHighlight}}">
+            <van-icon name="star-o" size="22rpx" /> 重要
+          </view>
+          <view class="qd-tag qd-tag-pri qd-pri-{{item.priority}}" wx:if="{{item.priority > 0}}">
+            {{item.priority == 2 ? '★ 高优先' : '中优先'}}
+          </view>
+          <view class="qd-tag qd-tag-done" wx:if="{{item.done}}">
+            <van-icon name="success" size="22rpx" /> 已完成
+          </view>
+        </view>
+        <view class="qd-card-more" catchtap="openAction" data-item="{{item}}">
+          <van-icon name="ellipsis" size="36rpx" color="#9aa0b0" />
+        </view>
+      </view>
+
+      <!-- 主内容区 -->
+      <view class="qd-card-body">
+        <!-- 左侧勾选/标记圆点 -->
+        <view class="qd-check {{item.done ? 'checked' : ''}}"
+              style="border-color: {{currentCategory.color}}; background: {{item.done ? currentCategory.color : 'transparent'}};"
+              catchtap="toggleDone" data-item="{{item}}">
+          <van-icon wx:if="{{item.done}}" name="success" size="28rpx" color="#fff" />
+        </view>
+
+        <view class="qd-card-info">
+          <view class="qd-title-row">
+            <text class="qd-title">{{item.title}}</text>
+            <!-- 数量（购物） -->
+            <view class="qd-qty" wx:if="{{item.qty && currentKey == 'shopping'}}">×{{item.qty}}</view>
+          </view>
+          <view class="qd-remark" wx:if="{{item.remark}}">{{item.remark}}</view>
+          <view class="qd-rating" wx:if="{{item.rating && currentKey == 'movie'}}">
+            <van-rate value="{{item.rating}}" size="24rpx" color="{{currentCategory.color}}" void-color="#e7e9ef" void-icon="star-o" readonly />
+          </view>
+          <view class="qd-date">
+            <text class="qd-date-dot">·</text>
+            <text>{{item.dateUpdate}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多提示 -->
+    <view class="qd-footer-tip" wx:if="{{displayList.length > 0}}">
+      <text>{{loading ? '加载中...' : '— 已显示全部 —'}}</text>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="qd-bottom-space"></view>
+
+  <!-- 悬浮新增按钮 -->
+  <view class="qd-fab" bindtap="openAdd" style="background: {{currentCategory.gradient}};">
+    <van-icon name="plus" size="48rpx" color="#fff" />
+  </view>
+</view>
+
+<!-- 添加 / 编辑 弹窗 -->
+<van-popup show="{{showForm}}" position="bottom" round bind:close="closeForm" custom-style="background: transparent;">
+  <view class="qd-form" style="--cat-color: {{currentCategory.color}};">
+    <view class="qd-form-handle"></view>
+    <view class="qd-form-header">
+      <text class="qd-form-title">{{formMode == 'add' ? '新增' : '编辑'}}{{currentCategory.name}}</text>
+      <view class="qd-form-close" bindtap="closeForm">
+        <van-icon name="cross" size="36rpx" color="#9aa0b0" />
+      </view>
+    </view>
+
+    <view class="qd-field">
+      <text class="qd-field-label">内容</text>
+      <input class="qd-field-input"
+             value="{{form.title}}"
+             placeholder="{{currentCategory.placeholder}}"
+             placeholder-class="qd-field-ph"
+             bindinput="onFormTitle" />
+    </view>
+
+    <view class="qd-field">
+      <text class="qd-field-label">备注</text>
+      <textarea class="qd-field-textarea"
+                value="{{form.remark}}"
+                placeholder="补充说明（选填）"
+                placeholder-class="qd-field-ph"
+                auto-height maxlength="200"
+                bindinput="onFormRemark"></textarea>
+    </view>
+
+    <!-- 优先级（待办/旅行/备忘） -->
+    <view class="qd-field" wx:if="{{currentKey == 'todo' || currentKey == 'travel' || currentKey == 'memo'}}">
+      <text class="qd-field-label">优先级</text>
+      <view class="qd-pri-row">
+        <view class="qd-pri-item {{form.priority == 0 ? 'active' : ''}}" data-idx="0" bindtap="onFormPriority">普通</view>
+        <view class="qd-pri-item pri-1 {{form.priority == 1 ? 'active' : ''}}" data-idx="1" bindtap="onFormPriority">中</view>
+        <view class="qd-pri-item pri-2 {{form.priority == 2 ? 'active' : ''}}" data-idx="2" bindtap="onFormPriority">高</view>
+      </view>
+    </view>
+
+    <!-- 数量（购物） -->
+    <view class="qd-field" wx:if="{{currentKey == 'shopping'}}">
+      <text class="qd-field-label">数量</text>
+      <view class="qd-stepper">
+        <van-stepper value="{{form.qty}}" min="1" max="999" button-size="56rpx" input-width="80rpx" bind:change="onFormQty" />
+      </view>
+    </view>
+
+    <!-- 评分（观影） -->
+    <view class="qd-field" wx:if="{{currentKey == 'movie'}}">
+      <text class="qd-field-label">评分</text>
+      <view class="qd-rate">
+        <van-rate value="{{form.rating}}" size="48rpx" color="{{currentCategory.color}}" void-color="#e7e9ef" void-icon="star-o" bind:change="onFormRating" />
+      </view>
+    </view>
+
+    <!-- 完成开关（待办/购物/旅行） -->
+    <view class="qd-field qd-field-row" wx:if="{{currentKey == 'todo' || currentKey == 'shopping' || currentKey == 'travel'}}">
+      <text class="qd-field-label">标记为已完成</text>
+      <van-switch checked="{{form.done}}" size="48rpx" active-color="{{currentCategory.color}}" bind:change="onFormDone" />
+    </view>
+
+    <view class="qd-form-btn" bindtap="submitForm">保存</view>
+    <view class="qd-form-safe"></view>
+  </view>
+</van-popup>
+
+<!-- 操作菜单 -->
+<van-popup show="{{showAction}}" position="bottom" round bind:close="closeAction" custom-style="background: transparent;">
+  <view class="qd-action">
+    <view class="qd-action-handle"></view>
+    <view class="qd-action-title" wx:if="{{actionItem}}">{{actionItem.title}}</view>
+    <view class="qd-action-item" bindtap="toggleTop" data-item="{{actionItem}}">
+      <van-icon name="bullhorn-o" size="40rpx" color="#5B8FF9" />
+      <text>{{actionItem.isTop ? '取消置顶' : '置顶'}}</text>
+    </view>
+    <view class="qd-action-item" bindtap="toggleHighlight" data-item="{{actionItem}}">
+      <van-icon name="star-o" size="40rpx" color="#FFB300" />
+      <text>{{actionItem.isHighlight ? '取消重要标记' : '标记为重要'}}</text>
+    </view>
+    <view class="qd-action-item" bindtap="openEdit" data-item="{{actionItem}}">
+      <van-icon name="edit" size="40rpx" color="#26C0B8" />
+      <text>编辑</text>
+    </view>
+    <view class="qd-action-item danger" bindtap="deleteCurrent">
+      <van-icon name="delete-o" size="40rpx" color="#E4393C" />
+      <text>删除</text>
+    </view>
+    <view class="qd-action-cancel" bindtap="closeAction">取消</view>
+    <view class="qd-form-safe"></view>
+  </view>
+</van-popup>

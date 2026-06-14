@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "个人全能清单",
+  "navigationBarBackgroundColor": "#f6f7fb",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f6f7fb",
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-rate": "@vant/weapp/rate/index"
+  }
+}

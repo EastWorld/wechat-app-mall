@@ -253,6 +253,10 @@
   <view class="function-section">
     <view class="section-title">常用功能</view>
     <view class="function-grid">
+      <navigator url="/pages/qingdan/index" class="function-item">
+        <text class="function-icon">📒</text>
+        <view class="function-label">全能清单</view>
+      </navigator>
       <navigator url="/pages/goods/his" class="function-item">
         <text class="function-icon">📋</text>
         <view class="function-label">历史购买</view>

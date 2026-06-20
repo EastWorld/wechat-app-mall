@@ -154,14 +154,9 @@ page, view, image, input {
   font-weight: 700;
   margin-bottom: 8rpx;
   display: flex;
-  align-items: baseline;
-}
-
-.list1 .goods-info .price::before {
-  content: '¥';
-  font-size: 24rpx;
-  font-weight: 500;
-  margin-right: 2rpx;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8rpx;
 }
 
 .list1 .goods-info .buy-info {
@@ -253,14 +248,9 @@ page, view, image, input {
   font-weight: 700;
   margin-bottom: 8rpx;
   display: flex;
-  align-items: baseline;
-}
-
-.list2 .goods-info .price::before {
-  content: '¥';
-  font-size: 22rpx;
-  font-weight: 500;
-  margin-right: 2rpx;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6rpx;
 }
 
 .list2 .goods-info .buy-info {
@@ -305,3 +295,120 @@ page, view, image, input {
   font-size: 22rpx;
   font-weight: 400;
 }
+
+/* ========== 商品价格组件 ========== */
+
+/* 免费徽章 */
+.gl-price-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: bold;
+  padding: 2rpx 18rpx;
+  border-radius: 18rpx;
+  letter-spacing: 2rpx;
+  box-shadow: 0 3rpx 10rpx rgba(228, 57, 60, 0.35);
+}
+
+/* 金额区域 */
+.gl-price-money-wrap {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* list1 字号（大） */
+.list1 .gl-price-symbol {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #E4393C;
+  margin-right: 2rpx;
+}
+
+.list1 .gl-price-main {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #E4393C;
+  line-height: 1;
+}
+
+/* list2 字号（小） */
+.list2 .gl-price-symbol {
+  font-size: 22rpx;
+  font-weight: bold;
+  color: #E4393C;
+  margin-right: 2rpx;
+}
+
+.list2 .gl-price-main {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #E4393C;
+  line-height: 1;
+}
+
+/* 积分块 */
+.gl-price-score-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FFF3DC 100%);
+  border: 2rpx solid #F0B840;
+  border-radius: 8rpx;
+  padding: 3rpx 12rpx;
+}
+
+/* list1 积分字号 */
+.list1 .gl-price-score-num {
+  font-size: 34rpx;
+  font-weight: bold;
+  line-height: 1;
+  background: linear-gradient(135deg, #E8971A 0%, #C87800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.list1 .gl-price-score-unit {
+  font-size: 22rpx;
+  font-weight: bold;
+  color: #C87800;
+  margin-left: 3rpx;
+  align-self: flex-end;
+  padding-bottom: 2rpx;
+}
+
+/* list2 积分字号 */
+.list2 .gl-price-score-num {
+  font-size: 30rpx;
+  font-weight: bold;
+  line-height: 1;
+  background: linear-gradient(135deg, #E8971A 0%, #C87800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.list2 .gl-price-score-unit {
+  font-size: 20rpx;
+  font-weight: bold;
+  color: #C87800;
+  margin-left: 3rpx;
+  align-self: flex-end;
+  padding-bottom: 2rpx;
+}
+
+/* 金额 + 积分 组合行 */
+.gl-price-combo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  flex-wrap: wrap;
+}
+
+.gl-price-plus {
+  font-size: 22rpx;
+  color: #aaa;
+  font-weight: bold;
+  align-self: center;
+}
+/* ========== 商品价格组件结束 ========== */

@@ -127,3 +127,100 @@ page {
   color: #e64340;
   background: #fff5f5;
 }
+
+/* ========== 商品价格组件 ========== */
+.cat-price-block {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+/* 免费徽章 */
+.cat-price-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: bold;
+  padding: 2rpx 16rpx;
+  border-radius: 18rpx;
+  letter-spacing: 2rpx;
+  box-shadow: 0 3rpx 10rpx rgba(228, 57, 60, 0.35);
+}
+
+/* 金额区域 */
+.cat-price-money-wrap {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.cat-price-symbol {
+  font-size: 22rpx;
+  font-weight: bold;
+  color: #E4393C;
+  margin-right: 2rpx;
+}
+
+.cat-price-main {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #E4393C;
+  line-height: 1;
+}
+
+/* 划线原价 */
+.cat-price-del {
+  font-size: 22rpx;
+  color: #bbb;
+  text-decoration: line-through;
+  margin-left: 8rpx;
+  align-self: flex-end;
+  padding-bottom: 3rpx;
+}
+
+/* 积分块 */
+.cat-price-score-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FFF3DC 100%);
+  border: 2rpx solid #F0B840;
+  border-radius: 8rpx;
+  padding: 3rpx 12rpx;
+}
+
+.cat-price-score-num {
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 1;
+  background: linear-gradient(135deg, #E8971A 0%, #C87800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cat-price-score-unit {
+  font-size: 20rpx;
+  font-weight: bold;
+  color: #C87800;
+  margin-left: 3rpx;
+  align-self: flex-end;
+  padding-bottom: 2rpx;
+}
+
+/* 金额 + 积分 组合行 */
+.cat-price-combo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  flex-wrap: wrap;
+}
+
+.cat-price-plus {
+  font-size: 22rpx;
+  color: #aaa;
+  font-weight: bold;
+  align-self: center;
+}
+/* ========== 商品价格组件结束 ========== */

@@ -18,6 +18,20 @@
         <view class="order-status">{{item.statusStr}}</view>
       </view>
 
+      <!-- 下单人信息 -->
+      <view wx:if="{{userMap && userMap[item.uid]}}" class="order-user-info" bind:tap="goOrderDetail" data-item="{{ item }}">
+        <image
+          class="order-user-avatar"
+          src="{{userMap[item.uid].avatarUrl || '/images/default.png'}}"
+          mode="aspectFill"
+        />
+        <view class="order-user-detail">
+          <view wx:if="{{userMap[item.uid].nick}}" class="order-user-nick">{{userMap[item.uid].nick}}</view>
+          <view wx:if="{{userMap[item.uid].mobile}}" class="order-user-mobile">{{userMap[item.uid].mobile}}</view>
+          <view wx:if="{{!userMap[item.uid].nick && !userMap[item.uid].mobile}}" class="order-user-mobile">用户 {{userMap[item.uid].id}}</view>
+        </view>
+      </view>
+
       <!-- 商品区域 -->
       <wxs module="goodsDetailPage">
       module.exports = {

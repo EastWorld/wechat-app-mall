@@ -686,3 +686,195 @@ swiper-item image {
   border-radius: 50%;
   flex-shrink: 0;
 }
+
+
+/* ========== SKU 弹窗价格组件 ========== */
+.sku-price-block {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  padding: 4rpx 0;
+}
+
+.sku-price-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: bold;
+  padding: 4rpx 22rpx;
+  border-radius: 22rpx;
+  letter-spacing: 2rpx;
+  box-shadow: 0 4rpx 14rpx rgba(228, 57, 60, 0.35);
+}
+
+.sku-price-money-wrap {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.sku-price-symbol {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #E4393C;
+  margin-right: 2rpx;
+}
+
+.sku-price-main {
+  font-size: 52rpx;
+  font-weight: bold;
+  color: #E4393C;
+  line-height: 1;
+}
+
+.sku-price-del {
+  font-size: 26rpx;
+  color: #bbb;
+  text-decoration: line-through;
+  margin-left: 12rpx;
+  align-self: flex-end;
+  padding-bottom: 6rpx;
+}
+
+.sku-price-score-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FFF3DC 100%);
+  border: 2rpx solid #F0B840;
+  border-radius: 10rpx;
+  padding: 6rpx 16rpx;
+}
+
+.sku-price-score-num {
+  font-size: 46rpx;
+  font-weight: bold;
+  line-height: 1;
+  background: linear-gradient(135deg, #E8971A 0%, #C87800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sku-price-score-unit {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #C87800;
+  margin-left: 4rpx;
+  align-self: flex-end;
+  padding-bottom: 4rpx;
+}
+
+.sku-price-combo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+  flex-wrap: wrap;
+}
+
+.sku-price-plus {
+  font-size: 28rpx;
+  color: #aaa;
+  font-weight: bold;
+  align-self: center;
+}
+/* ========== SKU 弹窗价格组件结束 ========== */
+
+
+/* ========== 详情页顶部价格区域 ========== */
+.gd-price-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  padding: 0 30rpx;
+}
+
+/* 免费徽章 */
+.gd-price-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  color: #FFFFFF;
+  font-size: 36rpx;
+  font-weight: bold;
+  padding: 6rpx 28rpx;
+  border-radius: 28rpx;
+  letter-spacing: 3rpx;
+  box-shadow: 0 4rpx 16rpx rgba(228, 57, 60, 0.4);
+}
+
+/* 金额区域 */
+.gd-price-money-wrap {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.gd-price-symbol {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #E4393C;
+  margin-right: 4rpx;
+}
+
+.gd-price-main {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #E4393C;
+  line-height: 1;
+}
+
+/* 划线原价 */
+.gd-price-del {
+  font-size: 28rpx;
+  color: #aaa;
+  text-decoration: line-through;
+  align-self: flex-end;
+  padding-bottom: 8rpx;
+}
+
+/* 积分块 */
+.gd-price-score-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FFF0D0 100%);
+  border: 2rpx solid #F0B840;
+  border-radius: 12rpx;
+  padding: 8rpx 20rpx;
+}
+
+.gd-price-score-num {
+  font-size: 56rpx;
+  font-weight: bold;
+  line-height: 1;
+  background: linear-gradient(135deg, #E8971A 0%, #C87800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gd-price-score-unit {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #C87800;
+  margin-left: 6rpx;
+  align-self: flex-end;
+  padding-bottom: 6rpx;
+}
+
+/* 金额 + 积分 组合行 */
+.gd-price-combo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.gd-price-plus {
+  font-size: 30rpx;
+  color: #bbb;
+  font-weight: bold;
+  align-self: center;
+}
+/* ========== 详情页顶部价格区域结束 ========== */

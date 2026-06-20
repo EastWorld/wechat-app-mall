@@ -264,13 +264,15 @@ Page({
         this.setData({
           orderList: res.data.orderList,
           logisticsMap: res.data.logisticsMap,
-          goodsMap: res.data.goodsMap
+          goodsMap: res.data.goodsMap,
+          userMap: res.data.userMap || {}
         })
       } else {
         this.setData({
           orderList: this.data.orderList.concat(res.data.orderList),
           logisticsMap: Object.assign(this.data.logisticsMap, res.data.logisticsMap),
-          goodsMap: Object.assign(this.data.goodsMap, res.data.goodsMap)
+          goodsMap: Object.assign(this.data.goodsMap, res.data.goodsMap),
+          userMap: Object.assign(this.data.userMap || {}, res.data.userMap || {})
         })
       }
     } else {
@@ -278,7 +280,8 @@ Page({
         this.setData({
           orderList: null,
           logisticsMap: {},
-          goodsMap: {}
+          goodsMap: {},
+          userMap: {}
         })
       } else {
         wx.showToast({

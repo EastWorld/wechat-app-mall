@@ -93,6 +93,7 @@ Component({
         skuGoodsPic: skuCurGoods.basicInfo.pic,
         selectSizePrice: skuCurGoods.basicInfo.minPrice,
         selectSizeOPrice: skuCurGoods.basicInfo.originalPrice,
+        totalScoreToPay: skuCurGoods.basicInfo.minScore || 0,
         skuCurGoodsShow: true
       })
     },

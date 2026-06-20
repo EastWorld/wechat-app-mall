@@ -175,14 +175,34 @@ page {
   flex: 1;
   min-width: 0;
 }
-
+.address-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
 .address-name {
   font-size: 30rpx;
   font-weight: 600;
   color: #2c3e50;
   margin-bottom: 16rpx;
 }
+.copy-btn {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 24rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 32rpx;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
 
+.copy-btn-text {
+  font-size: 22rpx;
+  color: #ffffff;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
 .address-phone {
   font-weight: 400;
   color: #667eea;

@@ -69,9 +69,14 @@
           <image class="icon-img" src="/images/order-details/icon-address.png"></image>
         </view>
         <view class="address-info">
-          <view class="address-name">{{orderDetail.logistics.linkMan}} <text class="address-phone">{{orderDetail.logistics.mobile}}</text></view>
+          <view class="address-name-row">
+            <view class="address-name">{{orderDetail.logistics.linkMan}} <text class="address-phone">{{orderDetail.logistics.mobile}}</text></view>
+            <view class="copy-btn" bindtap="copyAddressTap">
+              <text class="copy-btn-text">复制</text>
+            </view>
+          </view>
           <view class="address-detail">
-            {{orderDetail.logistics.provinceStr}} {{orderDetail.logistics.cityStr}} {{orderDetail.logistics.areaStr}} {{orderDetail.logistics.address}}
+            {{orderDetail.logistics.provinceStr}} {{orderDetail.logistics.cityStr}} {{orderDetail.logistics.areaStr}} {{orderDetail.logistics.streetStr}} {{orderDetail.logistics.address}}
           </view>
         </view>
       </view>

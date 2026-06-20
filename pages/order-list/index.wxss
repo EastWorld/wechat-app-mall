@@ -53,6 +53,44 @@
   color: #E4393C;
 }
 
+/* 下单人信息 */
+.order-user-info {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 28rpx;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-user-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  background: #eeeeee;
+}
+
+.order-user-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6rpx;
+}
+
+.order-user-nick {
+  font-size: 26rpx;
+  color: #333333;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.order-user-mobile {
+  font-size: 22rpx;
+  color: #999999;
+  line-height: 1.4;
+}
+
 /* ========== 1个商品布局：横向，左图右信息 ========== */
 .goods-content-single {
   display: flex;

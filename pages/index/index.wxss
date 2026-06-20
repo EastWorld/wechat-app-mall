@@ -381,7 +381,9 @@ page {
 
 .jd-seckill-price {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8rpx;
 }
 
 .jd-price-symbol {
@@ -493,8 +495,10 @@ page {
 
 .jd-goods-price-box {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6rpx;
 }
 
 .jd-goods-price {
@@ -724,6 +728,101 @@ page {
   padding: 0 24rpx;
   box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.3);
 }
+
+/* ========== 积分/混合价格组件 ========== */
+
+/* 免费徽章 */
+.jd-price-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: bold;
+  padding: 4rpx 20rpx;
+  border-radius: 20rpx;
+  letter-spacing: 2rpx;
+  box-shadow: 0 4rpx 12rpx rgba(228, 57, 60, 0.35);
+}
+
+.jd-price-del-margin {
+  margin-left: 12rpx;
+}
+
+/* 积分显示块 */
+.jd-price-score-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  background: linear-gradient(135deg, #FFF8EC 0%, #FFF3DC 100%);
+  border: 2rpx solid #F7C06A;
+  border-radius: 8rpx;
+  padding: 4rpx 14rpx;
+}
+
+.jd-price-score-num {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #D4860B;
+  line-height: 1;
+  background: linear-gradient(135deg, #E8971A 0%, #D4860B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jd-price-score-unit {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #D4860B;
+  margin-left: 4rpx;
+  align-self: flex-end;
+  padding-bottom: 4rpx;
+}
+
+/* 积分小尺寸（商品卡片用） */
+.jd-price-score-sm {
+  font-size: 34rpx;
+}
+
+.jd-price-score-unit-sm {
+  font-size: 20rpx;
+}
+
+/* 金额 + 积分 组合 */
+.jd-price-combo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-wrap: wrap;
+}
+
+.jd-price-combo-sm {
+  gap: 6rpx;
+}
+
+.jd-price-money-wrap {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.jd-price-plus {
+  font-size: 26rpx;
+  color: #999;
+  font-weight: bold;
+  margin: 0 2rpx;
+  align-self: center;
+}
+
+/* 商品卡片内价格字号覆盖 */
+.jd-goods-price-sym {
+  font-size: 22rpx !important;
+}
+
+.jd-goods-price-num {
+  font-size: 34rpx !important;
+}
+
+/* ========== 积分/混合价格组件结束 ========== */
 
 /* ========== 优惠券悬浮按钮 ========== */
 .jd-coupon-float {

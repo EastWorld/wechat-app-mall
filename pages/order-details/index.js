@@ -280,4 +280,27 @@ Page({
         })
       }
     },
+    copyAddressTap() {
+      const logistics = this.data.orderDetail && this.data.orderDetail.logistics
+      if (!logistics) return
+      const parts = [
+        logistics.linkMan,
+        logistics.mobile,
+        logistics.provinceStr,
+        logistics.cityStr,
+        logistics.areaStr,
+        logistics.address
+      ].filter(v => v && v.trim())
+      const text = parts.join(' ')
+      wx.setClipboardData({
+        data: text,
+        success() {
+          wx.showToast({
+            title: '地址已复制',
+            icon: 'success',
+            duration: 1500
+          })
+        }
+      })
+    },
 })

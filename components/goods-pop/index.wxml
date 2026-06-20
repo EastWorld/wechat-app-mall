@@ -7,11 +7,48 @@
 >
   <van-card
     centered
-    price="{{ selectSizePrice }}"
-    origin-price="{{ selectSizePrice != selectSizePrice ? selectSizeOPrice : '' }}"
     title="{{ skuCurGoods.basicInfo.name }}"
     thumb="{{ skuGoodsPic }}"
-  />
+  >
+    <view slot="price" class="sku-price-block">
+      <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+      <block wx:if="{{(!selectSizePrice || selectSizePrice <= 0) && (!totalScoreToPay || totalScoreToPay <= 0)}}">
+        <view class="sku-price-free-badge">免费</view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+      <!-- 情况2：售价=0，积分≠0 -->
+      <block wx:elif="{{(!selectSizePrice || selectSizePrice <= 0) && totalScoreToPay > 0}}">
+        <view class="sku-price-score-wrap">
+          <text class="sku-price-score-num">{{totalScoreToPay}}</text>
+          <text class="sku-price-score-unit">积分</text>
+        </view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+      <!-- 情况3：售价≠0 且 积分≠0 -->
+      <block wx:elif="{{selectSizePrice > 0 && totalScoreToPay > 0}}">
+        <view class="sku-price-combo-wrap">
+          <view class="sku-price-money-wrap">
+            <text class="sku-price-symbol">¥</text>
+            <text class="sku-price-main">{{selectSizePrice}}</text>
+          </view>
+          <text class="sku-price-plus">+</text>
+          <view class="sku-price-score-wrap">
+            <text class="sku-price-score-num">{{totalScoreToPay}}</text>
+            <text class="sku-price-score-unit">积分</text>
+          </view>
+        </view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+      <!-- 情况1：售价≠0，积分=0（默认） -->
+      <block wx:else>
+        <view class="sku-price-money-wrap">
+          <text class="sku-price-symbol">¥</text>
+          <text class="sku-price-main">{{selectSizePrice}}</text>
+        </view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+    </view>
+  </van-card>
   <view class="sku-container">
     <view class="sku" wx:for="{{skuCurGoods.properties}}" wx:key="id" wx:for-index="idx">
       <view class="t">{{item.name}}</view>

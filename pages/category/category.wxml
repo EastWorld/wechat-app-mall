@@ -90,7 +90,6 @@
     </wxs>
     <van-card
       wx:for="{{currentGoods}}" wx:key="id"
-      price="{{item.minPrice}}"
       desc="{{item.numberSells ? '已售' + item.numberSells : ''}}"
       tag="{{item.gotScore ? (item.gotScore + (item.gotScoreType ? '%' : '') + '积分') : ''}}"
       title="{{item.name}}"
@@ -98,6 +97,45 @@
       thumb="{{item.pic}}"
       thumb-link="{{ goodsDetailPage.url(item) }}"
     >
+      <!-- 价格：4种情况 -->
+      <view slot="price" class="cat-price-block">
+        <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+        <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+          <view class="cat-price-free-badge">免费</view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="cat-price-del">¥{{item.originalPrice}}</text>
+        </block>
+        <!-- 情况2：售价=0，积分≠0 -->
+        <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+          <view class="cat-price-score-wrap">
+            <text class="cat-price-score-num">{{item.minScore}}</text>
+            <text class="cat-price-score-unit">积分</text>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="cat-price-del">¥{{item.originalPrice}}</text>
+        </block>
+        <!-- 情况3：售价≠0 且 积分≠0 -->
+        <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+          <view class="cat-price-combo-wrap">
+            <view class="cat-price-money-wrap">
+              <text class="cat-price-symbol">¥</text>
+              <text class="cat-price-main">{{item.minPrice}}</text>
+            </view>
+            <text class="cat-price-plus">+</text>
+            <view class="cat-price-score-wrap">
+              <text class="cat-price-score-num">{{item.minScore}}</text>
+              <text class="cat-price-score-unit">积分</text>
+            </view>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="cat-price-del">¥{{item.originalPrice}}</text>
+        </block>
+        <!-- 情况1：售价≠0，积分=0（默认） -->
+        <block wx:else>
+          <view class="cat-price-money-wrap">
+            <text class="cat-price-symbol">¥</text>
+            <text class="cat-price-main">{{item.minPrice}}</text>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="cat-price-del">¥{{item.originalPrice}}</text>
+        </block>
+      </view>
       <view wx:if="{{ item.supplyType != 'vop_jd' }}" class="goods-btn" slot="footer">
         <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
         <van-icon wx:else name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />

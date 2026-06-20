@@ -103,9 +103,40 @@ module.exports = {
           </view>
           <view class="jd-seckill-footer">
             <view class="jd-seckill-price">
-              <text class="jd-price-symbol">¥</text>
-              <text class="jd-price-num">{{item.minPrice}}</text>
-              <text class="jd-price-del">¥{{item.originalPrice}}</text>
+              <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+              <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+                <view class="jd-price-free-badge">免费</view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-price-del jd-price-del-margin">¥{{item.originalPrice}}</text>
+              </block>
+              <!-- 情况2：售价=0，积分≠0 -->
+              <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+                <view class="jd-price-score-wrap">
+                  <text class="jd-price-score-num">{{item.minScore}}</text>
+                  <text class="jd-price-score-unit">积分</text>
+                </view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-price-del jd-price-del-margin">¥{{item.originalPrice}}</text>
+              </block>
+              <!-- 情况3：售价≠0 且 积分≠0 -->
+              <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+                <view class="jd-price-combo-wrap">
+                  <view class="jd-price-money-wrap">
+                    <text class="jd-price-symbol">¥</text>
+                    <text class="jd-price-num">{{item.minPrice}}</text>
+                  </view>
+                  <text class="jd-price-plus">+</text>
+                  <view class="jd-price-score-wrap">
+                    <text class="jd-price-score-num">{{item.minScore}}</text>
+                    <text class="jd-price-score-unit">积分</text>
+                  </view>
+                </view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-price-del jd-price-del-margin">¥{{item.originalPrice}}</text>
+              </block>
+              <!-- 情况1：售价≠0，积分=0（默认） -->
+              <block wx:else>
+                <text class="jd-price-symbol">¥</text>
+                <text class="jd-price-num">{{item.minPrice}}</text>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-price-del">¥{{item.originalPrice}}</text>
+              </block>
             </view>
             <view class="jd-seckill-btn-wrap">
               <view class="jd-seckill-btn jd-btn-disabled" wx:if="{{item.dateStartInt > 0}}">未开始</view>
@@ -139,11 +170,42 @@ module.exports = {
           <view class="jd-goods-name">{{item.name}}</view>
           <view wx:if="{{item.characteristic}}" class="jd-goods-desc">{{item.characteristic}}</view>
           <view class="jd-goods-price-box">
-            <view class="jd-goods-price">
-              <text class="jd-price-symbol">¥</text>
-              <text class="jd-price-num">{{item.minPrice}}</text>
-            </view>
-            <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</view>
+            <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+            <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+              <view class="jd-price-free-badge">免费</view>
+              <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+            </block>
+            <!-- 情况2：售价=0，积分≠0 -->
+            <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+              <view class="jd-price-score-wrap">
+                <text class="jd-price-score-num jd-price-score-sm">{{item.minScore}}</text>
+                <text class="jd-price-score-unit jd-price-score-unit-sm">积分</text>
+              </view>
+              <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+            </block>
+            <!-- 情况3：售价≠0 且 积分≠0 -->
+            <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+              <view class="jd-price-combo-wrap jd-price-combo-sm">
+                <view class="jd-price-money-wrap">
+                  <text class="jd-price-symbol jd-goods-price-sym">¥</text>
+                  <text class="jd-price-num jd-goods-price-num">{{item.minPrice}}</text>
+                </view>
+                <text class="jd-price-plus">+</text>
+                <view class="jd-price-score-wrap">
+                  <text class="jd-price-score-num jd-price-score-sm">{{item.minScore}}</text>
+                  <text class="jd-price-score-unit jd-price-score-unit-sm">积分</text>
+                </view>
+              </view>
+              <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+            </block>
+            <!-- 情况1：售价≠0，积分=0（默认） -->
+            <block wx:else>
+              <view class="jd-goods-price">
+                <text class="jd-price-symbol jd-goods-price-sym">¥</text>
+                <text class="jd-price-num jd-goods-price-num">{{item.minPrice}}</text>
+              </view>
+              <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+            </block>
           </view>
         </view>
       </view>
@@ -235,11 +297,42 @@ module.exports = {
         <view class="jd-goods-name">{{item.name}}</view>
         <view wx:if="{{item.characteristic}}" class="jd-goods-desc">{{item.characteristic}}</view>
         <view class="jd-goods-price-box">
-          <view class="jd-goods-price">
-            <text class="jd-price-symbol">¥</text>
-            <text class="jd-price-num">{{item.minPrice}}</text>
-          </view>
-          <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</view>
+          <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+          <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+            <view class="jd-price-free-badge">免费</view>
+            <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+          </block>
+          <!-- 情况2：售价=0，积分≠0 -->
+          <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+            <view class="jd-price-score-wrap">
+              <text class="jd-price-score-num jd-price-score-sm">{{item.minScore}}</text>
+              <text class="jd-price-score-unit jd-price-score-unit-sm">积分</text>
+            </view>
+            <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+          </block>
+          <!-- 情况3：售价≠0 且 积分≠0 -->
+          <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+            <view class="jd-price-combo-wrap jd-price-combo-sm">
+              <view class="jd-price-money-wrap">
+                <text class="jd-price-symbol jd-goods-price-sym">¥</text>
+                <text class="jd-price-num jd-goods-price-num">{{item.minPrice}}</text>
+              </view>
+              <text class="jd-price-plus">+</text>
+              <view class="jd-price-score-wrap">
+                <text class="jd-price-score-num jd-price-score-sm">{{item.minScore}}</text>
+                <text class="jd-price-score-unit jd-price-score-unit-sm">积分</text>
+              </view>
+            </view>
+            <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+          </block>
+          <!-- 情况1：售价≠0，积分=0（默认） -->
+          <block wx:else>
+            <view class="jd-goods-price">
+              <text class="jd-price-symbol jd-goods-price-sym">¥</text>
+              <text class="jd-price-num jd-goods-price-num">{{item.minPrice}}</text>
+            </view>
+            <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+          </block>
         </view>
       </view>
     </view>

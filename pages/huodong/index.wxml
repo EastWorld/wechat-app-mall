@@ -99,11 +99,42 @@
         <view class="goods-info">
           <text class="goods-name">{{item.name}}</text>
           <view class="goods-price-row">
-            <view class="goods-price">
-              <text class="price-symbol">¥</text>
-              <text class="price-value">{{item.minPrice}}</text>
-            </view>
-            <text class="price-origin" wx:if="{{item.originalPrice && item.originalPrice != item.minPrice}}">¥{{item.originalPrice}}</text>
+            <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+            <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+              <view class="hd-price-free-badge">免费</view>
+              <text class="price-origin" wx:if="{{item.originalPrice && item.originalPrice > 0}}">¥{{item.originalPrice}}</text>
+            </block>
+            <!-- 情况2：售价=0，积分≠0 -->
+            <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+              <view class="hd-price-score-wrap">
+                <text class="hd-price-score-num">{{item.minScore}}</text>
+                <text class="hd-price-score-unit">积分</text>
+              </view>
+              <text class="price-origin" wx:if="{{item.originalPrice && item.originalPrice > 0}}">¥{{item.originalPrice}}</text>
+            </block>
+            <!-- 情况3：售价≠0 且 积分≠0 -->
+            <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+              <view class="hd-price-combo-wrap">
+                <view class="goods-price">
+                  <text class="price-symbol">¥</text>
+                  <text class="price-value">{{item.minPrice}}</text>
+                </view>
+                <text class="hd-price-plus">+</text>
+                <view class="hd-price-score-wrap">
+                  <text class="hd-price-score-num">{{item.minScore}}</text>
+                  <text class="hd-price-score-unit">积分</text>
+                </view>
+              </view>
+              <text class="price-origin" wx:if="{{item.originalPrice && item.originalPrice > 0}}">¥{{item.originalPrice}}</text>
+            </block>
+            <!-- 情况1：售价≠0，积分=0（默认） -->
+            <block wx:else>
+              <view class="goods-price">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.minPrice}}</text>
+              </view>
+              <text class="price-origin" wx:if="{{item.originalPrice && item.originalPrice != item.minPrice}}">¥{{item.originalPrice}}</text>
+            </block>
           </view>
         </view>
       </view>

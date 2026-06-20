@@ -37,8 +37,44 @@ module.exports = {
     <view class="goods-info">
       <view class="title ellipsis"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
       <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0;-webkit-line-clamp: 1;">{{item.characteristic}}</view>
-      <view class="price">¥ {{item.minPrice}}<text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}
-        </text></view>
+      <view class="price">
+        <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+        <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+          <view class="gl-price-free-badge">免费</view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+        <!-- 情况2：售价=0，积分≠0 -->
+        <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+          <view class="gl-price-score-wrap">
+            <text class="gl-price-score-num">{{item.minScore}}</text>
+            <text class="gl-price-score-unit">积分</text>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+        <!-- 情况3：售价≠0 且 积分≠0 -->
+        <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+          <view class="gl-price-combo-wrap">
+            <view class="gl-price-money-wrap">
+              <text class="gl-price-symbol">¥</text>
+              <text class="gl-price-main">{{item.minPrice}}</text>
+            </view>
+            <text class="gl-price-plus">+</text>
+            <view class="gl-price-score-wrap">
+              <text class="gl-price-score-num">{{item.minScore}}</text>
+              <text class="gl-price-score-unit">积分</text>
+            </view>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+        <!-- 情况1：售价≠0，积分=0（默认） -->
+        <block wx:else>
+          <view class="gl-price-money-wrap">
+            <text class="gl-price-symbol">¥</text>
+            <text class="gl-price-main">{{item.minPrice}}</text>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+      </view>
       <view wx:if="{{ item.supplyType != 'vop_jd' }}" class="buy-info">
         <view wx:if="{{ show_seller_number == '1' }}" class="num">已售出{{item.numberSells}}件</view>
         <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" class="car" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
@@ -53,8 +89,44 @@ module.exports = {
     <view class="goods-info">
       <view class="title van-multi-ellipsis--l2"><navigator url="{{ goodsDetailPage.url(item) }}">{{item.name}}</navigator></view>
       <view wx:if="{{item.characteristic}}" class="characteristic van-multi-ellipsis--l2" style="padding:0;-webkit-line-clamp: 1;">{{item.characteristic}}</view>
-      <view class="price">¥ {{item.minPrice}}<text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}
-        </text></view>
+      <view class="price">
+        <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+        <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+          <view class="gl-price-free-badge">免费</view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+        <!-- 情况2：售价=0，积分≠0 -->
+        <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+          <view class="gl-price-score-wrap">
+            <text class="gl-price-score-num">{{item.minScore}}</text>
+            <text class="gl-price-score-unit">积分</text>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+        <!-- 情况3：售价≠0 且 积分≠0 -->
+        <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+          <view class="gl-price-combo-wrap">
+            <view class="gl-price-money-wrap">
+              <text class="gl-price-symbol">¥</text>
+              <text class="gl-price-main">{{item.minPrice}}</text>
+            </view>
+            <text class="gl-price-plus">+</text>
+            <view class="gl-price-score-wrap">
+              <text class="gl-price-score-num">{{item.minScore}}</text>
+              <text class="gl-price-score-unit">积分</text>
+            </view>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+        <!-- 情况1：售价≠0，积分=0（默认） -->
+        <block wx:else>
+          <view class="gl-price-money-wrap">
+            <text class="gl-price-symbol">¥</text>
+            <text class="gl-price-main">{{item.minPrice}}</text>
+          </view>
+          <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="originalPrice">¥ {{item.originalPrice}}</text>
+        </block>
+      </view>
       <view wx:if="{{ item.supplyType != 'vop_jd' }}" class="buy-info">
         <view wx:if="{{ show_seller_number == '1' }}" class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view>
         <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" class="car" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />

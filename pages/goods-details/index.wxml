@@ -21,10 +21,50 @@
     <view class="goods-info">
       <view class="goods-info-top-container">
         <view class="goods-profile">
-          <view class="p"><text>¥</text> {{selectSizePrice}}</view>
-          <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}"
-            class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'>
-            <text>¥</text> {{selectSizeOPrice}}</view>
+          <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+          <block wx:if="{{(!selectSizePrice || selectSizePrice <= 0) && (!totalScoreToPay || totalScoreToPay <= 0)}}">
+            <view class="gd-price-wrap">
+              <view class="gd-price-free-badge">免费</view>
+              <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="gd-price-del">¥ {{selectSizeOPrice}}</text>
+            </view>
+          </block>
+          <!-- 情况2：售价=0，积分≠0 -->
+          <block wx:elif="{{(!selectSizePrice || selectSizePrice <= 0) && totalScoreToPay > 0}}">
+            <view class="gd-price-wrap">
+              <view class="gd-price-score-wrap">
+                <text class="gd-price-score-num">{{totalScoreToPay}}</text>
+                <text class="gd-price-score-unit">积分</text>
+              </view>
+              <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="gd-price-del">¥ {{selectSizeOPrice}}</text>
+            </view>
+          </block>
+          <!-- 情况3：售价≠0 且 积分≠0 -->
+          <block wx:elif="{{selectSizePrice > 0 && totalScoreToPay > 0}}">
+            <view class="gd-price-wrap">
+              <view class="gd-price-combo-wrap">
+                <view class="gd-price-money-wrap">
+                  <text class="gd-price-symbol">¥</text>
+                  <text class="gd-price-main">{{selectSizePrice}}</text>
+                </view>
+                <text class="gd-price-plus">+</text>
+                <view class="gd-price-score-wrap">
+                  <text class="gd-price-score-num">{{totalScoreToPay}}</text>
+                  <text class="gd-price-score-unit">积分</text>
+                </view>
+              </view>
+              <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="gd-price-del">¥ {{selectSizeOPrice}}</text>
+            </view>
+          </block>
+          <!-- 情况1：售价≠0，积分=0（默认） -->
+          <block wx:else>
+            <view class="gd-price-wrap">
+              <view class="gd-price-money-wrap">
+                <text class="gd-price-symbol">¥</text>
+                <text class="gd-price-main">{{selectSizePrice}}</text>
+              </view>
+              <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="gd-price-del">¥ {{selectSizeOPrice}}</text>
+            </view>
+          </block>
         </view>
         <view class="goods-info-fx">
           <view class='item left'>
@@ -254,9 +294,47 @@
 
 <van-popup show="{{ !hideShopPopup }}" round closeable position="bottom"
   custom-style="padding-top:48rpx;max-height: 80%;" bind:close="closePopupTap">
-  <van-card centered price="{{ selectSizePrice }}"
-    origin-price="{{ selectSizePrice != selectSizePrice ? selectSizeOPrice : '' }}"
-    title="{{ goodsDetail.basicInfo.name }}" thumb="{{ skuGoodsPic }}" />
+  <van-card centered
+    title="{{ goodsDetail.basicInfo.name }}" thumb="{{ skuGoodsPic }}">
+    <view slot="price" class="sku-price-block">
+      <!-- 情况4：售价=0 且 积分=0 → 免费 -->
+      <block wx:if="{{(!selectSizePrice || selectSizePrice <= 0) && (!totalScoreToPay || totalScoreToPay <= 0)}}">
+        <view class="sku-price-free-badge">免费</view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+      <!-- 情况2：售价=0，积分≠0 -->
+      <block wx:elif="{{(!selectSizePrice || selectSizePrice <= 0) && totalScoreToPay > 0}}">
+        <view class="sku-price-score-wrap">
+          <text class="sku-price-score-num">{{totalScoreToPay}}</text>
+          <text class="sku-price-score-unit">积分</text>
+        </view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+      <!-- 情况3：售价≠0 且 积分≠0 -->
+      <block wx:elif="{{selectSizePrice > 0 && totalScoreToPay > 0}}">
+        <view class="sku-price-combo-wrap">
+          <view class="sku-price-money-wrap">
+            <text class="sku-price-symbol">¥</text>
+            <text class="sku-price-main">{{selectSizePrice}}</text>
+          </view>
+          <text class="sku-price-plus">+</text>
+          <view class="sku-price-score-wrap">
+            <text class="sku-price-score-num">{{totalScoreToPay}}</text>
+            <text class="sku-price-score-unit">积分</text>
+          </view>
+        </view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+      <!-- 情况1：售价≠0，积分=0（默认） -->
+      <block wx:else>
+        <view class="sku-price-money-wrap">
+          <text class="sku-price-symbol">¥</text>
+          <text class="sku-price-main">{{selectSizePrice}}</text>
+        </view>
+        <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
+      </block>
+    </view>
+  </van-card>
   <view class="size-label-box">
     <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
       <view class="label">{{property.name}}</view>

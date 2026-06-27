@@ -7,6 +7,7 @@
     </view>
   </van-sticky>
   <scroll-view class="scroll-container" scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="bindscroll">
+    <!-- 轮播图 -->
     <view class="swiper-container" id="swiper-container">
       <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff"
         autoplay="{{!goodsDetail.basicInfo.videoId}}" circular>
@@ -18,9 +19,12 @@
         </swiper-item>
       </swiper>
     </view>
-    <view class="goods-info">
-      <view class="goods-info-top-container">
-        <view class="goods-profile">
+
+    <!-- 商品信息卡片 -->
+    <view class="goods-info-card">
+      <!-- 价格区域 -->
+      <view class="price-section">
+        <view class="price-left">
           <!-- 情况4：售价=0 且 积分=0 → 免费 -->
           <block wx:if="{{(!selectSizePrice || selectSizePrice <= 0) && (!totalScoreToPay || totalScoreToPay <= 0)}}">
             <view class="gd-price-wrap">
@@ -63,61 +67,117 @@
                 <text class="gd-price-main">{{selectSizePrice}}</text>
               </view>
               <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="gd-price-del">¥ {{selectSizeOPrice}}</text>
+              <!-- 阶梯价格图标 -->
+              <view wx:if="{{priceMultilevels && priceMultilevels.length > 0}}" class="ladder-price-btn" bindtap="showLadderPrice">
+                <van-icon name="bars" size="14px" color="#E4393C"/>
+                <text class="ladder-price-text">阶梯价</text>
+              </view>
             </view>
           </block>
         </view>
+        <!-- 分享/二维码 -->
         <view class="goods-info-fx">
           <view class='item left'>
-            <van-icon name="share-o" size="24px" />
+            <van-icon name="share-o" size="22px" color="#666"/>
             <view class="icon-title">分享</view>
             <button open-type='share'></button>
           </view>
           <view class='item' bindtap="drawSharePic">
-            <van-icon name="qr" size="24px"/>
-            <view class="icon-title">二维码</view>            
+            <van-icon name="qr" size="22px" color="#666"/>
+            <view class="icon-title">二维码</view>
           </view>
         </view>
       </view>
+
+      <!-- 商品标题 -->
       <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
-      <view wx:if="{{ goodsDetail.basicInfo.purchaseNotes }}" class="goods-des-info">
-        <view class="label-title"> 
-          <view class="left">购买须知</view>
+
+      <!-- 标签行：库存/销量 -->
+      <view class="goods-meta-row">
+        <view class="meta-badge" wx:if="{{goodsDetail.basicInfo.stores > 0}}">
+          <text class="meta-badge-text">库存 {{goodsDetail.basicInfo.stores}}</text>
         </view>
-        <view class="characteristic"><text>{{ goodsDetail.basicInfo.purchaseNotes }}</text></view>
-      </view>
-      <view wx:if="{{ goodsDetail.basicInfo.characteristic }}" class="goods-des-info">
-        <view class="label-title"> 
-          <view class="left">商品特色</view>
+        <view class="meta-badge out-of-stock" wx:elif="{{goodsDetail.basicInfo.stores <= 0}}">
+          <text class="meta-badge-text">暂时缺货</text>
         </view>
-        <view class="characteristic"><text>{{ goodsDetail.basicInfo.characteristic }}</text></view>
+        <view class="meta-badge sale" wx:if="{{goodsDetail.basicInfo.numberSell > 0}}">
+          <text class="meta-badge-text">已售 {{goodsDetail.basicInfo.numberSell}}</text>
+        </view>
       </view>
-      <!-- 商品附加费用展示 -->
-      <van-cell-group wx:if="{{ goodsDetail.goodsAdditionalPriceItems }}" title="其他费用">
-        <van-cell
-          wx:for="{{ goodsDetail.goodsAdditionalPriceItems }}" wx:key="id"
-          title="{{ item.name }}"
-          value="{{ item.type == 0 ? ('￥' + item.price) : (item.price + '%') }}"
-        />
-      </van-cell-group>
-      <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得
-        {{goodsDetail.basicInfo.commission}} 积分奖励</view>
-      <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得
-        {{goodsDetail.basicInfo.commission}}元 现金奖励</view>     
+
+      <!-- 分享佣金提示 -->
+      <view class="goods-commission" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">
+        <van-icon name="gift-o" size="14px" color="#ff9800"/>
+        <text>分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</text>
+      </view>
+      <view class="goods-commission" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">
+        <van-icon name="gift-o" size="14px" color="#ff9800"/>
+        <text>分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</text>
+      </view>
     </view>
 
-    <van-cell-group wx:if="{{curGoodsKanjia}}" title="商品砍价设置">
+    <!-- 购买须知 / 商品特色 -->
+    <view wx:if="{{ goodsDetail.basicInfo.purchaseNotes || goodsDetail.basicInfo.characteristic }}" class="section-card">
+      <view wx:if="{{ goodsDetail.basicInfo.purchaseNotes }}" class="info-item">
+        <view class="info-item-label">
+          <van-icon name="info-o" size="14px" color="#E4393C"/>
+          <text>购买须知</text>
+        </view>
+        <view class="info-item-content"><text>{{ goodsDetail.basicInfo.purchaseNotes }}</text></view>
+      </view>
+      <view wx:if="{{ goodsDetail.basicInfo.characteristic }}" class="info-item">
+        <view class="info-item-label">
+          <van-icon name="medal-o" size="14px" color="#E4393C"/>
+          <text>商品特色</text>
+        </view>
+        <view class="info-item-content"><text>{{ goodsDetail.basicInfo.characteristic }}</text></view>
+      </view>
+    </view>
+
+    <!-- 商品附加费用 -->
+    <van-cell-group wx:if="{{ goodsDetail.goodsAdditionalPriceItems }}" title="其他费用" class="section-card-van">
+      <van-cell
+        wx:for="{{ goodsDetail.goodsAdditionalPriceItems }}" wx:key="id"
+        title="{{ item.name }}"
+        value="{{ item.type == 0 ? ('￥' + item.price) : (item.price + '%') }}"
+      />
+    </van-cell-group>
+
+    <!-- 扩展属性 extJson -->
+    <view wx:if="{{extJsonList && extJsonList.length > 0}}" class="section-card ext-attrs-card">
+      <view class="section-title">
+        <view class="section-title-bar"></view>
+        <text>商品参数</text>
+      </view>
+      <view class="ext-attrs-list">
+        <view wx:for="{{extJsonList}}" wx:key="key" class="ext-attr-item {{item.isPic ? 'ext-attr-pic-item' : ''}}">
+          <view class="ext-attr-key">{{item.displayKey}}</view>
+          <view class="ext-attr-val">
+            <image wx:if="{{item.isPic}}" src="{{item.value}}" mode="widthFix" class="ext-attr-img" bindtap="previewExtImage" data-url="{{item.value}}"/>
+            <text wx:else>{{item.value}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 砍价信息 -->
+    <van-cell-group wx:if="{{curGoodsKanjia}}" title="商品砍价设置" class="section-card-van">
       <van-cell title="限量" value="{{curGoodsKanjia.number}}份" />
       <van-cell title="已售" value="{{curGoodsKanjia.numberBuy}}份" />
       <van-cell title="原价" value="￥{{curGoodsKanjia.originalPrice}}" />
       <van-cell title="底价" value="￥{{curGoodsKanjia.minPrice}}" />
       <van-cell title="截止" value="{{curGoodsKanjia.dateEnd}}" />
     </van-cell-group>
-    <van-cell-group wx:if="{{pingtuanSet}}" title="商品拼团设置">
+
+    <!-- 拼团信息 -->
+    <van-cell-group wx:if="{{pingtuanSet}}" title="商品拼团设置" class="section-card-van">
       <van-cell title="已成团" value="{{pingtuanSet.numberSucccess}}" />
       <van-cell title="成团人数" value="{{pingtuanSet.numberPersion}}" />
       <van-cell title="退款条件" value="{{pingtuanSet.timeoutHours}}小时未成团" />
       <van-cell title="截止" value="{{pingtuanSet.dateEnd}}" />
     </van-cell-group>
+
+    <!-- 砍价进度 -->
     <view class="curKanjiaprogress" wx:if="{{curKanjiaprogress}}">
       <view class="name">帮
         <text style='color:red;font-weight:bold;'>{{curKanjiaprogress.joiner.nick}}</text> 砍价吧！
@@ -134,8 +194,7 @@
           <button type="primary" open-type="share">邀请朋友帮忙</button>
         </view>
         <view class="kjbutton">
-          <button type="warn" bindtap="helpKanjia"
-            disabled="{{myHelpDetail}}">{{myHelpDetail?"您已砍过":"帮TA砍"}}</button>
+          <button type="warn" bindtap="helpKanjia" disabled="{{myHelpDetail}}">{{myHelpDetail?"您已砍过":"帮TA砍"}}</button>
         </view>
       </view>
       <van-cell title="帮砍人数" value="{{curKanjiaprogress.kanjiaInfo .helpNumber}}" />
@@ -146,24 +205,26 @@
       <button type="warn" bindtap="joinKanjia" style='width:700rpx;'>我也要报名参与</button>
       <view class='space'></view>
     </block>
-    <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{pingtuanList}}">
-      <view class="label-title" style="border-bottom:1px solid #eee;">{{pingtuanList.length}}人在拼单，可直接参与</view>
-      <view class="goods-text" style="margin-top:15rpx;border-bottom:1px solid #eee;overflow:hidden;"
-        wx:for="{{pingtuanList}}" wx:key="id">
-        <view style="width:150rpx;float:left;">
-          <image style="width: 150rpx; height: 150rpx;" src="{{item.apiExtUser.avatarUrl}}"></image>
-          <view style="width:150rpx;text-align:center;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-            {{item.apiExtUser.nick}}</view>
+
+    <!-- 拼团列表 -->
+    <view class="section-card" style="margin-top:20rpx;" wx:if="{{pingtuanList}}">
+      <view class="section-title">
+        <view class="section-title-bar"></view>
+        <text>{{pingtuanList.length}}人在拼单，可直接参与</text>
+      </view>
+      <view class="pingtuan-item" wx:for="{{pingtuanList}}" wx:key="id">
+        <image class="pingtuan-avatar" src="{{item.apiExtUser.avatarUrl}}"/>
+        <view class="pingtuan-info">
+          <view class="pingtuan-nick">{{item.apiExtUser.nick}}</view>
+          <view class="pingtuan-joined">已有 <text class="pingtuan-count">{{item.helpNumber}}</text> 人参与</view>
+          <view class="pingtuan-expire">截止: {{item.dateEnd}}</view>
         </view>
-        <view style="width:500rpx;float:left;margin-left:35rpx;">
-          <view>已有
-            <text style="color:red"> {{item.helpNumber}} </text>人参与</view>
-          <view style="color: #B0B0B0;font-size:24rpx;">截止: {{item.dateEnd}}</view>
-          <button type="warn" size="mini" data-pingtuanopenid="{{item.id}}" bindtap="toPingtuan"> 去拼单 </button>
-        </view>
+        <button class="pingtuan-btn" size="mini" data-pingtuanopenid="{{item.id}}" bindtap="toPingtuan">去拼单</button>
       </view>
     </view>
-    <van-cell wx:if="{{hasMoreSelect && goodsDetailSkuShowType==0}}" custom-class="vw100 goods-property-container" border="{{false}}" 
+
+    <!-- 规格选择（收起模式） -->
+    <van-cell wx:if="{{hasMoreSelect && goodsDetailSkuShowType==0}}" custom-class="vw100 goods-property-container" border="{{false}}"
       is-link bind:click="bindGuiGeTap">
       <view slot="title">
         请选择:
@@ -171,8 +232,13 @@
         <block wx:for="{{goodsAddition}}" wx:key="id"> {{item.name}}</block>
       </view>
     </van-cell>
-    <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
-      <view class="label-title">选择商品规格</view>
+
+    <!-- 规格选择（展开模式） -->
+    <view class="section-card size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
+      <view class="section-title">
+        <view class="section-title-bar"></view>
+        <text>选择商品规格</text>
+      </view>
       <view class="size-label-box">
         <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
           <view class="label">{{property.name}}</view>
@@ -190,6 +256,8 @@
         </view>
       </van-cell>
     </view>
+
+    <!-- 门店信息 -->
     <view wx:if="{{shopSubdetail}}" class="shop-container">
       <image mode="aspectFill" src="{{shopSubdetail.info.pic}}"></image>
       <view class="info">
@@ -197,39 +265,41 @@
         <view class="address">{{shopSubdetail.info.address}}</view>
       </view>
     </view>
-    <view class="goods-des-info" id="goods-des-info">
-      <view class="label-title"> 
-        <view class="left">商品详情</view>
+
+    <!-- 商品详情 -->
+    <view class="section-card goods-detail-section" id="goods-des-info">
+      <view class="section-title">
+        <view class="section-title-bar"></view>
+        <text>商品详情</text>
       </view>
       <view class="goods-text">
         <mp-html content="{{goodsDetail.content}}" />
       </view>
     </view>
-    <van-cell-group id="reputation" wx:if="{{!curGoodsKanjia && reputation}}" custom-class="vw100 reputation-cell-group">
-      <view class="label-title"> 
+
+    <!-- 商品评价 -->
+    <van-cell-group id="reputation" wx:if="{{!curGoodsKanjia && reputation}}" custom-class="reputation-cell-group section-card-van">
+      <view class="section-title" style="padding:30rpx;">
         <wxs module="goodReputationPercent">
         module.exports = {
           v : function(goodsDetail) {
-            if (!goodsDetail || !goodsDetail.basicInfo) {
-              return "100"
-            }
+            if (!goodsDetail || !goodsDetail.basicInfo) { return "100" }
             var goodReputation = goodsDetail.basicInfo.numberGoodReputation / goodsDetail.basicInfo.numberReputation * 100
             goodReputation = goodReputation.toFixed(0)
-            if (goodReputation > 100) {
-              goodReputation = 100
-            }
+            if (goodReputation > 100) { goodReputation = 100 }
             return goodReputation
           }
         }
         </wxs>
-        <view class="left">宝贝评价 {{goodsDetail.basicInfo.numberGoodReputation}}</view>
-        <view>好评度：{{goodReputationPercent.v(goodsDetail)}}%</view>
+        <view class="section-title-bar"></view>
+        <text>宝贝评价 {{goodsDetail.basicInfo.numberGoodReputation}}</text>
+        <text class="reputation-rate-text">好评度：{{goodReputationPercent.v(goodsDetail)}}%</text>
       </view>
       <block wx:for="{{reputation.result}}" wx:key="id">
         <van-cell custom-class="reputation-cell" title="{{ item.user.nick || ('用户' + item.user.id) }}"
           label="{{item.goods.dateReputation}}" border="{{ false }}">
           <van-image slot="icon" custom-class="avatarUrl-img" src="{{ item.user.avatarUrl ? (item.user.avatarUrl + '_m') : '/images/default.png' }}" round/>
-          <van-rate value="{{ item.goods.goodReputation }}" color="#e64340" readonly />          
+          <van-rate value="{{ item.goods.goodReputation }}" color="#e64340" readonly />
         </van-cell>
         <van-cell wx:if="{{ item.goods.goodReputationRemark }}" title-class="reputation-cell-reamrk"
           title="{{item.goods.goodReputationRemark}}" />
@@ -241,12 +311,16 @@
           title="掌柜回复:{{item.goods.goodReputationReply}}" />
       </block>
     </van-cell-group>
-    <van-cell-group wx:if="{{curKanjiaprogress && curKanjiaprogress.helps && curKanjiaprogress.helps.length>0}}" title="砍价记录">
-      <view class="kjlj"  wx:for="{{curKanjiaprogress.helps}}" wx:key="*this">
+
+    <!-- 砍价记录 -->
+    <van-cell-group wx:if="{{curKanjiaprogress && curKanjiaprogress.helps && curKanjiaprogress.helps.length>0}}" title="砍价记录" class="section-card-van">
+      <view class="kjlj" wx:for="{{curKanjiaprogress.helps}}" wx:key="*this">
         <image class="kjlj-l" src="{{item.avatarUrl}}" mode="aspectFill" />
         <van-cell custom-class="kjlj-r" title="￥ {{item.cutPrice}}" label="{{item.nick}} {{item.dateAdd}} 帮砍" size="large" />
       </view>
     </van-cell-group>
+
+    <!-- 砍价购买按钮 -->
     <view class='kjBuyButton' wx:if="{{curGoodsKanjia && curKanjiaprogress}}">
       <view class="item" wx:if="{{curKanjiaprogress.kanjiaInfo.uid != curuid}}">
         <van-button type="primary" block bind:click="helpKanjia" disabled="{{myHelpDetail}}">
@@ -257,7 +331,9 @@
       </view>
     </view>
   </scroll-view>
-  <van-goods-action wx:if="{{!curGoodsKanjia}}">
+
+  <!-- 底部操作栏（正常在售） -->
+  <van-goods-action wx:if="{{!curGoodsKanjia && goodsDetail.basicInfo.stores > 0}}">
     <van-goods-action-icon wx:if="{{ customerServiceType == 'QW' }}" icon="chat-o" text="客服" bind:click="customerService" />
     <van-goods-action-icon wx:else icon="chat-o" text="客服" open-type="contact"
       send-message-title="{{goodsDetail.basicInfo.name}}" send-message-img="{{goodsDetail.basicInfo.pic}}"
@@ -272,8 +348,20 @@
       bind:click="tobuy" />
     <van-goods-action-button wx:if="{{goodsDetail.basicInfo.pingtuan}}" text="发起拼团" bind:click="toPingtuan" />
   </van-goods-action>
+
+  <!-- 底部操作栏（缺货状态）：保留左侧图标，右侧替换为订阅按钮 -->
+  <van-goods-action wx:if="{{!curGoodsKanjia && goodsDetail.basicInfo && goodsDetail.basicInfo.stores <= 0}}">
+    <van-goods-action-icon wx:if="{{ customerServiceType == 'QW' }}" icon="chat-o" text="客服" bind:click="customerService" />
+    <van-goods-action-icon wx:else icon="chat-o" text="客服" open-type="contact"
+      send-message-title="{{goodsDetail.basicInfo.name}}" send-message-img="{{goodsDetail.basicInfo.pic}}"
+      send-message-path="/pages/goods-details/index?id={{goodsDetail.basicInfo.id}}" show-message-card="{{ true }}" />
+    <van-goods-action-icon icon="cart-o" text="购物车" bind:click="goShopCar" info="{{ shopNum ? shopNum : '' }}" />
+    <van-goods-action-icon icon="{{faved?'like':'like-o'}}" text="收藏" bind:click="addFav" />
+    <van-goods-action-button text="缺货，订阅到货通知 🔔" color="#ff9800" bind:click="subscribeOutOfStock" />
+  </van-goods-action>
 </view>
 
+<!-- 海报相关 -->
 <block wx:if="{{posterShow}}">
   <view class="poster-mask"></view>
   <view class="poster">
@@ -292,17 +380,15 @@
   <view class="btn-create" bindtap="savePosterPic">保存到相册</view>
 </view>
 
+<!-- SKU 规格弹窗 -->
 <van-popup show="{{ !hideShopPopup }}" round closeable position="bottom"
   custom-style="padding-top:48rpx;max-height: 80%;" bind:close="closePopupTap">
-  <van-card centered
-    title="{{ goodsDetail.basicInfo.name }}" thumb="{{ skuGoodsPic }}">
+  <van-card centered title="{{ goodsDetail.basicInfo.name }}" thumb="{{ skuGoodsPic }}">
     <view slot="price" class="sku-price-block">
-      <!-- 情况4：售价=0 且 积分=0 → 免费 -->
       <block wx:if="{{(!selectSizePrice || selectSizePrice <= 0) && (!totalScoreToPay || totalScoreToPay <= 0)}}">
         <view class="sku-price-free-badge">免费</view>
         <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
       </block>
-      <!-- 情况2：售价=0，积分≠0 -->
       <block wx:elif="{{(!selectSizePrice || selectSizePrice <= 0) && totalScoreToPay > 0}}">
         <view class="sku-price-score-wrap">
           <text class="sku-price-score-num">{{totalScoreToPay}}</text>
@@ -310,7 +396,6 @@
         </view>
         <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
       </block>
-      <!-- 情况3：售价≠0 且 积分≠0 -->
       <block wx:elif="{{selectSizePrice > 0 && totalScoreToPay > 0}}">
         <view class="sku-price-combo-wrap">
           <view class="sku-price-money-wrap">
@@ -325,7 +410,6 @@
         </view>
         <text wx:if="{{selectSizeOPrice && selectSizeOPrice > 0}}" class="sku-price-del">¥{{selectSizeOPrice}}</text>
       </block>
-      <!-- 情况1：售价≠0，积分=0（默认） -->
       <block wx:else>
         <view class="sku-price-money-wrap">
           <text class="sku-price-symbol">¥</text>
@@ -365,5 +449,23 @@
     type="danger" block>立即购买</van-button>
 </van-popup>
 
-<!-- 弹出编辑昵称和头像的框 -->
+<!-- 阶梯价格弹窗 -->
+<van-popup show="{{ showLadderPopup }}" round closeable position="bottom"
+  custom-style="padding: 48rpx 0 40rpx;" bind:close="closeLadderPopup">
+  <view class="ladder-popup-title">阶梯价格</view>
+  <view class="ladder-popup-header">
+    <text class="ladder-col-head">购买数量</text>
+    <text class="ladder-col-head">优惠价格</text>
+  </view>
+  <view class="ladder-popup-row" wx:for="{{priceMultilevels}}" wx:key="index">
+    <view class="ladder-col">
+      <text class="ladder-number">≥ {{item.number}} 件</text>
+    </view>
+    <view class="ladder-col">
+      <text class="ladder-price-val">¥ {{item.price}}</text>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 昵称头像弹窗 -->
 <login show="{{ nickPopShow }}" avatarUrl="{{ popavatarUrl }}" name="{{ popnick }}" />

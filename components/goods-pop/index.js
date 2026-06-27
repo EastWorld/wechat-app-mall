@@ -66,7 +66,11 @@ Component({
       wx.showTabBar()
     },
     async initGoodsData(skuCurGoodsBaseInfo) {
-      const skuCurGoodsRes = await WXAPI.goodsDetail(skuCurGoodsBaseInfo.id)
+      // https://www.yuque.com/apifm/nu0f75/vuml8a
+      const skuCurGoodsRes = await WXAPI.goodsDetailV2({
+        id: skuCurGoodsBaseInfo.id,
+        token: wx.getStorageSync('token') || ''
+      })
       if (skuCurGoodsRes.code != 0) {
         wx.showToast({
           title: skuCurGoodsRes.msg,

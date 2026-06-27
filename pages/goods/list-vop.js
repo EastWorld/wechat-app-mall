@@ -173,7 +173,11 @@ Page({
     const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), options.goodsId, options.buyNumber, options.sku)
     if (res.code == 30002) {
       // 需要选择规格尺寸
-      const skuCurGoodsRes = await WXAPI.goodsDetail(options.goodsId)
+      // https://www.yuque.com/apifm/nu0f75/vuml8a
+      const skuCurGoodsRes = await WXAPI.goodsDetailV2({
+        id: options.goodsId,
+        token: wx.getStorageSync('token') || ''
+      })
       if (skuCurGoodsRes.code != 0) {
         wx.showToast({
           title: skuCurGoodsRes.msg,

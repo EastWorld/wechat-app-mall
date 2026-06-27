@@ -224,7 +224,11 @@ Page({
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const token = wx.getStorageSync('token')
     if (this.data.goodsId2) {
-      const goodsDetailRes = await WXAPI.goodsDetail(this.data.goodsId2, token ? token : '')
+      // https://www.yuque.com/apifm/nu0f75/vuml8a
+      const goodsDetailRes = await WXAPI.goodsDetailV2({
+        id: this.data.goodsId2,
+        token: token ? token : ''
+      })
       if (goodsDetailRes.code == 0) {
         this.setData({
           goodsDetail: goodsDetailRes.data

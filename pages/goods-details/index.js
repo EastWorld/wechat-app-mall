@@ -21,6 +21,9 @@ Page({
     propertyChildNames: "",
     canSubmit: false, //  选中规格尺寸时候是否允许加入购物车
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
+    extJsonList: [], // 扩展属性列表
+    priceMultilevels: [], // 阶梯价格
+    showLadderPopup: false, // 阶梯价弹窗
   },
   bindscroll(e) {
     if (this.data.tabclicked) {
@@ -213,7 +216,11 @@ Page({
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const token = wx.getStorageSync('token')
     const that = this;
-    const goodsDetailRes = await WXAPI.goodsDetail(goodsId, token ? token : '')
+    // https://www.yuque.com/apifm/nu0f75/vuml8a
+    const goodsDetailRes = await WXAPI.goodsDetailV2({
+      id: goodsId,
+      token: token ? token : ''
+    })
     const goodsKanjiaSetRes = await WXAPI.kanjiaSet(goodsId)
     if (goodsDetailRes.code == 0) {
       if (!goodsDetailRes.data.pics || goodsDetailRes.data.pics.length == 0) {
@@ -274,6 +281,39 @@ Page({
           _data.selectSizePrice = goodsDetailRes.data.basicInfo.pingtuanPrice
         }
       }
+      // 解析 extJson 扩展属性（可能在 data 层或 basicInfo 层）
+      const rawExtJson = goodsDetailRes.data.extJson || goodsDetailRes.data.basicInfo.extJson
+      console.log('extJson raw:', rawExtJson)
+      if (rawExtJson) {
+        try {
+          const extJsonRaw = typeof rawExtJson === 'string'
+            ? JSON.parse(rawExtJson)
+            : rawExtJson
+          const extJsonList = []
+          Object.keys(extJsonRaw).forEach(key => {
+            const isPic = key.endsWith('[pic]')
+            const displayKey = isPic ? key.replace('[pic]', '') : key
+            extJsonList.push({
+              key,
+              displayKey,
+              value: extJsonRaw[key],
+              isPic
+            })
+          })
+          console.log('extJsonList:', extJsonList)
+          _data.extJsonList = extJsonList
+        } catch (e) {
+          console.error('extJson 解析失败', e)
+        }
+      }
+
+      // 解析阶梯价格
+      if (goodsDetailRes.data.basicInfo.priceMultilevels) {
+        _data.priceMultilevels = goodsDetailRes.data.basicInfo.priceMultilevels
+      } else if (goodsDetailRes.data.priceMultilevels) {
+        _data.priceMultilevels = goodsDetailRes.data.priceMultilevels
+      }
+
       that.setData(_data)
     }
   },
@@ -1092,6 +1132,72 @@ Page({
     wx.previewImage({
       current: url, // 当前显示图片的http链接
       urls // 需要预览的图片http链接列表
+    })
+  },
+  // 预览扩展属性图片
+  previewExtImage(e) {
+    const url = e.currentTarget.dataset.url
+    const picUrls = this.data.extJsonList
+      .filter(item => item.isPic)
+      .map(item => item.value)
+    wx.previewImage({
+      current: url,
+      urls: picUrls.length > 0 ? picUrls : [url]
+    })
+  },
+  // 显示阶梯价弹窗
+  showLadderPrice() {
+    this.setData({ showLadderPopup: true })
+  },
+  // 关闭阶梯价弹窗
+  closeLadderPopup() {
+    this.setData({ showLadderPopup: false })
+  },
+  // 缺货订阅
+  subscribeOutOfStock() {
+    const quehuo_subscribe_ids = wx.getStorageSync('quehuo_subscribe_ids')
+    if (!quehuo_subscribe_ids) {
+      wx.showToast({
+        title: '暂不支持到货订阅',
+        icon: 'none'
+      })
+      return
+    }
+    wx.requestSubscribeMessage({
+      tmplIds: quehuo_subscribe_ids.split(','),
+      success: (res) => {
+        // 检查是否有模板被授权
+        const tmplIds = quehuo_subscribe_ids.split(',')
+        const hasAccepted = tmplIds.some(id => res[id] === 'accept')
+        if (hasAccepted) {
+          // 调用后端登记接口
+          WXAPI.goodsOutofstockRegistration({
+            token: wx.getStorageSync('token'),
+            goodsId: this.data.goodsDetail.basicInfo.id,
+            wxaSubscribeMessage: true
+          })
+          wx.showModal({
+            title: '订阅成功',
+            content: '商品补货后，我们将第一时间通过微信消息推送通知您，请留意微信服务通知。',
+            showCancel: false,
+            confirmText: '知道了',
+            confirmColor: '#E4393C'
+          })
+        } else {
+          wx.showModal({
+            content: '您未授权订阅，将无法接收到货通知。如需接收，请重新点击订阅并授权。',
+            showCancel: false,
+            confirmText: '知道了'
+          })
+        }
+      },
+      fail: (err) => {
+        console.error('订阅失败', err)
+        wx.showToast({
+          title: '订阅失败，请稍后再试',
+          icon: 'none'
+        })
+      }
     })
   },
   onTabsChange(e) {

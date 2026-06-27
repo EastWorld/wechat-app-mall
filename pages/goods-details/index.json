@@ -1,6 +1,24 @@
 {
   "navigationBarTitleText": "商品详情",
   "usingComponents": {
-    "poster": "wxa-plugin-canvas/poster"
+    "poster": "wxa-plugin-canvas/poster",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-goods-action": "@vant/weapp/goods-action/index",
+    "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
+    "van-goods-action-button": "@vant/weapp/goods-action-button/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-rate": "@vant/weapp/rate/index",
+    "van-progress": "@vant/weapp/progress/index",
+    "login": "/components/login/index",
+    "mp-html": "/miniprogram_npm/mp-html/index"
   }
 }

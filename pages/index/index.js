@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
+const CONFIG = require('../../config.js')
 const APP = getApp()
 
 Page({
@@ -16,7 +17,10 @@ Page({
     loadingMoreHidden: true,
     coupons: [],
     curPage: 1,
-    pageSize: 20
+    pageSize: 20,
+    indexCategories: [], // 分类专区（type == 'index' 的商品分类）
+    showBackTop: false,  // 是否显示返回顶部按钮
+    customerServiceType: CONFIG.customerServiceType,
   },
   tabClick(e) {
     // 商品分类点击
@@ -242,12 +246,36 @@ Page({
         return ele.level == 1
       })
       categories = categories.concat(_categories)
+
+      // 筛选 type == 'index' 的分类，作为首页分类专区
+      const indexCats = res.data.filter(ele => ele.type == 'index')
+      if (indexCats.length > 0) {
+        this.loadIndexCategories(indexCats)
+      }
     }
     this.setData({
       categories: categories,
       curPage: 1
     });
     this.getGoodsList(0);
+  },
+  // 加载分类专区的商品
+  async loadIndexCategories(indexCats) {
+    const result = []
+    for (const cat of indexCats) {
+      const res = await WXAPI.goodsv2({
+        categoryId: cat.id,
+        page: 1,
+        pageSize: 10
+      })
+      if (res.code == 0 && res.data.result && res.data.result.length > 0) {
+        result.push({
+          ...cat,
+          goods: res.data.result
+        })
+      }
+    }
+    this.setData({ indexCategories: result })
   },
   async getGoodsList(categoryId, append) {
     if (categoryId == 0) {
@@ -450,6 +478,33 @@ Page({
   moretuijian() {
     wx.navigateTo({
       url: '/pages/goods/list?recommendStatus=1',
+    })
+  },
+  // 页面滚动监听，控制返回顶部按钮显示
+  onPageScroll(e) {
+    const showBackTop = e.scrollTop > 400
+    if (showBackTop !== this.data.showBackTop) {
+      this.setData({ showBackTop })
+    }
+  },
+  // 返回顶部
+  scrollToTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
+  },
+  // 企业微信客服（与商品详情页保持一致）
+  customerService() {
+    wx.openCustomerServiceChat({
+      extInfo: { url: wx.getStorageSync('customerServiceChatUrl') },
+      corpId: wx.getStorageSync('customerServiceChatCorpId'),
+      showMessageCard: true,
+      success(res) {},
+      fail(err) {
+        console.error('企业微信客服打开失败', err)
+        wx.showToast({ title: '客服暂不可用', icon: 'none' })
+      }
     })
   },
 })

@@ -935,3 +935,203 @@ page {
     font-size: 26rpx;
   }
 }
+
+/* ========== 公告区块（重新设计） ========== */
+.jd-notice-container {
+  margin: 0 24rpx 20rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.jd-notice-header {
+  display: flex;
+  align-items: center;
+  height: 76rpx;
+  padding: 0 20rpx 0 0;
+}
+
+.jd-notice-badge {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #FF6B6B 0%, #E4393C 100%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  border-radius: 12rpx 0 16rpx 12rpx;
+}
+
+.jd-notice-badge-text {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #FFFFFF;
+  letter-spacing: 4rpx;
+}
+
+.jd-notice-swiper {
+  flex: 1;
+  height: 76rpx;
+  margin: 0 16rpx;
+}
+
+.jd-notice-text-item {
+  display: flex;
+  align-items: center;
+  height: 76rpx;
+}
+
+.jd-notice-text {
+  font-size: 27rpx;
+  color: #333;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.jd-notice-arrow {
+  flex-shrink: 0;
+  font-size: 36rpx;
+  color: #CCC;
+  line-height: 1;
+}
+
+/* ========== 分类专区 ========== */
+.jd-cate-zone {
+  margin: 0 0 32rpx;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+
+/* Banner 背景区 */
+.jd-cate-zone-banner {
+  position: relative;
+  width: 100%;
+  height: 200rpx;
+  overflow: hidden;
+}
+
+.jd-cate-zone-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 半透明遮罩，确保文字可读 */
+.jd-cate-zone-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.52) 0%,
+    rgba(0, 0, 0, 0.28) 60%,
+    rgba(0, 0, 0, 0.10) 100%
+  );
+}
+
+.jd-cate-zone-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 28rpx 24rpx;
+}
+
+.jd-cate-zone-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.6);
+  letter-spacing: 2rpx;
+  display: block;
+}
+
+.jd-cate-zone-more {
+  position: absolute;
+  top: 20rpx;
+  right: 24rpx;
+  background: rgba(255, 255, 255, 0.22);
+  border: 2rpx solid rgba(255, 255, 255, 0.7);
+  border-radius: 24rpx;
+  padding: 8rpx 24rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  backdrop-filter: blur(4rpx);
+}
+
+/* 专区内商品网格 */
+.jd-cate-zone-goods {
+  background: #FFFFFF;
+  padding-top: 20rpx;
+  border-top: none;
+}
+
+/* ========== 右侧悬浮按钮组 ========== */
+.jd-float-btns {
+  position: fixed;
+  right: 20rpx;
+  bottom: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 999;
+  /* 整体作为一个胶囊卡片 */
+  background: rgba(50, 50, 50, 0.82);
+  border-radius: 36rpx;
+  overflow: hidden;
+  box-shadow: 0 6rpx 24rpx rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8rpx);
+}
+
+.jd-float-btn {
+  /* 重置 button 默认样式 */
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  line-height: normal;
+
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rpx;
+  position: relative;
+}
+
+/* 按钮之间加分割线（除最后一个） */
+.jd-float-btn + .jd-float-btn::before,
+.jd-float-btn + view::before,
+view + .jd-float-btn::before,
+view + view::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14rpx;
+  right: 14rpx;
+  height: 1rpx;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* 清除 button 伪类边框 */
+.jd-float-btn::after {
+  border: none;
+}
+
+.jd-float-btn-text {
+  font-size: 18rpx;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+  text-align: center;
+}

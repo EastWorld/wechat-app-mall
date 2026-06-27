@@ -69,7 +69,11 @@ Page({
   },
   async goodsDetail() {
     const token = wx.getStorageSync('token')
-    const res = await WXAPI.goodsDetail(this.data.goodsId, token ? token : '')
+    // https://www.yuque.com/apifm/nu0f75/vuml8a
+    const res = await WXAPI.goodsDetailV2({
+      id: this.data.goodsId,
+      token: token ? token : ''
+    })
     if (res.code == 0) {
       this.setData({
         goodsDetail: res.data,

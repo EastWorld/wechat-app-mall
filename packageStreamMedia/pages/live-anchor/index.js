@@ -98,7 +98,11 @@ Page({
   // 主推商品详情
   async toDetail(e) {
     const id = e.currentTarget.dataset.id
-    const res = await WXAPI.goodsDetail(id, wx.getStorageSync('token'))
+    // https://www.yuque.com/apifm/nu0f75/vuml8a
+    const res = await WXAPI.goodsDetailV2({
+      id: id,
+      token: wx.getStorageSync('token') || ''
+    })
     if (res.code != 0) {
       wx.showToast({
         title: res.msg,

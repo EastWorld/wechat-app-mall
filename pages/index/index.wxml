@@ -65,15 +65,21 @@ module.exports = {
     </view>
   </view>
 </view>
-<view class="jd-notice-container" wx:if="{{noticeList}}">
-  <swiper class="jd-notice-swiper" vertical autoplay circular interval="8000">
-    <swiper-item wx:for="{{noticeList.dataList}}" wx:key="id">
-      <van-notice-bar wx:if="{{noticeList}}" mode="link" text="{{ item.title }}" background="#FFF5F5"
-        data-id="{{ item.id }}" speed="30" bind:click="goNotice" color="#E4393C">
-        <image slot="left-icon" class="jd-notice-icon" src="../../images/home/notice.png"></image>
-      </van-notice-bar>
-    </swiper-item>
-  </swiper>
+<!-- 公告区块 -->
+<view class="jd-notice-container" wx:if="{{noticeList && noticeList.dataList && noticeList.dataList.length > 0}}">
+  <view class="jd-notice-header">
+    <view class="jd-notice-badge">
+      <text class="jd-notice-badge-text">公告</text>
+    </view>
+    <swiper class="jd-notice-swiper" vertical autoplay circular interval="4000">
+      <swiper-item wx:for="{{noticeList.dataList}}" wx:key="id" bindtap="goNotice" data-id="{{ item.id }}">
+        <view class="jd-notice-text-item">
+          <text class="jd-notice-text">{{item.title}}</text>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="jd-notice-arrow">›</view>
+  </view>
 </view>
 <view class="jd-main-container">
   <image wx:if="{{ adPositionIndexLivePic }}" class="jd-live-banner" src="{{ adPositionIndexLivePic.val }}" mode="widthFix" bindtap="clickAdPositionIndexLive"></image>
@@ -212,6 +218,68 @@ module.exports = {
     </view>
   </block>
   <!-- 爆品推荐结束 -->
+
+  <!-- 分类专区开始 -->
+  <block wx:for="{{indexCategories}}" wx:key="id" wx:for-item="cateItem" wx:for-index="cateIdx">
+    <view class="jd-cate-zone">
+      <!-- 专区 Banner -->
+      <view class="jd-cate-zone-banner">
+        <image class="jd-cate-zone-bg" src="{{cateItem.pic}}" mode="aspectFill"></image>
+        <view class="jd-cate-zone-mask"></view>
+        <view class="jd-cate-zone-info">
+          <text class="jd-cate-zone-name">{{cateItem.name}}</text>
+        </view>
+        <navigator class="jd-cate-zone-more" url="/pages/goods/list?categoryId={{cateItem.id}}">更多 ›</navigator>
+      </view>
+      <!-- 专区商品 -->
+      <view class="jd-goods-grid jd-cate-zone-goods">
+        <view class="jd-goods-card" wx:for="{{cateItem.goods}}" wx:key="id" bindtap="toDetailsTap" data-id="{{item.id}}" data-supplytype="{{item.supplyType}}" data-yyid="{{item.yyId}}">
+          <view class="jd-goods-img-wrap">
+            <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
+          </view>
+          <view class="jd-goods-info">
+            <view class="jd-goods-name">{{item.name}}</view>
+            <view wx:if="{{item.characteristic}}" class="jd-goods-desc">{{item.characteristic}}</view>
+            <view class="jd-goods-price-box">
+              <block wx:if="{{(!item.minPrice || item.minPrice <= 0) && (!item.minScore || item.minScore <= 0)}}">
+                <view class="jd-price-free-badge">免费</view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+              </block>
+              <block wx:elif="{{(!item.minPrice || item.minPrice <= 0) && item.minScore > 0}}">
+                <view class="jd-price-score-wrap">
+                  <text class="jd-price-score-num jd-price-score-sm">{{item.minScore}}</text>
+                  <text class="jd-price-score-unit jd-price-score-unit-sm">积分</text>
+                </view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+              </block>
+              <block wx:elif="{{item.minPrice > 0 && item.minScore > 0}}">
+                <view class="jd-price-combo-wrap jd-price-combo-sm">
+                  <view class="jd-price-money-wrap">
+                    <text class="jd-price-symbol jd-goods-price-sym">¥</text>
+                    <text class="jd-price-num jd-goods-price-num">{{item.minPrice}}</text>
+                  </view>
+                  <text class="jd-price-plus">+</text>
+                  <view class="jd-price-score-wrap">
+                    <text class="jd-price-score-num jd-price-score-sm">{{item.minScore}}</text>
+                    <text class="jd-price-score-unit jd-price-score-unit-sm">积分</text>
+                  </view>
+                </view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+              </block>
+              <block wx:else>
+                <view class="jd-goods-price">
+                  <text class="jd-price-symbol jd-goods-price-sym">¥</text>
+                  <text class="jd-price-num jd-goods-price-num">{{item.minPrice}}</text>
+                </view>
+                <text wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="jd-goods-original-price">¥{{item.originalPrice}}</text>
+              </block>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 分类专区结束 -->
   
   <!-- 砍价开始 -->
   <block wx:if="{{kanjiaList.length > 0}}">
@@ -343,6 +411,30 @@ module.exports = {
   <image src="/images/coupon-icon.svg"></image>
   <text>领券</text>
 </view> -->
+
+<!-- 右侧悬浮按钮组 -->
+<view class="jd-float-btns">
+  <!-- 分享按钮 -->
+  <button class="jd-float-btn" open-type="share">
+    <van-icon name="share-o" size="18px" color="rgba(255,255,255,0.9)" />
+    <text class="jd-float-btn-text">分享</text>
+  </button>
+  <!-- 客服按钮：QW企业微信 -->
+  <view wx:if="{{customerServiceType == 'QW'}}" class="jd-float-btn" bindtap="customerService">
+    <van-icon name="service-o" size="18px" color="rgba(255,255,255,0.9)" />
+    <text class="jd-float-btn-text">客服</text>
+  </view>
+  <!-- 客服按钮：小程序客服 -->
+  <button wx:else class="jd-float-btn" open-type="contact">
+    <van-icon name="service-o" size="18px" color="rgba(255,255,255,0.9)" />
+    <text class="jd-float-btn-text">客服</text>
+  </button>
+  <!-- 返回顶部按钮 -->
+  <view wx:if="{{showBackTop}}" class="jd-float-btn" bindtap="scrollToTop">
+    <van-icon name="arrow-up" size="18px" color="rgba(255,255,255,0.9)" />
+    <text class="jd-float-btn-text">顶部</text>
+  </view>
+</view>
 
 <van-overlay show="{{ adPositionIndexPop }}">
   <view class="adPositionIndexPop">

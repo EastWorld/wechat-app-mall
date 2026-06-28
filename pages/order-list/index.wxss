@@ -375,3 +375,74 @@
 .safeAreaNewMarginBttom {
   height: 40rpx;
 }
+
+/* ========== 联系客服悬浮按钮 ========== */
+.kf-float-btn {
+  position: fixed;
+  right: 24rpx;
+  bottom: 220rpx;
+  /* 胶囊形横向卡片 */
+  width: 200rpx;
+  height: 80rpx;
+  background: #ffffff;
+  border-radius: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 14rpx;
+  padding: 0 28rpx 0 20rpx;
+  box-sizing: border-box;
+  box-shadow: 0 6rpx 28rpx rgba(0, 0, 0, 0.14), 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  z-index: 999;
+  /* 重置 button 默认样式 */
+  margin: 0;
+  border: none;
+  line-height: normal;
+  animation: kf-float 3s ease-in-out infinite;
+}
+
+.kf-float-btn::after {
+  border: none;
+}
+
+/* 左侧图标容器 */
+.kf-float-btn-icon {
+  width: 52rpx;
+  height: 52rpx;
+  background: linear-gradient(135deg, #ff7043 0%, #e53935 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 右侧文字区 */
+.kf-float-btn-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4rpx;
+}
+
+.kf-float-btn-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.kf-float-btn-sub {
+  font-size: 20rpx;
+  color: #e53935;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* 浮动动画 */
+@keyframes kf-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6rpx); }
+}

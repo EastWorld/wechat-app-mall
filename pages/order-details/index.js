@@ -1,9 +1,11 @@
 const WXAPI = require('apifm-wxapi')
+const CONFIG = require('../../config.js')
 
 Page({
     data:{
       orderId:0,
-      goodsList:[]
+      goodsList:[],
+      customerServiceType: CONFIG.customerServiceType,
     },
     onLoad:function(e){
       // e.id = e.sfsdffd
@@ -300,6 +302,18 @@ Page({
             icon: 'success',
             duration: 1500
           })
+        }
+      })
+    },
+    customerService() {
+      wx.openCustomerServiceChat({
+        extInfo: { url: wx.getStorageSync('customerServiceChatUrl') },
+        corpId: wx.getStorageSync('customerServiceChatCorpId'),
+        showMessageCard: true,
+        success(res) {},
+        fail(err) {
+          console.error('企业微信客服打开失败', err)
+          wx.showToast({ title: '客服暂不可用', icon: 'none' })
         }
       })
     },

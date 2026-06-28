@@ -290,3 +290,23 @@
   bind:cancel="cmdClose"
   bind:select="cmdSelect"
 />
+
+<!-- 联系客服悬浮按钮 -->
+<view wx:if="{{customerServiceType == 'QW'}}" class="kf-float-btn" bindtap="customerService">
+  <view class="kf-float-btn-icon">
+    <van-icon name="service-o" size="22px" color="#fff" />
+  </view>
+  <view class="kf-float-btn-label">
+    <text class="kf-float-btn-title">联系客服</text>
+    <text class="kf-float-btn-sub">在线服务</text>
+  </view>
+</view>
+<button wx:else class="kf-float-btn" open-type="contact">
+  <view class="kf-float-btn-icon">
+    <van-icon name="service-o" size="22px" color="#fff" />
+  </view>
+  <view class="kf-float-btn-label">
+    <text class="kf-float-btn-title">联系客服</text>
+    <text class="kf-float-btn-sub">在线服务</text>
+  </view>
+</button>

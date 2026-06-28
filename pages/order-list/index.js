@@ -1,8 +1,10 @@
 const WXAPI = require('apifm-wxapi')
+const CONFIG = require('../../config.js')
 
 Page({
   data: {
     page: 1,
+    customerServiceType: CONFIG.customerServiceType,
     tabIndex: 0,
     statusType: [
       {
@@ -309,6 +311,18 @@ Page({
     const item = e.currentTarget.dataset.item
     wx.navigateTo({
       url: '/pages/order-details/index?id=' + item.id,
+    })
+  },
+  customerService() {
+    wx.openCustomerServiceChat({
+      extInfo: { url: wx.getStorageSync('customerServiceChatUrl') },
+      corpId: wx.getStorageSync('customerServiceChatCorpId'),
+      showMessageCard: true,
+      success(res) {},
+      fail(err) {
+        console.error('企业微信客服打开失败', err)
+        wx.showToast({ title: '客服暂不可用', icon: 'none' })
+      }
     })
   },
 })

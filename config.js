@@ -1,6 +1,6 @@
 module.exports = {
-  version: '26.8.31',
-  note: '我的收藏页面，部分手机样式不兼容 fixed', // 这个为版本描述，无需修改
+  version: '26.9.20',
+  note: '优惠券领取、退回、失效、过期、使用增加微信订阅消息提醒', // 这个为版本描述，无需修改
   subDomain: 'tz', // 此处改成你自己的专属域名。什么是专属域名？请看教程 https://www.it120.cc/help/qr6l4m.html
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   sdkAppID: 1400450467, // 腾讯实时音视频应用编号，请看教程 https://www.it120.cc/help/nxoqsl.html

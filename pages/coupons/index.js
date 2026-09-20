@@ -62,6 +62,23 @@ Page({
       }
     })
   },
+  // 订阅消息公共方法：有配置则弹授权框，授权或取消后都执行 callback
+  _withSubscribe(callback) {
+    const coupon_subscribe_ids = wx.getStorageSync('coupon_subscribe_ids')
+    if (!coupon_subscribe_ids) {
+      callback()
+      return
+    }
+    wx.requestSubscribeMessage({
+      tmplIds: coupon_subscribe_ids.split(','),
+      success() {
+        callback()
+      },
+      fail() {
+        callback()
+      },
+    })
+  },
   getCounpon2(){
     if (!this.data.couponPwd) {
       wx.showToast({
@@ -95,6 +112,11 @@ Page({
     this.setData({
       showPwdPop: false
     })
+    this._withSubscribe(() => {
+      this._doCounpon(e)
+    })
+  },
+  _doCounpon(e) {
     WXAPI.fetchCoupons({
       id: e.currentTarget.dataset.id,
       token: wx.getStorageSync('token'),
@@ -217,7 +239,12 @@ Page({
       }
     })
   },
-  async touse(e) {
+  touse(e) {
+    this._withSubscribe(() => {
+      this._doTouse(e)
+    })
+  },
+  async _doTouse(e) {
     const item = e.currentTarget.dataset.item
     const res = await WXAPI.couponDetail(item.pid)
     if (res.code != 0) {
@@ -296,6 +323,11 @@ Page({
       })
       return
     }
+    this._withSubscribe(() => {
+      this._doExchangeCoupons()
+    })
+  },
+  async _doExchangeCoupons() {
     this.setData({
       exchangeCouponsLoading: true
     })

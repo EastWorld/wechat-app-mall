@@ -1,0 +1,158 @@
+<view class="page-wrap">
+
+  <!-- 顶部设置卡片 -->
+  <view class="settings-banner" wx:if="{{ settings }}">
+    <view class="settings-item">
+      <text class="settings-icon">💰</text>
+      <view class="settings-info">
+        <text class="settings-value">{{ settings.awardPercent }}%</text>
+        <text class="settings-label">团长奖励比例</text>
+      </view>
+    </view>
+    <view class="settings-divider"></view>
+    <view class="settings-item">
+      <text class="settings-icon">🎯</text>
+      <view class="settings-info">
+        <text class="settings-value">¥{{ settings.minAmount }}</text>
+        <text class="settings-label">最低成团金额</text>
+      </view>
+    </view>
+    <view class="settings-divider"></view>
+    <view class="settings-item">
+      <text class="settings-icon">🚀</text>
+      <view class="settings-info">
+        <text class="settings-value">私域分享</text>
+        <text class="settings-label">微信群/朋友圈</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的接龙列表 -->
+  <view class="section-header" wx:if="{{ !loading }}">
+    <text class="section-title">我发起的接龙</text>
+    <text class="section-count" wx:if="{{ listings.length > 0 }}">共 {{ listings.length }} 个</text>
+  </view>
+
+  <!-- ① 加载中骨架 -->
+  <block wx:if="{{ loading }}">
+    <view class="skeleton-card" wx:for="{{ [1,2,3] }}" wx:key="*this">
+      <view class="skeleton-cover"></view>
+      <view class="skeleton-body">
+        <view class="skeleton-line skeleton-title"></view>
+        <view class="skeleton-line skeleton-sub"></view>
+        <view class="skeleton-line skeleton-stats"></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- ② 空状态（加载完毕且无数据） -->
+  <view wx:elif="{{ listings.length === 0 }}" class="empty-wrap">
+    <!-- 插图区 -->
+    <view class="empty-illus">
+      <view class="empty-circle outer-circle"></view>
+      <view class="empty-circle mid-circle"></view>
+      <text class="empty-main-icon">🎪</text>
+    </view>
+    <text class="empty-title">还没有发起过接龙</text>
+    <text class="empty-desc">创建接龙，把商品分享给好友\n成为团长，轻松获得佣金奖励</text>
+    <view class="empty-btn" bindtap="createListing">
+      <text class="empty-btn-icon">＋</text>
+      <text>发起第一个接龙</text>
+    </view>
+
+    <!-- 使用步骤引导 -->
+    <view class="how-it-works">
+      <view class="how-title">接龙怎么玩？</view>
+      <view class="how-steps">
+        <view class="how-step">
+          <view class="step-dot step-dot-1">1</view>
+          <view class="step-info">
+            <text class="step-name">创建接龙</text>
+            <text class="step-desc">设置接龙名称和封面</text>
+          </view>
+        </view>
+        <view class="step-arrow">→</view>
+        <view class="how-step">
+          <view class="step-dot step-dot-2">2</view>
+          <view class="step-info">
+            <text class="step-name">添加商品</text>
+            <text class="step-desc">选择参与的商品</text>
+          </view>
+        </view>
+        <view class="step-arrow">→</view>
+        <view class="how-step">
+          <view class="step-dot step-dot-3">3</view>
+          <view class="step-info">
+            <text class="step-name">分享收益</text>
+            <text class="step-desc">好友下单你得佣金</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ③ 接龙列表 -->
+  <view class="listing-list" wx:else>
+    <view
+      class="listing-card"
+      wx:for="{{ listings }}"
+      wx:key="id"
+      bindtap="goDetail"
+      data-id="{{ item.id }}"
+    >
+      <!-- 封面或渐变占位 -->
+      <view class="card-cover-wrap">
+        <image
+          wx:if="{{ item.pic }}"
+          class="card-cover"
+          src="{{ item.pic }}"
+          mode="aspectFill"
+        />
+        <view wx:else class="card-cover-placeholder">
+          <text class="placeholder-icon">🛍️</text>
+        </view>
+        <view
+          class="status-badge"
+          style="color:{{ item.statusColor }};background:{{ item.statusBg }};"
+        >{{ item.statusIcon }} {{ item.statusLabel }}</view>
+      </view>
+
+      <!-- 卡片内容 -->
+      <view class="card-body">
+        <text class="card-title">{{ item.name }}</text>
+        <text class="card-desc" wx:if="{{ item.content }}">{{ item.content }}</text>
+
+        <view class="card-stats">
+          <view class="stat-item">
+            <text class="stat-icon">👥</text>
+            <text class="stat-text">{{ item.members }} 人参与</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-icon">💵</text>
+            <text class="stat-text">¥{{ item.amountStr }}</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-icon">📅</text>
+            <text class="stat-text">{{ item.dateAdd }}</text>
+          </view>
+        </view>
+
+        <view class="card-footer">
+          <view class="card-arrow-btn">
+            <text>管理接龙</text>
+            <text class="arrow-icon">›</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区 -->
+  <view class="safe-bottom"></view>
+</view>
+
+<!-- 浮动发起按钮 -->
+<view class="fab" bindtap="createListing">
+  <text class="fab-icon">＋</text>
+  <text class="fab-text">发起接龙</text>
+</view>

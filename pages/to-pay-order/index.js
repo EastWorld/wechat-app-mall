@@ -340,6 +340,11 @@ Page({
     if (this.data.pingtuanOpenId) {
       postData.pingtuanOpenId = this.data.pingtuanOpenId
     }
+    // 接龙订单：用户从接龙详情页进来后 storage 中会存有 listingId
+    const _listingId = wx.getStorageSync('listingId')
+    if (_listingId) {
+      postData.listingId = _listingId
+    }
     if (postData.peisongType == 'kd' && this.data.curAddressData && this.data.curAddressData.provinceId) {
       postData.provinceId = this.data.curAddressData.provinceId;
     }
@@ -1095,6 +1100,8 @@ Page({
   },
   paymentOk(e) {
     console.log(e.detail); // 这里是组件里data的数据
+    // 接龙订单支付完成后清除 listingId，避免影响后续普通订单
+    wx.removeStorageSync('listingId')
     this.setData({
       paymentShow: false
     })

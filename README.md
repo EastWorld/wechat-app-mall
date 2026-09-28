@@ -13,7 +13,7 @@
 
 **欢迎踊跃提交贡献代码，共同打造更好的开源商城！**
 
-遇到问题？访问 [it120.cc](https://www.it120.cc/) 获取专业支持
+遇到问题？访问 [it120.cc](https://www.it120.cc/help/index.html) 获取专业支持
 
 </div>
 
@@ -104,7 +104,7 @@
 
 | 组件 | 说明 |
 |:---|:---|
-| [接口 SDK — apifm-wxapi](https://github.com/gooking/apifm-wxapi) | 后端接口请求封装 |
+| [接口 SDK — apifm-wxapi](https://www.it120.cc/sdk/index.html) | 后端接口请求封装 |
 | [api工厂](https://admin.s2m.cc) | 后端数据服务支持 |
 | [vant-weapp](https://youzan.github.io/vant-weapp) | 有赞小程序 UI 组件库 |
 | [mp-html](https://github.com/jin-yufeng/mp-html) | 小程序富文本 / HTML 渲染插件 |

@@ -398,7 +398,7 @@ module.exports = {
     return request('/pay/lcsw/wxapp', true, 'post', data);
   },
   wxpayWepayez: function wxpayWepayez(data) {
-    return request('/pay/wepayez/wxapp', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/pay/wepayez/wxapp', false, 'post', data);
   },
   wxpayxpert: function wxpayxpert(data) {
     return request(COMMON_BASE_URL + subDomain + '/pay/payxpert/wxapp', false, 'post', data);
@@ -1811,18 +1811,18 @@ module.exports = {
   queuingTypes: function queuingTypes() {
     var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
-    return request('/queuing/types', true, 'get', { status: status });
+    return request(COMMON_BASE_URL + subDomain + '/queuing/types', false, 'get', { status: status });
   },
   queuingGet: function queuingGet(token, typeId) {
     var mobile = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    return request('/queuing/get', true, 'post', { token: token, typeId: typeId, mobile: mobile });
+    return request(COMMON_BASE_URL + subDomain + '/queuing/get', false, 'post', { token: token, typeId: typeId, mobile: mobile });
   },
   queuingMy: function queuingMy(token) {
     var typeId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    return request('/queuing/my', true, 'get', { token: token, typeId: typeId, status: status });
+    return request(COMMON_BASE_URL + subDomain + '/queuing/my', false, 'get', { token: token, typeId: typeId, status: status });
   },
   idcardCheck: function idcardCheck(token, name, idCardNo) {
     return request(COMMON_BASE_URL + subDomain + '/user/idcard', false, 'post', { token: token, name: name, idCardNo: idCardNo });
@@ -2438,25 +2438,25 @@ module.exports = {
     return request(COMMON_BASE_URL + subDomain + '/partner/withdrawalLog/refuse', false, 'post', data);
   },
   myLiveRooms: function myLiveRooms(data) {
-    return request('/liveRooms/my', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/my', false, 'post', data);
   },
   liveRooms: function liveRooms(data) {
-    return request('/liveRooms/list', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/list', false, 'post', data);
   },
   myLiveRoomsInfo: function myLiveRoomsInfo(token, id) {
-    return request('/liveRooms/my/info', true, 'get', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/my/info', false, 'get', { token: token, id: id });
   },
   liveRoomsInfo: function liveRoomsInfo(token, id) {
-    return request('/liveRooms/info', true, 'get', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/info', false, 'get', { token: token, id: id });
   },
   liveRoomGoodsMainly: function liveRoomGoodsMainly(data) {
-    return request('/liveRooms/goods/mainly', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/goods/mainly', false, 'post', data);
   },
   stopLiveRoom: function stopLiveRoom(token, id) {
-    return request('/liveRooms/my/stop', true, 'post', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/my/stop', false, 'post', { token: token, id: id });
   },
   likeLiveRoom: function likeLiveRoom(token, id) {
-    return request('/liveRooms/like', true, 'post', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/liveRooms/like', false, 'post', { token: token, id: id });
   },
   liveRoomOnlineUsers: function liveRoomOnlineUsers(token, roomId) {
     return request('/websocket/rest/liveRoom/onlines', false, 'get', { token: token, roomId: roomId });
@@ -2604,25 +2604,25 @@ module.exports = {
   },
   // cps
   cpsJdGoodsCategory: function cpsJdGoodsCategory(parentId, grade) {
-    return request('/cpsJdGoods/category', true, 'get', { parentId: parentId, grade: grade });
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/category', false, 'get', { parentId: parentId, grade: grade });
   },
   cpsJdGoodsSearch: function cpsJdGoodsSearch(data) {
-    return request('/cpsJdGoods/search', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/search', false, 'post', data);
   },
   cpsJdGoodsDetail: function cpsJdGoodsDetail(data) {
-    return request('/cpsJdGoods/detail', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/detail', false, 'get', data);
   },
   cpsJdGoodsSetExt: function cpsJdGoodsSetExt(data) {
-    return request('/cpsJdGoods/ext/set', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/ext/set', false, 'post', data);
   },
   cpsJdGoodsQueryExt: function cpsJdGoodsQueryExt(skuId) {
-    return request('/cpsJdGoods/ext/query', true, 'get', { skuId: skuId });
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/ext/query', false, 'get', { skuId: skuId });
   },
   cpsJdGoodsShotUrl: function cpsJdGoodsShotUrl(token, skuId) {
-    return request('/cpsJdGoods/shotUrl', true, 'get', { token: token, skuId: skuId });
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/shotUrl', false, 'get', { token: token, skuId: skuId });
   },
   cpsJdGoodsShotUrlSite: function cpsJdGoodsShotUrlSite(token, materialUrl, couponUrl) {
-    return request('/cpsJdGoods/shotUrl/site', true, 'post', { token: token, materialUrl: materialUrl, couponUrl: couponUrl });
+    return request(COMMON_BASE_URL + subDomain + '/cpsJdGoods/shotUrl/site', false, 'post', { token: token, materialUrl: materialUrl, couponUrl: couponUrl });
   },
   cpsJdOrders: function cpsJdOrders(data) {
     return request('/cpsJdOrder/list', true, 'post', data);
@@ -2631,28 +2631,28 @@ module.exports = {
     return request('/cpsJdOrder/detail', true, 'get', { token: token, id: id });
   },
   cpsPddBeian: function cpsPddBeian(token) {
-    return request('/cpsPddGoods/beian', true, 'get', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/cpsPddGoods/beian', false, 'get', { token: token });
   },
   cpsPddGoodsDetail: function cpsPddGoodsDetail(data) {
-    return request('/cpsPddGoods/detail', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/cpsPddGoods/detail', false, 'get', data);
   },
   cpsPddGoodsShotUrl: function cpsPddGoodsShotUrl(token, goodsSign) {
-    return request('/cpsPddGoods/shotUrl', true, 'get', { token: token, goodsSign: goodsSign });
+    return request(COMMON_BASE_URL + subDomain + '/cpsPddGoods/shotUrl', false, 'get', { token: token, goodsSign: goodsSign });
   },
   cpsPddOrders: function cpsPddOrders(data) {
-    return request('/cpsPddOrder/list', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/cpsPddOrder/list', false, 'post', data);
   },
   cpsPddOrderDetail: function cpsPddOrderDetail(token, id) {
-    return request('/cpsPddOrder/detail', true, 'get', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/cpsPddOrder/detail', false, 'get', { token: token, id: id });
   },
   cpsTaobaoGoodsDetail: function cpsTaobaoGoodsDetail(data) {
-    return request('/cpsTaobaoGoods/detail', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/cpsTaobaoGoods/detail', false, 'get', data);
   },
   cpsTaobaoGoodsShotUrl: function cpsTaobaoGoodsShotUrl(token, content) {
-    return request('/cpsTaobaoGoods/shotUrl', true, 'post', { token: token, content: content });
+    return request(COMMON_BASE_URL + subDomain + '/cpsTaobaoGoods/shotUrl', false, 'post', { token: token, content: content });
   },
   cpsTaobaoGoodsKouling: function cpsTaobaoGoodsKouling(token, content) {
-    return request('/cpsTaobaoGoods/kouling', true, 'post', { token: token, content: content });
+    return request(COMMON_BASE_URL + subDomain + '/cpsTaobaoGoods/kouling', false, 'post', { token: token, content: content });
   },
   // 回收
   recycleOrders: function recycleOrders(data) {
@@ -2837,40 +2837,40 @@ module.exports = {
   },
   // 朋友圈
   momentsPublish: function momentsPublish(data) {
-    return request('/user/moments/publish', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/publish', false, 'post', data);
   },
   userMomentsList: function userMomentsList(data) {
-    return request('/user/moments/list', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/list', false, 'post', data);
   },
   momentsDetail: function momentsDetail(token, momentsId) {
-    return request('/user/moments/detail', true, 'get', { token: token, momentsId: momentsId });
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/detail', false, 'get', { token: token, momentsId: momentsId });
   },
   momentsDelete: function momentsDelete(token, momentsId) {
-    return request('/user/moments/del', true, 'post', { token: token, momentsId: momentsId });
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/del', false, 'post', { token: token, momentsId: momentsId });
   },
   momentsDeleteComment: function momentsDeleteComment(token, commentId) {
-    return request('/user/moments/delCommon', true, 'post', { token: token, commentId: commentId });
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/delCommon', false, 'post', { token: token, commentId: commentId });
   },
   momentsLike: function momentsLike(token, momentsId) {
-    return request('/user/moments/like', true, 'post', { token: token, momentsId: momentsId });
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/like', false, 'post', { token: token, momentsId: momentsId });
   },
   momentsComment: function momentsComment(token, momentsId) {
     var uid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
     var content = arguments[3];
 
-    return request('/user/moments/comment', true, 'post', { token: token, momentsId: momentsId, uid: uid, content: content });
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/comment', false, 'post', { token: token, momentsId: momentsId, uid: uid, content: content });
   },
   momentsCommentLogs: function momentsCommentLogs(data) {
-    return request('/user/moments/logs', true, 'get', data);
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/logs', false, 'post', data);
   },
   momentsLogsRead: function momentsLogsRead(token, logsIds) {
-    return request('/user/moments/logRead', true, 'post', { token: token, logsIds: logsIds });
+    return request(COMMON_BASE_URL + subDomain + '/user/moments/logRead', false, 'post', { token: token, logsIds: logsIds });
   },
   bottleMsgPublish: function bottleMsgPublish(data) {
-    return request('/bottleMsg/publish', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/bottleMsg/publish', false, 'post', data);
   },
   bottleMsgSalvage: function bottleMsgSalvage(token) {
-    return request('/bottleMsg/salvage', true, 'get', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/bottleMsg/salvage', false, 'get', { token: token });
   },
   userInvoiceInfo: function userInvoiceInfo(token) {
     return request(COMMON_BASE_URL + subDomain + '/userInvoice/info', false, 'get', { token: token });
@@ -3141,31 +3141,31 @@ module.exports = {
     return request('/user/wxmp/openid', true, 'get', { code: code });
   },
   listingSet: function listingSet() {
-    return request('/listingSet/info', true, 'get');
+    return request(COMMON_BASE_URL + subDomain + '/listingSet/info', false, 'get');
   },
   listingMyListing: function listingMyListing(token) {
-    return request('/listingInfo/myListing', true, 'get', { token: token });
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/myListing', false, 'get', { token: token });
   },
   listingSave: function listingSave(data) {
-    return request('/listingInfo/save', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/save', false, 'post', data);
   },
   listingDetail: function listingDetail(id) {
-    return request('/listingInfo/detail', true, 'get', { id: id });
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/detail', false, 'get', { id: id });
   },
   listingCancel: function listingCancel(token, id) {
-    return request('/listingInfo/cancel', true, 'post', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/cancel', false, 'post', { token: token, id: id });
   },
   listingSuccess: function listingSuccess(token, id) {
-    return request('/listingInfo/success', true, 'post', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/success', false, 'post', { token: token, id: id });
   },
   listingDelete: function listingDelete(token, id) {
-    return request('/listingInfo/delete', true, 'post', { token: token, id: id });
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/delete', false, 'post', { token: token, id: id });
   },
   listingAddGoods: function listingAddGoods(data) {
-    return request('/listingInfo/addGoods', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/addGoods', false, 'post', data);
   },
   listingRemoveGoods: function listingRemoveGoods(data) {
-    return request('/listingInfo/removeGoods', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/listingInfo/removeGoods', false, 'post', data);
   },
   listingJoinList: function listingJoinList(data) {
     return request('/listingInfo/joinList', true, 'post', data);
@@ -3195,19 +3195,19 @@ module.exports = {
     return request('/order/keloop/courierTag', true, 'get', data);
   },
   workingHoursMySubmitLogs: function workingHoursMySubmitLogs(data) {
-    return request('/workingHours/mySubmitLogs', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/workingHours/mySubmitLogs', false, 'post', data);
   },
   workingHoursSubmit: function workingHoursSubmit(data) {
-    return request('/workingHours/submit', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/workingHours/submit', false, 'post', data);
   },
   workingHoursBossReport: function workingHoursBossReport(data) {
-    return request('/workingHours/bossReport', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/workingHours/bossReport', false, 'post', data);
   },
   workingHoursMyProject: function workingHoursMyProject(data) {
-    return request('/workingHours/myProject', true, 'post', data);
+    return request(COMMON_BASE_URL + subDomain + '/workingHours/myProject', false, 'post', data);
   },
   workingHoursProjectInfo: function workingHoursProjectInfo(code) {
-    return request('/workingHours/project', true, 'get', { code: code });
+    return request(COMMON_BASE_URL + subDomain + '/workingHours/project', false, 'get', { code: code });
   },
   bestpayProCreateOrder: function bestpayProCreateOrder(data) {
     return request('/pay/bestpay/proCreateOrder', true, 'post', data);

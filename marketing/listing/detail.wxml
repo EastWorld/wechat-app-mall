@@ -1,0 +1,371 @@
+<!-- 页面加载中 -->
+<view wx:if="{{ pageLoading }}" class="full-loading">
+  <view class="loading-spinner"></view>
+  <text class="loading-text">加载中…</text>
+</view>
+
+<!-- 加载失败 -->
+<view wx:elif="{{ pageError }}" class="error-page">
+  <text class="error-icon">⚠️</text>
+  <text class="error-text">加载失败，请返回重试</text>
+</view>
+
+<!-- 主内容 -->
+<block wx:elif="{{ info }}">
+
+  <!-- Hero 封面区 -->
+  <view class="hero-wrap">
+    <image
+      wx:if="{{ info.pic }}"
+      class="hero-image"
+      src="{{ info.pic }}"
+      mode="aspectFill"
+    />
+    <view wx:else class="hero-placeholder">
+      <text class="hero-placeholder-icon">🛍️</text>
+      <text class="hero-placeholder-text">{{ info.name }}</text>
+    </view>
+    <!-- 状态徽章 -->
+    <view
+      class="status-badge"
+      style="color:{{ info.statusColor }};background:{{ info.statusBg }};"
+    >{{ info.statusIcon }} {{ info.statusLabel }}</view>
+  </view>
+
+  <!-- 接龙基本信息卡 -->
+  <view class="info-card">
+    <view class="info-title-row">
+      <text class="info-name">{{ info.name }}</text>
+      <!-- 团长：编辑入口（始终可见，不受接龙状态限制） -->
+      <view wx:if="{{ isOrganizer }}" class="edit-icon-btn" bindtap="editListing">
+        <text class="edit-icon-text">✏️</text>
+        <text class="edit-icon-label">编辑</text>
+      </view>
+    </view>
+
+    <text wx:if="{{ info.content }}" class="info-desc">{{ info.content }}</text>
+
+    <!-- 统计数据 -->
+    <view class="stats-row">
+      <view class="stat-chip">
+        <text class="stat-emoji">👥</text>
+        <text class="stat-val">{{ info.members }}</text>
+        <text class="stat-unit">人参与</text>
+      </view>
+      <view class="stat-chip">
+        <text class="stat-emoji">💵</text>
+        <text class="stat-val">¥{{ info.amountStr }}</text>
+        <text class="stat-unit">总金额</text>
+      </view>
+      <view class="stat-chip">
+        <text class="stat-emoji">📅</text>
+        <text class="stat-val">{{ info.dateAddShort }}</text>
+      </view>
+    </view>
+
+    <!-- 团长信息 -->
+    <view class="broker-row" wx:if="{{ broker && broker.nick }}">
+      <view class="broker-avatar-wrap">
+        <text class="broker-avatar-char">{{ broker.nickInitial }}</text>
+      </view>
+      <view class="broker-info">
+        <text class="broker-role">团长</text>
+        <text class="broker-nick">{{ broker.nick }}</text>
+      </view>
+      <view wx:if="{{ isOrganizer }}" class="organizer-tag">我发起的</view>
+    </view>
+  </view>
+
+  <!-- Tab 导航 -->
+  <view class="tab-nav">
+    <view
+      class="tab-nav-item {{ activeTab === 0 ? 'tab-active' : '' }}"
+      bindtap="switchTab"
+      data-index="0"
+    >
+      <text>商品列表</text>
+      <view wx:if="{{ goods.length > 0 }}" class="tab-badge">{{ goods.length }}</view>
+    </view>
+    <view
+      class="tab-nav-item {{ activeTab === 1 ? 'tab-active' : '' }}"
+      bindtap="switchTab"
+      data-index="1"
+    >
+      <text>参与记录</text>
+      <view wx:if="{{ joinTotalRow > 0 }}" class="tab-badge">{{ joinTotalRow }}</view>
+    </view>
+  </view>
+
+  <!-- ===== Tab 内容：商品列表 ===== -->
+  <view wx:if="{{ activeTab === 0 }}" class="tab-content">
+
+    <!-- 空状态 -->
+    <view wx:if="{{ goods.length === 0 }}" class="tab-empty">
+      <view class="tab-empty-illus">
+        <text class="tab-empty-icon">🛒</text>
+      </view>
+      <text class="tab-empty-title">
+        {{ isOrganizer ? '还没有商品' : '暂无可购买商品' }}
+      </text>
+      <text class="tab-empty-desc">
+        {{ isOrganizer ? '点击下方按钮，搜索并添加商品' : '团长还未添加商品，请稍后再来' }}
+      </text>
+    </view>
+
+    <!-- 商品卡片列表 -->
+    <view class="goods-list">
+      <view
+        class="goods-card"
+        wx:for="{{ goods }}"
+        wx:key="id"
+        bindtap="buyGoods"
+        data-id="{{ item.id }}"
+      >
+        <image class="goods-img" src="{{ item.pic }}" mode="aspectFill" />
+        <view class="goods-meta">
+          <text class="goods-name">{{ item.name }}</text>
+          <text wx:if="{{ item.subName }}" class="goods-sub">{{ item.subName }}</text>
+          <view class="goods-bottom-row">
+            <view class="goods-price-wrap">
+              <text class="goods-price-symbol">¥</text>
+              <text class="goods-price-num">{{ item.priceStr }}</text>
+              <text class="goods-unit">/ {{ item.unit || '件' }}</text>
+            </view>
+            <!-- 团长：移除按钮 -->
+            <view
+              wx:if="{{ isOrganizer && info.status === 0 }}"
+              class="goods-action-btn btn-remove"
+              catchtap="removeGoods"
+              data-id="{{ item.id }}"
+              data-name="{{ item.name }}"
+            >移除</view>
+            <!-- 参与者：购买按钮（接龙进行中） -->
+            <view
+              wx:elif="{{ !isOrganizer && info.status === 0 }}"
+              class="goods-action-btn btn-buy"
+              catchtap="buyGoods"
+              data-id="{{ item.id }}"
+            >立即购买</view>
+            <!-- 接龙已结束 -->
+            <view
+              wx:elif="{{ info.status !== 0 }}"
+              class="goods-action-btn btn-disabled"
+            >已{{ info.status === 2 ? '成团' : '取消' }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 团长：添加商品按钮（进行中才可操作） -->
+    <view
+      wx:if="{{ isOrganizer && info.status === 0 }}"
+      class="add-goods-btn"
+      bindtap="openAddGoodsPopup"
+    >
+      <text class="add-goods-plus">＋</text>
+      <text>添加商品</text>
+    </view>
+  </view>
+
+  <!-- ===== Tab 内容：参与记录 ===== -->
+  <view wx:if="{{ activeTab === 1 }}" class="tab-content">
+
+    <!-- 统计头 -->
+    <view wx:if="{{ joinTotalRow > 0 }}" class="join-stats-bar">
+      <text class="join-stats-text">共 {{ joinTotalRow }} 笔订单</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{ joinList.length === 0 && !joinLoading }}" class="tab-empty">
+      <view class="tab-empty-illus">
+        <text class="tab-empty-icon">📋</text>
+      </view>
+      <text class="tab-empty-title">还没有人参与接龙</text>
+      <text class="tab-empty-desc">分享接龙链接给好友，邀请他们参与购买</text>
+    </view>
+
+    <!-- 参与订单列表 -->
+    <view class="join-list">
+      <view class="join-card" wx:for="{{ joinList }}" wx:key="id">
+        <!-- 用户信息行 -->
+        <view class="join-user-row">
+          <image
+            wx:if="{{ item.userAvatar }}"
+            class="join-avatar"
+            src="{{ item.userAvatar }}"
+            mode="aspectFill"
+          />
+          <view wx:else class="join-avatar-default">
+            <text class="join-avatar-char">{{ item.nickInitial }}</text>
+          </view>
+          <view class="join-user-detail">
+            <text class="join-nick">{{ item.userNick }}</text>
+            <text class="join-time">{{ item.dateAdd }}</text>
+          </view>
+          <view
+            class="join-order-status"
+            style="color: {{ item.statusColor }};"
+          >{{ item.statusLabel }}</view>
+        </view>
+        <!-- 商品信息行 -->
+        <view class="join-goods-row">
+          <image class="join-goods-img" src="{{ item.pic }}" mode="aspectFill" />
+          <view class="join-goods-info">
+            <text class="join-goods-name">{{ item.goodsName }}</text>
+            <text wx:if="{{ item.goodsSubName }}" class="join-goods-sub">{{ item.goodsSubName }}</text>
+            <view class="join-amount-row">
+              <text class="join-unit-price">¥{{ item.unitPriceStr }} × {{ item.number }}</text>
+              <text class="join-total-amount">¥{{ item.amountStr }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 分页加载状态 -->
+    <view wx:if="{{ joinLoading }}" class="list-loading">加载更多中…</view>
+    <view wx:elif="{{ joinPageEnd && joinList.length > 0 }}" class="list-end">— 已加载全部记录 —</view>
+  </view>
+
+  <!-- 底部安全区 -->
+  <view class="safe-area-bottom"></view>
+</block>
+
+<!-- ===== 底部操作栏 ===== -->
+<!-- 团长 · 进行中 -->
+<view wx:if="{{ isOrganizer && info && info.status === 0 }}" class="action-bar">
+  <view class="action-btn-sm btn-edit" bindtap="editListing">编辑</view>
+  <view class="action-btn-sm btn-share" bindtap="openSharePanel">分享</view>
+  <view class="action-btn-sm btn-cancel-action" bindtap="onCancel">取消接龙</view>
+  <view class="action-btn-lg btn-success" bindtap="onSuccess">成团截止</view>
+</view>
+
+<!-- 团长 · 已取消 -->
+<view wx:elif="{{ isOrganizer && info && info.status === 1 }}" class="action-bar">
+  <view class="action-btn-full btn-delete" bindtap="onDelete">删除接龙</view>
+</view>
+
+<!-- 团长 · 已成团 -->
+<view wx:elif="{{ isOrganizer && info && info.status === 2 }}" class="action-bar">
+  <view class="action-btn-full btn-done">🎉 接龙已成功截止</view>
+</view>
+
+<!-- ===== 添加商品弹窗 ===== -->
+<van-popup
+  show="{{ showAddGoodsPopup }}"
+  position="bottom"
+  round
+  safe-area-inset-bottom
+  bind:close="closeAddGoodsPopup"
+  custom-style="height: 72vh; display: flex; flex-direction: column;"
+>
+  <view class="popup-container">
+    <!-- 弹窗标题 -->
+    <view class="popup-header">
+      <text class="popup-title">添加商品到接龙</text>
+      <text class="popup-close-icon" bindtap="closeAddGoodsPopup">✕</text>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class="popup-search-wrap">
+      <van-search
+        value="{{ searchKeyword }}"
+        placeholder="搜索商品名称关键词"
+        shape="round"
+        background="#f8f8f8"
+        bind:change="onSearchInput"
+        bind:search="onSearchConfirm"
+      />
+    </view>
+
+    <!-- 搜索中 -->
+    <view wx:if="{{ searching }}" class="popup-tip">搜索中…</view>
+
+    <!-- 无结果（有关键词但搜不到） -->
+    <view
+      wx:elif="{{ !searching && searchKeyword && searchResults.length === 0 }}"
+      class="popup-tip"
+    >未找到「{{ searchKeyword }}」相关商品</view>
+
+    <!-- 搜索结果 / 默认商品列表 -->
+    <scroll-view scroll-y class="popup-scroll" wx:if="{{ searchResults.length > 0 }}">
+      <view class="popup-goods-item" wx:for="{{ searchResults }}" wx:key="id">
+        <image class="popup-goods-img" src="{{ item.pic }}" mode="aspectFill" />
+        <view class="popup-goods-meta">
+          <text class="popup-goods-name">{{ item.name }}</text>
+          <text class="popup-goods-price">¥{{ item.priceStr }}</text>
+        </view>
+        <view class="popup-add-btn" catchtap="addGoods" data-id="{{ item.id }}">添加</view>
+      </view>
+    </scroll-view>
+
+    <!-- 暂无商品（非搜索状态下列表为空） -->
+    <view
+      wx:elif="{{ !searching && !searchKeyword && searchResults.length === 0 }}"
+      class="popup-guide"
+    >
+      <text class="popup-guide-icon">🛒</text>
+      <text class="popup-guide-text">当前店铺暂无可添加的商品</text>
+    </view>
+  </view>
+</van-popup>
+
+<!-- ===== 分享面板（底部弹出） ===== -->
+<van-popup
+  show="{{ showSharePanel }}"
+  position="bottom"
+  round
+  safe-area-inset-bottom
+  bind:close="closeSharePanel"
+>
+  <view class="share-panel">
+    <view class="share-panel-title">分享接龙</view>
+    <view class="share-options-row">
+
+      <!-- 转发好友/群聊 -->
+      <view class="share-option">
+        <view class="share-option-icon-wrap">
+          <text class="share-option-emoji">💬</text>
+        </view>
+        <text class="share-option-label">转发好友</text>
+        <button class="share-option-overlay" open-type="share"></button>
+      </view>
+
+      <!-- 生成海报 -->
+      <view class="share-option" bindtap="drawSharePoster">
+        <view class="share-option-icon-wrap poster-icon-bg">
+          <text class="share-option-emoji">🖼️</text>
+        </view>
+        <text class="share-option-label">生成海报</text>
+      </view>
+
+      <!-- 分享朋友圈：引导用右上角菜单操作（van-popup 内 shareTimeline 无法可靠触发） -->
+      <view class="share-option" bindtap="guideShareTimeline">
+        <view class="share-option-icon-wrap moments-icon-bg">
+          <text class="share-option-emoji">🌐</text>
+        </view>
+        <text class="share-option-label">朋友圈</text>
+      </view>
+
+    </view>
+    <view class="share-panel-cancel" bindtap="closeSharePanel">取消</view>
+  </view>
+</van-popup>
+
+<!-- ===== 海报展示层 ===== -->
+<view wx:if="{{ showPosterImg }}" class="poster-overlay">
+  <image class="poster-preview-img" mode="widthFix" src="{{ posterImg }}"></image>
+  <view class="poster-tip">长按图片可直接保存或转发</view>
+  <view class="poster-btn-row">
+    <view class="poster-save-btn" bindtap="savePosterPic">💾 保存到相册</view>
+    <view class="poster-close-btn" bindtap="closePosterImg">关闭</view>
+  </view>
+</view>
+
+<!-- wxa-plugin-canvas 海报组件（不可见，用于绘制） -->
+<poster
+  id="poster"
+  config="{{ posterConfig }}"
+  bind:success="onPosterSuccess"
+  bind:fail="onPosterFail"
+></poster>

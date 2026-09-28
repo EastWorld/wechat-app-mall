@@ -1,0 +1,240 @@
+<view class="page-wrap">
+
+  <!-- 封面图上传区 -->
+  <view class="form-card">
+    <view class="form-card-title">接龙封面</view>
+    <view class="cover-uploader-wrap">
+      <van-uploader
+        file-list="{{ picFileList }}"
+        max-count="1"
+        upload-text="上传封面图"
+        bind:after-read="onUploadPic"
+        bind:delete="onDeletePic"
+        preview-size="200rpx"
+        disabled="{{ uploading }}"
+      />
+      <text class="cover-tip">建议尺寸 750×420，JPG / PNG，上传前自动压缩</text>
+    </view>
+  </view>
+
+  <!-- 基本信息卡 -->
+  <view class="form-card">
+    <view class="form-card-title">基本信息</view>
+
+    <!-- 接龙名称 -->
+    <view class="form-item required-item">
+      <view class="form-item-header">
+        <text class="form-label">接龙名称</text>
+        <text class="form-count">{{ form.name.length }}/30</text>
+      </view>
+      <input
+        class="form-input"
+        value="{{ form.name }}"
+        placeholder="给这次接龙起个名字"
+        placeholder-class="input-placeholder"
+        maxlength="30"
+        data-field="name"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form-divider"></view>
+
+    <!-- 接龙介绍 -->
+    <view class="form-item last-item">
+      <view class="form-item-header">
+        <text class="form-label">接龙介绍</text>
+        <text class="form-opt-tag">选填</text>
+      </view>
+      <textarea
+        class="form-textarea"
+        value="{{ form.content }}"
+        placeholder="介绍活动内容、规则或优惠信息…"
+        placeholder-class="input-placeholder"
+        maxlength="200"
+        auto-height
+        data-field="content"
+        bindinput="onInput"
+      />
+    </view>
+  </view>
+
+  <!-- 联系信息卡 -->
+  <view class="form-card">
+    <view class="form-card-title">联系信息</view>
+    <view class="form-card-desc">参与者下单时的收货联系方式（选填）</view>
+
+    <view class="form-item">
+      <view class="form-item-header">
+        <text class="form-label">联系人</text>
+        <text class="form-opt-tag">选填</text>
+      </view>
+      <input
+        class="form-input"
+        value="{{ form.linkMan }}"
+        placeholder="收货联系人姓名"
+        placeholder-class="input-placeholder"
+        maxlength="20"
+        data-field="linkMan"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form-divider"></view>
+
+    <view class="form-item last-item">
+      <view class="form-item-header">
+        <text class="form-label">联系电话</text>
+        <text class="form-opt-tag">选填</text>
+      </view>
+      <input
+        class="form-input"
+        value="{{ form.mobile }}"
+        placeholder="手机号码"
+        placeholder-class="input-placeholder"
+        type="number"
+        maxlength="11"
+        data-field="mobile"
+        bindinput="onInput"
+      />
+    </view>
+  </view>
+
+  <!-- 收货地址卡：四级联动 + 详细地址 -->
+  <!-- 使用 van-cell + picker 组合，与 address-add 页面保持一致，
+       避免自定义 flex 布局在小程序里 text 不垂直居中的问题 -->
+  <view class="form-card addr-card">
+    <view class="form-card-title">收货地址</view>
+    <view class="form-card-desc">省 / 市 / 区县 / 街道（选填）</view>
+
+    <!-- 省份 -->
+    <picker
+      bindchange="onProvinceChange"
+      value="{{ pIndex }}"
+      range="{{ provinces }}"
+      range-key="name"
+      disabled="{{ !provinces || addrLoading }}"
+    >
+      <van-cell
+        title="省份"
+        value="{{ provinces ? provinces[pIndex].name : '加载中…' }}"
+        is-link
+        border="{{ false }}"
+        value-class="{{ pIndex === 0 ? 'cell-placeholder' : '' }}"
+        custom-class="addr-cell"
+      />
+    </picker>
+
+    <!-- 城市 -->
+    <block wx:if="{{ cities }}">
+      <view class="addr-divider"></view>
+      <picker
+        bindchange="onCityChange"
+        value="{{ cIndex }}"
+        range="{{ cities }}"
+        range-key="name"
+      >
+        <van-cell
+          title="城市"
+          value="{{ cities[cIndex].name }}"
+          is-link
+          border="{{ false }}"
+          value-class="{{ cIndex === 0 ? 'cell-placeholder' : '' }}"
+          custom-class="addr-cell"
+        />
+      </picker>
+    </block>
+
+    <!-- 区/县 -->
+    <block wx:if="{{ areas }}">
+      <view class="addr-divider"></view>
+      <picker
+        bindchange="onAreaChange"
+        value="{{ aIndex }}"
+        range="{{ areas }}"
+        range-key="name"
+      >
+        <van-cell
+          title="区/县"
+          value="{{ areas[aIndex].name }}"
+          is-link
+          border="{{ false }}"
+          value-class="{{ aIndex === 0 ? 'cell-placeholder' : '' }}"
+          custom-class="addr-cell"
+        />
+      </picker>
+    </block>
+
+    <!-- 街道/镇（区县有下级数据时才出现） -->
+    <block wx:if="{{ streets }}">
+      <view class="addr-divider"></view>
+      <picker
+        bindchange="onStreetChange"
+        value="{{ sIndex }}"
+        range="{{ streets }}"
+        range-key="name"
+      >
+        <van-cell
+          title="街道/镇"
+          value="{{ streets[sIndex].name }}"
+          is-link
+          border="{{ false }}"
+          value-class="{{ sIndex === 0 ? 'cell-placeholder' : '' }}"
+          custom-class="addr-cell"
+        />
+      </picker>
+    </block>
+
+    <!-- 详细地址（门牌号） -->
+    <view class="addr-divider"></view>
+    <view class="form-item last-item">
+      <view class="form-item-header">
+        <text class="form-label">详细地址</text>
+        <text class="form-opt-tag">选填</text>
+      </view>
+      <input
+        class="form-input"
+        value="{{ form.address }}"
+        placeholder="楼栋号、单元、门牌等"
+        placeholder-class="input-placeholder"
+        maxlength="80"
+        data-field="address"
+        bindinput="onInput"
+      />
+    </view>
+  </view>
+
+  <!-- 接龙须知卡 -->
+  <view class="tips-card">
+    <view class="tips-title">📌 接龙须知</view>
+    <view class="tips-item">
+      <text class="tips-dot">·</text>
+      <text class="tips-text">创建后成为团长，可邀请好友参与购买</text>
+    </view>
+    <view class="tips-item">
+      <text class="tips-dot">·</text>
+      <text class="tips-text">在详情页添加商品后即可分享给好友</text>
+    </view>
+    <view class="tips-item">
+      <text class="tips-dot">·</text>
+      <text class="tips-text">参与者下单成功后，您将获得团长佣金奖励</text>
+    </view>
+    <view class="tips-item">
+      <text class="tips-dot">·</text>
+      <text class="tips-text">可随时「成团截止」或「取消接龙」</text>
+    </view>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>
+
+<!-- 固定底部提交栏 -->
+<view class="submit-bar">
+  <view
+    class="submit-btn {{ submitting ? 'btn-loading' : '' }}"
+    bindtap="submit"
+  >
+    <text wx:if="{{ !submitting }}">{{ isEdit ? '保存修改' : '立即创建接龙' }}</text>
+    <text wx:else>保存中…</text>
+  </view>
+</view>

@@ -1,0 +1,276 @@
+/* ===== 全局 ===== */
+page {
+  background: #f4f6fa;
+  min-height: 100vh;
+}
+
+.page-wrap {
+  padding: 24rpx 24rpx 200rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* ===== 封面上传区 ===== */
+.cover-section {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.cover-label {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 24rpx;
+}
+
+.cover-uploader-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.cover-tip {
+  font-size: 22rpx;
+  color: #bbb;
+  text-align: center;
+}
+.form-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.form-card-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8rpx;
+}
+
+.form-card-desc {
+  font-size: 24rpx;
+  color: #aaa;
+  margin-bottom: 28rpx;
+}
+
+/* ===== 表单项 ===== */
+.form-item {
+  padding: 24rpx 0;
+}
+
+.last-item {
+  padding-bottom: 0;
+}
+
+.form-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #222;
+}
+
+.required-item .form-label::before {
+  content: '* ';
+  color: #f56c6c;
+  font-weight: 700;
+}
+
+.form-count {
+  font-size: 22rpx;
+  color: #ccc;
+}
+
+.form-opt-tag {
+  font-size: 22rpx;
+  color: #aaa;
+  background: #f5f5f5;
+  padding: 4rpx 14rpx;
+  border-radius: 100rpx;
+}
+
+/* ===== Input / Textarea ===== */
+
+/* 单行输入框：必须显式设置 height，wx <input> 会忽略 padding-top/bottom */
+.form-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 96rpx;               /* 显式高度 = 字号 + 舒适呼吸感 */
+  font-size: 30rpx;
+  color: #1a1a2e;
+  background: #f6f7fb;
+  border-radius: 16rpx;
+  padding: 0 28rpx;            /* 仅水平内边距，垂直方向靠 height 撑开 */
+  border: 2rpx solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.form-input:focus {
+  background: #fff;
+  border-color: #b3c2fa;
+}
+
+/* 多行文本域：padding 正常生效 */
+.form-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #1a1a2e;
+  background: #f6f7fb;
+  border-radius: 16rpx;
+  padding: 24rpx 28rpx;
+  min-height: 160rpx;
+  line-height: 1.8;
+  border: 2rpx solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.form-textarea:focus {
+  background: #fff;
+  border-color: #b3c2fa;
+}
+
+.input-placeholder {
+  color: #c0c4cc;
+  font-size: 28rpx;
+}
+
+/* 分割线 */
+.form-divider {
+  height: 1rpx;
+  background: #f0f0f0;
+  margin: 4rpx 0;
+}
+
+/* ===== 须知卡片 ===== */
+.tips-card {
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8f0ff 100%);
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  border: 1rpx solid #e8e0ff;
+}
+
+.tips-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #5a4fcf;
+  margin-bottom: 16rpx;
+}
+
+.tips-item {
+  display: flex;
+  gap: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.tips-item:last-child {
+  margin-bottom: 0;
+}
+
+.tips-dot {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 26rpx;
+  flex-shrink: 0;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ===== 安全区 ===== */
+.safe-bottom {
+  height: 20rpx;
+}
+
+/* ===== 底部提交栏 ===== */
+.submit-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 16rpx 32rpx;
+  padding-bottom: calc(16rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.06);
+  z-index: 999;
+}
+
+.submit-btn {
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 700;
+  text-align: center;
+  padding: 28rpx 0;
+  border-radius: 100rpx;
+  letter-spacing: 2rpx;
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.45);
+  transition: opacity 0.2s;
+}
+
+.submit-btn:active {
+  opacity: 0.85;
+}
+
+.btn-loading {
+  opacity: 0.6;
+}
+
+/* ===== 收货地址卡（van-cell + picker） ===== */
+
+/* addr-card 内取消 form-card 的 padding，让 van-cell 撑满 */
+.addr-card {
+  padding: 32rpx 0 0 !important;
+}
+
+.addr-card .form-card-title,
+.addr-card .form-card-desc {
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+}
+
+/* van-cell 覆盖：背景、圆角 */
+.addr-cell {
+  background: #f6f7fb !important;
+  border-radius: 16rpx !important;
+  margin: 0 24rpx !important;
+  width: auto !important;
+}
+
+/* 占位值文字颜色（province/city/district/street 未选中时） */
+.cell-placeholder {
+  color: #c0c4cc !important;
+}
+
+/* 地址行之间的分隔 */
+.addr-divider {
+  height: 16rpx;
+}
+
+/* 详细地址 form-item 补回左右间距 */
+.addr-card .last-item {
+  padding: 20rpx 32rpx 0;
+}
+
+/* 去掉旧的自定义 picker-row 样式（保留以防万一，不影响渲染） */
+.picker-row,
+.picker-label,
+.picker-value-wrap,
+.picker-placeholder,
+.picker-selected,
+.picker-arrow { display: none; }

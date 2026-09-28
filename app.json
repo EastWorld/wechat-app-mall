@@ -81,6 +81,15 @@
   ],
   "subpackages": [
     {
+      "root": "marketing",
+      "name": "marketing",
+      "pages": [
+        "listing/index",
+        "listing/detail",
+        "listing/edit"
+      ]
+    },
+    {
       "root": "game",
       "name": "game",
       "pages": [

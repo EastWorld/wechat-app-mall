@@ -81,11 +81,11 @@ Page({
   },
 
   bindinput(e) {
-    this.setData({ name: e.detail.value })
+    this.setData({ name: e.detail.value.slice(0, 50) })
   },
 
   bindconfirm(e) {
-    this.setData({ page: 1, name: e.detail.value })
+    this.setData({ page: 1, name: e.detail.value.slice(0, 50) })
     this.search()
   },
 

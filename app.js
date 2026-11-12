@@ -173,6 +173,9 @@ App({
     }
   },
   initNickAvatarUrlPOP(_this) {
+    if (!CONFIG.openNickAvatarUrlPOP) {
+      return
+    }
     setTimeout(() => {
       if (this.globalData.apiUserInfoMap && (!this.globalData.apiUserInfoMap.base.nick || !this.globalData.apiUserInfoMap.base.avatarUrl)) {
         _this.setData({

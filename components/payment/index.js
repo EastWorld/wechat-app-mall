@@ -60,7 +60,7 @@ Component({
       });
     },
     async submit() {
-      const postData = {
+      let postData = {
         token: wx.getStorageSync('token'),
         money: this.data.money,
         remark: this.data.remark,

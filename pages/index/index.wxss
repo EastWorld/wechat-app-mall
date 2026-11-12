@@ -195,7 +195,6 @@ page {
 .jd-category-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 .jd-category-item {
@@ -220,8 +219,8 @@ page {
 }
 
 .jd-category-icon-wrap image {
-  width: 64rpx;
-  height: 64rpx;
+  width: 88rpx;
+  height: 88rpx;
 }
 
 .jd-category-name {

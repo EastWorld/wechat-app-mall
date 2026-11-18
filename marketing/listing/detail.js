@@ -111,7 +111,7 @@ Page({
 
       const detail = res.data
       const rawInfo = detail.info
-      const broker = detail.broker || {}
+      let broker = detail.broker || {}
 
       // 判断当前用户是否是团长
       // 优先读 globalData 缓存，避免重复请求；字段用 base.id（同 my/index.js 写法）
@@ -148,7 +148,7 @@ Page({
       })
 
       // broker 加首字母字段，供头像占位使用
-      const broker = Object.assign({}, res.data.broker || {}, {
+      broker = Object.assign({}, res.data.broker || {}, {
         nickInitial: (res.data.broker && res.data.broker.nick)
           ? res.data.broker.nick.slice(0, 1)
           : '?',
